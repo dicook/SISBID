@@ -1,0 +1,46 @@
+---
+title: "Advanced plots and inference"
+subtitle: "SISBID 2017 <br> https://github.com/SISBID/Module2"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+date: "07/12-14/2017"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, echo = FALSE, warning = FALSE, message=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  comment = "",
+  fig.height = 4,
+  fig.width = 8,
+  fig.align = "center",
+  cache = FALSE
+)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(scales)
+library(readr)
+library(ggmap)
+library(RColorBrewer)
+library(gridExtra)
+library(ggenealogy)
+```
+
+
+
+# Resources
+
+---
+# Share and share alike
+
+This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
