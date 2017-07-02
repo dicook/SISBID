@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = FALSE, 
   collapse = TRUE,
-  comment = "#",
+  comment = "",
   fig.height = 4,
   fig.width = 8,
   fig.align = "center",
