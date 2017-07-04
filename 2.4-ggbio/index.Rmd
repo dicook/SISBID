@@ -282,7 +282,7 @@ gr.snp <- gr.snp[!is.na(gr.snp$P)]
 values(gr.snp)$pvalue <- -log10(values(gr.snp)$P)
 gro <- GRanges(c("1", "11"), IRanges(c(100, 2e6), width = 5e7))
 names(gro) <- c("group1", "group2")
-plotGrandLinear(gr.snp, aes(y = pvalue))
+#plotGrandLinear(gr.snp, aes(y = pvalue))
 ```
 
 ---
@@ -295,7 +295,7 @@ gr.snp <- gr.snp[!is.na(gr.snp$P)]
 values(gr.snp)$neglogpvalue <- -log10(values(gr.snp)$P)
 gro <- GRanges(c("1", "11"), IRanges(c(100, 2e6), width = 5e7))
 names(gro) <- c("group1", "group2")
-plotGrandLinear(gr.snp, aes(y = neglogpvalue), highlight.gr = gro)
+#plotGrandLinear(gr.snp, aes(y = neglogpvalue), highlight.gr = gro)
 ```
 
 ---
@@ -305,7 +305,7 @@ class: inverse middle
 Here is the basic Manhattan plot: 
 
 ```{r eval=FALSE}
-plotGrandLinear(gr.snp, aes(y = pvalue))
+#plotGrandLinear(gr.snp, aes(y = pvalue))
 ```
 
 - Colour each chromosome differently
@@ -337,20 +337,20 @@ library(Homo.sapiens)
 class(Homo.sapiens)
 data(genesymbol, package = "biovizBase")
 wh <- genesymbol[c("BRCA1", "NBR1")]
-wh <- range(wh, ignore.strand = TRUE)
+#wh <- range(wh, ignore.strand = TRUE)
 ```
 
 ---
 # Gene model
 
-```{r}
+```{r eval=FALSE}
 p.txdb <- autoplot(Homo.sapiens, which = wh)
 p.txdb
 ```
 
 ---
 
-```{r}
+```{r eval=FALSE}
 autoplot(Homo.sapiens, which = wh, gap.geom = "chevron")
 ```
 
@@ -375,7 +375,7 @@ p.bg + zoom(1/2500)
 
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=FALSE}
 library(BSgenome.Hsapiens.UCSC.hg19)
 bg <- BSgenome.Hsapiens.UCSC.hg19
 p.bg <- autoplot(bg, which = wh)
@@ -391,7 +391,7 @@ What is plotted at `zoom(1/100)` resolution?
 ---
 # Base locations
 
-```{r}
+```{r eval=FALSE}
 bg <- BSgenome.Hsapiens.UCSC.hg19
 # force to use geom segment at this level
 autoplot(bg, which = resize(wh, width = width(wh)/2000), geom = "segment")
@@ -400,7 +400,7 @@ autoplot(bg, which = resize(wh, width = width(wh)/2000), geom = "segment")
 ---
 # Plot coverage
 
-```{r}
+```{r eval=FALSE}
 fl.bam <- system.file("extdata", "wg-brca1.sorted.bam", package = "biovizBase")
 wh <- keepSeqlevels(wh, "chr17")
 autoplot(fl.bam, which = wh)
@@ -409,7 +409,7 @@ autoplot(fl.bam, which = wh)
 ---
 # Plot mismatches
 
-```{r}
+```{r eval=FALSE}
 bg <- BSgenome.Hsapiens.UCSC.hg19
 p.mis <- autoplot(fl.bam, bsgenome = bg, which = wh, stat = "mismatch")
 p.mis
@@ -428,7 +428,7 @@ tks
 
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=FALSE}
 p.ideo <- Ideogram(genome = "hg19")
 gr17 <- GRanges("chr17", IRanges(41234415, 41234569))
 tks <- tracks(p.ideo, mismatch = p.mis, ref = p.bg, gene = p.txdb,
@@ -457,7 +457,7 @@ p
 
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=FALSE}
 data("CRC", package = "biovizBase")
 gr.crc1 <- crc.gr[values(crc.gr)$individual == "CRC-1"]
 p <- ggbio() +
