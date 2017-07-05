@@ -333,6 +333,7 @@ Ideogram(genome = "hg19", xlabel = TRUE)
 Lining up multiple plots along the chromosome is an important part of plotting genomic data
 
 ```{r}
+# biocLite("Homo.sapiens")
 library(Homo.sapiens)
 class(Homo.sapiens)
 data(genesymbol, package = "biovizBase")

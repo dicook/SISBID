@@ -51,7 +51,7 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
 
 # Bioconductor packages
-bioC <- c("ggbio", "edgeR", "EDAseq", "limma", "splatter", "Glimma", "gplots")
+bioC <- c("ggbio", "edgeR", "EDASeq", "limma", "splatter", "Glimma", "gplots")
 source("https://bioconductor.org/biocLite.R")
 biocLite(bioC)
 
