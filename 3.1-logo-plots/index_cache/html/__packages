@@ -1,10 +1,4 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 ggplot2
 tidyr
 dplyr
@@ -18,3 +12,6 @@ RColorBrewer
 gridExtra
 gglogo
 seqinr
+geomnet
+bindrcpp
+survival

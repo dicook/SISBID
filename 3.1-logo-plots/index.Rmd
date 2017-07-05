@@ -39,7 +39,7 @@ library(gglogo)
 ```
 
 
-## General networks
+# General networks
 
 - Parent-child relationships are special forms of networks
 - General networks consist of __nodes__ (set of actors or entities) and __edges__ (connections between actors)
@@ -47,7 +47,8 @@ library(gglogo)
 - Several implementations in `ggplot2` framework (`ggnetwork`, `geomnet` <- the one I'll be using)
 
 
-## Networks
+---
+# Networks
 
 - networks consist of a edges data set and a nodes (vertices) set
 - we merge node information into the edges
@@ -62,24 +63,27 @@ head(blood$vertices, 3)
 bloodnet <- left_join(blood$edges, blood$vertices, by=c("from" = "label"))
 ```
 
-## Directed network of blood donation
+---
+# Directed network of blood donation
 
 ```{r}
 p <- ggplot(data = bloodnet, aes(from_id = from, to_id = to))
-p + geom_net(label = TRUE, size = 15, labelcolour="white", vjust=0.5, hjust=0.5, directed=TRUE, arrowgap=0.075) + theme_net()
+p + geom_net(labelon = TRUE, size = 15, labelcolour="white", vjust=0.5, hjust=0.5, directed=TRUE, arrowgap=0.075) + theme_net()
 ```
 
-## Using the ggplot2 framework
+---
+# Using the ggplot2 framework
 
 - It is possible to adjust node size for another variable, but we are really bad at these kind of comparisons!
 
 ```{r}
-p + geom_net(label = TRUE, labelcolour="white", vjust=0.5, hjust=0.5, directed=TRUE, arrowgap=0.075, aes(size = Predominance)) + theme_net() +
+p + geom_net(labelon = TRUE, labelcolour="white", vjust=0.5, hjust=0.5, directed=TRUE, arrowgap=0.075, aes(size = Predominance)) + theme_net() +
   facet_wrap(~Ethnicity) + scale_size(range=c(5,15)) + 
   expand_limits(x = c(-.1,1.1), y = c(-.1,1.1))
 ```
 
-## Bipartite networks
+---
+# Bipartite networks
 
 - two types of nodes, vertices are only between nodes of different types
 ```{r}
@@ -102,7 +106,8 @@ detach(package:tnet)
 detach(package:igraph)
 ```
 
-## 
+---
+# 
 
 ```{r, eval = FALSE}
 # Southern women network in geomnet
@@ -113,7 +118,7 @@ ggplot(data = davis) +
   geom_net(
     aes(from_id = from, to_id = to, 
         colour = type, shape = type), 
-    size = 15, label = TRUE, ealpha = 0.25,
+    size = 15, labelon = TRUE, ealpha = 0.25,
     vjust = 0.5, hjust = 0.5,
     labelcolour = davis$lcolour) +
   theme_net() + 
@@ -122,7 +127,8 @@ ggplot(data = davis) +
   theme(legend.position = "bottom")
 ```
 
-## Southern women network in geomnet
+---
+# Southern women network in geomnet
 
 ```{r, echo = FALSE, fig.width=8, fig.height = 6}
 davis$lcolour <- 
@@ -132,7 +138,7 @@ ggplot(data = davis) +
   geom_net(
     aes(from_id = from, to_id = to, 
         colour = type, shape = type), 
-    size = 15, label = TRUE, ealpha = 0.25,
+    size = 15, labelon = TRUE, ealpha = 0.25,
     vjust = 0.5, hjust = 0.5,
     labelcolour = davis$lcolour) +
   theme_net() + 
@@ -141,7 +147,8 @@ ggplot(data = davis) +
   theme(legend.position = "bottom") 
 ```
 
-## Sequence Logo plots
+---
+# Sequence Logo plots
 
 ![](http://weblogo.berkeley.edu/img/cap_hth.png)
 
@@ -151,7 +158,8 @@ ggplot(data = davis) +
 
 Schneider TD, Stephens RM. Sequence logos: a new way to display consensus sequences. Nucleic Acids Research. 1990;18(20):6097-6100.
 
-## Sequence Logos
+---
+# Sequence Logos
 
 - sequences are often distributed in the [FASTA file format](https://en.wikipedia.org/wiki/FASTA_format)
 - in R `read.fasta` or `read.alignment(format="fasta")` of the `seqinr` package
@@ -162,7 +170,8 @@ pfam <- read.fasta(file = "../data/pfam.fasta", as.string=TRUE, seqtype="AA", se
 head(pfam, 3)
 ```
 
-## Construction of Logo plots
+---
+# Construction of Logo plots
 
 In a traditional logo sequence plot:
 
@@ -178,7 +187,8 @@ where $f_{aa}$ is the relative frequency of amino acid $aa$ in  position $p$ and
 
 For $k = 21$: $I(p)$ is between 0 and $-\log_2 (1/21) = 4.39$ bits, for perfect diversity (0 bits) and single element only (4.39 bits)
 
-## Converting sequences to ggplot2 format
+---
+# Converting sequences to ggplot2 format
 
 - `ggfortify` processes sequences to a data frame usable in sequence logos in ggplot2 (i.e. introduces `position`, `element`, `info`, ...)
 - for peptide sequences includes information such as polarity and water properties
@@ -190,8 +200,8 @@ ggpfam <- ggfortify(data=data.frame(sequences = unlist(pfam))
 head(ggpfam[order(ggpfam$position),], 3)
 ```
 
-## 
-
+--- 
+---
 
 ```{r}
 ggplot(data=ggpfam) +
@@ -202,7 +212,8 @@ ggplot(data=ggpfam) +
 ```
 
 
-## GeomLogo vs Weblogo
+---
+# GeomLogo vs Weblogo
 
 Cognitively, the approach in GeomLogo is better because ...
 
@@ -212,7 +223,8 @@ Cognitively, the approach in GeomLogo is better because ...
 - the secondary sequence is aligned at the top, making it easy to compare as well (Cleveland & McGill, 1984)
 - colour scheme and legend
 
-## Positioning of rectangles
+---
+# Positioning of rectangles
 
 - default positioning is `position = "logo"`
 - `position = "classic"` stacks the rectangles on top of each other, ordered from largest to smallest. This comes closest to the traditional sequence logo plot
@@ -229,7 +241,8 @@ ggplot(data=ggpfam) +
 
 
 
-## Another example
+---
+# Another example
 
 - `sequences` data set in gglogo package has additional information on treatment/type: gram positive vs gram negative
 - `ggfortify` has parameters  `treatment` and `weight`
@@ -241,7 +254,8 @@ ggseq <- ggfortify(data= sequences, seq = "peptide", treatment = .(class))
 head(ggseq, 3)
 ```
 
-## Facetted Logo plots
+---
+# Facetted Logo plots
 
 ```{r}
 ggplot(data = ggseq) +
@@ -253,19 +267,21 @@ ggplot(data = ggseq) +
 
 
 
-## Your turn
+---
+class: inverse middle 
+# Your turn
 
-![](rainbow-lorikeet.png)
+![](lorikeets.png)
 
 - Create a logo plot for the `sequences` data 
 - Use facetting to construct logo plots that come closest to the 2nd (gram +) and 3rd (gram -) logo sequence  shown below
 
 <img width="300" src="http://biovis.net/sites/default/files/adk.png">
 
-## Other parameters
+---
+# Other parameters
 
 - `ggfortify` has parameter `method` - by default, Shannon information is computed, but `method="freq"` computes frequencies
-
 - parameter `alphabet` in `geom_logo` allows to specify polygons from a different font (output from `createPolygons`)
 
 ```{r, cache = TRUE, echo = FALSE}
@@ -281,10 +297,12 @@ ggplot(data = ggseq2) +
   theme(legend.position = "bottom")
 ```
 
-## Resources
+---
+# Resources
 
 - [geomnet github repo](https://github.com/sctyner/geomnet)
 
-## Share and share alike
+---
+# Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/ 3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
