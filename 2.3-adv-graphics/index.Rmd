@@ -38,6 +38,7 @@ library(ggmap)
 library(RColorBrewer)
 library(gridExtra)
 library(ggenealogy)
+library(HLMdiag)
 ```
 
 # Tidy data and random variables

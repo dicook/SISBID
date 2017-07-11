@@ -21,6 +21,21 @@ class: center, middle, inverse, title-slide
 
 
 
+
+```r
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(scales)
+library(readr)
+library(ggmap)
+library(RColorBrewer)
+library(gridExtra)
+library(ggenealogy)
+library(HLMdiag)
+```
+
 # Tidy data and random variables
 
 - The concept of tidy data matches elementary statistics
@@ -75,7 +90,7 @@ tidy_data &lt;- messy_data %&gt;%
   gather(demo, count, -year, -iso2, na.rm = TRUE) %&gt;% 
   separate(demo, c("gender", "age"))
 tidy_data &lt;- tidy_data %&gt;% 
-  filter(!(age %in% c("014", "04", "514")))
+  filter(!(age %in% c("014", "04", "514", "u")))
 head(tidy_data)
 # A tibble: 6 x 5
    iso2  year gender   age count
@@ -94,28 +109,9 @@ head(tidy_data)
 
 ```r
 tidy_data %&gt;% 
-  filter(iso2 == "AU") %&gt;% 
+  filter(iso2 == "US") %&gt;% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity", position = "fill") +
-  facet_grid(~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Stacked barcharts
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "AU") %&gt;% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
   facet_grid(~ age) +
   theme(
     axis.text = element_text(size = 14), 
@@ -127,14 +123,14 @@ tidy_data %&gt;%
 &lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# Side-by-side barcharts
+# Stacked barcharts
 
 
 ```r
 tidy_data %&gt;% 
-  filter(iso2 == "AU") %&gt;% 
+  filter(iso2 == "US") %&gt;% 
   ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity", position="dodge") +
+  geom_bar(stat = "identity") +
   facet_grid(~ age) +
   theme(
     axis.text = element_text(size = 14), 
@@ -146,15 +142,15 @@ tidy_data %&gt;%
 &lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# facetted barcharts
+# Side-by-side barcharts
 
 
 ```r
 tidy_data %&gt;% 
-  filter(iso2 == "AU") %&gt;% 
+  filter(iso2 == "US") %&gt;% 
   ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(gender ~ age) +
+  geom_bar(stat = "identity", position="dodge") +
+  facet_grid(~ age) +
   theme(
     axis.text = element_text(size = 14), 
     strip.text = element_text(size = 16), 
@@ -165,12 +161,31 @@ tidy_data %&gt;%
 &lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
+# facetted barcharts
+
+
+```r
+tidy_data %&gt;% 
+  filter(iso2 == "US") %&gt;% 
+  ggplot(aes(x = year, y = count, fill = gender)) +
+  geom_bar(stat = "identity") +
+  facet_grid(gender ~ age) +
+  theme(
+    axis.text = element_text(size = 14), 
+    strip.text = element_text(size = 16), 
+    axis.title = element_text(size = 16)
+  )
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+---
 # Rose plot
 
 
 ```r
 tidy_data %&gt;% 
-  filter(iso2 == "AU") %&gt;% 
+  filter(iso2 == "US") %&gt;% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity") +
   facet_grid(gender ~ age) +
@@ -181,7 +196,7 @@ tidy_data %&gt;%
   ) + coord_polar()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Rainbow charts
@@ -189,7 +204,7 @@ tidy_data %&gt;%
 
 ```r
 tidy_data %&gt;% 
-  filter(iso2 == "AU") %&gt;% 
+  filter(iso2 == "US") %&gt;% 
   ggplot(aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat = "identity", position="fill") +
   facet_grid(gender ~ age) +
@@ -200,7 +215,7 @@ tidy_data %&gt;%
   ) 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Pie charts
@@ -208,7 +223,7 @@ tidy_data %&gt;%
 
 ```r
 tidy_data %&gt;% 
-  filter(iso2 == "AU") %&gt;% 
+  filter(iso2 == "US") %&gt;% 
   ggplot(aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat = "identity", position="fill") +
   facet_grid(gender ~ age) +
@@ -219,17 +234,26 @@ tidy_data %&gt;%
   ) + coord_polar(theta="y")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
 # Your turn
 
-What do you learn about tb incidence in Australia by gender and age and year from the
+What do you learn about tb incidence in the USA by gender and age and year from the
 - 100% charts?
 - stacked bar charts?
 - side-by-side barcharts?
 - facetted barcharts?
+
+
+```r
+The US has been rocking it at reducing tb incidence, across most age groups, and gender. Different focus using the different charts:
+  - 
+  - 
+  - 
+  - 
+```
 
 ---
 # Inference
@@ -248,7 +272,7 @@ ggplot(df, aes(x=v2, y=v1, fill=v2)) +
   geom_boxplot() + coord_flip()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -283,19 +307,48 @@ ggplot(df_null, aes(x=v2, y=v1, fill=v2)) +
   facet_wrap(~.sample, ncol=5) + coord_flip()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 
 Which plot shows the most difference between the groups?
 
 ---
 # Evaluation
 
-- Computing p-values
-- Power
+- Computing `\(p\)`-values
+- Power - signal strength
+
+---
+# p-values
+
+Suppose `\(x\)` individuals selected the data plot from a lineup of `\(m\)` plots, shown to `\(K\)` independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
+
+`$$P(X\geq x) = \Sum_{i=1}^{K} \over{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$`
+
+For `\(x=4, K=17, m=20\)`
+
+
+```r
+pvisual(4, 17, m=20)
+     x simulated       binom
+[1,] 4      0.02 0.008800605
+```
+
+---
+# Simulation approach
+
+- Scenario I: in each of K evaluations a different data set and a different set of (m-1) null plots is shown.
+- Scenario II: in each of K evaluations the same data set but a different set of (m-1) null plots is shown.
+- Scenario III: the same lineup, i.e. same data and same set of null plots, is shown to K different observers.
+
+---
+
+Explain the simulation
 
 ---
 # Null-generating mechanisms
 
+- Permutation: randomizing the order of one of the variables breaks association, but keeps marginal distributions the same
+- Simulation: from a given distribution, or model. Assumption is that the data comes from that model 
 
 ---
 class: inverse middle 
@@ -307,6 +360,14 @@ For these plot descriptions, decide on:
 - null generating mechanism
 
 ---
+
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
 class: inverse middle 
 # Your turn
 
@@ -315,6 +376,17 @@ class: inverse middle
 - Write the code to make the plots
 - Determine an appropriate null generating mechanism to test `\(H_o\)`: no relationship between age and gender.
 - Make a lineup to for each plot design. 
+- Show the lineups to 5 other participants, for each plot design
+- Record the number of people selecting the data plot
+- Compute the power for each test, the signal strength of the design
+
+---
+# Maps
+
+- Make a world map
+- Merge iso2 with country codes to make a chloropleth
+- Add points to map?
+
 
 ---
 # Resources
