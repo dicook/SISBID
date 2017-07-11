@@ -427,7 +427,7 @@ class: inverse middle
 1. Use `tidyr` to convert this data into a long format appropriate for plotting a time series (date on the x axis, chart position on the y axis)
 2. Use `ggplot2` to create this time series plot:
 
-&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-23-2.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -555,7 +555,7 @@ class: inverse middle
 ---
 # Tidying model output
 
-The package `broom` gets model results into a tidy format at different levels using functions  `augment`, `tidy`, and `glimpse`. 
+The package `broom` gets model results into a tidy format at different levels
 
 
 ```r
@@ -566,7 +566,19 @@ ff_lm &lt;- lm(rating~variable+treatment+time+subject,
 ```
 
 ---
-# Model estimates
+# Goodness of fit statistics: `glance`
+
+
+```r
+glance(ff_lm)
+  r.squared adj.r.squared   sigma statistic p.value df    logLik      AIC
+1 0.3995198     0.3949865 2.89966  88.13113       0 27 -8606.787 17269.57
+       BIC deviance df.residual
+1 17441.83 28957.24        3444
+```
+
+---
+# Model estimates: `tidy`
 
 
 ```r
@@ -582,7 +594,7 @@ $ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-...
 ```
 
 ---
-# Model diagnostics
+# Model diagnostics: `augment`
 
 
 ```r
@@ -613,7 +625,7 @@ $ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.652...
 ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Back to autism

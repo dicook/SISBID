@@ -430,6 +430,10 @@ ggplot(data = gtidy, aes(trt, expr, colour = time)) +
 
 The package `broom` gets model results into a tidy format at different levels
 
+- for each model: `broom::glance`
+- for each coefficient in the model: `broom::tidy`
+- for each value in the dataset: `broom::augment`
+
 ```{r}
 ff_long <- gather(french_fries, key = variable, value = 
                     rating, potato:painty)
