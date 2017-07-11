@@ -239,7 +239,7 @@ This is called "spreading" the data.
 ---
 # Spread
 
-We use the **spread** function from tidyr to do this:
+We use the **spread** function from `tidyr` to do this:
 
 ```{r}
 french_fries_wide <- spread(ff_long, key = variable, 
@@ -429,7 +429,7 @@ ggplot(data = gtidy, aes(trt, expr, colour = time)) +
 ---
 # Tidying model output
 
-The package `broom` gets model results into a tidy format. 
+The package `broom` gets model results into a tidy format at different levels using functions  `augment`, `tidy`, and `glimpse`. 
 
 ```{r}
 ff_long <- gather(french_fries, key = variable, value = 

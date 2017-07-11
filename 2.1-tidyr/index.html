@@ -185,7 +185,7 @@ What is the experimental unit? What are the factors of the experiment? What was 
 ---
 # Messy Data Patterns
 
-There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns.
+There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:
 
 - Column headers are values, not variable names
 - Variables are stored in both rows and columns, contingency table format
@@ -197,17 +197,17 @@ There are various features of messy data that one can observe in practice. Here 
 
 - Each observation forms a row
 - Each variable forms a column
-- Contained in a single table
+- Data is contained in a single table
 - Long form makes it easier to reshape in many different ways
 - Wide form is common for analysis
 
 ---
 
-![](lego.pdf)
+![](lego.png)
 
 ---
 
-![](playmobile.pdf)
+![](playmobile.png)
 
 ---
 # Tidy Verbs
@@ -286,7 +286,7 @@ This is called "spreading" the data.
 ---
 # Spread
 
-We use the **spread** function from tidyr to do this:
+We use the **spread** function from `tidyr` to do this:
 
 
 ```r
@@ -556,7 +556,7 @@ class: inverse middle
 ---
 # Tidying model output
 
-The package `broom` gets model results into a tidy format. 
+The package `broom` gets model results into a tidy format at different levels using functions  `augment`, `tidy`, and `glimpse`. 
 
 
 ```r
