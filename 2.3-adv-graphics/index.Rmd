@@ -14,7 +14,7 @@ output:
       incremental: true
 ---
 
-```{r, echo = FALSE, warning = FALSE, message=FALSE}
+```{r echo = FALSE, warning = FALSE, message=FALSE}
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -25,6 +25,9 @@ knitr::opts_chunk$set(
   fig.align = "center",
   cache = FALSE
 )
+```
+
+```{r}
 library(ggplot2)
 library(tidyr)
 library(dplyr)
@@ -77,7 +80,7 @@ tidy_data <- messy_data %>%
   gather(demo, count, -year, -iso2, na.rm = TRUE) %>% 
   separate(demo, c("gender", "age"))
 tidy_data <- tidy_data %>% 
-  filter(!(age %in% c("014", "04", "514")))
+  filter(!(age %in% c("014", "04", "514", "u")))
 head(tidy_data)
 ```
 
@@ -86,7 +89,7 @@ head(tidy_data)
 
 ```{r fig.width=10, fig.height=3}
 tidy_data %>% 
-  filter(iso2 == "AU") %>% 
+  filter(iso2 == "US") %>% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity", position = "fill") +
   facet_grid(~ age) +
@@ -102,7 +105,7 @@ tidy_data %>%
 
 ```{r fig.width=10, fig.height=3}
 tidy_data %>% 
-  filter(iso2 == "AU") %>% 
+  filter(iso2 == "US") %>% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity") +
   facet_grid(~ age) +
@@ -118,7 +121,7 @@ tidy_data %>%
 
 ```{r fig.width=10, fig.height=3}
 tidy_data %>% 
-  filter(iso2 == "AU") %>% 
+  filter(iso2 == "US") %>% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity", position="dodge") +
   facet_grid(~ age) +
@@ -134,7 +137,7 @@ tidy_data %>%
 
 ```{r fig.width=10, fig.height=3}
 tidy_data %>% 
-  filter(iso2 == "AU") %>% 
+  filter(iso2 == "US") %>% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity") +
   facet_grid(gender ~ age) +
@@ -150,7 +153,7 @@ tidy_data %>%
 
 ```{r fig.width=10, fig.height=3}
 tidy_data %>% 
-  filter(iso2 == "AU") %>% 
+  filter(iso2 == "US") %>% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity") +
   facet_grid(gender ~ age) +
@@ -166,7 +169,7 @@ tidy_data %>%
 
 ```{r fig.width=10, fig.height=3}
 tidy_data %>% 
-  filter(iso2 == "AU") %>% 
+  filter(iso2 == "US") %>% 
   ggplot(aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat = "identity", position="fill") +
   facet_grid(gender ~ age) +
@@ -182,7 +185,7 @@ tidy_data %>%
 
 ```{r fig.width=10, fig.height=3}
 tidy_data %>% 
-  filter(iso2 == "AU") %>% 
+  filter(iso2 == "US") %>% 
   ggplot(aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat = "identity", position="fill") +
   facet_grid(gender ~ age) +
@@ -197,11 +200,19 @@ tidy_data %>%
 class: inverse middle 
 # Your turn
 
-What do you learn about tb incidence in Australia by gender and age and year from the
+What do you learn about tb incidence in the USA by gender and age and year from the
 - 100% charts?
 - stacked bar charts?
 - side-by-side barcharts?
 - facetted barcharts?
+
+```{r eval=FALSE}
+The US has been rocking it at reducing tb incidence, across most age groups, and gender. Different focus using the different charts:
+  - 
+  - 
+  - 
+  - 
+```
 
 ---
 # Inference
@@ -256,12 +267,38 @@ Which plot shows the most difference between the groups?
 ---
 # Evaluation
 
-- Computing p-values
-- Power
+- Computing $p$-values
+- Power - signal strength
+
+---
+# p-values
+
+Suppose $x$ individuals selected the data plot from a lineup of $m$ plots, shown to $K$ independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
+
+$$P(X\geq x) = \Sum_{i=1}^{K} \over{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$
+
+For $x=4, K=17, m=20$
+
+```{r}
+pvisual(4, 17, m=20)
+```
+
+---
+# Simulation approach
+
+- Scenario I: in each of K evaluations a different data set and a different set of (m-1) null plots is shown.
+- Scenario II: in each of K evaluations the same data set but a different set of (m-1) null plots is shown.
+- Scenario III: the same lineup, i.e. same data and same set of null plots, is shown to K different observers.
+
+---
+
+Explain the simulation
 
 ---
 # Null-generating mechanisms
 
+- Permutation: randomizing the order of one of the variables breaks association, but keeps marginal distributions the same
+- Simulation: from a given distribution, or model. Assumption is that the data comes from that model 
 
 ---
 class: inverse middle 
@@ -273,6 +310,26 @@ For these plot descriptions, decide on:
 - null generating mechanism
 
 ---
+
+```{r echo=FALSE}
+ggplot(filter(autism, 
+              childid %in% sample(unique(childid), 20)), 
+       aes(x=age2+2, y=vsae, group=childid, colour=gender)) + 
+  geom_point() +
+  geom_line() + xlim(c(0, 15)) +
+  xlab("Age (in years)") + ylab("Vineland Socialization Age Equivalent")
+```
+
+---
+
+```{r echo=FALSE}
+ggplot(autism, aes(x=factor(age2+2), y=vsae, colour=bestest2)) + 
+  geom_boxplot() + 
+  xlab("Age (in years)") + ylab("Vineland Socialization Age Equivalent") +
+  scale_colour_hue("Diagnosis at age 2")
+```
+
+---
 class: inverse middle 
 # Your turn
 
@@ -281,6 +338,17 @@ class: inverse middle
 - Write the code to make the plots
 - Determine an appropriate null generating mechanism to test $H_o$: no relationship between age and gender.
 - Make a lineup to for each plot design. 
+- Show the lineups to 5 other participants, for each plot design
+- Record the number of people selecting the data plot
+- Compute the power for each test, the signal strength of the design
+
+---
+# Maps
+
+- Make a world map
+- Merge iso2 with country codes to make a chloropleth
+- Add points to map?
+
 
 ---
 # Resources
