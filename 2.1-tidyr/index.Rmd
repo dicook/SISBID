@@ -49,9 +49,13 @@ library(broom)
 - String operations, working with **text**
 
 ---
-# Pipes `%>%`
+# The pipe operator `%>%`
 
-Pipes allow the code to be *read* like a sequence of operations
+- `x %>% f(y)` is the same as `f(x, y)`
+- part of `dplyr` package
+- pipes allow the code to be *read* like a sequence of operations
+
+Example:
 
 ```{r}
 student2012.sub <- readRDS("../data/student_sub.rds")
@@ -113,8 +117,8 @@ What are the variables? What are the experimental units?
 
 ```{r echo=FALSE}
 tb <- read_csv("../data/tb.csv")
-#tail(tb)
-colnames(tb)
+tail(tb)
+#colnames(tb)
 ```
 
 ---
@@ -149,7 +153,7 @@ What is the experimental unit? What are the factors of the experiment? What was 
 ---
 # Messy Data Patterns
 
-There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns.
+There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:
 
 - Column headers are values, not variable names
 - Variables are stored in both rows and columns, contingency table format
@@ -161,17 +165,17 @@ There are various features of messy data that one can observe in practice. Here 
 
 - Each observation forms a row
 - Each variable forms a column
-- Contained in a single table
+- Data is contained in a single table
 - Long form makes it easier to reshape in many different ways
 - Wide form is common for analysis
 
 ---
 
-![](lego.pdf)
+![](lego.png)
 
 ---
 
-![](playmobile.pdf)
+![](playmobile.png)
 
 ---
 # Tidy Verbs

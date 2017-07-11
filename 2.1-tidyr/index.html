@@ -31,9 +31,13 @@ class: center, middle, inverse, title-slide
 - String operations, working with **text**
 
 ---
-# Pipes `%&gt;%`
+# The pipe operator `%&gt;%`
 
-Pipes allow the code to be *read* like a sequence of operations
+- `x %&gt;% f(y)` is the same as `f(x, y)`
+- part of `dplyr` package
+- pipes allow the code to be *read* like a sequence of operations
+
+Example:
 
 
 ```r
@@ -131,10 +135,18 @@ What are the variables? What are the experimental units?
 
 
 ```
- [1] "iso2"   "year"   "m_04"   "m_514"  "m_014"  "m_1524" "m_2534"
- [8] "m_3544" "m_4554" "m_5564" "m_65"   "m_u"    "f_04"   "f_514" 
-[15] "f_014"  "f_1524" "f_2534" "f_3544" "f_4554" "f_5564" "f_65"  
-[22] "f_u"   
+# A tibble: 6 x 22
+   iso2  year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
+  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+1    ZW  2003    NA    NA   133    874   3048   2228    981    367   205
+2    ZW  2004    NA    NA   187    833   2908   2298   1056    366   198
+3    ZW  2005    NA    NA   210    837   2264   1855    762    295   656
+4    ZW  2006    NA    NA   215    736   2391   1939    896    348   199
+5    ZW  2007     6   132   138    500   3693      0    716    292   153
+6    ZW  2008    NA    NA   127    614      0   3316    704    263   185
+# ... with 11 more variables: m_u &lt;int&gt;, f_04 &lt;int&gt;, f_514 &lt;int&gt;,
+#   f_014 &lt;int&gt;, f_1524 &lt;int&gt;, f_2534 &lt;int&gt;, f_3544 &lt;int&gt;, f_4554 &lt;int&gt;,
+#   f_5564 &lt;int&gt;, f_65 &lt;int&gt;, f_u &lt;int&gt;
 ```
 
 ---
@@ -654,7 +666,7 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "highlightLines": true,
 "countIncrementalSlides": false
 });
-if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});</script>
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -668,7 +680,7 @@ MathJax.Hub.Config({
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
