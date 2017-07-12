@@ -347,6 +347,8 @@ For these plot descriptions, decide on:
 - null generating mechanism
 
 ---
+class: inverse middle 
+# Your turn
 
 ```{r echo=FALSE}
 ggplot(filter(autism, 
@@ -358,12 +360,24 @@ ggplot(filter(autism,
 ```
 
 ---
+class: inverse middle 
+# Your turn
 
-```{r echo=FALSE}
-ggplot(autism, aes(x=factor(age2+2), y=vsae, colour=bestest2)) + 
-  geom_boxplot() + 
-  xlab("Age (in years)") + ylab("Vineland Socialization Age Equivalent") +
-  scale_colour_hue("Diagnosis at age 2")
+```{r}
+fly <- read_csv("../data/flying-etiquette.csv")
+fly$`How often do you travel by plane?` <- 
+  factor(fly$`How often do you travel by plane?`, levels=c(
+    "Never","Once a year or less","Once a month or less",
+    "A few times per month","A few times per week","Every day"))
+fly_sub <- fly %>% 
+  filter(`How often do you travel by plane?` %in% 
+       c("Once a year or less","Once a month or less")) %>%
+  filter(!is.na(`Do you ever recline your seat when you fly?`)) %>%
+  filter(!is.na(Age)) %>% filter(!is.na(Gender))
+ggplot(fly_sub, 
+       aes(x=`In general, is itrude to bring a baby on a plane?`)) + 
+  geom_bar(mapping=aes(fill=Gender), position="fill") + 
+  coord_flip() 
 ```
 
 ---

@@ -283,6 +283,7 @@ values(gr.snp)$pvalue <- -log10(values(gr.snp)$P)
 gro <- GRanges(c("1", "11"), IRanges(c(100, 2e6), width = 5e7))
 names(gro) <- c("group1", "group2")
 #plotGrandLinear(gr.snp, aes(y = pvalue))
+autoplot(gr.snp)
 ```
 
 ---
