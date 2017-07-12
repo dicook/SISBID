@@ -247,7 +247,8 @@ ggplot(tb_names_inc, aes(map_id = region)) +
     theme(legend.position = "bottom",
          axis.ticks = element_blank(), 
          axis.title = element_blank(), 
-         axis.text =  element_blank()) 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
 ```
 
 ---
