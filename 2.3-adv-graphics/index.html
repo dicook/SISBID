@@ -22,19 +22,6 @@ class: center, middle, inverse, title-slide
 
 
 
-```r
-library(ggplot2)
-library(tidyr)
-library(dplyr)
-library(lubridate)
-library(scales)
-library(readr)
-library(ggmap)
-library(RColorBrewer)
-library(gridExtra)
-library(ggenealogy)
-library(HLMdiag)
-```
 
 # Tidy data and random variables
 
@@ -247,13 +234,13 @@ What do you learn about tb incidence in the USA by gender and age and year from 
 - facetted barcharts?
 
 
-```r
-The US has been rocking it at reducing tb incidence, across most age groups, and gender. Different focus using the different charts:
-  - 
-  - 
-  - 
-  - 
-```
+
+---
+# Maps
+
+Make a world map, by merging iso2 with country codes to make a chloropleth
+
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Inference
@@ -264,15 +251,7 @@ The US has been rocking it at reducing tb incidence, across most age groups, and
 ---
 # Putting the pieces together
 
-
-```r
-df &lt;- data.frame(v1=c(rexp(20), rexp(15, 2)), 
-                 v2=c(rep("A", 20), rep("B", 15)))
-ggplot(df, aes(x=v2, y=v1, fill=v2)) + 
-  geom_boxplot() + coord_flip()
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -297,17 +276,7 @@ ggplot(df, aes(x=v2, y=v1, fill=v2)) +
 ---
 # Lineup
 
-
-```r
-library(nullabor)
-pos &lt;- sample(1:20, 1)
-df_null &lt;- lineup(null_permute('v1'), df, pos=pos)
-ggplot(df_null, aes(x=v2, y=v1, fill=v2)) + 
-  geom_boxplot() +
-  facet_wrap(~.sample, ncol=5) + coord_flip()
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 Which plot shows the most difference between the groups?
 
@@ -322,15 +291,14 @@ Which plot shows the most difference between the groups?
 
 Suppose `\(x\)` individuals selected the data plot from a lineup of `\(m\)` plots, shown to `\(K\)` independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
 
-`$$P(X\geq x) = \Sum_{i=1}^{K} \over{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$`
+`$$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$`
 
 For `\(x=4, K=17, m=20\)`
 
 
-```r
-pvisual(4, 17, m=20)
+```
      x simulated       binom
-[1,] 4      0.02 0.008800605
+[1,] 4    0.0208 0.008800605
 ```
 
 ---
@@ -342,7 +310,7 @@ pvisual(4, 17, m=20)
 
 ---
 
-Explain the simulation
+Explain the simulation??
 
 ---
 # Null-generating mechanisms
@@ -361,11 +329,11 @@ For these plot descriptions, decide on:
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -380,12 +348,6 @@ class: inverse middle
 - Record the number of people selecting the data plot
 - Compute the power for each test, the signal strength of the design
 
----
-# Maps
-
-- Make a world map
-- Merge iso2 with country codes to make a chloropleth
-- Add points to map?
 
 
 ---
