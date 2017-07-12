@@ -61,7 +61,7 @@ data("economics", package = "ggplot2")
 
 ggvis(economics, x=~date, y=~psavert)
 ```
-
+<img src="ggvis-01.png" height = 300>
 
 ---
 #
@@ -72,6 +72,8 @@ economics %>%
   layer_points() %>%
   layer_smooths()
 ```
+<img src="ggvis-02.png" height = 200>
+
 
 ---
 # Interactivity
@@ -97,6 +99,8 @@ economics %>%
     stroke := "red"
   )
 ```
+<img src="ggvis-03.png" height = 300>
+
 
 ---
 # Attention grabber
