@@ -368,7 +368,7 @@ For `\(x=4, K=17, m=20\)`
 ```r
 pvisual(4, 17, m=20)
      x simulated       binom
-[1,] 4    0.0207 0.008800605
+[1,] 4    0.0197 0.008800605
 ```
 
 ---
@@ -379,8 +379,17 @@ pvisual(4, 17, m=20)
 - Scenario III: the same lineup, i.e. same data and same set of null plots, is shown to K different observers.
 
 ---
+# Simulation
 
-Explain the simulation??
+Crucial idea: assign a p-value to each plot (data and null); under null hypothesis, this p-value is from U[0,1] 
+
+Scenario I:
+- for the `\(k\)`th lineup evaluation do:
+ - pick 20 `\(p\)`-values from `\(U[0,1]\)`
+ - for data plot compute 'strength' of other plots: `\(q = (1-p_\text{data})/\sum_j(1-p_j)\)`
+ - Use `\(q\)` to determine whether data was picked in simulation: `\(x_k \tilde B_{1,q}\)`
+ - repeat above three steps `\(K\)` times, and find the number of data picks `\(X = \sum_k x_k\)`
+- Repeat N times to get distribution of `\(X\)`
 
 ---
 # Null-generating mechanisms
@@ -442,7 +451,7 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "countIncrementalSlides": false,
 "incremental": true
 });
-if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});</script>
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -456,7 +465,7 @@ MathJax.Hub.Config({
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
