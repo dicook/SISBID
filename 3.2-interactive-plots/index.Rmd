@@ -237,7 +237,7 @@ ggplotly()
 ---
 # Still a work in progress
 
-```{r}
+```{r fig.width=6, fig.height=6}
 library(GGally)
 p <- ggpairs(economics[,3:6])
 ggplotly(p)
@@ -258,7 +258,7 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
 ---
 # Return to the RNA-Seq data
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width=5, fig.height=5}
 library(GGally)
 library(edgeR)
 coty <- read_delim("../data/GSE61857_Cotyledon_normalized.txt.gz",
@@ -325,8 +325,8 @@ class: inverse middle
 ---
 # Resources
 
-- [ggvis](http://ggvis.rstudio.com)
-- [plotly](https://plot.ly/r/getting-started/)
+- web site for [ggvis](http://ggvis.rstudio.com)
+- web site for [plotly](https://plot.ly/r/getting-started/)
 
 ---
 # Share and share alike
