@@ -57,7 +57,10 @@ library(gglogo)
 library(geomnet)
 data(blood)
 
+#edges data:
 head(blood$edges, 3)
+
+# vertices:
 head(blood$vertices, 3)
 
 bloodnet <- left_join(blood$edges, blood$vertices, by=c("from" = "label"))
@@ -198,8 +201,10 @@ $I(p)$ is between 0 and $-\log_2 (1/21) = 4.39$ bits, for perfect diversity (0 b
 
 ```{r}
 library(gglogo)
-ggpfam <- ggfortify(data=data.frame(sequences = unlist(pfam))
-, seq="sequences") %>% filter(between(position, 7, 26))
+ggpfam <- ggfortify(
+  data=data.frame(sequences = unlist(pfam)),
+  seq="sequences") %>% filter(between(position, 7, 26))
+
 head(ggpfam[order(ggpfam$position),], 3)
 ```
 

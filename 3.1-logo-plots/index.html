@@ -46,6 +46,7 @@ head(blood$edges, 3)
 1  AB- AB+     same
 2  AB- AB-     same
 3  AB+ AB+     same
+
 head(blood$vertices, 3)
   label type rho        Ethnicity Predominance
 1    A-    A neg            Asian          0.5
@@ -190,8 +191,10 @@ For `\(k = 21\)` (amino-acids):
 
 ```r
 library(gglogo)
-ggpfam &lt;- ggfortify(data=data.frame(sequences = unlist(pfam))
-, seq="sequences") %&gt;% filter(between(position, 7, 26))
+ggpfam &lt;- ggfortify(
+  data=data.frame(sequences = unlist(pfam)),
+  seq="sequences") %&gt;% filter(between(position, 7, 26))
+
 head(ggpfam[order(ggpfam$position),], 3)
    element position freq total       info       bits  Polarity       Water
 15       A        7    1   101 0.02469362 0.02469362 non-polar hydrophobic
