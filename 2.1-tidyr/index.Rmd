@@ -271,6 +271,7 @@ ff.m <- french_fries %>%
 head(ff.m)
 ```
 
+--
 
 ```{r, fig.height=2, fig.width=8}
 ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) + 
@@ -298,6 +299,10 @@ We need to gather the data into long form, and then get the replicates spread in
 
 ```{r}
 head(ff.m)
+```
+
+
+```{r}
 ff.s <- ff.m %>% spread(rep, rating)
 head(ff.s)
 ```
