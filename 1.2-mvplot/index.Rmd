@@ -34,6 +34,8 @@ library(tidyr)
 library(dplyr)
 library(GGally)
 library(edgeR)
+library(broom)
+library(biobroom)
 ```
 
 class: inverse middle 
