@@ -149,6 +149,7 @@ economics %>%
   layer_points() %>%
   add_tooltip(all_values, "hover") 
 ```
+<img src="ggvis-04.gif" height = 500>
 
 
 ---
@@ -163,7 +164,6 @@ economics %>%
     layer_model_predictions(
         model = model_type)
 ```
-<img src="ggvis-04.png" height = 300>
 
 ---
 # 
@@ -177,7 +177,7 @@ economics %>%
     layer_model_predictions(model = model_type)
 ```
 
-<img src="ggvis-05.png" height = 300>
+<img src="ggvis-05.gif" height = 500>
 
 ---
 class: inverse middle 
@@ -235,8 +235,6 @@ ggplotly()
 ```
 
 ---
----
-
 # Still a work in progress
 
 ```{r}
@@ -257,7 +255,6 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
  ggplotly(viz)
 ```
 
----
 ---
 # Return to the RNA-Seq data
 
