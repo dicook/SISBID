@@ -28,12 +28,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r echo=FALSE}
-library(ggplot2)
-library(tidyr)
-library(dplyr)
-library(lubridate)
-library(scales)
-library(readr)
+library(tidyverse)
 library(ggmap)
 library(HLMdiag)
 library(RColorBrewer)
@@ -141,7 +136,7 @@ autism, x and y position along a line, point, none
 
 ```{r}
 ggplot(autism, aes(x=age2, y=vsae)) + 
-  geom_jitter()
+  geom_jitter(width=0.3, height=0)
 ```
 
 ---
@@ -182,7 +177,7 @@ ggplot(autism, aes(x=age2, y=vsae, group=childid)) +
 
 ```{r}
 ggplot(autism, aes(x=age2, y=vsae, group=childid)) + 
-  geom_point() + geom_line(alpha=0.5)
+  geom_point() + geom_line(alpha=0.1)
 ```
 
 ---
@@ -190,7 +185,9 @@ ggplot(autism, aes(x=age2, y=vsae, group=childid)) +
 
 ```{r}
 ggplot(autism, aes(x=age2, y=vsae, group=childid)) + 
-  geom_point() + geom_line(alpha=0.5) + scale_y_log10()
+  geom_point() + geom_line(alpha=0.2) + scale_y_log10()
+ggplot(autism, aes(x=age2, y=log(vsae), group=childid)) + 
+  geom_point() + geom_line(alpha=0.2) 
 ```
 
 ---
@@ -208,7 +205,7 @@ ggplot(autism, aes(x=age2, y=vsae, group=childid, colour=bestest2)) +
 ggplot(autism, aes(x=age2, y=vsae, colour=bestest2)) + 
   geom_point(alpha=0.1) + geom_line(aes(group=childid), alpha=0.1) + 
   geom_smooth(se=F) +
-  scale_y_log10()
+  scale_y_log10() 
 ```
 
 ---
@@ -308,6 +305,9 @@ fly$`How often do you travel by plane?` <-
     "Never","Once a year or less","Once a month or less",
     "A few times per month","A few times per week","Every day"))
 ggplot(fly, aes(x=`How often do you travel by plane?`)) + geom_bar() + coord_flip()
+ggplot(fly, aes(x=`How often do you travel by plane?`, 
+                fill=`How often do you travel by plane?`)) + geom_bar() + coord_flip() +
+  scale_fill_brewer(palette="Dark2")
 ```
 
 ---
@@ -411,6 +411,10 @@ Use your cheat sheet to work out how to make plot to explore the relationship be
 ggplot(fly_sub, aes(x=`Do you ever recline your seat when you fly?`)) +
   geom_bar() + 
   facet_wrap(~`Is itrude to recline your seat on a plane?`, ncol=3) +
+  coord_flip()
+ggplot(fly_sub, aes(x=`Do you ever recline your seat when you fly?`,
+    fill=`Is itrude to recline your seat on a plane?`)) +
+  geom_bar(position="fill") +
   coord_flip()
 ```
 
