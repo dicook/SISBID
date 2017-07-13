@@ -64,6 +64,13 @@ student2012.sub %>% group_by(CNT) %>% tally()
 ```
 
 ---
+# What is **tidy data**? 
+
+- Why do we want tidy data? 
+- Couple of exercises to look closer at what we find in practice 
+
+
+---
 class: inverse middle 
 # Your turn 1
 
@@ -180,10 +187,10 @@ There are various features of messy data that one can observe in practice. Here 
 ---
 # Tidy Verbs
 
-- **gather**: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
-- **spread**: variables in columns (used to be called casting)
-- nest/unnest: working with lists
-- separate/unite: split and combine columns
+- `gather`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
+- `spread`: variables in columns (used to be called casting)
+- `nest`/`unnest`: working with list variables
+- `separate`/`unite`: split and combine columns
 
 ---
 # French Fries 
