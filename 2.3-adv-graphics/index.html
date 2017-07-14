@@ -99,12 +99,7 @@ tidy_data %&gt;%
   filter(iso2 == "US") %&gt;% 
   ggplot(aes(x = year, y = count, fill = gender)) +
   geom_bar(stat = "identity", position = "fill") +
-  facet_grid(~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
+  facet_grid(~ age) 
 ```
 
 &lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
@@ -368,7 +363,7 @@ For `\(x=4, K=17, m=20\)`
 ```r
 pvisual(4, 17, m=20)
      x simulated       binom
-[1,] 4    0.0183 0.008800605
+[1,] 4    0.0186 0.008800605
 ```
 
 ---
@@ -414,9 +409,6 @@ Scenario III (same data, same nulls):
 - Repeat N times to get distribution of `\(X\)`
 
 
-Scenario II (same data, different nulls):((1) pick pm from U[0,1]((for the kth lineup evaluation do:((2) pick m-1 values pi from U[0,1]((3) compute q = (1-pm)/∑j(1-pj)((4) get xk ~ B1,q(X = ∑k xk(Repeat (2)-(4) K times to get X((Repeat process N times to get distribution of X(
-
-
 ---
 # Null-generating mechanisms
 
@@ -459,6 +451,7 @@ class: inverse middle
 
 
 
+
 ---
 # Resources
 
@@ -477,7 +470,7 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "countIncrementalSlides": false,
 "incremental": true
 });
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});</script>
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -491,7 +484,7 @@ MathJax.Hub.Config({
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
