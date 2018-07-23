@@ -4,7 +4,7 @@
     <title>Preamble</title>
     <meta charset="utf-8">
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
-    <link href="index_files/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Preamble
-## SISBID 2017 <br> <a href="https://github.com/SISBID/Module2" class="uri">https://github.com/SISBID/Module2</a>
+## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/12-14/2017
+### 07/12-14/2018
 
 ---
 
@@ -31,75 +31,46 @@ class: center, middle, inverse, title-slide
 ![](Hello-Heike.png)
 
 ---
+class: inverse middle 
+# Your turn: meet your neighbors!
+
+Take a couple of minutes to introduce yourself with the people around you. Ask them some questions about where they came from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, ....
 
 
-![](Hello-Brian.png)
-
----
-
-
-![](Hello-Jeremy.png)
+```
+😄 
+✋ 
+🖖 
+💻 
+```
 
 ---
 # Getting up and running
 
-- R and RStudio
-- Projects
-- RMarkdown
-- Web site
-
----
-# R is ...
-
-* Most commonly used data science software [kdnuggets](http://www.kdnuggets.com/2017/05/poll-analytics-data-science-machine-learning-software-leaders.html)
-* __Free__ to use, __open source__ so you can see what code is doing to your data
-* __Extensible__: Over 10000 user contributed add-on packages currently on CRAN! Bioconductor has more than 1300 packages, and many researchers provide packages through github.
-* __Powerful__
-    * With the right tools, get more work done, faster.
-* __Flexible__
-    * Not a question of _can_, but _how_.
-
-
-
----
-# RStudio is ...
-
-[From Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/):  
-
-&lt;blockquote&gt;
-&lt;b&gt;If R were an airplane, RStudio would be the airport&lt;/b&gt;, providing many, many supporting services that make it easier for you, the pilot, to take off and go to awesome places. Sure, you can fly an airplane without an airport, but having those runways and supporting infrastructure is a game-changer.
-&lt;/blockquote&gt;
-
----
-# The RStudio IDE
-
-- Source editor: Docking station for multiple files, Useful shortcuts ("Knit"), Highlighting/Tab-completion, Code-checking (R, HTML, JS), Debugging features  
-- Console window: Highlighting/Tab-completion, Search recent commands
-- Other tabs/panes: Graphics, R documentation, Environment pane, File system navigation/access, Tools for package development, git, etc
+- R and RStudio: *If R were an airplane, RStudio would be the airport* [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
+- Projects: Like a drawer in your filing cabinet for organising your work
+- RMarkdown: reproducible reports, presentations, web sites, web apps, books
+- Web site: https://github.com/dicook/SISBID
 
 ---
 class: inverse middle 
 # Your turn: Getting started
 
-- __Download a zip archive__ of the workshop files from  [github site](https://github.com/SISBID/Module2) contains all the markdown files, code files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID-2017`
-- __Create a project__ helps organise your work over these next few days called `SISBID-2017`. 
+- __Download a zip archive__ of the workshop files from  [github site](https://github.com/dicook/SISBID) contains all the markdown files, code files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID`
+- __Create a project__ helps organise your work over these next few days called `SISBID`. 
 
 ![](projectname.png)
-
-
-- __Get started with RMarkdown__, by creating a new R notebook. Knit it. 
-- Now __open the file that created these slides__ `0-preamble/index.Rmd`. Navigate to the code chunks at the bottom of the file and run them.
 
 ---
 # What is R Markdown?
 
-From the [R Markdown home page](http://rmarkdown.rstudio.com/):
-- R Markdown is an authoring format that enables easy creation of dynamic documents, presentations, and reports from R. 
-- It combines the core syntax of __markdown__ (an easy-to-write plain text format) __with embedded R code chunks__ that are run so their output can be included in the final document. 
-- R Markdown documents are fully reproducible (they can be automatically regenerated whenever underlying R code or data changes).
+- __Get started with RMarkdown__, by creating a new R notebook. Knit it. 
+- Now __open the file that created these slides__ `0-preamble/index.Rmd`. Navigate to the code chunks at the bottom of the file and run them. You should be able to run these one chunk at a time. If you want to compile the entire document, you will need to install several new packages. 
 
 ---
 # Installing packages
+
+The three main locations that we will draw packages from are CRAN, Bioconductor and github.
 
 From CRAN
 
@@ -114,7 +85,7 @@ From bioconductor
 
 ```r
 source("https://bioconductor.org/biocLite.R")
-biocLite("ggbio")
+biocLite("plyranges")
 ```
 
 From github repos
@@ -122,15 +93,14 @@ From github repos
 
 ```r
 devtools::install_github("heike/gglogo")
-devtools::install_github("haleyjeppson/ggmosaic")
+devtools::install_github("dicook/nullabor")
 ```
 
 ---
 # Resources
 
 
-- RStudio IDE [RStudio IDE cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf)
-- RMarkdown [cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf), [reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - Q/A site: [http://stackoverflow.com](http://stackoverflow.com)
 - Dynamic Documents with R and knitr [Yihui Xie](http://yihui.name/knitr/)
 
@@ -139,7 +109,7 @@ devtools::install_github("haleyjeppson/ggmosaic")
 
 Materials for this workshop build on slides provided by several people, but primarily Hadley Wickham and Carson Sievert. 
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/ 3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
@@ -147,21 +117,40 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "highlightLines": true,
 "countIncrementalSlides": false
 });
-if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-  }
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
 });
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
