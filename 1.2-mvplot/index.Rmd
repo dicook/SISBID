@@ -2,7 +2,7 @@
 title: "Multivariate data plots"
 subtitle: "SISBID 2017 <br> https://github.com/SISBID/Module2"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/12-14/2017"
+date: "07/25-27/2018"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
