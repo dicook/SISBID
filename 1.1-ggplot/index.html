@@ -230,172 +230,18 @@ What do we learn?
 class: inverse middle 
 # Your turn
 
-How would you describe this plot?
-
-&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse middle 
-# Your turn
-
-What about this one?
-
-&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Using the package ggplot2
-
-Elements of a plot
-
-- data
-- aesthetics: mapping of variables to graphical elements
-- geom: type of plot structure to use
-- transformations: log scale, ...
-
-Additional components 
-
-- layers: multiple geoms, multiple data sets, annotation
-- facets: show subsets in different plots
-- themes: modifying style
-
----
-# Why use a grammar of graphics?
-
-&lt;br&gt;
-&lt;br&gt;
-&lt;font face="DidyBold" size=6&gt;
-Variable in the data is directly mapped to an element in the plot &lt;/font&gt;
-
----
-# Data - Autism
-
-
-```
-Observations: 604
-Variables: 7
-$ childid  &lt;int&gt; 1, 1, 1, 1, 1, 10, 10, 10, 10, 100, 100, 100, 100, 10...
-$ sicdegp  &lt;fct&gt; high, high, high, high, high, low, low, low, low, hig...
-$ age2     &lt;dbl&gt; 0, 1, 3, 7, 11, 0, 1, 7, 11, 0, 1, 3, 7, 0, 1, 7, 11,...
-$ vsae     &lt;int&gt; 6, 7, 18, 25, 27, 9, 11, 18, 39, 15, 24, 37, 135, 8, ...
-$ gender   &lt;fct&gt; male, male, male, male, male, male, male, male, male,...
-$ race     &lt;fct&gt; white, white, white, white, white, white, white, whit...
-$ bestest2 &lt;fct&gt; pdd, pdd, pdd, pdd, pdd, autism, autism, autism, auti...
-```
-
----
-# Plotting points
-
-&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-How is the data mapped to graphical elements?
-
-- data: _______
-- aesthetics: _________
-- geom: ________
-- transformations: _________
-
+- Choose a different country to examine relative to tuberculosis incidence, for example, Australia. 
+- Make a R Markdown notebook, for your analysis
+- Create the same sequence of plots as done in slides 7-20 for your chosen country's data
+- Write a paragraph describing what you have learned about tb in your chosen country from each plot. 
 
 
 ---
-# Jittering points
-
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-How is the data mapped to graphical elements?
-
-- data: _______
-- aesthetics: _________
-- geom: ________
-- transformations: _________
-
+# Example 2: Where to find platypus in Australia?
 
 
 ---
-# Adding lines
-
-&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Not the lines we want
-
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Too much ink
-
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Log scale y?
-
-&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-22-2.png" style="display: block; margin: auto;" /&gt;
-
----
-# By age 2 diagnosis
-
-&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Refine groups
-
-&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-What do we learn about autism, age, and the diagnosis at age 2?
-
-
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-How is the data mapped to graphical elements?
-
-- data: _______
-- aesthetics: _________
-- geom: ________
-- transformations: _________
-
-
-
----
-# A different look
-
-&lt;img src="index_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
-
-That's not what I wanted ....
-
----
-# For each age measured
-
-&lt;img src="index_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Which is better?
-
-&lt;img src="index_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# New example - Flying etiquette
+# Example 3: Flying etiquette
 
 [41% Of Fliers Think You’re Rude If You Recline Your Seat](http://fivethirtyeight.com/datalab/airplane-etiquette-recline-seat/)
 
@@ -443,14 +289,14 @@ $ `Location (Census Region)`                                                    
 ---
 # Support
 
-&lt;img src="index_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 Categories are not sorted
 
 ---
 # Sorted categories
 
-&lt;img src="index_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-32-2.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-14-2.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Filter data
@@ -460,7 +306,7 @@ Categories are not sorted
 ---
 # Recline by height
 
-&lt;img src="index_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -533,24 +379,24 @@ Use your cheat sheet to work out how to make plot to explore the relationship be
 ---
 # Facets
 
-&lt;img src="index_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Facets
 
-&lt;img src="index_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Color palettes - default
 
-&lt;img src="index_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 What do we learn?
 
 ---
 # Color palettes - brewer
 
-&lt;img src="index_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Color blind-proofing
@@ -559,7 +405,7 @@ What do we learn?
 
 ---
 
-![](index_files/figure-html/unnamed-chunk-46-1.png)![](index_files/figure-html/unnamed-chunk-46-2.png)
+![](index_files/figure-html/unnamed-chunk-28-1.png)![](index_files/figure-html/unnamed-chunk-28-2.png)
 
 ---
 # Perceptual principles
@@ -585,13 +431,13 @@ What do we learn?
 
 Can you find the odd one out?
 
-&lt;img src="index_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 Is it easier now?
 
-&lt;img src="index_files/figure-html/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -603,7 +449,7 @@ Is it easier now?
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -616,7 +462,7 @@ With this arrangement we can see proportion of gender within each rudeness categ
 ---
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -626,7 +472,7 @@ With this arrangement we can see proportion of gender within each rudeness categ
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-53-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
 
 What is different about the comparison now?
 
@@ -637,7 +483,7 @@ What is different about the comparison now?
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Themes
@@ -650,7 +496,7 @@ See the [vignette](https://cran.r-project.org/web/packages/xkcd/vignettes/xkcd-i
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
