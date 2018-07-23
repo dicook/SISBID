@@ -4,7 +4,7 @@
     <title>Advanced plots and inference</title>
     <meta charset="utf-8">
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
-    <link href="index_files/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -56,14 +56,14 @@ class: center, middle, inverse, title-slide
 messy_data &lt;- read_csv("../data/tb.csv")
 head(messy_data)
 # A tibble: 6 x 22
-   iso2  year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
+  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt; &lt;int&gt;
-1    AD  1989    NA    NA    NA     NA     NA     NA     NA     NA    NA
-2    AD  1990    NA    NA    NA     NA     NA     NA     NA     NA    NA
-3    AD  1991    NA    NA    NA     NA     NA     NA     NA     NA    NA
-4    AD  1992    NA    NA    NA     NA     NA     NA     NA     NA    NA
-5    AD  1993    NA    NA    NA     NA     NA     NA     NA     NA    NA
-6    AD  1994    NA    NA    NA     NA     NA     NA     NA     NA    NA
+1 AD     1989    NA    NA    NA     NA     NA     NA     NA     NA    NA
+2 AD     1990    NA    NA    NA     NA     NA     NA     NA     NA    NA
+3 AD     1991    NA    NA    NA     NA     NA     NA     NA     NA    NA
+4 AD     1992    NA    NA    NA     NA     NA     NA     NA     NA    NA
+5 AD     1993    NA    NA    NA     NA     NA     NA     NA     NA    NA
+6 AD     1994    NA    NA    NA     NA     NA     NA     NA     NA    NA
 # ... with 11 more variables: m_u &lt;int&gt;, f_04 &lt;int&gt;, f_514 &lt;int&gt;,
 #   f_014 &lt;int&gt;, f_1524 &lt;int&gt;, f_2534 &lt;int&gt;, f_3544 &lt;int&gt;, f_4554 &lt;int&gt;,
 #   f_5564 &lt;int&gt;, f_65 &lt;int&gt;, f_u &lt;int&gt;
@@ -80,14 +80,14 @@ tidy_data &lt;- tidy_data %&gt;%
   filter(!(age %in% c("014", "04", "514", "u")))
 head(tidy_data)
 # A tibble: 6 x 5
-   iso2  year gender   age count
-  &lt;chr&gt; &lt;int&gt;  &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
-1    AD  1996      m  1524     0
-2    AD  1997      m  1524     0
-3    AD  1998      m  1524     0
-4    AD  1999      m  1524     0
-5    AD  2000      m  1524     0
-6    AD  2002      m  1524     0
+  iso2   year gender age   count
+  &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;
+1 AD     1996 m      1524      0
+2 AD     1997 m      1524      0
+3 AD     1998 m      1524      0
+4 AD     1999 m      1524      0
+5 AD     2000 m      1524      0
+6 AD     2002 m      1524      0
 ```
 
 ---
@@ -363,7 +363,7 @@ For `\(x=4, K=17, m=20\)`
 ```r
 pvisual(4, 17, m=20)
      x simulated       binom
-[1,] 4    0.0186 0.008800605
+[1,] 4    0.0187 0.008800605
 ```
 
 ---
@@ -470,21 +470,40 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "countIncrementalSlides": false,
 "incremental": true
 });
-if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-  }
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
 });
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

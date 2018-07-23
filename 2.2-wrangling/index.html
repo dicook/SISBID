@@ -4,7 +4,7 @@
     <title>Data manipulation with dplyr, purrr and broom</title>
     <meta charset="utf-8">
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
-    <link href="index_files/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -119,18 +119,18 @@ french_fries %&gt;%
     summarise(mean_rancid = mean(rancid), sd_rancid = sd(rancid))
 # A tibble: 30 x 4
 # Groups:   time [?]
-     time treatment mean_rancid sd_rancid
-   &lt;fctr&gt;    &lt;fctr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
- 1      1         1    2.758333  3.212870
- 2      1         2    1.716667  2.714801
- 3      1         3    2.600000  3.202037
- 4      2         1    3.900000  4.374730
- 5      2         2    2.141667  3.117540
- 6      2         3    2.495833  3.378767
- 7      3         1    4.650000  3.933358
- 8      3         2    2.895833  3.773532
- 9      3         3    3.600000  3.592867
-10      4         1    2.079167  2.394737
+   time  treatment mean_rancid sd_rancid
+   &lt;fct&gt; &lt;fct&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+ 1 1     1                2.76      3.21
+ 2 1     2                1.72      2.71
+ 3 1     3                2.6       3.20
+ 4 2     1                3.9       4.37
+ 5 2     2                2.14      3.12
+ 6 2     3                2.50      3.38
+ 7 3     1                4.65      3.93
+ 8 3     2                2.90      3.77
+ 9 3     3                3.6       3.59
+10 4     1                2.08      2.39
 # ... with 20 more rows
 ```
 
@@ -164,19 +164,19 @@ french_fries %&gt;%
   spread(time, n)
 # A tibble: 12 x 11
    subject   `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`   `9`  `10`
- *  &lt;fctr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
- 1       3     6     6     6     6     6     6     6     6     6    NA
- 2      10     6     6     6     6     6     6     6     6     6     6
- 3      15     6     6     6     6     6     6     6     6     6     6
- 4      16     6     6     6     6     6     6     6     6     6     6
- 5      19     6     6     6     6     6     6     6     6     6     6
- 6      31     6     6     6     6     6     6     6     6    NA     6
- 7      51     6     6     6     6     6     6     6     6     6     6
- 8      52     6     6     6     6     6     6     6     6     6     6
- 9      63     6     6     6     6     6     6     6     6     6     6
-10      78     6     6     6     6     6     6     6     6     6     6
-11      79     6     6     6     6     6     6     6     6     6    NA
-12      86     6     6     6     6     6     6     6     6    NA     6
+   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1 3           6     6     6     6     6     6     6     6     6    NA
+ 2 10          6     6     6     6     6     6     6     6     6     6
+ 3 15          6     6     6     6     6     6     6     6     6     6
+ 4 16          6     6     6     6     6     6     6     6     6     6
+ 5 19          6     6     6     6     6     6     6     6     6     6
+ 6 31          6     6     6     6     6     6     6     6    NA     6
+ 7 51          6     6     6     6     6     6     6     6     6     6
+ 8 52          6     6     6     6     6     6     6     6     6     6
+ 9 63          6     6     6     6     6     6     6     6     6     6
+10 78          6     6     6     6     6     6     6     6     6     6
+11 79          6     6     6     6     6     6     6     6     6    NA
+12 86          6     6     6     6     6     6     6     6    NA     6
 ```
 
 ---
@@ -191,19 +191,19 @@ french_fries %&gt;%
   spread(time, n)
 # A tibble: 12 x 11
    subject   `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`   `9`  `10`
- *  &lt;fctr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
- 1       3    30    30    30    30    30    30    30    30    30    NA
- 2      10    30    30    30    30    30    30    30    30    30    30
- 3      15    30    30    30    30    30    30    30    30    30    30
- 4      16    30    30    30    30    30    30    30    30    30    30
- 5      19    30    30    30    30    30    30    30    30    30    30
- 6      31    30    30    30    30    30    30    30    30    NA    30
- 7      51    30    30    30    30    30    30    30    30    30    30
- 8      52    30    30    30    30    30    30    30    30    30    30
- 9      63    30    30    30    30    30    30    30    30    30    30
-10      78    30    30    30    30    30    30    30    30    30    30
-11      79    30    30    30    30    30    30    30    30    30    NA
-12      86    30    30    30    30    30    30    30    30    NA    30
+   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1 3          30    30    30    30    30    30    30    30    30    NA
+ 2 10         30    30    30    30    30    30    30    30    30    30
+ 3 15         30    30    30    30    30    30    30    30    30    30
+ 4 16         30    30    30    30    30    30    30    30    30    30
+ 5 19         30    30    30    30    30    30    30    30    30    30
+ 6 31         30    30    30    30    30    30    30    30    NA    30
+ 7 51         30    30    30    30    30    30    30    30    30    30
+ 8 52         30    30    30    30    30    30    30    30    30    30
+ 9 63         30    30    30    30    30    30    30    30    30    30
+10 78         30    30    30    30    30    30    30    30    30    30
+11 79         30    30    30    30    30    30    30    30    30    NA
+12 86         30    30    30    30    30    30    30    30    NA    30
 ```
 
 ---
@@ -312,14 +312,14 @@ Start with a single country, then generalize over all countries:
 usa &lt;- gapminder %&gt;% filter(country=="United States")
 head(usa)
 # A tibble: 6 x 6
-        country continent  year lifeExp       pop gdpPercap
-         &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
-1 United States  Americas  1952   68.44 157553000  13990.48
-2 United States  Americas  1957   69.49 171984000  14847.13
-3 United States  Americas  1962   70.21 186538000  16173.15
-4 United States  Americas  1967   70.76 198712000  19530.37
-5 United States  Americas  1972   71.34 209896000  21806.04
-6 United States  Americas  1977   73.38 220239000  24072.63
+  country       continent  year lifeExp       pop gdpPercap
+  &lt;fct&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+1 United States Americas   1952    68.4 157553000    13990.
+2 United States Americas   1957    69.5 171984000    14847.
+3 United States Americas   1962    70.2 186538000    16173.
+4 United States Americas   1967    70.8 198712000    19530.
+5 United States Americas   1972    71.3 209896000    21806.
+6 United States Americas   1977    73.4 220239000    24073.
 ```
 
 ---
@@ -369,14 +369,14 @@ We don't want to subset the data for every country ...
 by_country &lt;- gapminder %&gt;% group_by(continent, country) %&gt;% nest()
 head(by_country)
 # A tibble: 6 x 3
-  continent     country              data
-     &lt;fctr&gt;      &lt;fctr&gt;            &lt;list&gt;
-1      Asia Afghanistan &lt;tibble [12 x 4]&gt;
-2    Europe     Albania &lt;tibble [12 x 4]&gt;
-3    Africa     Algeria &lt;tibble [12 x 4]&gt;
-4    Africa      Angola &lt;tibble [12 x 4]&gt;
-5  Americas   Argentina &lt;tibble [12 x 4]&gt;
-6   Oceania   Australia &lt;tibble [12 x 4]&gt;
+  continent country     data             
+  &lt;fct&gt;     &lt;fct&gt;       &lt;list&gt;           
+1 Asia      Afghanistan &lt;tibble [12 × 4]&gt;
+2 Europe    Albania     &lt;tibble [12 × 4]&gt;
+3 Africa    Algeria     &lt;tibble [12 × 4]&gt;
+4 Africa    Angola      &lt;tibble [12 × 4]&gt;
+5 Americas  Argentina   &lt;tibble [12 × 4]&gt;
+6 Oceania   Australia   &lt;tibble [12 × 4]&gt;
 ```
 
 Each element of the `data` variable in `by_country` is a dataset.
@@ -396,14 +396,14 @@ Now we are using the `map` function in the package `purrr`.
 by_country$model &lt;- by_country$data %&gt;% purrr::map(~lm(lifeExp~year, data=.))
 head(by_country)
 # A tibble: 6 x 4
-  continent     country              data    model
-     &lt;fctr&gt;      &lt;fctr&gt;            &lt;list&gt;   &lt;list&gt;
-1      Asia Afghanistan &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt;
-2    Europe     Albania &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt;
-3    Africa     Algeria &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt;
-4    Africa      Angola &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt;
-5  Americas   Argentina &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt;
-6   Oceania   Australia &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt;
+  continent country     data              model   
+  &lt;fct&gt;     &lt;fct&gt;       &lt;list&gt;            &lt;list&gt;  
+1 Asia      Afghanistan &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+2 Europe    Albania     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+3 Africa    Algeria     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+4 Africa    Angola      &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+5 Americas  Argentina   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+6 Oceania   Australia   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
 ```
 
 ---
@@ -429,18 +429,18 @@ Extract all countries automatically (hello `map` again!)
 by_country$coefs &lt;- by_country$model %&gt;% purrr::map(broom::tidy)
 by_country
 # A tibble: 142 x 5
-   continent     country              data    model                coefs
-      &lt;fctr&gt;      &lt;fctr&gt;            &lt;list&gt;   &lt;list&gt;               &lt;list&gt;
- 1      Asia Afghanistan &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 2    Europe     Albania &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 3    Africa     Algeria &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 4    Africa      Angola &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 5  Americas   Argentina &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 6   Oceania   Australia &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 7    Europe     Austria &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 8      Asia     Bahrain &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
- 9      Asia  Bangladesh &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
-10    Europe     Belgium &lt;tibble [12 x 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 x 5]&gt;
+   continent country     data              model    coefs               
+   &lt;fct&gt;     &lt;fct&gt;       &lt;list&gt;            &lt;list&gt;   &lt;list&gt;              
+ 1 Asia      Afghanistan &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 2 Europe    Albania     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 3 Africa    Algeria     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 4 Africa    Angola      &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 5 Americas  Argentina   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 6 Oceania   Australia   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 7 Europe    Austria     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 8 Asia      Bahrain     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+ 9 Asia      Bangladesh  &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+10 Europe    Belgium     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
 # ... with 132 more rows
 ```
 
@@ -454,19 +454,19 @@ by_country
 by_country_coefs &lt;- by_country %&gt;% unnest(coefs)
 by_country_coefs
 # A tibble: 284 x 7
-   continent     country        term   estimate   std.error  statistic
-      &lt;fctr&gt;      &lt;fctr&gt;       &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
- 1      Asia Afghanistan (Intercept) 29.3566375 0.698981278  41.999176
- 2      Asia Afghanistan        year  0.2753287 0.020450934  13.462890
- 3    Europe     Albania (Intercept) 58.5597618 1.133575812  51.659325
- 4    Europe     Albania        year  0.3346832 0.033166387  10.091036
- 5    Africa     Algeria (Intercept) 42.2364149 0.756269040  55.848399
- 6    Africa     Algeria        year  0.5692797 0.022127070  25.727749
- 7    Africa      Angola (Intercept) 31.7079741 0.804287463  39.423683
- 8    Africa      Angola        year  0.2093399 0.023532003   8.895964
- 9  Americas   Argentina (Intercept) 62.2250191 0.167091314 372.401279
-10  Americas   Argentina        year  0.2317084 0.004888791  47.395847
-# ... with 274 more rows, and 1 more variables: p.value &lt;dbl&gt;
+   continent country     term        estimate std.error statistic  p.value
+   &lt;fct&gt;     &lt;fct&gt;       &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Asia      Afghanistan (Intercept)   29.4     0.699       42.0  1.40e-12
+ 2 Asia      Afghanistan year           0.275   0.0205      13.5  9.84e- 8
+ 3 Europe    Albania     (Intercept)   58.6     1.13        51.7  1.79e-13
+ 4 Europe    Albania     year           0.335   0.0332      10.1  1.46e- 6
+ 5 Africa    Algeria     (Intercept)   42.2     0.756       55.8  8.22e-14
+ 6 Africa    Algeria     year           0.569   0.0221      25.7  1.81e-10
+ 7 Africa    Angola      (Intercept)   31.7     0.804       39.4  2.63e-12
+ 8 Africa    Angola      year           0.209   0.0235       8.90 4.59e- 6
+ 9 Americas  Argentina   (Intercept)   62.2     0.167      372.   4.80e-22
+10 Americas  Argentina   year           0.232   0.00489     47.4  4.22e-13
+# ... with 274 more rows
 ```
 
 ---
@@ -619,14 +619,33 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "highlightLines": true,
 "countIncrementalSlides": false
 });
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-  }
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
 });
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

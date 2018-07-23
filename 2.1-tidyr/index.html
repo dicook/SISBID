@@ -4,7 +4,7 @@
     <title>Tidying your data</title>
     <meta charset="utf-8">
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
-    <link href="index_files/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -45,18 +45,18 @@ student2012.sub &lt;- readRDS("../data/student_sub.rds")
 # table(student2012.sub$CNT)
 student2012.sub %&gt;% group_by(CNT) %&gt;% tally()
 # A tibble: 43 x 2
-     CNT     n
+   CNT       n
    &lt;chr&gt; &lt;int&gt;
- 1   ARE 11500
- 2   AUS 14481
- 3   AUT  4755
- 4   BEL  8597
- 5   BGR  5282
- 6   BRA  5506
- 7   CAN 21544
- 8   CHL  6856
- 9   COL  9073
-10   CZE  5327
+ 1 ARE   11500
+ 2 AUS   14481
+ 3 AUT    4755
+ 4 BEL    8597
+ 5 BGR    5282
+ 6 BRA    5506
+ 7 CAN   21544
+ 8 CHL    6856
+ 9 COL    9073
+10 CZE    5327
 # ... with 33 more rows
 ```
 
@@ -76,14 +76,14 @@ What are the variables?
 
 ```
 # A tibble: 6 x 4
-                      Inst AvNumPubs AvNumCits PctCompletion
-                     &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
-1 ARIZONA STATE UNIVERSITY      0.90      1.57          31.7
-2        AUBURN UNIVERSITY      0.79      0.64          44.4
-3           BOSTON COLLEGE      0.51      1.03          46.8
-4        BOSTON UNIVERSITY      0.49      2.66          34.2
-5      BRANDEIS UNIVERSITY      0.30      3.03          48.7
-6         BROWN UNIVERSITY      0.84      2.31          54.6
+  Inst                     AvNumPubs AvNumCits PctCompletion
+  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 ARIZONA STATE UNIVERSITY      0.9       1.57          31.7
+2 AUBURN UNIVERSITY             0.79      0.64          44.4
+3 BOSTON COLLEGE                0.51      1.03          46.8
+4 BOSTON UNIVERSITY             0.49      2.66          34.2
+5 BRANDEIS UNIVERSITY           0.3       3.03          48.7
+6 BROWN UNIVERSITY              0.84      2.31          54.6
 ```
 
 
@@ -97,11 +97,11 @@ What's in the column names of this data? What are the experimental units? What a
 
 ```
 # A tibble: 3 x 12
-      id `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
-   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 Gene 1  2.182424 2.2042219  4.195636 2.6273345  5.063641   4.540002
-2 Gene 2  1.464224 0.5854472  1.859238 0.5152242  2.882808   1.364037
-3 Gene 3  2.031792 0.8701078  3.281983 0.5330452  4.627315   2.182192
+  id    `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 Gene…      2.18     2.20       4.20     2.63       5.06       4.54
+2 Gene…      1.46     0.585      1.86     0.515      2.88       1.36
+3 Gene…      2.03     0.870      3.28     0.533      4.63       2.18
 # ... with 5 more variables: `WI-12.R2` &lt;dbl&gt;, `WI-12.R4` &lt;dbl&gt;,
 #   `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
 ```
@@ -143,14 +143,14 @@ What are the variables? What are the experimental units?
 
 ```
 # A tibble: 6 x 22
-   iso2  year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
+  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt; &lt;int&gt;
-1    ZW  2003    NA    NA   133    874   3048   2228    981    367   205
-2    ZW  2004    NA    NA   187    833   2908   2298   1056    366   198
-3    ZW  2005    NA    NA   210    837   2264   1855    762    295   656
-4    ZW  2006    NA    NA   215    736   2391   1939    896    348   199
-5    ZW  2007     6   132   138    500   3693      0    716    292   153
-6    ZW  2008    NA    NA   127    614      0   3316    704    263   185
+1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205
+2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198
+3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656
+4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199
+5 ZW     2007     6   132   138    500   3693      0    716    292   153
+6 ZW     2008    NA    NA   127    614      0   3316    704    263   185
 # ... with 11 more variables: m_u &lt;int&gt;, f_04 &lt;int&gt;, f_514 &lt;int&gt;,
 #   f_014 &lt;int&gt;, f_1524 &lt;int&gt;, f_2534 &lt;int&gt;, f_3544 &lt;int&gt;, f_4554 &lt;int&gt;,
 #   f_5564 &lt;int&gt;, f_65 &lt;int&gt;, f_u &lt;int&gt;
@@ -453,11 +453,11 @@ When the experimental design is packed into column names, we need to extract it,
 genes &lt;- read_csv("../data/genes.csv")
 head(genes)
 # A tibble: 3 x 12
-      id `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
-   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 Gene 1  2.182424 2.2042219  4.195636 2.6273345  5.063641   4.540002
-2 Gene 2  1.464224 0.5854472  1.859238 0.5152242  2.882808   1.364037
-3 Gene 3  2.031792 0.8701078  3.281983 0.5330452  4.627315   2.182192
+  id    `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 Gene…      2.18     2.20       4.20     2.63       5.06       4.54
+2 Gene…      1.46     0.585      1.86     0.515      2.88       1.36
+3 Gene…      2.03     0.870      3.28     0.533      4.63       2.18
 # ... with 5 more variables: `WI-12.R2` &lt;dbl&gt;, `WI-12.R4` &lt;dbl&gt;,
 #   `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
 ```
@@ -469,18 +469,18 @@ head(genes)
 ```r
 gather(genes, variable, expr, -id) 
 # A tibble: 33 x 3
-       id variable      expr
-    &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;
- 1 Gene 1  WI-6.R1 2.1824242
- 2 Gene 2  WI-6.R1 1.4642236
- 3 Gene 3  WI-6.R1 2.0317925
- 4 Gene 1  WI-6.R2 2.2042219
- 5 Gene 2  WI-6.R2 0.5854472
- 6 Gene 3  WI-6.R2 0.8701078
- 7 Gene 1  WI-6.R4 4.1956364
- 8 Gene 2  WI-6.R4 1.8592378
- 9 Gene 3  WI-6.R4 3.2819835
-10 Gene 1  WM-6.R1 2.6273345
+   id     variable  expr
+   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;
+ 1 Gene 1 WI-6.R1  2.18 
+ 2 Gene 2 WI-6.R1  1.46 
+ 3 Gene 3 WI-6.R1  2.03 
+ 4 Gene 1 WI-6.R2  2.20 
+ 5 Gene 2 WI-6.R2  0.585
+ 6 Gene 3 WI-6.R2  0.870
+ 7 Gene 1 WI-6.R4  4.20 
+ 8 Gene 2 WI-6.R4  1.86 
+ 9 Gene 3 WI-6.R4  3.28 
+10 Gene 1 WM-6.R1  2.63 
 # ... with 23 more rows
 ```
 
@@ -493,18 +493,18 @@ genes %&gt;%
   gather(variable, expr, -id) %&gt;%
   separate(variable, c("trt", "leftover"), "-") 
 # A tibble: 33 x 4
-       id   trt leftover      expr
- *  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;
- 1 Gene 1    WI     6.R1 2.1824242
- 2 Gene 2    WI     6.R1 1.4642236
- 3 Gene 3    WI     6.R1 2.0317925
- 4 Gene 1    WI     6.R2 2.2042219
- 5 Gene 2    WI     6.R2 0.5854472
- 6 Gene 3    WI     6.R2 0.8701078
- 7 Gene 1    WI     6.R4 4.1956364
- 8 Gene 2    WI     6.R4 1.8592378
- 9 Gene 3    WI     6.R4 3.2819835
-10 Gene 1    WM     6.R1 2.6273345
+   id     trt   leftover  expr
+   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;
+ 1 Gene 1 WI    6.R1     2.18 
+ 2 Gene 2 WI    6.R1     1.46 
+ 3 Gene 3 WI    6.R1     2.03 
+ 4 Gene 1 WI    6.R2     2.20 
+ 5 Gene 2 WI    6.R2     0.585
+ 6 Gene 3 WI    6.R2     0.870
+ 7 Gene 1 WI    6.R4     4.20 
+ 8 Gene 2 WI    6.R4     1.86 
+ 9 Gene 3 WI    6.R4     3.28 
+10 Gene 1 WM    6.R1     2.63 
 # ... with 23 more rows
 ```
 
@@ -517,18 +517,18 @@ genes %&gt;%
   separate(variable, c("trt", "leftover"), "-") %&gt;%
   separate(leftover, c("time", "rep"), "\\.") 
 # A tibble: 33 x 5
-       id   trt  time   rep      expr
- *  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
- 1 Gene 1    WI     6    R1 2.1824242
- 2 Gene 2    WI     6    R1 1.4642236
- 3 Gene 3    WI     6    R1 2.0317925
- 4 Gene 1    WI     6    R2 2.2042219
- 5 Gene 2    WI     6    R2 0.5854472
- 6 Gene 3    WI     6    R2 0.8701078
- 7 Gene 1    WI     6    R4 4.1956364
- 8 Gene 2    WI     6    R4 1.8592378
- 9 Gene 3    WI     6    R4 3.2819835
-10 Gene 1    WM     6    R1 2.6273345
+   id     trt   time  rep    expr
+   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1 Gene 1 WI    6     R1    2.18 
+ 2 Gene 2 WI    6     R1    1.46 
+ 3 Gene 3 WI    6     R1    2.03 
+ 4 Gene 1 WI    6     R2    2.20 
+ 5 Gene 2 WI    6     R2    0.585
+ 6 Gene 3 WI    6     R2    0.870
+ 7 Gene 1 WI    6     R4    4.20 
+ 8 Gene 2 WI    6     R4    1.86 
+ 9 Gene 3 WI    6     R4    3.28 
+10 Gene 1 WM    6     R1    2.63 
 # ... with 23 more rows
 ```
 
@@ -544,14 +544,14 @@ gtidy &lt;- genes %&gt;%
   mutate(rep = sub("R", "", rep))
 head(gtidy)
 # A tibble: 6 x 5
-      id   trt  time   rep      expr
-   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
-1 Gene 1     I     6     1 2.1824242
-2 Gene 2     I     6     1 1.4642236
-3 Gene 3     I     6     1 2.0317925
-4 Gene 1     I     6     2 2.2042219
-5 Gene 2     I     6     2 0.5854472
-6 Gene 3     I     6     2 0.8701078
+  id     trt   time  rep    expr
+  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 Gene 1 I     6     1     2.18 
+2 Gene 2 I     6     1     1.46 
+3 Gene 3 I     6     1     2.03 
+4 Gene 1 I     6     2     2.20 
+5 Gene 2 I     6     2     0.585
+6 Gene 3 I     6     2     0.870
 ```
 
 ---
@@ -622,9 +622,9 @@ Variables: 13
 $ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", ...
 $ rating     &lt;dbl&gt; 2.9, 14.0, 11.0, 9.9, 1.2, 8.8, 9.0, 8.2, 7.0, 13.0...
 $ variable   &lt;chr&gt; "potato", "potato", "potato", "potato", "potato", "...
-$ treatment  &lt;fctr&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-$ time       &lt;fctr&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-$ subject    &lt;fctr&gt; 3, 3, 10, 10, 15, 15, 16, 16, 19, 19, 31, 31, 51, ...
+$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ subject    &lt;fct&gt; 3, 3, 10, 10, 15, 15, 16, 16, 19, 19, 31, 31, 51, 5...
 $ .fitted    &lt;dbl&gt; 6.331728, 6.331728, 8.046235, 8.046235, 5.972622, 5...
 $ .se.fit    &lt;dbl&gt; 0.2578966, 0.2578966, 0.2523712, 0.2523712, 0.25301...
 $ .resid     &lt;dbl&gt; -3.4317275, 7.6682725, 2.9537651, 1.8537651, -4.772...
@@ -694,14 +694,33 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "highlightLines": true,
 "countIncrementalSlides": false
 });
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-  }
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
 });
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

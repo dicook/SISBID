@@ -4,7 +4,7 @@
     <title>Biological data plots</title>
     <meta charset="utf-8">
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
-    <link href="index_files/remark-css-0.0.1/example.css" rel="stylesheet" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -69,9 +69,9 @@ Needed for most other functions
 ```r
 ig &lt;- dfToIG(sbGeneal)
 ig
-IGRAPH UNW- 230 340 -- 
+IGRAPH 74fac1c UNW- 230 340 -- 
 + attr: name (v/c), weight (e/n)
-+ edges (vertex names):
++ edges from 74fac1c (vertex names):
  [1] 5601T    --Hutcheson        Adams    --Dunfield        
  [3] A.K.     --A.K. (Harrow)    Altona   --Flambeau        
  [5] Amcor    --Amsoy 71         Adams    --Amsoy           
@@ -232,16 +232,14 @@ hw$parent &lt;- as.character(hw$parent)
 ```r
 head(hw)
 # A tibble: 6 x 8
-  advisorMGID                   parent                    child   mgID
-        &lt;int&gt;                    &lt;chr&gt;                    &lt;chr&gt;  &lt;int&gt;
-1      145799 Hadley Alexander Wickham                     &lt;NA&gt;     NA
-2       18734        Dianne Helen Cook Hadley Alexander Wickham 145799
-3       46503           Heike  Hofmann Hadley Alexander Wickham 145799
-4       18641            Andreas  Buja        Dianne Helen Cook  18734
-5       23178 Javier Fernandez Cabrera        Dianne Helen Cook  18734
-6       18363         Peter Jost Huber            Andreas  Buja  18641
-# ... with 4 more variables: School &lt;chr&gt;, Thesistitle &lt;chr&gt;,
-#   Degree &lt;chr&gt;, Year &lt;int&gt;
+  advisorMGID parent   child     mgID School   Thesistitle    Degree  Year
+        &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;  &lt;int&gt;
+1      145799 Hadley … &lt;NA&gt;        NA &lt;NA&gt;     &lt;NA&gt;           &lt;NA&gt;      NA
+2       18734 Dianne … Hadley… 145799 Iowa St… Practical too… Ph.D.   2008
+3       46503 Heike  … Hadley… 145799 Iowa St… Practical too… Ph.D.   2008
+4       18641 Andreas… Dianne…  18734 Rutgers… Grand Tour an… Ph.D.   1993
+5       23178 Javier … Dianne…  18734 Rutgers… Grand Tour an… Ph.D.   1993
+6       18363 Peter J… Andrea…  18641 ETH Zür… Sufficiency, … Ph.D.   1980
 ```
 
 ---
@@ -312,30 +310,22 @@ gr.snp &lt;- transformDfToGr(snp, seqnames = "CHR", start = "BP",
     width = 1) 
 head(gr.snp)
 GRanges object with 6 ranges and 10 metadata columns:
-      seqnames                 ranges strand |       CHR        SNP
-         &lt;Rle&gt;              &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;   &lt;factor&gt;
-  [1]        4 [ 10794096,  10794099]      * |         4  rs9291494
-  [2]       14 [ 55853742,  55853755]      * |        14  rs1152481
-  [3]        6 [ 55188853,  55188858]      * |         6  rs3134708
-  [4]       17 [  4146033,   4146049]      * |        17  rs2325988
-  [5]       19 [ 46089501,  46089519]      * |        19  rs8103444
-  [6]        1 [107051695, 107051695]      * |         1 rs12072065
-             BP       A1       F_A       F_U       A2     CHISQ         P
-      &lt;integer&gt; &lt;factor&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;factor&gt; &lt;numeric&gt; &lt;numeric&gt;
-  [1]  10794096        G    0.3061    0.1341        A    7.5070  0.006147
-  [2]  55853742        G    0.3542    0.2805        A    1.1030  0.293600
-  [3]  55188853        C    0.2500    0.2875        A    0.3135  0.575500
-  [4]   4146033        G    0.2551    0.2317        A    0.1323  0.716100
-  [5]  46089501        C    0.3980    0.2927        A    2.1750  0.140300
-  [6] 107051695        0    0.0000    0.0000        C      &lt;NA&gt;      &lt;NA&gt;
-             OR
-      &lt;numeric&gt;
-  [1]    2.8480
-  [2]    1.4070
-  [3]    0.8261
-  [4]    1.1360
-  [5]    1.5970
-  [6]      &lt;NA&gt;
+      seqnames            ranges strand |       CHR        SNP        BP
+         &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;   &lt;factor&gt; &lt;integer&gt;
+  [1]        4 10794096-10794099      * |         4  rs9291494  10794096
+  [2]       14 55853742-55853755      * |        14  rs1152481  55853742
+  [3]        6 55188853-55188858      * |         6  rs3134708  55188853
+  [4]       17   4146033-4146049      * |        17  rs2325988   4146033
+  [5]       19 46089501-46089519      * |        19  rs8103444  46089501
+  [6]        1         107051695      * |         1 rs12072065 107051695
+            A1       F_A       F_U       A2     CHISQ         P        OR
+      &lt;factor&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;factor&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;
+  [1]        G    0.3061    0.1341        A     7.507  0.006147     2.848
+  [2]        G    0.3542    0.2805        A     1.103    0.2936     1.407
+  [3]        C      0.25    0.2875        A    0.3135    0.5755    0.8261
+  [4]        G    0.2551    0.2317        A    0.1323    0.7161     1.136
+  [5]        C     0.398    0.2927        A     2.175    0.1403     1.597
+  [6]        0         0         0        C      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;
   -------
   seqinfo: 22 sequences from an unspecified genome; no seqlengths
 ```
@@ -541,21 +531,40 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 "highlightLines": true,
 "countIncrementalSlides": false
 });
-if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-  }
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
 });
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
