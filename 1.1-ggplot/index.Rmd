@@ -1,8 +1,8 @@
 ---
 title: "Grammar of Graphics and ggplot2"
-subtitle: "SISBID 2017 <br> https://github.com/SISBID/Module2"
+subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/12-14/2017"
+date: "07/12-14/2018"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -15,13 +15,14 @@ output:
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(
+  echo=FALSE,
   message = FALSE,
   warning = FALSE,
   error = FALSE, 
   collapse = TRUE,
   comment = "",
-  fig.height = 4,
-  fig.width = 8,
+  fig.height = 6,
+  fig.width = 10,
   fig.align = "center",
   cache = FALSE
 )
@@ -39,13 +40,204 @@ library(xkcd)
 
 
 class: inverse middle 
-# Your turn
+# Your turn: What is a data plot?
 
-![](lorikeets.png)
+Write down as many types of data plots that you can. You've got 30 seconds.
 
-- What is a (data) plot?
-- What are the three most important data plots?
+---
 
+```{r fig.width=10, fig.height=8}
+library(wordcloud)
+namedplots <- c("histogram", "barchart", "scatterplot", "piechart", "lineplot", "densityplot", "boxplot", "dendrogram", "treemap", "scatterplotmatrix", "parallelcoordinateplot", "biplot", "contourplot", "stemandleafplot", "rugplot", "dotplot", "mosaicplot", "spineplot", "forestplot", "heatmap", "qqplot", "starplot", "chernoffface","graph", "beeswarm", "violinplot")
+pal <- brewer.pal(8,"Dark2")
+wordcloud(namedplots, freq = sample(1:8, length(namedplots), replace=TRUE), colors=pal)
+```
+
+---
+# What is a data plot?
+
+- data
+- **aesthetics: mapping of variables to graphical elements**
+- geom: type of plot structure to use
+- transformations: log scale, ...
+- layers: multiple geoms, multiple data sets, annotation
+- facets: show subsets in different plots
+- themes: modifying style
+
+---
+# Why?
+
+With the grammar, a data plot becomes a statistic. It is a functional mapping from variable to graphical element. Then we can do statistics on data plots. 
+
+With a grammar, we don't have individual animals in the zoo, we have the genetic code that says how one plot is related to another plot.
+
+---
+# Elements of the grammar
+
+```
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
+
+The 7 key elements of the grammar are:
+
+- DATA
+- GEOM_FUNCTION
+- MAPPINGS
+- STAT
+- POSITION
+- COORDINATE_FUNCTION
+- FACET_FUNCTION
+
+---
+# Example: Tuberculosis data
+
+This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table.
+
+```{r}
+tb <- read_csv("../data/TB_notifications_2018-03-18.csv") %>% 
+  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "genderage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(gender=substr(genderage, 1, 1), 
+         age=substr(genderage, 2, length(genderage))) %>%
+  select(-genderage)
+
+tb_us <- tb %>% 
+  filter(country == "United States of America") %>%
+  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+  filter(year > 1996, year < 2013)
+```
+
+```{r echo=TRUE, fig.width=10, fig.height=3}
+ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2")
+```
+
+---
+
+100% charts, is what excel names these beasts. What do we learn?
+
+- Focus is on **proportion** in each category. 
+- Across all ages, and years, the proportion of males having TB is higher than females
+- These proportions tend to be higher in the middle age groups, for all years.
+- Relatively similar proportions across years.
+
+---
+# Bar charts
+
+```{r echo=TRUE, fig.width=10, fig.height=3}
+ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
+  geom_bar(stat = "identity") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2")
+```
+
+---
+
+What do we learn?
+
+- Focus is on **counts** in each category. 
+- Different across ages, and years, counts tend to be lower in young age (15-24)
+- Incidence has been decreasing although among younger age groups it is only in recent years.
+
+
+---
+# Side-by-side barcharts
+
+```{r echo=TRUE, fig.width=10, fig.height=3}
+ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
+  geom_bar(stat = "identity", position="dodge") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2")
+```
+
+---
+
+What do we learn?
+
+- Focus is on counts by gender, predominantly male incidence.
+- There is similar incidence between males and females in younger age groups.
+- Decline is less prominent among middle age females.
+
+---
+#  Separate bar charts
+
+```{r echo=TRUE, fig.width=10, fig.height=4}
+ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
+  geom_bar(stat = "identity") +
+  facet_grid(gender ~ age) +
+  scale_fill_brewer(palette="Dark2")
+```
+
+---
+
+What do we learn?
+
+- Its easier to focus separately on males and females.
+
+---
+# Pie charts?
+
+```{r echo=TRUE, fig.width=10, fig.height=4}
+ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
+  geom_bar(stat = "identity") +
+  facet_grid(gender ~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  coord_polar() +
+  theme(axis.text = element_blank())
+```
+
+---
+
+Nope! That's a rose chart. Bar charts in polar coordinates produce rose charts. 
+
+What do we learn?
+
+- Emphasizes the difference between men and women, and really small numbers for middle aged females. 
+
+---
+# Rainbow charts?
+
+```{r echo=TRUE, fig.width=10, fig.height=4}
+ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
+  geom_bar(stat = "identity", position="fill") +
+  facet_grid(gender ~ age) 
+```
+
+---
+
+A single stacked bar, in each facet. Year is mapped to colour. 
+
+What do we learn?
+
+- Pretty chart but not easy to interpret. 
+
+---
+# Pie charts
+
+```{r echo=TRUE, fig.width=10, fig.height=4}
+ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
+  geom_bar(stat = "identity", position="fill") +
+  facet_grid(gender ~ age) +
+  coord_polar(theta="y") +
+  theme(axis.text = element_blank())
+```
+
+---
+
+What do we learn?
+
+- Pretty chart but not easy to interpret, or make comparisons across age groups. 
 
 ---
 class: inverse middle 
