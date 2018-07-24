@@ -40,10 +40,14 @@ knitr::opts_chunk$set(
 class: inverse middle 
 # Your turn: meet your neighbors!
 
-Take a couple of minutes to introduce yourself with the people around you. Ask them some questions about where they came from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, ....
+Take a couple of minutes to introduce yourself to the people around you. Ask them some questions about where they come from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, ....
 
 ```{r echo=FALSE}
 set.seed(2018)
+## if package emo doesn't exist, uncomment the lines below
+##  and install from github (explanation below):
+# library(devtools)
+# install_github("hadley/emo")
 library(emo)
 ji("smile") ; ji("highfive") ; ji("spock"); ji("computer")
 ```
@@ -61,7 +65,7 @@ class: inverse middle
 # Your turn: Getting started
 
 - __Download a zip archive__ of the workshop files from  [github site](https://github.com/dicook/SISBID) contains all the markdown files, code files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID`
-- __Create a project__ helps organise your work over these next few days called `SISBID`. 
+- __Double-click SISBID.Rproj:__ the R project helps organise your work over these next few days. 
 
 ![](projectname.png)
 
