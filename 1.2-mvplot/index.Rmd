@@ -1,6 +1,6 @@
 ---
 title: "Multivariate data plots"
-subtitle: "SISBID 2017 <br> https://github.com/SISBID/Module2"
+subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/25-27/2018"
 output:
@@ -15,6 +15,7 @@ output:
 
 ```{r echo = FALSE}
 knitr::opts_chunk$set(
+  echo=TRUE, 
   message = FALSE,
   warning = FALSE,
   error = FALSE,
@@ -29,10 +30,13 @@ knitr::opts_chunk$set(
 
 ```{r echo=FALSE}
 library(tidyverse)
+library(lubridate)
 library(GGally)
 library(edgeR)
 library(broom)
 library(biobroom)
+library(tourr)
+#library(bigPint)
 ```
 
 class: inverse middle 
@@ -52,8 +56,9 @@ mutivariate analysis takes relationships between these different aspects into ac
 # Main types of plots
 
 - __pairwise plots__: explore replicates, and associations
-- __porcupine plots__: to explore treatments vs replicates
+- __litre plots__: to compare multiple treatments vs replicates
 - __parallel coordinate plots__: explore high-dimensional relationships with parallel axes
+- __tours__: sequence of projections of high-dimensional data
 
 ---
 # GGally
@@ -61,9 +66,35 @@ mutivariate analysis takes relationships between these different aspects into ac
 Classical scatterplot matrix plot. All variables are numeric, show all possible pairs.
 
 
-```{r}
+```{r eval=FALSE}
 data(flea)
 ggscatmat(flea, columns = 2:4, color = "species") 
+```
+
+```{r}
+# National Notifiable Diseases Surveillance System (NNDSS)
+# source: http://www9.health.gov.au/cda/source/cda-index.cfm
+# 1 January 2009 to 30 December 2016
+salmonella <- read_csv("../data/salmonella.csv")
+salmonella <- salmonella %>% 
+  mutate(date = dmy(`Week Ending (Friday)`))
+sm_wkly_count <- salmonella %>% 
+  mutate(week = week(date), year = year(date)) %>%
+  count(year, week) %>%
+  filter(year < 2017, week < 53, week > 1) %>% 
+  spread(year, n) 
+ggscatmat(sm_wkly_count[,-1])
+```
+
+Salmonella incidence is similar from one year to another. There is one week in 2009 that had higher incidence than in other years. There are three weeks in 2016 that had high incidence. And there is one week in 2016, that overall didn't have high incidence but relative to 2010 was abnormal.
+
+```{r eval=FALSE}
+sm_state_count <- salmonella %>% 
+  mutate(week = week(date), year = year(date)) %>%
+  count(State, week) %>%
+  filter(week < 53, week > 1) %>% 
+  spread(State, n) 
+ggscatmat(sm_state_count[,-1])
 ```
 
 ---
@@ -71,8 +102,19 @@ ggscatmat(flea, columns = 2:4, color = "species")
 Generalized pairs plot, any combination of types of plots
 
 ```{r fig.width=6}
-data(tips, package = "reshape")
-ggpairs(tips[, 1:4])
+housing <- read_csv("../data/housing.csv") %>%
+  mutate(date = dmy(date)) %>%
+  mutate(year = year(date)) %>%
+  filter(year == 2016)
+ggpairs(housing[, 2:4], aes(colour=type, fill=type), alpha=0.5)
+```
+
+Conditioning provides alternative ways to understand relationships. 
+
+```{r fig.width=6}
+ggplot(housing) + 
+  geom_point(aes(x=rooms, y=price, colour=type)) + 
+  facet_wrap(~type)
 ```
 
 ---
@@ -139,7 +181,7 @@ GGally::ggscatmat(head(leaf,1000), columns=2:7, alpha=0.1) # use just the first 
 ```
 
 ---
-# Porcupine plots
+# Litre plots
 
 Compare treatment vs reps. Focus on reps 1, 2 from stages 1 and 2. 
 
@@ -165,7 +207,7 @@ The best prospects should be shortest lines further from the `X=Y`.
 class: inverse middle 
 # Your turn
 
-Make a porcupine plot for the first two reps of the first two developmental stages of the leaf data.
+Make a litre plot for the first two reps of the first two developmental stages of the leaf data.
 
 ![](lorikeets.png)
 
