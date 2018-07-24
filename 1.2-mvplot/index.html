@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Multivariate data plots
-## SISBID 2017 <br> <a href="https://github.com/SISBID/Module2" class="uri">https://github.com/SISBID/Module2</a>
+## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/12-14/2017
+### 07/25-27/2018
 
 ---
 
@@ -37,8 +37,9 @@ class: inverse middle
 # Main types of plots
 
 - __pairwise plots__: explore replicates, and associations
-- __porcupine plots__: to explore treatments vs replicates
+- __litre plots__: to compare multiple treatments vs replicates
 - __parallel coordinate plots__: explore high-dimensional relationships with parallel axes
+- __tours__: sequence of projections of high-dimensional data
 
 ---
 # GGally
@@ -52,7 +53,35 @@ data(flea)
 ggscatmat(flea, columns = 2:4, color = "species") 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+```r
+# National Notifiable Diseases Surveillance System (NNDSS)
+# source: http://www9.health.gov.au/cda/source/cda-index.cfm
+# 1 January 2009 to 30 December 2016
+salmonella &lt;- read_csv("../data/salmonella.csv")
+salmonella &lt;- salmonella %&gt;% 
+  mutate(date = dmy(`Week Ending (Friday)`))
+sm_wkly_count &lt;- salmonella %&gt;% 
+  mutate(week = week(date), year = year(date)) %&gt;%
+  count(year, week) %&gt;%
+  filter(year &lt; 2017, week &lt; 53, week &gt; 1) %&gt;% 
+  spread(year, n) 
+ggscatmat(sm_wkly_count[,-1])
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+
+Salmonella incidence is similar from one year to another. There is one week in 2009 that had higher incidence than in other years. There are three weeks in 2016 that had high incidence. And there is one week in 2016, that overall didn't have high incidence but relative to 2010 was abnormal.
+
+
+```r
+sm_state_count &lt;- salmonella %&gt;% 
+  mutate(week = week(date), year = year(date)) %&gt;%
+  count(State, week) %&gt;%
+  filter(week &lt; 53, week &gt; 1) %&gt;% 
+  spread(State, n) 
+ggscatmat(sm_state_count[,-1])
+```
 
 ---
 
@@ -60,11 +89,25 @@ Generalized pairs plot, any combination of types of plots
 
 
 ```r
-data(tips, package = "reshape")
-ggpairs(tips[, 1:4])
+housing &lt;- read_csv("../data/housing.csv") %&gt;%
+  mutate(date = dmy(date)) %&gt;%
+  mutate(year = year(date)) %&gt;%
+  filter(year == 2016)
+ggpairs(housing[, 2:4], aes(colour=type, fill=type), alpha=0.5)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+Conditioning provides alternative ways to understand relationships. 
+
+
+```r
+ggplot(housing) + 
+  geom_point(aes(x=rooms, y=price, colour=type)) + 
+  facet_wrap(~type)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # For biological data
@@ -86,7 +129,7 @@ Normalized data for the first 6 samples are shown.
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # What we learn
@@ -107,7 +150,7 @@ class: inverse middle
 
 
 ---
-# Porcupine plots
+# Litre plots
 
 Compare treatment vs reps. Focus on reps 1, 2 from stages 1 and 2. 
 
@@ -121,7 +164,7 @@ ggplot(sub, aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2)) +
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 The best prospects should be shortest lines further from the `X=Y`. 
 
@@ -129,7 +172,7 @@ The best prospects should be shortest lines further from the `X=Y`.
 class: inverse middle 
 # Your turn
 
-Make a porcupine plot for the first two reps of the first two developmental stages of the leaf data.
+Make a litre plot for the first two reps of the first two developmental stages of the leaf data.
 
 ![](lorikeets.png)
 
@@ -151,7 +194,7 @@ ggparcoord(coty, columns=2:10, scale="globalminmax", boxplot=TRUE,
            alphaLines=0)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 If the data is normalised well these should be identical boxplots, or very close to that. This is not quite what we see. 
 
@@ -165,7 +208,7 @@ ggparcoord(coty, columns=2:10, scale="globalminmax",
            alphaLines=0.1)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Scaling choices
@@ -215,7 +258,7 @@ ggplot(sub, aes(x=stage, y=expr)) + geom_point(alpha=0.4) +
   geom_line(data=sub.m, aes(x=stage, y=expr), colour="red")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -266,7 +309,7 @@ ggplot(top10, aes(x=stage, y=expr, colour=ID)) +
 ---
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -307,7 +350,7 @@ sig.tab &lt;- merge(sig.tab, coty[,1:7], by.x="genes", by.y="ID")
 ggscatmat(sig.tab, columns=5:10, alpha=0.1)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -318,7 +361,7 @@ ggparcoord(sig.tab, columns=5:10, scale="globalminmax",
            alphaLines=0.1)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -373,7 +416,7 @@ row.names(bb) &lt;- bb$Gene
 ggpairs(bb, columns=c(3,7,4,8))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # A porcupine plot again
@@ -388,7 +431,7 @@ ggplot(sub, aes(x=biotin.WT.01.1, xend=biotin.WT.02.1, y=biotin.bio101.4, yend=b
   ylab("mutant, treated")
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Fit a limma model
@@ -439,7 +482,7 @@ ggplot(data=bbfit, aes(x=term, y=estimate, group=gene)) +
   geom_point(aes(color=log(p.value)), size=2, alpha=0.6)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -462,7 +505,7 @@ ggpairs(bbfit_m, columns=c(2,4,6), upper=list(continuous="points"),
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -476,7 +519,7 @@ ggplot(data=bbfit2, aes(x=term, y=estimate, group=gene)) +
   geom_point(aes(color=log(p.value)), size=2, alpha=0.6)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Resources

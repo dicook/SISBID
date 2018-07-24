@@ -36,7 +36,7 @@ library(edgeR)
 library(broom)
 library(biobroom)
 library(tourr)
-#library(bigPint)
+library(bigPint)
 ```
 
 class: inverse middle 
@@ -61,20 +61,26 @@ mutivariate analysis takes relationships between these different aspects into ac
 - __tours__: sequence of projections of high-dimensional data
 
 ---
-# GGally
+# Scatterplot matrix: GGally
 
-Classical scatterplot matrix plot. All variables are numeric, show all possible pairs.
+In a classical scatterplot matrix plot, all variables are numeric, show all possible pairs.
 
 
-```{r eval=FALSE}
+```{r}
 data(flea)
 ggscatmat(flea, columns = 2:4, color = "species") 
 ```
 
+---
+# Example: 
+
+National Notifiable Diseases Surveillance System (NNDSS)
+
+source: http://www9.health.gov.au/cda/source/cda-index.cfm
+
+1 January 2009 to 30 December 2016
+
 ```{r}
-# National Notifiable Diseases Surveillance System (NNDSS)
-# source: http://www9.health.gov.au/cda/source/cda-index.cfm
-# 1 January 2009 to 30 December 2016
 salmonella <- read_csv("../data/salmonella.csv")
 salmonella <- salmonella %>% 
   mutate(date = dmy(`Week Ending (Friday)`))
@@ -83,10 +89,21 @@ sm_wkly_count <- salmonella %>%
   count(year, week) %>%
   filter(year < 2017, week < 53, week > 1) %>% 
   spread(year, n) 
+```
+
+---
+
+```{r}
 ggscatmat(sm_wkly_count[,-1])
 ```
 
 Salmonella incidence is similar from one year to another. There is one week in 2009 that had higher incidence than in other years. There are three weeks in 2016 that had high incidence. And there is one week in 2016, that overall didn't have high incidence but relative to 2010 was abnormal.
+
+---
+class: inverse middle 
+# Your turn
+
+Make a scatterplot matrix of the the states against each other.
 
 ```{r eval=FALSE}
 sm_state_count <- salmonella %>% 
@@ -98,16 +115,41 @@ ggscatmat(sm_state_count[,-1])
 ```
 
 ---
+# Generalized pairs plot
 
-Generalized pairs plot, any combination of types of plots
+There is no reason that you can't show any type of variable, or use plots other than the scatterplot. We would call this a generalised pairs plot. Examples of what might be shown are:
+
+- if one variable in the pair is categorical and the other is continuous, then side-by-side boxplots would be a good option for display
+- if both variables are categorical, a mosaic plot would be a possible choice
+
+---
 
 ```{r fig.width=6}
 housing <- read_csv("../data/housing.csv") %>%
   mutate(date = dmy(date)) %>%
   mutate(year = year(date)) %>%
-  filter(year == 2016)
-ggpairs(housing[, 2:4], aes(colour=type, fill=type), alpha=0.5)
+  filter(year == 2016) %>%
+  filter(!is.na(bedroom2), !is.na(price)) %>%
+  filter(bedroom2 < 7, bathroom < 5) %>%
+  mutate(bedroom2 = factor(bedroom2), 
+         bathroom = factor(bathroom)) 
+ggpairs(housing[, c(4,3,8,10,11)], aes(colour=type, fill=type), 
+        lower=list(continuous = wrap("points", alpha=0.1)),
+        diag=list(continuous = wrap("densityDiag", alpha=0.5)))
 ```
+
+There's a lot going on here! 
+
+---
+
+```{r}
+ggduo(housing[, c(4,3,8,10,11)], columnsX = 2:5, columnsY = 1, 
+      aes(colour=type, fill=type), 
+      types = list(continuous = wrap("smooth", alpha = 0.10)))
+```
+
+---
+# 
 
 Conditioning provides alternative ways to understand relationships. 
 
