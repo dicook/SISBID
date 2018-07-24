@@ -149,17 +149,6 @@ ggduo(housing[, c(4,3,8,10,11)], columnsX = 2:5, columnsY = 1,
 ```
 
 ---
-# 
-
-Conditioning provides alternative ways to understand relationships. 
-
-```{r fig.width=6}
-ggplot(housing) + 
-  geom_point(aes(x=rooms, y=price, colour=type)) + 
-  facet_wrap(~type)
-```
-
----
 # For biological data
 
 Brown, A. and Hudson, K. (2015) Developmental profiling of gene expression in soybean trifoliate leaves and cotyledons, [GSE61857](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61857). 
