@@ -244,7 +244,7 @@ class: inverse middle
 # Your turn
 
 - Choose a different country to examine relative to tuberculosis incidence, for example, Australia. 
-- Make a R Markdown notebook, for your analysis
+- Make an R Markdown notebook for your analysis
 - Create the same sequence of plots as done in slides 7-20 for your chosen country's data
 - Write a paragraph describing what you have learned about tb in your chosen country from each plot. 
 
@@ -412,10 +412,10 @@ glimpse(fly)
 ---
 # Variables
 
-- Mix of categorical and quantiative variables. 
+- Mix of categorical and quantitative variables. 
 - What mappings are appropriate? 
 - Area for counts of categories, 
-- side-by-side boxplots for mixed pair. 
+- side-by-side boxplots for mixed pairs. 
 
 ---
 # Support

@@ -44,8 +44,8 @@ Take a couple of minutes to introduce yourself to the people around you. Ask the
 
 ```{r echo=FALSE}
 set.seed(2018)
-## if package emo doesn't exist, 
-## uncomment the lines below and install from github:
+## if package emo doesn't exist, uncomment the lines below
+##  and install from github (explanation below):
 # library(devtools)
 # install_github("hadley/emo")
 library(emo)
