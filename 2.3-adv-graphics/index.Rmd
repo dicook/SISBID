@@ -38,6 +38,9 @@ library(RColorBrewer)
 library(gridExtra)
 library(HLMdiag)
 library(viridis)
+library(nullabor)
+library(splitstackshape)
+library(forcats)
 ```
 
 # Tidy data and random variables
@@ -58,6 +61,7 @@ $$X = \left[ \begin{array}{rrrr}
            \end{array} \right]$$
 
 - $X_1 \sim N(0,1), ~~X_2 \sim exp(1) ...$
+
 ---
 # Grammar of graphics and statistics
 
@@ -69,186 +73,20 @@ $$X = \left[ \begin{array}{rrrr}
 # Pipeline: Messy to tidy to plot
 
 ```{r echo=TRUE}
-messy_data <- read_csv("../data/tb.csv")
-head(messy_data)
-```
+tb <- read_csv("../data/TB_notifications_2018-03-18.csv") %>% 
+  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "genderage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(gender=substr(genderage, 1, 1), 
+         age=substr(genderage, 2, length(genderage))) %>%
+  select(-genderage)
 
----
-
-```{r echo=TRUE}
-tidy_data <- messy_data %>% 
-  gather(demo, count, -year, -iso2, na.rm = TRUE) %>% 
-  separate(demo, c("gender", "age"))
-tidy_data <- tidy_data %>% 
-  filter(!(age %in% c("014", "04", "514", "u")))
-head(tidy_data)
-```
-
----
-# 100% charts
-
-```{r fig.width=12, fig.height=3, echo=TRUE}
-tidy_data %>% 
-  filter(iso2 == "US") %>% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity", position = "fill") +
-  facet_grid(~ age) 
-```
-
----
-# Stacked barcharts
-
-```{r fig.width=10, fig.height=3, echo=TRUE}
-tidy_data %>% 
-  filter(iso2 == "US") %>% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
-```
-
----
-# Side-by-side barcharts
-
-```{r fig.width=10, fig.height=3, echo=TRUE}
-tidy_data %>% 
-  filter(iso2 == "US") %>% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity", position="dodge") +
-  facet_grid(~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
-```
-
----
-# facetted barcharts
-
-```{r fig.width=10, fig.height=3, echo=TRUE}
-tidy_data %>% 
-  filter(iso2 == "US") %>% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
-```
-
----
-# Rose plot
-
-```{r fig.width=10, fig.height=3, echo=TRUE}
-tidy_data %>% 
-  filter(iso2 == "US") %>% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_blank(), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  ) + coord_polar()
-```
-
----
-# Rainbow charts
-
-```{r fig.width=10, fig.height=3, echo=TRUE}
-tidy_data %>% 
-  filter(iso2 == "US") %>% 
-  ggplot(aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat = "identity", position="fill") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_blank(), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  ) 
-```
-
----
-# Pie charts
-
-```{r fig.width=10, fig.height=3, echo=TRUE}
-tidy_data %>% 
-  filter(iso2 == "US") %>% 
-  ggplot(aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat = "identity", position="fill") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_blank(), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  ) + coord_polar(theta="y")
-```
-
----
-class: inverse middle 
-# Your turn
-
-What do you learn about tb incidence in the USA by gender and age and year from the
-- 100% charts?
-- stacked bar charts?
-- side-by-side barcharts?
-- facetted barcharts?
-
-```{r eval=FALSE, echo=FALSE}
-The US has been rocking it at reducing tb incidence, across most age groups, and gender. Different focus using the different charts:
-  - 
-  - 
-  - 
-  - 
-```
-
----
-# Maps
-
-Make a world map, by merging iso2 with country codes to make a chloropleth
-
-```{r}
-data("ISO_3166_1")
-world_map <- map_data("world")
-tb_names <- tidy_data %>% 
-  left_join(ISO_3166_1, by=c("iso2"="Alpha_2")) %>% 
-  select(-Alpha_3, -Numeric, -Official_name, -Common_name) %>%
-  rename(region=Name) %>%
-  mutate(region=recode(region, 
-                       "United States"="USA", 
-                       "United Kingdom"="UK",
-                       "Russian Federation"="Russia"))
-tb_names_inc <- tb_names %>% 
-  group_by(region) %>%
-  nest() %>%
-  mutate(
-    model = purrr::map(data, ~ lm(count ~ year, data = .))
-) %>%
-  unnest(model %>% purrr::map(broom::tidy)) %>%
-  select(region, term, estimate) %>% 
-  spread(term, estimate)
-```
-
----
-
-```{r}
-ggplot(tb_names_inc, aes(map_id = region)) + 
-    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3) + 
-    expand_limits(x = world_map$long, y = world_map$lat) +
-    theme_few() +
-    scale_fill_viridis("trend") + 
-    theme(legend.position = "bottom",
-         axis.ticks = element_blank(), 
-         axis.title = element_blank(), 
-         axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
+tb_us <- tb %>% 
+  filter(country == "United States of America") %>%
+  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+  filter(year > 1996, year < 2013) %>%
+  select(year, count, gender, age)
 ```
 
 ---
@@ -256,6 +94,137 @@ ggplot(tb_names_inc, aes(map_id = region)) +
 
 - Choice of plot implicitly sets $H_0$, $H_1$
 - Generically, we are thinking  $H_0$: no pattern, $H_1$: pattern, but the choice of plot makes this much more explicit
+
+---
+
+```{r echo=TRUE, fig.width=10, fig.height=3}
+ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2")
+```
+
+There are many aspects of this plot, this is what we said earlier:
+
+- *Across all ages, and years, the proportion of males having TB is higher than females*
+- These proportions tend to be higher in the middle age groups, for all years.
+- Relatively similar proportions across years.
+
+---
+# Null hypothesis
+
+The plot is constructed by plotting count against year, separately by age group, and coloured by gender. 
+
+- By colouring by gender, we make this a primary comparison
+- Proportion of gender, conditional on age group and year is the query being addressed by this plot.
+
+*Null hypothesis*: TB incidence is spread equally among men and women, regardless of age and year.
+*Alternative hypothesis*: It isn't.
+
+---
+
+```{r echo=TRUE}
+#l <- lineup(null_dist(var="gender01", dist="binom", list(size=1, p=0.5)), 
+#            true=tb_us_long, n=3, pos=pos)
+pos = sample(1:3, 1)
+tb_us_long <- expandRows(tb_us, "count")
+tb_us_long <- tb_us_long %>%
+  mutate(gender01 = ifelse(gender=="m", 0, 1)) %>%
+  select(-gender)
+l <- bind_rows(tb_us_long, tb_us_long, tb_us_long)
+l <- l %>% mutate(.sample=rep(1:3, rep(nrow(tb_us_long), 3)))
+for (i in 1:3) {
+  if (i != pos) {
+    l$gender01[l$.sample==i] <- rbinom(nrow(tb_us_long), 1, 0.5)
+  }
+}
+l <- l %>%
+  group_by(.sample, year, age) %>%
+  dplyr::count(gender01)
+p1 <- ggplot(l[l$.sample == 1,], aes(x = year, y = n, fill = factor(gender01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+p2 <- ggplot(l[l$.sample == 2,], aes(x = year, y = n, fill = factor(gender01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+p3 <- ggplot(l[l$.sample == 3,], aes(x = year, y = n, fill = factor(gender01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+```
+
+---
+
+```{r fig.height=8, fig.width=10}
+grid.arrange(p1, p2, p3, ncol=1)
+```
+
+```{r testcode, echo=FALSE, eval=FALSE}
+dframe <- data.frame(x = rnorm(150), y=sample(1:2, 150, replace=TRUE))
+ror <- rorschach(method=null_dist("x", "norm"), n = 3, true=dframe)
+l <- lineup(method=null_dist("x", "norm"), n = 3, true=dframe)
+ggplot(data=) +
+  geom_histogram(aes(x=x, y=..density..), binwidth=0.25) +facet_grid(.~.sample) +
+  geom_density(aes(x=x), colour="steelblue", size=1)
+
+```
+
+---
+# More interesting null
+
+*Null hypothesis*: TB incidence is has the same proportion of men and women, regardless of age and year.
+*Alternative hypothesis*: It isn't.
+
+```{r echo=TRUE}
+#l <- lineup(null_dist(var="gender01", dist="binom", list(size=1, p=0.5)), 
+#            true=tb_us_long, n=3, pos=pos)
+
+tbl <- tb_us %>% group_by(gender) %>% summarise(count=sum(count))
+tbl
+p <- tbl$count[1]/sum(tbl$count)
+
+pos = sample(1:3, 1)
+tb_us_long <- expandRows(tb_us, "count")
+tb_us_long <- tb_us_long %>%
+  mutate(gender01 = ifelse(gender=="m", 0, 1)) %>%
+  select(-gender)
+l <- bind_rows(tb_us_long, tb_us_long, tb_us_long)
+l <- l %>% mutate(.sample=rep(1:3, rep(nrow(tb_us_long), 3)))
+for (i in 1:3) {
+  if (i != pos) {
+    l$gender01[l$.sample==i] <- rbinom(nrow(tb_us_long), 1, p)
+  }
+}
+l <- l %>%
+  group_by(.sample, year, age) %>%
+  dplyr::count(gender01)
+p1 <- ggplot(l[l$.sample == 1,], aes(x = year, y = n, fill = factor(gender01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+p2 <- ggplot(l[l$.sample == 2,], aes(x = year, y = n, fill = factor(gender01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+p3 <- ggplot(l[l$.sample == 3,], aes(x = year, y = n, fill = factor(gender01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+```
+
+---
+
+```{r fig.height=8, fig.width=10}
+grid.arrange(p1, p2, p3, ncol=1)
+```
 
 ---
 # Putting the pieces together
@@ -334,6 +303,7 @@ ggplot(df_null, aes(x=v2, y=v1, fill=v2)) +
 Suppose $x$ individuals selected the data plot from a lineup of $m$ plots, shown to $K$ independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
 
 $$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$
+
 
 For $x=4, K=17, m=20$
 
@@ -486,6 +456,50 @@ ggplot(age_counts, aes(x=age, y=count, fill=gender)) +
   geom_bar(stat = "identity", position="fill") + 
   facet_wrap(~.sample, ncol=5)
 ```
+
+---
+# Maps
+
+Make a world map, by merging iso2 with country codes to make a chloropleth
+
+```{r}
+data("ISO_3166_1")
+world_map <- map_data("world")
+tb_names <- tidy_data %>% 
+  left_join(ISO_3166_1, by=c("iso2"="Alpha_2")) %>% 
+  select(-Alpha_3, -Numeric, -Official_name, -Common_name) %>%
+  rename(region=Name) %>%
+  mutate(region=recode(region, 
+                       "United States"="USA", 
+                       "United Kingdom"="UK",
+                       "Russian Federation"="Russia"))
+tb_names_inc <- tb_names %>% 
+  group_by(region) %>%
+  nest() %>%
+  mutate(
+    model = purrr::map(data, ~ lm(count ~ year, data = .))
+) %>%
+  unnest(model %>% purrr::map(broom::tidy)) %>%
+  select(region, term, estimate) %>% 
+  spread(term, estimate)
+```
+
+---
+
+```{r}
+ggplot(tb_names_inc, aes(map_id = region)) + 
+    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3) + 
+    expand_limits(x = world_map$long, y = world_map$lat) +
+    theme_few() +
+    scale_fill_viridis("trend") + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
+```
+
+
 
 ---
 # Resources
