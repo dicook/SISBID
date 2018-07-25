@@ -316,6 +316,21 @@ french_fries_weeks <- spread(ff_long, key = time,
 head(french_fries_weeks)
 ```
 
+Plot Week 1 against Week 9 in a scatterplot:
+```{r, eval =FALSE}
+french_fries_weeks %>%
+  ggplot(aes(x = `1`, y = `9`)) + geom_point()
+```
+
+---
+# Week 1 vs week 9
+
+
+```{r, fig.width=5, fig.height = 5}
+french_fries_weeks %>%
+  ggplot(aes(x = `1`, y = `9`)) + geom_point()
+```
+
 ---
 class: inverse middle 
 # Your turn
@@ -409,8 +424,115 @@ head(gtidy)
 ```
 ![](lorikeets.png)
 
+---
+# Plot from before
+
+```{r, fig.width=5, fig.height = 5}
+gtidy %>% 
+  filter(time==6 ) %>%
+  ggplot(aes(x = trt, y = expr, colour=id)) +
+  geom_point() +
+  geom_line(aes(group = interaction(id, rep))) +
+  facet_wrap(~id)
+```
+
+---
+# Models and model output
+
+Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
+
+e.g. fit french fry rating with respect to all designed main effects:
+
+```{r}
+ff_long <- gather(french_fries, key = type, value = 
+rating, potato:painty)
+ff_lm <- lm(rating~type+treatment+time+subject, 
+data=ff_long)
+```
+
+`summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
+
+```{r}
+summary(ff_lm)
+```
 
 
+
+---
+# Tidying model output
+
+The package `broom` gets model results into a tidy format at different levels
+
+One value for each:
+
+- model: `broom::glance`
+- coefficient in the model: `broom::tidy`
+- value in the dataset: `broom::augment`
+
+
+
+---
+# Goodness of fit statistics: `glance`
+
+```{r}
+glance(ff_lm)
+```
+
+---
+# Model estimates: `tidy`
+
+```{r}
+ff_lm_tidy <- tidy(ff_lm)
+glimpse(ff_lm_tidy)
+```
+
+---
+# Model diagnostics: `augment`
+
+```{r}
+ff_lm_all <- augment(ff_lm)
+glimpse(ff_lm_all)
+```
+
+---
+# Residual plot
+
+```{r}
+ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
+```
+
+---
+# Adding random effects
+
+Add random intercepts for each subject
+
+```{r results='hide'}
+library(lme4)
+fries_lmer <- lmer(rating~type+treatment+time+subject + ( 1 | subject ), 
+data = ff_long)
+```
+
+
+---
+class: inverse middle 
+# Your turn
+
+- Augment the ff_long data with the model diagnostics
+- Plot the residuals from the (a) fixed, (b) random effects
+- Plot fitted values against observed values
+
+```{r eval=FALSE, echo=FALSE}
+
+## the model is pretty bad:
+ff_lmer_all <- augment(fries_lmer)
+
+ggplot(ff_lmer_all, aes(x=.fitted, y=.resid)) + geom_point() +
+  coord_equal()
+
+ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
+  coord_equal()
+
+```
 
 ---
 # Resources
