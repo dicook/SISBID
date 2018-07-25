@@ -423,7 +423,7 @@ glimpse(fly)
 ---
 # Support
 
-```{r}
+```{r echo=TRUE}
 ggplot(fly, aes(x=how_often_do_you_travel_by_plane)) + 
   geom_bar() + coord_flip()
 ```
@@ -433,7 +433,7 @@ Categories are not sorted
 ---
 # Sorted categories
 
-```{r}
+```{r echo=TRUE}
 fly$how_often_do_you_travel_by_plane <- 
   factor(fly$how_often_do_you_travel_by_plane, levels=c(
     "Never","Once a year or less","Once a month or less",
@@ -443,13 +443,18 @@ p2 <- ggplot(fly, aes(x=how_often_do_you_travel_by_plane,
                 fill=how_often_do_you_travel_by_plane)) + 
   geom_bar() + coord_flip() +
   scale_fill_brewer(palette="Dark2") + theme(legend.position="none")
+```
+
+---
+
+```{r echo=TRUE}
 grid.arrange(p1, p2, ncol=2)
 ```
 
 ---
 # Filter data
 
-```{r}
+```{r echo=TRUE}
 fly_sub <- fly %>% filter(how_often_do_you_travel_by_plane %in% 
                             c("Once a year or less","Once a month or less")) %>%
   filter(!is.na(do_you_ever_recline_your_seat_when_you_fly)) %>%
@@ -459,7 +464,7 @@ fly_sub <- fly %>% filter(how_often_do_you_travel_by_plane %in%
 ---
 # Recline by height
 
-```{r}
+```{r echo=TRUE, fig.height = 5}
 fly_sub$do_you_ever_recline_your_seat_when_you_fly <- factor(
   fly_sub$do_you_ever_recline_your_seat_when_you_fly, levels=c(
     "Never","Once in a while","About half the time",
@@ -539,9 +544,7 @@ class: inverse middle
 
 ![](lorikeets.png)
 
-Use your cheat sheet to work out how to make plot to explore the relationship between 
-
-`Do you ever recline your seat when you fly?` and `Is it rude to move to an empty seat on the plane?`
+Make some more plots of the flying etiquette data, on some of the other variables or relationships between variables that interest you.
 
 ```{r echo=FALSE, eval=FALSE}
 ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly)) +
@@ -558,7 +561,7 @@ ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly,
 ---
 # Facets
 
-```{r echo=TRUE}
+```{r echo=TRUE, fig.height=4}
 ggplot(fly_sub, 
        aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar() + coord_flip() + facet_wrap(~gender)
@@ -575,7 +578,7 @@ ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) +
 ---
 # Color palettes - default
 
-```{r}
+```{r echo=TRUE, fig.height=4}
 p <- ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
                     fill=gender)) + 
   geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5)
@@ -587,7 +590,7 @@ What do we learn?
 ---
 # Color palettes - brewer
 
-```{r}
+```{r echo=TRUE, fig.height=4}
 p + scale_fill_brewer(palette="Dark2") 
 ```
 
@@ -596,7 +599,7 @@ p + scale_fill_brewer(palette="Dark2")
 ---
 # Color blind-proofing
 
-```{r fig.show='hide'}
+```{r  echo=TRUE, fig.show='hide'}
 library(scales)
 library(dichromat)
 clrs <- hue_pal()(3)
@@ -609,7 +612,7 @@ The packages `colorblind` has color blind friendly palettes but the colours are 
 
 ---
 
-```{r echo=FALSE, fig.width=4.5, fig.show='hold', fig.align='default'}
+```{r echo=FALSE, fig.width=7, fig.show='hold', fig.align='default'}
 clrs <- hue_pal()(3)
 p + theme(legend.position = "none")
 clrs <- dichromat(hue_pal()(3))
@@ -698,7 +701,7 @@ ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
 ---
 # Proximity
 
-```{r fig.show='hide'}
+```{r fig.show='hide', echo=TRUE}
 ggplot(fly_sub, aes(x=gender,
    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
@@ -718,7 +721,7 @@ What is different about the comparison now?
 ---
 # Another arrangement
 
-```{r fig.show='hide'}
+```{r fig.show='hide', echo=TRUE}
 ggplot(fly_sub, aes(x=age,
                     fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar(position="fill") + coord_flip() + facet_wrap(~gender, ncol=5) + 
@@ -736,7 +739,7 @@ ggplot(fly_sub, aes(x=age,
 ---
 # My principles
 
-- Make a plot is the most important message. For most purposes the hierarchy doesn't make matter. 
+- Make a plot is the most important message. For most purposes the hierarchy doesn't much matter. 
 - Knowing how to use proximity is an extremely valuable skill, and not well utilised.
 - Use of colour is also a very valuable skill, and there are many bad habits to over-use, too many colours or precariously map to a continuous variable to add another dimension. 
 -
@@ -759,21 +762,13 @@ See the [vignette](https://cran.r-project.org/web/packages/xkcd/vignettes/xkcd-i
 
 ---
 
-```{r echo=FALSE}
+```{r echo=TRUE}
 library(xkcd)
 ggplot(fly_sub, aes(x=gender,
                     fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
   theme_xkcd() + theme(legend.position="bottom")
 ```
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-Compile the rmarkdown document that you have put together thus far in the workshop!
 
 ---
 # Resources
