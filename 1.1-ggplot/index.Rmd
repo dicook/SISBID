@@ -36,6 +36,8 @@ library(RColorBrewer)
 library(gridExtra)
 library(dichromat)
 library(xkcd)
+library(janitor)
+library(forcats)
 ```
 
 
@@ -406,6 +408,7 @@ class: inverse middle
 
 ```{r echo=FALSE}
 fly <- read_csv("../data/flying-etiquette.csv")
+fly <- fly %>% clean_names()
 glimpse(fly)
 ```
 
@@ -421,7 +424,7 @@ glimpse(fly)
 # Support
 
 ```{r}
-ggplot(fly, aes(x=`How often do you travel by plane?`)) + 
+ggplot(fly, aes(x=how_often_do_you_travel_by_plane)) + 
   geom_bar() + coord_flip()
 ```
 
@@ -431,35 +434,37 @@ Categories are not sorted
 # Sorted categories
 
 ```{r}
-fly$`How often do you travel by plane?` <- 
-  factor(fly$`How often do you travel by plane?`, levels=c(
+fly$how_often_do_you_travel_by_plane <- 
+  factor(fly$how_often_do_you_travel_by_plane, levels=c(
     "Never","Once a year or less","Once a month or less",
     "A few times per month","A few times per week","Every day"))
-ggplot(fly, aes(x=`How often do you travel by plane?`)) + geom_bar() + coord_flip()
-ggplot(fly, aes(x=`How often do you travel by plane?`, 
-                fill=`How often do you travel by plane?`)) + geom_bar() + coord_flip() +
-  scale_fill_brewer(palette="Dark2")
+p1 <- ggplot(fly, aes(x=how_often_do_you_travel_by_plane)) + geom_bar() + coord_flip()
+p2 <- ggplot(fly, aes(x=how_often_do_you_travel_by_plane, 
+                fill=how_often_do_you_travel_by_plane)) + 
+  geom_bar() + coord_flip() +
+  scale_fill_brewer(palette="Dark2") + theme(legend.position="none")
+grid.arrange(p1, p2, ncol=2)
 ```
 
 ---
 # Filter data
 
 ```{r}
-fly_sub <- fly %>% filter(`How often do you travel by plane?` %in% 
+fly_sub <- fly %>% filter(how_often_do_you_travel_by_plane %in% 
                             c("Once a year or less","Once a month or less")) %>%
-  filter(!is.na(`Do you ever recline your seat when you fly?`)) %>%
-  filter(!is.na(Age)) %>% filter(!is.na(Gender))
+  filter(!is.na(do_you_ever_recline_your_seat_when_you_fly)) %>%
+  filter(!is.na(age)) %>% filter(!is.na(gender))
 ```
 
 ---
 # Recline by height
 
 ```{r}
-fly_sub$`Do you ever recline your seat when you fly?` <- factor(
-  fly_sub$`Do you ever recline your seat when you fly?`, levels=c(
+fly_sub$do_you_ever_recline_your_seat_when_you_fly <- factor(
+  fly_sub$do_you_ever_recline_your_seat_when_you_fly, levels=c(
     "Never","Once in a while","About half the time",
     "Usually","Always"))
-ggplot(fly_sub, aes(y=`How tall are you?`, x=`Do you ever recline your seat when you fly?`)) + geom_boxplot() + coord_flip()
+ggplot(fly_sub, aes(y=how_tall_are_you, x=do_you_ever_recline_your_seat_when_you_fly)) + geom_boxplot() + coord_flip()
 ```
 
 
@@ -536,15 +541,15 @@ class: inverse middle
 
 Use your cheat sheet to work out how to make plot to explore the relationship between 
 
-`Do you ever recline your seat when you fly?` and `Is it rude to recline your seat on a plane?`
+`Do you ever recline your seat when you fly?` and `Is it rude to move to an empty seat on the plane?``
 
 ```{r echo=FALSE, eval=FALSE}
-ggplot(fly_sub, aes(x=`Do you ever recline your seat when you fly?`)) +
+ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly)) +
   geom_bar() + 
-  facet_wrap(~`Is itrude to recline your seat on a plane?`, ncol=3) +
+  facet_wrap(~is_itrude_to_move_to_an_unsold_seat_on_a_plane, ncol=3) +
   coord_flip()
-ggplot(fly_sub, aes(x=`Do you ever recline your seat when you fly?`,
-    fill=`Is itrude to recline your seat on a plane?`)) +
+ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly,
+    fill=is_itrude_to_move_to_an_unsold_seat_on_a_plane)) +
   geom_bar(position="fill") +
   coord_flip()
 ```
@@ -556,26 +561,26 @@ ggplot(fly_sub, aes(x=`Do you ever recline your seat when you fly?`,
 
 ```{r}
 ggplot(fly_sub, 
-       aes(x=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar() + coord_flip() + facet_wrap(~Gender)
+       aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar() + coord_flip() + facet_wrap(~gender)
 ```
 
 ---
 # Facets
 
 ```{r}
-fly_sub$Age <- factor(fly_sub$Age, levels=c("18-29","30-44","45-60","> 60"))
-ggplot(fly_sub, aes(x=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar() + coord_flip() + facet_grid(Age~Gender)
+fly_sub$age <- factor(fly_sub$age, levels=c("18-29","30-44","45-60","> 60"))
+ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar() + coord_flip() + facet_grid(age~gender)
 ```
 
 ---
 # Color palettes - default
 
 ```{r}
-p <- ggplot(fly_sub, aes(x=`In general, is itrude to bring a baby on a plane?`,
-                    fill=Gender)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Age, ncol=5)
+p <- ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
+                    fill=gender)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5)
 p
 ```
 
@@ -671,9 +676,9 @@ display.brewer.all()
 # Proximity
 
 ```{r fig.show='hide'}
-ggplot(fly_sub, aes(x=`In general, is itrude to bring a baby on a plane?`,
-                    fill=Gender)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Age, ncol=5)
+ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
+                    fill=gender)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5)
 ```
 
 With this arrangement we can see proportion of gender within each rudeness category, and compare these across age groups.  How could we arrange this differently?
@@ -682,9 +687,9 @@ With this arrangement we can see proportion of gender within each rudeness categ
 
 
 ```{r echo=FALSE}
-ggplot(fly_sub, aes(x=`In general, is itrude to bring a baby on a plane?`,
-                    fill=Gender)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Age, ncol=5)
+ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
+                    fill=gender)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5)
 ```
 
 
@@ -692,18 +697,18 @@ ggplot(fly_sub, aes(x=`In general, is itrude to bring a baby on a plane?`,
 # Proximity
 
 ```{r fig.show='hide'}
-ggplot(fly_sub, aes(x=Gender,
-   fill=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Age, ncol=5) +
+ggplot(fly_sub, aes(x=gender,
+   fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
   theme(legend.position="bottom")
 ```
 
 ---
 
 ```{r echo=FALSE}
-ggplot(fly_sub, aes(x=Gender,
-                    fill=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Age, ncol=5) + theme(legend.position="bottom")
+ggplot(fly_sub, aes(x=gender,
+                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) + theme(legend.position="bottom")
 ```
 
 What is different about the comparison now?
@@ -712,18 +717,18 @@ What is different about the comparison now?
 # Another arrangement
 
 ```{r fig.show='hide'}
-ggplot(fly_sub, aes(x=Age,
-                    fill=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Gender, ncol=5) + 
+ggplot(fly_sub, aes(x=age,
+                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~gender, ncol=5) + 
   theme(legend.position="bottom")
 ```
 
 ---
 
 ```{r echo=FALSE}
-ggplot(fly_sub, aes(x=Age,
-                    fill=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Gender, ncol=5) + theme(legend.position="bottom")
+ggplot(fly_sub, aes(x=age,
+                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~gender, ncol=5) + theme(legend.position="bottom")
 ```
 
 ---
@@ -733,9 +738,9 @@ The `ggthemes` package has many different styles for the plots. Other packages s
 
 ```{r fig.show='hide'}
 library(xkcd)
-ggplot(fly_sub, aes(x=Gender,
-                    fill=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Age, ncol=5) +
+ggplot(fly_sub, aes(x=gender,
+                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
   theme_xkcd() + theme(legend.position="bottom")
 ```
 
@@ -745,9 +750,9 @@ See the [vignette](https://cran.r-project.org/web/packages/xkcd/vignettes/xkcd-i
 
 ```{r echo=FALSE}
 library(xkcd)
-ggplot(fly_sub, aes(x=Gender,
-                    fill=`In general, is itrude to bring a baby on a plane?`)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~Age, ncol=5) +
+ggplot(fly_sub, aes(x=gender,
+                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
+  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
   theme_xkcd() + theme(legend.position="bottom")
 ```
 
