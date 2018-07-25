@@ -39,6 +39,7 @@ library(HLMdiag)
 library(RColorBrewer)
 library(gridExtra)
 library(GGally)
+library(gapminder)
 ```
 
 # Outline
@@ -215,7 +216,6 @@ Why would we even do that?
 # First Look
 
 ```{r}
-library(gapminder)
 ggplot(data=gapminder, 
        aes(x=year, y=lifeExp, group=country)) + 
   geom_line()
