@@ -541,7 +541,7 @@ class: inverse middle
 
 Use your cheat sheet to work out how to make plot to explore the relationship between 
 
-`Do you ever recline your seat when you fly?` and `Is it rude to move to an empty seat on the plane?``
+`Do you ever recline your seat when you fly?` and `Is it rude to move to an empty seat on the plane?`
 
 ```{r echo=FALSE, eval=FALSE}
 ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly)) +
@@ -555,20 +555,18 @@ ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly,
 ```
 
 
-
 ---
 # Facets
 
-```{r}
+```{r echo=TRUE}
 ggplot(fly_sub, 
        aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar() + coord_flip() + facet_wrap(~gender)
 ```
 
 ---
-# Facets
 
-```{r}
+```{r echo=TRUE}
 fly_sub$age <- factor(fly_sub$age, levels=c("18-29","30-44","45-60","> 60"))
 ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar() + coord_flip() + facet_grid(age~gender)
@@ -593,6 +591,8 @@ What do we learn?
 p + scale_fill_brewer(palette="Dark2") 
 ```
 
+[Color Brewer web site](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) annotates the palettes indicating attributes of the palettes.
+
 ---
 # Color blind-proofing
 
@@ -604,6 +604,8 @@ p + theme(legend.position = "none")
 clrs <- dichromat(hue_pal()(3))
 p + scale_fill_manual("", values=clrs) + theme(legend.position = "none")
 ```
+
+The packages `colorblind` has color blind friendly palettes but the colours are awful, to my eye.
 
 ---
 
@@ -730,6 +732,15 @@ ggplot(fly_sub, aes(x=age,
                     fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar(position="fill") + coord_flip() + facet_wrap(~gender, ncol=5) + theme(legend.position="bottom")
 ```
+
+---
+# My principles
+
+- Make a plot is the most important message. For most purposes the hierarchy doesn't make matter. 
+- Knowing how to use proximity is an extremely valuable skill, and not well utilised.
+- Use of colour is also a very valuable skill, and there are many bad habits to over-use, too many colours or precariously map to a continuous variable to add another dimension. 
+-
+- Plot the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself.
 
 ---
 # Themes
