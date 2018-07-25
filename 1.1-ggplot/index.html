@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Grammar of Graphics and ggplot2</title>
+    <title>Grammar of graphics</title>
     <meta charset="utf-8">
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <script src="index_files/htmlwidgets-1.2/htmlwidgets.js"></script>
-    <script src="index_files/plotly-binding-4.8.0/plotly.js"></script>
+    <script src="index_files/plotly-binding-4.7.1/plotly.js"></script>
     <script src="index_files/typedarray-0.1/typedarray.min.js"></script>
     <script src="index_files/jquery-1.11.3/jquery.min.js"></script>
     <link href="index_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
     <script src="index_files/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-    <link href="index_files/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
-    <script src="index_files/plotly-main-1.39.2/plotly-latest.min.js"></script>
+    <link href="index_files/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="index_files/plotlyjs-1.29.2/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Grammar of Graphics and ggplot2
+# Grammar of graphics
 ## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
 ### 07/25-27/2018
@@ -251,6 +251,8 @@ Where can you find the strange platypus in Australia?
 
 ![](Platypus-sketch.jpg)
 
+Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
+
 ---
 
 
@@ -263,8 +265,6 @@ ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
 ```
 
 &lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
-
-
 
 ---
 
@@ -319,6 +319,10 @@ Change the dotplot into a density plot, to focus on the locations of frequent si
 
 Do you learn anything different than from the scatterplot?
 
+
+
+
+
 ---
 class: inverse middle 
 # Your turn
@@ -347,7 +351,7 @@ ggplot(data=platydata) +
   geom_point(aes(x=eventDate, y=1))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -367,7 +371,7 @@ ggplot(data=platydata1900) +
   geom_point(aes(x=year, y=n))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -380,7 +384,7 @@ ggplot(data=platydata1900, aes(x=year, y=n)) +
   geom_smooth(se=F)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 Make it interactive so that we can investigate some observations.
@@ -391,8 +395,8 @@ library(plotly)
 ggplotly()
 ```
 
-<div id="htmlwidget-ea876baafae08b7580f2" style="width:720px;height:432px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ea876baafae08b7580f2">{"x":{"data":[{"x":[1901,1903,1904,1905,1906,1907,1908,1909,1910,1911,1912,1913,1915,1917,1918,1919,1920,1921,1922,1923,1924,1925,1927,1928,1929,1930,1931,1932,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],"y":[2,2,1,4,1,4,3,3,5,1,2,3,1,1,1,41,6,24,5,3,1,2,2,1,8,5,6,2,3,6,2,7,10,13,9,7,1,3,7,4,12,14,8,4,19,2,3,2,7,13,4,5,20,32,27,14,26,11,14,34,18,46,23,42,96,49,23,39,51,64,69,57,229,278,1068,80,47,51,71,51,98,99,118,106,200,167,155,122,361,215,227,212,316,112,86,225,311,83,1721,70,138,95,157,201,102,63,67,73,71,81,48,65,23],"text":["year: 1901<br />n:    2","year: 1903<br />n:    2","year: 1904<br />n:    1","year: 1905<br />n:    4","year: 1906<br />n:    1","year: 1907<br />n:    4","year: 1908<br />n:    3","year: 1909<br />n:    3","year: 1910<br />n:    5","year: 1911<br />n:    1","year: 1912<br />n:    2","year: 1913<br />n:    3","year: 1915<br />n:    1","year: 1917<br />n:    1","year: 1918<br />n:    1","year: 1919<br />n:   41","year: 1920<br />n:    6","year: 1921<br />n:   24","year: 1922<br />n:    5","year: 1923<br />n:    3","year: 1924<br />n:    1","year: 1925<br />n:    2","year: 1927<br />n:    2","year: 1928<br />n:    1","year: 1929<br />n:    8","year: 1930<br />n:    5","year: 1931<br />n:    6","year: 1932<br />n:    2","year: 1934<br />n:    3","year: 1935<br />n:    6","year: 1936<br />n:    2","year: 1937<br />n:    7","year: 1938<br />n:   10","year: 1939<br />n:   13","year: 1940<br />n:    9","year: 1941<br />n:    7","year: 1942<br />n:    1","year: 1943<br />n:    3","year: 1944<br />n:    7","year: 1945<br />n:    4","year: 1946<br />n:   12","year: 1947<br />n:   14","year: 1948<br />n:    8","year: 1949<br />n:    4","year: 1950<br />n:   19","year: 1951<br />n:    2","year: 1952<br />n:    3","year: 1953<br />n:    2","year: 1954<br />n:    7","year: 1955<br />n:   13","year: 1956<br />n:    4","year: 1957<br />n:    5","year: 1958<br />n:   20","year: 1959<br />n:   32","year: 1960<br />n:   27","year: 1961<br />n:   14","year: 1962<br />n:   26","year: 1963<br />n:   11","year: 1964<br />n:   14","year: 1965<br />n:   34","year: 1966<br />n:   18","year: 1967<br />n:   46","year: 1968<br />n:   23","year: 1969<br />n:   42","year: 1970<br />n:   96","year: 1971<br />n:   49","year: 1972<br />n:   23","year: 1973<br />n:   39","year: 1974<br />n:   51","year: 1975<br />n:   64","year: 1976<br />n:   69","year: 1977<br />n:   57","year: 1978<br />n:  229","year: 1979<br />n:  278","year: 1980<br />n: 1068","year: 1981<br />n:   80","year: 1982<br />n:   47","year: 1983<br />n:   51","year: 1984<br />n:   71","year: 1985<br />n:   51","year: 1986<br />n:   98","year: 1987<br />n:   99","year: 1988<br />n:  118","year: 1989<br />n:  106","year: 1990<br />n:  200","year: 1991<br />n:  167","year: 1992<br />n:  155","year: 1993<br />n:  122","year: 1994<br />n:  361","year: 1995<br />n:  215","year: 1996<br />n:  227","year: 1997<br />n:  212","year: 1998<br />n:  316","year: 1999<br />n:  112","year: 2000<br />n:   86","year: 2001<br />n:  225","year: 2002<br />n:  311","year: 2003<br />n:   83","year: 2004<br />n: 1721","year: 2005<br />n:   70","year: 2006<br />n:  138","year: 2007<br />n:   95","year: 2008<br />n:  157","year: 2009<br />n:  201","year: 2010<br />n:  102","year: 2011<br />n:   63","year: 2012<br />n:   67","year: 2013<br />n:   73","year: 2014<br />n:   71","year: 2015<br />n:   81","year: 2016<br />n:   48","year: 2017<br />n:   65","year: 2018<br />n:   23"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1901,1902.48101265823,1903.96202531646,1905.44303797468,1906.92405063291,1908.40506329114,1909.88607594937,1911.36708860759,1912.84810126582,1914.32911392405,1915.81012658228,1917.29113924051,1918.77215189873,1920.25316455696,1921.73417721519,1923.21518987342,1924.69620253165,1926.17721518987,1927.6582278481,1929.13924050633,1930.62025316456,1932.10126582278,1933.58227848101,1935.06329113924,1936.54430379747,1938.0253164557,1939.50632911392,1940.98734177215,1942.46835443038,1943.94936708861,1945.43037974684,1946.91139240506,1948.39240506329,1949.87341772152,1951.35443037975,1952.83544303797,1954.3164556962,1955.79746835443,1957.27848101266,1958.75949367089,1960.24050632911,1961.72151898734,1963.20253164557,1964.6835443038,1966.16455696203,1967.64556962025,1969.12658227848,1970.60759493671,1972.08860759494,1973.56962025316,1975.05063291139,1976.53164556962,1978.01265822785,1979.49367088608,1980.9746835443,1982.45569620253,1983.93670886076,1985.41772151899,1986.89873417722,1988.37974683544,1989.86075949367,1991.3417721519,1992.82278481013,1994.30379746835,1995.78481012658,1997.26582278481,1998.74683544304,2000.22784810127,2001.70886075949,2003.18987341772,2004.67088607595,2006.15189873418,2007.63291139241,2009.11392405063,2010.59493670886,2012.07594936709,2013.55696202532,2015.03797468354,2016.51898734177,2018],"y":[11.6023137064614,10.2061672692278,8.90276687017742,7.68851240887139,6.55980378487083,5.51304089773642,4.54462364702932,3.65095193231054,2.82842565314108,2.07344470908195,1.38240899969425,0.751718424538775,0.167918423326744,-0.416354546678935,-0.986618907191642,-1.51904041215806,-1.98978481552485,-2.37501787123866,-2.65090533324627,-2.79361295549429,-2.77930649192941,-2.58415169649831,-2.18431432314765,-1.77230446094492,-1.8403201918404,-2.25013092585095,-2.82813039430997,-3.40071232855084,-3.79427045990696,-3.83519851971172,-3.34989023929863,-2.16473935000096,-0.123166126855271,2.55318269670115,5.70812854125751,9.29686394602355,13.2745814502084,17.5964735930229,22.2177329136764,27.0935519513784,32.1791232453389,37.4296393347674,43.0547800431356,49.4633492585294,56.5328809006125,64.126719798076,72.1082107796117,80.3406986739114,88.6875283096671,97.0120445155707,105.177592120313,113.197504107794,122.510897634004,133.084618649909,144.379680627716,155.857097039632,166.977881357862,177.203047054613,185.993607602093,192.810576472509,197.114967138066,199.533329016322,201.467723935155,202.852096435576,203.608518684954,203.659062850653,202.925801100041,201.330805600485,198.796148519349,195.243902024002,190.610621710622,184.960323903403,178.334446216994,170.758463632101,162.257851129434,152.858083689698,142.584636293603,131.462983921854,119.51860155516,106.776964174227],"text":["year: 1901.000<br />n:  11.6023137","year: 1902.481<br />n:  10.2061673","year: 1903.962<br />n:   8.9027669","year: 1905.443<br />n:   7.6885124","year: 1906.924<br />n:   6.5598038","year: 1908.405<br />n:   5.5130409","year: 1909.886<br />n:   4.5446236","year: 1911.367<br />n:   3.6509519","year: 1912.848<br />n:   2.8284257","year: 1914.329<br />n:   2.0734447","year: 1915.810<br />n:   1.3824090","year: 1917.291<br />n:   0.7517184","year: 1918.772<br />n:   0.1679184","year: 1920.253<br />n:  -0.4163545","year: 1921.734<br />n:  -0.9866189","year: 1923.215<br />n:  -1.5190404","year: 1924.696<br />n:  -1.9897848","year: 1926.177<br />n:  -2.3750179","year: 1927.658<br />n:  -2.6509053","year: 1929.139<br />n:  -2.7936130","year: 1930.620<br />n:  -2.7793065","year: 1932.101<br />n:  -2.5841517","year: 1933.582<br />n:  -2.1843143","year: 1935.063<br />n:  -1.7723045","year: 1936.544<br />n:  -1.8403202","year: 1938.025<br />n:  -2.2501309","year: 1939.506<br />n:  -2.8281304","year: 1940.987<br />n:  -3.4007123","year: 1942.468<br />n:  -3.7942705","year: 1943.949<br />n:  -3.8351985","year: 1945.430<br />n:  -3.3498902","year: 1946.911<br />n:  -2.1647394","year: 1948.392<br />n:  -0.1231661","year: 1949.873<br />n:   2.5531827","year: 1951.354<br />n:   5.7081285","year: 1952.835<br />n:   9.2968639","year: 1954.316<br />n:  13.2745815","year: 1955.797<br />n:  17.5964736","year: 1957.278<br />n:  22.2177329","year: 1958.759<br />n:  27.0935520","year: 1960.241<br />n:  32.1791232","year: 1961.722<br />n:  37.4296393","year: 1963.203<br />n:  43.0547800","year: 1964.684<br />n:  49.4633493","year: 1966.165<br />n:  56.5328809","year: 1967.646<br />n:  64.1267198","year: 1969.127<br />n:  72.1082108","year: 1970.608<br />n:  80.3406987","year: 1972.089<br />n:  88.6875283","year: 1973.570<br />n:  97.0120445","year: 1975.051<br />n: 105.1775921","year: 1976.532<br />n: 113.1975041","year: 1978.013<br />n: 122.5108976","year: 1979.494<br />n: 133.0846186","year: 1980.975<br />n: 144.3796806","year: 1982.456<br />n: 155.8570970","year: 1983.937<br />n: 166.9778814","year: 1985.418<br />n: 177.2030471","year: 1986.899<br />n: 185.9936076","year: 1988.380<br />n: 192.8105765","year: 1989.861<br />n: 197.1149671","year: 1991.342<br />n: 199.5333290","year: 1992.823<br />n: 201.4677239","year: 1994.304<br />n: 202.8520964","year: 1995.785<br />n: 203.6085187","year: 1997.266<br />n: 203.6590629","year: 1998.747<br />n: 202.9258011","year: 2000.228<br />n: 201.3308056","year: 2001.709<br />n: 198.7961485","year: 2003.190<br />n: 195.2439020","year: 2004.671<br />n: 190.6106217","year: 2006.152<br />n: 184.9603239","year: 2007.633<br />n: 178.3344462","year: 2009.114<br />n: 170.7584636","year: 2010.595<br />n: 162.2578511","year: 2012.076<br />n: 152.8580837","year: 2013.557<br />n: 142.5846363","year: 2015.038<br />n: 131.4629839","year: 2016.519<br />n: 119.5186016","year: 2018.000<br />n: 106.7769642"],"type":"scatter","mode":"lines","name":"fitted values","line":{"width":3.77952755905512,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":28.1765601217656,"r":7.30593607305936,"b":42.130898021309,"l":48.9497716894977},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1895.15,2023.85],"tickmode":"array","ticktext":["1900","1925","1950","1975","2000"],"tickvals":[1900,1925,1950,1975,2000],"categoryorder":"array","categoryarray":["1900","1925","1950","1975","2000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"year","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-90.0769584456973,1807.24175992599],"tickmode":"array","ticktext":["0","500","1000","1500"],"tickvals":[0,500,1000,1500],"categoryorder":"array","categoryarray":["0","500","1000","1500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":"n","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"source":"A","attrs":{"12e1e31cee1f9":{"x":{},"y":{},"type":"scatter"},"12e1e555bbfb":{"x":{},"y":{}}},"cur_data":"12e1e31cee1f9","visdat":{"12e1e31cee1f9":["function (y) ","x"],"12e1e555bbfb":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":[]}</script>
+<div id="7084aba90d4" style="width:720px;height:432px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="7084aba90d4">{"x":{"data":[{"x":[1901,1903,1904,1905,1906,1907,1908,1909,1910,1911,1912,1913,1915,1917,1918,1919,1920,1921,1922,1923,1924,1925,1927,1928,1929,1930,1931,1932,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],"y":[2,2,1,4,1,4,3,3,5,1,2,3,1,1,1,41,6,24,5,3,1,2,2,1,8,5,6,2,3,6,2,7,10,13,9,7,1,3,7,4,12,14,8,4,19,2,3,2,7,13,4,5,20,32,27,14,26,11,14,34,18,46,23,42,96,49,23,39,51,64,69,57,229,278,1068,80,47,51,71,51,98,99,118,106,200,167,155,122,361,215,227,212,316,112,86,225,311,83,1721,70,138,95,157,201,102,63,67,73,71,81,48,65,23],"text":["~year: 1901<br />~n:    2","~year: 1903<br />~n:    2","~year: 1904<br />~n:    1","~year: 1905<br />~n:    4","~year: 1906<br />~n:    1","~year: 1907<br />~n:    4","~year: 1908<br />~n:    3","~year: 1909<br />~n:    3","~year: 1910<br />~n:    5","~year: 1911<br />~n:    1","~year: 1912<br />~n:    2","~year: 1913<br />~n:    3","~year: 1915<br />~n:    1","~year: 1917<br />~n:    1","~year: 1918<br />~n:    1","~year: 1919<br />~n:   41","~year: 1920<br />~n:    6","~year: 1921<br />~n:   24","~year: 1922<br />~n:    5","~year: 1923<br />~n:    3","~year: 1924<br />~n:    1","~year: 1925<br />~n:    2","~year: 1927<br />~n:    2","~year: 1928<br />~n:    1","~year: 1929<br />~n:    8","~year: 1930<br />~n:    5","~year: 1931<br />~n:    6","~year: 1932<br />~n:    2","~year: 1934<br />~n:    3","~year: 1935<br />~n:    6","~year: 1936<br />~n:    2","~year: 1937<br />~n:    7","~year: 1938<br />~n:   10","~year: 1939<br />~n:   13","~year: 1940<br />~n:    9","~year: 1941<br />~n:    7","~year: 1942<br />~n:    1","~year: 1943<br />~n:    3","~year: 1944<br />~n:    7","~year: 1945<br />~n:    4","~year: 1946<br />~n:   12","~year: 1947<br />~n:   14","~year: 1948<br />~n:    8","~year: 1949<br />~n:    4","~year: 1950<br />~n:   19","~year: 1951<br />~n:    2","~year: 1952<br />~n:    3","~year: 1953<br />~n:    2","~year: 1954<br />~n:    7","~year: 1955<br />~n:   13","~year: 1956<br />~n:    4","~year: 1957<br />~n:    5","~year: 1958<br />~n:   20","~year: 1959<br />~n:   32","~year: 1960<br />~n:   27","~year: 1961<br />~n:   14","~year: 1962<br />~n:   26","~year: 1963<br />~n:   11","~year: 1964<br />~n:   14","~year: 1965<br />~n:   34","~year: 1966<br />~n:   18","~year: 1967<br />~n:   46","~year: 1968<br />~n:   23","~year: 1969<br />~n:   42","~year: 1970<br />~n:   96","~year: 1971<br />~n:   49","~year: 1972<br />~n:   23","~year: 1973<br />~n:   39","~year: 1974<br />~n:   51","~year: 1975<br />~n:   64","~year: 1976<br />~n:   69","~year: 1977<br />~n:   57","~year: 1978<br />~n:  229","~year: 1979<br />~n:  278","~year: 1980<br />~n: 1068","~year: 1981<br />~n:   80","~year: 1982<br />~n:   47","~year: 1983<br />~n:   51","~year: 1984<br />~n:   71","~year: 1985<br />~n:   51","~year: 1986<br />~n:   98","~year: 1987<br />~n:   99","~year: 1988<br />~n:  118","~year: 1989<br />~n:  106","~year: 1990<br />~n:  200","~year: 1991<br />~n:  167","~year: 1992<br />~n:  155","~year: 1993<br />~n:  122","~year: 1994<br />~n:  361","~year: 1995<br />~n:  215","~year: 1996<br />~n:  227","~year: 1997<br />~n:  212","~year: 1998<br />~n:  316","~year: 1999<br />~n:  112","~year: 2000<br />~n:   86","~year: 2001<br />~n:  225","~year: 2002<br />~n:  311","~year: 2003<br />~n:   83","~year: 2004<br />~n: 1721","~year: 2005<br />~n:   70","~year: 2006<br />~n:  138","~year: 2007<br />~n:   95","~year: 2008<br />~n:  157","~year: 2009<br />~n:  201","~year: 2010<br />~n:  102","~year: 2011<br />~n:   63","~year: 2012<br />~n:   67","~year: 2013<br />~n:   73","~year: 2014<br />~n:   71","~year: 2015<br />~n:   81","~year: 2016<br />~n:   48","~year: 2017<br />~n:   65","~year: 2018<br />~n:   23"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1901,1902.48101265823,1903.96202531646,1905.44303797468,1906.92405063291,1908.40506329114,1909.88607594937,1911.36708860759,1912.84810126582,1914.32911392405,1915.81012658228,1917.29113924051,1918.77215189873,1920.25316455696,1921.73417721519,1923.21518987342,1924.69620253165,1926.17721518987,1927.6582278481,1929.13924050633,1930.62025316456,1932.10126582278,1933.58227848101,1935.06329113924,1936.54430379747,1938.0253164557,1939.50632911392,1940.98734177215,1942.46835443038,1943.94936708861,1945.43037974684,1946.91139240506,1948.39240506329,1949.87341772152,1951.35443037975,1952.83544303797,1954.3164556962,1955.79746835443,1957.27848101266,1958.75949367089,1960.24050632911,1961.72151898734,1963.20253164557,1964.6835443038,1966.16455696203,1967.64556962025,1969.12658227848,1970.60759493671,1972.08860759494,1973.56962025316,1975.05063291139,1976.53164556962,1978.01265822785,1979.49367088608,1980.9746835443,1982.45569620253,1983.93670886076,1985.41772151899,1986.89873417722,1988.37974683544,1989.86075949367,1991.3417721519,1992.82278481013,1994.30379746835,1995.78481012658,1997.26582278481,1998.74683544304,2000.22784810127,2001.70886075949,2003.18987341772,2004.67088607595,2006.15189873418,2007.63291139241,2009.11392405063,2010.59493670886,2012.07594936709,2013.55696202532,2015.03797468354,2016.51898734177,2018],"y":[11.6023137064614,10.2061672692278,8.90276687017742,7.68851240887139,6.55980378487083,5.51304089773642,4.54462364702932,3.65095193231054,2.82842565314108,2.07344470908195,1.38240899969425,0.751718424538775,0.167918423326744,-0.416354546678935,-0.986618907191642,-1.51904041215806,-1.98978481552485,-2.37501787123866,-2.65090533324627,-2.79361295549429,-2.77930649192941,-2.58415169649831,-2.18431432314765,-1.77230446094492,-1.8403201918404,-2.25013092585095,-2.82813039430997,-3.40071232855084,-3.79427045990696,-3.83519851971172,-3.34989023929863,-2.16473935000096,-0.123166126855271,2.55318269670115,5.70812854125751,9.29686394602355,13.2745814502084,17.5964735930229,22.2177329136764,27.0935519513784,32.1791232453389,37.4296393347674,43.0547800431356,49.4633492585294,56.5328809006125,64.126719798076,72.1082107796117,80.3406986739114,88.6875283096671,97.0120445155707,105.177592120313,113.197504107794,122.510897634004,133.084618649909,144.379680627716,155.857097039632,166.977881357862,177.203047054613,185.993607602093,192.810576472509,197.114967138066,199.533329016322,201.467723935155,202.852096435576,203.608518684954,203.659062850653,202.925801100041,201.330805600485,198.796148519349,195.243902024002,190.610621710622,184.960323903403,178.334446216994,170.758463632101,162.257851129434,152.858083689698,142.584636293603,131.462983921854,119.51860155516,106.776964174227],"text":["~year: 1901.000<br />~n:  11.6023137","~year: 1902.481<br />~n:  10.2061673","~year: 1903.962<br />~n:   8.9027669","~year: 1905.443<br />~n:   7.6885124","~year: 1906.924<br />~n:   6.5598038","~year: 1908.405<br />~n:   5.5130409","~year: 1909.886<br />~n:   4.5446236","~year: 1911.367<br />~n:   3.6509519","~year: 1912.848<br />~n:   2.8284257","~year: 1914.329<br />~n:   2.0734447","~year: 1915.810<br />~n:   1.3824090","~year: 1917.291<br />~n:   0.7517184","~year: 1918.772<br />~n:   0.1679184","~year: 1920.253<br />~n:  -0.4163545","~year: 1921.734<br />~n:  -0.9866189","~year: 1923.215<br />~n:  -1.5190404","~year: 1924.696<br />~n:  -1.9897848","~year: 1926.177<br />~n:  -2.3750179","~year: 1927.658<br />~n:  -2.6509053","~year: 1929.139<br />~n:  -2.7936130","~year: 1930.620<br />~n:  -2.7793065","~year: 1932.101<br />~n:  -2.5841517","~year: 1933.582<br />~n:  -2.1843143","~year: 1935.063<br />~n:  -1.7723045","~year: 1936.544<br />~n:  -1.8403202","~year: 1938.025<br />~n:  -2.2501309","~year: 1939.506<br />~n:  -2.8281304","~year: 1940.987<br />~n:  -3.4007123","~year: 1942.468<br />~n:  -3.7942705","~year: 1943.949<br />~n:  -3.8351985","~year: 1945.430<br />~n:  -3.3498902","~year: 1946.911<br />~n:  -2.1647394","~year: 1948.392<br />~n:  -0.1231661","~year: 1949.873<br />~n:   2.5531827","~year: 1951.354<br />~n:   5.7081285","~year: 1952.835<br />~n:   9.2968639","~year: 1954.316<br />~n:  13.2745815","~year: 1955.797<br />~n:  17.5964736","~year: 1957.278<br />~n:  22.2177329","~year: 1958.759<br />~n:  27.0935520","~year: 1960.241<br />~n:  32.1791232","~year: 1961.722<br />~n:  37.4296393","~year: 1963.203<br />~n:  43.0547800","~year: 1964.684<br />~n:  49.4633493","~year: 1966.165<br />~n:  56.5328809","~year: 1967.646<br />~n:  64.1267198","~year: 1969.127<br />~n:  72.1082108","~year: 1970.608<br />~n:  80.3406987","~year: 1972.089<br />~n:  88.6875283","~year: 1973.570<br />~n:  97.0120445","~year: 1975.051<br />~n: 105.1775921","~year: 1976.532<br />~n: 113.1975041","~year: 1978.013<br />~n: 122.5108976","~year: 1979.494<br />~n: 133.0846186","~year: 1980.975<br />~n: 144.3796806","~year: 1982.456<br />~n: 155.8570970","~year: 1983.937<br />~n: 166.9778814","~year: 1985.418<br />~n: 177.2030471","~year: 1986.899<br />~n: 185.9936076","~year: 1988.380<br />~n: 192.8105765","~year: 1989.861<br />~n: 197.1149671","~year: 1991.342<br />~n: 199.5333290","~year: 1992.823<br />~n: 201.4677239","~year: 1994.304<br />~n: 202.8520964","~year: 1995.785<br />~n: 203.6085187","~year: 1997.266<br />~n: 203.6590629","~year: 1998.747<br />~n: 202.9258011","~year: 2000.228<br />~n: 201.3308056","~year: 2001.709<br />~n: 198.7961485","~year: 2003.190<br />~n: 195.2439020","~year: 2004.671<br />~n: 190.6106217","~year: 2006.152<br />~n: 184.9603239","~year: 2007.633<br />~n: 178.3344462","~year: 2009.114<br />~n: 170.7584636","~year: 2010.595<br />~n: 162.2578511","~year: 2012.076<br />~n: 152.8580837","~year: 2013.557<br />~n: 142.5846363","~year: 2015.038<br />~n: 131.4629839","~year: 2016.519<br />~n: 119.5186016","~year: 2018.000<br />~n: 106.7769642"],"type":"scatter","mode":"lines","name":"fitted values","line":{"width":3.77952755905512,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":28.1765601217656,"r":7.30593607305936,"b":42.130898021309,"l":48.9497716894977},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[1895.15,2023.85],"tickmode":"array","ticktext":["1900","1925","1950","1975","2000"],"tickvals":[1900,1925,1950,1975,2000],"categoryorder":"array","categoryarray":["1900","1925","1950","1975","2000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":"year","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[-90.0769584456973,1807.24175992599],"tickmode":"array","ticktext":["0","500","1000","1500"],"tickvals":[0,500,1000,1500],"categoryorder":"array","categoryarray":["0","500","1000","1500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":"n","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"source":"A","attrs":{"7084621fa40d":{"x":{},"y":{},"type":"scatter"},"7084b4b83cf":{"x":{},"y":{}}},"cur_data":"7084621fa40d","visdat":{"7084621fa40d":["function (y) ","x"],"7084b4b83cf":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":{"render":[{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null}]}}</script>
 
 ---
 class: inverse middle 
@@ -400,13 +404,16 @@ class: inverse middle
 
 *Discussion question:* Was there a population explosion in 1980 and 2004? Is the population of platypus increasing since 1900, and decreasing in the last decade?
 
+
 ---
 class: inverse middle 
 # Your turn
 
-- Subset the data to 1960-2010
+- Subset the data to 1950-2010
 - Create a new variable for decade
 - Make a map separately for each decade - the `facet_wrap` function can help here.
+
+
 
 ---
 # Example 3: Flying etiquette
@@ -463,7 +470,7 @@ ggplot(fly, aes(x=how_often_do_you_travel_by_plane)) +
   geom_bar() + coord_flip()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 Categories are not sorted
 
@@ -490,7 +497,7 @@ p2 &lt;- ggplot(fly, aes(x=how_often_do_you_travel_by_plane,
 grid.arrange(p1, p2, ncol=2)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Filter data
@@ -515,7 +522,7 @@ fly_sub$do_you_ever_recline_your_seat_when_you_fly &lt;- factor(
 ggplot(fly_sub, aes(y=how_tall_are_you, x=do_you_ever_recline_your_seat_when_you_fly)) + geom_boxplot() + coord_flip()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -592,7 +599,7 @@ ggplot(fly_sub,
   geom_bar() + coord_flip() + facet_wrap(~gender)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -603,7 +610,7 @@ ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) +
   geom_bar() + coord_flip() + facet_grid(age~gender)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Color palettes - default
@@ -616,7 +623,7 @@ p &lt;- ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
 p
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
 
 What do we learn?
 
@@ -628,7 +635,7 @@ What do we learn?
 p + scale_fill_brewer(palette="Dark2") 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
 
 [Color Brewer web site](http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3) annotates the palettes indicating attributes of the palettes.
 
@@ -649,7 +656,7 @@ The packages `colorblind` has color blind friendly palettes but the colours are 
 
 ---
 
-![](index_files/figure-html/unnamed-chunk-40-1.png)![](index_files/figure-html/unnamed-chunk-40-2.png)
+![](index_files/figure-html/unnamed-chunk-43-1.png)![](index_files/figure-html/unnamed-chunk-43-2.png)
 
 ---
 # Perceptual principles
@@ -675,13 +682,13 @@ The packages `colorblind` has color blind friendly palettes but the colours are 
 
 Can you find the odd one out?
 
-&lt;img src="index_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 Is it easier now?
 
-&lt;img src="index_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -693,7 +700,7 @@ Is it easier now?
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -706,7 +713,7 @@ With this arrangement we can see proportion of gender within each rudeness categ
 ---
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -722,7 +729,7 @@ ggplot(fly_sub, aes(x=gender,
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
 
 What is different about the comparison now?
 
@@ -739,7 +746,7 @@ ggplot(fly_sub, aes(x=age,
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-52-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # My principles
@@ -768,7 +775,7 @@ See the [vignette](https://cran.r-project.org/web/packages/xkcd/vignettes/xkcd-i
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-54-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Resources
