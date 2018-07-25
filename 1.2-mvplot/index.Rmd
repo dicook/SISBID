@@ -72,7 +72,7 @@ ggscatmat(flea, columns = 2:4, color = "species")
 ```
 
 ---
-# Example: 
+# Example: food borne diseases
 
 National Notifiable Diseases Surveillance System (NNDSS)
 
@@ -93,7 +93,7 @@ sm_wkly_count <- salmonella %>%
 
 ---
 
-```{r}
+```{r fig.width=8, fig.height=8}
 ggscatmat(sm_wkly_count[,-1])
 ```
 
@@ -103,9 +103,9 @@ Salmonella incidence is similar from one year to another. There is one week in 2
 class: inverse middle 
 # Your turn
 
-Make a scatterplot matrix of the the states against each other.
+Make a scatterplot matrix of the the states against each other. This is a bit tricky. You need to rearrange the data to get State in the columns, instead of year. 
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=FALSE}
 sm_state_count <- salmonella %>% 
   mutate(week = week(date), year = year(date)) %>%
   count(State, week) %>%
@@ -122,7 +122,6 @@ There is no reason that you can't show any type of variable, or use plots other 
 - if one variable in the pair is categorical and the other is continuous, then side-by-side boxplots would be a good option for display
 - if both variables are categorical, a mosaic plot would be a possible choice
 
----
 
 ```{r fig.width=6}
 housing <- read_csv("../data/housing.csv") %>%
@@ -133,16 +132,23 @@ housing <- read_csv("../data/housing.csv") %>%
   filter(bedroom2 < 7, bathroom < 5) %>%
   mutate(bedroom2 = factor(bedroom2), 
          bathroom = factor(bathroom)) 
+```
+
+---
+
+```{r fig.width=7, fig.height=6.5}
 ggpairs(housing[, c(4,3,8,10,11)], aes(colour=type, fill=type), 
         lower=list(continuous = wrap("points", alpha=0.1)),
         diag=list(continuous = wrap("densityDiag", alpha=0.5)))
 ```
 
-There's a lot going on here! 
+There's a lot going on here! And there is a lot that can be written to summarise the pairwise relationships.
 
 ---
 
-```{r}
+An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables, is to plot price against all other  variables.
+
+```{r fig.width=8, fig.height=5}
 ggduo(housing[, c(4,3,8,10,11)], columnsX = 2:5, columnsY = 1, 
       aes(colour=type, fill=type), 
       types = list(continuous = wrap("smooth", alpha = 0.10)))
@@ -167,7 +173,7 @@ Normalized data for the first 6 samples are shown.
 
 ---
 
-```{r echo=FALSE, fig.width=6, fig.height=6}
+```{r echo=FALSE, fig.width=7, fig.height=7}
 coty <- read_delim("../data/GSE61857_Cotyledon_normalized.txt.gz",
   delim="\t", col_types="cddddddddd", 
   col_names=c("ID", "C_S1_R1", "C_S1_R2", "C_S1_R3", 
@@ -197,7 +203,7 @@ class: inverse middle
 
 ![](lorikeets.png)
 
-```{r eval=FALSE, echo =FALSE}
+```{r eval=FALSE, echo=FALSE}
 leaf <- read_delim("../data/GSE61857_Leaf_normalized.txt.gz",
   delim="\t", col_types="cddddddddd", 
   col_names=c("ID", "L_S1_R1", "L_S1_R2", "L_S1_R3", 
@@ -214,25 +220,29 @@ GGally::ggscatmat(head(leaf,1000), columns=2:7, alpha=0.1) # use just the first 
 ---
 # Litre plots
 
-Compare treatment vs reps. Focus on reps 1, 2 from stages 1 and 2. 
+These are a variation on scatterplots, designed to compare treatment vs reps (signal vs noise), and are called repLIcate TREatment (“litre") plots (Rutter, et al, 2018: https://github.com/lrutter/JDSPaper)
+
+To illustrate the approach, we subset the cotyledon data to focus on reps 1, 2 from stages 1 and 2. The basic litre plot is shown below. Stage 1 is plotted on the horizontal axis and stage 2 is on the vertical. There are two points for each treatment, corresponding to the two replicate counts, and these are connected by a line segment.
+
+Short lines, far from the X=Y line indicate promising differential expression. These could also be augmented by colouring according to significance of the genes computed by differential expression testing.
 
 ```{r eval=FALSE}
 sub <- coty %>% select(ID, C_S1_R1, C_S1_R2, C_S2_R1, C_S2_R2)
 ggplot(sub, aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2)) +
-  geom_segment() + 
+  geom_segment(aspect.ratio=0.3) + 
   theme(aspect.ratio = 1)
 ```
 
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width=6, fig.height=6}
 sub <- coty %>% select(ID, C_S1_R1, C_S1_R2, C_S2_R1, C_S2_R2)
 ggplot(sub, aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2)) +
   geom_segment() + xlim(c(0, 17.5)) + ylim(c(0, 17.5)) +
   theme(aspect.ratio = 1)
 ```
 
-The best prospects should be shortest lines further from the `X=Y`. 
+The significantly differentially expressed genes should be the shortest lines further from the `X=Y`. 
 
 ---
 class: inverse middle 
@@ -242,7 +252,7 @@ Make a litre plot for the first two reps of the first two developmental stages o
 
 ![](lorikeets.png)
 
-```{r echo=FALSE, eval = FALSE}
+```{r echo = FALSE, eval = FALSE}
 sub <- leaf %>% select(ID, L_S1_R1, L_S1_R2, L_S2_R1, L_S2_R2)
 ggplot(sub, aes(x=L_S1_R1, xend=L_S1_R2, y=L_S2_R1, yend=L_S2_R2)) +
   geom_segment(arrow = arrow(length = unit(0.1,"cm"))) + xlim(c(0, 17.5)) + ylim(c(0, 17.5)) +
@@ -280,6 +290,21 @@ ggparcoord(coty[sample(1:nrow(coty), 1000),],
            columns=2:10, scale="globalminmax", 
            alphaLines=0.1)
 ```
+
+---
+# Why?
+
+.pull-left[This is an example from Rutter et al (2018). Two data sets, the one on the left doesn't look especially different from the one on the right, when only side-by-side boxplots, or MDS plots are used. When it is re-drawn as a parallel coordinate plot, the two distinct groups are clear.]
+.pull-right[
+![](simulatedData.jpg)
+]
+
+---
+# Example usage
+
+A good example use is when you have clustered the genes. This is a way to examine how well the clustering divides the data. This example is also from Rutter et al (2018).
+
+![](sbIRClustersSig.jpg)
 
 ---
 # Scaling choices
@@ -443,7 +468,7 @@ sig.tab <- sig.tab %>% filter(PValue < 0.01)
 ---
 
 
-```{r fig.height=6, fig.width=6}
+```{r fig.height=7, fig.width=7}
 sig.tab <- merge(sig.tab, coty[,1:7], by.x="genes", by.y="ID")
 ggscatmat(sig.tab, columns=5:10, alpha=0.1)
 ```
@@ -480,7 +505,7 @@ ggparcoord(sig.tab, columns=5:10, scale="globalminmax",
 class: inverse middle 
 # Your turn
 
-Make the porcupine plot for the two stages, just for rep 1 and rep 2, only the genes that have P-value less than 0.01
+Make the litre plot for the two stages, just for rep 1 and rep 2, only the genes that have P-value less than 0.01
 
 ![](lorikeets.png)
 
@@ -506,9 +531,9 @@ ggpairs(bb, columns=c(3,7,4,8))
 ```
 
 ---
-# A porcupine plot again
+# A litre plot again
 
-```{r fig.width=6, fig.height=6}
+```{r fig.width=5.5, fig.height=5.5}
 sub <- bb %>% select(Gene, biotin.WT.01.1, biotin.WT.02.1, biotin.bio101.4, biotin.bio102.4)
 ggplot(sub, aes(x=biotin.WT.01.1, xend=biotin.WT.02.1, y=biotin.bio101.4, yend=biotin.bio102.4)) +
   geom_segment() +
