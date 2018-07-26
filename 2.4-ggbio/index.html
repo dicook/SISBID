@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Biological data plots
-## SISBID 2017 <br> <a href="https://github.com/SISBID/Module2" class="uri">https://github.com/SISBID/Module2</a>
+## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/12-14/2017
+### 07/25-27/2018
 
 ---
 
@@ -69,9 +69,9 @@ Needed for most other functions
 ```r
 ig &lt;- dfToIG(sbGeneal)
 ig
-IGRAPH 74fac1c UNW- 230 340 -- 
+IGRAPH 88b81fd UNW- 230 340 -- 
 + attr: name (v/c), weight (e/n)
-+ edges from 74fac1c (vertex names):
++ edges from 88b81fd (vertex names):
  [1] 5601T    --Hutcheson        Adams    --Dunfield        
  [3] A.K.     --A.K. (Harrow)    Altona   --Flambeau        
  [5] Amcor    --Amsoy 71         Adams    --Amsoy           
@@ -284,241 +284,13 @@ plotPathOnAll(pathTN, sbGeneal, sbIG, "devYear",
    animate = TRUE)
 ```
 
----
-# What is ggbio?
-
-This is a package originally developed by Tengfei Yin and Michael Lawrence building on ggplot2, making it easier to produce some standard genomic plots. 
-
-- manhattan plot
-- ideogram
-- tracks
-- circular layout
-
----
-# Manhattan plot
-
-- A Manhattan plot is special scatter plot used to visualize data with a large number of data points, often with some high-magnitude values, along a genomic reference like chromosome number
-- `plotGrandLinear` function
-
----
 
 
-```r
-snp &lt;- read.table(system.file("extdata", "plink.assoc.sub.txt", 
-    package = "biovizBase"), header = TRUE)
-gr.snp &lt;- transformDfToGr(snp, seqnames = "CHR", start = "BP", 
-    width = 1) 
-head(gr.snp)
-GRanges object with 6 ranges and 10 metadata columns:
-      seqnames            ranges strand |       CHR        SNP        BP
-         &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;   &lt;factor&gt; &lt;integer&gt;
-  [1]        4 10794096-10794099      * |         4  rs9291494  10794096
-  [2]       14 55853742-55853755      * |        14  rs1152481  55853742
-  [3]        6 55188853-55188858      * |         6  rs3134708  55188853
-  [4]       17   4146033-4146049      * |        17  rs2325988   4146033
-  [5]       19 46089501-46089519      * |        19  rs8103444  46089501
-  [6]        1         107051695      * |         1 rs12072065 107051695
-            A1       F_A       F_U       A2     CHISQ         P        OR
-      &lt;factor&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;factor&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;
-  [1]        G    0.3061    0.1341        A     7.507  0.006147     2.848
-  [2]        G    0.3542    0.2805        A     1.103    0.2936     1.407
-  [3]        C      0.25    0.2875        A    0.3135    0.5755    0.8261
-  [4]        G    0.2551    0.2317        A    0.1323    0.7161     1.136
-  [5]        C     0.398    0.2927        A     2.175    0.1403     1.597
-  [6]        0         0         0        C      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;
-  -------
-  seqinfo: 22 sequences from an unspecified genome; no seqlengths
-```
-
----
-
-
-```r
-gr.snp &lt;- keepSeqlevels(gr.snp, as.character(1:22))
-data(ideoCyto, package = "biovizBase")
-seqlengths(gr.snp) &lt;- as.numeric(seqlengths(ideoCyto$hg18)[1:22])
-gr.snp &lt;- gr.snp[!is.na(gr.snp$P)]
-values(gr.snp)$pvalue &lt;- -log10(values(gr.snp)$P)
-gro &lt;- GRanges(c("1", "11"), IRanges(c(100, 2e6), width = 5e7))
-names(gro) &lt;- c("group1", "group2")
-#plotGrandLinear(gr.snp, aes(y = pvalue))
-df &lt;- data.frame(gr.snp@elementMetadata@listData)
-ggplot(df, aes(x=CHR, y=pvalue, colour=CHR)) +
-  geom_jitter(width=0.2, height=0) + 
-  scale_color_viridis() +
-  xlab("") + ylab("Neg log p-value") +
-  theme(legend.position="none")
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse middle 
-# Your turn
-
-Change the Manhattan plot to have
-- Each chromosome is labelled on the x axis
-- A line corresponding to 3 is drawn
-- SNP's with higher p-values are labelled
-
----
-# Ideogram
-
-This is a plot of a single chromosome with cytoband.
-
-
-```r
-p.ideo &lt;- Ideogram(genome = "hg19")
-p.ideo
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-
-```r
-Ideogram(genome = "hg19", xlabel = TRUE)
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Tracks
-
-Lining up multiple plots along the chromosome is an important part of plotting genomic data
-
-
-```r
-# biocLite("Homo.sapiens")
-library(Homo.sapiens)
-class(Homo.sapiens)
-[1] "OrganismDb"
-attr(,"package")
-[1] "OrganismDbi"
-data(genesymbol, package = "biovizBase")
-wh &lt;- genesymbol[c("BRCA1", "NBR1")]
-#wh &lt;- range(wh, ignore.strand = TRUE)
-```
-
----
-# Gene model
-
-
-```r
-p.txdb &lt;- autoplot(Homo.sapiens, which = wh)
-p.txdb
-```
-
-![](figures/tracks1.png)
-
----
-# Base locations
-
-
-```r
-library(BSgenome.Hsapiens.UCSC.hg19)
-bg &lt;- BSgenome.Hsapiens.UCSC.hg19
-p.bg &lt;- autoplot(bg, which = wh)
-
-# no geom
-#p.bg
-
-# segment
-#p.bg + zoom(1/100)
-# rectangle
-#p.bg + zoom(1/1000)
-# text
-p.bg + zoom(1/2500)
-```
-![](figures/base.png)
-
----
-# Base locations
-
-
-```r
-bg &lt;- BSgenome.Hsapiens.UCSC.hg19
-# force to use geom segment at this level
-autoplot(bg, which = resize(wh, width = width(wh)/2000), geom = "segment")
-```
-
-![](figures/base2.png)
-
----
-# Plot coverage
-
-
-```r
-fl.bam &lt;- system.file("extdata", "wg-brca1.sorted.bam", package = "biovizBase")
-wh &lt;- keepSeqlevels(wh, "chr17")
-autoplot(fl.bam, which = wh)
-```
-
-![](figures/coverage.png)
-
----
-# Plot mismatches
-
-
-```r
-bg &lt;- BSgenome.Hsapiens.UCSC.hg19
-p.mis &lt;- autoplot(fl.bam, bsgenome = bg, which = wh, stat = "mismatch")
-p.mis
-```
-
-![](figures/mismatch.png)
-
----
-# Putting it together with tracks
-
-
-```r
-p.ideo &lt;- Ideogram(genome = "hg19")
-gr17 &lt;- GRanges("chr17", IRanges(41234415, 41234569))
-tks &lt;- tracks(p.ideo, mismatch = p.mis, ref = p.bg, gene = p.txdb,
-  heights = c(2, 3, 1, 4)) + xlim(gr17) + theme_tracks_sunset()
-tks
-```
-
----
-
-
-
-![](figures/tracks2.png)
-
----
-# Circular layout
-
-
-```r
-data("CRC", package = "biovizBase")
-gr.crc1 &lt;- crc.gr[values(crc.gr)$individual == "CRC-1"]
-p &lt;- ggbio() +
-    circle(gr.crc1, geom = "link", linked.to = "to.gr", 
-      aes(color = rearrangements)) +
-    circle(gr.crc1, geom = "point", aes(y = score, size = tumreads),
-      color = "red", grid = TRUE) + scale_size(range = c(1, 2.5)) +
-    circle(mut.gr, geom = "rect", color = "steelblue") +
-    circle(hg19sub, geom = "ideo", fill = "gray70") + 
-    circle(hg19sub, geom = "scale", size = 2) +
-    circle(hg19sub, geom = "text", aes(label = seqnames), 
-      vjust = -2, size = 3)
-p
-```
-
----
-
-
-
-![](figures/circular.png)
 
 ---
 # Resources
 
 - ggenealogy [github repo](https://github.com/lrutter/ggenealogy)
-- Yin T, Cook D and Lawrence M (2012). “ggbio: an R package for extending the grammar of graphics for genomic data.” Genome Biology, 13(8), pp. R77.
-- bioconductor page for [ggbio](https://bioconductor.org/packages/release/bioc/html/ggbio.html)
 
 ---
 # Share and share alike
