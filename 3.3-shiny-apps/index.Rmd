@@ -196,7 +196,6 @@ middle of Chr 1, chunks of Chr 3, one spot on Chr 8, end of Chr 16, ...
 - Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
 - Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
 - Finding a statistical answer to a matching problem: http://erichare.shinyapps.io/x3prplus 
-
 - Author: Eric Hare
 
 ---
@@ -240,6 +239,24 @@ Pick one of the three shiny apps and explore it for yourself:
 - logo plot: http://erichare.shinyapps.io/gglogo
 - bullet matching: http://erichare.shinyapps.io/x3prplus 
 
+---
+class: inverse middle 
+# Your turn
+
+Install and load the `eechidna` package using:
+
+```{r eval=FALSE}
+devtools::install_github("ropenscilabs/eechidna")
+library(eechidna)
+```
+
+Take a look at the instructions for running this app included in the package with:
+
+```{r eval=FALSE}
+?launchApp
+```
+
+You could run the first block of example code. A key part of this app is linking between plots. This is all done with the `plotly` package building on `htmlwidgets` tools.
 
 ---
 # Resources

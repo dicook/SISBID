@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Shiny app examples
-## SISBID 2017 <br> <a href="https://github.com/SISBID/Module2" class="uri">https://github.com/SISBID/Module2</a>
+## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/12-14/2017
+### 07/25-27/2018
 
 ---
 
@@ -169,7 +169,6 @@ Find some locations on the genome that Lawrence might have inherited from Illini
 - Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
 - Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
 - Finding a statistical answer to a matching problem: http://erichare.shinyapps.io/x3prplus 
-
 - Author: Eric Hare
 
 ---
@@ -213,14 +212,33 @@ Pick one of the three shiny apps and explore it for yourself:
 - logo plot: http://erichare.shinyapps.io/gglogo
 - bullet matching: http://erichare.shinyapps.io/x3prplus 
 
+---
+class: inverse middle 
+# Your turn
+
+Install and load the `eechidna` package using:
+
+
+```r
+devtools::install_github("ropenscilabs/eechidna")
+library(eechidna)
+```
+
+Take a look at the instructions for running this app included in the package with:
+
+
+```r
+?launchApp
+```
+
+You could run the first block of example code. A key part of this app is linking between plots. This is all done with the `plotly` package building on `htmlwidgets` tools.
 
 ---
 # Resources
 
 - RStudio's shiny [tutorial](https://shiny.rstudio.com/tutorial/)
 - plotly's shiny [tutorial](https://plot.ly/r/shiny-tutorial/)
-- Zev Ross's [blog](http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/)
-- Joe Chang's useR! 2016 [tutorial](http://user2016.org/tutorials/02.html)
+- [DataCamp courses](https://www.datacamp.com/courses/q:shiny) 
 
 ---
 # Share and share alike
