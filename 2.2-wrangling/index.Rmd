@@ -117,7 +117,7 @@ french_fries %>%
 to answer these french fry experiment questions:
 
 - Is the design complete?
-- Are replicates like each other?
+- Are replicates like each other? 
 - How do the ratings on the different scales differ?
 - Are raters giving different scores on average?
 - Do ratings change over the weeks?
@@ -129,28 +129,45 @@ If the data is complete it should be 12 x 10 x 3 x 2, that is, 6 records for eac
 To check this we want to tabulate the number of records for each subject, time and treatment. This means select appropriate columns, tabulate, count and spread it out to give a nice table.
 
 ---
-# 
+class: inverse middle 
+# Your turn
+
+How many values do we have for each subject? Check the help for function `?n`
+
+![](lorikeets.png)
+
+---
+# French Fries - completeness
+
+`n()`
 
 ```{r}
 french_fries %>% 
-#  select(subject, time, treatment) %>% 
+  group_by(subject) %>% 
+  summarize(n = n()) 
+```
+
+---
+# Other nice short cuts 
+
+instead of `group_by(subject) %>% summarize(n = n())` we can use:
+
+- `group_by(subject) %>% tally()`
+- `count(subject)`
+
+---
+# Counts for subject by time
+
+```{r}
+french_fries %>% 
+  na.omit() %>%
   count(subject, time) %>%
   spread(time, n)
 ```
 
----
-# Check completeness with different scales, too
-
-```{r}
-french_fries %>% 
-  gather(type, rating, -subject, -time, -treatment, -rep) %>%
-  select(subject, time, treatment, type) %>% 
-  count(subject, time) %>%
-  spread(time, n)
-```
 
 ---
-# Change in ratings over weeks, relative to experimental design
+# How do scores change over time?
 
 ```{r fig.show='hide'}
 ff.m <- french_fries %>% 
@@ -479,3 +496,4 @@ ggplot(data=tet, aes(x=logCPM, y=estimate, colour=significant)) +
 # Share and share alike
 
 This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+ 

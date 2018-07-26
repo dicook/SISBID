@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Data manipulation with dplyr, purrr and broom
-## SISBID 2017 <br> <a href="https://github.com/SISBID/Module2" class="uri">https://github.com/SISBID/Module2</a>
+## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/12-14/2017
+### 07/25-27/2018
 
 ---
 
@@ -142,7 +142,7 @@ french_fries %&gt;%
 to answer these french fry experiment questions:
 
 - Is the design complete?
-- Are replicates like each other?
+- Are replicates like each other? 
 - How do the ratings on the different scales differ?
 - Are raters giving different scores on average?
 - Do ratings change over the weeks?
@@ -154,12 +154,54 @@ If the data is complete it should be 12 x 10 x 3 x 2, that is, 6 records for eac
 To check this we want to tabulate the number of records for each subject, time and treatment. This means select appropriate columns, tabulate, count and spread it out to give a nice table.
 
 ---
-# 
+class: inverse middle 
+# Your turn
+
+How many values do we have for each subject? Check the help for function `?n`
+
+![](lorikeets.png)
+
+---
+# French Fries - completeness
+
+`n()`
 
 
 ```r
 french_fries %&gt;% 
-#  select(subject, time, treatment) %&gt;% 
+  group_by(subject) %&gt;% 
+  summarize(n = n()) 
+# A tibble: 12 x 2
+   subject     n
+   &lt;fct&gt;   &lt;int&gt;
+ 1 3          54
+ 2 10         60
+ 3 15         60
+ 4 16         60
+ 5 19         60
+ 6 31         54
+ 7 51         60
+ 8 52         60
+ 9 63         60
+10 78         60
+11 79         54
+12 86         54
+```
+
+---
+# Other nice short cuts 
+
+instead of `group_by(subject) %&gt;% summarize(n = n())` we can use:
+
+- `group_by(subject) %&gt;% tally()`
+- `count(subject)`
+
+---
+# Counts for subject by time
+
+
+```r
+french_fries %&gt;% 
   count(subject, time) %&gt;%
   spread(time, n)
 # A tibble: 12 x 11
@@ -179,32 +221,6 @@ french_fries %&gt;%
 12 86          6     6     6     6     6     6     6     6    NA     6
 ```
 
----
-# Check completeness with different scales, too
-
-
-```r
-french_fries %&gt;% 
-  gather(type, rating, -subject, -time, -treatment, -rep) %&gt;%
-  select(subject, time, treatment, type) %&gt;% 
-  count(subject, time) %&gt;%
-  spread(time, n)
-# A tibble: 12 x 11
-   subject   `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`   `9`  `10`
-   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
- 1 3          30    30    30    30    30    30    30    30    30    NA
- 2 10         30    30    30    30    30    30    30    30    30    30
- 3 15         30    30    30    30    30    30    30    30    30    30
- 4 16         30    30    30    30    30    30    30    30    30    30
- 5 19         30    30    30    30    30    30    30    30    30    30
- 6 31         30    30    30    30    30    30    30    30    NA    30
- 7 51         30    30    30    30    30    30    30    30    30    30
- 8 52         30    30    30    30    30    30    30    30    30    30
- 9 63         30    30    30    30    30    30    30    30    30    30
-10 78         30    30    30    30    30    30    30    30    30    30
-11 79         30    30    30    30    30    30    30    30    30    NA
-12 86         30    30    30    30    30    30    30    30    NA    30
-```
 
 ---
 # Change in ratings over weeks, relative to experimental design
@@ -268,7 +284,6 @@ Why would we even do that?
 
 
 ```r
-library(gapminder)
 ggplot(data=gapminder, 
        aes(x=year, y=lifeExp, group=country)) + 
   geom_line()
@@ -414,9 +429,11 @@ using `broom::tidy` we extract coefficients for each model
 
 ```r
 broom::tidy(by_country$model[[1]])
-         term   estimate  std.error statistic      p.value
-1 (Intercept) 29.3566375 0.69898128  41.99918 1.404235e-12
-2        year  0.2753287 0.02045093  13.46289 9.835213e-08
+# A tibble: 2 x 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)   29.4      0.699       42.0 1.40e-12
+2 year           0.275    0.0205      13.5 9.84e- 8
 ```
 
 ---
@@ -429,18 +446,18 @@ Extract all countries automatically (hello `map` again!)
 by_country$coefs &lt;- by_country$model %&gt;% purrr::map(broom::tidy)
 by_country
 # A tibble: 142 x 5
-   continent country     data              model    coefs               
-   &lt;fct&gt;     &lt;fct&gt;       &lt;list&gt;            &lt;list&gt;   &lt;list&gt;              
- 1 Asia      Afghanistan &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 2 Europe    Albania     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 3 Africa    Algeria     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 4 Africa    Angola      &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 5 Americas  Argentina   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 6 Oceania   Australia   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 7 Europe    Austria     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 8 Asia      Bahrain     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
- 9 Asia      Bangladesh  &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
-10 Europe    Belgium     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+   continent country     data              model    coefs           
+   &lt;fct&gt;     &lt;fct&gt;       &lt;list&gt;            &lt;list&gt;   &lt;list&gt;          
+ 1 Asia      Afghanistan &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 2 Europe    Albania     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 3 Africa    Algeria     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 4 Africa    Angola      &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 5 Americas  Argentina   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 6 Oceania   Australia   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 7 Europe    Austria     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 8 Asia      Bahrain     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+ 9 Asia      Bangladesh  &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
+10 Europe    Belgium     &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [2 × 5]&gt;
 # ... with 132 more rows
 ```
 
