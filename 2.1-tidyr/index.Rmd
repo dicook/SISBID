@@ -388,7 +388,7 @@ geom_boxplot()
 ---
 # Ratings by week
 
-How do ratigs change over the weeks?
+How do ratings change over the weeks?
 Again, we use the long form of the data and plot:
 
 ```{r fig.width=8, fig.height=5}
@@ -428,11 +428,13 @@ head(gtidy)
 # Plot from before
 
 ```{r, fig.width=5, fig.height = 5}
+gmean <- gtidy %>% 
+  group_by(id, trt, time) %>% 
+  summarise(expr = mean(expr))
 gtidy %>% 
-  filter(time==6 ) %>%
-  ggplot(aes(x = trt, y = expr, colour=id)) +
+  ggplot(aes(x = trt, y = expr, colour=time)) +
   geom_point() +
-  geom_line(aes(group = interaction(id, rep))) +
+  geom_line(data = gmean, aes(group = time)) +
   facet_wrap(~id)
 ```
 
@@ -449,6 +451,8 @@ rating, potato:painty)
 ff_lm <- lm(rating~type+treatment+time+subject, 
 data=ff_long)
 ```
+
+---
 
 `summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
 
