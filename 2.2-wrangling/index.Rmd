@@ -186,13 +186,16 @@ ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) +
   facet_grid(subject~type) 
 ```
 
+very messy!
+
 ---
-# Add means over reps, and connect the dots
+# Get means over reps, and connect the dots
 
 ```{r fig.show='hide'}
 ff.m.av <- ff.m %>% 
   group_by(subject, time, type, treatment) %>%
   summarise(rating=mean(rating))
+
 ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) + 
   facet_grid(subject~type) +
   geom_line(data=ff.m.av, aes(group=treatment))
@@ -205,20 +208,6 @@ ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) +
   facet_grid(subject~type) +
   geom_line(data=ff.m.av, aes(group=treatment))
 ```
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-Write an answer to each of the questions:
-
-- Is the design complete?
-- Are replicates like each other?
-- How do the ratings on the different scales differ?
-- Are raters giving different scores on average?
-- Do ratings change over the weeks?
 
 ---
 # Working with lots of models
@@ -258,7 +247,7 @@ How about now?
 - Idea: fit a line to each one of the countries life expectancies
 - then use e.g. intercept and slope to characterise groups of countries
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width=6.5, fig.height=5}
 library(dplyr)
 library(tidyr)
 library(purrr)
@@ -275,11 +264,12 @@ by_country <- by_country %>% mutate(
 by_country <- by_country %>% unnest(model %>% purrr::map(broom::tidy))
 country_coefs <- by_country %>% select(continent, country, term, estimate) %>% spread(term, estimate)
 
-ggplot(data=country_coefs, aes(x=`(Intercept)`, y=year, colour=continent)) +
+p <- ggplot(data=country_coefs, aes(x=`(Intercept)`, y=year, colour=continent, label=country)) +
   geom_point() + 
   scale_colour_brewer(palette="Dark2") + 
   xlab("Average Life Expectancy in 1950") +
   ylab("Average Gain in Life Expectancy per Year")
+plotly::ggplotly(p)
 ```
 
 
