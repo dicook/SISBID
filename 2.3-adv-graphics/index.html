@@ -49,233 +49,7 @@ class: center, middle, inverse, title-slide
 - We study the behaviour of the statistic over all possible samples of size `\(n\)`. 
 - The grammar of graphics is the mapping of (random) variables to graphical elements, making plots of data into statistics
 
----
-# Pipeline: Messy to tidy to plot
 
-
-```r
-messy_data &lt;- read_csv("../data/tb.csv")
-head(messy_data)
-# A tibble: 6 x 22
-  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
-  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt; &lt;int&gt;
-1 AD     1989    NA    NA    NA     NA     NA     NA     NA     NA    NA
-2 AD     1990    NA    NA    NA     NA     NA     NA     NA     NA    NA
-3 AD     1991    NA    NA    NA     NA     NA     NA     NA     NA    NA
-4 AD     1992    NA    NA    NA     NA     NA     NA     NA     NA    NA
-5 AD     1993    NA    NA    NA     NA     NA     NA     NA     NA    NA
-6 AD     1994    NA    NA    NA     NA     NA     NA     NA     NA    NA
-# ... with 11 more variables: m_u &lt;int&gt;, f_04 &lt;int&gt;, f_514 &lt;int&gt;,
-#   f_014 &lt;int&gt;, f_1524 &lt;int&gt;, f_2534 &lt;int&gt;, f_3544 &lt;int&gt;, f_4554 &lt;int&gt;,
-#   f_5564 &lt;int&gt;, f_65 &lt;int&gt;, f_u &lt;int&gt;
-```
-
----
-
-
-```r
-tidy_data &lt;- messy_data %&gt;% 
-  gather(demo, count, -year, -iso2, na.rm = TRUE) %&gt;% 
-  separate(demo, c("gender", "age"))
-tidy_data &lt;- tidy_data %&gt;% 
-  filter(!(age %in% c("014", "04", "514", "u")))
-head(tidy_data)
-# A tibble: 6 x 5
-  iso2   year gender age   count
-  &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;
-1 AD     1996 m      1524      0
-2 AD     1997 m      1524      0
-3 AD     1998 m      1524      0
-4 AD     1999 m      1524      0
-5 AD     2000 m      1524      0
-6 AD     2002 m      1524      0
-```
-
----
-# 100% charts
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "US") %&gt;% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity", position = "fill") +
-  facet_grid(~ age) 
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Stacked barcharts
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "US") %&gt;% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Side-by-side barcharts
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "US") %&gt;% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity", position="dodge") +
-  facet_grid(~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# facetted barcharts
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "US") %&gt;% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_text(size = 14), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  )
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Rose plot
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "US") %&gt;% 
-  ggplot(aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_blank(), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  ) + coord_polar()
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Rainbow charts
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "US") %&gt;% 
-  ggplot(aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat = "identity", position="fill") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_blank(), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  ) 
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Pie charts
-
-
-```r
-tidy_data %&gt;% 
-  filter(iso2 == "US") %&gt;% 
-  ggplot(aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat = "identity", position="fill") +
-  facet_grid(gender ~ age) +
-  theme(
-    axis.text = element_blank(), 
-    strip.text = element_text(size = 16), 
-    axis.title = element_text(size = 16)
-  ) + coord_polar(theta="y")
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse middle 
-# Your turn
-
-What do you learn about tb incidence in the USA by gender and age and year from the
-- 100% charts?
-- stacked bar charts?
-- side-by-side barcharts?
-- facetted barcharts?
-
-
-
----
-# Maps
-
-Make a world map, by merging iso2 with country codes to make a chloropleth
-
-
-```r
-data("ISO_3166_1")
-world_map &lt;- map_data("world")
-tb_names &lt;- tidy_data %&gt;% 
-  left_join(ISO_3166_1, by=c("iso2"="Alpha_2")) %&gt;% 
-  select(-Alpha_3, -Numeric, -Official_name, -Common_name) %&gt;%
-  rename(region=Name) %&gt;%
-  mutate(region=recode(region, 
-                       "United States"="USA", 
-                       "United Kingdom"="UK",
-                       "Russian Federation"="Russia"))
-tb_names_inc &lt;- tb_names %&gt;% 
-  group_by(region) %&gt;%
-  nest() %&gt;%
-  mutate(
-    model = purrr::map(data, ~ lm(count ~ year, data = .))
-) %&gt;%
-  unnest(model %&gt;% purrr::map(broom::tidy)) %&gt;%
-  select(region, term, estimate) %&gt;% 
-  spread(term, estimate)
-```
-
----
-
-
-```r
-ggplot(tb_names_inc, aes(map_id = region)) + 
-    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3) + 
-    expand_limits(x = world_map$long, y = world_map$lat) +
-    theme_few() +
-    scale_fill_viridis("trend") + 
-    theme(legend.position = "bottom",
-         axis.ticks = element_blank(), 
-         axis.title = element_blank(), 
-         axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Inference
@@ -284,42 +58,90 @@ ggplot(tb_names_inc, aes(map_id = region)) +
 - Generically, we are thinking  `\(H_0\)`: no pattern, `\(H_1\)`: pattern, but the choice of plot makes this much more explicit
 
 ---
-# Putting the pieces together
+# Let's talk TB
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+There are many aspects of this plot, this is what we said earlier:
+
+- *Across all ages, and years, the proportion of males having TB is higher than females*
+- These proportions tend to be higher in the middle age groups, for all years.
+- Relatively similar proportions across years.
+
+---
+# Null hypothesis
+
+The plot is constructed by plotting count against year, separately by age group, and coloured by gender. 
+
+- By colouring by gender, we make this a primary comparison
+- Proportion of gender, conditional on age group and year is the query being addressed by this plot.
+
+*Null hypothesis*: TB incidence is spread equally among men and women, regardless of age and year.
+*Alternative hypothesis*: It isn't.
+
+---
 
 
 ```r
-df &lt;- data.frame(v1=c(rexp(20), rexp(15, 2)), 
-                 v2=c(rep("A", 20), rep("B", 15)))
-ggplot(df, aes(x=v2, y=v1, fill=v2)) + 
-  geom_boxplot() + coord_flip()
+# Make expanded rows of categorical variables
+# matching the counts of aggregated data.
+# Gender needs to be converted to 0, 1 to 
+# match binomial simulations
+tb_us_long &lt;- expandRows(tb_us, "count")
+tb_us_long &lt;- tb_us_long %&gt;%
+  mutate(gender01 = ifelse(gender=="m", 0, 1)) %&gt;%
+  select(-gender)
+
+# Generate a lineup of three, randomly choose one of the
+# positions to place true data.
+# Compute counts again.
+pos = sample(1:3, 1)
+l &lt;- lineup(null_dist(var="gender01", dist="binom", 
+                      list(size=1, p=0.5)), 
+            true=tb_us_long, n=3, pos=pos)
+l &lt;- l %&gt;%
+  group_by(.sample, year, age) %&gt;%
+  dplyr::count(gender01)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+---
+
+&lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
-class: inverse middle 
-# Your turn
+# More interesting null
 
-- Question?
-- Data, variables
-- Mapping
-- Null generating mechanism
+*Null hypothesis*: TB incidence is has the same proportion of men and women, regardless of age and year.
+*Alternative hypothesis*: It isn't.
 
---
-- Question? Is there a difference between the two groups? `\(H_0\)`: no difference, `\(H_1\)`: difference
 
---
-- Data, variables: Two variables: v1, v2; v2 is categorical
+```r
+# Compute proportion across all data
+tbl &lt;- tb_us %&gt;% group_by(gender) %&gt;% summarise(count=sum(count))
+tbl
+# A tibble: 2 x 2
+  gender count
+  &lt;chr&gt;  &lt;int&gt;
+1 f      25915
+2 m      55640
+p &lt;- tbl$count[1]/sum(tbl$count)
 
---
-- Mapping: x=V2, y=V1, colour=V1, geom=boxplot
-
---
-- Null generating mechanism: permute the values of V1, relative to V2
-
+pos = sample(1:3, 1)
+pos = sample(1:3, 1)
+l &lt;- lineup(null_dist(var="gender01", dist="binom", 
+                      list(size=1, p=p)), 
+            true=tb_us_long, n=3, pos=pos)
+l &lt;- l %&gt;%
+  group_by(.sample, year, age) %&gt;%
+  dplyr::count(gender01)
+```
 
 ---
-# Clarity
+
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+# Important details
 
 - The null hypothesis is determined based on the plot type
 - It is not based on the structure seen in a data set
@@ -330,26 +152,14 @@ class: inverse middle
 Embed the data plot in a field of null plots
 
 
-```r
-library(nullabor)
-pos &lt;- sample(1:20, 1)
-df_null &lt;- lineup(null_permute('v1'), df, pos=pos)
-ggplot(df_null, aes(x=v2, y=v1, fill=v2)) + 
-  geom_boxplot() +
-  facet_wrap(~.sample, ncol=5) + coord_flip()
-```
 
----
-
-Which plot shows the most difference between the groups?
-
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+Ask: Which plot is the most different?
 
 ---
 # Evaluation
 
 - Computing `\(p\)`-values
-- Power - signal strength
+- Power `\(=\)` signal strength
 
 ---
 # p-values
@@ -358,13 +168,13 @@ Suppose `\(x\)` individuals selected the data plot from a lineup of `\(m\)` plot
 
 `$$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$`
 
+
 For `\(x=4, K=17, m=20\)`
 
 
-```r
-pvisual(4, 17, m=20)
+```
      x simulated       binom
-[1,] 4    0.0211 0.008800605
+[1,] 4    0.0173 0.008800605
 ```
 
 ---
@@ -429,29 +239,95 @@ For these plot descriptions, decide on:
 class: inverse middle 
 # Your turn
 
-&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
 # Your turn
 
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+# More on making maps
+
+Make a choropleth map of the TB data across the globe. We will do something a little fancy first, by computing a linear regression model for each country, to extract the trend in TB counts. This trend will be used to colour the maps, to find the countries which have TB problems. 
+
+A polygon map of the world is extracted from the maps package. *The names of countries needs to be synchronised between the TB data and the map data.*
+
+
+```r
+world_map &lt;- map_data("world")
+tb_names &lt;- tb %&gt;% 
+  mutate(region=recode(country, 
+                       "United States of America"="USA", 
+                       "United Kingdom"="UK",
+                       "Russian Federation"="Russia"))
+```
+
+---
+
+
+```r
+# This is sophisticated code to compute the linear trend in counts
+# for each country.
+tb_names_inc &lt;- tb_names %&gt;% 
+  group_by(region) %&gt;%
+  nest() %&gt;%
+  mutate(
+    model = purrr::map(data, ~ lm(count ~ year, data = .))
+) %&gt;%
+  unnest(model %&gt;% purrr::map(broom::tidy)) %&gt;%
+  select(region, term, estimate) %&gt;% 
+  spread(term, estimate)
+```
+
+---
+
+One way to make the map is use `geom_map`, and link this dynamically with the TB data in the plotting code.
+
+
+```r
+ggplot(tb_names_inc, aes(map_id = region)) + 
+    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3) + 
+    expand_limits(x = world_map$long, y = world_map$lat) +
+    theme_few() +
+    scale_fill_viridis("trend") + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+Another approach is to join the polygon data with the TB data.
+
+
+```r
+tb_map &lt;- left_join(world_map, tb_names_inc, by="region")
+ggplot(tb_map) + 
+  geom_polygon(aes(x=long, y=lat, group=group, fill=year)) +
+      theme_few() +
+    scale_fill_viridis("trend") + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
 # Your turn
 
-- For the tb data, subset to 2008
-- Decide on two possible plot designs to show the relationship between age, gender.
-- Write the code to make the plots
-- Determine an appropriate null generating mechanism to test `\(H_o\)`: no relationship between age and gender.
-- Make a lineup to for each plot design. 
-- Show the lineups to 5 other participants, for each plot design
-- Record the number of people selecting the data plot
-- Compute the power for each test, the signal strength of the design
-
-
-
+Why is India showing a drastically increasing TB incidence. 
+Make the plot of TB incidence for India. 
 
 ---
 # Resources
