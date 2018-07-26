@@ -229,8 +229,26 @@ There are various features of messy data that one can observe in practice. Here 
   
 `gather(data, key = "key", value = "value", ...)`
 
+`data %&gt;% gather(key = "key", value = "value", ...)`
+
 - `gather` turns a wide format into a long format
-- two new variables are introduced (in key-value format): **key** and **value**: multiple columns are collapsed; their names go into variable `key`, their values go into variable `value`.
+- two new variables are introduced (in key-value format): **key** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `key`, their values go into variable `value`.
+
+
+
+
+```r
+dframe
+  id trtA trtB
+1  1  2.5   45
+2  2  4.6   35
+dframe %&gt;% gather(treatment, outcome, trtA, trtB)
+  id treatment outcome
+1  1      trtA     2.5
+2  2      trtA     4.6
+3  1      trtB    45.0
+4  2      trtB    35.0
+```
 
 ---
 # TB notifications
@@ -289,10 +307,13 @@ tb1 %&gt;% na.omit() %&gt;% head()
 # Separate Columns
   
 `separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
+`data %&gt;% separate (col, into, sep = "[^[:alnum:]]+", ...)`
+
+
 
 - split column `col` from data frame `frame` into a set of columns as specified in `into`
-- `sep` is the splitting separator. By default splits happen for any non-alphanumeric value.
-- better specify `sep` to have some more control; any regular expression will work
+- `sep` is the splitting separator. By default splits happen for any non-alphanumeric value. &lt;br&gt;
+Pro tip: specify `sep` to have some more control; any regular expression will work
 - `unite` combines multiple variables into one
 
 ---
@@ -302,7 +323,8 @@ Work on `key`:
   
 
 ```r
-tb2 &lt;- tb1 %&gt;% separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
+tb2 &lt;- tb1 %&gt;% 
+  separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
 tb2 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 7
   country     iso3   year foo_new foo_sp genderage count
@@ -434,7 +456,7 @@ french_fries_weeks %&gt;%
   ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -484,7 +506,7 @@ ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) +
 facet_wrap(~type, ncol=5) 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Side-By-Side Boxplots
@@ -495,7 +517,7 @@ ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) +
 geom_boxplot()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Ratings by week
@@ -512,7 +534,7 @@ geom_smooth() +
 facet_wrap(~type)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -558,7 +580,7 @@ gtidy %&gt;%
   facet_wrap(~id)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Models and model output
@@ -649,10 +671,11 @@ One value for each:
 
 ```r
 glance(ff_lm)
-  r.squared adj.r.squared   sigma statistic p.value df    logLik      AIC
-1 0.3995198     0.3949865 2.89966  88.13113       0 27 -8606.787 17269.57
-       BIC deviance df.residual
-1 17441.83 28957.24        3444
+# A tibble: 1 x 11
+  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC
+*     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     0.400         0.395  2.90      88.1       0    27 -8607. 17270.
+# ... with 3 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;
 ```
 
 ---
@@ -703,7 +726,7 @@ $ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.652...
 ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Adding random effects
