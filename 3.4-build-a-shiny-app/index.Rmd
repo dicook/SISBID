@@ -38,6 +38,45 @@ library(RColorBrewer)
 library(gridExtra)
 ```
 
+# Example: App to explore PISA data
+
+- Apps need to be in their own directory
+- Navigate to the pisa_world directory and double-click the `pisa_world.Rproj` to open the code for the app.
+- Open the file `app.R` in the text editor. 
+- There is a change on the RStudio menu, you should now see a button labelled `Run App`. Clicking on this will run it. Try it!
+
+---
+
+The structure of the app is very simple. It has a menu of a statistic to show on the map. Let's take a look at how it is constructed. 
+
+- There are 90 lines of code.
+- There are two functions: `ui()`, `server()`
+    - `ui()`: sets up the menu and the canvas to draw on
+    - `server()`: does the computations 
+- Global code at the top of the file reads and processes the data, loads libraries, and sets up lists for the menu.
+
+---
+# User Interface
+
+- `fluidPage` allows the size of components to be driven by the size of the browser window
+- `titlePanel` puts a header on the page
+- `sidebarLayout` sets up the container for the user interface
+    - `sidebarPanel` puts in the side panel
+        - `selectInput` defines the menu input, asking for the variable, we call `y` to be used to colour the map `Colour by` is the label shown to the user, and the menu items are in the `realvars` vector. 
+    - `mainPanel` makes the drawing canvas
+        - `plotOutput` specifies we want to make a plot in this panel, and the code instructions to use are called `map`. You need to look in the server function to find the code in `output$map`
+        
+---
+# Server
+
+
+---
+# Example: flexdashboard
+
+---
+# Example: eechidna
+
+---
 class: inverse middle 
 # Your turn
 

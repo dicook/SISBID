@@ -40,7 +40,8 @@ realvars <- c("math_m", "math_f", "read_m", "read_f",
 library(shiny)
 library(viridis)
 
-# Define UI for application that draws a histogram
+# Define UI for application, a sidebar with a menu, and
+# a main panel for the resulting plot
 ui <- fluidPage(
 
    # Application title
