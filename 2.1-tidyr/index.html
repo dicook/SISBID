@@ -41,29 +41,29 @@ Example:
 
 
 ```r
-student2012.sub &lt;- readRDS("../data/student_sub.rds")
-# table(student2012.sub$CNT)
-student2012.sub %&gt;% group_by(CNT) %&gt;% tally()
-# A tibble: 43 x 2
-   CNT       n
-   &lt;chr&gt; &lt;int&gt;
- 1 ARE   11500
- 2 AUS   14481
- 3 AUT    4755
- 4 BEL    8597
- 5 BGR    5282
- 6 BRA    5506
- 7 CAN   21544
- 8 CHL    6856
- 9 COL    9073
-10 CZE    5327
-# ... with 33 more rows
+tb &lt;- read_csv("../data/TB_notifications_2018-03-18.csv") 
+tb %&gt;% filter(year == 2016) %&gt;% group_by(country) %&gt;% 
+  summarize(cases = sum(c_newinc, na.rm=TRUE)) %&gt;% arrange(desc(cases))
+# A tibble: 217 x 2
+   country                            cases
+   &lt;chr&gt;                              &lt;int&gt;
+ 1 India                            1763876
+ 2 China                             778493
+ 3 Indonesia                         358608
+ 4 Pakistan                          356390
+ 5 Philippines                       332941
+ 6 South Africa                      237045
+ 7 Bangladesh                        222248
+ 8 Myanmar                           137551
+ 9 Democratic Republic of the Congo  130596
+10 Ethiopia                          125836
+# ... with 207 more rows
 ```
 
 ---
 # What is **tidy data**? 
 
-- Why do we want tidy data? 
+- What do we expect tidy data to look like?
 - Couple of exercises to look closer at what we find in practice 
 
 
@@ -206,7 +206,7 @@ There are various features of messy data that one can observe in practice. Here 
 - Each variable forms a column
 - Data is contained in a single table
 - Long form makes it easier to reshape in many different ways
-- Wide form is common for analysis
+- Wider forms are common for analysis
 
 ---
 
@@ -221,14 +221,134 @@ There are various features of messy data that one can observe in practice. Here 
 
 - `gather`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
 - `spread`: variables in columns (used to be called casting)
-- `nest`/`unnest`: working with list variables
 - `separate`/`unite`: split and combine columns
+- `nest`/`unnest`: working with list variables
 
 ---
-# French Fries 
+# Gathering
+  
+`gather(data, key = "key", value = "value", ...)`
 
-10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice. First few rows:
+- `gather` turns a wide format into a long format
+- two new variables are introduced (in key-value format): **key** and **value**: multiple columns are collapsed; their names go into variable `key`, their values go into variable `value`.
 
+---
+# TB notifications
+  
+new notifications of TB have the form `new_sp_genderage`:
+  
+
+```r
+read_csv("../data/TB_notifications_2018-03-18.csv") %&gt;% 
+  select(country, iso3, year, starts_with("new_sp_")) %&gt;%
+  head()
+# A tibble: 6 x 23
+  country iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524
+  &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;        &lt;int&gt;
+1 Afghan… AFG    1980         NA          NA          NA           NA
+2 Afghan… AFG    1981         NA          NA          NA           NA
+3 Afghan… AFG    1982         NA          NA          NA           NA
+4 Afghan… AFG    1983         NA          NA          NA           NA
+5 Afghan… AFG    1984         NA          NA          NA           NA
+6 Afghan… AFG    1985         NA          NA          NA           NA
+# ... with 16 more variables: new_sp_m2534 &lt;int&gt;, new_sp_m3544 &lt;int&gt;,
+#   new_sp_m4554 &lt;int&gt;, new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;,
+#   new_sp_mu &lt;int&gt;, new_sp_f04 &lt;int&gt;, new_sp_f514 &lt;int&gt;,
+#   new_sp_f014 &lt;int&gt;, new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;,
+#   new_sp_f3544 &lt;int&gt;, new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;,
+#   new_sp_f65 &lt;int&gt;, new_sp_fu &lt;int&gt;
+```
+
+
+
+
+
+---
+# TB notifications (gather)
+  
+create two new variables: variable `key` (contains all variable names starting with `new_sp_`) and variable `count` with the values:
+  
+
+```r
+tb1 &lt;- read_csv("../data/TB_notifications_2018-03-18.csv") %&gt;% 
+  select(country, iso3, year, starts_with("new_sp_")) %&gt;%
+  gather(key, count, starts_with("new_sp_")) 
+tb1 %&gt;% na.omit() %&gt;% head()
+# A tibble: 6 x 5
+  country     iso3   year key        count
+  &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;chr&gt;      &lt;int&gt;
+1 Afghanistan AFG    2010 new_sp_m04     4
+2 Afghanistan AFG    2011 new_sp_m04     2
+3 Afghanistan AFG    2012 new_sp_m04     0
+4 Albania     ALB    2005 new_sp_m04     0
+5 Albania     ALB    2006 new_sp_m04     1
+6 Albania     ALB    2007 new_sp_m04     0
+```
+
+---
+# Separate Columns
+  
+`separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
+
+- split column `col` from data frame `frame` into a set of columns as specified in `into`
+- `sep` is the splitting separator. By default splits happen for any non-alphanumeric value.
+- better specify `sep` to have some more control; any regular expression will work
+- `unite` combines multiple variables into one
+
+---
+# TB notification (separate)
+  
+Work on `key`: 
+  
+
+```r
+tb2 &lt;- tb1 %&gt;% separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
+tb2 %&gt;% na.omit() %&gt;% head()
+# A tibble: 6 x 7
+  country     iso3   year foo_new foo_sp genderage count
+  &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
+1 Afghanistan AFG    2010 new     sp     m04           4
+2 Afghanistan AFG    2011 new     sp     m04           2
+3 Afghanistan AFG    2012 new     sp     m04           0
+4 Albania     ALB    2005 new     sp     m04           0
+5 Albania     ALB    2006 new     sp     m04           1
+6 Albania     ALB    2007 new     sp     m04           0
+```
+
+
+---
+# TB notification (separate again)
+  
+Now split `genderage` into first character (m/f) and rest.
+`substr` allows to extract sub strings from a character vector (see `?substr`):
+  
+
+```r
+tb3 &lt;- tb2 %&gt;% select(-starts_with("foo")) %&gt;%
+  mutate(gender=substr(genderage, 1, 1), 
+         age=substr(genderage, 2, length(genderage))) %&gt;%
+  select(-genderage)
+tb3 %&gt;% na.omit() %&gt;% head()
+# A tibble: 6 x 6
+  country     iso3   year count gender age  
+  &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;
+1 Afghanistan AFG    2010     4 m      04   
+2 Afghanistan AFG    2011     2 m      04   
+3 Afghanistan AFG    2012     0 m      04   
+4 Albania     ALB    2005     0 m      04   
+5 Albania     ALB    2006     1 m      04   
+6 Albania     ALB    2007     0 m      04   
+```
+
+---
+class: inverse middle 
+# Your turn
+
+![](lorikeets.png)
+
+Turn the `french_fries` data (from package `reshape`) from wide format into a long format with variables `type` and `rating`. 
+What would we like to find out about this data?
+  
 
 ```
    time treatment subject rep potato buttery grassy rancid painty
@@ -240,81 +360,103 @@ There are various features of messy data that one can observe in practice. Here 
 27    1         1      15   2    8.8     3.0    3.6    1.5    2.3
 ```
 
+
+
 ---
 # What Would We Like to Know?
-
+  
 - Is the design complete?
 - Are replicates like each other?
 - How do the ratings on the different scales differ?
 - Are raters giving different scores on average?
 - Do ratings change over the weeks?
-
+  
 Each of these questions involves different summaries of the data.
 
 ---
-# Gathering
-
-When gathering, you need to specify the **keys** (identifiers) and the **values** (measures).
-
-- Keys/Identifiers:
-  - Identify a record (must be unique)
-  - Example: Indices on an random variable
-  - Fixed by design of experiment (known in advance)
-  - May be single or composite (may have one or more variables)
-
-- Values/Measures:
-  - Collected during the experiment (not known in advance)
-  - Usually numeric quantities
-
----
 # Gathering the French Fries
-
+  
 
 ```r
-ff_long &lt;- gather(french_fries, key = variable, value = 
+ff_long &lt;- gather(french_fries, key = type, value = 
                     rating, potato:painty)
 head(ff_long)
-  time treatment subject rep variable rating
-1    1         1       3   1   potato    2.9
-2    1         1       3   2   potato   14.0
-3    1         1      10   1   potato   11.0
-4    1         1      10   2   potato    9.9
-5    1         1      15   1   potato    1.2
-6    1         1      15   2   potato    8.8
+  time treatment subject rep   type rating
+1    1         1       3   1 potato    2.9
+2    1         1       3   2 potato   14.0
+3    1         1      10   1 potato   11.0
+4    1         1      10   2 potato    9.9
+5    1         1      15   1 potato    1.2
+6    1         1      15   2 potato    8.8
 ```
 
 ---
 # Long to Wide
-
+  
 In certain applications, we may wish to take a long dataset and convert it to a wide dataset (perhaps displaying in a table).
 
 This is called "spreading" the data.
 
 ---
 # Spread
-
+  
 We use the **spread** function from `tidyr` to do this:
-
+  
 
 ```r
-french_fries_wide &lt;- spread(ff_long, key = variable, 
-                            value = rating)
+french_fries_weeks &lt;- spread(ff_long, key = time, 
+                             value = rating)
 
-head(french_fries_wide)
-  time treatment subject rep buttery grassy painty potato rancid
-1    1         1       3   1     0.0    0.0    5.5    2.9    0.0
-2    1         1       3   2     0.0    0.0    0.0   14.0    1.1
-3    1         1      10   1     6.4    0.0    0.0   11.0    0.0
-4    1         1      10   2     5.9    2.9    0.0    9.9    2.2
-5    1         1      15   1     0.1    0.0    5.1    1.2    1.1
-6    1         1      15   2     3.0    3.6    2.3    8.8    1.5
+head(french_fries_weeks)
+  treatment subject rep    type   1   2    3    4    5   6   7   8   9 10
+1         1       3   1 buttery 0.0 0.3  0.2  0.1  0.3 1.2 0.0 0.5 0.4 NA
+2         1       3   1  grassy 0.0 0.1  0.0  0.0  0.0 0.0 0.0 1.3 0.0 NA
+3         1       3   1  painty 5.5 0.3  0.0  0.0  1.7 9.5 5.5 3.8 7.0 NA
+4         1       3   1  potato 2.9 9.0 11.8 13.6 14.0 0.4 2.9 3.5 1.1 NA
+5         1       3   1  rancid 0.0 5.8  6.0  1.7  0.0 0.0 0.0 0.0 0.0 NA
+6         1       3   2 buttery 0.0 0.5  0.5  0.0  0.8 1.1 0.0 0.3 0.5 NA
+```
+
+Plot Week 1 against Week 9 in a scatterplot:
+
+```r
+french_fries_weeks %&gt;%
+  ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
 
 ---
-# Answer some Questions
+# Week 1 vs week 9
 
-- Easiest question to start is whether the ratings are similar on the different scales, potato'y, buttery, grassy, rancid and painty. 
 
+
+```r
+french_fries_weeks %&gt;%
+  ggplot(aes(x = `1`, y = `9`)) + geom_point()
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse middle 
+# Your turn
+
+![](lorikeets.png)
+
+## Do the Replicates Look Like Each Other?
+
+Tackle this by plotting the replicates against each other using a scatterplot. 
+
+You will need to first gather the data into long form, and then get the replicates spread into separate columns by replicate. 
+
+
+
+
+
+
+---
+# Are ratings similar on different scales?
+  
+- Are ratings similar on the different scales: potato'y, buttery, grassy, rancid and painty?
 - We need to gather the data into long form, and make plots facetted by the scale. 
 
 ---
@@ -323,7 +465,7 @@ head(french_fries_wide)
 
 ```r
 ff.m &lt;- french_fries %&gt;% 
-  gather(type, rating, -subject, -time, -treatment, -rep)
+gather(type, rating, -subject, -time, -treatment, -rep)
 head(ff.m)
   time treatment subject rep   type rating
 1    1         1       3   1 potato    2.9
@@ -339,10 +481,10 @@ head(ff.m)
 
 ```r
 ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) + 
-  facet_wrap(~type, ncol=5) 
+facet_wrap(~type, ncol=5) 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Side-By-Side Boxplots
@@ -350,198 +492,44 @@ ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) +
 
 ```r
 ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) + 
-  geom_boxplot()
+geom_boxplot()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
-
-
----
-# Do the Replicates Look Like Each Other?
-
-We will start to tackle this by plotting the replicates against each other using a scatterplot. 
-
-We need to gather the data into long form, and then get the replicates spread into separate columns. 
+&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# Check Replicates
+# Ratings by week
+
+How do ratigs change over the weeks?
+Again, we use the long form of the data and plot:
 
 
 ```r
-head(ff.m)
-  time treatment subject rep   type rating
-1    1         1       3   1 potato    2.9
-2    1         1       3   2 potato   14.0
-3    1         1      10   1 potato   11.0
-4    1         1      10   2 potato    9.9
-5    1         1      15   1 potato    1.2
-6    1         1      15   2 potato    8.8
+ff.m$time &lt;- as.numeric(ff.m$time)
+ggplot(data=ff.m, aes(x=time, y=rating, colour=type)) + 
+geom_point(size=.75) +
+geom_smooth() +
+facet_wrap(~type)
 ```
 
-
-
-```r
-ff.s &lt;- ff.m %&gt;% spread(rep, rating)
-head(ff.s)
-  time treatment subject    type   1    2
-1    1         1       3 buttery 0.0  0.0
-2    1         1       3  grassy 0.0  0.0
-3    1         1       3  painty 5.5  0.0
-4    1         1       3  potato 2.9 14.0
-5    1         1       3  rancid 0.0  1.1
-6    1         1      10 buttery 6.4  5.9
-```
-
----
-# Check Replicates
-
-
-```r
-ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
-  theme(aspect.ratio=1) + xlab("Rep 1") + ylab("Rep 2")
-ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
-  theme(aspect.ratio=1) + xlab("Rep 1") + ylab("Rep 2") + 
-  scale_x_sqrt() + scale_y_sqrt()
-```
-
-![](index_files/figure-html/unnamed-chunk-21-1.png)![](index_files/figure-html/unnamed-chunk-21-2.png)
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-Make the scatterplots of reps against each other separately for scales, and treatment. 
-
+&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
-
-Read in the billboard top 100 music data, which contains N'Sync and Backstreet Boys songs that entered the billboard charts in the year 2000
-
-
-```r
-billboard &lt;- read.csv("../data/billboard.csv")
-```
-
-What's in this data? What's X1-X76?
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-1. Use `tidyr` to convert this data into a long format appropriate for plotting a time series (date on the x axis, chart position on the y axis)
-2. Use `ggplot2` to create this time series plot:
-
-&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
-
-
----
-# String Manipulation
-
-When the experimental design is packed into column names, we need to extract it, and tidy it up. 
+Read the genes data from folder `data`. Column names contain data and are kind of messy. Introduce data frame `gtidy` as shown below:
 
 
 ```r
 genes &lt;- read_csv("../data/genes.csv")
-head(genes)
-# A tibble: 3 x 12
-  id    `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
-  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 Gene…      2.18     2.20       4.20     2.63       5.06       4.54
-2 Gene…      1.46     0.585      1.86     0.515      2.88       1.36
-3 Gene…      2.03     0.870      3.28     0.533      4.63       2.18
-# ... with 5 more variables: `WI-12.R2` &lt;dbl&gt;, `WI-12.R4` &lt;dbl&gt;,
-#   `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
 ```
 
----
-# Gather Column Names into Long Form
+
 
 
 ```r
-gather(genes, variable, expr, -id) 
-# A tibble: 33 x 3
-   id     variable  expr
-   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;
- 1 Gene 1 WI-6.R1  2.18 
- 2 Gene 2 WI-6.R1  1.46 
- 3 Gene 3 WI-6.R1  2.03 
- 4 Gene 1 WI-6.R2  2.20 
- 5 Gene 2 WI-6.R2  0.585
- 6 Gene 3 WI-6.R2  0.870
- 7 Gene 1 WI-6.R4  4.20 
- 8 Gene 2 WI-6.R4  1.86 
- 9 Gene 3 WI-6.R4  3.28 
-10 Gene 1 WM-6.R1  2.63 
-# ... with 23 more rows
-```
-
----
-# Separate Columns
-
-
-```r
-genes %&gt;%
-  gather(variable, expr, -id) %&gt;%
-  separate(variable, c("trt", "leftover"), "-") 
-# A tibble: 33 x 4
-   id     trt   leftover  expr
-   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;
- 1 Gene 1 WI    6.R1     2.18 
- 2 Gene 2 WI    6.R1     1.46 
- 3 Gene 3 WI    6.R1     2.03 
- 4 Gene 1 WI    6.R2     2.20 
- 5 Gene 2 WI    6.R2     0.585
- 6 Gene 3 WI    6.R2     0.870
- 7 Gene 1 WI    6.R4     4.20 
- 8 Gene 2 WI    6.R4     1.86 
- 9 Gene 3 WI    6.R4     3.28 
-10 Gene 1 WM    6.R1     2.63 
-# ... with 23 more rows
-```
-
----
-
-
-```r
-genes %&gt;%
-  gather(variable, expr, -id) %&gt;%
-  separate(variable, c("trt", "leftover"), "-") %&gt;%
-  separate(leftover, c("time", "rep"), "\\.") 
-# A tibble: 33 x 5
-   id     trt   time  rep    expr
-   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
- 1 Gene 1 WI    6     R1    2.18 
- 2 Gene 2 WI    6     R1    1.46 
- 3 Gene 3 WI    6     R1    2.03 
- 4 Gene 1 WI    6     R2    2.20 
- 5 Gene 2 WI    6     R2    0.585
- 6 Gene 3 WI    6     R2    0.870
- 7 Gene 1 WI    6     R4    4.20 
- 8 Gene 2 WI    6     R4    1.86 
- 9 Gene 3 WI    6     R4    3.28 
-10 Gene 1 WM    6     R1    2.63 
-# ... with 23 more rows
-```
-
----
-
-
-```r
-gtidy &lt;- genes %&gt;%
-  gather(variable, expr, -id) %&gt;%
-  separate(variable, c("trt", "leftover"), "-") %&gt;%
-  separate(leftover, c("time", "rep"), "\\.") %&gt;%
-  mutate(trt = sub("W", "", trt)) %&gt;%
-  mutate(rep = sub("R", "", rep))
 head(gtidy)
 # A tibble: 6 x 5
   id     trt   time  rep    expr
@@ -553,34 +541,103 @@ head(gtidy)
 5 Gene 2 I     6     2     0.585
 6 Gene 3 I     6     2     0.870
 ```
-
----
-class: inverse middle 
-# Your turn
-
 ![](lorikeets.png)
 
-(1) Using the tidied dataset (`gtidy`), find the mean expression for each combination of id, trt, and time.
-(2) Use this tidied data to make this plot.
+---
+# Plot from before
+
+
+```r
+gtidy %&gt;% 
+  filter(time==6 ) %&gt;%
+  ggplot(aes(x = trt, y = expr, colour=id)) +
+  geom_point() +
+  geom_line(aes(group = interaction(id, rep))) +
+  facet_wrap(~id)
+```
 
 &lt;img src="index_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Models and model output
+
+Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
+
+e.g. fit french fry rating with respect to all designed main effects:
+
+
+```r
+ff_long &lt;- gather(french_fries, key = type, value = 
+rating, potato:painty)
+ff_lm &lt;- lm(rating~type+treatment+time+subject, 
+data=ff_long)
+```
+
+`summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
+
+
+```r
+summary(ff_lm)
+
+Call:
+lm(formula = rating ~ type + treatment + time + subject, data = ff_long)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.0729 -1.9674 -0.4644  1.5202 10.2192 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.19851    0.25792   4.647 3.50e-06 ***
+typegrassy  -1.15513    0.15572  -7.418 1.49e-13 ***
+typepainty   0.70055    0.15577   4.497 7.11e-06 ***
+typepotato   5.13322    0.15572  32.964  &lt; 2e-16 ***
+typerancid   2.03293    0.15572  13.055  &lt; 2e-16 ***
+treatment2  -0.05128    0.12051  -0.426   0.6705    
+treatment3  -0.04546    0.12056  -0.377   0.7062    
+time2        0.10194    0.21613   0.472   0.6372    
+time3       -0.01361    0.21613  -0.063   0.9498    
+time4       -0.10250    0.21613  -0.474   0.6353    
+time5       -0.13301    0.21690  -0.613   0.5398    
+time6       -0.04611    0.21613  -0.213   0.8311    
+time7       -0.24621    0.21628  -1.138   0.2550    
+time8       -0.11626    0.21658  -0.537   0.5914    
+time9        0.13188    0.22783   0.579   0.5627    
+time10       0.54635    0.22783   2.398   0.0165 *  
+subject10    1.71451    0.24389   7.030 2.48e-12 ***
+subject15   -0.35911    0.24489  -1.466   0.1426    
+subject16    0.47519    0.24408   1.947   0.0516 .  
+subject19    2.01651    0.24389   8.268  &lt; 2e-16 ***
+subject31    1.49284    0.25098   5.948 2.98e-09 ***
+subject51    1.87284    0.24389   7.679 2.07e-14 ***
+subject52    0.19484    0.24389   0.799   0.4244    
+subject63    0.96051    0.24389   3.938 8.37e-05 ***
+subject78   -0.58283    0.24389  -2.390   0.0169 *  
+subject79   -0.53702    0.25027  -2.146   0.0320 *  
+subject86    0.43543    0.25098   1.735   0.0828 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.9 on 3444 degrees of freedom
+  (9 observations deleted due to missingness)
+Multiple R-squared:  0.3995,	Adjusted R-squared:  0.395 
+F-statistic: 88.13 on 26 and 3444 DF,  p-value: &lt; 2.2e-16
+```
+
+
 
 ---
 # Tidying model output
 
 The package `broom` gets model results into a tidy format at different levels
 
-- for each model: `broom::glance`
-- for each coefficient in the model: `broom::tidy`
-- for each value in the dataset: `broom::augment`
+One value for each:
+
+- model: `broom::glance`
+- coefficient in the model: `broom::tidy`
+- value in the dataset: `broom::augment`
 
 
-```r
-ff_long &lt;- gather(french_fries, key = variable, value = 
-                    rating, potato:painty)
-ff_lm &lt;- lm(rating~variable+treatment+time+subject, 
-            data=ff_long)
-```
 
 ---
 # Goodness of fit statistics: `glance`
@@ -604,7 +661,7 @@ ff_lm_tidy &lt;- tidy(ff_lm)
 glimpse(ff_lm_tidy)
 Observations: 27
 Variables: 5
-$ term      &lt;chr&gt; "(Intercept)", "variablegrassy", "variablepainty", "...
+$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepota...
 $ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.0...
 $ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.155720...
 $ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13...
@@ -622,7 +679,7 @@ Observations: 3,471
 Variables: 13
 $ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", ...
 $ rating     &lt;dbl&gt; 2.9, 14.0, 11.0, 9.9, 1.2, 8.8, 9.0, 8.2, 7.0, 13.0...
-$ variable   &lt;chr&gt; "potato", "potato", "potato", "potato", "potato", "...
+$ type       &lt;chr&gt; "potato", "potato", "potato", "potato", "potato", "...
 $ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 $ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 $ subject    &lt;fct&gt; 3, 3, 10, 10, 15, 15, 16, 16, 19, 19, 31, 31, 51, 5...
@@ -643,37 +700,28 @@ $ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.652...
 ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# Back to autism
+# Adding random effects
 
-Fit a random slopes model to the data:
-
-`$$vsae = \beta_0 + \beta_1 age2 +  b_1 childid + \varepsilon$$`
+Add random intercepts for each subject
 
 
 ```r
 library(lme4)
-data(autism)
-autism_keep &lt;- autism %&gt;% group_by(childid) %&gt;% 
-  tally(sort=TRUE) %&gt;% filter(n&gt;2)
-autism_sub &lt;- autism %&gt;% 
-  filter(childid %in% autism_keep$childid)
-autism_lmer &lt;- lmer(vsae ~ age2 + ( age2 - 1 | childid ), 
-                    data = autism_sub)
+fries_lmer &lt;- lmer(rating~type+treatment+time+subject + ( 1 | subject ), 
+data = ff_long)
 ```
+
 
 ---
 class: inverse middle 
 # Your turn
 
-- Augment the autism data with the model diagnostics
+- Augment the ff_long data with the model diagnostics
 - Plot the residuals from the (a) fixed, (b) random effects
-- Color the residuals by (a) gender, (b) besttest2
 - Plot fitted values against observed values
-
-![](lorikeets.png)
 
 
 

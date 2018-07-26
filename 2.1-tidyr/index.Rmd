@@ -58,15 +58,15 @@ library(broom)
 Example:
 
 ```{r}
-student2012.sub <- readRDS("../data/student_sub.rds")
-# table(student2012.sub$CNT)
-student2012.sub %>% group_by(CNT) %>% tally()
+tb <- read_csv("../data/TB_notifications_2018-03-18.csv") 
+tb %>% filter(year == 2016) %>% group_by(country) %>% 
+  summarize(cases = sum(c_newinc, na.rm=TRUE)) %>% arrange(desc(cases))
 ```
 
 ---
 # What is **tidy data**? 
 
-- Why do we want tidy data? 
+- What do we expect tidy data to look like?
 - Couple of exercises to look closer at what we find in practice 
 
 
@@ -174,7 +174,7 @@ There are various features of messy data that one can observe in practice. Here 
 - Each variable forms a column
 - Data is contained in a single table
 - Long form makes it easier to reshape in many different ways
-- Wide form is common for analysis
+- Wider forms are common for analysis
 
 ---
 
@@ -189,77 +189,176 @@ There are various features of messy data that one can observe in practice. Here 
 
 - `gather`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
 - `spread`: variables in columns (used to be called casting)
-- `nest`/`unnest`: working with list variables
 - `separate`/`unite`: split and combine columns
+- `nest`/`unnest`: working with list variables
 
 ---
-# French Fries 
+# Gathering
+  
+`gather(data, key = "key", value = "value", ...)`
 
-10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice. First few rows:
+- `gather` turns a wide format into a long format
+- two new variables are introduced (in key-value format): **key** and **value**: multiple columns are collapsed; their names go into variable `key`, their values go into variable `value`.
 
+---
+# TB notifications
+  
+new notifications of TB have the form `new_sp_genderage`:
+  
+```{r}
+read_csv("../data/TB_notifications_2018-03-18.csv") %>% 
+  select(country, iso3, year, starts_with("new_sp_")) %>%
+  head()
+```
+
+
+
+
+
+---
+# TB notifications (gather)
+  
+create two new variables: variable `key` (contains all variable names starting with `new_sp_`) and variable `count` with the values:
+  
+```{r}
+tb1 <- read_csv("../data/TB_notifications_2018-03-18.csv") %>% 
+  select(country, iso3, year, starts_with("new_sp_")) %>%
+  gather(key, count, starts_with("new_sp_")) 
+tb1 %>% na.omit() %>% head()
+```
+
+---
+# Separate Columns
+  
+`separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
+
+- split column `col` from data frame `frame` into a set of columns as specified in `into`
+- `sep` is the splitting separator. By default splits happen for any non-alphanumeric value.
+- better specify `sep` to have some more control; any regular expression will work
+- `unite` combines multiple variables into one
+
+---
+# TB notification (separate)
+  
+Work on `key`: 
+  
+```{r}
+tb2 <- tb1 %>% separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
+tb2 %>% na.omit() %>% head()
+```
+
+
+---
+# TB notification (separate again)
+  
+Now split `genderage` into first character (m/f) and rest.
+`substr` allows to extract sub strings from a character vector (see `?substr`):
+  
+```{r}
+tb3 <- tb2 %>% select(-starts_with("foo")) %>%
+  mutate(gender=substr(genderage, 1, 1), 
+         age=substr(genderage, 2, length(genderage))) %>%
+  select(-genderage)
+tb3 %>% na.omit() %>% head()
+```
+
+---
+class: inverse middle 
+# Your turn
+
+![](lorikeets.png)
+
+Turn the `french_fries` data (from package `reshape`) from wide format into a long format with variables `type` and `rating`. 
+What would we like to find out about this data?
+  
 ```{r, echo=FALSE}
 head(french_fries)
 ```
 
+
+
 ---
 # What Would We Like to Know?
-
+  
 - Is the design complete?
 - Are replicates like each other?
 - How do the ratings on the different scales differ?
 - Are raters giving different scores on average?
 - Do ratings change over the weeks?
-
+  
 Each of these questions involves different summaries of the data.
 
 ---
-# Gathering
-
-When gathering, you need to specify the **keys** (identifiers) and the **values** (measures).
-
-- Keys/Identifiers:
-  - Identify a record (must be unique)
-  - Example: Indices on an random variable
-  - Fixed by design of experiment (known in advance)
-  - May be single or composite (may have one or more variables)
-
-- Values/Measures:
-  - Collected during the experiment (not known in advance)
-  - Usually numeric quantities
-
----
 # Gathering the French Fries
-
+  
 ```{r}
-ff_long <- gather(french_fries, key = variable, value = 
+ff_long <- gather(french_fries, key = type, value = 
                     rating, potato:painty)
 head(ff_long)
 ```
 
 ---
 # Long to Wide
-
+  
 In certain applications, we may wish to take a long dataset and convert it to a wide dataset (perhaps displaying in a table).
 
 This is called "spreading" the data.
 
 ---
 # Spread
-
+  
 We use the **spread** function from `tidyr` to do this:
-
+  
 ```{r}
-french_fries_wide <- spread(ff_long, key = variable, 
-                            value = rating)
+french_fries_weeks <- spread(ff_long, key = time, 
+                             value = rating)
 
-head(french_fries_wide)
+head(french_fries_weeks)
+```
+
+Plot Week 1 against Week 9 in a scatterplot:
+```{r, eval =FALSE}
+french_fries_weeks %>%
+  ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
 
 ---
-# Answer some Questions
+# Week 1 vs week 9
 
-- Easiest question to start is whether the ratings are similar on the different scales, potato'y, buttery, grassy, rancid and painty. 
 
+```{r, fig.width=5, fig.height = 5}
+french_fries_weeks %>%
+  ggplot(aes(x = `1`, y = `9`)) + geom_point()
+```
+
+---
+class: inverse middle 
+# Your turn
+
+![](lorikeets.png)
+
+## Do the Replicates Look Like Each Other?
+
+Tackle this by plotting the replicates against each other using a scatterplot. 
+
+You will need to first gather the data into long form, and then get the replicates spread into separate columns by replicate. 
+
+
+```{r, echo=FALSE, eval=FALSE}
+ff.s <- ff_long %>% spread(key=rep, value=rating)
+ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
+  theme(aspect.ratio=1) 
+ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
+  theme(aspect.ratio=1) + 
+  xlab("Rep 1") + ylab("Rep 2") + facet_wrap(~type, ncol=5)
+```
+
+
+
+---
+# Are ratings similar on different scales?
+  
+- Are ratings similar on the different scales: potato'y, buttery, grassy, rancid and painty?
 - We need to gather the data into long form, and make plots facetted by the scale. 
 
 ---
@@ -267,7 +366,7 @@ head(french_fries_wide)
 
 ```{r}
 ff.m <- french_fries %>% 
-  gather(type, rating, -subject, -time, -treatment, -rep)
+gather(type, rating, -subject, -time, -treatment, -rep)
 head(ff.m)
 ```
 
@@ -275,7 +374,7 @@ head(ff.m)
 
 ```{r, fig.height=2, fig.width=8}
 ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) + 
-  facet_wrap(~type, ncol=5) 
+facet_wrap(~type, ncol=5) 
 ```
 
 ---
@@ -283,176 +382,94 @@ ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) +
 
 ```{r fig.width=8, fig.height=5}
 ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) + 
-  geom_boxplot()
-```
-
-
----
-# Do the Replicates Look Like Each Other?
-
-We will start to tackle this by plotting the replicates against each other using a scatterplot. 
-
-We need to gather the data into long form, and then get the replicates spread into separate columns. 
-
----
-# Check Replicates
-
-```{r}
-head(ff.m)
-```
-
-
-```{r}
-ff.s <- ff.m %>% spread(rep, rating)
-head(ff.s)
+geom_boxplot()
 ```
 
 ---
-# Check Replicates
+# Ratings by week
 
-```{r, fig.show='hold', fig.align='default', fig.height=4, fig.width=4}
-ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
-  theme(aspect.ratio=1) + xlab("Rep 1") + ylab("Rep 2")
-ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
-  theme(aspect.ratio=1) + xlab("Rep 1") + ylab("Rep 2") + 
-  scale_x_sqrt() + scale_y_sqrt()
+How do ratigs change over the weeks?
+Again, we use the long form of the data and plot:
+
+```{r fig.width=8, fig.height=5}
+ff.m$time <- as.numeric(ff.m$time)
+ggplot(data=ff.m, aes(x=time, y=rating, colour=type)) + 
+geom_point(size=.75) +
+geom_smooth() +
+facet_wrap(~type)
 ```
+
 
 ---
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
-
-Make the scatterplots of reps against each other separately for scales, and treatment. 
-
-```{r, echo=FALSE, eval=FALSE}
-ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
-  theme(aspect.ratio=1) + 
-  xlab("Rep 1") + ylab("Rep 2") + facet_wrap(~type, ncol=5)
-ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
-  theme(aspect.ratio=1) + 
-  xlab("Rep 1") + ylab("Rep 2") + facet_grid(treatment~type)
-```
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-Read in the billboard top 100 music data, which contains N'Sync and Backstreet Boys songs that entered the billboard charts in the year 2000
-
-```{r}
-billboard <- read.csv("../data/billboard.csv")
-```
-
-What's in this data? What's X1-X76?
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-1. Use `tidyr` to convert this data into a long format appropriate for plotting a time series (date on the x axis, chart position on the y axis)
-2. Use `ggplot2` to create this time series plot:
-
-```{r, echo=FALSE, fig.height=3}
-long_billboard <- gather(billboard, key = week, value = rank, X1:X76)
-long_billboard$week <- as.numeric(gsub("X", "", long_billboard$week))
-
-#ggplot(data = long_billboard, aes(x=week, y=rank, colour = artist, group = track)) + geom_line() + theme(legend.position="bottom")
-
-# alternative:
-ggplot(data=long_billboard) + geom_line(aes(x=week+lubridate::week(date.entered), y=rank, group=track, colour=artist)) + theme(legend.position="bottom")
-# the backstreet boys' 2nd song of the year 'flopped'
-```
-
-
----
-# String Manipulation
-
-When the experimental design is packed into column names, we need to extract it, and tidy it up. 
+Read the genes data from folder `data`. Column names contain data and are kind of messy. Introduce data frame `gtidy` as shown below:
 
 ```{r}
 genes <- read_csv("../data/genes.csv")
-head(genes)
 ```
 
----
-# Gather Column Names into Long Form
-
-```{r}
-gather(genes, variable, expr, -id) 
-```
-
----
-# Separate Columns
-
-```{r}
-genes %>%
-  gather(variable, expr, -id) %>%
-  separate(variable, c("trt", "leftover"), "-") 
-```
-
----
-
-```{r}
-genes %>%
-  gather(variable, expr, -id) %>%
-  separate(variable, c("trt", "leftover"), "-") %>%
-  separate(leftover, c("time", "rep"), "\\.") 
-```
-
----
-
-```{r}
+```{r echo=FALSE}
 gtidy <- genes %>%
-  gather(variable, expr, -id) %>%
-  separate(variable, c("trt", "leftover"), "-") %>%
-  separate(leftover, c("time", "rep"), "\\.") %>%
-  mutate(trt = sub("W", "", trt)) %>%
-  mutate(rep = sub("R", "", rep))
+gather(variable, expr, -id) %>%
+separate(variable, c("trt", "leftover"), "-") %>%
+separate(leftover, c("time", "rep"), "\\.") %>%
+mutate(trt = sub("W", "", trt)) %>%
+mutate(rep = sub("R", "", rep))
+```
+
+```{r}
 head(gtidy)
 ```
-
----
-class: inverse middle 
-# Your turn
-
 ![](lorikeets.png)
 
-(1) Using the tidied dataset (`gtidy`), find the mean expression for each combination of id, trt, and time.
-(2) Use this tidied data to make this plot.
+---
+# Plot from before
 
-```{r, echo=FALSE, fig.height=3}
-gmean <- gtidy %>% 
-  group_by(id, trt, time) %>% 
-  summarise(expr = mean(expr))
-ggplot(data = gtidy, aes(trt, expr, colour = time)) + 
-         geom_point() + 
-  xlab("Type of modification") + ylab("Expression") + 
-  facet_wrap(~id) +
-  geom_line(data = gmean, aes(group = time))
+```{r, fig.width=5, fig.height = 5}
+gtidy %>% 
+  filter(time==6 ) %>%
+  ggplot(aes(x = trt, y = expr, colour=id)) +
+  geom_point() +
+  geom_line(aes(group = interaction(id, rep))) +
+  facet_wrap(~id)
 ```
+
+---
+# Models and model output
+
+Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
+
+e.g. fit french fry rating with respect to all designed main effects:
+
+```{r}
+ff_long <- gather(french_fries, key = type, value = 
+rating, potato:painty)
+ff_lm <- lm(rating~type+treatment+time+subject, 
+data=ff_long)
+```
+
+`summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
+
+```{r}
+summary(ff_lm)
+```
+
+
 
 ---
 # Tidying model output
 
 The package `broom` gets model results into a tidy format at different levels
 
-- for each model: `broom::glance`
-- for each coefficient in the model: `broom::tidy`
-- for each value in the dataset: `broom::augment`
+One value for each:
 
-```{r}
-ff_long <- gather(french_fries, key = variable, value = 
-                    rating, potato:painty)
-ff_lm <- lm(rating~variable+treatment+time+subject, 
-            data=ff_long)
+- model: `broom::glance`
+- coefficient in the model: `broom::tidy`
+- value in the dataset: `broom::augment`
 
-```
+
 
 ---
 # Goodness of fit statistics: `glance`
@@ -485,49 +502,36 @@ ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 ```
 
 ---
-# Back to autism
+# Adding random effects
 
-Fit a random slopes model to the data:
-
-$$vsae = \beta_0 + \beta_1 age2 +  b_1 childid + \varepsilon$$
+Add random intercepts for each subject
 
 ```{r results='hide'}
 library(lme4)
-data(autism)
-autism_keep <- autism %>% group_by(childid) %>% 
-  tally(sort=TRUE) %>% filter(n>2)
-autism_sub <- autism %>% 
-  filter(childid %in% autism_keep$childid)
-autism_lmer <- lmer(vsae ~ age2 + ( age2 - 1 | childid ), 
-                    data = autism_sub)
+fries_lmer <- lmer(rating~type+treatment+time+subject + ( 1 | subject ), 
+data = ff_long)
 ```
+
 
 ---
 class: inverse middle 
 # Your turn
 
-- Augment the autism data with the model diagnostics
+- Augment the ff_long data with the model diagnostics
 - Plot the residuals from the (a) fixed, (b) random effects
-- Color the residuals by (a) gender, (b) besttest2
 - Plot fitted values against observed values
 
-![](lorikeets.png)
+```{r eval=FALSE, echo=FALSE}
 
-```{r echo=FALSE, eval=FALSE}
-autism_lmer_all <- augment(autism_lmer, autism_sub)
-glimpse(autism_lmer_all)
-ggplot(autism_lmer_all, aes(x=.fitted, y=.fixed)) + geom_point()
-ggplot(autism_lmer_all, aes(x=.fitted, y=.resid)) + geom_point()
-ggplot(autism_lmer_all, aes(x=.fitted, y=.resid, colour=gender)) +
-  geom_point() + facet_wrap(~gender)
-ggplot(autism_lmer_all, aes(x=.fitted, y=.resid, colour=bestest2)) +
-  geom_point()
-ggplot(autism_lmer_all, aes(x=.fitted, y=vsae, label=childid)) +
-  geom_point()
-library(plotly)
-ggplotly()
-ggplot(autism_lmer_all, aes(x=.fitted, y=vsae, label=childid)) +
-  geom_point() + geom_line(aes(group=childid))
+## the model is pretty bad:
+ff_lmer_all <- augment(fries_lmer)
+
+ggplot(ff_lmer_all, aes(x=.fitted, y=.resid)) + geom_point() +
+  coord_equal()
+
+ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
+  coord_equal()
+
 ```
 
 ---
@@ -541,3 +545,4 @@ ggplot(autism_lmer_all, aes(x=.fitted, y=vsae, label=childid)) +
 # Share and share alike
 
 This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+
