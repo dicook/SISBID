@@ -197,8 +197,19 @@ There are various features of messy data that one can observe in practice. Here 
   
 `gather(data, key = "key", value = "value", ...)`
 
+`data %>% gather(key = "key", value = "value", ...)`
+
 - `gather` turns a wide format into a long format
-- two new variables are introduced (in key-value format): **key** and **value**: multiple columns are collapsed; their names go into variable `key`, their values go into variable `value`.
+- two new variables are introduced (in key-value format): **key** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `key`, their values go into variable `value`.
+
+```{r, echo = FALSE}
+dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
+```
+
+```{r}
+dframe
+dframe %>% gather(treatment, outcome, trtA, trtB)
+```
 
 ---
 # TB notifications
@@ -231,10 +242,13 @@ tb1 %>% na.omit() %>% head()
 # Separate Columns
   
 `separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
+`data %>% separate (col, into, sep = "[^[:alnum:]]+", ...)`
+
+
 
 - split column `col` from data frame `frame` into a set of columns as specified in `into`
-- `sep` is the splitting separator. By default splits happen for any non-alphanumeric value.
-- better specify `sep` to have some more control; any regular expression will work
+- `sep` is the splitting separator. By default splits happen for any non-alphanumeric value. <br>
+Pro tip: specify `sep` to have some more control; any regular expression will work
 - `unite` combines multiple variables into one
 
 ---
@@ -243,7 +257,8 @@ tb1 %>% na.omit() %>% head()
 Work on `key`: 
   
 ```{r}
-tb2 <- tb1 %>% separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
+tb2 <- tb1 %>% 
+  separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
 tb2 %>% na.omit() %>% head()
 ```
 
