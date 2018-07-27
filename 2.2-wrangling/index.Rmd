@@ -11,6 +11,8 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, echo = FALSE}
@@ -392,7 +394,7 @@ by_country$country <- reorder(by_country$country, by_country$r.squared)
 ggplot(data=by_country, aes(x=country, y=r.squared, colour=continent)) +
   geom_point() +
   theme(axis.text.x=element_text(angle=-90, hjust=0)) +
-  scale_colour_brewer(palette="Dark2")
+  scale_colour_brewer(palette="Dark2") + coord_flip() 
 ```
 
 

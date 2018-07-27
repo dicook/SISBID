@@ -127,7 +127,6 @@ tbl
 p &lt;- tbl$count[1]/sum(tbl$count)
 
 pos = sample(1:3, 1)
-pos = sample(1:3, 1)
 l &lt;- lineup(null_dist(var="gender01", dist="binom", 
                       list(size=1, p=p)), 
             true=tb_us_long, n=3, pos=pos)
@@ -174,7 +173,7 @@ For `\(x=4, K=17, m=20\)`
 
 ```
      x simulated       binom
-[1,] 4    0.0206 0.008800605
+[1,] 4    0.0227 0.008800605
 ```
 
 ---
@@ -257,6 +256,7 @@ A polygon map of the world is extracted from the maps package. *The names of cou
 
 ```r
 world_map &lt;- map_data("world")
+usa &lt;- map_data("usa")
 tb_names &lt;- tb %&gt;% 
   mutate(region=recode(country, 
                        "United States of America"="USA", 
@@ -288,7 +288,7 @@ One way to make the map is use `geom_map`, and link this dynamically with the TB
 
 ```r
 ggplot(tb_names_inc, aes(map_id = region)) + 
-    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3) + 
+    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3, na.rm=TRUE) + 
     expand_limits(x = world_map$long, y = world_map$lat) +
     theme_few() +
     scale_fill_viridis("trend") + 
@@ -312,12 +312,12 @@ tb_map &lt;- left_join(world_map, tb_names_inc, by="region")
 ggplot(tb_map) + 
   geom_polygon(aes(x=long, y=lat, group=group, fill=year)) +
       theme_few() +
-    scale_fill_viridis("trend") + 
+    scale_fill_viridis("trend", na.value = "grey70") + 
     theme(legend.position = "bottom",
          axis.ticks = element_blank(), 
          axis.title = element_blank(), 
          axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
 ```
 
 &lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /&gt;
@@ -328,6 +328,50 @@ class: inverse middle
 
 Why is India showing a drastically increasing TB incidence. 
 Make the plot of TB incidence for India. 
+
+---
+
+
+```r
+tb_india &lt;- tb %&gt;% 
+  filter(country == "India") %&gt;%
+  filter(!(age %in% c("04", "014", "514", "u"))) %&gt;%
+  filter(year &gt; 1996, year &lt; 2013) %&gt;%
+  group_by(year, country) %&gt;%
+  summarise(count = sum(count, na.rm=TRUE)) 
+india_map &lt;- world_map %&gt;% filter(region == "India")
+tb_map_india &lt;- left_join(india_map, tb_india,
+                          by=c("region"="country")) %&gt;%
+  filter(group == 839)
+```
+
+---
+
+&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+# Animate
+
+
+```r
+p &lt;- ggplot(tb_map_india) + 
+  geom_polygon(aes(x=long, y=lat, group=group, 
+  fill=count, label=region, frame=year)) +
+      theme_few() +
+    scale_fill_viridis("trend", na.value = "grey70", 
+                       limits=c(0,630000)) + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
+```
+
+
+```r
+ggplotly(p)
+```
+
 
 ---
 # Resources
