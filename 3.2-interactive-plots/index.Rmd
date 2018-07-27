@@ -42,13 +42,37 @@ library(ggvis)
 ```
 
 
-# Choices of packages
+# Choices of packages for interactive graphics
 
 - `ggvis`: both static and interactive graphics, interactive is very much a work in progress (Wickham)
-- `plotly`: has come a long way in the last 12 months, part of Carson Sievert's PhD thesis research. The beauty is that is builds directly onto ggplot2
-- `animint`: Hasn't progressed much in the last year, needs special copy of ggplot2 (Hocking, et al)
+- `plotly`: has come a long way in the last years, started as part of Carson Sievert's PhD thesis research. The beauty is that it builds directly onto ggplot2
+- `animint`: Hasn't progressed much in the last year, but it's not dead either (Hocking, et al)
 - `htmlwidgets`: has progressed a lot in 12 months, providing the base for other packages, e.g. `plotly` (Chang)
 - `rCharts`, `rbokeh`, `gridSVG`, `epivizr`, `cranvas`
+
+---
+
+```{r, echo=FALSE, fig.width=10, fig.height = 8}
+interactive <- read_csv("../data/package-info-Jul-2018.csv")
+inter.summary <- interactive %>%
+  group_by(package) %>%
+  summarise(maxdown = max(downloads),
+            maxtime = start[which.max(downloads)])
+
+interactive %>% 
+  ggplot(aes(x = start, y = downloads, colour=package)) +
+  geom_line() +
+  theme_bw() +
+  theme(legend.position="none") +
+  geom_text(
+    aes(x = maxtime, y = 1.05*maxdown, label=package),
+    data = inter.summary %>% filter(maxdown > 10000)) +
+  ylab("Monthly downloads") +
+  xlab("Time")
+
+
+```
+
 
 ---
 # ggvis
@@ -95,7 +119,7 @@ economics %>%
   ggvis(~date, ~psavert) %>%
   layer_points(opacity := 0.2) %>%
   layer_smooths(
-    span = input_slider(0.02, 0.5), 
+    span = input_slider(0.2, 0.5), 
     stroke := "red"
   )
 ```
@@ -119,7 +143,19 @@ class: inverse middle
 
 ![](lorikeets.png)
 
-The values provided for the slider (0.2, 1) look like they are not ideal. Change slider bounds so that they are more appropriate for this data.
+The values provided for the slider (0.2, 0.5) on the previous scatter plot don't look like they are ideal. Change slider bounds to a wider range and see what value might be more appropriate for this data.<br>
+If you are feeling adventurous, add a slider input for opacity as well.
+
+```{r, echo =FALSE}
+economics %>%
+  ggvis(~date, ~psavert) %>%
+  layer_points(
+    opacity := input_slider(0,1, label="opacity")) %>%
+  layer_smooths(
+    span = input_slider(0.02, 0.5, label="span"), 
+    stroke := "red"
+  )
+```
 
 ---
 # Labels
@@ -186,21 +222,20 @@ class: inverse middle
 ![](lorikeets.png)
 
 - Convert the model input to two radio buttons
-- Add a robust linear model choice, which means adding a third radio button
+- Add a robust linear model choice, e.g add a third radio button. The function `MASS::rlm` provides a robust linear model.
 
 ```{r echo=FALSE, eval=FALSE}
-library(MASS)
 model_type <- input_radiobuttons(
   choices = c("Linear" = "lm", 
               "LOESS" = "loess", 
-              "Robust" = "rlm"),
+              "Robust" = "MASS::rlm"),
                    selected = "loess",
                    label = "Model type")
 economics %>%
   ggvis(~date, ~psavert) %>%
   layer_points() %>%
   add_tooltip(all_values, "hover") %>%
-    layer_model_predictions(model = model_type)
+    layer_model_predictions(model = model_type, stroke:="red")
 ```
 
 ---
@@ -251,46 +286,10 @@ data(canada.cities, package = "maps")
 viz <- ggplot(canada.cities, aes(long, lat)) +
   borders(regions = "canada") +
   coord_equal() +
-  geom_point(aes(text = name, size = pop), colour = "red", alpha = 1/2)
+  geom_point(aes(text = name, size = log2(pop)), colour = "red", alpha = 1/4)
  ggplotly(viz)
 ```
 
----
-# Return to the RNA-Seq data
-
-```{r echo=FALSE, fig.width=5, fig.height=5}
-library(GGally)
-library(edgeR)
-coty <- read_delim("../data/GSE61857_Cotyledon_normalized.txt.gz",
-  delim="\t", col_types="cddddddddd", 
-  col_names=c("ID", "C_S1_R1", "C_S1_R2", "C_S1_R3", 
-  "C_S2_R1", "C_S2_R2", "C_S2_R3", "C_S3_R1", "C_S3_R2", "C_S3_R3"),
-  skip=1)
-coty <- as.data.frame(coty)
-d <- DGEList(counts = coty[,2:7], 
-  group = c(rep("S1", 3), rep("S2", 3)), 
-  genes = coty[,1])
-d <- calcNormFactors(d)
-d <- estimateCommonDisp(d)
-d <- estimateTagwiseDisp(d)
-d <- estimateTrendedDisp(d)
-de <- exactTest(d, pair=c("S1", "S2"), dispersion = "trended")
-sig.tab <- de$table
-sig.tab$genes <- coty$ID
-sig.tab <- dplyr::filter(sig.tab, PValue < 0.01)
-sig.tab <- merge(sig.tab, coty[,1:7], by.x="genes", by.y="ID")
-ggscatmat(sig.tab, columns=5:10, alpha=0.1)
-```
-
----
-
-```{r fig.width=4, fig.height=4}
-p <- ggplot(sig.tab, aes(x=C_S1_R2, y=C_S2_R1, label=genes)) +
-  geom_point(alpha=0.1) 
-ggplotly(p)
-```
-
-With a large data set it can be slow!
 
 ---
 class: inverse middle 
@@ -305,6 +304,7 @@ Find which `ggplot2` geoms are supported in plotly, and maybe one that is not?
 # Example, using Australian elections
 
 ```{r eval=FALSE}
+#devtools::install_github("ropenscilabs/eechidna")
 library(eechidna)
 launchApp(
   age = c("Age20_24", "Age85plus"),

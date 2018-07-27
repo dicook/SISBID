@@ -35,7 +35,7 @@ library(ggmap)
 library(HLMdiag)
 library(RColorBrewer)
 library(gridExtra)
-library(gglogo)
+#library(gglogo)
 ```
 
 
@@ -53,7 +53,7 @@ library(gglogo)
 - networks consist of a edges data set and a nodes (vertices) set
 - we merge node information into the edges
 
-```{r}
+```{r, message=FALSE}
 library(geomnet)
 data(blood)
 
@@ -63,14 +63,14 @@ head(blood$edges, 3)
 # vertices:
 head(blood$vertices, 3)
 
-bloodnet <- left_join(blood$edges, blood$vertices, by=c("from" = "label"))
+bloodnet <- fortify(as.edgedf(blood$edges), blood$vertices)
 ```
 
 ---
 # Directed network of blood donation
 
 ```{r}
-p <- ggplot(data = bloodnet, aes(from_id = from, to_id = to))
+p <- ggplot(data = bloodnet, aes(from_id = from_id, to_id = to_id))
 p + geom_net(labelon = TRUE, size = 15, labelcolour="white", 
              vjust=0.5, hjust=0.5, directed=TRUE, arrowgap=0.075) + 
   theme_net()
@@ -88,6 +88,73 @@ p + geom_net(labelon = TRUE, labelcolour="white",
   facet_wrap(~Ethnicity) + scale_size(range=c(5,15)) + 
   expand_limits(x = c(-.1,1.1), y = c(-.1,1.1))
 ```
+
+---
+# Madmen ...
+
+Edge between two characters of the show 'Madmen' is drawn if the characters shared a sexual encounter.
+
+```{r}
+data(madmen)
+MMnet <- fortify(as.edgedf(madmen$edges), madmen$vertices)
+
+p <- ggplot(data = MMnet, aes(from_id = from_id, to_id = to_id))
+p + geom_net(labelon=TRUE, aes(colour=Gender)) +
+  theme_bw()
+```
+
+
+---
+# Madmen ...
+
+interactive labelling on demand works much better and removes the clutter!
+
+```{r}
+plotly::ggplotly()
+```
+
+---
+# Harry Potter Peer Support Network
+
+
+Example from [RSiena website](http://www.stats.ox.ac.uk/~snijders/siena/siena.html): tie between two students if one provides emotional support to the other at some point in a book, i.e. a directed network. 
+
+```{r, echo=FALSE}
+hp.chars <- read.csv("../data/hp-characters.csv")
+hp.edges <- read.csv("../data/hp-edges.csv")
+#hp.all <- fortify(as.edgedf(hp.edges), hp.chars, group = "book")
+hp.all <- read.csv("../data/hp-all.csv")
+```
+
+```{r}
+library(geomnet)
+head(hp.chars)
+head(hp.edges)
+```
+
+---
+# Emotional support network
+
+In the visualization the arrow points to the student receiving support.
+
+```{r, eval=FALSE}
+ggplot(data=hp.all, aes(from_id = from, to_id = to_id, 
+                        colour = house, group = house, shape = gender)) +
+  geom_net(fiteach=T, directed = T, size = 3, linewidth = .5,
+           ealpha = .5, labelon = T, fontsize = 3, repel = F, 
+           labelcolour = "black", arrowsize = .5, singletons = FALSE) +
+  scale_colour_manual(values = c("#941B08","#F1F31C", 
+                                 "#071A80", "#154C07")) + 
+  facet_wrap(~book, labeller = "label_both") + 
+  theme_net() + theme(panel.background = element_rect(colour = 'black'))
+```
+
+---
+# Emotional support network
+
+In the visualization the arrow points to the student receiving support.
+
+<img src="index_files/figure-html/harry-potter-support.png">
 
 ---
 # Bipartite networks
