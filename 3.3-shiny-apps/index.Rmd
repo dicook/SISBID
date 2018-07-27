@@ -195,7 +195,7 @@ middle of Chr 1, chunks of Chr 3, one spot on Chr 8, end of Chr 16, ...
 
 - Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
 - Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
-- Finding a statistical answer to a matching problem: http://erichare.shinyapps.io/x3prplus 
+- Finding a statistical answer to a matching problem: https://oaiti.org/apps/bulletmatcher/ 
 - Author: Eric Hare
 
 ---

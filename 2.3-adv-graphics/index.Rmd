@@ -409,8 +409,7 @@ tb_india <- tb %>%
   summarise(count = sum(count, na.rm=TRUE)) 
 india_map <- world_map %>% filter(region == "India")
 tb_map_india <- left_join(india_map, tb_india,
-                          by=c("region"="country")) %>%
-  filter(group == 839)
+                          by=c("region"="country")) 
 ```
 
 ---

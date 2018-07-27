@@ -99,7 +99,8 @@ data(madmen)
 MMnet <- fortify(as.edgedf(madmen$edges), madmen$vertices)
 
 p <- ggplot(data = MMnet, aes(from_id = from_id, to_id = to_id))
-p + geom_net(labelon=TRUE, aes(colour=Gender)) +
+set.seed(20180725)
+p + geom_net(labelon=TRUE, aes(colour=Gender), layout.alg = "kamadakawai", repel=T) +
   theme_bw()
 ```
 
