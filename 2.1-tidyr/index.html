@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Tidying your data</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Tidying your data
-## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/25-27/2018
+## SISBID 2019 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### 07/24-26/2019
 
 ---
 
@@ -41,15 +41,15 @@ Example:
 
 
 ```r
-tb &lt;- read_csv("../data/TB_notifications_2018-03-18.csv") 
+tb &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
 tb %&gt;% filter(year == 2016) %&gt;% group_by(country) %&gt;% 
   summarize(cases = sum(c_newinc, na.rm=TRUE)) %&gt;% arrange(desc(cases))
-# A tibble: 217 x 2
+# A tibble: 216 x 2
    country                            cases
-   &lt;chr&gt;                              &lt;int&gt;
+   &lt;chr&gt;                              &lt;dbl&gt;
  1 India                            1763876
  2 China                             778493
- 3 Indonesia                         358608
+ 3 Indonesia                         364671
  4 Pakistan                          356390
  5 Philippines                       332941
  6 South Africa                      237045
@@ -57,7 +57,7 @@ tb %&gt;% filter(year == 2016) %&gt;% group_by(country) %&gt;%
  8 Myanmar                           137551
  9 Democratic Republic of the Congo  130596
 10 Ethiopia                          125836
-# ... with 207 more rows
+# … with 206 more rows
 ```
 
 ---
@@ -102,7 +102,7 @@ What's in the column names of this data? What are the experimental units? What a
 1 Gene…      2.18     2.20       4.20     2.63       5.06       4.54
 2 Gene…      1.46     0.585      1.86     0.515      2.88       1.36
 3 Gene…      2.03     0.870      3.28     0.533      4.63       2.18
-# ... with 5 more variables: `WI-12.R2` &lt;dbl&gt;, `WI-12.R4` &lt;dbl&gt;,
+# … with 5 more variables: `WI-12.R2` &lt;dbl&gt;, `WI-12.R4` &lt;dbl&gt;,
 #   `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
 ```
 
@@ -144,16 +144,16 @@ What are the variables? What are the experimental units?
 ```
 # A tibble: 6 x 22
   iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
-  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205
 2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198
 3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656
 4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199
 5 ZW     2007     6   132   138    500   3693      0    716    292   153
 6 ZW     2008    NA    NA   127    614      0   3316    704    263   185
-# ... with 11 more variables: m_u &lt;int&gt;, f_04 &lt;int&gt;, f_514 &lt;int&gt;,
-#   f_014 &lt;int&gt;, f_1524 &lt;int&gt;, f_2534 &lt;int&gt;, f_3544 &lt;int&gt;, f_4554 &lt;int&gt;,
-#   f_5564 &lt;int&gt;, f_65 &lt;int&gt;, f_u &lt;int&gt;
+# … with 11 more variables: m_u &lt;dbl&gt;, f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;,
+#   f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;, f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;,
+#   f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
 ```
 
 ---
@@ -180,11 +180,13 @@ class: inverse middle
 
 
 ```
-   time treatment subject rep potato buttery grassy rancid painty
-61    1         1       3   1    2.9     0.0    0.0    0.0    5.5
-25    1         1       3   2   14.0     0.0    0.0    1.1    0.0
-62    1         1      10   1   11.0     6.4    0.0    0.0    0.0
-26    1         1      10   2    9.9     5.9    2.9    2.2    0.0
+# A tibble: 4 x 9
+  time  treatment subject   rep potato buttery grassy rancid painty
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 1     1         3           1    2.9     0      0      0      5.5
+2 1     1         3           2   14       0      0      1.1    0  
+3 1     1         10          1   11       6.4    0      0      0  
+4 1     1         10          2    9.9     5.9    2.9    2.2    0  
 ```
 
 What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?
@@ -257,24 +259,24 @@ new notifications of TB have the form `new_sp_genderage`:
   
 
 ```r
-read_csv("../data/TB_notifications_2018-03-18.csv") %&gt;% 
+read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
   select(country, iso3, year, starts_with("new_sp_")) %&gt;%
   head()
 # A tibble: 6 x 23
   country iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524
-  &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;      &lt;int&gt;       &lt;int&gt;       &lt;int&gt;        &lt;int&gt;
+  &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
 1 Afghan… AFG    1980         NA          NA          NA           NA
 2 Afghan… AFG    1981         NA          NA          NA           NA
 3 Afghan… AFG    1982         NA          NA          NA           NA
 4 Afghan… AFG    1983         NA          NA          NA           NA
 5 Afghan… AFG    1984         NA          NA          NA           NA
 6 Afghan… AFG    1985         NA          NA          NA           NA
-# ... with 16 more variables: new_sp_m2534 &lt;int&gt;, new_sp_m3544 &lt;int&gt;,
-#   new_sp_m4554 &lt;int&gt;, new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;,
-#   new_sp_mu &lt;int&gt;, new_sp_f04 &lt;int&gt;, new_sp_f514 &lt;int&gt;,
-#   new_sp_f014 &lt;int&gt;, new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;,
-#   new_sp_f3544 &lt;int&gt;, new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;,
-#   new_sp_f65 &lt;int&gt;, new_sp_fu &lt;int&gt;
+# … with 16 more variables: new_sp_m2534 &lt;dbl&gt;, new_sp_m3544 &lt;dbl&gt;,
+#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;,
+#   new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;,
+#   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,
+#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;,
+#   new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;
 ```
 
 
@@ -288,13 +290,13 @@ create two new variables: variable `key` (contains all variable names starting w
   
 
 ```r
-tb1 &lt;- read_csv("../data/TB_notifications_2018-03-18.csv") %&gt;% 
+tb1 &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
   select(country, iso3, year, starts_with("new_sp_")) %&gt;%
   gather(key, count, starts_with("new_sp_")) 
 tb1 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 5
   country     iso3   year key        count
-  &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;chr&gt;      &lt;int&gt;
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
 1 Afghanistan AFG    2010 new_sp_m04     4
 2 Afghanistan AFG    2011 new_sp_m04     2
 3 Afghanistan AFG    2012 new_sp_m04     0
@@ -328,7 +330,7 @@ tb2 &lt;- tb1 %&gt;%
 tb2 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 7
   country     iso3   year foo_new foo_sp genderage count
-  &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;
 1 Afghanistan AFG    2010 new     sp     m04           4
 2 Afghanistan AFG    2011 new     sp     m04           2
 3 Afghanistan AFG    2012 new     sp     m04           0
@@ -353,7 +355,7 @@ tb3 &lt;- tb2 %&gt;% select(-starts_with("foo")) %&gt;%
 tb3 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 6
   country     iso3   year count gender age  
-  &lt;chr&gt;       &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
 1 Afghanistan AFG    2010     4 m      04   
 2 Afghanistan AFG    2011     2 m      04   
 3 Afghanistan AFG    2012     0 m      04   
@@ -366,20 +368,22 @@ tb3 %&gt;% na.omit() %&gt;% head()
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
+
 
 Turn the `french_fries` data (from package `reshape`) from wide format into a long format with variables `type` and `rating`. 
 What would we like to find out about this data?
   
 
 ```
-   time treatment subject rep potato buttery grassy rancid painty
-61    1         1       3   1    2.9     0.0    0.0    0.0    5.5
-25    1         1       3   2   14.0     0.0    0.0    1.1    0.0
-62    1         1      10   1   11.0     6.4    0.0    0.0    0.0
-26    1         1      10   2    9.9     5.9    2.9    2.2    0.0
-63    1         1      15   1    1.2     0.1    0.0    1.1    5.1
-27    1         1      15   2    8.8     3.0    3.6    1.5    2.3
+# A tibble: 6 x 9
+  time  treatment subject   rep potato buttery grassy rancid painty
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 1     1         3           1    2.9     0      0      0      5.5
+2 1     1         3           2   14       0      0      1.1    0  
+3 1     1         10          1   11       6.4    0      0      0  
+4 1     1         10          2    9.9     5.9    2.9    2.2    0  
+5 1     1         15          1    1.2     0.1    0      1.1    5.1
+6 1     1         15          2    8.8     3      3.6    1.5    2.3
 ```
 
 
@@ -403,13 +407,15 @@ Each of these questions involves different summaries of the data.
 ff_long &lt;- gather(french_fries, key = type, value = 
                     rating, potato:painty)
 head(ff_long)
-  time treatment subject rep   type rating
-1    1         1       3   1 potato    2.9
-2    1         1       3   2 potato   14.0
-3    1         1      10   1 potato   11.0
-4    1         1      10   2 potato    9.9
-5    1         1      15   1 potato    1.2
-6    1         1      15   2 potato    8.8
+# A tibble: 6 x 6
+  time  treatment subject   rep type   rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1 1     1         3           1 potato    2.9
+2 1     1         3           2 potato   14  
+3 1     1         10          1 potato   11  
+4 1     1         10          2 potato    9.9
+5 1     1         15          1 potato    1.2
+6 1     1         15          2 potato    8.8
 ```
 
 ---
@@ -430,13 +436,16 @@ french_fries_weeks &lt;- spread(ff_long, key = time,
                              value = rating)
 
 head(french_fries_weeks)
-  treatment subject rep    type   1   2    3    4    5   6   7   8   9 10
-1         1       3   1 buttery 0.0 0.3  0.2  0.1  0.3 1.2 0.0 0.5 0.4 NA
-2         1       3   1  grassy 0.0 0.1  0.0  0.0  0.0 0.0 0.0 1.3 0.0 NA
-3         1       3   1  painty 5.5 0.3  0.0  0.0  1.7 9.5 5.5 3.8 7.0 NA
-4         1       3   1  potato 2.9 9.0 11.8 13.6 14.0 0.4 2.9 3.5 1.1 NA
-5         1       3   1  rancid 0.0 5.8  6.0  1.7  0.0 0.0 0.0 0.0 0.0 NA
-6         1       3   2 buttery 0.0 0.5  0.5  0.0  0.8 1.1 0.0 0.3 0.5 NA
+# A tibble: 6 x 14
+  treatment subject   rep type    `1`   `2`   `3`   `4`   `5`   `6`   `7`
+  &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 1         3           1 butt…   0     0.3   0.2   0.1   0.3   1.2   0  
+2 1         3           1 gras…   0     0.1   0     0     0     0     0  
+3 1         3           1 pain…   5.5   0.3   0     0     1.7   9.5   5.5
+4 1         3           1 pota…   2.9   9    11.8  13.6  14     0.4   2.9
+5 1         3           1 ranc…   0     5.8   6     1.7   0     0     0  
+6 1         3           2 butt…   0     0.5   0.5   0     0.8   1.1   0  
+# … with 3 more variables: `8` &lt;dbl&gt;, `9` &lt;dbl&gt;, `10` &lt;dbl&gt;
 ```
 
 Plot Week 1 against Week 9 in a scatterplot:
@@ -462,7 +471,6 @@ french_fries_weeks %&gt;%
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
 
 ## Do the Replicates Look Like Each Other?
 
@@ -489,13 +497,15 @@ You will need to first gather the data into long form, and then get the replicat
 ff.m &lt;- french_fries %&gt;% 
 gather(type, rating, -subject, -time, -treatment, -rep)
 head(ff.m)
-  time treatment subject rep   type rating
-1    1         1       3   1 potato    2.9
-2    1         1       3   2 potato   14.0
-3    1         1      10   1 potato   11.0
-4    1         1      10   2 potato    9.9
-5    1         1      15   1 potato    1.2
-6    1         1      15   2 potato    8.8
+# A tibble: 6 x 6
+  time  treatment subject   rep type   rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+1 1     1         3           1 potato    2.9
+2 1     1         3           2 potato   14  
+3 1     1         10          1 potato   11  
+4 1     1         10          2 potato    9.9
+5 1     1         15          1 potato    1.2
+6 1     1         15          2 potato    8.8
 ```
 
 --
@@ -563,7 +573,7 @@ head(gtidy)
 5 Gene 2 I     6     2     0.585
 6 Gene 3 I     6     2     0.870
 ```
-![](lorikeets.png)
+
 
 ---
 # Plot from before
@@ -671,10 +681,11 @@ One value for each:
 
 ```r
 glance(ff_lm)
-  r.squared adj.r.squared   sigma statistic p.value df    logLik      AIC
-1 0.3995198     0.3949865 2.89966  88.13113       0 27 -8606.787 17269.57
-       BIC deviance df.residual
-1 17441.83 28957.24        3444
+# A tibble: 1 x 11
+  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     0.400         0.395  2.90      88.1       0    27 -8607. 17270.
+# … with 3 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;
 ```
 
 ---
@@ -686,11 +697,11 @@ ff_lm_tidy &lt;- tidy(ff_lm)
 glimpse(ff_lm_tidy)
 Observations: 27
 Variables: 5
-$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepota...
-$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.0...
-$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.155720...
-$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13...
-$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-...
+$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepotato…
+$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.032…
+$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200,…
+$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.0…
+$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-20…
 ```
 
 ---
@@ -702,19 +713,19 @@ ff_lm_all &lt;- augment(ff_lm)
 glimpse(ff_lm_all)
 Observations: 3,471
 Variables: 13
-$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", ...
-$ rating     &lt;dbl&gt; 2.9, 14.0, 11.0, 9.9, 1.2, 8.8, 9.0, 8.2, 7.0, 13.0...
-$ type       &lt;chr&gt; "potato", "potato", "potato", "potato", "potato", "...
-$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
-$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
-$ subject    &lt;fct&gt; 3, 3, 10, 10, 15, 15, 16, 16, 19, 19, 31, 31, 51, 5...
-$ .fitted    &lt;dbl&gt; 6.331728, 6.331728, 8.046235, 8.046235, 5.972622, 5...
-$ .se.fit    &lt;dbl&gt; 0.2578966, 0.2578966, 0.2523712, 0.2523712, 0.25301...
-$ .resid     &lt;dbl&gt; -3.4317275, 7.6682725, 2.9537651, 1.8537651, -4.772...
-$ .hat       &lt;dbl&gt; 0.007910376, 0.007910376, 0.007575050, 0.007575050,...
-$ .sigma     &lt;dbl&gt; 2.899486, 2.897111, 2.899641, 2.899907, 2.898931, 2...
-$ .cooksd    &lt;dbl&gt; 4.169299e-04, 2.081769e-03, 2.955862e-04, 1.164238e...
-$ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.652...
+$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1…
+$ rating     &lt;dbl&gt; 2.9, 14.0, 11.0, 9.9, 1.2, 8.8, 9.0, 8.2, 7.0, 13.0, …
+$ type       &lt;chr&gt; "potato", "potato", "potato", "potato", "potato", "po…
+$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ subject    &lt;fct&gt; 3, 3, 10, 10, 15, 15, 16, 16, 19, 19, 31, 31, 51, 51,…
+$ .fitted    &lt;dbl&gt; 6.331728, 6.331728, 8.046235, 8.046235, 5.972622, 5.9…
+$ .se.fit    &lt;dbl&gt; 0.2578966, 0.2578966, 0.2523712, 0.2523712, 0.2530101…
+$ .resid     &lt;dbl&gt; -3.4317275, 7.6682725, 2.9537651, 1.8537651, -4.77262…
+$ .hat       &lt;dbl&gt; 0.007910376, 0.007910376, 0.007575050, 0.007575050, 0…
+$ .sigma     &lt;dbl&gt; 2.899486, 2.897111, 2.899641, 2.899907, 2.898931, 2.8…
+$ .cooksd    &lt;dbl&gt; 4.169299e-04, 2.081769e-03, 2.955862e-04, 1.164238e-0…
+$ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.65222…
 ```
 
 ---
@@ -760,8 +771,9 @@ class: inverse middle
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -771,16 +783,57 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -794,14 +847,15 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

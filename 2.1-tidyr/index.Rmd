@@ -1,8 +1,8 @@
 ---
 title: "Tidying your data"
-subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/25-27/2018"
+date: "07/24-26/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -58,7 +58,7 @@ library(broom)
 Example:
 
 ```{r}
-tb <- read_csv("../data/TB_notifications_2018-03-18.csv") 
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
 tb %>% filter(year == 2016) %>% group_by(country) %>% 
   summarize(cases = sum(c_newinc, na.rm=TRUE)) %>% arrange(desc(cases))
 ```
@@ -123,7 +123,7 @@ class: inverse middle
 What are the variables? What are the experimental units?
 
 ```{r echo=FALSE}
-tb <- read_csv("../data/tb.csv")
+tb <- read_csv(here::here("data/tb.csv"))
 tail(tb)
 #colnames(tb)
 ```
@@ -151,7 +151,7 @@ class: inverse middle
 10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice. First few rows:
 
 ```{r, echo = FALSE}
-data(french_fries, package = "reshape2")
+load(here::here("data/french_fries.rda"))
 head(french_fries, 4)
 ```
 
@@ -217,7 +217,7 @@ dframe %>% gather(treatment, outcome, trtA, trtB)
 new notifications of TB have the form `new_sp_genderage`:
   
 ```{r}
-read_csv("../data/TB_notifications_2018-03-18.csv") %>% 
+read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
   head()
 ```
@@ -232,7 +232,7 @@ read_csv("../data/TB_notifications_2018-03-18.csv") %>%
 create two new variables: variable `key` (contains all variable names starting with `new_sp_`) and variable `count` with the values:
   
 ```{r}
-tb1 <- read_csv("../data/TB_notifications_2018-03-18.csv") %>% 
+tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
   gather(key, count, starts_with("new_sp_")) 
 tb1 %>% na.omit() %>% head()
@@ -281,7 +281,7 @@ tb3 %>% na.omit() %>% head()
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
+
 
 Turn the `french_fries` data (from package `reshape`) from wide format into a long format with variables `type` and `rating`. 
 What would we like to find out about this data?
@@ -350,7 +350,6 @@ french_fries_weeks %>%
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
 
 ## Do the Replicates Look Like Each Other?
 
@@ -437,7 +436,7 @@ mutate(rep = sub("R", "", rep))
 ```{r}
 head(gtidy)
 ```
-![](lorikeets.png)
+
 
 ---
 # Plot from before
@@ -563,5 +562,5 @@ ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
