@@ -1,8 +1,8 @@
 ---
 title: "Interactive graphics"
-subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/25-27/2018"
+date: "07/24-26/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -38,7 +38,7 @@ library(HLMdiag)
 library(RColorBrewer)
 library(gridExtra)
 library(plotly)
-library(ggvis)
+library(gganimate)
 ```
 
 
@@ -79,7 +79,7 @@ interactive %>%
 
 Built on the javascript library `vega`
 
-```{r}
+```{r eval=FALSE}
 library(ggvis)
 data("economics", package = "ggplot2")
 
@@ -90,7 +90,7 @@ ggvis(economics, x=~date, y=~psavert)
 ---
 # 
 
-```{r}
+```{r eval=FALSE}
 economics %>%
   ggvis(~date, ~psavert) %>%
   layer_points() %>%
@@ -114,7 +114,7 @@ can be interactive
 ---
 # 
 
-```{r}
+```{r eval=FALSE}
 economics %>%
   ggvis(~date, ~psavert) %>%
   layer_points(opacity := 0.2) %>%
@@ -146,7 +146,7 @@ class: inverse middle
 The values provided for the slider (0.2, 0.5) on the previous scatter plot don't look like they are ideal. Change slider bounds to a wider range and see what value might be more appropriate for this data.<br>
 If you are feeling adventurous, add a slider input for opacity as well.
 
-```{r, echo =FALSE}
+```{r, echo =FALSE, eval=FALSE}
 economics %>%
   ggvis(~date, ~psavert) %>%
   layer_points(
@@ -174,7 +174,7 @@ economics %>%
 
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=FALSE}
 all_values <- function(x) {
   if (is.null(x)) return(NULL)
   paste0(names(x), ": ", format(x), collapse = "<br />")
@@ -331,4 +331,4 @@ class: inverse middle
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
