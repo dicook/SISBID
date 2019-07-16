@@ -1,8 +1,8 @@
 ---
 title: "Multivariate data plots"
-subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/25-27/2018"
+date: "07/24-26/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -32,11 +32,11 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(lubridate)
 library(GGally)
-library(edgeR)
-library(broom)
-library(biobroom)
+# remotes::install_github("ggobi/tourr")
 library(tourr)
-library(bigPint)
+library(purrr)
+library(broom)
+library(plotly)
 ```
 
 class: inverse middle 
@@ -44,8 +44,6 @@ class: inverse middle
 
 - What is multivariate data?
 - What makes multivariate analysis different from univariate analysis?
-
-![](lorikeets.png)
 
 ```{r, eval=FALSE, echo = FALSE}
 data is multivariate, if we have more information than a single aspect for each entity/person/experimental unit.
@@ -55,76 +53,115 @@ mutivariate analysis takes relationships between these different aspects into ac
 ---
 # Main types of plots
 
-- __pairwise plots__: explore replicates, and associations
-- __litre plots__: to compare multiple treatments vs replicates
-- __parallel coordinate plots__: explore high-dimensional relationships with parallel axes
-- __tours__: sequence of projections of high-dimensional data
+- __pairwise plots__: explore association between pairs of variables
+- __parallel coordinate plots__: use parallel axes to lay out many variables on a page
+- __heatmaps__: represent data value using colour, present as a coloured table
+- __tours__: sequence of projections of high-dimensional data, good for examining shape and distribution between many variables
 
 ---
 # Scatterplot matrix: GGally
 
-In a classical scatterplot matrix plot, all variables are numeric, show all possible pairs.
+The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggscatmat`, `ggpairs`.
 
-
-```{r}
+```{r scatterplot matrix, echo=TRUE, fig.width=8, fig.height=8}
+# Make a simple scatterplot matrix of a classic data set
 data(flea)
-ggscatmat(flea, columns = 2:4, color = "species") 
+ggscatmat(flea, columns = 1:6)
 ```
 
----
-# Example: food borne diseases
+*What do we learn?*
 
-National Notifiable Diseases Surveillance System (NNDSS)
-
-source: http://www9.health.gov.au/cda/source/cda-index.cfm
-
-1 January 2009 to 30 December 2016
-
-```{r}
-salmonella <- read_csv("../data/salmonella.csv")
-salmonella <- salmonella %>% 
-  mutate(date = dmy(`Week Ending (Friday)`))
-sm_wkly_count <- salmonella %>% 
-  mutate(week = week(date), year = year(date)) %>%
-  count(year, week) %>%
-  filter(year < 2017, week < 53, week > 1) %>% 
-  spread(year, n) 
-```
+- clustering
+- linear dependence
+- marginal discrete distribution
 
 ---
 
-```{r fig.width=8, fig.height=8}
-ggscatmat(sm_wkly_count[,-1])
+**Add some colour for groups**
+
+```{r scatterplot matrix with colour, echo=TRUE, fig.width=8, fig.height=8}
+# Re-make mapping colour to species (class)
+data(flea)
+ggscatmat(flea, columns = 1:6, color = "species") +
+  theme(legend.position="bottom")
 ```
 
-Salmonella incidence is similar from one year to another. There is one week in 2009 that had higher incidence than in other years. There are three weeks in 2016 that had high incidence. And there is one week in 2016, that overall didn't have high incidence but relative to 2010 was abnormal.
+*What do we learn?*
 
----
-class: inverse middle 
-# Your turn
+- clustering is due to the class variable
 
-Make a scatterplot matrix of the the states against each other. This is a bit tricky. You need to rearrange the data to get State in the columns, instead of year. 
-
-```{r eval=FALSE, echo=FALSE}
-sm_state_count <- salmonella %>% 
-  mutate(week = week(date), year = year(date)) %>%
-  count(State, week) %>%
-  filter(week < 53, week > 1) %>% 
-  spread(State, n) 
-ggscatmat(sm_state_count[,-1])
-```
 
 ---
 # Generalized pairs plot
 
-There is no reason that you can't show any type of variable, or use plots other than the scatterplot. We would call this a generalised pairs plot. Examples of what might be shown are:
+These functions strictly take numeric variables. For a wider variety of variable types, use `ggpairs`.
 
-- if one variable in the pair is categorical and the other is continuous, then side-by-side boxplots would be a good option for display
-- if both variables are categorical, a mosaic plot would be a possible choice
+```{r generalised pairs plot, echo=TRUE, fig.width=8, fig.height=8}
+# Matrix plot when variables are not numeric
+data(australia_PISA2012)
+australia_PISA2012 <- australia_PISA2012 %>%
+  mutate(desk = factor(desk), room = factor(room),
+         study = factor(study), computer = factor(computer),
+         software = factor(software), internet = factor(internet),
+         literature = factor(literature), poetry= factor(poetry),
+         art = factor(art), textbook = factor(textbook),
+         dictionary = factor(dictionary),
+         dishwasher = factor(dishwasher))
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26))
+```
 
+Its a bit slower, but it has a huge amount of flexibility.
 
-```{r fig.width=6}
-housing <- read_csv("../data/housing.csv") %>%
+---
+
+```{r generalised pairs plot enhance plots, echo=TRUE, fig.width=8, fig.height=8}
+# Modify the defaults, set the transparency of points since there is a lot of data
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26), 
+          lower = list(continuous = wrap("points", alpha=0.05)))
+```
+
+---
+
+```{r generalised pairs plot enhance more, echo=TRUE, fig.width=8, fig.height=8}
+# Make a special style of plot to put in the matirx
+my_fn <- function(data, mapping, method="loess", ...){
+      p <- ggplot(data = data, mapping = mapping) + 
+      geom_point(alpha=0.2, size=1) + 
+      geom_smooth(method="lm", ...)
+      p
+}
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26), 
+          lower = list(continuous = my_fn))
+
+```
+
+*What do we learn?*
+
+- moderate increase in all scores as more time is spent on homework
+- test scores all have a very regular bivariate normal shape - is this simulated data? yes.
+- having a dishwasher in the household corresponds to small increase in homework time
+- very little but slight increase in scores with a dishwasher in household
+
+---
+class: inverse middle
+
+# Your turn
+
+Re-make the plot with side-by-side boxplots on the lower triangle, for the combo variables, and the density plots in the upper triangle.
+
+---
+# Regression setting
+
+An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables, is to plot price against all other  variables.
+
+```{r fig.width=8, fig.height=5}
+housing <- read_csv(here::here("data/housing.csv")) %>%
   mutate(date = dmy(date)) %>%
   mutate(year = year(date)) %>%
   filter(year == 2016) %>%
@@ -132,498 +169,493 @@ housing <- read_csv("../data/housing.csv") %>%
   filter(bedroom2 < 7, bathroom < 5) %>%
   mutate(bedroom2 = factor(bedroom2), 
          bathroom = factor(bathroom)) 
-```
-
----
-
-```{r fig.width=7, fig.height=6.5}
-ggpairs(housing[, c(4,3,8,10,11)], aes(colour=type, fill=type), 
-        lower=list(continuous = wrap("points", alpha=0.1)),
-        diag=list(continuous = wrap("densityDiag", alpha=0.5)))
-```
-
-There's a lot going on here! And there is a lot that can be written to summarise the pairwise relationships.
-
----
-
-An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables, is to plot price against all other  variables.
-
-```{r fig.width=8, fig.height=5}
 ggduo(housing[, c(4,3,8,10,11)], columnsX = 2:5, columnsY = 1, 
       aes(colour=type, fill=type), 
       types = list(continuous = wrap("smooth", alpha = 0.10)))
 ```
 
 ---
-# For biological data
+# Let's explore tuberculosis mortality
 
-Brown, A. and Hudson, K. (2015) Developmental profiling of gene expression in soybean trifoliate leaves and cotyledons, [GSE61857](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61857). 
+This data set is available from WHO along with the incidence data. The package `getTBinR` is a good way to download the burden table, which contains (estimated) mortality rates. 
 
-```{r eval=FALSE}
-coty <- read_delim("../data/GSE61857_Cotyledon_normalized.txt.gz",
-  delim="\t", col_types="cddddddddd", 
-  col_names=c("ID", "C_S1_R1", "C_S1_R2", "C_S1_R3", 
-  "C_S2_R1", "C_S2_R2", "C_S2_R3", "C_S3_R1", "C_S3_R2", "C_S3_R3"),
-  skip=1)
-coty <- as.data.frame(coty)
-ggscatmat(coty, columns=2:7, alpha=0.1)
+```{r how to pull the tb data directly, eval=FALSE}
+# library(getTBinR)
+# tb_burden <- get_tb_burden(verbose = FALSE)
+# dict <- get_data_dict(verbose = FALSE)
+# save(tb_burden, file="data/tb_burden.rda")
 ```
 
-Normalized data for the first 6 samples are shown.
+You have the data downloaded in the data directory already. We'd like to explore the rates across countries. To do this we will fit a linear model for each country and collect some statistics from each model fit. Using these, we'll extract countries with specific characteristics.
+
+```{r explore tb mortality trends, echo=TRUE, fig.width=8, fig.height=8}
+# A more complex example of using the scatterplot matrix to explore
+# a large collection of time series. Compute statistics for each time
+# series, which might be called tignostics, and plot these. Explore 
+# the scatterplot matrix for anomalies and clusters. 
+load(here::here("data/tb_burden.rda"))
+# Fit a model for each country, and extract statistics
+tb_reg1 <- tb_burden %>%
+  group_by(country) %>%
+  nest() %>%
+  mutate(model = purrr::map(data, ~lm(e_mort_exc_tbhiv_100k ~ year, data = .x) %>% 
+                       tidy)) %>% 
+  unnest(model) %>%
+  select(country, term, estimate) %>%
+  spread(term, estimate) %>%
+  rename(intercept = `(Intercept)`, slope=year)
+tb_reg2 <- tb_burden %>%
+  group_by(country) %>%
+  nest() %>%
+  mutate(model = purrr::map(data, ~lm(e_mort_exc_tbhiv_100k ~ year, data = .x) %>% 
+                       glance)) %>% 
+  unnest(model) %>%
+  select(country, r.squared, sigma, BIC, deviance)
+tb_reg <- left_join(tb_reg1, tb_reg2)
+# Drop the 0 deviance, 0 sigma countries
+tb_reg <- tb_reg %>% filter(sigma > 0, BIC > -400)
+ggscatmat(tb_reg, columns=3:7)
+```
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+What do you learn about mortality rates across the difference countries from this?
 
 ---
+# Add interactivity
 
-```{r echo=FALSE, fig.width=7, fig.height=7}
-coty <- read_delim("../data/GSE61857_Cotyledon_normalized.txt.gz",
-  delim="\t", col_types="cddddddddd", 
-  col_names=c("ID", "C_S1_R1", "C_S1_R2", "C_S1_R3", 
-  "C_S2_R1", "C_S2_R2", "C_S2_R3", "C_S3_R1", "C_S3_R2", "C_S3_R3"),
-  skip=1)
 
-# producing the column names automatically:
-# sprintf("C_S%d_R%d", rep(1:3, each=3), rep(1:3, 3))
+`r icon::fa("hand-point-right")` **Add interactivity**
 
-coty <- as.data.frame(coty)
-ggscatmat(coty[sample(1:nrow(coty), 5000),], columns=2:7, alpha=0.1)
+```{r explore tb mortality trends interactively, echo=TRUE, fig.width=8, fig.height=6}
+# Add interaction to find the id's for countries that are anomalies
+tb_reg_m <- as.data.frame(tb_reg[,3:7])
+rownames(tb_reg_m) <- tb_reg$country
+tb_reg_m %>% ggpairs() %>% ggplotly()
+```
+
+
+<br>
+
+The row number of the data matrix that shows on mouseover can be used to find the country.
+
+<br>
+
+---
+# Decreasing mortality
+
+
+```{r plot the countries that have decreasing mortality trend, echo=TRUE, fig.width=8, fig.height=5}
+# Use a dotplot with model overlaid, to better match analysis conducted
+declining <- tb_reg %>% filter(slope < -3.5)
+tb_burden %>% filter(country %in% declining$country) %>%
+  ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
+    geom_point() +
+    geom_smooth(method="lm", se=F) +
+  facet_wrap(~country, scales = "free_y")
 ```
 
 ---
-# What we learn
+# Increasing mortality
 
-- The replicates look more like each other than the developmental stage 1 vs 2. This is great data!
-- There is a lot of variability in counts across stages, would indicate a lot of gene activity. 
-- There are a few genes that have some difference from one rep to another. These could be problematic when it comes to testing. To identify these it is easier to use interactive graphics - stay tuned for this tomorrow.
+```{r explore tb mortality trends problem countries, echo=TRUE, fig.width=8, fig.height=3}
+increasing <- tb_reg %>% filter(slope > 1, r.squared > 0.5)
+tb_burden %>% filter(country %in% increasing$country) %>%
+  ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
+    geom_point() +
+    geom_smooth(method="lm", se=F) +
+  facet_wrap(~country, scales = "free_y")
+```
 
 ---
-class: inverse middle 
+class: inverse middle
+
 # Your turn
 
-- Read the leaf data in from Brown and Hudson, and make a scatterplot matrix. (If it is too slow on your computer, sample the number of rows, to get a glimpse of the data to start.)
-- Summarise what you learn about the data in a couple of sentences
+- Plot the countries that have the highest variance
+- Plot the countries with the smallest variance, and highest slope
+- Plot all the coutries in one plot, as transparent lines. 
 
-![](lorikeets.png)
+
+---
+# Tours of high-dimensions
+
+### What is high-dimensional data visualisation
+
+Most of what you find when you google "visualising high-dimensions" is awful, e.g. use colour and symbol after 3D to show 5D; PCA, MDS, tSNE, are visualisation methods; "you can't see beyond 3D".... Rubbish!
+
+---
+# What are dimensions
+
+<img src="cubes.png" style="width: 90%; align: center" />
+
+- When you add another variable, you implicitly add another orthogonal axis. 
+- The space is effectively a $p$-dimensional cube
+- The data might not fill the cube, and then dimension reduction might make it a $k(<p)$-dimensional cube
+
+---
+# Quick intro
+
+<img src="images/tourr.png" width="30%" />
+
+*Without thinking too much*: How many clusters do you see?
+
+```{r code for generating a 6D tour, eval=FALSE, echo=TRUE}
+# The tour requires making many plots, and updating.
+# The RStudio graphics device doesn't work well
+# Open a graphics window
+# quartz()  # Mac OSX
+# X11()     # Windows
+animate_xy(flea[,1:6], axes = "off")
+```
+
+---
+# What is a tour?
+
+A grand tour is by definition a movie of low-dimensional projections constructed in such a way that it comes arbitrarily close to showing all possible low-dimensional projections; in other words, a grand tour is a space-filling curve in the manifold of low-dimensional projections of high-dimensional data spaces.
+
+<img src="images/hands.png" width="60%">
+
+Movement patterns indicate structure:
+
+<img src="images/tour_schematic.png" width="80%">
+
+---
+
+Here is a grand tour of a 3D classic data set
+
+<iframe src="images/flea3d.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
+
+The axes show the combination of variables making up any particular 2D projection.
+
+---
+
+This is a grand tour of the full 6D. Can you see clusters? Corresponding to the colours? 
+
+<iframe src="images/flea6d.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
+
+These two animations were made with `plotly`.
+
+---
+# Why use a tour?
+
+Other than basic exploration:
+
+- **initial data analysis**: to examine whether the data 
+    - satisfies assumptions required for the method
+    - has unexpected complications like outliers or nonlinearity
+- **examine the model fit**:    
+    - dimension reduction, e.g. to look at more than 2 PCs
+    - clustering, and examine the model like the dendrogram in high-d, or the k-means, or the estimated model from model-based
+    - classification: boundaries between classes, misclassifications, diagnostics like vote matrix from random forest
+
+---
+# Guided tour
+
+Uses projection pursuit:
+
+$$\mathop{\text{maximize}}_{\phi_{11},\dots,\phi_{p1}} f\left(\sum_{j=1}^p \phi_{j1}x_{ij}\right) \text{ subject to }
+\sum_{j=1}^p \phi^2_{j1} = 1$$
+
+
+The guided tour chooses new target projections by optimising a function of interest:
+
+- `holes`: This is an inverse Gaussian filter, which is optimised wheren there is not much data in the center of the projection, i.e. a "hole" or donut shape in 2D.
+- `central mass`: The opposite of holes, high density in the centre of the projection, and often "outliers" on the edges. 
+- `LDA`: An index based on the linear discrimination dimension reduction, optimised by projections where the named classes are most separated.
+
+```{r guided tour 6D, eval=FALSE, echo=TRUE}
+# The tour requires making many plots, and updating.
+# The RStudio graphics device doesn't work well
+# Open a graphics window
+# quartz()  # Mac OSX
+# X11()     # Windows
+animate_xy(flea[,1:6], guided_tour(lda_pp(flea$species)), axes="bottomleft")
+```
+
+---
+# Manual tour
+
+This is a good way to determine how important a structure in the projection is to a particular variable contribution. You can "rotate" a variable out, and observe if the pattern remains or disappears. 
+
+```{r generate a sequence to rotate a variable out of a projection, eval=FALSE, echo=TRUE}
+# When you find a low dimensional projection from some other technique
+# such as principal component analysis, linear discriminant analysis or 
+# projection pursuit, it is useful to examine the sensitivity of structure
+# to variables in the projection. This is the purpose of the manual tour. 
+# Take a variable, and rotate it out of the projection and see if the structure
+# persists or disappears.
+flea_std <- tourr::rescale(flea[, 1:6])
+
+rb <- basis_random(n = ncol(flea_std))
+mtour <- manual_tour(basis = rb, manip_var = 4)
+sshow <- array2df(array = mtour, data = flea_std)
+render_plotly(slides = sshow)
+
+render_plotly(slides = sshow, col = col_of(flea$species), 
+  fps = 2)
+```
+
+---
+# Examining models: randomForest
+
+We will take a look at the vote matrix from a random forest fit, on the classic olive oil data. The vote matrix contains the proportion of times each observation is predicted to be in each class. Geometrically it is a simplex. Points close to a vertex, correspond to observations where the classifier almost always predicts to one class, that is, very certain. Points between vertices are observations with uncertainty.
+
+```{r read and tour on in a classic data set, echo=TRUE, eval=FALSE}
+olive <- read_csv("http://www.ggobi.org/book/data/olive.csv") %>%
+  rename(name=X1)
+olive <- olive %>%
+  filter(region == 1) %>%
+  mutate(area = factor(area))
+pal <- brewer.pal(4, "Dark2")
+col <- pal[olive$area]
+# drop eicosenoic, all low for south
+animate_xy(olive[,4:10], axes="bottomleft", col=col) 
+# Drop Sicily
+animate_xy(olive[olive$area!=4,4:10], axes="bottomleft", col=col[olive$area!=4]) 
+```
+
+---
+
+```{r Fit a randomForest model an examine the vote matrix, echo=TRUE, eval=FALSE}
+olive_rf <- randomForest(area~., data=olive[,-c(1, 2, 11)], importance=TRUE, proximity=TRUE)
+olive_rf
+vt <- data.frame(olive_rf$votes)
+vt$area <- olive$area
+ggscatmat(vt, columns=1:4, col="area") + 
+  scale_colour_brewer("", palette="Dark2")
+proj <- t(geozoo::f_helmert(4)[-1,])
+vtp <- as.matrix(vt[,-5])%*%proj
+vtp <- data.frame(vtp, area=vt$area)
+ggscatmat(vtp, columns=1:3, col="area") + 
+  scale_colour_brewer("", palette="Dark2")
+pal <- brewer.pal(4, "Dark2")
+col <- pal[as.numeric(vtp[, 4])]
+animate_xy(vtp[,1:3], col=col, axes = "bottomleft")
+# Add simplex
+simp <- simplex(p=3)
+sp <- data.frame(simp$points)
+colnames(sp) <- c("x1", "x2", "x3")
+colnames(vtp) <- c("x1", "x2", "x3")
+vtp_s <- bind_rows(sp, vtp[,1:3])
+animate_xy(vtp_s, col=col, axes = "bottomleft", edges=as.matrix(simp$edges), center=TRUE)
+```
+
+---
+# Examining models: principal component analysis
+
+
+```{r tb pca analysis, eval=FALSE, echo=TRUE}
+library(naniar) # Have missings!
+tb_burden_wide <- tb_burden %>%
+  select(country, g_whoregion, year, e_mort_exc_tbhiv_100k) %>%
+  spread(year, e_mort_exc_tbhiv_100k) %>%
+  filter(complete.cases(.)) %>%
+  rename(region = g_whoregion) %>%
+  mutate(country = factor(country), region = factor(region))
+# vis_miss(tb_burden_wide)  
+tb_pca <- prcomp(tb_burden_wide[,-c(1:2)], scale=FALSE, retx=TRUE)
+screeplot(tb_pca, type="line")
+tb_pcs <- bind_cols(as_tibble(tb_pca$x), tb_burden_wide[,1:2])
+ggscatmat(tb_pcs, columns=1:3, color="region")
+# quartz()
+# X11()
+pal <- brewer.pal(6, "Dark2")
+col <- pal[as.numeric(as.factor(tb_pcs$region))]
+animate_xy(tb_pcs[,1:4], col=col, axes = "bottomleft")
+```
+
+- The main structure is a "shuttlecock" shape: that most countries have similarly low rates and a handful of countries deviate from this. 
+- A few, quite a few, outliers.
+
+---
+
+```{r tb mortality line plots, eval=FALSE, echo=TRUE}
+tb_burden <- tb_burden %>%
+  rename(region = g_whoregion)
+ggplot(tb_burden, aes(x=year, y=e_mort_exc_tbhiv_100k, 
+                      group=country, colour=region)) +
+  geom_line() + facet_wrap(~region)
+```
+
+---
+
+# Examining models: hierarchical clustering
+
+Hierarchical clustering is usually summarised by a dendrogram, showing which observations are joined into clusters, and at what distance they are fused. Dendrograms can look alike but be quite different models. We can use a tour to view the cluster model in the high-dimensional space. To do so, we need to:
+
+- append nodes (indicating a cluster centre) for the tree to the data matrix
+- create an edge list to connect nodes, and the points to the nodes
 
 ```{r eval=FALSE, echo=FALSE}
-leaf <- read_delim("../data/GSE61857_Leaf_normalized.txt.gz",
-  delim="\t", col_types="cddddddddd", 
-  col_names=c("ID", "L_S1_R1", "L_S1_R2", "L_S1_R3", 
-  "L_S2_R1", "L_S2_R2", "L_S2_R3", "L_S3_R1", "L_S3_R2", "L_S3_R2"),
-  skip=1)
-leaf <- as.data.frame(leaf)
-GGally::ggscatmat(head(leaf,1000), columns=2:7, alpha=0.1) # use just the first 1000 observations
-# what do we learn? 
-# - there is quite a lot of variability between pairs of samples
-# - from the densities we see that lots of values are small (skew marginal distributions)
-# - replicates (samples under the same experimental condition) are more similar (closer to the line of identity) than non-replicates
+# Function to generate edges of dendrogram
+hierfly <- function(data, h=NULL, metric="euclidean", method="ward.D2", scale=TRUE) {
+  if (scale) data <- rescaler(data)
+  id <- 1:nrow(data)
+  cat <- sapply(data, is.factor)
+  if (is.null(h))
+    h <- hclust(dist(data[,!cat], metric), method)
+  #h <- hclust(dist(data, metric), method)
+  data_hc <- data
+
+  data_hc$ORDER <- order(h$order)
+  data_hc$HEIGHT <- 0
+  data_hc$LEVEL <- 0
+  data_hc$POINTS <- 1
+
+  #newr_df <- NULL
+  data_hc <- as.data.frame(data_hc)
+  for (i in 1:nrow(h$merge)) {
+    newr <- combinerows(data_hc[as.character(-h$merge[i,]),], cat)
+    #newr <- combinerows(data_hc[as.character(-h$merge[i,]),], rownames(data))
+    #newr$id <- nrow(data_hc) + i
+    newr$HEIGHT <- h$height[i]
+    newr$LEVEL <- i
+    rownames(newr) <- as.character(-i)
+
+    data_hc <- rbind(data_hc, newr)
+  }
+  data_hc$id <- 1:nrow(data_hc)
+  data_hc$node <- (as.numeric(rownames(data_hc)) < 0) + 0
+
+  vars <- c("ORDER", "POINTS")
+
+  leaves <- subset(data_hc, node == 0)
+  nodes <- subset(data_hc, node == 1)
+
+  # < 0 = observation, > 0 = cluster
+  edges <- h$merge
+  edges[edges > 0] <- edges[edges > 0] + nrow(leaves)
+  edges[edges < 0] <- abs(edges[edges < 0])
+  edges <- as.matrix(edges)
+
+  return(list(data=data_hc, edges=edges))
+}
+
+# Utility functions
+combinerows <- function(df, cat) {
+  same <- function(x) if (length(unique(x)) == 1) x[1] else x[2]
+  points <- df$POINTS
+
+  cont <- as.data.frame(lapply(df[, !cat, drop=FALSE] * points,
+                               sum)) / sum(points)
+  cat <- as.data.frame(lapply(df[, cat, drop=FALSE], same))
+
+  df <- if (nrow(cont) > 0 && nrow(cat) > 0) {
+    cbind(cont, cat)
+  } else if (nrow(cont) > 0) {
+    cont
+  } else {
+    cat
+  }
+  df$POINTS <- sum(points)
+  df
+}
+
+rescaler <- function(df) {
+  is_numeric <- vapply(df, is.numeric, logical(1))
+  df[is_numeric] <- lapply(df[is_numeric], rescale01)
+  df
+}
+
+rescale01 <- function(x) {
+  rng <- range(x, na.rm = TRUE)
+  (x - rng[1]) / (rng[2] - rng[1])
+}
+```
+
+```{r eval=FALSE, echo=TRUE}
+# Load the utility functions: hierfly, combinerows, rescaler
+tb_hc <- hclust((dist(tb_pcs[,1:4])), method="ward.D2")
+plot(tb_hc)
+tb_clw <- tb_pcs[,1:4] %>% mutate(cl = factor(cutree(tb_hc, 5)))
+tb_w_hfly <- hierfly(data=tb_clw, h=tb_hc, scale=FALSE)
+pal <- brewer.pal(6, "Dark2")
+col <- pal[as.numeric(tb_w_hfly$data$cl)]
+shp <- c(16, 6)
+pch <- shp[tb_w_hfly$data$node+1]
+# quartz()
+# X11()
+animate_xy(tb_w_hfly$data[,1:4], col=col, pch=pch, 
+           axes = "bottomleft", 
+           edges=tb_w_hfly$edges, edges.col=col[210:417])
+```
+
+To compare multiple models, save a tour path, and show the two models on the same path.
+
+---
+# Comparison to parallel coordinates
+
+```{r tour again for comparison, eval=FALSE}
+# quartz()
+# X11()
+pal <- brewer.pal(4, "Dark2")
+col <- pal[olive$area]
+# drop eicosenoic, all low for south
+animate_xy(olive[,4:10], axes="bottomleft", col=col) 
+# Drop Sicily
+animate_xy(olive[olive$area!=4,4:10], axes="bottomleft", col=col[olive$area!=4]) 
+```
+
+Parallel coordinates show multiple dimensions by drawing lines connectiong observations plotted as univariate dotplots. It is a parallel geometric space rather than a Euclidean space. But is can be useful for getting a single static view, as an alternative to a scatterplot matrix.
+
+```{r make a parallel coordinate plot of the olive data, eval=FALSE, echo=TRUE}
+ggparcoord(olive, columns=4:10, groupColumn=3, order="anyClass") + 
+  scale_colour_brewer("", palette="Dark2")
 ```
 
 ---
-# Litre plots
+# Comparison to heatmap
 
-These are a variation on scatterplots, designed to compare treatment vs reps (signal vs noise), and are called repLIcate TREatment (“litre") plots (Rutter, et al, 2018: https://github.com/lrutter/JDSPaper)
+A heatmap uses maps a quantitative variable to colour, and displays in a matrix layout. Often accompanied by a clustering, or ordering of rows and columns. Colour mapping of a quantitative variable is the lowest on the hierarchy of mappings, and difficult for a user to accurately read the information. The coordinate system underlying this form of mapping is not clear, its not Euclidean.
 
-To illustrate the approach, we subset the cotyledon data to focus on reps 1, 2 from stages 1 and 2. The basic litre plot is shown below. Stage 1 is plotted on the horizontal axis and stage 2 is on the vertical. There are two points for each treatment, corresponding to the two replicate counts, and these are connected by a line segment.
-
-Short lines, far from the X=Y line indicate promising differential expression. These could also be augmented by colouring according to significance of the genes computed by differential expression testing.
-
-```{r eval=FALSE}
-sub <- coty %>% select(ID, C_S1_R1, C_S1_R2, C_S2_R1, C_S2_R2)
-ggplot(sub, aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2)) +
-  geom_segment(aspect.ratio=0.3) + 
-  theme(aspect.ratio = 1)
+```{r make a heatmap of the olive data, eval=FALSE, echo=TRUE}
+library(superheat)
+superheat(olive[,4:10], scale=TRUE, 
+          pretty.order.rows=TRUE, pretty.order.cols=TRUE,
+          row.dendrogram = TRUE) 
 ```
 
 ---
+# Making a tourr animation using plotly
 
-```{r echo=FALSE, fig.width=6, fig.height=6}
-sub <- coty %>% select(ID, C_S1_R1, C_S1_R2, C_S2_R1, C_S2_R2)
-ggplot(sub, aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2)) +
-  geom_segment() + xlim(c(0, 17.5)) + ylim(c(0, 17.5)) +
-  theme(aspect.ratio = 1)
-```
+The easiest approach is to use the `play_tour_path` function from `spinifex`. Either show it like, or save it to an html file for later replay with `save_html` from the `htmltools` package.
 
-The significantly differentially expressed genes should be the shortest lines further from the identity line `X=Y`. 
+```{r plotly tourr, eval=FALSE, echo=TRUE}
+flea_std <- rescale(tourr::flea[,1:6])
+tpath    <- save_history(flea_std, max = 3)
 
----
-class: inverse middle 
-# Your turn
-
-Make a litre plot for the first two reps of the first two developmental stages of the leaf data.
-
-![](lorikeets.png)
-
-```{r echo = FALSE, eval = FALSE}
-sub <- leaf %>% select(ID, L_S1_R1, L_S1_R2, L_S2_R1, L_S2_R2)
-ggplot(sub, aes(x=L_S1_R1, xend=L_S1_R2, y=L_S2_R1, yend=L_S2_R2)) +
-  geom_segment(arrow = arrow(length = unit(0.1,"cm"))) + xlim(c(0, 17.5)) + ylim(c(0, 17.5)) +
-  theme(aspect.ratio = 1)
+pg <- play_tour_path(tour_path = tpath, data = flea_std, angle = .15)
+pg 
+save_html(pg, file="mytour.html")
 ```
 
 ---
-# Parallel coordinate plots 
+# Making a tourr animation using gganimate
 
-- Parallel coordinate plots, use parallel axes, and each observation is represented by a line tracing through the axes.
-- They are useful for getting a sense of the multivariate shape of the data. You can typically read association, clustering and outliers from the plot. 
-- Can handle more variables than scatterplot matrices.
+The function `render_gif` is available in the development version of the `tourr` package. It will save the tour projections as an animated gif.
 
----
-# Side-by-side boxplots to par coords
-
-```{r}
-ggparcoord(coty, columns=2:10, scale="globalminmax", boxplot=TRUE,
-           alphaLines=0)
+```{r saving a tour as an animated fig using gganimate, eval=FALSE, echo=TRUE}
+library(gganimate)
+render_gif(flea[,1:6], grand_tour(), display_xy(axes="off"),
+           frames=200, 
+           gif_file="mytour.gif")
 ```
 
-If the data is normalised well these should be identical boxplots, or very close to that. This is not quite what we see. 
-
----
-# Parallel coordinates, connect the dots
-
-
-```{r eval=F}
-ggparcoord(coty, columns=2:10, scale="globalminmax", 
-           alphaLines=0.1)
-```
-
-```{r echo=FALSE}
-ggparcoord(coty[sample(1:nrow(coty), 1000),], 
-           columns=2:10, scale="globalminmax", 
-           alphaLines=0.1)
-```
-
----
-# Why?
-
-.pull-left[This is an example from Rutter et al (2018). Two data sets, the one on the left doesn't look especially different from the one on the right, when only side-by-side boxplots, or MDS plots are used. When it is re-drawn as a parallel coordinate plot, the two distinct groups are clear.]
-.pull-right[
-![](simulatedData.jpg)
-]
-
----
-# Example usage
-
-A good example use is when you have clustered the genes. This is a way to examine how well the clustering divides the data. This example is also from Rutter et al (2018).
-
-![](sbIRClustersSig.jpg)
-
----
-# Scaling choices
-
-- *std*: univariately, subtract mean and divide by standard deviation
-- *robust*: univariately, subtract median and divide by median absolute deviation
-- *uniminmax*: univariately, scale so the minimum of the variable is zero, and the maximum is one
-- *globalminmax*: no scaling is done; the range of the graphs is defined by the global minimum and the global maximum
-
----
-class: inverse middle 
-# Your turn
-
-- Make parallel coordinate plots for the 9 samples of the leaf data
-- Start with side-by-side boxplots, and then generate the lines
-- Run the different scaling options to discover how they change the appearance of the plot
-
-![](lorikeets.png)
-
-```{r echo=FALSE, eval=FALSE}
-require(GGally)
-# boxplots only - lines are blended out because alpha = 0
-ggparcoord(data=leaf[1:1000,], columns=2:10, boxplot=TRUE, alphaLines=0)
-#lines only, default scale (std)
-ggparcoord(data=leaf[1:1000,], columns=2:10, boxplot=FALSE, alphaLines=0.5)
-
-#lines only, scale is globalminmax
-ggparcoord(data=leaf[1:1000,], scale="globalminmax", columns=2:10, boxplot=FALSE, alphaLines=0.5)
-
-#lines only, scale is uniminmax
-ggparcoord(data=leaf[1:1000,], scale="uniminmax", columns=2:10, boxplot=FALSE, alphaLines=0.5)
-
-```
-
----
-# Parcoords to interaction plots
-
-- Experiments are often displayed using interaction plots. 
-- These are similar to parallel coordinates, which display all the measurements, but interaction plots show one gene at a time.
-- Process the data, and then plot
-
-```{r}
-sub <- coty[sample(1:nrow(coty), 6),] %>% 
-  gather(sample, expr, -ID) %>%
-  separate(sample, c("tissue", "stage", "rep")) %>%
-  mutate(stage = as.numeric(substr(stage, 2, 2)))
-sub.m <- sub %>% group_by(ID, stage) %>% 
-  summarise(expr = mean(expr))
-```
-
----
-
-
-
-```{r}
-ggplot(sub, aes(x=stage, y=expr)) + geom_point(alpha=0.4) +
-  facet_wrap(~ID, ncol=3) + 
-  geom_line(data=sub.m, aes(x=stage, y=expr), colour="red")
-```
-
----
-class: inverse middle 
-# Your turn
-
-Re-make the previous plot, by overlaying them in one plot, instead of faceting, and colour by the ID. 
-
-![](lorikeets.png)
-
-```{r eval = FALSE, echo = FALSE}
-ggplot(sub, aes(x=stage, y=expr, colour=factor(ID))) + geom_point(alpha=0.4) +
-  geom_line(data=sub.m, aes(x=stage, y=expr))
-```
-
----
-# With significance testing
-
-```{r}
-d <- DGEList(counts = coty[,-1], 
-  group = c(rep("S1", 3), rep("S2", 3), rep("S3", 3)), 
-  genes = coty[,1])
-d <- calcNormFactors(d)
-d <- estimateCommonDisp(d)
-d <- estimateTagwiseDisp(d)
-de <- glmFit(d, design=matrix(c(rep(1, 9),
-                                c(1,1,1,0,0,0,0,0,0), 
-                                c(0,0,0,1,1,1,0,0,0)),
-                              ncol=3, byrow=F))
-results <- glmLRT(de)
-top10 <- as.data.frame(topTags(results, n=12))
-```
-
----
-# Plot
-
-```{r eval=FALSE}
-sub <- coty %>% 
-  gather(sample, expr, -ID) %>%
-  separate(sample, c("tissue", "stage", "rep")) %>%
-  mutate(stage = as.numeric(substr(stage, 2, 2)))
-top10 <- merge(top10, sub, by.x = "ID", by.y = "ID")
-top10.m <- top10 %>% group_by(ID, stage) %>% 
-  summarise(expr = mean(expr))
-ggplot(top10, aes(x=stage, y=expr, colour=ID)) + 
-  geom_point(alpha=0.4) + ylim(c(0,17.5)) +
-  geom_line(data=top10.m, aes(x=stage, y=expr, colour=ID))
-```
-
----
-
-
-```{r echo=FALSE}
-sub <- coty %>% 
-  gather(sample, expr, -ID) %>%
-  separate(sample, c("tissue", "stage", "rep")) %>%
-  mutate(stage = as.numeric(substr(stage, 2, 2)))
-top10 <- merge(top10, sub, by.x = "genes", by.y = "ID")
-top10.m <- top10 %>% group_by(genes, stage) %>% 
-  summarise(expr = mean(expr))
-ggplot(top10, aes(x=stage, y=expr, colour=genes)) + 
-  geom_point(alpha=0.4) + ylim(c(0,17.5)) +
-  geom_line(data=top10.m, aes(x=stage, y=expr, colour=genes))
-```
-
----
-class: inverse middle 
-# Your turn
-
-Plot the next 12 most significant genes. 
-
-```{r eval=FALSE, echo=FALSE}
-top10 <- as.data.frame(topTags(results, n=24))[13:24,]
-top10 <- merge(top10, sub, by.x = "ID", by.y = "ID")
-top10.m <- top10 %>% group_by(ID, stage) %>% 
-  summarise(expr = mean(expr))
-ggplot(top10, aes(x=stage, y=expr, colour=ID)) + 
-  geom_point(alpha=0.4) + ylim(c(0,17.5)) +
-  geom_line(data=top10.m, aes(x=stage, y=expr, colour=ID))
-```
-
-![](lorikeets.png)
-
----
-# Extracting the significant genes
-
-Just look pairwise for simplicity here.
-
-```{r fig.width=10, fig.height=10}
-d <- DGEList(counts = coty[,2:7], 
-  group = c(rep("S1", 3), rep("S2", 3)), 
-  genes = coty[,1])
-d <- calcNormFactors(d)
-d <- estimateCommonDisp(d)
-d <- estimateTagwiseDisp(d)
-d <- estimateTrendedDisp(d)
-de <- exactTest(d, pair=c("S1", "S2"), dispersion = "tagwise")
-sig.tab <- de$table
-sig.tab$genes <- coty$ID
-sig.tab <- sig.tab %>% filter(PValue < 0.01)
-```
-
----
-
-
-```{r fig.height=7, fig.width=7}
-sig.tab <- merge(sig.tab, coty[,1:7], by.x="genes", by.y="ID")
-ggscatmat(sig.tab, columns=5:10, alpha=0.1)
-```
-
----
-
-
-```{r}
-ggparcoord(sig.tab, columns=5:10, scale="globalminmax",
-           alphaLines=0.1)
-```
-
----
-class: inverse middle 
-# Your turn
-
-- Test the first two stages of the leaf data. 
-- Plot the genes that have a p-value of less than 0.01 as a scatterplot matrix, and as parallel coordinate plot
-
-![](lorikeets.png)
-
-```{r, echo = FALSE, eval = FALSE}
-sig.tab <- de$table
-sig.tab$genes <- coty$ID
-sig.tab <- sig.tab %>% filter(PValue < 0.01)
-sig.tab <- merge(sig.tab, coty[,1:7], by.x="genes", by.y="ID")
-ggscatmat(sig.tab, columns=5:10, alpha=0.1)
-ggparcoord(sig.tab, columns=5:10, scale="globalminmax",
-           alphaLines=0.1)
-
-```        
-
----
-class: inverse middle 
-# Your turn
-
-Make the litre plot for the two stages, just for rep 1 and rep 2, only the genes that have P-value less than 0.01
-
-![](lorikeets.png)
-
-```{r echo =FALSE, eval=FALSE}
-ggplot(data=sig.tab) +
-  geom_segment(aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2))
-```
-
----
-# biobroom and limma
-
-```{r}
-bb <- data.frame(read_tsv("../data/biotin-rma2.txt"))
-head(data.frame(bb[,-2]))
-row.names(bb) <- bb$Gene
-```
-
----
-# Looking at the gene expression data
-
-```{r fig.width=6, fig.height=6}
-ggpairs(bb, columns=c(3,7,4,8))
-```
-
----
-# A litre plot again
-
-```{r fig.width=5.5, fig.height=5.5}
-sub <- bb %>% select(Gene, biotin.WT.01.1, biotin.WT.02.1, biotin.bio101.4, biotin.bio102.4)
-ggplot(sub, aes(x=biotin.WT.01.1, xend=biotin.WT.02.1, y=biotin.bio101.4, yend=biotin.bio102.4)) +
-  geom_segment() +
-  theme(aspect.ratio = 1) +
-  xlab("wildtype, control treatment") +
-  ylab("mutant, treated")
-```
-
----
-# Fit a limma model
-
-```{r}
-design <- expand.grid(type=c("wild", "mutant"), trt=c("control", "treatment"), rep=1:2)
-
-fit <- lmFit(bb[,-(1:2)], model.matrix(~ type*trt, design))
-fit <- eBayes(fit)
-
-head(topTable(fit))
-```
-
----
-class: inverse middle 
-# Your Turn
-
-![](lorikeets.png)
-
-- For the previous example, try out what output the different broom functions (`glance`, `tidy`, `augment`)  produce.
-- Create a Volcano plot for each of the model terms, i.e. plot estimates on x by log(p.values) on y. 
-- Are there differences visible between the terms?
-
-```{r, echo=FALSE, eval=FALSE}
-head(tidy(fit))
-ggplot(tidy(fit), aes(x=estimate, y=log(p.value), colour = p.value < 0.05)) +
-  facet_wrap(~term) +
-  geom_point() + ggtitle("Volcano Plots with limma") 
-```
-
----
-
-```{r}
-bbfit <- tidy(fit)
-ggplot(data=bbfit, aes(x=term, y=estimate, group=gene)) +
-  geom_line(alpha=0.1) +
-  geom_point(aes(color=log(p.value)), size=2, alpha=0.6)
-```
-
----
-
-Is type*treatment interaction necessary? Very strong negative correlation is suspicious.
-
-
-```{r fig.show='hide'}
-bbfit_m <- bbfit %>% select(gene, term, estimate, p.value) %>% 
-  gather(fit.stat, value, -gene, -term) %>%
-  unite(term_stat, term, fit.stat) %>%
-  spread(term_stat, value) %>% 
-  rename(trt=trttreatment_estimate, mut=typemutant_estimate,
-         int=`typemutant:trttreatment_estimate`, 
-         trtp=trttreatment_p.value, mutp=typemutant_p.value, 
-         intp=`typemutant:trttreatment_p.value`) 
-ggpairs(bbfit_m, columns=c(2,4,6), upper=list(continuous="points"),
-          ggplot2::aes(colour=intp)) + theme(aspect.ratio=1)
-```
-
----
-
-```{r echo=FALSE, fig.width=8, fig.height=8}
-ggpairs(bbfit_m, columns=c(2,4,6), upper=list(continuous="points"),
-          ggplot2::aes(colour=intp)) + theme(aspect.ratio=1)
-```
-
----
-
-```{r}
-fit2 <- lmFit(bb[,-(1:2)], model.matrix(~ type+trt, design))
-fit2 <- eBayes(fit2)
-bbfit2 <- tidy(fit2)
-ggplot(data=bbfit2, aes(x=term, y=estimate, group=gene)) +
-  geom_line(alpha=0.1) +
-  geom_point(aes(color=log(p.value)), size=2, alpha=0.6)
-```
 
 ---
 # Resources
 
 - [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
 - Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
-- Cook et al (2007) Exploring Gene Expression Data, Using Plots, Journal of Data Science, 5(2):151-182
+- [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
+- Eunkyung Lee [PPtreeViz](https://www.jstatsoft.org/article/view/v083i08)
+- Wickham, Cook, Hofmann (2015) [Visualising Statistical Models: Removing the blindfold](http://dicook.org/publication/blindfold_2015/)
+- Cook and Swayne (2007) [Interactive and Dynamic Graphics for Data Analysis](http://ggobi.org/book/)
+- Wickham et al (2011) [tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf) and the R package [tourr](https://cran.r-project.org/web/packages/tourr/index.html)
+- Schloerke et al (2016) [Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and the R package [geozoo](https://cran.r-project.org/web/packages/geozoo/index.html)
 
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
