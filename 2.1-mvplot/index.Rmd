@@ -1,0 +1,629 @@
+---
+title: "Multivariate data plots"
+subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+date: "07/25-27/2018"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  echo=TRUE, 
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  collapse = TRUE,
+  comment = "",
+  fig.height = 4,
+  fig.width = 8,
+  fig.align = "center",
+  cache = FALSE
+)
+```
+
+```{r echo=FALSE}
+library(tidyverse)
+library(lubridate)
+library(GGally)
+library(edgeR)
+library(broom)
+library(biobroom)
+library(tourr)
+library(bigPint)
+```
+
+class: inverse middle 
+# Your turn
+
+- What is multivariate data?
+- What makes multivariate analysis different from univariate analysis?
+
+![](lorikeets.png)
+
+```{r, eval=FALSE, echo = FALSE}
+data is multivariate, if we have more information than a single aspect for each entity/person/experimental unit.
+mutivariate analysis takes relationships between these different aspects into account.
+```
+
+---
+# Main types of plots
+
+- __pairwise plots__: explore replicates, and associations
+- __litre plots__: to compare multiple treatments vs replicates
+- __parallel coordinate plots__: explore high-dimensional relationships with parallel axes
+- __tours__: sequence of projections of high-dimensional data
+
+---
+# Scatterplot matrix: GGally
+
+In a classical scatterplot matrix plot, all variables are numeric, show all possible pairs.
+
+
+```{r}
+data(flea)
+ggscatmat(flea, columns = 2:4, color = "species") 
+```
+
+---
+# Example: food borne diseases
+
+National Notifiable Diseases Surveillance System (NNDSS)
+
+source: http://www9.health.gov.au/cda/source/cda-index.cfm
+
+1 January 2009 to 30 December 2016
+
+```{r}
+salmonella <- read_csv("../data/salmonella.csv")
+salmonella <- salmonella %>% 
+  mutate(date = dmy(`Week Ending (Friday)`))
+sm_wkly_count <- salmonella %>% 
+  mutate(week = week(date), year = year(date)) %>%
+  count(year, week) %>%
+  filter(year < 2017, week < 53, week > 1) %>% 
+  spread(year, n) 
+```
+
+---
+
+```{r fig.width=8, fig.height=8}
+ggscatmat(sm_wkly_count[,-1])
+```
+
+Salmonella incidence is similar from one year to another. There is one week in 2009 that had higher incidence than in other years. There are three weeks in 2016 that had high incidence. And there is one week in 2016, that overall didn't have high incidence but relative to 2010 was abnormal.
+
+---
+class: inverse middle 
+# Your turn
+
+Make a scatterplot matrix of the the states against each other. This is a bit tricky. You need to rearrange the data to get State in the columns, instead of year. 
+
+```{r eval=FALSE, echo=FALSE}
+sm_state_count <- salmonella %>% 
+  mutate(week = week(date), year = year(date)) %>%
+  count(State, week) %>%
+  filter(week < 53, week > 1) %>% 
+  spread(State, n) 
+ggscatmat(sm_state_count[,-1])
+```
+
+---
+# Generalized pairs plot
+
+There is no reason that you can't show any type of variable, or use plots other than the scatterplot. We would call this a generalised pairs plot. Examples of what might be shown are:
+
+- if one variable in the pair is categorical and the other is continuous, then side-by-side boxplots would be a good option for display
+- if both variables are categorical, a mosaic plot would be a possible choice
+
+
+```{r fig.width=6}
+housing <- read_csv("../data/housing.csv") %>%
+  mutate(date = dmy(date)) %>%
+  mutate(year = year(date)) %>%
+  filter(year == 2016) %>%
+  filter(!is.na(bedroom2), !is.na(price)) %>%
+  filter(bedroom2 < 7, bathroom < 5) %>%
+  mutate(bedroom2 = factor(bedroom2), 
+         bathroom = factor(bathroom)) 
+```
+
+---
+
+```{r fig.width=7, fig.height=6.5}
+ggpairs(housing[, c(4,3,8,10,11)], aes(colour=type, fill=type), 
+        lower=list(continuous = wrap("points", alpha=0.1)),
+        diag=list(continuous = wrap("densityDiag", alpha=0.5)))
+```
+
+There's a lot going on here! And there is a lot that can be written to summarise the pairwise relationships.
+
+---
+
+An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables, is to plot price against all other  variables.
+
+```{r fig.width=8, fig.height=5}
+ggduo(housing[, c(4,3,8,10,11)], columnsX = 2:5, columnsY = 1, 
+      aes(colour=type, fill=type), 
+      types = list(continuous = wrap("smooth", alpha = 0.10)))
+```
+
+---
+# For biological data
+
+Brown, A. and Hudson, K. (2015) Developmental profiling of gene expression in soybean trifoliate leaves and cotyledons, [GSE61857](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61857). 
+
+```{r eval=FALSE}
+coty <- read_delim("../data/GSE61857_Cotyledon_normalized.txt.gz",
+  delim="\t", col_types="cddddddddd", 
+  col_names=c("ID", "C_S1_R1", "C_S1_R2", "C_S1_R3", 
+  "C_S2_R1", "C_S2_R2", "C_S2_R3", "C_S3_R1", "C_S3_R2", "C_S3_R3"),
+  skip=1)
+coty <- as.data.frame(coty)
+ggscatmat(coty, columns=2:7, alpha=0.1)
+```
+
+Normalized data for the first 6 samples are shown.
+
+---
+
+```{r echo=FALSE, fig.width=7, fig.height=7}
+coty <- read_delim("../data/GSE61857_Cotyledon_normalized.txt.gz",
+  delim="\t", col_types="cddddddddd", 
+  col_names=c("ID", "C_S1_R1", "C_S1_R2", "C_S1_R3", 
+  "C_S2_R1", "C_S2_R2", "C_S2_R3", "C_S3_R1", "C_S3_R2", "C_S3_R3"),
+  skip=1)
+
+# producing the column names automatically:
+# sprintf("C_S%d_R%d", rep(1:3, each=3), rep(1:3, 3))
+
+coty <- as.data.frame(coty)
+ggscatmat(coty[sample(1:nrow(coty), 5000),], columns=2:7, alpha=0.1)
+```
+
+---
+# What we learn
+
+- The replicates look more like each other than the developmental stage 1 vs 2. This is great data!
+- There is a lot of variability in counts across stages, would indicate a lot of gene activity. 
+- There are a few genes that have some difference from one rep to another. These could be problematic when it comes to testing. To identify these it is easier to use interactive graphics - stay tuned for this tomorrow.
+
+---
+class: inverse middle 
+# Your turn
+
+- Read the leaf data in from Brown and Hudson, and make a scatterplot matrix. (If it is too slow on your computer, sample the number of rows, to get a glimpse of the data to start.)
+- Summarise what you learn about the data in a couple of sentences
+
+![](lorikeets.png)
+
+```{r eval=FALSE, echo=FALSE}
+leaf <- read_delim("../data/GSE61857_Leaf_normalized.txt.gz",
+  delim="\t", col_types="cddddddddd", 
+  col_names=c("ID", "L_S1_R1", "L_S1_R2", "L_S1_R3", 
+  "L_S2_R1", "L_S2_R2", "L_S2_R3", "L_S3_R1", "L_S3_R2", "L_S3_R2"),
+  skip=1)
+leaf <- as.data.frame(leaf)
+GGally::ggscatmat(head(leaf,1000), columns=2:7, alpha=0.1) # use just the first 1000 observations
+# what do we learn? 
+# - there is quite a lot of variability between pairs of samples
+# - from the densities we see that lots of values are small (skew marginal distributions)
+# - replicates (samples under the same experimental condition) are more similar (closer to the line of identity) than non-replicates
+```
+
+---
+# Litre plots
+
+These are a variation on scatterplots, designed to compare treatment vs reps (signal vs noise), and are called repLIcate TREatment (“litre") plots (Rutter, et al, 2018: https://github.com/lrutter/JDSPaper)
+
+To illustrate the approach, we subset the cotyledon data to focus on reps 1, 2 from stages 1 and 2. The basic litre plot is shown below. Stage 1 is plotted on the horizontal axis and stage 2 is on the vertical. There are two points for each treatment, corresponding to the two replicate counts, and these are connected by a line segment.
+
+Short lines, far from the X=Y line indicate promising differential expression. These could also be augmented by colouring according to significance of the genes computed by differential expression testing.
+
+```{r eval=FALSE}
+sub <- coty %>% select(ID, C_S1_R1, C_S1_R2, C_S2_R1, C_S2_R2)
+ggplot(sub, aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2)) +
+  geom_segment(aspect.ratio=0.3) + 
+  theme(aspect.ratio = 1)
+```
+
+---
+
+```{r echo=FALSE, fig.width=6, fig.height=6}
+sub <- coty %>% select(ID, C_S1_R1, C_S1_R2, C_S2_R1, C_S2_R2)
+ggplot(sub, aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2)) +
+  geom_segment() + xlim(c(0, 17.5)) + ylim(c(0, 17.5)) +
+  theme(aspect.ratio = 1)
+```
+
+The significantly differentially expressed genes should be the shortest lines further from the identity line `X=Y`. 
+
+---
+class: inverse middle 
+# Your turn
+
+Make a litre plot for the first two reps of the first two developmental stages of the leaf data.
+
+![](lorikeets.png)
+
+```{r echo = FALSE, eval = FALSE}
+sub <- leaf %>% select(ID, L_S1_R1, L_S1_R2, L_S2_R1, L_S2_R2)
+ggplot(sub, aes(x=L_S1_R1, xend=L_S1_R2, y=L_S2_R1, yend=L_S2_R2)) +
+  geom_segment(arrow = arrow(length = unit(0.1,"cm"))) + xlim(c(0, 17.5)) + ylim(c(0, 17.5)) +
+  theme(aspect.ratio = 1)
+```
+
+---
+# Parallel coordinate plots 
+
+- Parallel coordinate plots, use parallel axes, and each observation is represented by a line tracing through the axes.
+- They are useful for getting a sense of the multivariate shape of the data. You can typically read association, clustering and outliers from the plot. 
+- Can handle more variables than scatterplot matrices.
+
+---
+# Side-by-side boxplots to par coords
+
+```{r}
+ggparcoord(coty, columns=2:10, scale="globalminmax", boxplot=TRUE,
+           alphaLines=0)
+```
+
+If the data is normalised well these should be identical boxplots, or very close to that. This is not quite what we see. 
+
+---
+# Parallel coordinates, connect the dots
+
+
+```{r eval=F}
+ggparcoord(coty, columns=2:10, scale="globalminmax", 
+           alphaLines=0.1)
+```
+
+```{r echo=FALSE}
+ggparcoord(coty[sample(1:nrow(coty), 1000),], 
+           columns=2:10, scale="globalminmax", 
+           alphaLines=0.1)
+```
+
+---
+# Why?
+
+.pull-left[This is an example from Rutter et al (2018). Two data sets, the one on the left doesn't look especially different from the one on the right, when only side-by-side boxplots, or MDS plots are used. When it is re-drawn as a parallel coordinate plot, the two distinct groups are clear.]
+.pull-right[
+![](simulatedData.jpg)
+]
+
+---
+# Example usage
+
+A good example use is when you have clustered the genes. This is a way to examine how well the clustering divides the data. This example is also from Rutter et al (2018).
+
+![](sbIRClustersSig.jpg)
+
+---
+# Scaling choices
+
+- *std*: univariately, subtract mean and divide by standard deviation
+- *robust*: univariately, subtract median and divide by median absolute deviation
+- *uniminmax*: univariately, scale so the minimum of the variable is zero, and the maximum is one
+- *globalminmax*: no scaling is done; the range of the graphs is defined by the global minimum and the global maximum
+
+---
+class: inverse middle 
+# Your turn
+
+- Make parallel coordinate plots for the 9 samples of the leaf data
+- Start with side-by-side boxplots, and then generate the lines
+- Run the different scaling options to discover how they change the appearance of the plot
+
+![](lorikeets.png)
+
+```{r echo=FALSE, eval=FALSE}
+require(GGally)
+# boxplots only - lines are blended out because alpha = 0
+ggparcoord(data=leaf[1:1000,], columns=2:10, boxplot=TRUE, alphaLines=0)
+#lines only, default scale (std)
+ggparcoord(data=leaf[1:1000,], columns=2:10, boxplot=FALSE, alphaLines=0.5)
+
+#lines only, scale is globalminmax
+ggparcoord(data=leaf[1:1000,], scale="globalminmax", columns=2:10, boxplot=FALSE, alphaLines=0.5)
+
+#lines only, scale is uniminmax
+ggparcoord(data=leaf[1:1000,], scale="uniminmax", columns=2:10, boxplot=FALSE, alphaLines=0.5)
+
+```
+
+---
+# Parcoords to interaction plots
+
+- Experiments are often displayed using interaction plots. 
+- These are similar to parallel coordinates, which display all the measurements, but interaction plots show one gene at a time.
+- Process the data, and then plot
+
+```{r}
+sub <- coty[sample(1:nrow(coty), 6),] %>% 
+  gather(sample, expr, -ID) %>%
+  separate(sample, c("tissue", "stage", "rep")) %>%
+  mutate(stage = as.numeric(substr(stage, 2, 2)))
+sub.m <- sub %>% group_by(ID, stage) %>% 
+  summarise(expr = mean(expr))
+```
+
+---
+
+
+
+```{r}
+ggplot(sub, aes(x=stage, y=expr)) + geom_point(alpha=0.4) +
+  facet_wrap(~ID, ncol=3) + 
+  geom_line(data=sub.m, aes(x=stage, y=expr), colour="red")
+```
+
+---
+class: inverse middle 
+# Your turn
+
+Re-make the previous plot, by overlaying them in one plot, instead of faceting, and colour by the ID. 
+
+![](lorikeets.png)
+
+```{r eval = FALSE, echo = FALSE}
+ggplot(sub, aes(x=stage, y=expr, colour=factor(ID))) + geom_point(alpha=0.4) +
+  geom_line(data=sub.m, aes(x=stage, y=expr))
+```
+
+---
+# With significance testing
+
+```{r}
+d <- DGEList(counts = coty[,-1], 
+  group = c(rep("S1", 3), rep("S2", 3), rep("S3", 3)), 
+  genes = coty[,1])
+d <- calcNormFactors(d)
+d <- estimateCommonDisp(d)
+d <- estimateTagwiseDisp(d)
+de <- glmFit(d, design=matrix(c(rep(1, 9),
+                                c(1,1,1,0,0,0,0,0,0), 
+                                c(0,0,0,1,1,1,0,0,0)),
+                              ncol=3, byrow=F))
+results <- glmLRT(de)
+top10 <- as.data.frame(topTags(results, n=12))
+```
+
+---
+# Plot
+
+```{r eval=FALSE}
+sub <- coty %>% 
+  gather(sample, expr, -ID) %>%
+  separate(sample, c("tissue", "stage", "rep")) %>%
+  mutate(stage = as.numeric(substr(stage, 2, 2)))
+top10 <- merge(top10, sub, by.x = "ID", by.y = "ID")
+top10.m <- top10 %>% group_by(ID, stage) %>% 
+  summarise(expr = mean(expr))
+ggplot(top10, aes(x=stage, y=expr, colour=ID)) + 
+  geom_point(alpha=0.4) + ylim(c(0,17.5)) +
+  geom_line(data=top10.m, aes(x=stage, y=expr, colour=ID))
+```
+
+---
+
+
+```{r echo=FALSE}
+sub <- coty %>% 
+  gather(sample, expr, -ID) %>%
+  separate(sample, c("tissue", "stage", "rep")) %>%
+  mutate(stage = as.numeric(substr(stage, 2, 2)))
+top10 <- merge(top10, sub, by.x = "genes", by.y = "ID")
+top10.m <- top10 %>% group_by(genes, stage) %>% 
+  summarise(expr = mean(expr))
+ggplot(top10, aes(x=stage, y=expr, colour=genes)) + 
+  geom_point(alpha=0.4) + ylim(c(0,17.5)) +
+  geom_line(data=top10.m, aes(x=stage, y=expr, colour=genes))
+```
+
+---
+class: inverse middle 
+# Your turn
+
+Plot the next 12 most significant genes. 
+
+```{r eval=FALSE, echo=FALSE}
+top10 <- as.data.frame(topTags(results, n=24))[13:24,]
+top10 <- merge(top10, sub, by.x = "ID", by.y = "ID")
+top10.m <- top10 %>% group_by(ID, stage) %>% 
+  summarise(expr = mean(expr))
+ggplot(top10, aes(x=stage, y=expr, colour=ID)) + 
+  geom_point(alpha=0.4) + ylim(c(0,17.5)) +
+  geom_line(data=top10.m, aes(x=stage, y=expr, colour=ID))
+```
+
+![](lorikeets.png)
+
+---
+# Extracting the significant genes
+
+Just look pairwise for simplicity here.
+
+```{r fig.width=10, fig.height=10}
+d <- DGEList(counts = coty[,2:7], 
+  group = c(rep("S1", 3), rep("S2", 3)), 
+  genes = coty[,1])
+d <- calcNormFactors(d)
+d <- estimateCommonDisp(d)
+d <- estimateTagwiseDisp(d)
+d <- estimateTrendedDisp(d)
+de <- exactTest(d, pair=c("S1", "S2"), dispersion = "tagwise")
+sig.tab <- de$table
+sig.tab$genes <- coty$ID
+sig.tab <- sig.tab %>% filter(PValue < 0.01)
+```
+
+---
+
+
+```{r fig.height=7, fig.width=7}
+sig.tab <- merge(sig.tab, coty[,1:7], by.x="genes", by.y="ID")
+ggscatmat(sig.tab, columns=5:10, alpha=0.1)
+```
+
+---
+
+
+```{r}
+ggparcoord(sig.tab, columns=5:10, scale="globalminmax",
+           alphaLines=0.1)
+```
+
+---
+class: inverse middle 
+# Your turn
+
+- Test the first two stages of the leaf data. 
+- Plot the genes that have a p-value of less than 0.01 as a scatterplot matrix, and as parallel coordinate plot
+
+![](lorikeets.png)
+
+```{r, echo = FALSE, eval = FALSE}
+sig.tab <- de$table
+sig.tab$genes <- coty$ID
+sig.tab <- sig.tab %>% filter(PValue < 0.01)
+sig.tab <- merge(sig.tab, coty[,1:7], by.x="genes", by.y="ID")
+ggscatmat(sig.tab, columns=5:10, alpha=0.1)
+ggparcoord(sig.tab, columns=5:10, scale="globalminmax",
+           alphaLines=0.1)
+
+```        
+
+---
+class: inverse middle 
+# Your turn
+
+Make the litre plot for the two stages, just for rep 1 and rep 2, only the genes that have P-value less than 0.01
+
+![](lorikeets.png)
+
+```{r echo =FALSE, eval=FALSE}
+ggplot(data=sig.tab) +
+  geom_segment(aes(x=C_S1_R1, xend=C_S1_R2, y=C_S2_R1, yend=C_S2_R2))
+```
+
+---
+# biobroom and limma
+
+```{r}
+bb <- data.frame(read_tsv("../data/biotin-rma2.txt"))
+head(data.frame(bb[,-2]))
+row.names(bb) <- bb$Gene
+```
+
+---
+# Looking at the gene expression data
+
+```{r fig.width=6, fig.height=6}
+ggpairs(bb, columns=c(3,7,4,8))
+```
+
+---
+# A litre plot again
+
+```{r fig.width=5.5, fig.height=5.5}
+sub <- bb %>% select(Gene, biotin.WT.01.1, biotin.WT.02.1, biotin.bio101.4, biotin.bio102.4)
+ggplot(sub, aes(x=biotin.WT.01.1, xend=biotin.WT.02.1, y=biotin.bio101.4, yend=biotin.bio102.4)) +
+  geom_segment() +
+  theme(aspect.ratio = 1) +
+  xlab("wildtype, control treatment") +
+  ylab("mutant, treated")
+```
+
+---
+# Fit a limma model
+
+```{r}
+design <- expand.grid(type=c("wild", "mutant"), trt=c("control", "treatment"), rep=1:2)
+
+fit <- lmFit(bb[,-(1:2)], model.matrix(~ type*trt, design))
+fit <- eBayes(fit)
+
+head(topTable(fit))
+```
+
+---
+class: inverse middle 
+# Your Turn
+
+![](lorikeets.png)
+
+- For the previous example, try out what output the different broom functions (`glance`, `tidy`, `augment`)  produce.
+- Create a Volcano plot for each of the model terms, i.e. plot estimates on x by log(p.values) on y. 
+- Are there differences visible between the terms?
+
+```{r, echo=FALSE, eval=FALSE}
+head(tidy(fit))
+ggplot(tidy(fit), aes(x=estimate, y=log(p.value), colour = p.value < 0.05)) +
+  facet_wrap(~term) +
+  geom_point() + ggtitle("Volcano Plots with limma") 
+```
+
+---
+
+```{r}
+bbfit <- tidy(fit)
+ggplot(data=bbfit, aes(x=term, y=estimate, group=gene)) +
+  geom_line(alpha=0.1) +
+  geom_point(aes(color=log(p.value)), size=2, alpha=0.6)
+```
+
+---
+
+Is type*treatment interaction necessary? Very strong negative correlation is suspicious.
+
+
+```{r fig.show='hide'}
+bbfit_m <- bbfit %>% select(gene, term, estimate, p.value) %>% 
+  gather(fit.stat, value, -gene, -term) %>%
+  unite(term_stat, term, fit.stat) %>%
+  spread(term_stat, value) %>% 
+  rename(trt=trttreatment_estimate, mut=typemutant_estimate,
+         int=`typemutant:trttreatment_estimate`, 
+         trtp=trttreatment_p.value, mutp=typemutant_p.value, 
+         intp=`typemutant:trttreatment_p.value`) 
+ggpairs(bbfit_m, columns=c(2,4,6), upper=list(continuous="points"),
+          ggplot2::aes(colour=intp)) + theme(aspect.ratio=1)
+```
+
+---
+
+```{r echo=FALSE, fig.width=8, fig.height=8}
+ggpairs(bbfit_m, columns=c(2,4,6), upper=list(continuous="points"),
+          ggplot2::aes(colour=intp)) + theme(aspect.ratio=1)
+```
+
+---
+
+```{r}
+fit2 <- lmFit(bb[,-(1:2)], model.matrix(~ type+trt, design))
+fit2 <- eBayes(fit2)
+bbfit2 <- tidy(fit2)
+ggplot(data=bbfit2, aes(x=term, y=estimate, group=gene)) +
+  geom_line(alpha=0.1) +
+  geom_point(aes(color=log(p.value)), size=2, alpha=0.6)
+```
+
+---
+# Resources
+
+- [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
+- Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
+- Cook et al (2007) Exploring Gene Expression Data, Using Plots, Journal of Data Science, 5(2):151-182
+
+---
+# Share and share alike
+
+This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.

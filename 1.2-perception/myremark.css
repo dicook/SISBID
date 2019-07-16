@@ -1,0 +1,172 @@
+@import url(https://fonts.googleapis.com/css?family=Actor);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600);
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+body {
+  font-family: 'Actor', sans-serif;
+}
+h1, h2, h3 {
+  font-family: 'Lato';
+  font-weight: 400;
+  margin-bottom: 0;
+}
+h1 {
+  color: #0645BE;
+}
+h2 {
+  color: #702E8D;
+}
+h3 {
+  color: #BBA9C6;
+}
+h1:before {
+  color: #702E8D;
+  font-family: "FontAwesome";
+  margin-right: 10px;
+}
+.remark-slide-content h1 { font-size: 3em; }
+.remark-slide-content h2 { font-size: 1.9em; }
+.remark-slide-content h3 { font-size: 1.5em; }
+.remark-slide-content {
+  background-color: #FDFEFE;
+  color: #0C3F5C;
+}
+
+.footnote {
+  position: absolute;
+  bottom: 3em;
+  font-style: italic;
+  font-size: 70%;
+}
+li { line-height: 1.85em; }
+li p { line-height: 1.25em; }
+li {
+  list-style-type: none;
+}
+ul li:before {
+  content: "\f080";
+  font-family: "FontAwesome";
+  margin-right: 10px;
+  color: #E20B36;
+}
+ul li li:before {
+  content: "\f1fe";
+  font-family: "FontAwesome";
+  margin-right: 10px;
+  color: #B71452;
+}
+.red { color: #D50321; }
+.orange { color: #FA700A; }
+.blue { color: #0645BE; }
+.yellow { color: #FCB52C;}
+.large { font-size: 2em; }
+a, a > code {
+  color: #F33816;
+  text-decoration: none;
+}
+code {
+  border-radius: 5px;
+}
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro'; font-size: 80%; }
+.remark-code-line-highlighted     { background-color: #373832; }
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+#slideshow .slide .content code {
+  font-size: 0.8em;
+}
+#slideshow .slide .content pre code {
+  font-size: 0.9em;
+  padding: 15px;
+}
+.inverse {
+  background: #0C3F5C;
+  color: #E6DDD9;
+  text-shadow: 0 0 0px #333;
+}
+.inverse h1 {
+  color: #FACB52;
+  font-size: 2.5em;
+  line-height: 1.2em;
+}
+.inverse h2 {
+  color: #F87826;
+  font-size: 2.5em;
+  line-height: 1.2em;
+}
+.inverse h3 {
+  color: #BBA9C6;
+  font-size: 1.5em;
+  line-height: 1.0em;
+}
+.inverse ul li:before {
+  content: "\f080";
+  font-family: "FontAwesome";
+  margin-right: 10px;
+  color: #D2664E;
+}
+.inverse a {
+  color: #F33816;
+  text-decoration: none;
+}
+
+/* Slide-specific styling */
+#slide-inverse .footnote {
+  bottom: 12px;
+  left: 20px;
+}
+#slide-how .slides {
+  font-size: 0.9em;
+  position: absolute;
+  top:  151px;
+  right: 140px;
+}
+#slide-how .slides h3 {
+  margin-top: 0.2em;
+}
+#slide-how .slides .first, #slide-how .slides .second {
+  padding: 1px 20px;
+  height: 90px;
+  width: 120px;
+  -moz-box-shadow: 0 0 10px #777;
+  -webkit-box-shadow: 0 0 10px #777;
+  box-shadow: 0 0 10px #777;
+}
+#slide-how .slides .first {
+  background: #fff;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  z-index: 1;
+}
+#slide-how .slides .second {
+  position: relative;
+  background: #fff;
+  z-index: 0;
+}
+
+/* Two-column layout */
+.left-column {
+  color: #777;
+  width: 20%;
+  height: 92%;
+  float: left;
+}
+  .left-column h2:last-of-type, .left-column h3:last-child {
+    color: #000;
+  }
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 1em;
+}
