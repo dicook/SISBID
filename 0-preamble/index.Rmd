@@ -1,8 +1,8 @@
 ---
 title: "Preamble"
-subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/25-27/2018"
+date: "07/24-26/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -27,56 +27,103 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r eval=FALSE, echo=FALSE}
+install.packages("devtools")
+install.packages("xaringan")
+devtools::install_github("hadley/emo")
+devtools::install_github("ropenscilabs/icon")
+devtools::install_github('emitanaka/anicon')
+devtools::install_github('dicook/gretchenalbrecht')
+gretchenalbrecht:::add_palette("sunset.png", "sunset")
+sunset <- get_pal(30, "sunset")
+viz_palette(sunset$col)
+# A tibble: 30 x 5
+       k    red  blue  green col    
+   <int>  <dbl> <dbl>  <dbl> <chr>  
+ 1     1 253.   254.  254.   #FDFEFE
+ 2     2 161    157.  113.   #A1719D
+ 3     3   5.66 190.   68.9  #0645BE
+ 4     4 230.   217.  221    #E6DDD9
+ 5     5   2.64 155.   50.4  #03329B
+ 6     6  11.8   91.9  62.7  #0C3F5C
+ 7     7  74.3  134.   45.9  #4A2E86
+ 8     8   7    228.  116.   #0774E4
+ 9     9 104.   193   168.   #68A9C1
+10    10 150.   197.  110.   #966EC5
+11    11 112.   141.   45.6  #702E8D
+12    12  96.1  217.  119.   #6077D9
+13    13 190.   190.  186.   #BEBABE
+14    14 107.   183.   68.4  #6B44B7
+15    15 156.   111.   25.5  #9C196F
+16    16  85    132.   89.3  #555984
+17    17 183.    82.0  20.1  #B71452
+18    18 243.    22.3  56.0  #F33816
+19    19 247.    58.4 125.   #F77D3A
+20    20 213.    33.1   3.32 #D50321
+21    21 226.    54.2  10.9  #E20B36
+22    22 250     10.2 112.   #FA700A
+23    23 243    156   158    #F39E9C
+24    24 129     55.7  31.7  #812038
+25    25 254.     2   171.   #FEAB02
+26    26 252.    44   181.   #FCB52C
+27    27 250.    82.3 203.   #FACB52
+28    28 131.    85   101.   #836555
+29    29 183.   210   142.   #B78ED2
+30    30   3.59 121.   92.7  #045D79
+```
 
 
-![](Hello-Di.png)
+<img src="Hello-Di.png" width="100%" />
 
 ---
 
 
-![](Hello-Heike.png)
+<img src="Hello-Heike.png" width="100%" />
 
 ---
 class: inverse middle 
 # Your turn: meet your neighbors!
 
-Take a couple of minutes to introduce yourself to the people around you. Ask them some questions about where they come from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, ....
+Introduce yourself to the people around you. Find out a little about them: where they come from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, and a fun fact! 
 
-```{r echo=FALSE}
-set.seed(2018)
-## if package emo doesn't exist, uncomment the lines below
-##  and install from github (explanation below):
-# library(devtools)
-# install_github("hadley/emo")
-library(emo)
-ji("smile") ; ji("highfive") ; ji("spock"); ji("computer")
-```
+`r anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2", position=c(0,0,0,200))` `r anicon::faa("handshake", animate="shake", grow=20, color="#F33816", position=c(0,0,0,250))` `r anicon::faa("hand-spock", animate="wrench", grow=20, color="#0774E4", position=c(0,0,0,300))`
+
+
+.large[.yellow[You've got 2 minutes - timer is running!]]
+
 
 ---
-# Getting up and running
+# Check your setup
 
-- R and RStudio: *If R were an airplane, RStudio would be the airport* [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
-- Projects: Like a drawer in your filing cabinet for organising your work
-- RMarkdown: reproducible reports, presentations, web sites, web apps, books
-- Web site: https://github.com/dicook/SISBID
+<img src="setup.png" width="90%" />
+
+.orange["If R were an airplane, RStudio would be the airport"] [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
 
 ---
 class: inverse middle 
-# Your turn: Getting started
+# Your turn: Course materials
 
-- __Download a zip archive__ of the workshop files from  [github site](https://github.com/dicook/SISBID) contains all the markdown files, code files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID`
+https://github.com/dicook/SISBID
+
+- __Download a zip archive__ of the workshop files which contains all the code files, Rmarkdown files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID`
 - __Double-click SISBID.Rproj:__ the R project helps organise your work over these next few days. 
 
 ![](projectname.png)
 
 ---
-# What is R Markdown?
+# What's in the zip?
 
-- __Get started with RMarkdown__, by creating a new R notebook. Knit it. 
-- Now __open the file that created these slides__ `0-preamble/index.Rmd`. Navigate to the code chunks at the bottom of the file and run them. You should be able to run these one chunk at a time. If you want to compile the entire document, you will need to install several new packages. 
+- One folder = one module
+- Each folder contains 
+    - `r anicon::nia(".r file of code, use this to follow along", colour="#FA700A", anitype="hover")`
+    - `.Rmd` file containing code and explanations that makes the slides. You can use this if preferred, working chunk by chunk, if you want to work see the explanations along with the code. 
+    - other stuff (css style, images) that you can ignore.
+    
+`r anicon::nia("Please run, edit and change the code as we go! Experiment, break and fix.", colour="#B78ED2", anitype="hover")`
+
 
 ---
-# Installing packages
+# Refresher
 
 The three main locations that we will draw packages from are CRAN, Bioconductor and github.
 
@@ -90,16 +137,22 @@ install.packages("ggenealogy")
 From bioconductor
 
 ```{r eval=FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("plyranges")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("impute")
 ```
 
 From github repos
 
 ```{r eval=FALSE}
-devtools::install_github("heike/gglogo")
-devtools::install_github("dicook/nullabor")
+remotes::install_github("hadley/emo")
 ```
+
+---
+# List of packages
+
+Do you have these packages installed?
 
 ---
 # Resources
@@ -107,11 +160,10 @@ devtools::install_github("dicook/nullabor")
 
 - [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - Q/A site: [http://stackoverflow.com](http://stackoverflow.com)
-- Dynamic Documents with R and knitr [Yihui Xie](http://yihui.name/knitr/)
 
 ---
 # Share and share alike
 
 Materials for this workshop build on slides provided by several people, but primarily Hadley Wickham and Carson Sievert. 
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.

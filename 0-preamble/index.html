@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Preamble</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -12,9 +14,9 @@
 class: center, middle, inverse, title-slide
 
 # Preamble
-## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/25-27/2018
+## SISBID 2019 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### 07/24-26/2019
 
 ---
 
@@ -23,52 +25,58 @@ class: center, middle, inverse, title-slide
 
 
 
-![](Hello-Di.png)
+
+&lt;img src="Hello-Di.png" width="100%" /&gt;
 
 ---
 
 
-![](Hello-Heike.png)
+&lt;img src="Hello-Heike.png" width="100%" /&gt;
 
 ---
 class: inverse middle 
 # Your turn: meet your neighbors!
 
-Take a couple of minutes to introduce yourself to the people around you. Ask them some questions about where they come from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, ....
+Introduce yourself to the people around you. Find out a little about them: where they come from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, and a fun fact! 
+
+<span>&lt;i class="fas  fa-hand-paper faa-spin animated " data-fa-transform="grow-20 right-200 " style=" color:#B78ED2;"&gt;&lt;/i&gt;</span> <span>&lt;i class="fas  fa-handshake faa-shake animated " data-fa-transform="grow-20 right-250 " style=" color:#F33816;"&gt;&lt;/i&gt;</span> <span>&lt;i class="fas  fa-hand-spock faa-wrench animated " data-fa-transform="grow-20 right-300 " style=" color:#0774E4;"&gt;&lt;/i&gt;</span>
 
 
-```
-😄 
-✋ 
-🖖 
-💻 
-```
+.large[.yellow[You've got 2 minutes - timer is running!]]
+
 
 ---
-# Getting up and running
+# Check your setup
 
-- R and RStudio: *If R were an airplane, RStudio would be the airport* [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
-- Projects: Like a drawer in your filing cabinet for organising your work
-- RMarkdown: reproducible reports, presentations, web sites, web apps, books
-- Web site: https://github.com/dicook/SISBID
+&lt;img src="setup.png" width="90%" /&gt;
+
+.orange["If R were an airplane, RStudio would be the airport"] [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
 
 ---
 class: inverse middle 
-# Your turn: Getting started
+# Your turn: Course materials
 
-- __Download a zip archive__ of the workshop files from  [github site](https://github.com/dicook/SISBID) contains all the markdown files, code files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID`
+https://github.com/dicook/SISBID
+
+- __Download a zip archive__ of the workshop files which contains all the code files, Rmarkdown files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID`
 - __Double-click SISBID.Rproj:__ the R project helps organise your work over these next few days. 
 
 ![](projectname.png)
 
 ---
-# What is R Markdown?
+# What's in the zip?
 
-- __Get started with RMarkdown__, by creating a new R notebook. Knit it. 
-- Now __open the file that created these slides__ `0-preamble/index.Rmd`. Navigate to the code chunks at the bottom of the file and run them. You should be able to run these one chunk at a time. If you want to compile the entire document, you will need to install several new packages. 
+- One folder = one module
+- Each folder contains 
+    - <span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">.r file of code, use this to follow along</span>
+    - `.Rmd` file containing code and explanations that makes the slides. You can use this if preferred, working chunk by chunk, if you want to work see the explanations along with the code. 
+    - other stuff (css style, images) that you can ignore.
+    
+<span class=" faa-flash animated-hover " style=" color:#B78ED2; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Please run, edit and change the code as we go! Experiment, break and fix.</span>
+
 
 ---
-# Installing packages
+# Refresher
 
 The three main locations that we will draw packages from are CRAN, Bioconductor and github.
 
@@ -84,17 +92,23 @@ From bioconductor
 
 
 ```r
-source("https://bioconductor.org/biocLite.R")
-biocLite("plyranges")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("impute")
 ```
 
 From github repos
 
 
 ```r
-devtools::install_github("heike/gglogo")
-devtools::install_github("dicook/nullabor")
+remotes::install_github("hadley/emo")
 ```
+
+---
+# List of packages
+
+Do you have these packages installed?
 
 ---
 # Resources
@@ -102,15 +116,15 @@ devtools::install_github("dicook/nullabor")
 
 - [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - Q/A site: [http://stackoverflow.com](http://stackoverflow.com)
-- Dynamic Documents with R and knitr [Yihui Xie](http://yihui.name/knitr/)
 
 ---
 # Share and share alike
 
 Materials for this workshop build on slides provided by several people, but primarily Hadley Wickham and Carson Sievert. 
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -120,16 +134,57 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -143,14 +198,15 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

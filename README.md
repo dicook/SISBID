@@ -1,4 +1,4 @@
-# SISBID 2018 Module 5: Visualization of Biomedical Big Data
+# SISBID 2019 Module 4: Visualization of Biomedical Big Data
 
 Instructors: Dianne Cook and Heike Hofmann
 
@@ -40,7 +40,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 ## Software list
 
-Download [RStudio >= 1.1.453 ](https://www.rstudio.com/products/rstudio/download/), [R version  3.5.1 (2018-07-02) -- "Feather Spray"](https://cran.r-project.org)
+Download [RStudio >= 1.2.1335 ](https://www.rstudio.com/products/rstudio/download/), [R version 3.6.1 (2019-07-05) -- "Action of the Toes"](https://cran.r-project.org)
 
 Open RStudio, and run the code below to install these packages and their dependencies:
 ```
