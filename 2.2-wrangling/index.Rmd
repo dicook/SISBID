@@ -1,8 +1,8 @@
 ---
 title: "Data manipulation with dplyr, purrr and broom"
-subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/25-27/2018"
+date: "07/24-26/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -67,7 +67,7 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 
 select a subset of the observations (horizontal selection)
 ```{r}
-data(french_fries, package = "reshape2")
+load(here::here("data/french_fries.rda"))
 french_fries %>%
     filter(subject == 3, time == 1)
 ```
@@ -136,7 +136,7 @@ class: inverse middle
 
 How many values do we have for each subject? Check the help for function `?n`
 
-![](lorikeets.png)
+
 
 ---
 # French Fries - completeness
@@ -382,7 +382,7 @@ ggplot(data=coefs, aes(x=`(Intercept)`, y=year, colour=continent)) +
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
+
 
 - use `broom::glance` to get model fits for each one of the linear models of life expectancy by year
 - which countries have the best five fits? which countries have the worst fits?
@@ -402,7 +402,6 @@ ggplot(data=by_country, aes(x=country, y=r.squared, colour=continent)) +
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
 
 - extract residuals for each of the models and store it in a dataset together with country and continent information
 - plot residuals across the years and fit a smooth. What does the pattern mean?
@@ -414,64 +413,6 @@ ggplot(data=by_country_fits, aes(x = lifeExp, y=resids)) + geom_point() +  geom_
 # overall, a linear fit is not great: at low and high life expectancy, linear fit is too fast
 ```      
 
----
-# broom for bio data
-
-`biobroom` package (Bioconductor; Bass, Nelson, Robinson, Storey, 2016) has the same functions as `broom`, i.e. `glance`, `tidy`, and `augment`.
-
-These functions provide information depending on the input type
-
-```{r}
-library(biobroom)
-data(hammer)
-
-counts <- Biobase::exprs(hammer)
-head(counts)
-```
-
----
-# The Hammer study
-
-published as part of the `biobroom` package, part of the [ReCount project](http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-12-449)
-```{r}
-# more information about the study:
-Biobase::phenoData(hammer)@data
-```
-
----
-# biobroom and edgeR
-
-identify differentially expressed genes following the protocol by Robinson, McCarthy and Smyth 2009
-
-```{r}
-library(edgeR)
-y <- DGEList(counts = counts, group=Biobase::phenoData(hammer)@data$protocol)
-y <- calcNormFactors(y)
-y <- estimateCommonDisp(y)
-y <- estimateTagwiseDisp(y)
-et <- exactTest(y)
-
-glance(et, alpha = 0.05) # glance on DGEExact
-```
-
----
-# biobroom and edgeR
-
-```{r}
-tet <- broom::tidy(et)
-tet$significant <- tet$p.value < 0.05
-ggplot(data=tet, aes(x=logCPM, y=estimate, colour=significant)) +
-  geom_point(alpha=.1) + facet_wrap(~significant, labeller="label_both")
-```
-
-`augment(y)` only works for DGEList objects
-
-
----
-# biobroom and limma
-
-- ... works similarly to biobroom and edgeR ...
-- we will pick up on this in the multivariate session after lunch
 
 ---
 # References
@@ -487,5 +428,4 @@ ggplot(data=tet, aes(x=logCPM, y=estimate, colour=significant)) +
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
- 
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
