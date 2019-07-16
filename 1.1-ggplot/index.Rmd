@@ -1,8 +1,8 @@
 ---
-title: "Grammar of graphics"
-subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+title: "A Grammar of Graphics"
+subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/25-27/2018"
+date: "07/24-26/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -37,9 +37,10 @@ library(HLMdiag)
 library(RColorBrewer)
 library(gridExtra)
 library(dichromat)
-library(xkcd)
 library(janitor)
 library(forcats)
+library(ggthemes)
+library(here)
 ```
 
 
@@ -283,7 +284,7 @@ class: inverse middle
 
 Where can you find the strange platypus in Australia?
 
-![](Platypus-sketch.jpg)
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Platypus-sketch.jpg" width="80%" />
 
 Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
 
@@ -299,7 +300,7 @@ save(platypus, file="data/platypus.rda")
 ```
 
 ```{r echo=TRUE}
-load("../data/platypus.rda")
+load(here::here("data/platypus.rda"))
 platydata <- platypus$data
 ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
 ```
@@ -332,9 +333,15 @@ The locations would be even more recognisable if we added a real map underneath.
 
 ---
 
-```{r echo=TRUE}
+```{r echo=FALSE, eval=FALSE}
 library(ggmap)
+register_google(XXX)
 oz <- get_map(location=c(lon=133.8807, lat=-23.6980), zoom=4)
+save(oz, file="data/oz.rda")
+```
+
+```{r echo=TRUE}
+load(here::here("data/oz.rda"))
 ggmap(oz) + 
   geom_point(data=platydata, aes(x=longitude, y=latitude), 
               alpha=0.1, colour="orange")
@@ -799,11 +806,10 @@ ggplot(fly_sub, aes(x=age,
 The `ggthemes` package has many different styles for the plots. Other packages such as `xkcd`, `skittles`, `wes anderson`, `beyonce`, ....
 
 ```{r fig.show='hide', echo=TRUE}
-library(xkcd)
 ggplot(fly_sub, aes(x=gender,
                     fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
   geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
-  theme_xkcd() + theme(legend.position="bottom")
+  theme_tufte() + theme(legend.position="bottom")
 ```
 
 See the [vignette](https://cran.r-project.org/web/packages/xkcd/vignettes/xkcd-intro.pdf) for instructions on installing the xkcd font. 
