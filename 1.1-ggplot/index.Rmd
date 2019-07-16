@@ -23,9 +23,11 @@ knitr::opts_chunk$set(
   error = FALSE, 
   collapse = TRUE,
   comment = "",
+  out.width = "80%", 
   fig.height = 6,
   fig.width = 10,
   fig.align = "center",
+  fig.retina = 3,
   cache = FALSE
 )
 ```
@@ -47,15 +49,20 @@ library(here)
 class: inverse middle 
 # Your turn: What is a data plot?
 
-Write down as many types of data plots that you can. You've got 30 seconds.
+<br>
+.large[Write down as many types of data plots that you can.] 
+
+<br>
+
+`r emo::ji("clock")` `r anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")`
 
 ---
 
 ```{r fig.width=10, fig.height=8}
 library(wordcloud)
-namedplots <- c("histogram", "barchart", "scatterplot", "piechart", "lineplot", "densityplot", "boxplot", "dendrogram", "treemap", "scatterplotmatrix", "parallelcoordinateplot", "biplot", "contourplot", "stemandleafplot", "rugplot", "dotplot", "mosaicplot", "spineplot", "forestplot", "heatmap", "qqplot", "starplot", "chernoffface","graph", "beeswarm", "violinplot")
-pal <- brewer.pal(8,"Dark2")
-wordcloud(namedplots, freq = sample(1:8, length(namedplots), replace=TRUE), colors=pal)
+namedplots <- c("histogram", "barchart", "scatterplot", "piechart", "lineplot", "density_plot", "boxplot", "dendrogram", "treemap", "scatterplot_matrix", "parallel_coordinate_plot", "biplot", "contourplot", "stem_and_leafplot", "rug_plot", "dotplot", "mosaic_plot", "spine_plot", "forest_plot", "heatmap", "qqplot", "star_plot", "chernoff_face","graph", "beeswarm", "violin_plot", "tour", "choropleth_map", "glyph_map", "cartogram", "bubble_plot", "correlogram", "area_chart", "population_pyramid", "seasonal_plot", "frequency_polygon", "biplot", "profile_plot", "funnel_plot")
+pal <- c("#A1719D","#03329B","#0774E4","#702E8D","#6B44B7","#B71452","#D50321","#F39E9C","#FCB52C","#B78ED2")
+wordcloud(namedplots, freq = sample(1:10, length(namedplots), replace=TRUE), colors=pal)
 ```
 
 ---
@@ -69,7 +76,6 @@ wordcloud(namedplots, freq = sample(1:8, length(namedplots), replace=TRUE), colo
 - facets: show subsets in different plots
 - themes: modifying style
 
----
 # Why?
 
 With the grammar, a data plot becomes a statistic. It is a functional mapping from variable to graphical element. Then we can do statistics on data plots. 
@@ -79,6 +85,7 @@ With a grammar, we don't have individual animals in the zoo, we have the genetic
 ---
 # Elements of the grammar
 
+.pull-left[
 ```
 ggplot(data = <DATA>) + 
   <GEOM_FUNCTION>(
@@ -89,7 +96,8 @@ ggplot(data = <DATA>) +
   <COORDINATE_FUNCTION> +
   <FACET_FUNCTION>
 ```
-
+]
+.pull-right[
 The 7 key elements of the grammar are:
 
 - DATA
@@ -99,185 +107,199 @@ The 7 key elements of the grammar are:
 - POSITION
 - COORDINATE_FUNCTION
 - FACET_FUNCTION
+]
 
 ---
 # Example: Tuberculosis data
 
-This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table.
+This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. There's also an R package, [TBinR](https://cran.r-project.org/web/packages/getTBinR/index.html), that can be used to dynamically download this data.
 
-```{r}
-tb <- read_csv("../data/TB_notifications_2018-03-18.csv") %>% 
+```{r read TB data and wrangle and subset to USA}
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
   gather(stuff, count, new_sp_m04:new_sp_fu) %>%
-  separate(stuff, c("stuff1", "stuff2", "genderage")) %>%
+  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
   select(-stuff1, -stuff2) %>%
-  mutate(gender=substr(genderage, 1, 1), 
-         age=substr(genderage, 2, length(genderage))) %>%
-  select(-genderage)
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage)
 
+# Filter years between 1997 and 2012 due to missings
 tb_us <- tb %>% 
   filter(country == "United States of America") %>%
   filter(!(age %in% c("04", "014", "514", "u"))) %>%
   filter(year > 1996, year < 2013)
-tb_us <- tb %>% 
-  filter(country == "China") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013)
-tb_us <- tb %>% 
-  filter(country == "Malaysia") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013)
-tb_us <- tb %>% 
-  filter(country == "Republic of Korea") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013)
-tb_us <- tb %>% 
-  filter(country == "Germany") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013)
-tb_us <- tb %>% 
-  filter(country == "Japan") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013)
-tb_us <- tb %>% 
-  filter(country == "South Africa") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013)
-
 ```
 
 ```{r echo=TRUE, fig.width=10, fig.height=3}
-ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity", position = "fill") +
-  facet_grid(~ age) +
-  scale_fill_brewer(palette="Dark2")
-```
-
----
-
-100% charts, is what excel names these beasts. What do we learn?
-
-- Focus is on **proportion** in each category. 
-- Across all ages, and years, the proportion of males having TB is higher than females
-- These proportions tend to be higher in the middle age groups, for all years.
-- Relatively similar proportions across years.
-
----
-# Bar charts
-
-```{r echo=TRUE, fig.width=10, fig.height=3}
-ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
+ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
   geom_bar(stat = "identity") +
-  facet_grid(~ age) +
-  scale_fill_brewer(palette="Dark2")
+  facet_grid(~ age) 
+```
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+- What do you learn about tuberculosis incidence in the USA from this plot?
+- Give three changes to the plot that would improve it. 
+
+
+```{r eval=FALSE}
+- Incidence is declining, in all age groups, except possibly 15-24
+- Much higher incidence for over 65s
+- There appears to be a structural change around 2008. Either a recording change or a policy change?
+- Missing information for 1998
+- 
+- Cannot compare counts for male/female using stacked bars, maybe fill to 100% to focus on proportion
+- Colour scheme is not color blind proof, switch to colorbrewer Dark2 palette
+- Axis labels, and tick marks?
 ```
 
 ---
+# Fix the plot
 
-What do we learn?
-
-- Focus is on **counts** in each category. 
-- Different across ages, and years, counts tend to be lower in young age (15-24)
-- Incidence has been decreasing although among younger age groups it is only in recent years.
-
-
----
-# Side-by-side barcharts
-
-```{r echo=TRUE, fig.width=10, fig.height=3}
-ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity", position="dodge") +
-  facet_grid(~ age) +
-  scale_fill_brewer(palette="Dark2")
+```{r colour and axes fixes, echo=TRUE, fig.height=3}
+# This uses a color blind proof scale
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") 
 ```
 
 ---
+# Compare males and females
 
-What do we learn?
+```{r compare proportions of males/females, echo=TRUE, fig.height=3}
+# Fill the bars, note the small change to the code
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") + ylab("proportion")
+```
 
-- Focus is on counts by gender, predominantly male incidence.
-- There is similar incidence between males and females in younger age groups.
-- Decline is less prominent among middle age females.
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
----
-#  Separate bar charts
+- What do we learn about the data that is different from the previous plot?
+- What is easier, what is harder or impossible to learn from this arrangement?
 
-```{r echo=TRUE, fig.width=10, fig.height=4}
-ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(gender ~ age) +
-  scale_fill_brewer(palette="Dark2")
+```{r eval=FALSE}
+- Focus is now on proportions of male and female each year, within age group
+- Proportions are similar across year 
+- Roughly equal proportions at young and old age groups, more male incidence in middle years
 ```
 
 ---
+# Separate plots
 
-What do we learn?
+```{r side-by-side bars of males/females, fig.height=3, eval=FALSE, echo=FALSE}
+# This code does something strange to the axis tick marks
+# We will skip it for now
+#ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+#  geom_bar(stat="identity", position="dodge") + 
+#  facet_wrap(~age, ncol=6) +
+#  scale_fill_brewer("", palette="Dark2") +
+#  scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10"))
+```
 
-- Its easier to focus separately on males and females.
+```{r compare counts of males/females, echo=TRUE, fig.height=4}
+# Make separate plots for males and females, focus on counts by category
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity") + 
+  facet_wrap(sex~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") 
+```
 
----
-# Pie charts?
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-```{r echo=TRUE, fig.width=10, fig.height=4}
-ggplot(tb_us, aes(x = year, y = count, fill = gender)) +
-  geom_bar(stat = "identity") +
-  facet_grid(gender ~ age) +
-  scale_fill_brewer(palette="Dark2") + 
-  coord_polar() +
-  theme(axis.text = element_blank())
+- What do we learn about the data that is different from the previous plot?
+- What is easier, what is harder or impossible to learn from this arrangement?
+
+```{r eval=FALSE}
+- Counts are generally higher for males than females 
+- There are very few female cases in the middle years
+- Perhaps something of a older male outbreak in 2007-8, and possibly a young female outbreak in the same years
 ```
 
 ---
+# Make a pie
 
-Nope! That's a rose chart. Bar charts in polar coordinates produce rose charts. 
+```{r rose plot of males/females, echo=TRUE, fig.height=5}
+# How to make a pie instead of a barchart - not straight forward
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity") + 
+  facet_wrap(sex~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  coord_polar()
+```
 
-What do we learn?
-
-- Emphasizes the difference between men and women, and really small numbers for middle aged females. 
+Not a pie, a [rose plot](https://datavizcatalogue.com/methods/nightingale_rose_chart.html)!
 
 ---
-# Rainbow charts?
+# Stacked bar
 
-```{r echo=TRUE, fig.width=10, fig.height=4}
+```{r stacked barchart of males/females, echo=TRUE, fig.height=5}
+# Step 1 to make the pie
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat = "identity", position="fill") +
-  facet_grid(gender ~ age) 
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(sex~age, ncol=6) +
+  scale_fill_viridis_d("", option="inferno") 
 ```
 
 ---
+# Pie chart
 
-A single stacked bar, in each facet. Year is mapped to colour. 
-
-What do we learn?
-
-- Pretty chart but not easy to interpret. 
-
----
-# Pie charts
-
-```{r echo=TRUE, fig.width=10, fig.height=4}
+```{r pie chart of males/females, echo=TRUE, fig.height=5}
+# Now we have a pie, note the mapping of variables
+# and the modification to the coord_polar
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat = "identity", position="fill") +
-  facet_grid(gender ~ age) +
-  coord_polar(theta="y") +
-  theme(axis.text = element_blank())
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(sex~age, ncol=6) +
+  scale_fill_viridis_d("", option="inferno") +
+  coord_polar(theta = "y") 
 ```
 
 ---
 
-What do we learn?
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-- Pretty chart but not easy to interpret, or make comparisons across age groups. 
+- What are the pros, and cons, of using the pie chart for this data?
+- Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
 ---
-class: inverse middle 
+# Line plot vs barchart
+
+```{r use a line plot instead of bar, fig.height=3}
+ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  scale_colour_brewer("", palette="Dark2") 
+```
+
+A line plot allows reading the counts for the two sexes. The counts are displayed in the same plot, and males and females can be directly compared as well as temporal trend.  
+
+---
+# Line plot vs barchart
+
+```{r use a line plot of proportions, fig.height=3}
+tb_us %>% group_by(year, age) %>% 
+  summarise(p = count[sex=="m"]/sum(count)) %>%
+  ggplot(aes(x=year, y=p)) +
+  geom_hline(yintercept = 0.50, colour="white", size=2) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  ylab("proportion of males") 
+```
+
+Computing proportion and displaying only this, forces the attention to be on the one quantity. Proportion here is computed separately for year and age, which means we are directly comparing the counts within these subsets. 
+
+Adding the guideline to indicate equal proportions is an important baseline. 
+
+---
+class: inverse middle
+
 # Your turn
 
-- Choose a different country to examine relative to tuberculosis incidence, for example, Australia. 
-- Make an R Markdown notebook for your analysis
-- Create the same sequence of plots as done in slides 7-20 for your chosen country's data
-- Write a paragraph describing what you have learned about tb in your chosen country from each plot. 
-
+- Facet by gender, and make line plots of counts of age. 
+- Show the points only, and overlay a linear model fit. 
 
 ---
 # Example 2: Platypus in Australia
@@ -455,374 +477,15 @@ ggmap(oz) + geom_point(data=platydata_50_10, mapping=aes(x=longitude, y=latitude
   facet_wrap(~decade)
 ```
 
----
-# Example 3: Flying etiquette
-
-[41% Of Fliers Think You’re Rude If You Recline Your Seat](http://fivethirtyeight.com/datalab/airplane-etiquette-recline-seat/)
-
-```{r echo=FALSE}
-fly <- read_csv("../data/flying-etiquette.csv")
-fly <- fly %>% clean_names()
-glimpse(fly)
-```
-
----
-# Variables
-
-- Mix of categorical and quantitative variables. 
-- What mappings are appropriate? 
-- Area for counts of categories, 
-- side-by-side boxplots for mixed pairs. 
-
----
-# Support
-
-```{r echo=TRUE}
-ggplot(fly, aes(x=how_often_do_you_travel_by_plane)) + 
-  geom_bar() + coord_flip()
-```
-
-Categories are not sorted
-
----
-# Sorted categories
-
-```{r echo=TRUE}
-fly$how_often_do_you_travel_by_plane <- 
-  factor(fly$how_often_do_you_travel_by_plane, levels=c(
-    "Never","Once a year or less","Once a month or less",
-    "A few times per month","A few times per week","Every day"))
-p1 <- ggplot(fly, aes(x=how_often_do_you_travel_by_plane)) + geom_bar() + coord_flip()
-p2 <- ggplot(fly, aes(x=how_often_do_you_travel_by_plane, 
-                fill=how_often_do_you_travel_by_plane)) + 
-  geom_bar() + coord_flip() +
-  scale_fill_brewer(palette="Dark2") + theme(legend.position="none")
-```
-
----
-
-```{r echo=TRUE}
-grid.arrange(p1, p2, ncol=2)
-```
-
----
-# Filter data
-
-```{r echo=TRUE}
-fly_sub <- fly %>% filter(how_often_do_you_travel_by_plane %in% 
-                            c("Once a year or less","Once a month or less")) %>%
-  filter(!is.na(do_you_ever_recline_your_seat_when_you_fly)) %>%
-  filter(!is.na(age)) %>% filter(!is.na(gender))
-```
-
----
-# Recline by height
-
-```{r echo=TRUE, fig.height = 5}
-fly_sub$do_you_ever_recline_your_seat_when_you_fly <- factor(
-  fly_sub$do_you_ever_recline_your_seat_when_you_fly, levels=c(
-    "Never","Once in a while","About half the time",
-    "Usually","Always"))
-ggplot(fly_sub, aes(y=how_tall_are_you, x=do_you_ever_recline_your_seat_when_you_fly)) + geom_boxplot() + coord_flip()
-```
-
 
 ---
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
-
-- Take a look at the ggplot2 [Cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf)
-- How many geoms are available in ggplot2? What is `geom_rug`?
-
-```{r echo=FALSE, eval=FALSE}
-A lot of geoms!
-  
-geom_rug adds tick marks to the axis, particularly for a scatterplot, or density, indicating values of data on that variable. 
-```
-
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-
-What is the difference between `colour` and `fill`?
-
-```{r echo=FALSE, eval=FALSE}
-# colour is for 0 or 1-dimensional elements, and fill is for area (2-d) geoms
-```
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-What does `coord_fixed()` do? What is the difference between this and using `theme(aspect.ratio=...)`?
-
-```{r echo=FALSE, eval=FALSE}
-coord_fixed operates on the raw data values, but theme(aspect_ratio=...) works on the plot dimensions
-```
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-What are scales? How many numeric transformation scales are there?
-
-```{r echo=FALSE, eval=FALSE}
-scales do the transformation between data values and graphical element value. most often it is applied to position along x, y which is common, to log or sqrt, .. there are 3 numeric transformations. 
-```
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-What are position adjustments? When would they be used?
-
-```{r echo=FALSE, eval=FALSE}
-positions shift the location some from original coordinates. most often used with bar charts to stack, or put side-by-side
-```
-
----
-class: inverse middle 
-# Your turn 
-
-![](lorikeets.png)
-
-Make some more plots of the flying etiquette data, on some of the other variables or relationships between variables that interest you.
-
-```{r echo=FALSE, eval=FALSE}
-ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly)) +
-  geom_bar() + 
-  facet_wrap(~is_itrude_to_move_to_an_unsold_seat_on_a_plane, ncol=3) +
-  coord_flip()
-ggplot(fly_sub, aes(x=do_you_ever_recline_your_seat_when_you_fly,
-    fill=is_itrude_to_move_to_an_unsold_seat_on_a_plane)) +
-  geom_bar(position="fill") +
-  coord_flip()
-```
-
-
----
-# Facets
-
-```{r echo=TRUE, fig.height=4}
-ggplot(fly_sub, 
-       aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar() + coord_flip() + facet_wrap(~gender)
-```
-
----
-
-```{r echo=TRUE}
-fly_sub$age <- factor(fly_sub$age, levels=c("18-29","30-44","45-60","> 60"))
-ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar() + coord_flip() + facet_grid(age~gender)
-```
-
----
-# Color palettes - default
-
-```{r echo=TRUE, fig.height=4}
-p <- ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
-                    fill=gender)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5)
-p
-```
-
-What do we learn?
-
----
-# Color palettes - brewer
-
-```{r echo=TRUE, fig.height=4}
-p + scale_fill_brewer(palette="Dark2") 
-```
-
-[Color Brewer web site](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) annotates the palettes indicating attributes of the palettes.
-
----
-# Color blind-proofing
-
-```{r  echo=TRUE, fig.show='hide'}
-library(scales)
-library(dichromat)
-clrs <- hue_pal()(3)
-p + theme(legend.position = "none")
-clrs <- dichromat(hue_pal()(3))
-p + scale_fill_manual("", values=clrs) + theme(legend.position = "none")
-```
-
-The packages `colorblind` has color blind friendly palettes but the colours are awful, to my eye.
-
----
-
-```{r echo=FALSE, fig.width=5, fig.show='hold', fig.align='default'}
-clrs <- hue_pal()(3)
-p + theme(legend.position = "none")
-clrs <- dichromat(hue_pal()(3))
-p + scale_fill_manual("", values=clrs) + theme(legend.position = "none")
-```
-
----
-# Perceptual principles
-
-- Hierarchy of mappings: (first) position along an axis - (last) color (Cleveland, 1984; Heer and Bostock, 2009)
-- Pre-attentive: Some elements are noticed before you even realise it.
-- Color: (pre-attentive) palettes - qualitative, sequential, diverging.
-- Proximity: Place elements for primary comparison close together. 
-- Change blindness: When focus is interrupted differences may not be noticed.
-
----
-# Hierarchy of mappings
-
-- 1.Position - common scale (BEST)
-- 2.Position - nonaligned scale
-- 3.Length, direction, angle
-- 4.Area
-- 5.Volume, curvature
-- 6.Shading, color (WORST)
-
----
-# Pre-attentive
-
-Can you find the odd one out?
-
-```{r echo=FALSE}
-df <- data.frame(x=runif(100), y=runif(100), cl=sample(c(rep("A", 1), rep("B", 99))))
-ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() + 
-  geom_point(size=3) +
-  theme(legend.position="None", aspect.ratio=1)
-```
-
----
-
-Is it easier now?
-
-```{r echo=FALSE}
-ggplot(data=df, aes(x, y, colour=cl)) + 
-  geom_point(size=3) +
-  theme_bw() + 
-  scale_colour_brewer(palette="Dark2") +
-  theme(legend.position="None", aspect.ratio=1)
-```
-
-
----
-# Color palettes
-
-- Qualitative: categorical variables
-- Sequential: low to high numeric values
-- Diverging: negative to positive values
-
----
-
-```{r, echo=FALSE, fig.height=7, fig.width=12}
-library(RColorBrewer)
-display.brewer.all()
-```
-
-
----
-# Proximity
-
-```{r fig.show='hide'}
-ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
-                    fill=gender)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5)
-```
-
-With this arrangement we can see proportion of gender within each rudeness category, and compare these across age groups.  How could we arrange this differently?
-
----
-
-
-```{r echo=FALSE}
-ggplot(fly_sub, aes(x=in_general_is_itrude_to_bring_a_baby_on_a_plane,
-                    fill=gender)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5)
-```
-
-
----
-# Proximity
-
-```{r fig.show='hide', echo=TRUE}
-ggplot(fly_sub, aes(x=gender,
-   fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
-  theme(legend.position="bottom")
-```
-
----
-
-```{r echo=FALSE}
-ggplot(fly_sub, aes(x=gender,
-                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) + theme(legend.position="bottom")
-```
-
-What is different about the comparison now?
-
----
-# Another arrangement
-
-```{r fig.show='hide', echo=TRUE}
-ggplot(fly_sub, aes(x=age,
-                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~gender, ncol=5) + 
-  theme(legend.position="bottom")
-```
-
----
-
-```{r echo=FALSE}
-ggplot(fly_sub, aes(x=age,
-                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~gender, ncol=5) + theme(legend.position="bottom")
-```
-
----
-# My principles
-
-- Make a plot is the most important message. For most purposes the hierarchy doesn't much matter. 
-- Knowing how to use proximity is an extremely valuable skill, and not well utilised.
-- Use of colour is also a very valuable skill, and there are many bad habits to over-use, too many colours or precariously map to a continuous variable to add another dimension. 
--
-- Plot the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself.
-
----
-# Themes
-
-The `ggthemes` package has many different styles for the plots. Other packages such as `xkcd`, `skittles`, `wes anderson`, `beyonce`, ....
-
-```{r fig.show='hide', echo=TRUE}
-ggplot(fly_sub, aes(x=gender,
-                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
-  theme_tufte() + theme(legend.position="bottom")
-```
-
-See the [vignette](https://cran.r-project.org/web/packages/xkcd/vignettes/xkcd-intro.pdf) for instructions on installing the xkcd font. 
-
----
-
-```{r}
-library(xkcd)
-ggplot(fly_sub, aes(x=gender,
-                    fill=in_general_is_itrude_to_bring_a_baby_on_a_plane)) + 
-  geom_bar(position="fill") + coord_flip() + facet_wrap(~age, ncol=5) +
-  theme_xkcd() + theme(legend.position="bottom")
-```
+- Focusing again on TB, choose a different country to examine, for example, Australia. 
+- Create a similar sequence of plots for your chosen country's data, and feel free to experiment with new types.
+- Write a data story describing what you have learned about TB in your chosen country based on a selection of your favorite plots, by putting the code and explanations into an Rmarkdown document, and compile to html.
+- Feel free to share with your instructors.
 
 ---
 # Resources
@@ -830,8 +493,9 @@ ggplot(fly_sub, aes(x=gender,
 - [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [ggplot2: Elegant Graphics for Data Analysis, Hadley Wickham](http://ggplot2.org/book/), [web site](http://ggplot2.org)
 - [R Graphics Cookbook, Winston Chang](http://www.cookbook-r.com/Graphs/)
-- [Naomi Robbins, Creating More Effective Graphs](http://www.nbr-graphs.com)
-- [Antony Unwin, Graphical Data Analysis with R](https://www.crcpress.com/Graphical-Data-Analysis-with-R/Unwin/9781498715232)
+- [Data Visualization, Kieran Healy](https://socviz.co)
+- [Data Visualization with R, Rob Kabacoff](https://rkabacoff.github.io/datavis/index.html)
+- [Fundamentals of Data Visualization, Claus O. Wilke](https://serialmentor.com/dataviz/)
 
 ---
 # Share and share alike
