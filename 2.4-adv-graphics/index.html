@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Advanced plots and inference</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Advanced plots and inference
-## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/25-27/2018
+## SISBID 2019 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### 07/24-26/2019
 
 ---
 
@@ -71,10 +71,10 @@ There are many aspects of this plot, this is what we said earlier:
 ---
 # Null hypothesis
 
-The plot is constructed by plotting count against year, separately by age group, and coloured by gender. 
+The plot is constructed by plotting count against year, separately by age group, and coloured by sex. 
 
-- By colouring by gender, we make this a primary comparison
-- Proportion of gender, conditional on age group and year is the query being addressed by this plot.
+- By colouring by sex, we make this a primary comparison
+- Proportion of sex, conditional on age group and year is the query being addressed by this plot.
 
 *Null hypothesis*: TB incidence is spread equally among men and women, regardless of age and year.
 *Alternative hypothesis*: It isn't.
@@ -85,23 +85,23 @@ The plot is constructed by plotting count against year, separately by age group,
 ```r
 # Make expanded rows of categorical variables
 # matching the counts of aggregated data.
-# Gender needs to be converted to 0, 1 to 
+# sex needs to be converted to 0, 1 to 
 # match binomial simulations
 tb_us_long &lt;- expandRows(tb_us, "count")
 tb_us_long &lt;- tb_us_long %&gt;%
-  mutate(gender01 = ifelse(gender=="m", 0, 1)) %&gt;%
-  select(-gender)
+  mutate(sex01 = ifelse(sex=="m", 0, 1)) %&gt;%
+  select(-sex)
 
 # Generate a lineup of three, randomly choose one of the
 # positions to place true data.
 # Compute counts again.
 pos = sample(1:3, 1)
-l &lt;- lineup(null_dist(var="gender01", dist="binom", 
+l &lt;- lineup(null_dist(var="sex01", dist="binom", 
                       list(size=1, p=0.5)), 
             true=tb_us_long, n=3, pos=pos)
 l &lt;- l %&gt;%
   group_by(.sample, year, age) %&gt;%
-  dplyr::count(gender01)
+  dplyr::count(sex01)
 ```
 
 ---
@@ -117,22 +117,22 @@ l &lt;- l %&gt;%
 
 ```r
 # Compute proportion across all data
-tbl &lt;- tb_us %&gt;% group_by(gender) %&gt;% summarise(count=sum(count))
+tbl &lt;- tb_us %&gt;% group_by(sex) %&gt;% summarise(count=sum(count))
 tbl
 # A tibble: 2 x 2
-  gender count
-  &lt;chr&gt;  &lt;int&gt;
-1 f      25915
-2 m      55640
+  sex   count
+  &lt;chr&gt; &lt;dbl&gt;
+1 f     25915
+2 m     55640
 p &lt;- tbl$count[1]/sum(tbl$count)
 
 pos = sample(1:3, 1)
-l &lt;- lineup(null_dist(var="gender01", dist="binom", 
+l &lt;- lineup(null_dist(var="sex01", dist="binom", 
                       list(size=1, p=p)), 
             true=tb_us_long, n=3, pos=pos)
 l &lt;- l %&gt;%
   group_by(.sample, year, age) %&gt;%
-  dplyr::count(gender01)
+  dplyr::count(sex01)
 ```
 
 ---
@@ -173,7 +173,7 @@ For `\(x=4, K=17, m=20\)`
 
 ```
      x simulated       binom
-[1,] 4    0.0201 0.008800605
+[1,] 4    0.0204 0.008800605
 ```
 
 ---
@@ -240,11 +240,6 @@ class: inverse middle
 
 &lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
----
-class: inverse middle 
-# Your turn
-
-&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 # More on making maps
@@ -299,7 +294,7 @@ ggplot(tb_names_inc, aes(map_id = region)) +
     guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -320,7 +315,7 @@ ggplot(tb_map) +
     guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -341,13 +336,12 @@ tb_india &lt;- tb %&gt;%
   summarise(count = sum(count, na.rm=TRUE)) 
 india_map &lt;- world_map %&gt;% filter(region == "India")
 tb_map_india &lt;- left_join(india_map, tb_india,
-                          by=c("region"="country")) %&gt;%
-  filter(group == 839)
+                          by=c("region"="country")) 
 ```
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 # Animate
@@ -382,8 +376,9 @@ ggplotly(p)
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -394,16 +389,57 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -417,14 +453,15 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
