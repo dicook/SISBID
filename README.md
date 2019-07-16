@@ -26,14 +26,14 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 ### Day 2
 
-1. Multivariate plots for bioinformatics, using ggplot2 and GGally (Di).
 1. Tidy data and tidying your messy data with tidyr (Heike).
 1. Data manipulation with dplyr, purrr and broom (Heike).
+1. Multivariate plots using ggplot2, GGally and tourr (Di).
 1. Advanced graphics, and statistical inference, gggenealogy (Di) 
 
 ### Day 3
 
-1. Interactive graphics using plotly (Heike).
+1. Interactive and animated graphics using plotly and gganimate (Heike).
 1. Building interactive web apps with shiny, and other Rmarkdown tools (Di).
 1. Make your own shiny app (Heike).
 1. Polish and share your own shiny app (Di).
