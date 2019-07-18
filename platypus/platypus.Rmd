@@ -1,0 +1,68 @@
+---
+title: "Where do I find a platypus in Australia"
+subtitle: "outside of the zoo"
+author: "Di Cook"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  error = FALSE)
+```
+
+
+## Data description
+
+The platypus is a very strange animal, one of just two mammals in the worl to lay eggs! They are found exclusively in Australia. 
+
+The data used in this tutorial is downloaded from [Atlas of Living Australia](https://www.ala.org.au), using this code:
+
+```
+library(ALA4R)
+l <- specieslist("platypus")
+platypus <- occurrences("Ornithorhynchus anatinus", download_reason_id=10)
+save(platypus, file="data/platypus.rda")
+```
+
+```{r}
+library(tidyverse)
+library(ggmap)
+load(here::here("data/platypus.rda"))
+platydata <- platypus$data
+load(here::here("data/oz.rda"))
+ggmap(oz) + 
+  geom_point(data=platydata, aes(x=longitude, y=latitude), 
+              alpha=0.1, colour="orange") 
+```
+
+### Quiz
+
+```{r quiz}
+quiz(
+  question("What part of Australia is the platypus natural habitat?",
+    answer("southeast", correct = TRUE),
+    answer("west"),
+    answer("north"),
+    answer("centre")
+  )
+)
+```
+
+## Exercises 
+
+Write the R code required to filter the platypus data to contain sightings since 2010.
+
+```{r since-2010, exercise=TRUE}
+glimpse(platydata)
+```
+
+```{r since-2010-solution}
+platydata %>% filter(year >= 2010)
+```
+
+

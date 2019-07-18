@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Building interactive web apps with shiny, and other Rmarkdown tools</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="myremark.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Building interactive web apps with shiny, and other Rmarkdown tools
+## SISBID 2019 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### 07/24-26/2019
+
+---
+
+
+
+
+
+
+# Types of interactive documents
+
+- tutorial using `learnr`
+- flexdashboard
+- shiny app
+
+---
+# `learnr` interactive tutorial
+
+This is a really simple way to build your plots into an online document. It has some great features like interactive multiple choice quizzes, coding exercises, and can incorporate interactive shiny elements like scrollbars on plots.
+
+To get started, make sure you have the `learnr` package installed on your computer.
+
+```
+install.packages("learnr")
+```
+
+Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
+
+&lt;img src="images/learnr.png" width="40%" /&gt;
+
+---
+# Basic tutorial
+
+- Check that the document compiles, by clicking `Run Document`
+- Modify the title and author 
+
+```
+---
+title: "Where do I find a platypus in Australia"
+subtitle: "outside of the zoo"
+author: "Di Cook"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+```
+
+- Set the first section to be a description of the data
+
+```
+## Data description
+
+The platypus is a very strange animal, one of just two mammals in the worl to lay eggs! They are found exclusively in Australia. 
+
+The data used in this tutorial is downloaded from [Atlas of Living Australia](https://www.ala.org.au), using this code:
+
+library(ALA4R)
+l &lt;- specieslist("platypus")
+platypus &lt;- occurrences("Ornithorhynchus anatinus", download_reason_id=10)
+save(platypus, file="data/platypus.rda")
+```
+---
+# Writing the data description
+
+- Creating the tutorial produced a folder in your project.  
+- Add a data directory to this folder, that contains the `platypus.rda` and the `oz.rda` data.  
+
+&lt;img src="images/platy_data.png" width="50%" /&gt;
+
+- Add a code chunk to 
+    - read in the platypus data
+    - read in the map data
+    - plot the sightings on the map
+    
+<span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Remember to load the appropriate libraries</span>
+
+- Knit the document again
+
+---
+# Polishing the data description
+
+Loading the libraries generates some messages and warnings on the page. This is good interactively, but it is distracting in the web page. 
+
+```
+## ── Attaching packages ──────────────────────────────────────────── tidyverse 1.2.1 ──
+## ✔ ggplot2 3.2.0     ✔ purrr   0.3.2
+## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+...
+## Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
+## Please cite ggmap if you use it! See citation("ggmap") for details.
+## Warning: Removed 619 rows containing missing values (geom_point).
+```
+
+We need to change the setup chunk options to turn these off:
+
+```
+library(learnr)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  error = FALSE)
+```
+
+---
+# Building quizzes
+
+An example quiz is provided in the template. Note that the format of the R code is 
+
+- `quiz()` wraps a set of questions.
+- `question()` contains the text of the question, and is coupled with multiple `answer()` elements with possible choices. 
+- At least one of the answers needs to be noted as correct with `, correct = TRUE`. There can be more than one correct answer. 
+
+```
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  )
+)
+```
+
+<span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Try making a question about the platypus data on the data description tab.</span>
+
+
+---
+# Exercises in coding
+
+Adding `exercise = TRUE` on a code chunk provides an R console window where readers can type R code, and check for correctness. The template provides several example exercises.
+
+1. Move these into a second section of the document. 
+2. Add a coding challenge that asks the reader to make a filter for the data to select just the platypus sightings since 2010. Click the "Run document" to make sure it works
+3. Add a hint, "you want to use the filter function" 
+4. Change the hint to a solution, that provides the correct code
+
+---
+# Adding a shiny element
+
+---
+# Styling and cuteness
+
+---
+# Progressive reveal
+
+
+---
+# Resources
+
+- [Introducing learnr, Garret Grolemund](https://blog.rstudio.com/2017/07/11/introducing-learnr/)
+
+---
+# Share and share alike
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
