@@ -112,7 +112,7 @@ tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 
 .pull-left[
 - Creating the tutorial produced a folder in your project.  
-- Add a data directory to this folder, that contains the `TB_notifications_2019-07-01.csv` data.  This keeps your tutoiral self-contained.
+- Add a data directory to this folder, that contains the `TB_notifications_2019-07-01.csv` data.  This keeps your tutorial self-contained.
 <img src="images/tb_data.png" width="100%" />
 ]
 .pull-right[
@@ -187,7 +187,7 @@ Adding `exercise = TRUE` on a code chunk provides an R console window where read
 ---
 # Adding a shiny element
 
-Because this is an html document, interactive graphics can be incorporated. We'll add a section to use interactive plots to examine the temporaral trend in TB incidence. 
+Because this is an html document, interactive graphics can be incorporated. We'll add a section to use interactive plots to examine the temporal trend in TB incidence. 
 
 ```
 library(plotly)
@@ -245,7 +245,7 @@ class: inverse middle
 
 # Data dashboard
 
-A `flexdashboard` is an Rmarkdown format shiny app. It adds more control over plot elements and is more focused on the data analysis than on a stody or instructional materials. 
+A `flexdashboard` is an Rmarkdown format shiny app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
 
 ---
 # Data dashboard 
@@ -300,30 +300,30 @@ Column {data-width=600}
 ```
 ]
 .pull-right[
+
 ## Your turn!
 
 - Change the default layout in your flexdashboard to have two plots in the left column.
 - Make each column equal width
 - Pick four countries and create the interactive chart of temporal trend. (We used India in the learnr tutorial. You can copy this code, and choose another three.)
 - Change the tab titles to reflect what country is displayed.
+- Add several sentences on each pane about the data, and some things they should learn about TB incidence in that country.
 ]
 
 ---
-# Adding tabs
+# Adding pages and tabs
 
-Add a tab
+A new page (tab) can be added using
 
-Tabular pane
+```
+Page 1
+===================================== 
+```
 
-Text description
+Add a second page to your flexdashboard that focuses on one country and has
 
----
-class: inverse middle
-
-# Shiny app
-
-This is the full web app, and it feels a little more like actually coding.
-
+- a data table showing counts for year, age, sex 
+- a facetted barchart of counts by year, by age and sex
 
 ---
 # Resources
