@@ -39,6 +39,7 @@ library(RColorBrewer)
 library(gridExtra)
 library(plotly)
 library(gganimate)
+library(plotly)
 ```
 
 # Types of interactive documents
@@ -48,8 +49,16 @@ library(gganimate)
 - shiny app
 
 ---
+class: inverse middle
+
+# Interactive tutorial
+
+A set of notes with interactive plots, quizzes, and coding exercises.
+
+---
 # `learnr` interactive tutorial
 
+.pull-left[
 This is a really simple way to build your plots into an online document. It has some great features like interactive multiple choice quizzes, coding exercises, and can incorporate interactive shiny elements like scrollbars on plots.
 
 To get started, make sure you have the `learnr` package installed on your computer.
@@ -59,9 +68,10 @@ install.packages("learnr")
 ```
 
 Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
-
-<img src="images/learnr.png" width="40%" />
-
+]
+.pull-right[
+<img src="images/learnr.png" width="100%" />
+]
 ---
 # Basic tutorial
 
@@ -70,8 +80,7 @@ Then create a "New R Markdown" document, "From Template", "Interactive Tutorial"
 
 ```
 ---
-title: "Where do I find a platypus in Australia"
-subtitle: "outside of the zoo"
+title: "TB Incidence Around the Globe"
 author: "Di Cook"
 output: learnr::tutorial
 runtime: shiny_prerendered
@@ -100,11 +109,13 @@ tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 ---
 # Writing the data description
 
+
+.pull-left[
 - Creating the tutorial produced a folder in your project.  
-- Add a data directory to this folder, that contains the `platypus.rda` and the `oz.rda` data.  
-
-<img src="images/tb_data.png" width="50%" />
-
+- Add a data directory to this folder, that contains the `TB_notifications_2019-07-01.csv` data.  This keeps your tutoiral self-contained.
+<img src="images/tb_data.png" width="100%" />
+]
+.pull-right[
 - Add a code chunk to 
     - read in the TB data
     - plot the aggregated counts by region
@@ -112,6 +123,7 @@ tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 `r anicon::nia("Remember to load the appropriate libraries", colour="#FA700A", anitype="hover")`
 
 - Knit the document again
+]
 
 ---
 # Polishing the data description
@@ -189,6 +201,28 @@ p <- tb %>% filter(iso3 == "IND") %>%
 ggplotly(p)
 ```
 
+---
+
+```{r echo=FALSE, fig.width=10, fig.height=8, out.width="100%"}
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+  select(country, iso3, year, g_whoregion, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage) %>%
+  filter(year > 1996, year < 2013) %>%
+  filter(!(age %in% c("04", "014", "514", "u")))
+p <- tb %>% filter(iso3 == "IND") %>% 
+  filter(!is.na(count)) %>%
+  ggplot() + 
+  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
+  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer(palette = "Dark2") +
+  ylim(c(0, 100000))
+ggplotly(p)
+```
 
 ---
 # Styling and cuteness
@@ -203,13 +237,101 @@ emo::ji("clock")
 
 ```
 anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")
-anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2", position=c(0,0,0,200))
+anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
+  position=c(0,0,0,200))
 ```
+---
+class: inverse middle
+
+# Data dashboard
+
+A `flexdashboard` is an Rmarkdown format shiny app. It adds more control over plot elements and is more focused on the data analysis than on a stody or instructional materials. 
+
+---
+# Data dashboard 
+
+.pull-left[
+A `flexdashboard` allows you to create an interactive interface to a data set, that allows communicating a lot of information visually and numerically, and the flexibility for the user to explore their own choice of aspects of the data.
+
+To get started, make sure you have the `flexdashboard` package installed on your computer.
+
+```
+install.packages("flexdashboard")
+```
+]
+.pull-right[
+Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
+
+<img src="images/flexdashboard.png" width="80%" />
+]
+
+---
+# Basic dashboard
+
+- Check that the document compiles, by clicking `Knit`
+- Modify the title and author 
+
+```
+---
+title: "TB incidence around the globe"
+author: "by Di Cook"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+```
+
+---
+# Components
+
+.pull-left[
+This creates a box or a pane for a plot or results
+
+```
+### Chart 1
+```
+
+This sets up columns
+
+```
+Column {data-width=600}
+-------------------------------------
+```
+]
+.pull-right[
+## Your turn!
+
+- Change the default layout in your flexdashboard to have two plots in the left column.
+- Make each column equal width
+- Pick four countries and create the interactive chart of temporal trend. (We used India in the learnr tutorial. You can copy this code, and choose another three.)
+- Change the tab titles to reflect what country is displayed.
+]
+
+---
+# Adding tabs
+
+Add a tab
+
+Tabular pane
+
+Text description
+
+---
+class: inverse middle
+
+# Shiny app
+
+This is the full web app, and it feels a little more like actually coding.
+
 
 ---
 # Resources
 
 - [Introducing learnr, Garret Grolemund](https://blog.rstudio.com/2017/07/11/introducing-learnr/)
+- [flexdashboard: Easy interactive dashboards for R](https://rmarkdown.rstudio.com/flexdashboard/)
+- [R Markdown](https://rmarkdown.rstudio.com/)
+- [Interactive web-based data visualization with R, plotly, and shiny, Carson Sievert](https://plotly-r.com/index.html)
 
 ---
 # Share and share alike
