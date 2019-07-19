@@ -2,7 +2,11 @@
 title: "Where do I find a platypus in Australia"
 subtitle: "outside of the zoo"
 author: "Di Cook"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: "css/logo.css"
 runtime: shiny_prerendered
 ---
 
@@ -64,5 +68,19 @@ glimpse(platydata)
 ```{r since-2010-solution}
 platydata %>% filter(year >= 2010)
 ```
+
+## Interactive plot
+
+```{r fig.width=6, fig.height=6}
+library(plotly)
+platy_2010 <- platydata %>% filter(year >= 2010)
+p <- ggmap(oz) + 
+  geom_point(data=platy_2010, aes(x=longitude, y=latitude), 
+              alpha=0.1) +
+  geom_point(data=platy_2010, aes(x=longitude, y=latitude, frame = year), 
+              alpha=0.5, colour="orange") 
+ggplotly(p)
+```
+
 
 

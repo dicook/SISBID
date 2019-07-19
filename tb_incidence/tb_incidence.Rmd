@@ -1,0 +1,84 @@
+---
+title: "TB Incidence Around the Globe"
+author: "Di Cook"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: "css/logo.css"
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  error = FALSE)
+```
+
+
+## Data description
+
+This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. There's also an R package, [TBinR](https://cran.r-project.org/web/packages/getTBinR/index.html), that can be used to dynamically download this data.
+
+```{r read TB data and wrangle and subset to USA}
+library(tidyverse)
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+  select(country, iso3, year, g_whoregion, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage) %>%
+  filter(year > 1996, year < 2013) %>%
+  filter(!(age %in% c("04", "014", "514", "u")))
+ggplot(tb, aes(x=g_whoregion)) +
+  geom_bar(aes(weight = count))
+```
+
+### Quiz
+
+```{r quiz}
+quiz(
+  question("What region of the world has the highest incidence?",
+    answer("southeast Asia", correct = TRUE),
+    answer("Africa"),
+    answer("Europe"),
+    answer("America"),
+    answer("Western Pacific"), 
+    answer("Eastern Mediterranean"))
+)
+```
+
+
+## Exercises 
+
+Write the R code required to filter the platypus data to contain only incidence for 2010.
+
+```{r tb2010, exercise=TRUE}
+glimpse(tb)
+```
+
+```{r stb2010-solution}
+tb %>% filter(year >= 2010)
+```
+
+
+## Temporal trends
+
+This is a an example of an interactive chart that allows exploring the temporal trend of TB incidence in India, with a scrollbar to cycle through different age groups.
+
+```{r fig.width=6, fig.height=6}
+library(plotly)
+p <- tb %>% filter(iso3 == "IND") %>% 
+  filter(!is.na(count)) %>%
+  ggplot() + 
+  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
+  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer(palette = "Dark2") +
+  ylim(c(0, 100000))
+ggplotly(p)
+```

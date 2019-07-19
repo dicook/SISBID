@@ -77,20 +77,25 @@ output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 ```
+---
 
 - Set the first section to be a description of the data
 
 ```
 ## Data description
 
-The platypus is a very strange animal, one of just two mammals in the worl to lay eggs! They are found exclusively in Australia. 
+This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. It is read into R using this code:
 
-The data used in this tutorial is downloaded from [Atlas of Living Australia](https://www.ala.org.au), using this code:
-
-library(ALA4R)
-l <- specieslist("platypus")
-platypus <- occurrences("Ornithorhynchus anatinus", download_reason_id=10)
-save(platypus, file="data/platypus.rda")
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+  select(country, iso3, year, g_whoregion, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage) %>%
+  filter(year > 1996, year < 2013) %>%
+  filter(!(age %in% c("04", "014", "514", "u")))
 ```
 ---
 # Writing the data description
@@ -98,12 +103,11 @@ save(platypus, file="data/platypus.rda")
 - Creating the tutorial produced a folder in your project.  
 - Add a data directory to this folder, that contains the `platypus.rda` and the `oz.rda` data.  
 
-<img src="images/platy_data.png" width="50%" />
+<img src="images/tb_data.png" width="50%" />
 
 - Add a code chunk to 
-    - read in the platypus data
-    - read in the map data
-    - plot the sightings on the map
+    - read in the TB data
+    - plot the aggregated counts by region
     
 `r anicon::nia("Remember to load the appropriate libraries", colour="#FA700A", anitype="hover")`
 
@@ -155,7 +159,7 @@ quiz(
 )
 ```
 
-`r anicon::nia("Try making a question about the platypus data on the data description tab.", colour="#FA700A", anitype="hover")`
+`r anicon::nia("Try making a question about the TB data on the data description tab.", colour="#FA700A", anitype="hover")`
 
 
 ---
@@ -164,19 +168,43 @@ quiz(
 Adding `exercise = TRUE` on a code chunk provides an R console window where readers can type R code, and check for correctness. The template provides several example exercises.
 
 1. Move these into a second section of the document. 
-2. Add a coding challenge that asks the reader to make a filter for the data to select just the platypus sightings since 2010. Click the "Run document" to make sure it works
+2. Add a coding challenge that asks the reader to make a filter for the data to select just a single year. Click the "Run document" to make sure it works
 3. Add a hint, "you want to use the filter function" 
 4. Change the hint to a solution, that provides the correct code
 
 ---
 # Adding a shiny element
 
+Because this is an html document, interactive graphics can be incorporated. We'll add a section to use interactive plots to examine the temporaral trend in TB incidence. 
+
+```
+library(plotly)
+p <- tb %>% filter(iso3 == "IND") %>% 
+  filter(!is.na(count)) %>%
+  ggplot() + 
+  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
+  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer(palette = "Dark2") +
+  ylim(c(0, 100000))
+ggplotly(p)
+```
+
+
 ---
 # Styling and cuteness
 
----
-# Progressive reveal
+Use your emoji and anicon skills to add some friendly elements to the notes. 
 
+```
+set.seed(20190709)
+emo::ji("fantasy")
+emo::ji("clock")
+```
+
+```
+anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")
+anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2", position=c(0,0,0,200))
+```
 
 ---
 # Resources
