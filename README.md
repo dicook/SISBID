@@ -35,7 +35,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 1. Interactive and animated graphics using plotly and gganimate (Heike).
 1. Building interactive web apps with shiny, and other Rmarkdown tools (Di).
-1. Make your own shiny app (Heike).
+1. How to build a shiny app (Heike).
 1. Polish and share your own shiny app (Di).
 
 ## Software list
