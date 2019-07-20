@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>Shiny app examples</title>
-    <meta charset="utf-8">
+    <title>Building a shiny app</title>
+    <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
@@ -11,240 +11,123 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Shiny app examples
-## SISBID 2018 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-### Di Cook (<a href="mailto:dicook@monash.edu">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/25-27/2018
+# Building a shiny app
+## SISBID 2019 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### 07/24-26/2019
 
 ---
 
 
 
 
-# A shiny app for exploring soybean milestone cultivars
+# Example: App to explore PISA data
 
-- Explore genetic signatures, genealogy and phenotypic changes of soybean breeding
-- Ultimate task is to understand how the genome changed with the breeding of lines, and how this affected other traits
-
----
-# Data: three sources
-
-- Next-generation sequencing DNA-seq on 79 lines: DNA sequencing libraries were prepared using TruSeq DNA sample prep and NuGENs unamplified prep kits (Illumina Inc., San Diego, CA and NuGEN Technologies Inc., San Carlos, CA). 
-- Field yield trials: 30/79 + 138 ancestral lines
-- Breeding literature, what lines were bred to produce what line
+- Apps need to be in their own directory
+- Navigate to the pisa_world directory and double-click the `pisa_world.Rproj` to open the code for the app.
+- Open the file `app.R` in the text editor. 
+- There is a change on the RStudio menu, you should now see a button labelled `Run App`. Clicking on this will run it. Try it!
 
 ---
-# Three apps
+# Structure 
 
-- Copy number variation (CNV): 2Gb of analysis files, annotations
-- SNPs: 12Gb of data, 20mill SNPs, 1mil locations, 79 lines
-- Genealogy: Shows the parent to child lineage
+The structure of the app is very simple. It has a menu of a statistic to show on the map. Let's take a look at how it is constructed. 
 
----
-# CNV app
-
-- Seven tabs containing different functionality
-- Four of the tabs, CNV Location, Copy Number, "Search CNVs by Location", and CNV List, primarily concerned with exploring the identified copy number variants
-- The other three tabs, Phenotype Data, Genealogy, and Methodology provide additional information about the soybean cultivars and the experimental methodology
-- App written by Dr Susan Vanderplas
+- There are 90 lines of code.
+- There are two functions: `ui()`, `server()`
+    - `ui()`: sets up the menu and the canvas to draw on
+    - `server()`: does the computations 
+- Global code at the top of the file reads and processes the data, loads libraries, and sets up lists for the menu.
 
 ---
-# Software
+# User Interface
 
-- shiny: provides the infrastructure, web interface
-- ggplot2: static plots
-- animint: interactive plots
+- `fluidPage` allows the size of components to be driven by the size of the browser window
+- `titlePanel` puts a header on the page
+- `sidebarLayout` sets up the container for the user interface
+    - `sidebarPanel` puts in the side panel: `selectInput` defines the menu input, asking for the variable, we call `y` to be used to colour the map `Colour by` is the label shown to the user, and the menu items are in the `realvars` vector. 
+    - `mainPanel` makes the drawing canvas: `plotOutput` specifies we want to make a plot in this panel, and the code instructions to use are called `map`. You need to look in the server function to find the code in `output$map`
+        
+---
+# Server
+
+- The function `output$map` contains code to create the plot, based on the user input.
+- `renderPlot` indicates the output is a plot
+- The code is the same as the plotting code see thus far, *except for* `aes_string`. We used `aes` before to specify variable mapping, but need to use `aes_string` because the name of variables are passed in as strings/text as read from the `selectInput` menu.
 
 ---
-# Main page
+class: inverse middle 
+# Create your first app
 
-![](CNV1.png)
+- On the RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
+- The easiest start is the `One file`, which will put both server and ui functions in the same file, `app.R`
 
 ---
-# 
+# Shiny Inputs
 
-![](CNV2.png)
+Shiny has many different input options:
+
+- `actionButton()` - creates a clickable button
+- `checkboxInput()` and `checkboxGroupInput()`
+- `dateInput()` - calendar to select a date
+- `dateRangeInput()` - select a range of dates
+- `fileInput()` - upload a file
+- `numericInput()` - input a numeric value
+- `radioButtons()` - select one or more items
+- `sliderInput()` - slide along a range of values
+- `textInput()` - input a string
+
+---
+# Shiny Outputs
+
+Shiny also has many output options:
+
+- `renderDataTable()` - outputs an interactive, sortable data table
+- `htmlOutput()` - output html elements
+- `renderPlot()` - output an R plot
+- `renderPrint()` - output text from print() in R
+- `renderTable()` - output an HTML table
+- `renderText()` - output text from R
+- `renderUI()` - output a custom part of the user interface
+- `renderImage()` - print an image to the page
+
+---
+# Other User Interface Options
+
+- `tabsetPanel()` - make multiple different output views (i.e. a plot in one tab, a data table in another)
+- `helpText()` - create additional text to help users navigate your applet
+- `submitButton()` - only update outputs when this button is clicked
+- `conditionalPanel()` - only show certain UI options when conditions are met (i.e. if a certain tab is open, or a certain input is selected)
 
 ---
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
-
-What does copy number variation mean?
-
----
-# Barcode plots
-
-![](CNV3.png)
+- Add an interactive plot of the TB data into your app.
+- Include a menu, so that the user can choose a country to display. 
 
 ---
-# Field trial data
+# Deploy an app
 
-![](CNV4.png)
+- Sign up for an account on [https://www.shinyapps.io/](https://www.shinyapps.io/)
+- Authenticate your account
+- You may need to do some setup in your session, e.g. install the library `rsconnect`
 
----
-# Lineage
-
-![](CNV5.png)
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-Open up the copy number variation (CNV) app on your computer [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/CNV/)
-
-(It might be best to share one computer between three or four people, so that the servers don't get overloaded.)
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-- Has yield increased over the years?
-- What is the relationship between yield and protein?
-- What is the name of the line that is a recent development, and was sequenced in the study? 
-- Find a line who's yield is lower than both parents. 
-
-(Hint: Use the `Field Trials` tab.)
-
-
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-- Is `Conrad` a descendant of `Essex`?
-- Who are the grandparents of `Essex`?
-- How is `Illini` related to `Lawrence`?
-
-(Hint: Use the `Genealogy` tab.)
-
-
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-Find some locations on the genome that Lawrence might have inherited from Illini. 
-
-(Hint: Use the `Barcode plots`.)
-
-
-
----
-# SNP app
-
-- Five tabs containing different functionality
-- Overview, SNP locations, search by id, SNP browser, SNP distance and the Kevin Bacon distance
-- App written by Susan Vanderplas
-
----
-# Browse SNPs
-
-![](SNP1.png)
-
----
-
-![](SNP2.png)
-
----
-
-![](SNP3.png)
-
----
-
-![](SNP4.png)
-
----
-# Quick overview of three other shiny apps
-
-- Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
-- Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
-- Finding a statistical answer to a matching problem: https://oaiti.org/apps/bulletmatcher/ 
-- Author: Eric Hare
-
----
-# PeLiCa - peptide library calculator
-
-https://erichare.shinyapps.io/pelica/
-
-- interactive tool to help plan an experiment 
-- What is the baseline probability that a peptide of length p is included in a synthetic library of size N (really large)?
-- What role does peptide encoding play?
-
----
-# Expected Coverage 
-
-&lt;img width="950px" src="pelica-1.png"&gt;
-
----
-# Creating a logo plot
-
-https://erichare.shinyapps.io/gglogo/
-
-&lt;img width="950px" src="gglogo-1.png"&gt;
-
----
-# Matching Bullets
-
-https://erichare.shinyapps.io/x3prplus/
-
-&lt;img width="650px" src="matching-1.png"&gt;
-
-
----
-class: inverse middle 
-# Your turn
-
-![](lorikeets.png)
-
-Pick one of the three shiny apps and explore it for yourself:
-
-- peptide libraries: http://erichare.shinyapps.io/pelica
-- logo plot: http://erichare.shinyapps.io/gglogo
-- bullet matching: http://erichare.shinyapps.io/x3prplus 
-
----
-class: inverse middle 
-# Your turn
-
-Install and load the `eechidna` package using:
-
-
-```r
-devtools::install_github("ropenscilabs/eechidna")
-library(eechidna)
-```
-
-Take a look at the instructions for running this app included in the package with:
-
-
-```r
-?launchApp
-```
-
-You could run the first block of example code. A key part of this app is linking between plots. This is all done with the `plotly` package building on `htmlwidgets` tools.
 
 ---
 # Resources
 
-- RStudio's shiny [tutorial](https://shiny.rstudio.com/tutorial/)
-- plotly's shiny [tutorial](https://plot.ly/r/shiny-tutorial/)
-- [DataCamp courses](https://www.datacamp.com/courses/q:shiny) 
+- [RStudio Tutorial](http://shiny.rstudio.com/tutorial/)  
+- [Deploy your app for others to use](https://www.shinyapps.io/)
+- [Shiny Setup, Showcase, and Server](http://shiny.rstudio.com)  
+- [Community discussion](https://community.rstudio.com)
 
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -254,16 +137,57 @@ This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 U
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -277,14 +201,15 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

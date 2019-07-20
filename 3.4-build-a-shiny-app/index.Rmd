@@ -1,8 +1,8 @@
 ---
 title: "Building a shiny app"
-subtitle: "SISBID 2018 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/25-27/2018"
+date: "07/24-26/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -11,8 +11,6 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
