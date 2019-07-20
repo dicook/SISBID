@@ -8,6 +8,7 @@ output:
     css: ["default", "myremark.css"]
     self_contained: false
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -61,62 +62,87 @@ mutivariate analysis takes relationships between these different aspects into ac
 ---
 # Scatterplot matrix: GGally
 
-The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggscatmat`, `ggpairs`.
+.pull-left[The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggscatmat`, `ggpairs`.
 
-```{r scatterplot matrix, echo=TRUE, fig.width=8, fig.height=8}
-# Make a simple scatterplot matrix of a classic data set
-data(flea)
-ggscatmat(flea, columns = 1:6)
-```
+<br>
+<br>
 
 *What do we learn?*
 
 - clustering
 - linear dependence
 - marginal discrete distribution
+]
+.pull-right[
+```{r scatterplot matrix, echo=TRUE, fig.width=6, fig.height=6}
+# Make a simple scatterplot matrix of a classic data set
+data(flea)
+ggscatmat(flea, columns = 1:6)
+```
+]
 
 ---
 
+.pull-left[
 **Add some colour for groups**
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+*What do we learn?*
+
+- clustering is due to the class variable
+]
+.pull-right[
 ```{r scatterplot matrix with colour, echo=TRUE, fig.width=8, fig.height=8}
 # Re-make mapping colour to species (class)
 data(flea)
 ggscatmat(flea, columns = 1:6, color = "species") +
   theme(legend.position="bottom")
 ```
-
-*What do we learn?*
-
-- clustering is due to the class variable
+]
 
 
 ---
 # Generalized pairs plot
 
+.pull-left[
 These functions strictly take numeric variables. For a wider variety of variable types, use `ggpairs`.
 
-```{r generalised pairs plot, echo=TRUE, fig.width=8, fig.height=8}
+Its a bit slower, but it has a huge amount of flexibility.
+
+```{r PISA data wrangling}
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
 australia_PISA2012 <- australia_PISA2012 %>%
-  mutate(desk = factor(desk), room = factor(room),
-         study = factor(study), computer = factor(computer),
-         software = factor(software), internet = factor(internet),
-         literature = factor(literature), poetry= factor(poetry),
-         art = factor(art), textbook = factor(textbook),
+  mutate(desk = factor(desk), 
+         room = factor(room),
+         study = factor(study), 
+         computer = factor(computer),
+         software = factor(software), 
+         internet = factor(internet),
+         literature = factor(literature), 
+         poetry= factor(poetry),
+         art = factor(art), 
+         textbook = factor(textbook),
          dictionary = factor(dictionary),
          dishwasher = factor(dishwasher))
+```
+]
+.pull-right[
+```{r generalised pairs plot, echo=TRUE, fig.width=6, fig.height=6}
 australia_PISA2012 %>% 
   filter(!is.na(dishwasher)) %>% 
   ggpairs(columns=c(3, 15, 16, 21, 26))
 ```
-
-Its a bit slower, but it has a huge amount of flexibility.
+]
 
 ---
 
-```{r generalised pairs plot enhance plots, echo=TRUE, fig.width=8, fig.height=8}
+```{r generalised pairs plot enhance plots, echo=TRUE, fig.width=6, fig.height=6}
 # Modify the defaults, set the transparency of points since there is a lot of data
 australia_PISA2012 %>% 
   filter(!is.na(dishwasher)) %>% 
@@ -126,7 +152,8 @@ australia_PISA2012 %>%
 
 ---
 
-```{r generalised pairs plot enhance more, echo=TRUE, fig.width=8, fig.height=8}
+.pull-left[
+```{r design own plot function}
 # Make a special style of plot to put in the matirx
 my_fn <- function(data, mapping, method="loess", ...){
       p <- ggplot(data = data, mapping = mapping) + 
@@ -134,12 +161,10 @@ my_fn <- function(data, mapping, method="loess", ...){
       geom_smooth(method="lm", ...)
       p
 }
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
-  ggpairs(columns=c(3, 15, 16, 21, 26), 
-          lower = list(continuous = my_fn))
-
 ```
+<br>
+<br>
+<br>
 
 *What do we learn?*
 
@@ -148,19 +173,34 @@ australia_PISA2012 %>%
 - having a dishwasher in the household corresponds to small increase in homework time
 - very little but slight increase in scores with a dishwasher in household
 
+]
+.pull-right[
+```{r generalised pairs plot enhance more, echo=TRUE, fig.width=6, fig.height=6}
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26), 
+          lower = list(continuous = my_fn))
+
+```
+]
+
 ---
 class: inverse middle
 
 # Your turn
 
-Re-make the plot with side-by-side boxplots on the lower triangle, for the combo variables, and the density plots in the upper triangle.
+Re-make the plot with 
+
+- side-by-side boxplots on the lower triangle, for the combo variables, 
+- and the density plots in the upper triangle.
 
 ---
 # Regression setting
 
-An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables, is to plot price against all other  variables.
+.pull-left[
+An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables.
 
-```{r fig.width=8, fig.height=5}
+```{r wrangle housing data}
 housing <- read_csv(here::here("data/housing.csv")) %>%
   mutate(date = dmy(date)) %>%
   mutate(year = year(date)) %>%
@@ -169,14 +209,23 @@ housing <- read_csv(here::here("data/housing.csv")) %>%
   filter(bedroom2 < 7, bathroom < 5) %>%
   mutate(bedroom2 = factor(bedroom2), 
          bathroom = factor(bathroom)) 
-ggduo(housing[, c(4,3,8,10,11)], columnsX = 2:5, columnsY = 1, 
-      aes(colour=type, fill=type), 
-      types = list(continuous = wrap("smooth", alpha = 0.10)))
 ```
+]
+.pull-right[
+```{r make a regression style pairs plot, out.width="100%", fig.width=8, fig.height=3}
+ggduo(housing[, c(4,3,8,10,11)], 
+      columnsX = 2:5, columnsY = 1, 
+      aes(colour=type, fill=type), 
+      types = list(continuous = 
+                     wrap("smooth", 
+                       alpha = 0.10)))
+```
+]
 
 ---
 # Let's explore tuberculosis mortality
 
+.pull-left[
 This data set is available from WHO along with the incidence data. The package `getTBinR` is a good way to download the burden table, which contains (estimated) mortality rates. 
 
 ```{r how to pull the tb data directly, eval=FALSE}
@@ -187,8 +236,9 @@ This data set is available from WHO along with the incidence data. The package `
 ```
 
 You have the data downloaded in the data directory already. We'd like to explore the rates across countries. To do this we will fit a linear model for each country and collect some statistics from each model fit. Using these, we'll extract countries with specific characteristics.
-
-```{r explore tb mortality trends, echo=TRUE, fig.width=8, fig.height=8}
+]
+.pull-right[
+```{r compute statistics on tb mortality trends}
 # A more complex example of using the scatterplot matrix to explore
 # a large collection of time series. Compute statistics for each time
 # series, which might be called tignostics, and plot these. Explore 
@@ -214,38 +264,51 @@ tb_reg2 <- tb_burden %>%
 tb_reg <- left_join(tb_reg1, tb_reg2)
 # Drop the 0 deviance, 0 sigma countries
 tb_reg <- tb_reg %>% filter(sigma > 0, BIC > -400)
+```
+]
+
+---
+
+.pull-left[
+```{r explore tb mortality trends, echo=TRUE, fig.width=6, fig.height=6}
 ggscatmat(tb_reg, columns=3:7)
 ```
-
+]
+.pull-right[
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
 What do you learn about mortality rates across the difference countries from this?
+]
 
 ---
-# Add interactivity
 
-
+.pull-left[
 `r icon::fa("hand-point-right")` **Add interactivity**
 
-```{r explore tb mortality trends interactively, echo=TRUE, fig.width=8, fig.height=6}
+```{r wranglw data to show labels interactively, echo=TRUE}
 # Add interaction to find the id's for countries that are anomalies
 tb_reg_m <- as.data.frame(tb_reg[,3:7])
 rownames(tb_reg_m) <- tb_reg$country
-tb_reg_m %>% ggpairs() %>% ggplotly()
 ```
 
-
+<br>
 <br>
 
 The row number of the data matrix that shows on mouseover can be used to find the country.
 
-<br>
+
+]
+.pull-right[
+```{r explore tb mortality trends interactively, echo=TRUE, out.width="100%", fig.width=9, fig.height=8}
+tb_reg_m %>% ggpairs() %>% ggplotly()
+```
+]
 
 ---
 # Decreasing mortality
 
 
-```{r plot the countries that have decreasing mortality trend, echo=TRUE, fig.width=8, fig.height=5}
+```{r plot the countries that have decreasing mortality trend, echo=TRUE, out.width="100%", fig.width=7, fig.height=4}
 # Use a dotplot with model overlaid, to better match analysis conducted
 declining <- tb_reg %>% filter(slope < -3.5)
 tb_burden %>% filter(country %in% declining$country) %>%
@@ -258,7 +321,7 @@ tb_burden %>% filter(country %in% declining$country) %>%
 ---
 # Increasing mortality
 
-```{r explore tb mortality trends problem countries, echo=TRUE, fig.width=8, fig.height=3}
+```{r explore tb mortality trends problem countries, echo=TRUE, out.width="100%", fig.width=7, fig.height=3}
 increasing <- tb_reg %>% filter(slope > 1, r.squared > 0.5)
 tb_burden %>% filter(country %in% increasing$country) %>%
   ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
@@ -280,12 +343,10 @@ class: inverse middle
 ---
 # Tours of high-dimensions
 
-### What is high-dimensional data visualisation
 
 Most of what you find when you google "visualising high-dimensions" is awful, e.g. use colour and symbol after 3D to show 5D; PCA, MDS, tSNE, are visualisation methods; "you can't see beyond 3D".... Rubbish!
 
----
-# What are dimensions
+**What are dimensions?**
 
 <img src="cubes.png" style="width: 90%; align: center" />
 
