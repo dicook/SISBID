@@ -8,6 +8,7 @@ output:
     css: ["default", "myremark.css"]
     self_contained: false
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -73,12 +74,12 @@ viz_palette(sunset$col)
 ```
 
 
-<img src="Hello-Di.png" width="100%" />
+<img src="Hello-Di.png" width="80%" />
 
 ---
 
 
-<img src="Hello-Heike.png" width="100%" />
+<img src="Hello-Heike.png" width="80%" />
 
 ---
 class: inverse middle 
@@ -95,9 +96,9 @@ Introduce yourself to the people around you. Find out a little about them: where
 
 
 ---
-# Check your setup
+# Check your R setup
 
-<img src="setup.png" width="90%" />
+<img src="setup.png" width="80%" />
 
 .orange["If R were an airplane, RStudio would be the airport"] [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
 

@@ -8,6 +8,7 @@ output:
     css: ["default", "myremark.css"]
     self_contained: false
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false

@@ -8,6 +8,7 @@ output:
     css: ["default", "myremark.css"]
     self_contained: false
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -58,7 +59,7 @@ class: inverse middle
 
 ---
 
-```{r fig.width=10, fig.height=8}
+```{r fig.width=10, fig.height=8, out.width="70%"}
 library(wordcloud)
 namedplots <- c("histogram", "barchart", "scatterplot", "piechart", "lineplot", "density_plot", "boxplot", "dendrogram", "treemap", "scatterplot_matrix", "parallel_coordinate_plot", "biplot", "contourplot", "stem_and_leafplot", "rug_plot", "dotplot", "mosaic_plot", "spine_plot", "forest_plot", "heatmap", "qqplot", "star_plot", "chernoff_face","graph", "beeswarm", "violin_plot", "tour", "choropleth_map", "glyph_map", "cartogram", "bubble_plot", "correlogram", "area_chart", "population_pyramid", "seasonal_plot", "frequency_polygon", "biplot", "profile_plot", "funnel_plot")
 pal <- c("#A1719D","#03329B","#0774E4","#702E8D","#6B44B7","#B71452","#D50321","#F39E9C","#FCB52C","#B78ED2")
@@ -131,7 +132,7 @@ tb_us <- tb %>%
   filter(year > 1996, year < 2013)
 ```
 
-```{r echo=TRUE, fig.width=10, fig.height=3}
+```{r echo=TRUE, out.width="60%", fig.width=10, fig.height=3}
 ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
   geom_bar(stat = "identity") +
   facet_grid(~ age) 
@@ -168,7 +169,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ---
 # Compare males and females
 
-```{r compare proportions of males/females, echo=TRUE, fig.height=3}
+```{r compare proportions of males/females, out.width="70%", echo=TRUE, fig.height=3}
 # Fill the bars, note the small change to the code
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
@@ -190,6 +191,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ---
 # Separate plots
 
+.pull-left[
 ```{r side-by-side bars of males/females, fig.height=3, eval=FALSE, echo=FALSE}
 # This code does something strange to the axis tick marks
 # We will skip it for now
@@ -200,14 +202,15 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 #  scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10"))
 ```
 
-```{r compare counts of males/females, echo=TRUE, fig.height=4}
+```{r compare counts of males/females, out.width="100%", echo=TRUE, fig.height=5}
 # Make separate plots for males and females, focus on counts by category
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_wrap(sex~age, ncol=6) +
   scale_fill_brewer("", palette="Dark2") 
 ```
-
+]
+.pull-right[
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
 - What do we learn about the data that is different from the previous plot?
@@ -218,11 +221,11 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 - There are very few female cases in the middle years
 - Perhaps something of a older male outbreak in 2007-8, and possibly a young female outbreak in the same years
 ```
-
+]
 ---
 # Make a pie
 
-```{r rose plot of males/females, echo=TRUE, fig.height=5}
+```{r rose plot of males/females, out.width="60%", echo=TRUE, fig.height=5}
 # How to make a pie instead of a barchart - not straight forward
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
@@ -236,7 +239,7 @@ Not a pie, a [rose plot](https://datavizcatalogue.com/methods/nightingale_rose_c
 ---
 # Stacked bar
 
-```{r stacked barchart of males/females, echo=TRUE, fig.height=5}
+```{r stacked barchart of males/females, out.width="60%", echo=TRUE, fig.height=5}
 # Step 1 to make the pie
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat="identity", position="fill") + 
@@ -247,7 +250,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 ---
 # Pie chart
 
-```{r pie chart of males/females, echo=TRUE, fig.height=5}
+```{r pie chart of males/females, out.width="60%", echo=TRUE, fig.height=5}
 # Now we have a pie, note the mapping of variables
 # and the modification to the coord_polar
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
@@ -306,7 +309,7 @@ class: inverse middle
 
 Where can you find the strange platypus in Australia?
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Platypus-sketch.jpg" width="80%" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Platypus-sketch.jpg" width="60%" />
 
 Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
 
@@ -343,16 +346,17 @@ But, we can make it look a bit more like Australia by making a map projection, u
 
 ---
 
+.pull-left[
 
-```{r  echo=TRUE, fig.height=6}
+```{r  echo=TRUE, fig.height=10, out.width="100%"}
 ggplot(data=platydata) + 
   geom_point(aes(x=longitude, y=latitude), alpha=0.1) +
   coord_map()
 ```
-
-
+]
+.pull-right[
 The locations would be even more recognisable if we added a real map underneath. One way this can be done is to use a google map. The `ggmap` package has an interface to extracting google maps. Install it and then grab a map of Australia with this code.
-
+]
 ---
 
 ```{r echo=FALSE, eval=FALSE}
@@ -408,12 +412,11 @@ platydata <- platydata %>%
 
 then we can simply plot occurrence over time.
 
-```{r echo=TRUE}
+```{r echo=TRUE, out.width="60%"}
 ggplot(data=platydata) +
   geom_point(aes(x=eventDate, y=1))
 ```
 
----
 
 There are some records dating back before 1800. There were only records from 1770! And these first records are in the database!
 
@@ -428,7 +431,7 @@ platydata %>% filter(eventDate < ymd("1850-01-01"))
 
 Let's focus on records since 1900, and count the number for each year.
 
-```{r echo=TRUE}
+```{r echo=TRUE, out.width="60%"}
 platydata1900 <- platydata %>% filter(year>1900) %>%
   count(year) 
 ggplot(data=platydata1900) +
@@ -439,7 +442,7 @@ ggplot(data=platydata1900) +
 
 Add a trend line.
 
-```{r echo=TRUE}
+```{r echo=TRUE, out.width="60%"}
 ggplot(data=platydata1900, aes(x=year, y=n)) +
   geom_point() +
   geom_smooth(se=F)
@@ -458,11 +461,6 @@ class: inverse middle
 # Your turn
 
 *Discussion question:* Was there a population explosion in 1980 and 2004? Is the population of platypus increasing since 1900, and decreasing in the last decade?
-
-
----
-class: inverse middle 
-# Your turn
 
 - Subset the data to 1950-2010
 - Create a new variable for decade

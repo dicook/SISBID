@@ -299,7 +299,7 @@ The row number of the data matrix that shows on mouseover can be used to find th
 
 ]
 .pull-right[
-```{r explore tb mortality trends interactively, echo=TRUE, out.width="100%", fig.width=9, fig.height=8}
+```{r explore tb mortality trends interactively, echo=TRUE, fig.width=8, fig.height=7}
 tb_reg_m %>% ggpairs() %>% ggplotly()
 ```
 ]
@@ -308,7 +308,7 @@ tb_reg_m %>% ggpairs() %>% ggplotly()
 # Decreasing mortality
 
 
-```{r plot the countries that have decreasing mortality trend, echo=TRUE, out.width="100%", fig.width=7, fig.height=4}
+```{r plot the countries that have decreasing mortality trend, echo=TRUE, fig.width=7, fig.height=4}
 # Use a dotplot with model overlaid, to better match analysis conducted
 declining <- tb_reg %>% filter(slope < -3.5)
 tb_burden %>% filter(country %in% declining$country) %>%
@@ -321,7 +321,7 @@ tb_burden %>% filter(country %in% declining$country) %>%
 ---
 # Increasing mortality
 
-```{r explore tb mortality trends problem countries, echo=TRUE, out.width="100%", fig.width=7, fig.height=3}
+```{r explore tb mortality trends problem countries, echo=TRUE,  fig.width=7, fig.height=3}
 increasing <- tb_reg %>% filter(slope > 1, r.squared > 0.5)
 tb_burden %>% filter(country %in% increasing$country) %>%
   ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
@@ -357,7 +357,7 @@ Most of what you find when you google "visualising high-dimensions" is awful, e.
 ---
 # Quick intro
 
-<img src="images/tourr.png" width="30%" />
+<img src="images/tourr.png" width="10%" />
 
 *Without thinking too much*: How many clusters do you see?
 
@@ -370,17 +370,20 @@ Most of what you find when you google "visualising high-dimensions" is awful, e.
 animate_xy(flea[,1:6], axes = "off")
 ```
 
+
 ---
 # What is a tour?
 
+.pull-left[
 A grand tour is by definition a movie of low-dimensional projections constructed in such a way that it comes arbitrarily close to showing all possible low-dimensional projections; in other words, a grand tour is a space-filling curve in the manifold of low-dimensional projections of high-dimensional data spaces.
 
 <img src="images/hands.png" width="60%">
-
+]
+.pull-right[
 Movement patterns indicate structure:
 
 <img src="images/tour_schematic.png" width="80%">
-
+]
 ---
 
 Here is a grand tour of a 3D classic data set
@@ -413,13 +416,10 @@ Other than basic exploration:
 ---
 # Guided tour
 
-Uses projection pursuit:
+The guided tour chooses new target projections by optimising a function of interest:
 
 $$\mathop{\text{maximize}}_{\phi_{11},\dots,\phi_{p1}} f\left(\sum_{j=1}^p \phi_{j1}x_{ij}\right) \text{ subject to }
 \sum_{j=1}^p \phi^2_{j1} = 1$$
-
-
-The guided tour chooses new target projections by optimising a function of interest:
 
 - `holes`: This is an inverse Gaussian filter, which is optimised wheren there is not much data in the center of the projection, i.e. a "hole" or donut shape in 2D.
 - `central mass`: The opposite of holes, high density in the centre of the projection, and often "outliers" on the edges. 
@@ -505,33 +505,38 @@ animate_xy(vtp_s, col=col, axes = "bottomleft", edges=as.matrix(simp$edges), cen
 ---
 # Examining models: principal component analysis
 
-
+.pull-left[
 ```{r tb pca analysis, eval=FALSE, echo=TRUE}
 library(naniar) # Have missings!
 tb_burden_wide <- tb_burden %>%
-  select(country, g_whoregion, year, e_mort_exc_tbhiv_100k) %>%
+  select(country, g_whoregion, year, 
+         e_mort_exc_tbhiv_100k) %>%
   spread(year, e_mort_exc_tbhiv_100k) %>%
   filter(complete.cases(.)) %>%
   rename(region = g_whoregion) %>%
-  mutate(country = factor(country), region = factor(region))
+  mutate(country = factor(country), 
+         region = factor(region))
 # vis_miss(tb_burden_wide)  
-tb_pca <- prcomp(tb_burden_wide[,-c(1:2)], scale=FALSE, retx=TRUE)
+tb_pca <- prcomp(tb_burden_wide[,-c(1:2)], 
+                 scale=FALSE, retx=TRUE)
 screeplot(tb_pca, type="line")
-tb_pcs <- bind_cols(as_tibble(tb_pca$x), tb_burden_wide[,1:2])
+tb_pcs <- bind_cols(as_tibble(tb_pca$x), 
+                    tb_burden_wide[,1:2])
 ggscatmat(tb_pcs, columns=1:3, color="region")
 # quartz()
 # X11()
 pal <- brewer.pal(6, "Dark2")
 col <- pal[as.numeric(as.factor(tb_pcs$region))]
-animate_xy(tb_pcs[,1:4], col=col, axes = "bottomleft")
+animate_xy(tb_pcs[,1:4], col=col, 
+           axes = "bottomleft")
 ```
-
+]
+.pull-right[
 - The main structure is a "shuttlecock" shape: that most countries have similarly low rates and a handful of countries deviate from this. 
 - A few, quite a few, outliers.
+]
 
----
-
-```{r tb mortality line plots, eval=FALSE, echo=TRUE}
+```{r tb mortality line plots, eval=FALSE, echo=FALSE}
 tb_burden <- tb_burden %>%
   rename(region = g_whoregion)
 ggplot(tb_burden, aes(x=year, y=e_mort_exc_tbhiv_100k, 
@@ -539,115 +544,11 @@ ggplot(tb_burden, aes(x=year, y=e_mort_exc_tbhiv_100k,
   geom_line() + facet_wrap(~region)
 ```
 
----
-
-# Examining models: hierarchical clustering
-
-Hierarchical clustering is usually summarised by a dendrogram, showing which observations are joined into clusters, and at what distance they are fused. Dendrograms can look alike but be quite different models. We can use a tour to view the cluster model in the high-dimensional space. To do so, we need to:
-
-- append nodes (indicating a cluster centre) for the tree to the data matrix
-- create an edge list to connect nodes, and the points to the nodes
-
-```{r eval=FALSE, echo=FALSE}
-# Function to generate edges of dendrogram
-hierfly <- function(data, h=NULL, metric="euclidean", method="ward.D2", scale=TRUE) {
-  if (scale) data <- rescaler(data)
-  id <- 1:nrow(data)
-  cat <- sapply(data, is.factor)
-  if (is.null(h))
-    h <- hclust(dist(data[,!cat], metric), method)
-  #h <- hclust(dist(data, metric), method)
-  data_hc <- data
-
-  data_hc$ORDER <- order(h$order)
-  data_hc$HEIGHT <- 0
-  data_hc$LEVEL <- 0
-  data_hc$POINTS <- 1
-
-  #newr_df <- NULL
-  data_hc <- as.data.frame(data_hc)
-  for (i in 1:nrow(h$merge)) {
-    newr <- combinerows(data_hc[as.character(-h$merge[i,]),], cat)
-    #newr <- combinerows(data_hc[as.character(-h$merge[i,]),], rownames(data))
-    #newr$id <- nrow(data_hc) + i
-    newr$HEIGHT <- h$height[i]
-    newr$LEVEL <- i
-    rownames(newr) <- as.character(-i)
-
-    data_hc <- rbind(data_hc, newr)
-  }
-  data_hc$id <- 1:nrow(data_hc)
-  data_hc$node <- (as.numeric(rownames(data_hc)) < 0) + 0
-
-  vars <- c("ORDER", "POINTS")
-
-  leaves <- subset(data_hc, node == 0)
-  nodes <- subset(data_hc, node == 1)
-
-  # < 0 = observation, > 0 = cluster
-  edges <- h$merge
-  edges[edges > 0] <- edges[edges > 0] + nrow(leaves)
-  edges[edges < 0] <- abs(edges[edges < 0])
-  edges <- as.matrix(edges)
-
-  return(list(data=data_hc, edges=edges))
-}
-
-# Utility functions
-combinerows <- function(df, cat) {
-  same <- function(x) if (length(unique(x)) == 1) x[1] else x[2]
-  points <- df$POINTS
-
-  cont <- as.data.frame(lapply(df[, !cat, drop=FALSE] * points,
-                               sum)) / sum(points)
-  cat <- as.data.frame(lapply(df[, cat, drop=FALSE], same))
-
-  df <- if (nrow(cont) > 0 && nrow(cat) > 0) {
-    cbind(cont, cat)
-  } else if (nrow(cont) > 0) {
-    cont
-  } else {
-    cat
-  }
-  df$POINTS <- sum(points)
-  df
-}
-
-rescaler <- function(df) {
-  is_numeric <- vapply(df, is.numeric, logical(1))
-  df[is_numeric] <- lapply(df[is_numeric], rescale01)
-  df
-}
-
-rescale01 <- function(x) {
-  rng <- range(x, na.rm = TRUE)
-  (x - rng[1]) / (rng[2] - rng[1])
-}
-```
-
-```{r eval=FALSE, echo=TRUE}
-# Load the utility functions: hierfly, combinerows, rescaler
-tb_hc <- hclust((dist(tb_pcs[,1:4])), method="ward.D2")
-plot(tb_hc)
-tb_clw <- tb_pcs[,1:4] %>% mutate(cl = factor(cutree(tb_hc, 5)))
-tb_w_hfly <- hierfly(data=tb_clw, h=tb_hc, scale=FALSE)
-pal <- brewer.pal(6, "Dark2")
-col <- pal[as.numeric(tb_w_hfly$data$cl)]
-shp <- c(16, 6)
-pch <- shp[tb_w_hfly$data$node+1]
-# quartz()
-# X11()
-animate_xy(tb_w_hfly$data[,1:4], col=col, pch=pch, 
-           axes = "bottomleft", 
-           edges=tb_w_hfly$edges, edges.col=col[210:417])
-```
-
-To compare multiple models, save a tour path, and show the two models on the same path.
 
 ---
 # Comparison to parallel coordinates
 
-```{r tour again for comparison, eval=FALSE}
+```{r tour again for comparison, eval=FALSE, echo=FALSE}
 # quartz()
 # X11()
 pal <- brewer.pal(4, "Dark2")

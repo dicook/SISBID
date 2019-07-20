@@ -8,6 +8,7 @@ output:
     css: ["default", "myremark.css"]
     self_contained: false
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -180,7 +181,7 @@ Sequential, diverging, qualitative: [Color Brewer web site](http://colorbrewer2.
 ---
 # Sequential
 
-```{r mapping numbers to rainbow sequential scale, echo=TRUE, out.width="80%", fig.width=7, fig.height=4}
+```{r mapping numbers to rainbow sequential scale, echo=TRUE, out.width="60%", fig.width=7, fig.height=4}
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- ggplot(dsamp, aes(carat, price)) +
   geom_point(aes(colour = clarity)))
@@ -191,7 +192,7 @@ Map quantitative variable into color scheme that emphasizes one ened, either hig
 ---
 # Sequential
 
-```{r mapping numbers to sequential scale, echo=TRUE, fig.width=7, fig.height=4, out.width="80%"}
+```{r mapping numbers to sequential scale, echo=TRUE, fig.width=7, fig.height=4, out.width="60%"}
 d + scale_colour_brewer()
 ```
 
@@ -200,7 +201,7 @@ Default brewer sequential scale, blues. Focus is on the dark blue.
 ---
 # Diverging
 
-```{r mapping numbers to diverging scale, echo=TRUE, , fig.width=7, fig.height=4, out.width="80%"}
+```{r mapping numbers to diverging scale, echo=TRUE, fig.width=7, fig.height=4, out.width="60%"}
 d + scale_colour_brewer(palette="PRGn")
 ```
 
@@ -209,7 +210,7 @@ Map quantitative variable into color scheme that emphasizes both ends, either hi
 ---
 # Qualitative
 
-```{r mapping numbers to qualitative palette, echo=TRUE, , fig.width=7, fig.height=4, out.width="80%"}
+```{r mapping numbers to qualitative palette, echo=TRUE, , fig.width=7, fig.height=4, out.width="60%"}
 d + scale_colour_brewer(palette="Set1")
 ```
 
@@ -340,7 +341,7 @@ tb_us %>% filter(year == 2012) %>%
 ---
 # Change blindness
 
-```{r facetting plots can result in change blindness, echo=TRUE, out.width="80%", fig.width=7, fig.height=4}
+```{r facetting plots can result in change blindness, echo=TRUE, out.width="60%", fig.width=7, fig.height=4}
 ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   geom_point() +
   geom_smooth(se=FALSE) +
@@ -355,7 +356,7 @@ Which has the steeper slope, VS1 or VS2?
 Making comparisons across plots requires the eye to jump from one focal point to another. It may result in not noticing differences. 
 
 
-```{r averlaying makes comparisons easier, echo=TRUE, out.width="80%", fig.width=7, fig.height=4}
+```{r averlaying makes comparisons easier, echo=TRUE, out.width="70%", fig.width=7, fig.height=4}
 ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   geom_point() +
   geom_smooth(se=FALSE) +

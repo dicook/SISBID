@@ -103,7 +103,7 @@ dsamp &lt;- diamonds[sample(nrow(diamonds), 1000), ]
   geom_point(aes(colour = clarity)))
 ```
 
-&lt;img src="index_files/figure-html/mapping numbers to rainbow sequential scale-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/mapping numbers to rainbow sequential scale-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 Map quantitative variable into color scheme that emphasizes one ened, either high or low. Rainbow scheme with viridis palette gives true grey scale. 
 
@@ -115,7 +115,7 @@ Map quantitative variable into color scheme that emphasizes one ened, either hig
 d + scale_colour_brewer()
 ```
 
-&lt;img src="index_files/figure-html/mapping numbers to sequential scale-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/mapping numbers to sequential scale-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 Default brewer sequential scale, blues. Focus is on the dark blue.
 
@@ -127,7 +127,7 @@ Default brewer sequential scale, blues. Focus is on the dark blue.
 d + scale_colour_brewer(palette="PRGn")
 ```
 
-&lt;img src="index_files/figure-html/mapping numbers to diverging scale-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/mapping numbers to diverging scale-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 Map quantitative variable into color scheme that emphasizes both ends, either high AND low, de-emphasizing middle.
 
@@ -139,7 +139,7 @@ Map quantitative variable into color scheme that emphasizes both ends, either hi
 d + scale_colour_brewer(palette="Set1")
 ```
 
-&lt;img src="index_files/figure-html/mapping numbers to qualitative palette-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/mapping numbers to qualitative palette-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 Map quantitative variable into color scheme to most differentiated set. It's possible to have too many colours to perceive the differences.
 
@@ -216,7 +216,7 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   facet_wrap(~clarity, ncol=4)
 ```
 
-&lt;img src="index_files/figure-html/facetting plots can result in change blindness-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/facetting plots can result in change blindness-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 Which has the steeper slope, VS1 or VS2?
 
@@ -233,7 +233,7 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   scale_color_brewer(palette="Set1") 
 ```
 
-&lt;img src="index_files/figure-html/averlaying makes comparisons easier-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/averlaying makes comparisons easier-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 # Core principles
@@ -268,6 +268,7 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
+"ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false
