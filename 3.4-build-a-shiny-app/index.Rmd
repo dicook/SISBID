@@ -1,5 +1,5 @@
 ---
-title: "Building a shiny app"
+title: "Building your own shiny app"
 subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/24-26/2019"
@@ -36,138 +36,20 @@ library(RColorBrewer)
 library(gridExtra)
 ```
 
-# Example: App to explore PISA data
+class: inverse middle
 
-- Apps need to be in their own directory
-- Navigate to the pisa_world directory and double-click the `pisa_world.Rproj` to open the code for the app.
-- Open the file `app.R` in the text editor. 
-- There is a change on the RStudio menu, you should now see a button labelled `Run App`. Clicking on this will run it. Try it!
-
----
-# Structure 
-
-The structure of the app is very simple. It has a menu of a statistic to show on the map. Let's take a look at how it is constructed. 
-
-- There are 90 lines of code.
-- There are two functions: `ui()`, `server()`
-    - `ui()`: sets up the menu and the canvas to draw on
-    - `server()`: does the computations 
-- Global code at the top of the file reads and processes the data, loads libraries, and sets up lists for the menu.
-
----
-# User Interface
-
-- `fluidPage` allows the size of components to be driven by the size of the browser window
-- `titlePanel` puts a header on the page
-- `sidebarLayout` sets up the container for the user interface
-    - `sidebarPanel` puts in the side panel: `selectInput` defines the menu input, asking for the variable, we call `y` to be used to colour the map `Colour by` is the label shown to the user, and the menu items are in the `realvars` vector. 
-    - `mainPanel` makes the drawing canvas: `plotOutput` specifies we want to make a plot in this panel, and the code instructions to use are called `map`. You need to look in the server function to find the code in `output$map`
-        
----
-# Server
-
-- The function `output$map` contains code to create the plot, based on the user input.
-- `renderPlot` indicates the output is a plot
-- The code is the same as the plotting code see thus far, *except for* `aes_string`. We used `aes` before to specify variable mapping, but need to use `aes_string` because the name of variables are passed in as strings/text as read from the `selectInput` menu.
-
----
-# Example: flexdashboard
-
-The `flexdashboard` is an alternative approach to building a web app, which operates more like a story book. 
-
-Navigate to the `pisa_au_app` directory and double-click the `pisa_au_app.Rproj` to open the code for the app. It needs to be opened in a new RStudio session also.
-
-You will see a new button `Run Document` which will compile and open the web book. This document provides an interface to exploring PISA data collected in Australia.
-
-Open the file `pisa.Rmd` in the text editor. 
-
----
-# Structure
-
-This is an Rmarkdown document, like these slides. A few differences:
-
-`###` sets up tabs, and each tab has different menu and different plots. 
-
----
-class: inverse middle 
-# Create your first app
-
-- On the RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
-- The easiest start is the `One file`, which will put both server and ui functions in the same file, `app.R`
-
----
-# Shiny Inputs
-
-Shiny has many different input options:
-
-- `actionButton()` - creates a clickable button
-- `checkboxInput()` and `checkboxGroupInput()`
-- `dateInput()` - calendar to select a date
-- `dateRangeInput()` - select a range of dates
-- `fileInput()` - upload a file
-- `numericInput()` - input a numeric value
-- `radioButtons()` - select one or more items
-- `sliderInput()` - slide along a range of values
-- `textInput()` - input a string
-
----
-# Shiny Outputs
-
-Shiny also has many output options:
-
-- `renderDataTable()` - outputs an interactive, sortable data table
-- `htmlOutput()` - output html elements
-- `renderPlot()` - output an R plot
-- `renderPrint()` - output text from print() in R
-- `renderTable()` - output an HTML table
-- `renderText()` - output text from R
-- `renderUI()` - output a custom part of the user interface
-- `renderImage()` - print an image to the page
-
----
-# Other User Interface Options
-
-- `tabsetPanel()` - make multiple different output views (i.e. a plot in one tab, a data table in another)
-- `helpText()` - create additional text to help users navigate your applet
-- `submitButton()` - only update outputs when this button is clicked
-- `conditionalPanel()` - only show certain UI options when conditions are met (i.e. if a certain tab is open, or a certain input is selected)
-
----
-class: inverse middle 
 # Your turn
 
-Play with making changes, adding different ui elements, and types of outputs. 
-
----
-class: inverse middle 
-# Your turn
-
-- Tailor your app for a purpose, for example, build an app to explore the TB data, or the platypus data
-- It is a good idea to decide what question(s) you want a user to be able to answer when they use your app. This can be a guide for how to design it.
-
----
-class: inverse middle 
-# Your turn: Deploy your first app
-
-- Sign up for an account on [https://www.shinyapps.io/](https://www.shinyapps.io/)
-- Authenticate your account
-- You may need to do some setup in your session, e.g. install the library `rsconnect`
-
----
-# Show and tell!
-
-When you have an app deployed, share it with instructors so we can load it on the screen for you to explain.
-
----
-# Resources
-
-- RStudio [Tutorial](http://shiny.rstudio.com/tutorial/)  
-- Deploy your app for [others to use](https://www.shinyapps.io/)
-- Shiny Setup, Showcase, and Server [setup](http://shiny.rstudio.com)  
-- Shiny Github Page [source code!](https://github.com/rstudio/shiny)  
-- Shiny Mailing [List](https://groups.google.com/forum/#!forum/shiny-discuss)  
+- Join forces with your neighbours or work alone
+- You need to make your own app, or interactive document, on a topic of your choice
+- Some ideas are data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday) or [fivethirtyeight](https://github.com/fivethirtyeight/data)
+- Your app needs to have 
+    - at least one interactive plot
+    - some GUI element like a menu or checkboxes
+    - some nice styling
+- Best app, as judged by everyone here, will get a prize 
 
 ---
 # Share and share alike
 
-This work is licensed under the Creative Commons Attribution-Noncommercial 3.0 United States License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
