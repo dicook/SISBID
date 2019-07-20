@@ -491,7 +491,7 @@ class: inverse middle
 # Resources
 
 - [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
-- [ggplot2: Elegant Graphics for Data Analysis, Hadley Wickham](http://ggplot2.org/book/), [web site](http://ggplot2.org)
+- [ggplot2: Elegant Graphics for Data Analysis, Hadley Wickham](https://ggplot2-book.org), [web site](https://ggplot2.tidyverse.org)
 - [R Graphics Cookbook, Winston Chang](http://www.cookbook-r.com/Graphs/)
 - [Data Visualization, Kieran Healy](https://socviz.co)
 - [Data Visualization with R, Rob Kabacoff](https://rkabacoff.github.io/datavis/index.html)
