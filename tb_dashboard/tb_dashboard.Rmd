@@ -1,0 +1,109 @@
+---
+title: "TB incidence around the globe"
+author: "by Di Cook"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: lumen
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+  select(country, iso3, year, g_whoregion, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage) %>%
+  filter(year > 1996, year < 2013) %>%
+  filter(!(age %in% c("04", "014", "514", "u")))
+```
+
+Four countries
+=======================================================================
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### India
+
+```{r}
+p1 <- tb %>% filter(iso3 == "IND") %>% 
+  filter(!is.na(count)) %>%
+  ggplot() + 
+  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
+  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer(palette = "Dark2") 
+ggplotly(p1)
+```
+
+### Australia
+
+```{r}
+p2 <- tb %>% filter(iso3 == "AUS") %>% 
+  filter(!is.na(count)) %>%
+  ggplot() + 
+  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
+  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer(palette = "Dark2") 
+ggplotly(p2)
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Turkey
+
+```{r}
+p3 <- tb %>% filter(iso3 == "TUR") %>% 
+  filter(!is.na(count)) %>%
+  ggplot() + 
+  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
+  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer(palette = "Dark2") 
+ggplotly(p3)
+```
+
+### USA
+
+```{r}
+p4 <- tb %>% filter(iso3 == "USA") %>% 
+  filter(!is.na(count)) %>%
+  ggplot() + 
+  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
+  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer(palette = "Dark2") 
+ggplotly(p4)
+```
+
+India focus
+=======================================================================
+
+Column {data-width=300}
+-----------------------------------------------------------------------
+### Data
+
+```{r}
+tb_ind <- tb %>% 
+  filter(iso3 == "IND") %>% 
+  select(year, age, sex, count) 
+knitr::kable(tb_ind)
+```
+
+Column {data-width=700}
+-----------------------------------------------------------------------
+### Plot
+
+```{r fig.width=10, fig.height=6}
+p <- ggplot(tb_ind, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity") + 
+  facet_wrap(sex~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  theme(legend.position="none")
+ggplotly(p)
+```
