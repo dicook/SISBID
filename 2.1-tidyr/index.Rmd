@@ -555,8 +555,8 @@ ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
 ---
 # Resources
 
-- Data transformation [cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf)
-- [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12/v21i12.pdf)
+- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12)
 - [broom vignettes, David Robinson](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
 
 ---
