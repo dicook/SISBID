@@ -45,7 +45,7 @@ library(gganimate)
 
 # Choices of packages for interactive graphics
 
-- `ggvis`: both static and interactive graphics, interactive is very much a work in progress (Wickham)
+- `ggvis`: both static and interactive graphics, work on it has stalled ... (Wickham)
 - `plotly`: has come a long way in the last years, started as part of Carson Sievert's PhD thesis research. The beauty is that it builds directly onto ggplot2
 - `animint`: Hasn't progressed much in the last year, but it's not dead either (Hocking, et al)
 - `htmlwidgets`: has progressed a lot in 12 months, providing the base for other packages, e.g. `plotly` (Chang)
@@ -54,13 +54,14 @@ library(gganimate)
 ---
 
 ```{r, echo=FALSE, fig.width=10, fig.height = 8}
-interactive <- read_csv("../data/package-info-Jul-2018.csv")
+interactive <- read_csv("../data/package-info-Jul-2019.csv")
 inter.summary <- interactive %>%
   group_by(package) %>%
   summarise(maxdown = max(downloads),
             maxtime = start[which.max(downloads)])
 
 interactive %>% 
+  filter(start < lubridate::ymd("2019-07-01")) %>%
   ggplot(aes(x = start, y = downloads, colour=package)) +
   geom_line() +
   theme_bw() +
@@ -142,7 +143,6 @@ economics %>%
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
 
 The values provided for the slider (0.2, 0.5) on the previous scatter plot don't look like they are ideal. Change slider bounds to a wider range and see what value might be more appropriate for this data.<br>
 If you are feeling adventurous, add a slider input for opacity as well.
@@ -220,7 +220,6 @@ economics %>%
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
 
 - Convert the model input to two radio buttons
 - Add a robust linear model choice, e.g add a third radio button. The function `MASS::rlm` provides a robust linear model.
@@ -296,7 +295,6 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
 class: inverse middle 
 # Your turn
 
-![](lorikeets.png)
 
 Find which `ggplot2` geoms are supported in plotly, and maybe one that is not?
 
@@ -307,10 +305,9 @@ Find which `ggplot2` geoms are supported in plotly, and maybe one that is not?
 ```{r eval=FALSE}
 #devtools::install_github("ropenscilabs/eechidna")
 library(eechidna)
-launchApp(
-  age = c("Age20_24", "Age85plus"),
+launch_app(age = c("Age20_24", "Age85plus"),
   religion = c("Christianity", "Catholic", "NoReligion"),
-  other = c("Unemployed", "Population", "MedianIncome")
+  other = c("Unemployed", "AusCitizen", "MedianPersonalIncome")
 )
 ```
  
@@ -318,9 +315,8 @@ launchApp(
 class: inverse middle 
 # Your turn
  
-![](lorikeets.png)
 
-- Go to the `plotly` [github page examples](https://github.com/ropensci/plotly/tree/master/inst/examples) and play with some of the examples.
+- Go to the `plotly` [website](https://plotly-r.com/), browse through a chapter of your interest and try to get the example to work in your R session.
 - Take one of the ggplot2 plots we have made so far in the workshop, and add interactive labelling to it.
 
 ---
