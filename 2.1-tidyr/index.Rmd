@@ -53,6 +53,7 @@ library(broom)
 # The pipe operator `%>%`
 
 - `x %>% f(y)` is the same as `f(x, y)`
+- read as `then` 
 - part of `dplyr` package
 - pipes allow the code to be *read* like a sequence of operations
 
@@ -60,8 +61,13 @@ Example:
 
 ```{r}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
-tb %>% filter(year == 2016) %>% group_by(country) %>% 
-  summarize(cases = sum(c_newinc, na.rm=TRUE)) %>% arrange(desc(cases))
+tb %>%                                  # first we get the tb data
+  filter(year == 2016) %>%              # then we focus on just the year 2016
+  group_by(country) %>%                 # then we group by country
+  summarize(
+    cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
+    ) %>% 
+  arrange(desc(cases))                  # then we sort countries to show highest number new cases first
 ```
 
 ---
@@ -243,6 +249,7 @@ tb1 %>% na.omit() %>% head()
 # Separate Columns
   
 `separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
+
 `data %>% separate (col, into, sep = "[^[:alnum:]]+", ...)`
 
 
@@ -284,12 +291,13 @@ class: inverse middle
 
 
 
-Turn the `french_fries` data (from package `reshape`) from wide format into a long format with variables `type` and `rating`. 
-What would we like to find out about this data?
+Turn the `french_fries` data from wide format into a long format with variables `type` and `rating`. 
   
 ```{r, echo=FALSE}
 head(french_fries)
 ```
+
+What would we like to find out about this data?
 
 
 

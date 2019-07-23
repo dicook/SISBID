@@ -34,6 +34,7 @@ class: center, middle, inverse, title-slide
 # The pipe operator `%&gt;%`
 
 - `x %&gt;% f(y)` is the same as `f(x, y)`
+- read as `then` 
 - part of `dplyr` package
 - pipes allow the code to be *read* like a sequence of operations
 
@@ -42,8 +43,13 @@ Example:
 
 ```r
 tb &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
-tb %&gt;% filter(year == 2016) %&gt;% group_by(country) %&gt;% 
-  summarize(cases = sum(c_newinc, na.rm=TRUE)) %&gt;% arrange(desc(cases))
+tb %&gt;%                                  # first we get the tb data
+  filter(year == 2016) %&gt;%              # then we focus on just the year 2016
+  group_by(country) %&gt;%                 # then we group by country
+  summarize(
+    cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
+    ) %&gt;% 
+  arrange(desc(cases))                  # then we sort countries to show highest number new cases first
 # A tibble: 216 x 2
    country                            cases
    &lt;chr&gt;                              &lt;dbl&gt;
@@ -309,6 +315,7 @@ tb1 %&gt;% na.omit() %&gt;% head()
 # Separate Columns
   
 `separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
+
 `data %&gt;% separate (col, into, sep = "[^[:alnum:]]+", ...)`
 
 
