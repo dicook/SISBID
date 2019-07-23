@@ -216,7 +216,7 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   facet_wrap(~clarity, ncol=4)
 ```
 
-&lt;img src="index_files/figure-html/facetting plots can result in change blindness-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/facetting plots can result in change blindness-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 Which has the steeper slope, VS1 or VS2?
 
@@ -238,13 +238,13 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 ---
 # Core principles
 
-- Make a plot of your data! The hierarchy matters primarily if the structure is weak, or if differences between groups is small. 
+- Make a plot of your **data**! The hierarchy matters primarily if the structure is weak, or if differences between groups is small. 
 - Knowing how to use proximity is an extremely valuable skill, and not well utilised.
 - Use of colour is a very valuable skill, and there are many bad habits to over-use, too many colours or precariously mapping to a continuous variable to add another dimension. 
 
 &lt;br&gt; 
 
-- Show the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself.
+- Show the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself and to keep track of the variability.
 - One plot is never enough! Plot the data in different ways, it will help digest the relationships between variables, to gain a better understanding of the data.
 
 ---
@@ -254,8 +254,8 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 - [Cleveland WS, McGill R. 1984. Graphical perception: Theory, experimentation, ...](https://www.tandfonline.com/doi/abs/10.1080/01621459.1984.10478080)
 - [Heer J, Bostock M. 2010. Crowdsourcing graphical perception](http://vis.stanford.edu/files/2010-MTurk-CHI.pdf)
 - [Antony Unwin, Graphical Data Analysis with R](https://www.crcpress.com/Graphical-Data-Analysis-with-R/Unwin/9781498715232)
-- Wagemans J et al. 2012. A Century of Gestalt Psychology in Visual Perception: I. Perceptual Grouping and Figure-Ground Organization. Psychological Bulletin 138:1172–1217
-- Wagemans J, Feldman J, Gepshtein S, Kimchi R, Pomerantz JR, et al. 2012. A Century of Gestalt psychology in Visual Perception: II. Conceptual and Theoretical Foundations. Psychological Bulletin 138:1218–1252
+- [Wagemans J et al. 2012. A Century of Gestalt Psychology in Visual Perception: I. Perceptual Grouping and Figure-Ground Organization. Psychological Bulletin 138:1172–1217](http://dx.doi.org/10.1037/a0029333)
+- [Wagemans J, Feldman J, Gepshtein S, Kimchi R, Pomerantz JR, et al. 2012. A Century of Gestalt psychology in Visual Perception: II. Conceptual and Theoretical Foundations. Psychological Bulletin 138:1218–1252](https://doi.org/10.1037/a0029334)
 - [Wickham H. 2013. Graphical criticism](https://vita.had.co.nz/papers/stat-graph-hist.pdf)
 - [VanderPlas S, Goluch R, Hofmann H. 2019. Framed!](https://amstat.tandfonline.com/doi/full/10.1080/10618600.2018.1562937#.XS41dS1L21s)
 - [VanderPlas S, Hofmann H. 2015 Signs of the Sine Illusion](https://amstat.tandfonline.com/doi/abs/10.1080/10618600.2014.951547?scroll=top&amp;needAccess=true&amp;journalCode=ucgs20#.XS413i1L21s)
@@ -268,7 +268,7 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "16:9",
+"ratio": "16:8",
 "highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false
