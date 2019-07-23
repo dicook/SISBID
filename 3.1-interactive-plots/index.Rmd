@@ -45,11 +45,11 @@ library(gganimate)
 
 # Choices of packages for interactive graphics
 
-- `ggvis`: both static and interactive graphics, work on it has stalled ... (Wickham)
 - `plotly`: has come a long way in the last years, started as part of Carson Sievert's PhD thesis research. The beauty is that it builds directly onto ggplot2
+- `ggvis`: both static and interactive graphics, work on it has stalled ... (Wickham)
 - `animint`: Hasn't progressed much in the last year, but it's not dead either (Hocking, et al)
-- `htmlwidgets`: has progressed a lot in 12 months, providing the base for other packages, e.g. `plotly` (Chang)
-- `rCharts`, `rbokeh`, `gridSVG`, `epivizr`, `cranvas`
+- `leaflet`: (RStudio) allows to make interactive maps. Has been picking up users and has developed a stable user base.
+-  `rCharts`, `rbokeh`, `gridSVG`, `epivizr`, `cranvas`
 
 ---
 
