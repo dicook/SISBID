@@ -40,6 +40,9 @@ library(gapminder)
 
 - `dplyr` package: motivation, functions, chaining
 - `purrr`: working with list variables, vectors of data frames
+- `broom`: tidily extract elements from model summaries
+
+<img src="images/dplyr.png" width="10%" /> <img src="images/purrr.png" width="10%" /> <img src="images/broom.png" width="10%" />
 
 ---
 # dplyr verbs
