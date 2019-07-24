@@ -544,7 +544,58 @@ ggplot(tb_burden, aes(x=year, y=e_mort_exc_tbhiv_100k,
   geom_line() + facet_wrap(~region)
 ```
 
+---
+# Examining models: tsne
 
+This is a preliminary R package, [sneezy](https://github.com/sa-lee/sneezy) for exploring nonlinear dimension reduction solutions, with a tour. It is the work of [Stuart Lee](https://stuartlee.org).
+
+The data is 10D. [t-SNE](https://lvdmaaten.github.io/tsne/) is a non-linear dimension reduction algorithm which is used to view cluster structure in high-dimensional data. There is an R package implementation, [Rtsne](https://cran.r-project.org/web/packages/Rtsne/index.html). 
+
+It can be particularly hard to tune the parameters when fitting the t-SNE model. This provides a way to map back to the original data space, to see how the data was transformed. 
+
+---
+.pull-left[
+```{r nonlinear dimension reduction, eval=FALSE, echo=TRUE}
+# remotes::install_github("sa-lee/sneezy")
+library(gganimate) # required for printing tours
+library(sneezy)
+# Read a benchmark data set
+spheres <- subset(multi, key %in% c("A", "D"))
+labels <- ifelse(spheres$key == "A", "sub-gaussian", "10-d 2x cluster")
+spheres <- as.matrix(spheres[, -c(1,2)])
+
+# t-SNE plot
+set.seed(1010010)
+coords <- basic_tsne(spheres, perplexity = 30)
+pl <- ggplot(as.data.frame(coords$Y), aes(V1, V2)) +
+  geom_point(aes(colour = labels)) +
+  coord_equal() +
+  scale_color_brewer(palette = "Dark2") +
+  theme(axis.title = element_blank(), 
+        axis.ticks = element_blank(), 
+        axis.text = element_blank(),
+        panel.grid = element_blank())
+
+pl +  add_triangles(coords) 
+
+# in data space, with a triangulation of the points from the tSNE view
+# quartz()
+# X11()
+pal <- c("#1B9E77", "#D95F02")[as.integer(as.factor(labels))]
+sneezy_triangles(spheres, coords, col = pal)
+```
+]
+.pull-right[
+You can see that in the data space, that the 
+
+- three small clusters are there, are very close and very compact. 
+- Next to them is a long, elliptical cluster, that is also small and compact. 
+- The two big clusters are spherical and far apart. 
+
+From t-SNE 2D represenation, the 6 clusters are clearly identified. We probably would have missed that there were 6 clusters using the tour alone, because four of them are so close together, and the distance between clusters is heterogeneous. t-SNE destroys the between cluster information, and the relative position of clusters in the high-d space. 
+
+In combination with the tour, we get a deeper understanding of the cluster structure.
+]
 ---
 # Comparison to parallel coordinates
 
