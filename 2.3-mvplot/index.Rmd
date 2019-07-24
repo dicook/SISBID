@@ -35,7 +35,6 @@ library(lubridate)
 library(GGally)
 # remotes::install_github("ggobi/tourr")
 library(tourr)
-library(purrr)
 library(broom)
 library(plotly)
 ```
