@@ -25,16 +25,7 @@ knitr::opts_chunk$set(
   fig.align = "center",
   cache = FALSE
 )
-library(ggplot2)
-library(tidyr)
-library(dplyr)
-library(lubridate)
-library(scales)
-library(readr)
-library(ggmap)
-library(HLMdiag)
-library(RColorBrewer)
-library(gridExtra)
+library(tidyverse)
 ```
 
 # Example: App to explore PISA data
