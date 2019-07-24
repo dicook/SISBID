@@ -32,16 +32,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r echo=FALSE}
+```{r load libraries, echo=FALSE}
 library(tidyverse)
-library(ggmap)
-library(HLMdiag)
 library(RColorBrewer)
 library(gridExtra)
 library(dichromat)
-library(janitor)
-library(forcats)
-library(ggthemes)
 library(here)
 ```
 
@@ -254,7 +249,7 @@ grid.arrange(p1, p2, ncol=1)
 
 Can you find the odd one out?
 
-```{r echo=FALSE}
+```{r is shape preattentive, echo=FALSE}
 set.seed(20190715)
 df <- data.frame(x=runif(100), y=runif(100), cl=sample(c(rep("A", 1), rep("B", 99))))
 ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() + 
@@ -266,7 +261,7 @@ ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() +
 
 Is it easier now?
 
-```{r echo=FALSE}
+```{r is color preattentive, echo=FALSE}
 ggplot(data=df, aes(x, y, colour=cl)) + 
   geom_point(size=3) +
   theme_bw() + 
