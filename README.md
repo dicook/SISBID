@@ -46,9 +46,9 @@ Open RStudio, and run the code below to install these packages and their depende
 
 ```
 # CRAN packages
-packages <- c("tidyverse", "broom", "GGally", "nullabor", "shiny", "plotly", "xkcd", "gglogo", "geomnet", 
-"seqinr", "ggenealogy", "ggmosaic", "HLMdiag", "gganimate", "remotes", "dichromat", "janitor", "gapminder", 
-"gganimate", "wordcloud")
+packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor",
+"forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally",
+"gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
