@@ -19,7 +19,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 ## Course outline
 
-### Day 1
+### Day 1 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day1.zip)
 
 1. The grammar of graphics and ggplot2 (Di).
 1. Visual perception and effective plot construction (Heike)
