@@ -45,6 +45,7 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(plotly)
 library(gganimate)
+library(datasauRus)
 ```
 
 

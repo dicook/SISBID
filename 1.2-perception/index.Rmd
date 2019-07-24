@@ -164,6 +164,15 @@ Which is better? Show the proportion of one group, or split the bars?
 
 Come up with a plot type for each of the mappings.
 
+```{r eval=FALSE}
+1. scatterplot, barchart
+2. side-by-side boxplot, stacked barchart
+3. piechart, rose plot, gauge plot, donut, wind direction map, starplot
+4. treemap, bubble chart, mosaicplot
+5. chernoff face
+6. choropleth map
+```
+
 ---
 # Color palettes 
 
