@@ -109,8 +109,7 @@ https://github.com/dicook/SISBID
 ---
 # What's in the zip?
 
-- One folder = one module. Each folder contains 
-    - `r anicon::nia(".r file of code, use this to follow along", colour="#FA700A", anitype="hover")`
+- `r anicon::nia(".r file of code, one for each module of the course, use this to follow along", colour="#FA700A", anitype="hover")`
 - `data` folder containing data sets used in the course
 - `SISBID.Rproj` for starting RStudio in your course working directory
 
@@ -160,7 +159,10 @@ Do you have these packages installed?
 
 ```
 # CRAN packages
-packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
+packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", 
+              "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
+              "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
+              "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 

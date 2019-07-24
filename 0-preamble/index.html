@@ -61,8 +61,7 @@ https://github.com/dicook/SISBID
 ---
 # What's in the zip?
 
-- One folder = one module. Each folder contains 
-    - <span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">.r file of code, use this to follow along</span>
+- <span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">.r file of code, one for each module of the course, use this to follow along</span>
 - `data` folder containing data sets used in the course
 - `SISBID.Rproj` for starting RStudio in your course working directory
 
@@ -115,7 +114,10 @@ Do you have these packages installed?
 
 ```
 # CRAN packages
-packages &lt;- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
+packages &lt;- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", 
+              "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
+              "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
+              "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 

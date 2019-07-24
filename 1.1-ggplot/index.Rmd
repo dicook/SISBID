@@ -33,16 +33,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r echo=FALSE}
+```{r load libraries, echo=FALSE}
 library(tidyverse)
 library(ggmap)
-library(HLMdiag)
-library(RColorBrewer)
-library(gridExtra)
-library(dichromat)
-library(janitor)
-library(forcats)
-library(ggthemes)
 library(here)
 ```
 
@@ -59,7 +52,7 @@ class: inverse middle
 
 ---
 
-```{r fig.width=10, fig.height=8, out.width="70%"}
+```{r make a word cloud of plot names, fig.width=10, fig.height=8, out.width="70%"}
 library(wordcloud)
 namedplots <- c("histogram", "barchart", "scatterplot", "piechart", "lineplot", "density_plot", "boxplot", "dendrogram", "treemap", "scatterplot_matrix", "parallel_coordinate_plot", "biplot", "contourplot", "stem_and_leafplot", "rug_plot", "dotplot", "mosaic_plot", "spine_plot", "forest_plot", "heatmap", "qqplot", "star_plot", "chernoff_face","graph", "beeswarm", "violin_plot", "tour", "choropleth_map", "glyph_map", "cartogram", "bubble_plot", "correlogram", "area_chart", "population_pyramid", "seasonal_plot", "frequency_polygon", "biplot", "profile_plot", "funnel_plot")
 pal <- c("#A1719D","#03329B","#0774E4","#702E8D","#6B44B7","#B71452","#D50321","#F39E9C","#FCB52C","#B78ED2")
@@ -132,7 +125,7 @@ tb_us <- tb %>%
   filter(year > 1996, year < 2013)
 ```
 
-```{r echo=TRUE, out.width="60%", fig.width=10, fig.height=3}
+```{r make a bar chart of US TB incidence, echo=TRUE, out.width="60%", fig.width=10, fig.height=3}
 ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
   geom_bar(stat = "identity") +
   facet_grid(~ age) 
@@ -315,7 +308,7 @@ Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
 
 ---
 
-```{r eval=FALSE}
+```{r not to run this code, eval=FALSE}
 # Data extracted from ALA with this code
 # install.packages("ALA4R")
 library(ALA4R)
@@ -324,7 +317,7 @@ platypus <- occurrences("Ornithorhynchus anatinus", download_reason_id=10)
 save(platypus, file="data/platypus.rda")
 ```
 
-```{r echo=TRUE}
+```{r load the platypus obervation data, echo=TRUE}
 load(here::here("data/platypus.rda"))
 platydata <- platypus$data
 ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
@@ -334,7 +327,7 @@ ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
 
 Add some transparency to see density of locations.
 
-```{r echo=TRUE}
+```{r Add some transparency to see density of locations, echo=TRUE}
 ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude), alpha=0.1)
 ```
 
@@ -348,7 +341,7 @@ But, we can make it look a bit more like Australia by making a map projection, u
 
 .pull-left[
 
-```{r  echo=TRUE, fig.height=10, out.width="100%"}
+```{r making a map projection, echo=TRUE, fig.height=10, out.width="100%"}
 ggplot(data=platydata) + 
   geom_point(aes(x=longitude, y=latitude), alpha=0.1) +
   coord_map()
@@ -359,14 +352,14 @@ The locations would be even more recognisable if we added a real map underneath.
 ]
 ---
 
-```{r echo=FALSE, eval=FALSE}
+```{r you need a developer API to run this code, echo=FALSE, eval=FALSE}
 library(ggmap)
 register_google(XXX)
 oz <- get_map(location=c(lon=133.8807, lat=-23.6980), zoom=4)
 save(oz, file="data/oz.rda")
 ```
 
-```{r echo=TRUE}
+```{r load the saved map data, echo=TRUE}
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
   geom_point(data=platydata, aes(x=longitude, y=latitude), 
@@ -381,7 +374,7 @@ Change the dotplot into a density plot, to focus on the locations of frequent si
 
 Do you learn anything different than from the scatterplot?
 
-```{r eval=FALSE, echo=FALSE}
+```{r solution code to density plot on map, eval=FALSE, echo=FALSE}
 ggmap(oz) + 
   geom_density2d(data=platydata, aes(x=longitude, y=latitude), 
               colour="orange") 
@@ -402,7 +395,7 @@ Platypus are mostly found on the east coast of the country, but there is a popul
 
 The date of the sighting is another variable in the data set. Let's make a plot of the sightings over time. The variable is called `eventDate`. It is considered to be a `character` variable by R, so the first step is to get R to recognise that it is a date time object.
 
-```{r echo=TRUE}
+```{r create a date variable, echo=TRUE}
 library(lubridate)
 platydata <- platydata %>% 
   mutate(eventDate = ymd(eventDate))
@@ -412,7 +405,7 @@ platydata <- platydata %>%
 
 then we can simply plot occurrence over time.
 
-```{r echo=TRUE, out.width="60%"}
+```{r show sightings ovre time, echo=TRUE, out.width="60%"}
 ggplot(data=platydata) +
   geom_point(aes(x=eventDate, y=1))
 ```
@@ -420,7 +413,7 @@ ggplot(data=platydata) +
 
 There are some records dating back before 1800. There were only records from 1770! And these first records are in the database!
 
-```{r eval=FALSE}
+```{r solution code for filtering on location and time, eval=FALSE}
 # Check odd cases
 platydata %>% filter(latitude < (-50)) 
 # These just have the lat/long wrong
@@ -431,7 +424,7 @@ platydata %>% filter(eventDate < ymd("1850-01-01"))
 
 Let's focus on records since 1900, and count the number for each year.
 
-```{r echo=TRUE, out.width="60%"}
+```{r focus on records since 1900 and count the number for each year, echo=TRUE, out.width="60%"}
 platydata1900 <- platydata %>% filter(year>1900) %>%
   count(year) 
 ggplot(data=platydata1900) +
@@ -442,7 +435,7 @@ ggplot(data=platydata1900) +
 
 Add a trend line.
 
-```{r echo=TRUE, out.width="60%"}
+```{r add a trend line, echo=TRUE, out.width="60%"}
 ggplot(data=platydata1900, aes(x=year, y=n)) +
   geom_point() +
   geom_smooth(se=F)
@@ -451,7 +444,7 @@ ggplot(data=platydata1900, aes(x=year, y=n)) +
 ---
 Make it interactive so that we can investigate some observations.
 
-```{r echo=TRUE}
+```{r make it interactive to investigate some observations, echo=TRUE}
 library(plotly)
 ggplotly()
 ```
@@ -466,7 +459,7 @@ class: inverse middle
 - Create a new variable for decade
 - Make a map separately for each decade - the `facet_wrap` function can help here.
 
-```{r echo=FALSE, eval=FALSE}
+```{r solution code for exploring population trend, echo=FALSE, eval=FALSE}
 platydata_50_10 <- platydata %>% filter(year>1949, year<2010) %>%
   mutate(decade = cut(year, breaks=seq(1950, 2019, 10),
    include.lowest=TRUE, 
