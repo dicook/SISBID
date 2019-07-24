@@ -184,7 +184,7 @@ When you run the example yourself, you get a `decrypt` code line, that you run a
 - plot is a residual vs fitted scatterplot, null hypothesis is *there is no association between the two statistics*
 - null generating mechanism: residual rotation
 
-&lt;img src="index_files/figure-html/lineup 3-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/lineup 2-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 **Assessing temporal dependence**
@@ -192,14 +192,14 @@ When you run the example yourself, you get a `decrypt` code line, that you run a
 - plot is a lineplot, null hypothesis is *there is no temporal trend*
 - null generating mechanism: simulation from a time series model
 
-&lt;img src="index_files/figure-html/lineup 4-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/lineup 3-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's talk TB
 
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 There are many aspects of this plot, this is what we said earlier:
 
@@ -245,7 +245,7 @@ l &lt;- l %&gt;%
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/plot the lineup-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # A more complicated null
@@ -276,7 +276,7 @@ l &lt;- l %&gt;%
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # Note
@@ -373,15 +373,6 @@ Make a choropleth map of the TB data across the globe. We will do something a li
 A polygon map of the world is extracted from the maps package. *The names of countries needs to be synchronised between the TB data and the map data.*
 
 
-```r
-world_map &lt;- map_data("world")
-usa &lt;- map_data("usa")
-tb_names &lt;- tb %&gt;% 
-  mutate(region=recode(country, 
-                       "United States of America"="USA", 
-                       "United Kingdom"="UK",
-                       "Russian Federation"="Russia"))
-```
 
 ---
 
@@ -418,7 +409,7 @@ ggplot(tb_names_inc, aes(map_id = region)) +
     guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/one way to make the map is use geom_map-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -439,7 +430,7 @@ ggplot(tb_map) +
     guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/aother approach is to join the polygon data-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -447,8 +438,6 @@ class: inverse middle
 
 Why is India showing a drastically increasing TB incidence. 
 Make the plot of TB incidence for India. 
-
-
 
 
 
