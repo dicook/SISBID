@@ -43,9 +43,12 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 Download [RStudio >= 1.2.1335 ](https://www.rstudio.com/products/rstudio/download/), [R version 3.6.1 (2019-07-05) -- "Action of the Toes"](https://cran.r-project.org)
 
 Open RStudio, and run the code below to install these packages and their dependencies:
+
 ```
 # CRAN packages
-packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
+packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor",
+"forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally",
+"gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
