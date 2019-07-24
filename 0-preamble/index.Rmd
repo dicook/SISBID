@@ -96,34 +96,35 @@ Introduce yourself to the people around you. Find out a little about them: where
 
 
 ---
-# Check your R setup
-
-<img src="setup.png" width="80%" />
-
-.orange["If R were an airplane, RStudio would be the airport"] [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
-
----
 class: inverse middle 
 # Your turn: Course materials
 
 https://github.com/dicook/SISBID
 
-- __Download a zip archive__ of the workshop files which contains all the code files, Rmarkdown files, and data for this workshop. __Unzip the file__ and __rename__ it `SISBID`
-- __Double-click SISBID.Rproj:__ the R project helps organise your work over these next few days. 
+- __Download__ `SISBID_day1.zip` (a zip archive) of the workshop files which contains all the code files, Rmarkdown files, and data for day 1 of this workshop. __Unzip the file__.
+- __Double-click__ `SISBID.Rproj`. The R project helps organise your work over these next few days. 
 
 ![](projectname.png)
 
 ---
 # What's in the zip?
 
-- One folder = one module
-- Each folder contains 
+- One folder = one module. Each folder contains 
     - `r anicon::nia(".r file of code, use this to follow along", colour="#FA700A", anitype="hover")`
-    - `.Rmd` file containing code and explanations that makes the slides. You can use this if preferred, working chunk by chunk, if you want to work see the explanations along with the code. 
-    - other stuff (css style, images) that you can ignore.
-    
+- `data` folder containing data sets used in the course
+- `SISBID.Rproj` for starting RStudio in your course working directory
+
 `r anicon::nia("Please run, edit and change the code as we go! Experiment, break and fix.", colour="#B78ED2", anitype="hover")`
 
+---
+class: middle
+
+
+**Check your R setup**
+
+.orange["If R were an airplane, RStudio would be the airport"] [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
+
+<img src="setup.png" width="200%" />
 
 ---
 # Refresher
@@ -156,6 +157,16 @@ remotes::install_github("hadley/emo")
 # List of packages
 
 Do you have these packages installed?
+
+```
+# CRAN packages
+packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
+
+install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
+
+# github packages
+remotes::install_github("wmurphyrd/fiftystater")
+```
 
 ---
 # Resources
