@@ -40,7 +40,7 @@ class: center, middle, inverse, title-slide
            X_{n1} &amp; X_{n2} &amp; ... &amp; X_{np}
            \end{array} \right]$$`
 
-- `\(X_1 \sim N(0,1), ~~X_2 \sim exp(1) ...\)`
+- We might even make assumptions about the distribution of each variable, e.g. `\(X_1 \sim N(0,1), ~~X_2 \sim exp(1) ...\)`
 
 ---
 # Grammar of graphics and statistics
@@ -49,16 +49,155 @@ class: center, middle, inverse, title-slide
 - We study the behaviour of the statistic over all possible samples of size `\(n\)`. 
 - The grammar of graphics is the mapping of (random) variables to graphical elements, making plots of data into statistics
 
+---
+# What is inference?
 
+Inferring that what we see in the data at hand holds more broadly in life, society and the world.
+
+.pull-left[
+**Why do we need it for graphics?**
+
+Here's an example tweeted by David Robinson:
+
+&lt;img src="images/drob_twitter.png" style="width: 300px"&gt;
+
+Based on an analysis in [Tick Tock blog, by Graham Tierney](https://ticktocksaythehandsoftheclock.wordpress.com/2018/01/11/capitals-and-good-governance/)
+]
+.pull-right[
+*Below is a simple scatterplot of the two variables of interest. A slight negative slope is observed, but it does not look very large. There are a lot of states whose capitals are less than 5% of the total population. The two outliers are Hawaii (government rank 33 and capital population 25%) and Arizona (government rank 26 and capital population 23%). Without those two the downward trend (an improvement in ranking) would be much stronger.*
+
+*I ran linear regressions of government rank on the percentage of each state’s population living in the capital city, state population (in 100,000s), and state GDP (in $100,000s).... The coefficient is not significant for any regression at the traditional 5% level.*
+
+*... I'm not convinced that the lack of significance is itself significant.*
+]
 
 ---
-# Inference
+# To do *statistical* inference
 
-- Choice of plot implicitly sets `\(H_0\)`, `\(H_1\)`
-- Generically, we are thinking  `\(H_0\)`: no pattern, `\(H_1\)`: pattern, but the choice of plot makes this much more explicit
+You need a:
+
+- null hypothesis, and alternative
+- statistic computed on the data
+- reference distribution on which to measure the statistic: if its extreme on this scale you would reject the null
+
+# Inference with *data plots*
+
+You need a:
+
+- plot description, as provided by the grammar (which is a statistic) - this would prescribe the null hypothesis
+- null generating mechanism, e.g. permutation, simulation from a distribution or model
+- human vision, to examine array of plots and decide if any are different from the others
+
+---
+# Some examples
+
+Here are several plot descriptions. What would be the null hypothesis in each?
+
+.pull-left[
+
+A
+```
+ggplot(data) + geom_point(aes(x=x1, y=x2))
+```
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+B
+```
+ggplot(data) + geom_point(aes(x=x1, y=x2, colour=cl))
+```
+]
+.pull-right[
+C
+```
+ggplot(data) + geom_histogram(aes(x=x1))
+```
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+D
+```
+ggplot(data) + geom_boxplot(aes(x=cl, y=x1))
+```
+]
+
+---
+# Some examples
+
+Here are several plot descriptions. What would be the null hypothesis in each?
+
+.pull-left[
+
+A
+`\(H_o:\)` no association between `x1` and `x2`
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+B
+`\(H_o:\)` no difference between levels of `cl`
+
+]
+.pull-right[
+C
+`\(H_o:\)` the distribution of `x1` is XXX
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+D
+`\(H_o:\)` no difference in the distribution of `x1` between levels of `cl`
+]
+---
+
+# Let's do it
+
+.pull-left[
+&lt;img src="images/nullabor_hex.png" style="width: 20%" /&gt;
+
+Example from the nullabor package. The data plot is embedded randomly in a field of null plots, this is a **lineup**. Can you see which one is different?
+
+When you run the example yourself, you get a `decrypt` code line, that you run after deciding on a plot to print the location of the data plot amongst the nulls. 
+
+- plot is a scatterplot, null hypothesis is *there is no association between the two variables mapped to the x, y axes*
+- null generating mechanism: permutation
+
+]
+.pull-right[
+&lt;img src="index_files/figure-html/lineup 1-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+**Evaluating goodness-of-fit with a residual plot**
+
+- plot is a residual vs fitted scatterplot, null hypothesis is *there is no association between the two statistics*
+- null generating mechanism: residual rotation
+
+&lt;img src="index_files/figure-html/lineup 3-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+**Assessing temporal dependence**
+
+- plot is a lineplot, null hypothesis is *there is no temporal trend*
+- null generating mechanism: simulation from a time series model
+
+&lt;img src="index_files/figure-html/lineup 4-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's talk TB
+
+
 
 &lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
@@ -109,7 +248,7 @@ l &lt;- l %&gt;%
 &lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
-# More interesting null
+# A more complicated null
 
 *Null hypothesis*: TB incidence is has the same proportion of men and women, regardless of age and year.
 *Alternative hypothesis*: It isn't.
@@ -140,12 +279,13 @@ l &lt;- l %&gt;%
 &lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
-# Important details
+# Note
 
 - The null hypothesis is determined based on the plot type
 - It is not based on the structure seen in a data set
 
 ---
+.pull-left[
 # Lineup
 
 Embed the data plot in a field of null plots
@@ -153,13 +293,18 @@ Embed the data plot in a field of null plots
 
 
 Ask: Which plot is the most different?
+]
+.pull-right[
+# Null-generating mechanisms
 
----
+- Permutation: randomizing the order of one of the variables breaks association, but keeps marginal distributions the same
+- Simulation: from a given distribution, or model. Assumption is that the data comes from that model 
+
 # Evaluation
 
-- Computing `\(p\)`-values
+- Compute `\(p\)`-value
 - Power `\(=\)` signal strength
-
+]
 ---
 # p-values
 
@@ -173,7 +318,7 @@ For `\(x=4, K=17, m=20\)`
 
 ```
      x simulated       binom
-[1,] 4    0.0181 0.008800605
+[1,] 4    0.0194 0.008800605
 ```
 
 ---
@@ -186,7 +331,7 @@ For `\(x=4, K=17, m=20\)`
 ---
 # Simulation
 
-Crucial idea: assign a p-value to each plot (data and null); under null hypothesis, this p-value is from U[0,1] 
+Crucial idea: assign a `\(p\)`-value to each plot (data and null); under null hypothesis, this p-value is from U[0,1] 
 
 Scenario I:
 - for the `\(k\)`th lineup evaluation do:
@@ -216,29 +361,8 @@ Scenario III (same data, same nulls):
  - pick 19 `\(p\)`-values from `\(U[0,1]\)`
  - for data plot compute 'strength' of other plots: `\(q = (1-p_\text{data})/\sum_j(1-p_j)\)`
  - simulate number of data picks `\(X ~ B_{K, q}\)`
-- Repeat N times to get distribution of `\(X\)`
+- Repeat `\(N\)` times to get distribution of `\(X\)`
 
-
----
-# Null-generating mechanisms
-
-- Permutation: randomizing the order of one of the variables breaks association, but keeps marginal distributions the same
-- Simulation: from a given distribution, or model. Assumption is that the data comes from that model 
-
----
-class: inverse middle 
-# Your turn
-
-For these plot descriptions, decide on:
-
-- null hypothesis
-- null generating mechanism
-
----
-class: inverse middle 
-# Your turn
-
-&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -294,7 +418,7 @@ ggplot(tb_names_inc, aes(map_id = region)) +
     guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -315,7 +439,7 @@ ggplot(tb_map) +
     guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
@@ -324,55 +448,29 @@ class: inverse middle
 Why is India showing a drastically increasing TB incidence. 
 Make the plot of TB incidence for India. 
 
----
 
 
-```r
-tb_india &lt;- tb %&gt;% 
-  filter(country == "India") %&gt;%
-  filter(!(age %in% c("04", "014", "514", "u"))) %&gt;%
-  filter(year &gt; 1996, year &lt; 2013) %&gt;%
-  group_by(year, country) %&gt;%
-  summarise(count = sum(count, na.rm=TRUE)) 
-india_map &lt;- world_map %&gt;% filter(region == "India")
-tb_map_india &lt;- left_join(india_map, tb_india,
-                          by=c("region"="country")) 
-```
+
+
+
+
+
+
+
 
 ---
+# A map lineup example
 
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /&gt;
+Cancer incidence across the US 2010-2014, all cancer types, per 100k. Data from American Cancer Society, https://cancerstatisticscenter.cancer.org. Does one map show a spatial trend?
 
----
-# Animate
-
-
-```r
-p &lt;- ggplot(tb_map_india) + 
-  geom_polygon(aes(x=long, y=lat, group=group, 
-  fill=count, label=region, frame=year)) +
-      theme_few() +
-    scale_fill_viridis("trend", na.value = "grey70", 
-                       limits=c(0,630000)) + 
-    theme(legend.position = "bottom",
-         axis.ticks = element_blank(), 
-         axis.title = element_blank(), 
-         axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
-```
-
-
-```r
-ggplotly(p)
-```
-
+&lt;img src="index_files/figure-html/make a map lineup-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # Resources
 
 - Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230.
 - Wickham, H., Cook, D., Hofmann, H. and Buja, A. (2010) Graphical Inference for Infovis,  http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161. 
-
+- Sievert, C. (2019) Interactive web-based data visualization with R, plotly, and shiny,  https://plotly-r.com/index.html
 ---
 # Share and share alike
 
