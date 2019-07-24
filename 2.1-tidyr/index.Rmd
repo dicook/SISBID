@@ -28,18 +28,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r echo=FALSE}
-library(knitr)
-library(ggplot2)
-library(tidyr)
-library(dplyr)
+library(tidyverse)
 library(lubridate)
-library(scales)
-library(readr)
-library(ggmap)
-library(HLMdiag)
-library(RColorBrewer)
-library(gridExtra)
-library(broom)
+#library(scales)
+#library(readr)
+#library(ggmap)
+#library(HLMdiag)
+#library(RColorBrewer)
+#library(gridExtra)
+#library(broom)
 ```
 
 # Using `tidyr`, `dplyr`
