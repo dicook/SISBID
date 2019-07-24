@@ -27,13 +27,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r echo=FALSE}
+```{r load packages, echo=FALSE}
 library(tidyverse)
 library(lubridate)
 library(broom)
 ```
 
 # Using `tidyr`, `dplyr`
+
+<img src="images/tidyr.png" width="10%" /> <img src="images/dplyr.png" width="10%" />
 
 - Writing readable code using **pipes**
 - What is **tidy data**? Why do you want tidy data? Getting your data into tidy form using tidyr.
@@ -50,7 +52,7 @@ library(broom)
 
 Example:
 
-```{r}
+```{r read TB incidence data and check}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
 tb %>%                                  # first we get the tb data
   filter(year == 2016) %>%              # then we focus on just the year 2016
@@ -74,7 +76,7 @@ class: inverse middle
 
 What are the variables?
 
-```{r echo=FALSE}
+```{r example 1 What are the variables, echo=FALSE}
 grad <- read_csv("../data/graduate-programs.csv")
 head(grad[c(2,3,4,6)])
 ```
@@ -89,7 +91,7 @@ class: inverse middle
 
 What's in the column names of this data? What are the experimental units? What are the measured variables?
 
-```{r, echo=FALSE}
+```{r example 2 whats in the column names, echo=FALSE}
 genes <- read_csv("../data/genes.csv")
 head(genes)
 ```
@@ -104,7 +106,7 @@ class: inverse middle
 
 What are the variables? What are the records?
 
-```{r echo=FALSE}
+```{r example 3 what are the variables and records, echo=FALSE}
 melbtemp <- read.fwf("../data/ASN00086282.dly", 
    c(11, 4, 2, 4, rep(c(5, 1, 1, 1), 31)), fill=T)
 head(melbtemp[,c(1,2,3,4,seq(5,100,4))])
@@ -120,7 +122,7 @@ class: inverse middle
 
 What are the variables? What are the experimental units?
 
-```{r echo=FALSE}
+```{r example 4 what are the variables and experimental units, echo=FALSE}
 tb <- read_csv(here::here("data/tb.csv"))
 tail(tb)
 #colnames(tb)
@@ -130,9 +132,9 @@ tail(tb)
 class: inverse middle 
 # Your turn 5 
 
-What are the variables? What are the experimental units?
+What are the variables? What are the observations?
 
-```{r echo=FALSE}
+```{r example 4 what are the variables and observations, echo=FALSE}
 pew <- read.delim(
   file = "http://stat405.had.co.nz/data/pew.txt",
   header = TRUE,
@@ -148,7 +150,7 @@ class: inverse middle
 
 10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice. First few rows:
 
-```{r, echo = FALSE}
+```{r example 6 what are the factors measurements and experimental units, echo = FALSE}
 load(here::here("data/french_fries.rda"))
 head(french_fries, 4)
 ```
@@ -156,7 +158,7 @@ head(french_fries, 4)
 What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?
 
 ---
-# Messy Data Patterns
+# Messy data patterns
 
 There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:
 
@@ -166,7 +168,7 @@ There are various features of messy data that one can observe in practice. Here 
 - Dates in many different formats
 
 ---
-# What is Tidy Data?
+# What is tidy data?
 
 - Each observation forms a row
 - Each variable forms a column
@@ -183,7 +185,7 @@ There are various features of messy data that one can observe in practice. Here 
 ![](playmobile.png)
 
 ---
-# Tidy Verbs
+# Tidy verbs
 
 - `gather`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
 - `spread`: variables in columns (used to be called casting)
@@ -200,11 +202,11 @@ There are various features of messy data that one can observe in practice. Here 
 - `gather` turns a wide format into a long format
 - two new variables are introduced (in key-value format): **key** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `key`, their values go into variable `value`.
 
-```{r, echo = FALSE}
+```{r setup a simple example, echo = FALSE}
 dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
 ```
 
-```{r}
+```{r gather the example data into long form}
 dframe
 dframe %>% gather(treatment, outcome, trtA, trtB)
 ```
@@ -212,9 +214,9 @@ dframe %>% gather(treatment, outcome, trtA, trtB)
 ---
 # TB notifications
   
-new notifications of TB have the form `new_sp_genderage`:
+new notifications of TB have the form `new_sp_sexage`:
   
-```{r}
+```{r read in and process the TB data}
 read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
   head()
@@ -229,7 +231,7 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
   
 create two new variables: variable `key` (contains all variable names starting with `new_sp_`) and variable `count` with the values:
   
-```{r}
+```{r turn TB data into long form}
 tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
   gather(key, count, starts_with("new_sp_")) 
@@ -237,7 +239,7 @@ tb1 %>% na.omit() %>% head()
 ```
 
 ---
-# Separate Columns
+# Separate columns
   
 `separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
 
@@ -255,9 +257,9 @@ Pro tip: specify `sep` to have some more control; any regular expression will wo
   
 Work on `key`: 
   
-```{r}
+```{r extract variable names from original column names}
 tb2 <- tb1 %>% 
-  separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
+  separate(key, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
 tb2 %>% na.omit() %>% head()
 ```
 
@@ -265,14 +267,14 @@ tb2 %>% na.omit() %>% head()
 ---
 # TB notification (separate again)
   
-Now split `genderage` into first character (m/f) and rest.
+Now split `sexage` into first character (m/f) and rest.
 `substr` allows to extract sub strings from a character vector (see `?substr`):
   
-```{r}
+```{r continue extracting variable names}
 tb3 <- tb2 %>% select(-starts_with("foo")) %>%
-  mutate(gender=substr(genderage, 1, 1), 
-         age=substr(genderage, 2, length(genderage))) %>%
-  select(-genderage)
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage)
 tb3 %>% na.omit() %>% head()
 ```
 
@@ -284,7 +286,7 @@ class: inverse middle
 
 Turn the `french_fries` data from wide format into a long format with variables `type` and `rating`. 
   
-```{r, echo=FALSE}
+```{r your turn to work on the french fries data, echo=FALSE}
 head(french_fries)
 ```
 
@@ -293,7 +295,7 @@ What would we like to find out about this data?
 
 
 ---
-# What Would We Like to Know?
+# What would we like to know?
   
 - Is the design complete?
 - Are replicates like each other?
@@ -304,16 +306,16 @@ What would we like to find out about this data?
 Each of these questions involves different summaries of the data.
 
 ---
-# Gathering the French Fries
+# Gathering the french fries
   
-```{r}
+```{r put french fries in long form}
 ff_long <- gather(french_fries, key = type, value = 
                     rating, potato:painty)
 head(ff_long)
 ```
 
 ---
-# Long to Wide
+# Long to wide
   
 In certain applications, we may wish to take a long dataset and convert it to a wide dataset (perhaps displaying in a table).
 
@@ -324,7 +326,7 @@ This is called "spreading" the data.
   
 We use the **spread** function from `tidyr` to do this:
   
-```{r}
+```{r spread it back into wide form}
 french_fries_weeks <- spread(ff_long, key = time, 
                              value = rating)
 
@@ -332,7 +334,8 @@ head(french_fries_weeks)
 ```
 
 Plot Week 1 against Week 9 in a scatterplot:
-```{r, eval =FALSE}
+
+```{r check the wide form data, eval =FALSE}
 french_fries_weeks %>%
   ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
@@ -341,24 +344,21 @@ french_fries_weeks %>%
 # Week 1 vs week 9
 
 
-```{r, fig.width=5, fig.height = 5}
+```{r week 1 vs week 9, fig.width=5, fig.height = 5}
 french_fries_weeks %>%
   ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
 
 ---
 class: inverse middle 
-# Your turn
-
-
-## Do the Replicates Look Like Each Other?
+# Your turn: Do the replicates look like each other?
 
 Tackle this by plotting the replicates against each other using a scatterplot. 
 
 You will need to first gather the data into long form, and then get the replicates spread into separate columns by replicate. 
 
 
-```{r, echo=FALSE, eval=FALSE}
+```{r solution to do the replicates look like each other, echo=FALSE, eval=FALSE}
 ff.s <- ff_long %>% spread(key=rep, value=rating)
 ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
   theme(aspect.ratio=1) 
@@ -376,9 +376,9 @@ ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
 - We need to gather the data into long form, and make plots facetted by the scale. 
 
 ---
-# Ratings on the Different Scales
+# Ratings on the different scales
 
-```{r}
+```{r ratings on the different scales}
 ff.m <- french_fries %>% 
 gather(type, rating, -subject, -time, -treatment, -rep)
 head(ff.m)
@@ -392,9 +392,9 @@ facet_wrap(~type, ncol=5)
 ```
 
 ---
-# Side-By-Side Boxplots
+# Side-by-side boxplots
 
-```{r fig.width=8, fig.height=5}
+```{r side-by-Side boxplots, fig.width=8, fig.height=5}
 ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) + 
 geom_boxplot()
 ```
@@ -405,7 +405,7 @@ geom_boxplot()
 How do ratings change over the weeks?
 Again, we use the long form of the data and plot:
 
-```{r fig.width=8, fig.height=5}
+```{r ratings by week, fig.width=8, fig.height=5}
 ff.m$time <- as.numeric(ff.m$time)
 ggplot(data=ff.m, aes(x=time, y=rating, colour=type)) + 
 geom_point(size=.75) +
@@ -418,13 +418,15 @@ facet_wrap(~type)
 class: inverse middle 
 # Your turn
 
-Read the genes data from folder `data`. Column names contain data and are kind of messy. Introduce data frame `gtidy` as shown below:
+Read the genes data from folder `data`. Column names contain data and are kind of messy. 
 
 ```{r}
 genes <- read_csv("../data/genes.csv")
 ```
 
-```{r echo=FALSE}
+Produce the data frame called `gtidy` as shown below:
+
+```{r code solution to genes wrangling, echo=FALSE}
 gtidy <- genes %>%
 gather(variable, expr, -id) %>%
 separate(variable, c("trt", "leftover"), "-") %>%
@@ -439,9 +441,10 @@ head(gtidy)
 
 
 ---
-# Plot from before
+# Plot the genes data overlaid with group means
 
-```{r, fig.width=5, fig.height = 5}
+.pull-left[
+```{r compute group means, fig.show='hide'}
 gmean <- gtidy %>% 
   group_by(id, trt, time) %>% 
   summarise(expr = mean(expr))
@@ -451,7 +454,16 @@ gtidy %>%
   geom_line(data = gmean, aes(group = time)) +
   facet_wrap(~id)
 ```
-
+]
+.pull-right[
+```{r plot the genes data overlais with group means, echo=FALSE, fig.width=5, fig.height = 5}
+gtidy %>% 
+  ggplot(aes(x = trt, y = expr, colour=time)) +
+  geom_point() +
+  geom_line(data = gmean, aes(group = time)) +
+  facet_wrap(~id)
+```
+]
 ---
 # Models and model output
 
@@ -459,7 +471,7 @@ Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
 
 e.g. fit french fry rating with respect to all designed main effects:
 
-```{r}
+```{r models and model output}
 ff_long <- gather(french_fries, key = type, value = 
 rating, potato:painty)
 ff_lm <- lm(rating~type+treatment+time+subject, 
@@ -470,7 +482,7 @@ data=ff_long)
 
 `summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
 
-```{r}
+```{r examine the model fit}
 summary(ff_lm)
 ```
 
@@ -492,14 +504,14 @@ One value for each:
 ---
 # Goodness of fit statistics: `glance`
 
-```{r}
+```{r goodness of fit statistics}
 glance(ff_lm)
 ```
 
 ---
 # Model estimates: `tidy`
 
-```{r}
+```{r model estimates}
 ff_lm_tidy <- tidy(ff_lm)
 glimpse(ff_lm_tidy)
 ```
@@ -507,7 +519,7 @@ glimpse(ff_lm_tidy)
 ---
 # Model diagnostics: `augment`
 
-```{r}
+```{r model diagnostics}
 ff_lm_all <- augment(ff_lm)
 glimpse(ff_lm_all)
 ```
@@ -515,7 +527,7 @@ glimpse(ff_lm_all)
 ---
 # Residual plot
 
-```{r}
+```{r residual plot}
 ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 ```
 
@@ -524,7 +536,7 @@ ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 
 Add random intercepts for each subject
 
-```{r results='hide'}
+```{r add random intercepts for each subject, results='hide'}
 library(lme4)
 fries_lmer <- lmer(rating~type+treatment+time+subject + ( 1 | subject ), 
 data = ff_long)
@@ -539,7 +551,7 @@ class: inverse middle
 - Plot the residuals from the (a) fixed, (b) random effects
 - Plot fitted values against observed values
 
-```{r eval=FALSE, echo=FALSE}
+```{r solution to french fries modeling, eval=FALSE, echo=FALSE}
 
 ## the model is pretty bad:
 ff_lmer_all <- augment(fries_lmer)

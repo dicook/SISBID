@@ -25,6 +25,8 @@ class: center, middle, inverse, title-slide
 
 # Using `tidyr`, `dplyr`
 
+&lt;img src="images/tidyr.png" width="10%" /&gt; &lt;img src="images/dplyr.png" width="10%" /&gt;
+
 - Writing readable code using **pipes**
 - What is **tidy data**? Why do you want tidy data? Getting your data into tidy form using tidyr.
 - Reading different **data formats**
@@ -166,7 +168,7 @@ What are the variables? What are the experimental units?
 class: inverse middle 
 # Your turn 5 
 
-What are the variables? What are the experimental units?
+What are the variables? What are the observations?
 
 
 ```
@@ -198,7 +200,7 @@ class: inverse middle
 What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?
 
 ---
-# Messy Data Patterns
+# Messy data patterns
 
 There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:
 
@@ -208,7 +210,7 @@ There are various features of messy data that one can observe in practice. Here 
 - Dates in many different formats
 
 ---
-# What is Tidy Data?
+# What is tidy data?
 
 - Each observation forms a row
 - Each variable forms a column
@@ -225,7 +227,7 @@ There are various features of messy data that one can observe in practice. Here 
 ![](playmobile.png)
 
 ---
-# Tidy Verbs
+# Tidy verbs
 
 - `gather`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
 - `spread`: variables in columns (used to be called casting)
@@ -261,7 +263,7 @@ dframe %&gt;% gather(treatment, outcome, trtA, trtB)
 ---
 # TB notifications
   
-new notifications of TB have the form `new_sp_genderage`:
+new notifications of TB have the form `new_sp_sexage`:
   
 
 ```r
@@ -312,7 +314,7 @@ tb1 %&gt;% na.omit() %&gt;% head()
 ```
 
 ---
-# Separate Columns
+# Separate columns
   
 `separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
 
@@ -333,42 +335,42 @@ Work on `key`:
 
 ```r
 tb2 &lt;- tb1 %&gt;% 
-  separate(key, sep = "_", into=c("foo_new", "foo_sp", "genderage")) 
+  separate(key, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
 tb2 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 7
-  country     iso3   year foo_new foo_sp genderage count
-  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;
-1 Afghanistan AFG    2010 new     sp     m04           4
-2 Afghanistan AFG    2011 new     sp     m04           2
-3 Afghanistan AFG    2012 new     sp     m04           0
-4 Albania     ALB    2005 new     sp     m04           0
-5 Albania     ALB    2006 new     sp     m04           1
-6 Albania     ALB    2007 new     sp     m04           0
+  country     iso3   year foo_new foo_sp sexage count
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
+1 Afghanistan AFG    2010 new     sp     m04        4
+2 Afghanistan AFG    2011 new     sp     m04        2
+3 Afghanistan AFG    2012 new     sp     m04        0
+4 Albania     ALB    2005 new     sp     m04        0
+5 Albania     ALB    2006 new     sp     m04        1
+6 Albania     ALB    2007 new     sp     m04        0
 ```
 
 
 ---
 # TB notification (separate again)
   
-Now split `genderage` into first character (m/f) and rest.
+Now split `sexage` into first character (m/f) and rest.
 `substr` allows to extract sub strings from a character vector (see `?substr`):
   
 
 ```r
 tb3 &lt;- tb2 %&gt;% select(-starts_with("foo")) %&gt;%
-  mutate(gender=substr(genderage, 1, 1), 
-         age=substr(genderage, 2, length(genderage))) %&gt;%
-  select(-genderage)
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %&gt;%
+  select(-sexage)
 tb3 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 6
-  country     iso3   year count gender age  
-  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
-1 Afghanistan AFG    2010     4 m      04   
-2 Afghanistan AFG    2011     2 m      04   
-3 Afghanistan AFG    2012     0 m      04   
-4 Albania     ALB    2005     0 m      04   
-5 Albania     ALB    2006     1 m      04   
-6 Albania     ALB    2007     0 m      04   
+  country     iso3   year count sex   age  
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1 Afghanistan AFG    2010     4 m     04   
+2 Afghanistan AFG    2011     2 m     04   
+3 Afghanistan AFG    2012     0 m     04   
+4 Albania     ALB    2005     0 m     04   
+5 Albania     ALB    2006     1 m     04   
+6 Albania     ALB    2007     0 m     04   
 ```
 
 ---
@@ -397,7 +399,7 @@ What would we like to find out about this data?
 
 
 ---
-# What Would We Like to Know?
+# What would we like to know?
   
 - Is the design complete?
 - Are replicates like each other?
@@ -408,7 +410,7 @@ What would we like to find out about this data?
 Each of these questions involves different summaries of the data.
 
 ---
-# Gathering the French Fries
+# Gathering the french fries
   
 
 ```r
@@ -427,7 +429,7 @@ head(ff_long)
 ```
 
 ---
-# Long to Wide
+# Long to wide
   
 In certain applications, we may wish to take a long dataset and convert it to a wide dataset (perhaps displaying in a table).
 
@@ -458,6 +460,7 @@ head(french_fries_weeks)
 
 Plot Week 1 against Week 9 in a scatterplot:
 
+
 ```r
 french_fries_weeks %&gt;%
   ggplot(aes(x = `1`, y = `9`)) + geom_point()
@@ -473,14 +476,11 @@ french_fries_weeks %&gt;%
   ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/week 1 vs week 9-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle 
-# Your turn
-
-
-## Do the Replicates Look Like Each Other?
+# Your turn: Do the replicates look like each other?
 
 Tackle this by plotting the replicates against each other using a scatterplot. 
 
@@ -498,7 +498,7 @@ You will need to first gather the data into long form, and then get the replicat
 - We need to gather the data into long form, and make plots facetted by the scale. 
 
 ---
-# Ratings on the Different Scales
+# Ratings on the different scales
 
 
 ```r
@@ -524,10 +524,10 @@ ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) +
 facet_wrap(~type, ncol=5) 
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-# Side-By-Side Boxplots
+# Side-by-side boxplots
 
 
 ```r
@@ -535,7 +535,7 @@ ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) +
 geom_boxplot()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/side-by-Side boxplots-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Ratings by week
@@ -552,19 +552,21 @@ geom_smooth() +
 facet_wrap(~type)
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/ratings by week-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
 class: inverse middle 
 # Your turn
 
-Read the genes data from folder `data`. Column names contain data and are kind of messy. Introduce data frame `gtidy` as shown below:
+Read the genes data from folder `data`. Column names contain data and are kind of messy. 
 
 
 ```r
 genes &lt;- read_csv("../data/genes.csv")
 ```
+
+Produce the data frame called `gtidy` as shown below:
 
 
 
@@ -584,8 +586,9 @@ head(gtidy)
 
 
 ---
-# Plot from before
+# Plot the genes data overlaid with group means
 
+.pull-left[
 
 ```r
 gmean &lt;- gtidy %&gt;% 
@@ -597,9 +600,10 @@ gtidy %&gt;%
   geom_line(data = gmean, aes(group = time)) +
   facet_wrap(~id)
 ```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
-
+]
+.pull-right[
+&lt;img src="index_files/figure-html/plot the genes data overlais with group means-1.png" style="display: block; margin: auto;" /&gt;
+]
 ---
 # Models and model output
 
@@ -744,7 +748,7 @@ $ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.65222â€
 ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/residual plot-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Adding random effects
