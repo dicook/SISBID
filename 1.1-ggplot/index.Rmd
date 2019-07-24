@@ -80,6 +80,9 @@ With a grammar, we don't have individual animals in the zoo, we have the genetic
 # Elements of the grammar
 
 .pull-left[
+
+<img src="images/ggplot2.png" width="20%" />
+
 ```
 ggplot(data = <DATA>) + 
   <GEOM_FUNCTION>(
