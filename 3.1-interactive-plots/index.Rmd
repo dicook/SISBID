@@ -27,6 +27,20 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{css, echo=FALSE}
+/* custom.css */
+.left-code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+```
 ```{r echo=FALSE}
 library(tidyverse)
 library(plotly)
@@ -149,6 +163,8 @@ economics %>%
   )
 ```
 
+
+
 ---
 # Labels
 
@@ -194,42 +210,6 @@ economics %>%
 ```
 
 ---
-# 
-
-```{r eval=FALSE, echo=FALSE}
-model_type <- input_checkbox(label = "Use loess curve",
-  map = function(val) if(val) "loess" else "lm")
-economics %>%
-  ggvis(~date, ~psavert) %>%
-  layer_points() %>%
-    layer_model_predictions(model = model_type)
-```
-
-<img src="ggvis-05.gif" height = 500>
-
----
-class: inverse middle 
-# Your turn
-
-
-- Convert the model input to two radio buttons
-- Add a robust linear model choice, e.g add a third radio button. The function `MASS::rlm` provides a robust linear model.
-
-```{r echo=FALSE, eval=FALSE}
-model_type <- input_radiobuttons(
-  choices = c("Linear" = "lm", 
-              "LOESS" = "loess", 
-              "Robust" = "MASS::rlm"),
-                   selected = "loess",
-                   label = "Model type")
-economics %>%
-  ggvis(~date, ~psavert) %>%
-  layer_points() %>%
-  add_tooltip(all_values, "hover") %>%
-    layer_model_predictions(model = model_type, stroke:="red")
-```
-
----
 # plotly
 
 The `plotly` package in R builds on the `ggplot2` package, adding interactive elements to these plots. It translates plots to javascript.
@@ -261,7 +241,7 @@ ggplotly()
 ```
 
 ---
-# Still a work in progress
+# Scatterplot(ly) matrix 
 
 ```{r fig.width=6, fig.height=6}
 library(GGally)
@@ -281,17 +261,14 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
  ggplotly(viz)
 ```
 
+- Not all `ggplot2` geoms are supported in plotly yet, but when they are, they just work out of the box
 
 ---
-class: inverse middle 
-# Your turn
+# Linked graphics
 
+`plotly` in combination with `crosstalk` and `shiny` supports linked graphics
 
-Find which `ggplot2` geoms are supported in plotly, and maybe one that is not?
-
-
----
-# Example, using Australian elections
+Eechidna is a big plotly based shiny app to give an overview of Australian elections and demographics
 
 ```{r eval=FALSE}
 #devtools::install_github("ropenscilabs/eechidna")
@@ -310,11 +287,214 @@ class: inverse middle
 - Go to the `plotly` [website](https://plotly-r.com/), browse through a chapter of your interest and try to get the example to work in your R session.
 - Take one of the ggplot2 plots we have made so far in the workshop, and add interactive labelling to it.
 
+
+---
+# Animations
+
+- `gganimate` (Lin-Pederson) allows to make and save animations
+- Animations are different from interactive graphics in that the viewer does not have any control
+- useful for different important stages of a visualization (e.g. time) and to keep track of how different visualizations are related 
+--
+
+- can also be used in talks 
+
+---
+# An example animation
+
+```{r, echo=FALSE, fig.width = 8, fig.height = 6}
+library(gapminder)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7) +
+  scale_colour_manual(values = country_colors, guide=FALSE) +
+  scale_size("Population size", range = c(2, 12), breaks=c(1*10^8, 2*10^8, 5*10^8, 10^9, 2*20^9)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  theme(legend.position = "bottom") +
+  # Here comes the gganimate specific bits
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  gganimate::transition_time(year) +
+  gganimate::ease_aes('linear')
+```
+
+Countries are colored manually by `country_colors` (hue shows continent, saturation is individual country)
+
+---
+# How does `gganimate` work?
+
+
+#### Start with a ggplot2 specification 
+--
+
+#### Add layers with graphical primitives (geoms)
+
+--
+
+#### Add formatting specifications
+
+--
+
+### Add animation specifications
+
+---
+# A simple example
+
+- thanks to Mitch O'Hara Wild for the [example]()
+
+#### 1. Start by passing the data to ggplot
+
+.left-code[
+```{r plot1, eval=FALSE, echo=TRUE}
+ggplot(economics) #<<
+```
+]
+.right-plot[
+```{r output1, ref.label="plot1", echo=FALSE, cache=TRUE, fig.height = 6}
+```
+]
+
+---
+# A simple example
+
+- thanks to Mitch O'Hara Wild for the [example]()
+
+#### 2. add the mapping
+
+.left-code[
+```{r plot2, eval=FALSE, echo=TRUE}
+ggplot(economics) +
+  aes(date, unemploy) #<<
+```
+]
+.right-plot[
+```{r output2, ref.label="plot2", echo=FALSE, cache=TRUE, fig.height = 6}
+```
+]
+
+
+---
+# A simple example
+
+- thanks to Mitch O'Hara Wild for the [example]()
+
+#### 3.add a graphical primitive, let's do a line 
+
+.left-code[
+```{r plot3, eval=FALSE, echo=TRUE}
+ggplot(economics) +
+  aes(date, unemploy) +
+  geom_line() #<<
+```
+]
+.right-plot[
+```{r output3, ref.label="plot3", echo=FALSE, cache=TRUE, fig.height = 6}
+```
+]
+
+---
+# A simple example
+
+- thanks to Mitch O'Hara Wild for the [example]()
+
+#### 4. Just one extra line turns this into an animation!
+
+.left-code[
+```{r plot5-anim, eval=FALSE, echo=TRUE}
+ggplot(economics) +
+  aes(date, unemploy) +
+  geom_line() +
+  transition_reveal(date) #<<
+```
+]
+.right-plot[
+```{r output5-anim, ref.label="plot5-anim", echo=FALSE, cache=TRUE, fig.height = 6}
+```
+]
+
+---
+## A not-so-simple example, the datasaurus dozen
+Again, we first pass in the dataset to ggplot
+
+.left-code[
+```{r plot5, eval=FALSE, echo=TRUE}
+ggplot(datasaurus_dozen)#<<
+```
+]
+.right-plot[
+```{r output5, ref.label="plot5", echo=FALSE, cache=TRUE, fig.height = 10}
+```
+]
+---
+## A not-so-simple example, the datasaurus dozen
+For each dataset we have x and y values, in addition we can map dataset to color
+
+.left-code[
+```{r plot6, eval=FALSE, echo=TRUE}
+ggplot(datasaurus_dozen) +
+  aes(x, y, color=dataset)#<<
+```
+]
+.right-plot[
+```{r output6, ref.label="plot6", echo=FALSE, cache=TRUE, fig.height = 10}
+```
+]
+---
+## A not-so-simple example, the datasaurus dozen
+Trying a simple scatter plot first, but there is too much information
+.left-code[
+```{r plot7, eval=FALSE, echo=TRUE}
+ggplot(datasaurus_dozen) +
+  aes(x, y, color=dataset) +
+  geom_point() #<<
+```
+]
+.right-plot[
+```{r output7, ref.label="plot7", echo=FALSE, cache=TRUE, fig.height = 10}
+```
+]
+---
+## A not-so-simple example, the datasaurus dozen
+
+We can use facets to split up by dataset, revealing the different distributions
+.left-code[
+```{r plot8, eval=FALSE, echo=TRUE}
+ggplot(datasaurus_dozen) +
+  aes(x, y, color=dataset) +
+  geom_point() +
+  facet_wrap(~dataset)#<<
+```
+]
+.right-plot[
+```{r output8, ref.label="plot8", echo=FALSE, cache=TRUE, fig.height = 10}
+```
+]
+---
+## A not-so-simple example, the datasaurus dozen
+We can just as easily turn it into an animation, transitioning between dataset states! 
+
+.left-code[
+```{r plot9, eval=FALSE, echo=TRUE}
+ggplot(datasaurus_dozen) +
+  aes(x, y) +
+  geom_point() +
+  transition_states(dataset, 3, 1) + #<<
+  labs(title = "Dataset: {closest_state}") #<<
+
+```
+]
+.right-plot[
+```{r output9, ref.label="plot9", echo=FALSE, cache=TRUE, fig.height = 10}
+```
+]
+
+
 ---
 # Resources
 
 - web site for [ggvis](http://ggvis.rstudio.com)
 - web site for [plotly](https://plot.ly/r/getting-started/)
+- website for [gganimate](https://gganimate.com/)
+- Mitch O'Hara-Wild's [tutorial on gganimate](https://github.com/numbats/gganimate-workshop)
 
 ---
 # Share and share alike
