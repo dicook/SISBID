@@ -45,17 +45,10 @@ Download [RStudio >= 1.2.1335 ](https://www.rstudio.com/products/rstudio/downloa
 Open RStudio, and run the code below to install these packages and their dependencies:
 ```
 # CRAN packages
-packages <- c("tidyverse", "broom", "GGally", "nullabor", "shiny", "plotly", "xkcd", "gglogo", "geomnet", "seqinr", "ggenealogy", "ggmosaic", "HLMdiag", "dichromat", "janitor", "gapminder", "gganimate")
+packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
-
-# Bioconductor packages
-bioC <- c("ggbio", "edgeR", "EDASeq", "limma", "splatter", "Glimma", "gplots")
-source("https://bioconductor.org/biocLite.R")
-biocLite(bioC)
-
-
-# packages under development
-devtools::install_github("dicook/nullabor")
+# github packages
+remotes::install_github("wmurphyrd/fiftystater")
 ```
