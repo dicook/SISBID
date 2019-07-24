@@ -99,6 +99,28 @@ tb_us %>% group_by(year, age) %>%
   facet_wrap(~age, ncol=6) +
   ylab("proportion of males")
 
+# Your turn
+## ----use a line plot instead of bar, fig.height=3------------------------
+ggplot(tb_us, aes(x=year, y=count, colour=age)) +
+  geom_line() + geom_point() +
+  facet_wrap(~sex, ncol=6) +
+  scale_colour_brewer("", palette="Dark2")
+
+ggplot(tb_us, aes(x=year, y=count, colour=age)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) +
+  facet_wrap(~sex, ncol=6) +
+  scale_colour_brewer("", palette="Dark2")
+
+tb_us$sex <- factor(tb_us$sex, levels = c("f", "m"),
+                    labels=c("female", "male"))
+ggplot(tb_us, aes(x=year, y=count)) +
+  geom_point(aes(colour=age)) +
+  geom_smooth(method="lm",
+              se=FALSE, colour="black") +
+  facet_wrap(~sex, ncol=6) +
+  scale_colour_brewer("", palette="Dark2")
+
 
 ## ----load the platypus obervation data, echo=TRUE------------------------
 load(here::here("data/platypus.rda"))
@@ -122,6 +144,10 @@ ggmap(oz) +
   geom_point(data=platydata, aes(x=longitude, y=latitude),
               alpha=0.1, colour="orange")
 
+## Your turn: density plot
+ggmap(oz) +
+  geom_density2d(data=platydata, aes(x=longitude, y=latitude),
+             colour="orange")
 
 ## ----create a date variable, echo=TRUE-----------------------------------
 library(lubridate)
@@ -139,14 +165,11 @@ platydata1900 <- platydata %>% filter(year>1900) %>%
 ggplot(data=platydata1900) +
   geom_point(aes(x=year, y=n))
 
-
 ## ----add a trend line, echo=TRUE, out.width="60%"------------------------
 ggplot(data=platydata1900, aes(x=year, y=n)) +
   geom_point() +
   geom_smooth(se=F)
 
-
 ## ----make it interactive to investigate some observations, echo=TRUE-----
 library(plotly)
 ggplotly()
-
