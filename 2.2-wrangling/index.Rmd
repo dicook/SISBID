@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 ```
 
 
-```{r, echo = FALSE}
+```{r load packages, echo = FALSE}
 library(tidyverse)
 library(lubridate)
 library(gapminder)
@@ -58,7 +58,7 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 # Filter
 
 select a subset of the observations (horizontal selection)
-```{r}
+```{r select a subset of the observations}
 load(here::here("data/french_fries.rda"))
 french_fries %>%
     filter(subject == 3, time == 1)
@@ -68,7 +68,7 @@ french_fries %>%
 # Arrange
 
 order the observations (hierarchically)
-```{r}
+```{r order the observations}
 french_fries %>%
     arrange(desc(rancid)) %>%
     head
@@ -78,7 +78,7 @@ french_fries %>%
 # Select
 
 select a subset of the variables (vertical selection)
-```{r}
+```{r select a subset of the variables}
 french_fries %>%
     select(time, treatment, subject, rep, potato) %>%
     head
@@ -88,16 +88,16 @@ french_fries %>%
 # Summarise
 
 summarize observations into a (set of) one-number statistic(s):
-```{r}
+```{r summarize observations into one-number statistic}
 french_fries %>%
     summarise(mean_rancid = mean(rancid, na.rm=TRUE), 
               sd_rancid = sd(rancid, na.rm = TRUE))
 ```
 
 ---
-# Summarise and Group_by
+# Summarise and group_by
 
-```{r}
+```{r summarise and group_by}
 french_fries %>%
     group_by(time, treatment) %>%
     summarise(mean_rancid = mean(rancid), sd_rancid = sd(rancid))
@@ -135,7 +135,7 @@ How many values do we have for each subject? Check the help for function `?n`
 
 `n()`
 
-```{r}
+```{r checking design completeness}
 french_fries %>% 
   group_by(subject) %>% 
   summarize(n = n()) 
@@ -152,7 +152,7 @@ instead of `group_by(subject) %>% summarize(n = n())` we can use:
 ---
 # Counts for subject by time
 
-```{r}
+```{r counts for subject by time}
 french_fries %>% 
   na.omit() %>%
   count(subject, time) %>%
@@ -163,7 +163,7 @@ french_fries %>%
 ---
 # How do scores change over time?
 
-```{r fig.show='hide'}
+```{r do scores change over time, fig.show='hide'}
 ff.m <- french_fries %>% 
   gather(type, rating, -subject, -time, -treatment, -rep)
 ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) +
@@ -185,7 +185,7 @@ very messy!
 ---
 # Get means over reps, and connect the dots
 
-```{r fig.show='hide'}
+```{r get means over reps, and connect the dots, fig.show='hide'}
 ff.m.av <- ff.m %>% 
   group_by(subject, time, type, treatment) %>%
   summarise(rating=mean(rating))
@@ -215,7 +215,7 @@ Why would we even do that?
 ---
 # First Look
 
-```{r}
+```{r first look at gapminder data}
 ggplot(data=gapminder, 
        aes(x=year, y=lifeExp, group=country)) + 
   geom_line()
@@ -241,7 +241,7 @@ How about now?
 - Idea: fit a line to each one of the countries life expectancies
 - then use e.g. intercept and slope to characterise groups of countries
 
-```{r echo=FALSE, fig.width=6.5, fig.height=5}
+```{r using models as exploratory tools, echo=FALSE, fig.width=6.5, fig.height=5}
 library(dplyr)
 library(tidyr)
 library(purrr)
@@ -268,26 +268,26 @@ plotly::ggplotly(p)
 
 
 ---
-# Life Expectancy in the U.S.
+# Life expectancy in the U.S.
 
 Start with a single country, then generalize over all countries: 
 
-```{r}
+```{r start with a single country}
 usa <- gapminder %>% filter(country=="United States")
 head(usa)
 ```
 
 ---
-# Life Expectancy in the U.S. since 1950
+# Life expectancy in the U.S. since 1950
 
-```{r}
+```{r life expectancy in the U.S. since 1950}
 ggplot(data=usa, aes(x=year, y=lifeExp)) + 
   geom_point() +
   geom_smooth(method="lm")
 ```
 
 ---
-# Life Expectancy in the U.S. since 1950
+# Life expectancy in the U.S. since 1950
 
 ```{r}
 usa.lm <- lm(lifeExp~year, data=usa)
@@ -307,7 +307,7 @@ We don't want to subset the data for every country ...
 
 `nest()` makes a data frame part of another data frame:
 
-```{r}
+```{r nesting data}
 by_country <- gapminder %>% group_by(continent, country) %>% nest()
 head(by_country)
 ```
@@ -324,7 +324,7 @@ Now we are using the `map` function in the package `purrr`.
 
 `map` allows us to apply a function to each element of a list.
 
-```{r}
+```{r fitting multiple models}
 by_country$model <- by_country$data %>% purrr::map(~lm(lifeExp~year, data=.))
 head(by_country)
 ```
@@ -334,7 +334,7 @@ head(by_country)
 
 using `broom::tidy` we extract coefficients for each model
 
-```{r}
+```{r broom again}
 broom::tidy(by_country$model[[1]])
 ```
 
@@ -343,7 +343,7 @@ broom::tidy(by_country$model[[1]])
 
 Extract all countries automatically (hello `map` again!)
 
-```{r}
+```{r extract all countries automatically}
 by_country$coefs <- by_country$model %>% purrr::map(broom::tidy)
 by_country
 ```
@@ -353,7 +353,7 @@ by_country
 
 `unnest` pulls little data frames back into the whole frame
 
-```{r}
+```{r get the coefficients into one data set}
 by_country_coefs <- by_country %>% unnest(coefs)
 by_country_coefs
 
@@ -362,7 +362,7 @@ by_country_coefs
 ---
 # ... and finally, a visualization:
 
-```{r}
+```{r and finally a visualization}
 coefs <- by_country_coefs %>% 
   select(country, continent, term, estimate) %>% 
   spread(term, estimate)
@@ -380,7 +380,7 @@ class: inverse middle
 - which countries have the best five fits? which countries have the worst fits?
 - are there meaningful patterns?
 
-```{r, echo=FALSE, eval=FALSE}
+```{r solution to glance on model fits, echo=FALSE, eval=FALSE}
 by_country <- by_country %>% unnest(model %>% purrr::map(broom::glance))
 by_country$country <- reorder(by_country$country, by_country$r.squared)
 ggplot(data=by_country, aes(x=country, y=r.squared, colour=continent)) +
@@ -398,7 +398,7 @@ class: inverse middle
 - extract residuals for each of the models and store it in a dataset together with country and continent information
 - plot residuals across the years and fit a smooth. What does the pattern mean?
 
-```{r eval=FALSE, echo=FALSE}
+```{r solution to residuals from model fits, eval=FALSE, echo=FALSE}
 by_country$resids <- by_country$model %>% purrr::map(.f=residuals)
 by_country_fits <- unnest(by_country, data, resids)
 ggplot(data=by_country_fits, aes(x = lifeExp, y=resids)) + geom_point() +  geom_smooth()
