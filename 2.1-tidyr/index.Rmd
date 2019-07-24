@@ -30,13 +30,7 @@ knitr::opts_chunk$set(
 ```{r echo=FALSE}
 library(tidyverse)
 library(lubridate)
-#library(scales)
-#library(readr)
-#library(ggmap)
-#library(HLMdiag)
-#library(RColorBrewer)
-#library(gridExtra)
-#library(broom)
+library(broom)
 ```
 
 # Using `tidyr`, `dplyr`
