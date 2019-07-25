@@ -496,7 +496,7 @@ We control plot movement with (a grammar of animation):
 
 #### Transitions: `transition_*()` define how the data should be spread out and how it relates to itself across time.
 
--- 
+--
 
 #### Views: `view_*()` defines how the positional scales should change along the animation.
 
