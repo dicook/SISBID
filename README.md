@@ -24,7 +24,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 1. The grammar of graphics and ggplot2 (Di).
 1. Visual perception and effective plot construction (Heike)
 
-### Day 2
+### Day 2 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day2.zip)
 
 1. Tidy data and tidying your messy data with tidyr (Heike).
 1. Data manipulation with dplyr, purrr and broom (Heike).
