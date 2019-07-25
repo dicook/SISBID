@@ -336,7 +336,7 @@ class: inverse middle
 
 - Plot the countries that have the highest variance
 - Plot the countries with the smallest variance, and highest slope
-- Plot all the coutries in one plot, as transparent lines. 
+- Plot all the countries in one plot, as transparent lines. 
 
 
 ---

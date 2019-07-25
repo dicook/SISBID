@@ -6,7 +6,8 @@ library(GGally)
 library(tourr)
 library(broom)
 library(plotly)
-
+library(spinifex) # missing from original .r file
+library(RColorBrewer) # missing from original .r file
 
 ## ----scatterplot matrix, echo=TRUE, fig.width=6, fig.height=6------------
 # Make a simple scatterplot matrix of a classic data set
@@ -168,12 +169,12 @@ animate_xy(flea[,1:6], guided_tour(lda_pp(flea$species)), axes="bottomleft")
 # Take a variable, and rotate it out of the projection and see if the structure
 # persists or disappears.
 flea_std <- tourr::rescale(flea[, 1:6])
-##
+
 rb <- basis_random(n = ncol(flea_std))
 mtour <- manual_tour(basis = rb, manip_var = 4)
 sshow <- array2df(array = mtour, data = flea_std)
 render_plotly(slides = sshow)
-##
+
 render_plotly(slides = sshow, col = col_of(flea$species),
   fps = 2)
 

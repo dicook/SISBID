@@ -109,7 +109,7 @@ The 7 key elements of the grammar are:
 ---
 # Example: Tuberculosis data
 
-This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. There's also an R package, [TBinR](https://cran.r-project.org/web/packages/getTBinR/index.html), that can be used to dynamically download this data.
+This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. There's also an R package, [getTBinR](https://cran.r-project.org/web/packages/getTBinR/index.html), that can be used to dynamically download this data.
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
