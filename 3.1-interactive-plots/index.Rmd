@@ -335,7 +335,7 @@ Countries are colored manually by `country_colors` (hue shows continent, saturat
 
 --
 
-### Add animation specifications
+#### Add animation specifications
 
 ---
 # A simple example
@@ -422,7 +422,7 @@ ggplot(datasaurus_dozen)#<<
 ```
 ]
 .right-plot[
-```{r output5, ref.label="plot5", echo=FALSE, cache=TRUE, fig.height = 10}
+```{r output5, ref.label="plot5", echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -436,7 +436,7 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output6, ref.label="plot6", echo=FALSE, cache=TRUE, fig.height = 10}
+```{r output6, ref.label="plot6", echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -450,7 +450,7 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output7, ref.label="plot7", echo=FALSE, cache=TRUE, fig.height = 10}
+```{r output7, ref.label="plot7", echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -466,7 +466,7 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output8, ref.label="plot8", echo=FALSE, cache=TRUE, fig.height = 10}
+```{r output8, ref.label="plot8", echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -484,10 +484,55 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output9, ref.label="plot9", echo=FALSE, cache=TRUE, fig.height = 10}
+```{r output9, ref.label="plot9", echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 
+---
+# Controlling an animation
+
+We control plot movement with (a grammar of animation):
+
+
+#### Transitions: `transition_*()` define how the data should be spread out and how it relates to itself across time.
+
+-- 
+
+#### Views: `view_*()` defines how the positional scales should change along the animation.
+
+--
+
+#### Shadows: `shadow_*()` defines how data from other points in time should be presented in the given point in time.
+
+--
+
+#### Entrances/Exits: `enter_*()` and `exit_*()` define how new data should appear and how old data should disappear during the course of the animation.
+
+--
+
+#### Easing: `ease_aes()` defines how different aesthetics should be eased during transitions.
+
+---
+class: inverse middle
+# Your Turn
+
+The gapminder example from the beginning has the static part shown below
+
+Add animation parts! adding `transition_time(year)` results in the visualisation from the start. 
+
+What other animation are helpful? What views do you want to set? Maybe a shadow looks interesting?
+
+```{r}
+library(gapminder)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7) +
+  scale_colour_manual(values = country_colors, guide=FALSE) +
+  scale_size("Population size", range = c(2, 12), breaks=c(1*10^8, 2*10^8, 5*10^8, 10^9, 2*20^9)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  theme(legend.position = "bottom")
+```
 
 ---
 # Resources
