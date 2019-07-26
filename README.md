@@ -31,7 +31,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 1. Multivariate plots using ggplot2, GGally and tourr (Di).
 1. Advanced graphics, and statistical inference (Di) 
 
-### Day 3
+### Day 3 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day3.zip)
 
 1. Interactive and animated graphics using plotly and gganimate (Heike).
 1. Building interactive documents with Rmarkdown tools, learnr, flexdashboard (Di).

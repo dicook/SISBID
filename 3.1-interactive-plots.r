@@ -134,7 +134,6 @@ launch_app(age = c("Age20_24", "Age85plus"),
   other = c("Unemployed", "AusCitizen", "MedianPersonalIncome")
 )
 
-
 ## ---- echo=FALSE, fig.width = 8, fig.height = 6--------------------------
 library(gapminder)
 
@@ -205,4 +204,3 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   facet_wrap(~continent) +
   theme(legend.position = "bottom")
 
-## ---that's all folks----
