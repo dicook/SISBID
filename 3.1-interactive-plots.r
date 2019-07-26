@@ -134,6 +134,7 @@ launch_app(age = c("Age20_24", "Age85plus"),
   other = c("Unemployed", "AusCitizen", "MedianPersonalIncome")
 )
 
+
 ## ---- echo=FALSE, fig.width = 8, fig.height = 6--------------------------
 library(gapminder)
 
