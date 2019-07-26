@@ -38,6 +38,10 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 1. How to build a shiny app (Heike).
 1. Polish and share your own shiny app (Di).
 
+## Examples
+
+- [Cyber Bullying](ztimpe.shinyapps.io/apppractice)
+
 ## Software list
 
 Download [RStudio >= 1.2.1335 ](https://www.rstudio.com/products/rstudio/download/), [R version 3.6.1 (2019-07-05) -- "Action of the Toes"](https://cran.r-project.org)
