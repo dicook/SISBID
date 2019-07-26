@@ -62,7 +62,7 @@ Write the R code required to filter the platypus data to contain only incidence 
 glimpse(tb)
 ```
 
-```{r stb2010-solution}
+```{r tb2010-solution}
 tb %>% filter(year >= 2010)
 ```
 
