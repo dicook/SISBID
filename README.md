@@ -40,7 +40,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 ## Examples
 
-- [Cyber Bullying](ztimpe.shinyapps.io/apppractice)
+- [Cyber Bullying](https://ztimpe.shinyapps.io/apppractice)
 
 ## Software list
 
