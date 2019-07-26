@@ -70,6 +70,11 @@ australia_PISA2012 %>%
   ggpairs(columns=c(3, 15, 16, 21, 26),
           lower = list(continuous = my_fn))
 
+australia_PISA2012 %>%
+  filter(!is.na(dishwasher)) %>%
+  ggpairs(columns=c(3, 15, 16, 21, 26),
+          lower = list(continuous = my_fn, combo = "box"),
+          upper = list(combo = "facethist"))
 
 
 ## ----wrangle housing data------------------------------------------------
@@ -151,6 +156,10 @@ tb_burden %>% filter(country %in% increasing$country) %>%
     geom_smooth(method="lm", se=F) +
   facet_wrap(~country, scales = "free_y")
 
+ggplot(tb_burden, aes(x=year, y=e_mort_exc_tbhiv_100k)) +
+  geom_line(aes(group=country), alpha=0.2) +
+  geom_smooth(se=F, colour="black") +
+  scale_y_log10()
 
 ## ----guided tour 6D, eval=FALSE, echo=TRUE-------------------------------
 # The tour requires making many plots, and updating.

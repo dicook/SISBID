@@ -538,7 +538,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 # Resources
 
 - web site for [ggvis](http://ggvis.rstudio.com)
-- web site for [plotly](https://plot.ly/r/getting-started/)
+- Carson Sievert [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com)
 - website for [gganimate](https://gganimate.com/)
 - Mitch O'Hara-Wild's [tutorial on gganimate](https://github.com/numbats/gganimate-workshop)
 
