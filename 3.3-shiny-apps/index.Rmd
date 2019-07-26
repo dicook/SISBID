@@ -120,6 +120,15 @@ class: inverse middle
 - Authenticate your account
 - You may need to do some setup in your session, e.g. install the library `rsconnect`
 
+---
+# Example apps
+
+- Soybean plant breeding, has data from different sources: lineage from breeding literature, yield trials, next-generation sequencing data
+    - explore copy number variation [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/CNV/)
+    - explore SNPs [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/SNP/)
+- Peptide Library Calculator: Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
+- Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
+- Finding a statistical answer to a bullet matching problem: http://erichare.shinyapps.io/x3prplus
 
 ---
 # Resources
