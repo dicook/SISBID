@@ -128,7 +128,7 @@ class: inverse middle
     - explore SNPs [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/SNP/)
 - Peptide Library Calculator: Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
 - Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
-- Finding a statistical answer to a bullet matching problem: http://erichare.shinyapps.io/x3prplus
+- Finding a statistical answer to a bullet matching problem: https://oaiti.org/apps/bulletmatcher/
 
 ---
 # Resources
