@@ -1,4 +1,4 @@
-# SISBID 2019 Module 4: Visualization of Biomedical Big Data
+# SISBID 2020 Module 4: Visualization of Biomedical Big Data
 
 Instructors: Dianne Cook and Heike Hofmann
 
@@ -16,6 +16,26 @@ new techniques, they will also be able to put them into practice and receive fee
 We will assume some familiarity with R.
 
 Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.cookbook-r.com>, and R for Data Science, by Garrett Grolemund and Hadley Wickham, available at <http://r4ds.had.co.nz>.
+
+## Schedule
+
+All times are in Pacific Day Time:
+
+Wednesday:
+
+  - Lecture 1: 11:30-12:15
+  - Lecture 2: 12:45-1:30
+  - Lecture 3: 1:45-2:30
+
+Thursday, Friday:
+
+  - Lecture 1: 8-8:45
+  - Lecture 2: 9-9:45
+  - Lecture 3: 10:15-11
+  - Lecture 4: 11:15-noon
+  - Lecture 5: 12:30-1:15
+  - Lecture 6: 1:30-2:15
+
 
 ## Course outline
 
