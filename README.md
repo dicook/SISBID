@@ -28,8 +28,6 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 | Lecture 3         |  1:45 - 2:30 pm | 6:45 - 7:30 am |  3:45 - 4:30 pm | 4:45 - 5:30 pm |
 
 
-Thursday, Friday:
-
   
   | Thursday, Friday |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |
 |------------------|----------------:|---------------:|----------------:|---------------:|
@@ -42,6 +40,7 @@ Thursday, Friday:
 | Lecture 6         |  1:45 - 2:30 pm | 6:45 - 7:30 am |  3:45 - 4:30 pm | 4:45 - 5:30 pm |
   
 
+ changed from (will delete):
  
   - Lecture 1: 8-8:45
   - Lecture 2: 9-9:45
@@ -55,22 +54,34 @@ Thursday, Friday:
 
 ### Day 1 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day1.zip)
 
-1. The grammar of graphics and ggplot2 (Di).
-1. Visual perception and effective plot construction (Heike)
+1. The grammar of graphics and ggplot2 (Di). Heike will do this in 2020
+1. Visual perception and effective plot construction (Heike) Di will do this in 2020
+
 
 ### Day 2 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day2.zip)
 
+Morning: 
+
 1. Tidy data and tidying your messy data with tidyr (Heike).
 1. Data manipulation with dplyr, purrr and broom (Heike).
+
+Afternoon: 
+
 1. Multivariate plots using ggplot2, GGally and tourr (Di).
 1. Advanced graphics, and statistical inference (Di) 
 
 ### Day 3 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day3.zip)
 
+Morning:
+
 1. Interactive and animated graphics using plotly and gganimate (Heike).
-1. Building interactive documents with Rmarkdown tools, learnr, flexdashboard (Di).
+1. Building interactive documents with Rmarkdown tools, learnr, flexdashboard (Di). XXX do we need this? I could expand more into leaflet and shiny and start with shiny in the morning. 
 1. How to build a shiny app (Heike).
+
+Afternoon:
+
 1. Polish and share your own shiny app (Di).
+
 
 ## Examples
 
