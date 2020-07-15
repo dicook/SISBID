@@ -19,16 +19,30 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 ## Schedule
 
-All times are in Pacific Day Time:
 
-Wednesday:
+| Wednesday, Jul 22 |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |
+|-------------------|----------------:|---------------:|----------------:|---------------:|
+| Meet & Greet         |   11:30 - 11:45 am | 4:30 - 4:45 am |  1:30 - 1:45 pm | 2:30 - 2:45 pm |
+| Lecture 1         |   11:45 - 12:30 | 4:45 - 5:30 am |  1:45 - 2:30 pm | 2:45 - 3:30 pm |
+| Lecture 2         | 12:45 - 1:30 pm | 5:45 - 6:30 am |  2:45 - 3:30 pm | 3:45 - 4:30 pm |
+| Lecture 3         |  1:45 - 2:30 pm | 6:45 - 7:30 am |  3:45 - 4:30 pm | 4:45 - 5:30 pm |
 
-  - Lecture 1: 11:30-12:15
-  - Lecture 2: 12:45-1:30
-  - Lecture 3: 1:45-2:30
 
 Thursday, Friday:
 
+  
+  | Thursday, Friday |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |
+|------------------|----------------:|---------------:|----------------:|---------------:|
+| Lecture 1         |   8:00 - 8:45 am | 1:00 - 1:45 am |  10:00 - 10:45 am | 11:00 - 11:45 am 
+| Lecture 2         | 9:00 - 9:45 am | 2:00 - 2:45 am |  11:00 - 11:45 am | 12:00 - 12:45 pm |
+| Lecture 3         |  10:00 - 10:45 am | 3:00 - 3:45 am|   12:00 - 12:45 pm | 1:00 - 1:45 pm  |
+| Break |||||
+| Lecture 4         |   11:45 - 12:30 | 4:45 - 5:30 am |  1:45 - 2:30 pm | 2:45 - 3:30 pm |
+| Lecture 5         | 12:45 - 1:30 pm | 5:45 - 6:30 am |  2:45 - 3:30 pm | 3:45 - 4:30 pm |
+| Lecture 6         |  1:45 - 2:30 pm | 6:45 - 7:30 am |  3:45 - 4:30 pm | 4:45 - 5:30 pm |
+  
+
+ 
   - Lecture 1: 8-8:45
   - Lecture 2: 9-9:45
   - Lecture 3: 10:15-11
