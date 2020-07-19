@@ -1,0 +1,400 @@
+---
+title: "Visual perception and effective plot construction"
+subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+date: ""07/22-24/2020""
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:8'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  echo=FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE, 
+  collapse = TRUE,
+  comment = "",
+  fig.height = 6,
+  fig.width = 10,
+  fig.align = "center",
+  fig.retina = 3,
+  cache = FALSE
+)
+```
+
+```{r load libraries, echo=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(gridExtra)
+library(dichromat)
+library(here)
+```
+
+
+```{r read TB data and wrangle and subset to USA}
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage)
+
+# Filter years between 1997 and 2012 due to missings
+tb_us <- tb %>% 
+  filter(country == "United States of America") %>%
+  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+  filter(year > 1996, year < 2013)
+```
+
+
+```{r focus on one year gender, side-by-side bars of males/females, fig.height=3}
+tb_us %>% filter(year == 2012) %>%
+  ggplot(aes(x=sex, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Arrangement A")
+```
+
+```{r focus on one year age, side-by-side bars of age group, fig.height=3}
+tb_us %>% filter(year == 2012) %>%
+  ggplot(aes(x=age, y=count, fill=age)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Arrangement B")
+```
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+We've got two different rearrangements of the same information. 
+
+What do we learn? That is different from each? What's the focus of each? What's easy, what's harder?
+
+```{r eval=FALSE}
+- Arrangement A makes it easier to directly compare male and female counts, separately for each age group. Generally, male counts are higher than female counts. There is a big difference between counts in the 45-54 age group, and over 65 counts are almost the same.
+- Arrangement B makes it easier to directly compare counts by age group, separately for females and males. For females, incidence drops in the middle years. For males, it is pretty consistently high across age groups. 
+```
+
+
+
+---
+
+```{r use a line plot instead of bar, fig.height=3}
+ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  scale_colour_brewer("", palette="Dark2") +
+  ggtitle("Type A")
+```
+
+```{r colour and axes fixes, fig.height=3}
+# This uses a color blind proof scale
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Type B")
+```
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+What are the pros and cons of each way of displaying the same information?
+
+---
+
+```{r use a line plot for proportions, fig.height=3}
+tb_us %>% group_by(year, age) %>% 
+  summarise(p = count[sex=="m"]/sum(count)) %>%
+  ggplot(aes(x=year, y=p)) +
+  geom_hline(yintercept = 0.50, colour="white", size=2) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  ylab("proportion of males") +
+  ggtitle("Type A")
+```
+
+```{r compare proportions of males/females, fig.height=4}
+# Fill the bars, note the small change to the code
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") + ylab("proportion") +
+  ggtitle("Type B") + theme(legend.position = "bottom")
+```
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+Which is better? Show the proportion of one group, or split the bars?
+
+---
+# Perceptual principles
+
+- Hierarchy of mappings
+- Pre-attentive: some elements are noticed before you even realise it.
+- Color palettes: qualitative, sequential, diverging.
+- Proximity: Place elements for primary comparison close together. 
+- Change blindness: When focus is interrupted differences may not be noticed.
+
+---
+# Hierarchy of mappings
+
+1. Position - common scale (BEST)
+2. Position - nonaligned scale
+3. Length, direction, angle
+4. Area
+5. Volume, curvature
+6. Shading, color (WORST)
+
+(Cleveland, 1984; Heer and Bostock, 2009)
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+Come up with a plot type for each of the mappings.
+
+```{r eval=FALSE}
+1. scatterplot, barchart
+2. side-by-side boxplot, stacked barchart
+3. piechart, rose plot, gauge plot, donut, wind direction map, starplot
+4. treemap, bubble chart, mosaicplot
+5. chernoff face
+6. choropleth map
+```
+
+---
+# Color palettes 
+
+```{r show different types of color palettes, fig.height=7, fig.width=12}
+display.brewer.all()
+```
+
+Sequential, diverging, qualitative: [Color Brewer web site](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) annotates the palettes indicating attributes of the palettes.
+
+---
+# Sequential
+
+```{r mapping numbers to rainbow sequential scale, echo=TRUE, out.width="60%", fig.width=7, fig.height=4}
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+(d <- ggplot(dsamp, aes(carat, price)) +
+  geom_point(aes(colour = clarity)))
+```
+
+Map quantitative variable into color scheme that emphasizes one ened, either high or low. Rainbow scheme with viridis palette gives true grey scale. 
+
+---
+# Sequential
+
+```{r mapping numbers to sequential scale, echo=TRUE, fig.width=7, fig.height=4, out.width="60%"}
+d + scale_colour_brewer()
+```
+
+Default brewer sequential scale, blues. Focus is on the dark blue.
+
+---
+# Diverging
+
+```{r mapping numbers to diverging scale, echo=TRUE, fig.width=7, fig.height=4, out.width="60%"}
+d + scale_colour_brewer(palette="PRGn")
+```
+
+Map quantitative variable into color scheme that emphasizes both ends, either high AND low, de-emphasizing middle.
+
+---
+# Qualitative
+
+```{r mapping numbers to qualitative palette, echo=TRUE, , fig.width=7, fig.height=4, out.width="60%"}
+d + scale_colour_brewer(palette="Set1")
+```
+
+Map quantitative variable into color scheme to most differentiated set. It's possible to have too many colours to perceive the differences.
+
+---
+class: inverse middle
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+Of the previous three colour schemes on the same data, which would be the most appropriate?
+
+---
+# Color blind-proofing
+
+```{r using the dichromat package to check color blind appearance, echo=TRUE, fig.show='hide'}
+library(scales)
+library(dichromat)
+clrs <- hue_pal()(9)
+d + theme(legend.position = "none")
+clrs <- dichromat(hue_pal()(9))
+d + scale_fill_manual("", values=clrs) + theme(legend.position = "none")
+```
+
+Online checking tool [coblis](https://www.color-blindness.com/coblis-color-blindness-simulator/) allows you to upload an image and it will re-map the colors for different colour perception issues. The package `colorblind` has color blind friendly palettes but the colours are awful, to my eye.
+
+---
+
+```{r show the default colour scheme and dichromat adjusted colors, echo=FALSE, fig.height=8}
+clrs <- hue_pal()(9)
+p1 <- d + theme(legend.position = "none") + scale_color_discrete()
+
+clrs <- dichromat(hue_pal()(9))
+p2 <- d + scale_color_manual("", values=clrs) + theme(legend.position = "none")
+
+grid.arrange(p1, p2, ncol=1)
+```
+
+---
+# Pre-attentive
+
+Can you find the odd one out?
+
+```{r is shape preattentive, echo=FALSE}
+set.seed(20190715)
+df <- data.frame(x=runif(100), y=runif(100), cl=sample(c(rep("A", 1), rep("B", 99))))
+ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() + 
+  geom_point(size=3) +
+  theme(legend.position="None", aspect.ratio=1)
+```
+
+---
+
+Is it easier now?
+
+```{r is color preattentive, echo=FALSE}
+ggplot(data=df, aes(x, y, colour=cl)) + 
+  geom_point(size=3) +
+  theme_bw() + 
+  scale_colour_brewer(palette="Set1") +
+  theme(legend.position="None", aspect.ratio=1)
+```
+
+---
+# Proximity
+
+```{r a line plot on sex, fig.height=3}
+ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  ylim(c(0,1150)) +
+  scale_colour_brewer("", palette="Dark2") +
+  ggtitle("Arrangement A")
+```
+
+```{r a line plot on age, fig.height=3, fig.width=6}
+ggplot(tb_us, aes(x=year, y=count, colour=age)) +
+  geom_line() + geom_point() +
+  facet_wrap(~sex, ncol=6) +
+  ylim(c(0,1150)) +
+  scale_colour_brewer("", palette="Dark2") +
+  ggtitle("Arrangement B")
+```
+
+---
+# Mapping and proximity
+
+```{r side-by-side bars of males/females, fig.height=3}
+tb_us %>% filter(year == 2012) %>%
+  ggplot(aes(x=sex, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Position - common scale ")
+```
+
+```{r piecharts of males/females, fig.height=3}
+tb_us %>% filter(year == 2012) %>%
+  ggplot(aes(x=1, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Angle") + xlab("") + ylab("") +
+  coord_polar(theta = "y")
+```
+
+
+---
+# Mapping and proximity
+
+```{r side-by-side bars of age, fig.height=3}
+tb_us %>% filter(year == 2012) %>%
+  ggplot(aes(x=age, y=count, fill=age)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Position - common scale ")
+```
+
+```{r piecharts of age, fig.height=3}
+tb_us %>% filter(year == 2012) %>%
+  ggplot(aes(x=1, y=count, fill=age)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Angle") + xlab("") + ylab("") +
+  coord_polar(theta = "y")
+```
+
+---
+# Change blindness
+
+```{r facetting plots can result in change blindness, echo=TRUE, out.width="50%", fig.width=6.5, fig.height=3.5}
+ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
+  geom_point() +
+  geom_smooth(se=FALSE) +
+  scale_color_brewer(palette="Set1") +
+  facet_wrap(~clarity, ncol=4)
+```
+
+Which has the steeper slope, VS1 or VS2?
+
+---
+
+Making comparisons across plots requires the eye to jump from one focal point to another. It may result in not noticing differences. 
+
+
+```{r averlaying makes comparisons easier, echo=TRUE, out.width="70%", fig.width=7, fig.height=4}
+ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
+  geom_point() +
+  geom_smooth(se=FALSE) +
+  scale_color_brewer(palette="Set1") 
+```
+
+---
+# Core principles
+
+- Make a plot of your **data**! The hierarchy matters primarily if the structure is weak, or if differences between groups is small. 
+- Knowing how to use proximity is an extremely valuable skill, and not well utilised.
+- Use of colour is a very valuable skill, and there are many bad habits to over-use, too many colours or precariously mapping to a continuous variable to add another dimension. 
+
+<br> 
+
+- Show the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself and to keep track of the variability.
+- One plot is never enough! Plot the data in different ways, it will help digest the relationships between variables, to gain a better understanding of the data.
+
+---
+# Resources
+
+- [Naomi Robbins, Creating More Effective Graphs](http://www.nbr-graphs.com)
+- [Cleveland WS, McGill R. 1984. Graphical perception: Theory, experimentation, ...](https://www.tandfonline.com/doi/abs/10.1080/01621459.1984.10478080)
+- [Heer J, Bostock M. 2010. Crowdsourcing graphical perception](http://vis.stanford.edu/files/2010-MTurk-CHI.pdf)
+- [Antony Unwin, Graphical Data Analysis with R](https://www.crcpress.com/Graphical-Data-Analysis-with-R/Unwin/9781498715232)
+- [Wagemans J et al. 2012. A Century of Gestalt Psychology in Visual Perception: I. Perceptual Grouping and Figure-Ground Organization. Psychological Bulletin 138:1172–1217](http://dx.doi.org/10.1037/a0029333)
+- [Wagemans J, Feldman J, Gepshtein S, Kimchi R, Pomerantz JR, et al. 2012. A Century of Gestalt psychology in Visual Perception: II. Conceptual and Theoretical Foundations. Psychological Bulletin 138:1218–1252](https://doi.org/10.1037/a0029334)
+- [Wickham H. 2013. Graphical criticism](https://vita.had.co.nz/papers/stat-graph-hist.pdf)
+- [VanderPlas S, Goluch R, Hofmann H. 2019. Framed!](https://amstat.tandfonline.com/doi/full/10.1080/10618600.2018.1562937#.XS41dS1L21s)
+- [VanderPlas S, Hofmann H. 2015 Signs of the Sine Illusion](https://amstat.tandfonline.com/doi/abs/10.1080/10618600.2014.951547?scroll=top&needAccess=true&journalCode=ucgs20#.XS413i1L21s)
+
+---
+# Share and share alike
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.

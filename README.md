@@ -54,7 +54,8 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 ### Day 1 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day1.zip)
 
-1. The grammar of graphics and ggplot2 (Heike). 
+1. The grammar of graphics and ggplot2 (Heike)
+1. Advancing the grammar to maps, time and interactivity (Heike)
 1. Visual perception and effective plot construction (Di)
 
 ### Day 2 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day2.zip)

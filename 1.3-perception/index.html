@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Visual perception and effective plot construction</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="myremark.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Visual perception and effective plot construction
+## SISBID 2019 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### 07/24-26/2019
+
+---
+
+
+
+
+
+
+
+
+
+
+&lt;img src="index_files/figure-html/focus on one year gender, side-by-side bars of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/focus on one year age, side-by-side bars of age group-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+We've got two different rearrangements of the same information. 
+
+What do we learn? That is different from each? What's the focus of each? What's easy, what's harder?
+
+
+
+
+
+---
+
+&lt;img src="index_files/figure-html/use a line plot instead of bar-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/colour and axes fixes-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+What are the pros and cons of each way of displaying the same information?
+
+---
+
+&lt;img src="index_files/figure-html/use a line plot for proportions-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/compare proportions of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+Which is better? Show the proportion of one group, or split the bars?
+
+---
+# Perceptual principles
+
+- Hierarchy of mappings
+- Pre-attentive: some elements are noticed before you even realise it.
+- Color palettes: qualitative, sequential, diverging.
+- Proximity: Place elements for primary comparison close together. 
+- Change blindness: When focus is interrupted differences may not be noticed.
+
+---
+# Hierarchy of mappings
+
+1. Position - common scale (BEST)
+2. Position - nonaligned scale
+3. Length, direction, angle
+4. Area
+5. Volume, curvature
+6. Shading, color (WORST)
+
+(Cleveland, 1984; Heer and Bostock, 2009)
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+Come up with a plot type for each of the mappings.
+
+
+
+---
+# Color palettes 
+
+&lt;img src="index_files/figure-html/show different types of color palettes-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+Sequential, diverging, qualitative: [Color Brewer web site](http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3) annotates the palettes indicating attributes of the palettes.
+
+---
+# Sequential
+
+
+```r
+dsamp &lt;- diamonds[sample(nrow(diamonds), 1000), ]
+(d &lt;- ggplot(dsamp, aes(carat, price)) +
+  geom_point(aes(colour = clarity)))
+```
+
+&lt;img src="index_files/figure-html/mapping numbers to rainbow sequential scale-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+Map quantitative variable into color scheme that emphasizes one ened, either high or low. Rainbow scheme with viridis palette gives true grey scale. 
+
+---
+# Sequential
+
+
+```r
+d + scale_colour_brewer()
+```
+
+&lt;img src="index_files/figure-html/mapping numbers to sequential scale-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+Default brewer sequential scale, blues. Focus is on the dark blue.
+
+---
+# Diverging
+
+
+```r
+d + scale_colour_brewer(palette="PRGn")
+```
+
+&lt;img src="index_files/figure-html/mapping numbers to diverging scale-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+Map quantitative variable into color scheme that emphasizes both ends, either high AND low, de-emphasizing middle.
+
+---
+# Qualitative
+
+
+```r
+d + scale_colour_brewer(palette="Set1")
+```
+
+&lt;img src="index_files/figure-html/mapping numbers to qualitative palette-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+Map quantitative variable into color scheme to most differentiated set. It's possible to have too many colours to perceive the differences.
+
+---
+class: inverse middle
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+Of the previous three colour schemes on the same data, which would be the most appropriate?
+
+---
+# Color blind-proofing
+
+
+```r
+library(scales)
+library(dichromat)
+clrs &lt;- hue_pal()(9)
+d + theme(legend.position = "none")
+clrs &lt;- dichromat(hue_pal()(9))
+d + scale_fill_manual("", values=clrs) + theme(legend.position = "none")
+```
+
+Online checking tool [coblis](https://www.color-blindness.com/coblis-color-blindness-simulator/) allows you to upload an image and it will re-map the colors for different colour perception issues. The package `colorblind` has color blind friendly palettes but the colours are awful, to my eye.
+
+---
+
+&lt;img src="index_files/figure-html/show the default colour scheme and dichromat adjusted colors-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+# Pre-attentive
+
+Can you find the odd one out?
+
+&lt;img src="index_files/figure-html/is shape preattentive-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+Is it easier now?
+
+&lt;img src="index_files/figure-html/is color preattentive-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+# Proximity
+
+&lt;img src="index_files/figure-html/a line plot on sex-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/a line plot on age-1.png" width="432" style="display: block; margin: auto;" /&gt;
+
+---
+# Mapping and proximity
+
+&lt;img src="index_files/figure-html/side-by-side bars of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/piecharts of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Mapping and proximity
+
+&lt;img src="index_files/figure-html/side-by-side bars of age-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/piecharts of age-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+# Change blindness
+
+
+```r
+ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
+  geom_point() +
+  geom_smooth(se=FALSE) +
+  scale_color_brewer(palette="Set1") +
+  facet_wrap(~clarity, ncol=4)
+```
+
+&lt;img src="index_files/figure-html/facetting plots can result in change blindness-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+Which has the steeper slope, VS1 or VS2?
+
+---
+
+Making comparisons across plots requires the eye to jump from one focal point to another. It may result in not noticing differences. 
+
+
+
+```r
+ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
+  geom_point() +
+  geom_smooth(se=FALSE) +
+  scale_color_brewer(palette="Set1") 
+```
+
+&lt;img src="index_files/figure-html/averlaying makes comparisons easier-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+# Core principles
+
+- Make a plot of your **data**! The hierarchy matters primarily if the structure is weak, or if differences between groups is small. 
+- Knowing how to use proximity is an extremely valuable skill, and not well utilised.
+- Use of colour is a very valuable skill, and there are many bad habits to over-use, too many colours or precariously mapping to a continuous variable to add another dimension. 
+
+&lt;br&gt; 
+
+- Show the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself and to keep track of the variability.
+- One plot is never enough! Plot the data in different ways, it will help digest the relationships between variables, to gain a better understanding of the data.
+
+---
+# Resources
+
+- [Naomi Robbins, Creating More Effective Graphs](http://www.nbr-graphs.com)
+- [Cleveland WS, McGill R. 1984. Graphical perception: Theory, experimentation, ...](https://www.tandfonline.com/doi/abs/10.1080/01621459.1984.10478080)
+- [Heer J, Bostock M. 2010. Crowdsourcing graphical perception](http://vis.stanford.edu/files/2010-MTurk-CHI.pdf)
+- [Antony Unwin, Graphical Data Analysis with R](https://www.crcpress.com/Graphical-Data-Analysis-with-R/Unwin/9781498715232)
+- [Wagemans J et al. 2012. A Century of Gestalt Psychology in Visual Perception: I. Perceptual Grouping and Figure-Ground Organization. Psychological Bulletin 138:1172–1217](http://dx.doi.org/10.1037/a0029333)
+- [Wagemans J, Feldman J, Gepshtein S, Kimchi R, Pomerantz JR, et al. 2012. A Century of Gestalt psychology in Visual Perception: II. Conceptual and Theoretical Foundations. Psychological Bulletin 138:1218–1252](https://doi.org/10.1037/a0029334)
+- [Wickham H. 2013. Graphical criticism](https://vita.had.co.nz/papers/stat-graph-hist.pdf)
+- [VanderPlas S, Goluch R, Hofmann H. 2019. Framed!](https://amstat.tandfonline.com/doi/full/10.1080/10618600.2018.1562937#.XS41dS1L21s)
+- [VanderPlas S, Hofmann H. 2015 Signs of the Sine Illusion](https://amstat.tandfonline.com/doi/abs/10.1080/10618600.2014.951547?scroll=top&amp;needAccess=true&amp;journalCode=ucgs20#.XS413i1L21s)
+
+---
+# Share and share alike
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:8",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
