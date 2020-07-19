@@ -29,12 +29,12 @@ knitr::opts_chunk$set(
 ```
 
 ```{r eval=FALSE, echo=FALSE}
-install.packages("devtools")
+install.packages("remotes")
 install.packages("xaringan")
-devtools::install_github("hadley/emo")
-devtools::install_github("ropenscilabs/icon")
-devtools::install_github('emitanaka/anicon')
-devtools::install_github('dicook/gretchenalbrecht')
+remotes::install_github("hadley/emo")
+remotes::install_github("ropenscilabs/icon")
+remotes::install_github('emitanaka/anicon')
+remotes::install_github('dicook/gretchenalbrecht')
 gretchenalbrecht:::add_palette("sunset.png", "sunset")
 sunset <- get_pal(30, "sunset")
 viz_palette(sunset$col)
