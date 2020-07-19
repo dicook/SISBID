@@ -89,9 +89,23 @@ viz_palette(sunset$col)
 
 <img src="Hello-Sherry.png" width="80%" />
 
+
+---
+# Talking to people in  the class
+
+We will be using breakout rooms throughout the class
+
+4-6 people in each room
+
+at the end of the time you will be 'zoomed back' into the main session
+
+
+... in cases you get disconnected, just log back into the Zoom session and we get you back to your group.
+
+
 ---
 class: inverse middle 
-# Your turn: meet your neighbors!
+# Your turn: meet the class!
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")`
 
@@ -100,14 +114,14 @@ Introduce yourself to the people around you. Find out a little about them: where
 `r anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2", position=c(0,0,0,200))` `r anicon::faa("handshake", animate="shake", grow=20, color="#F33816", position=c(0,0,0,250))` `r anicon::faa("hand-spock", animate="wrench", grow=20, color="#0774E4", position=c(0,0,0,300))`
 
 
-.large[.yellow[You've got 2 minutes - timer is running!]]
+.large[.yellow[You've got 5 minutes - timer is running!]]
 
 
 ---
 class: inverse middle 
 # Your turn: Course materials
 
-https://github.com/dicook/SISBID
+https://github.com/dicook/SISBID  XXX link to slides
 
 - __Download__ `SISBID_day1.zip` (a zip archive) of the workshop files which contains all the code files, Rmarkdown files, and data for day 1 of this workshop. __Unzip the file__.
 - __Double-click__ `SISBID.Rproj`. The R project helps organise your work over these next few days. 
