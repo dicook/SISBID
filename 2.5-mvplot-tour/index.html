@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Touring multivariate data</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="myremark.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Touring multivariate data
+## SISBID 2020 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### 07/22-24/2020
+
+---
+
+
+
+
+
+
+
+# Tours of high-dimensions
+
+
+Most of what you find when you google "visualising high-dimensions" is awful, e.g. use colour and symbol after 3D to show 5D; PCA, MDS, tSNE, are visualisation methods; "you can't see beyond 3D".... Rubbish!
+
+**What are dimensions?**
+
+&lt;img src="cubes.png" style="width: 90%; align: center" /&gt;
+
+- When you add another variable, you implicitly add another orthogonal axis. 
+- The space is effectively a `\(p\)`-dimensional cube
+- The data might not fill the cube, and then dimension reduction might make it a `\(k(&lt;p)\)`-dimensional cube
+
+---
+# Quick intro
+
+&lt;img src="images/tourr.png" width="10%" /&gt;
+
+*Without thinking too much*: How many clusters do you see?
+
+
+```r
+# The tour requires making many plots, and updating.
+# The RStudio graphics device doesn't work well
+# Open a graphics window
+# quartz()  # Mac OSX
+# X11()     # Windows
+animate_xy(flea[,1:6], axes = "off")
+```
+
+
+---
+# What is a tour?
+
+.pull-left[
+A grand tour is by definition a movie of low-dimensional projections constructed in such a way that it comes arbitrarily close to showing all possible low-dimensional projections; in other words, a grand tour is a space-filling curve in the manifold of low-dimensional projections of high-dimensional data spaces.
+
+&lt;img src="images/hands.png" width="60%"&gt;
+]
+.pull-right[
+Movement patterns indicate structure:
+
+&lt;img src="images/tour_schematic.png" width="80%"&gt;
+]
+---
+
+Here is a grand tour of a 3D classic data set
+
+&lt;iframe src="images/flea3d.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
+
+The axes show the combination of variables making up any particular 2D projection.
+
+---
+
+This is a grand tour of the full 6D. Can you see clusters? Corresponding to the colours? 
+
+&lt;iframe src="images/flea6d.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
+
+These two animations were made with `plotly`.
+
+---
+# Why use a tour?
+
+Other than basic exploration:
+
+- **initial data analysis**: to examine whether the data 
+    - satisfies assumptions required for the method
+    - has unexpected complications like outliers or nonlinearity
+- **examine the model fit**:    
+    - dimension reduction, e.g. to look at more than 2 PCs
+    - clustering, and examine the model like the dendrogram in high-d, or the k-means, or the estimated model from model-based
+    - classification: boundaries between classes, misclassifications, diagnostics like vote matrix from random forest
+
+---
+# Guided tour
+
+The guided tour chooses new target projections by optimising a function of interest:
+
+`$$\mathop{\text{maximize}}_{\phi_{11},\dots,\phi_{p1}} f\left(\sum_{j=1}^p \phi_{j1}x_{ij}\right) \text{ subject to }
+\sum_{j=1}^p \phi^2_{j1} = 1$$`
+
+- `holes`: This is an inverse Gaussian filter, which is optimised wheren there is not much data in the center of the projection, i.e. a "hole" or donut shape in 2D.
+- `central mass`: The opposite of holes, high density in the centre of the projection, and often "outliers" on the edges. 
+- `LDA`: An index based on the linear discrimination dimension reduction, optimised by projections where the named classes are most separated.
+
+
+```r
+# The tour requires making many plots, and updating.
+# The RStudio graphics device doesn't work well
+# Open a graphics window
+# quartz()  # Mac OSX
+# X11()     # Windows
+animate_xy(flea[,1:6], guided_tour(lda_pp(flea$species)), axes="bottomleft")
+```
+
+---
+# Manual tour
+
+This is a good way to determine how important a structure in the projection is to a particular variable contribution. You can "rotate" a variable out, and observe if the pattern remains or disappears. 
+
+
+```r
+# When you find a low dimensional projection from some other technique
+# such as principal component analysis, linear discriminant analysis or 
+# projection pursuit, it is useful to examine the sensitivity of structure
+# to variables in the projection. This is the purpose of the manual tour. 
+# Take a variable, and rotate it out of the projection and see if the structure
+# persists or disappears.
+flea_std &lt;- tourr::rescale(flea[, 1:6])
+
+rb &lt;- basis_random(n = ncol(flea_std))
+mtour &lt;- manual_tour(basis = rb, manip_var = 4)
+sshow &lt;- array2df(array = mtour, data = flea_std)
+render_plotly(slides = sshow)
+
+render_plotly(slides = sshow, col = col_of(flea$species), 
+  fps = 2)
+```
+
+---
+# Examining models: randomForest
+
+We will take a look at the vote matrix from a random forest fit, on the classic olive oil data. The vote matrix contains the proportion of times each observation is predicted to be in each class. Geometrically it is a simplex. Points close to a vertex, correspond to observations where the classifier almost always predicts to one class, that is, very certain. Points between vertices are observations with uncertainty.
+
+
+```r
+olive &lt;- read_csv("http://www.ggobi.org/book/data/olive.csv") %&gt;%
+  rename(name=X1)
+olive &lt;- olive %&gt;%
+  filter(region == 1) %&gt;%
+  mutate(area = factor(area))
+pal &lt;- brewer.pal(4, "Dark2")
+col &lt;- pal[olive$area]
+# drop eicosenoic, all low for south
+animate_xy(olive[,4:10], axes="bottomleft", col=col) 
+# Drop Sicily
+animate_xy(olive[olive$area!=4,4:10], axes="bottomleft", col=col[olive$area!=4]) 
+```
+
+---
+
+
+```r
+olive_rf &lt;- randomForest(area~., data=olive[,-c(1, 2, 11)], importance=TRUE, proximity=TRUE)
+olive_rf
+vt &lt;- data.frame(olive_rf$votes)
+vt$area &lt;- olive$area
+ggscatmat(vt, columns=1:4, col="area") + 
+  scale_colour_brewer("", palette="Dark2")
+proj &lt;- t(geozoo::f_helmert(4)[-1,])
+vtp &lt;- as.matrix(vt[,-5])%*%proj
+vtp &lt;- data.frame(vtp, area=vt$area)
+ggscatmat(vtp, columns=1:3, col="area") + 
+  scale_colour_brewer("", palette="Dark2")
+pal &lt;- brewer.pal(4, "Dark2")
+col &lt;- pal[as.numeric(vtp[, 4])]
+animate_xy(vtp[,1:3], col=col, axes = "bottomleft")
+# Add simplex
+simp &lt;- simplex(p=3)
+sp &lt;- data.frame(simp$points)
+colnames(sp) &lt;- c("x1", "x2", "x3")
+colnames(vtp) &lt;- c("x1", "x2", "x3")
+vtp_s &lt;- bind_rows(sp, vtp[,1:3])
+animate_xy(vtp_s, col=col, axes = "bottomleft", edges=as.matrix(simp$edges), center=TRUE)
+```
+
+---
+# Examining models: principal component analysis
+
+.pull-left[
+
+```r
+library(naniar) # Have missings!
+tb_burden_wide &lt;- tb_burden %&gt;%
+  select(country, g_whoregion, year, 
+         e_mort_exc_tbhiv_100k) %&gt;%
+  spread(year, e_mort_exc_tbhiv_100k) %&gt;%
+  filter(complete.cases(.)) %&gt;%
+  rename(region = g_whoregion) %&gt;%
+  mutate(country = factor(country), 
+         region = factor(region))
+# vis_miss(tb_burden_wide)  
+tb_pca &lt;- prcomp(tb_burden_wide[,-c(1:2)], 
+                 scale=FALSE, retx=TRUE)
+screeplot(tb_pca, type="line")
+tb_pcs &lt;- bind_cols(as_tibble(tb_pca$x), 
+                    tb_burden_wide[,1:2])
+ggscatmat(tb_pcs, columns=1:3, color="region")
+# quartz()
+# X11()
+pal &lt;- brewer.pal(6, "Dark2")
+col &lt;- pal[as.numeric(as.factor(tb_pcs$region))]
+animate_xy(tb_pcs[,1:4], col=col, 
+           axes = "bottomleft")
+```
+]
+.pull-right[
+- The main structure is a "shuttlecock" shape: that most countries have similarly low rates and a handful of countries deviate from this. 
+- A few, quite a few, outliers.
+]
+
+
+
+---
+# Examining models: tsne
+
+This is a preliminary R package, [sneezy](https://github.com/sa-lee/sneezy) for exploring nonlinear dimension reduction solutions, with a tour. It is the work of [Stuart Lee](https://stuartlee.org).
+
+The data is 10D. [t-SNE](https://lvdmaaten.github.io/tsne/) is a non-linear dimension reduction algorithm which is used to view cluster structure in high-dimensional data. There is an R package implementation, [Rtsne](https://cran.r-project.org/web/packages/Rtsne/index.html). 
+
+It can be particularly hard to tune the parameters when fitting the t-SNE model. This provides a way to map back to the original data space, to see how the data was transformed. 
+
+---
+.pull-left[
+
+```r
+# remotes::install_github("sa-lee/sneezy")
+library(gganimate) # required for printing tours
+library(sneezy)
+# Read a benchmark data set
+spheres &lt;- subset(multi, key %in% c("A", "D"))
+labels &lt;- ifelse(spheres$key == "A", "sub-gaussian", "10-d 2x cluster")
+spheres &lt;- as.matrix(spheres[, -c(1,2)])
+
+# t-SNE plot
+set.seed(1010010)
+coords &lt;- basic_tsne(spheres, perplexity = 30)
+pl &lt;- ggplot(as.data.frame(coords$Y), aes(V1, V2)) +
+  geom_point(aes(colour = labels)) +
+  coord_equal() +
+  scale_color_brewer(palette = "Dark2") +
+  theme(axis.title = element_blank(), 
+        axis.ticks = element_blank(), 
+        axis.text = element_blank(),
+        panel.grid = element_blank())
+
+pl +  add_triangles(coords) 
+
+# in data space, with a triangulation of the points from the tSNE view
+# quartz()
+# X11()
+pal &lt;- c("#1B9E77", "#D95F02")[as.integer(as.factor(labels))]
+sneezy_triangles(spheres, coords, col = pal)
+```
+]
+.pull-right[
+You can see that in the data space, that the 
+
+- three small clusters are there, are very close and very compact. 
+- Next to them is a long, elliptical cluster, that is also small and compact. 
+- The two big clusters are spherical and far apart. 
+
+From t-SNE 2D represenation, the 6 clusters are clearly identified. We probably would have missed that there were 6 clusters using the tour alone, because four of them are so close together, and the distance between clusters is heterogeneous. t-SNE destroys the between cluster information, and the relative position of clusters in the high-d space. 
+
+In combination with the tour, we get a deeper understanding of the cluster structure.
+]
+---
+# Comparison to parallel coordinates
+
+
+
+Parallel coordinates show multiple dimensions by drawing lines connectiong observations plotted as univariate dotplots. It is a parallel geometric space rather than a Euclidean space. But is can be useful for getting a single static view, as an alternative to a scatterplot matrix.
+
+
+```r
+ggparcoord(olive, columns=4:10, groupColumn=3, order="anyClass") + 
+  scale_colour_brewer("", palette="Dark2")
+```
+
+---
+# Comparison to heatmap
+
+A heatmap uses maps a quantitative variable to colour, and displays in a matrix layout. Often accompanied by a clustering, or ordering of rows and columns. Colour mapping of a quantitative variable is the lowest on the hierarchy of mappings, and difficult for a user to accurately read the information. The coordinate system underlying this form of mapping is not clear, its not Euclidean.
+
+
+```r
+library(superheat)
+superheat(olive[,4:10], scale=TRUE, 
+          pretty.order.rows=TRUE, pretty.order.cols=TRUE,
+          row.dendrogram = TRUE) 
+```
+
+---
+# Making a tourr animation using plotly
+
+The easiest approach is to use the `play_tour_path` function from `spinifex`. Either show it like, or save it to an html file for later replay with `save_html` from the `htmltools` package.
+
+
+```r
+flea_std &lt;- rescale(tourr::flea[,1:6])
+tpath    &lt;- save_history(flea_std, max = 3)
+
+pg &lt;- play_tour_path(tour_path = tpath, data = flea_std, angle = .15)
+pg 
+save_html(pg, file="mytour.html")
+```
+
+---
+# Making a tourr animation using gganimate
+
+The function `render_gif` is available in the development version of the `tourr` package. It will save the tour projections as an animated gif.
+
+
+```r
+library(gganimate)
+render_gif(flea[,1:6], grand_tour(), display_xy(axes="off"),
+           frames=200, 
+           gif_file="mytour.gif")
+```
+
+
+---
+# Resources
+
+- [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
+- Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
+- [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
+- Eunkyung Lee [PPtreeViz](https://www.jstatsoft.org/article/view/v083i08)
+- Wickham, Cook, Hofmann (2015) [Visualising Statistical Models: Removing the blindfold](http://dicook.org/publication/blindfold_2015/)
+- Cook and Swayne (2007) [Interactive and Dynamic Graphics for Data Analysis](http://ggobi.org/book/)
+- Wickham et al (2011) [tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf) and the R package [tourr](https://cran.r-project.org/web/packages/tourr/index.html)
+- Schloerke et al (2016) [Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and the R package [geozoo](https://cran.r-project.org/web/packages/geozoo/index.html)
+
+---
+# Share and share alike
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

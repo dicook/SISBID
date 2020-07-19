@@ -1,0 +1,627 @@
+---
+title: "Advanced plots and inference"
+subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+date: "07/22-24/2020"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      incremental: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r echo = FALSE, warning = FALSE, message=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  comment = "",
+  fig.height = 4,
+  fig.width = 8,
+  fig.align = "center",
+  cache = FALSE,
+  fig.retina = 4
+)
+```
+
+```{r echo=FALSE}
+library(tidyverse)
+library(ggthemes)
+library(maps)
+library(scales)
+library(RColorBrewer)
+library(gridExtra)
+library(viridis)
+library(nullabor)
+library(splitstackshape)
+library(plotly)
+library(forecast)
+library(readxl)
+# remotes::install_github("wmurphyrd/fiftystater")
+library(fiftystater)
+```
+
+# Tidy data and random variables
+
+- The concept of tidy data matches elementary statistics
+- Tabular form puts variables in columns and observations in rows
+- Not all tabular data is in this form
+- This is the point of tidy data
+
+$$X = \left[ \begin{array}{rrrr}
+           X_1 & X_2 & ... & X_p 
+           \end{array} \right] \\
+  = \left[ \begin{array}{rrrr}
+           X_{11} & X_{12} & ... & X_{1p} \\
+           X_{21} & X_{22} & ... & X_{2p} \\
+           \vdots & \vdots & \ddots& \vdots \\
+           X_{n1} & X_{n2} & ... & X_{np}
+           \end{array} \right]$$
+
+- We might even make assumptions about the distribution of each variable, e.g. $X_1 \sim N(0,1), ~~X_2 \sim exp(1) ...$
+
+---
+# Grammar of graphics and statistics
+
+- A statistic is a function on the values of items in a sample, e.g. for $n$ iid random variates $\bar{X}_1=\sum_{i=1}^n X_{i1}$, $s_1^2=\frac{1}{n-1}\sum_{i=1}^n(X_{i1}-\bar{X}_1)^2$
+- We study the behaviour of the statistic over all possible samples of size $n$. 
+- The grammar of graphics is the mapping of (random) variables to graphical elements, making plots of data into statistics
+
+---
+# What is inference?
+
+Inferring that what we see in the data at hand holds more broadly in life, society and the world.
+
+.pull-left[
+**Why do we need it for graphics?**
+
+Here's an example tweeted by David Robinson:
+
+<img src="images/drob_twitter.png" style="width: 300px">
+
+Based on an analysis in [Tick Tock blog, by Graham Tierney](https://ticktocksaythehandsoftheclock.wordpress.com/2018/01/11/capitals-and-good-governance/)
+]
+.pull-right[
+*Below is a simple scatterplot of the two variables of interest. A slight negative slope is observed, but it does not look very large. There are a lot of states whose capitals are less than 5% of the total population. The two outliers are Hawaii (government rank 33 and capital population 25%) and Arizona (government rank 26 and capital population 23%). Without those two the downward trend (an improvement in ranking) would be much stronger.*
+
+*I ran linear regressions of government rank on the percentage of each state’s population living in the capital city, state population (in 100,000s), and state GDP (in $100,000s).... The coefficient is not significant for any regression at the traditional 5% level.*
+
+*... I'm not convinced that the lack of significance is itself significant.*
+]
+
+---
+# To do *statistical* inference
+
+You need a:
+
+- null hypothesis, and alternative
+- statistic computed on the data
+- reference distribution on which to measure the statistic: if its extreme on this scale you would reject the null
+
+# Inference with *data plots*
+
+You need a:
+
+- plot description, as provided by the grammar (which is a statistic) - this would prescribe the null hypothesis
+- null generating mechanism, e.g. permutation, simulation from a distribution or model
+- human vision, to examine array of plots and decide if any are different from the others
+
+---
+# Some examples
+
+Here are several plot descriptions. What would be the null hypothesis in each?
+
+.pull-left[
+
+A
+```
+ggplot(data) + geom_point(aes(x=x1, y=x2))
+```
+
+<br>
+<br>
+<br>
+<br>
+
+B
+```
+ggplot(data) + geom_point(aes(x=x1, y=x2, colour=cl))
+```
+]
+.pull-right[
+C
+```
+ggplot(data) + geom_histogram(aes(x=x1))
+```
+<br>
+<br>
+<br>
+<br>
+
+D
+```
+ggplot(data) + geom_boxplot(aes(x=cl, y=x1))
+```
+]
+
+---
+# Some examples
+
+Here are several plot descriptions. What would be the null hypothesis in each?
+
+.pull-left[
+
+A
+$H_o:$ no association between `x1` and `x2`
+
+<br>
+<br>
+<br>
+<br>
+
+B
+$H_o:$ no difference between levels of `cl`
+
+]
+.pull-right[
+C
+$H_o:$ the distribution of `x1` is XXX
+<br>
+<br>
+<br>
+<br>
+
+D
+$H_o:$ no difference in the distribution of `x1` between levels of `cl`
+]
+---
+
+# Let's do it
+
+.pull-left[
+<img src="images/nullabor_hex.png" style="width: 20%" />
+
+Example from the nullabor package. The data plot is embedded randomly in a field of null plots, this is a **lineup**. Can you see which one is different?
+
+When you run the example yourself, you get a `decrypt` code line, that you run after deciding on a plot to print the location of the data plot amongst the nulls. 
+
+- plot is a scatterplot, null hypothesis is *there is no association between the two variables mapped to the x, y axes*
+- null generating mechanism: permutation
+
+]
+.pull-right[
+```{r lineup 1, fig.height=8, fig.width=8}
+# Make a lineup of the mtcars data, 20 plots, one is the data, 
+# and the others are null plots. Which one is different?
+set.seed(20190709)
+ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
+  geom_point() +
+  facet_wrap(~ .sample)
+```
+
+
+]
+
+---
+
+**Evaluating goodness-of-fit with a residual plot**
+
+- plot is a residual vs fitted scatterplot, null hypothesis is *there is no association between the two statistics*
+- null generating mechanism: residual rotation
+
+```{r lineup 2, fig.height=6}
+# Assessing model fit, using a lineup of residual plots, 19 are nulls, and one is the 
+# residual plot. Is there structure in the residual plot that identifies it as having 
+# less than random variation. Nulls are generated by `rotating` residuals after model fit.
+tips <- read_csv("http://www.ggobi.org/book/data/tips.csv")
+x <- lm(tip ~ totbill, data = tips)
+tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
+ggplot(lineup(null_lm(tip ~ totbill, method = 'rotate'), tips.reg)) +
+  geom_point(aes(x = totbill, y = .resid)) +
+  facet_wrap(~ .sample)
+```
+
+---
+**Assessing temporal dependence**
+
+- plot is a lineplot, null hypothesis is *there is no temporal trend*
+- null generating mechanism: simulation from a time series model
+
+```{r lineup 3, fig.height=6}
+# Assessing time series model fit using simulation to produce null plots.
+data(aud)
+l <- lineup(null_ts("rate", auto.arima), aud)
+ggplot(l, aes(x=date, y=rate)) + geom_line() +
+  facet_wrap(~.sample, scales="free_y") +
+  theme(axis.text = element_blank()) +
+  xlab("") + ylab("")
+```
+
+---
+# Let's talk TB
+
+```{r lets talk TB, echo=FALSE}
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
+  select(-stuff1, -stuff2) %>%
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %>%
+  select(-sexage)
+
+# Filter years between 1997 and 2012 due to missings
+tb_us <- tb %>% 
+  filter(country == "United States of America") %>%
+  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+  filter(year > 1996, year < 2013)
+```
+
+```{r fig.width=10, fig.height=3}
+ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~ age) +
+  scale_fill_brewer(palette="Dark2")
+```
+
+There are many aspects of this plot, this is what we said earlier:
+
+- *Across all ages, and years, the proportion of males having TB is higher than females*
+- These proportions tend to be higher in the middle age groups, for all years.
+- Relatively similar proportions across years.
+
+---
+# Null hypothesis
+
+The plot is constructed by plotting count against year, separately by age group, and coloured by sex. 
+
+- By colouring by sex, we make this a primary comparison
+- Proportion of sex, conditional on age group and year is the query being addressed by this plot.
+
+*Null hypothesis*: TB incidence is spread equally among men and women, regardless of age and year.
+*Alternative hypothesis*: It isn't.
+
+---
+
+```{r generate a lineup of three binomial simulations, echo=TRUE}
+# Make expanded rows of categorical variables
+# matching the counts of aggregated data.
+# sex needs to be converted to 0, 1 to 
+# match binomial simulations
+tb_us_long <- expandRows(tb_us, "count")
+tb_us_long <- tb_us_long %>%
+  mutate(sex01 = ifelse(sex=="m", 0, 1)) %>%
+  select(-sex)
+
+# Generate a lineup of three, randomly choose one of the
+# positions to place true data.
+# Compute counts again.
+pos = sample(1:3, 1)
+l <- lineup(null_dist(var="sex01", dist="binom", 
+                      list(size=1, p=0.5)), 
+            true=tb_us_long, n=3, pos=pos)
+l <- l %>%
+  group_by(.sample, year, age) %>%
+  dplyr::count(sex01)
+```
+
+---
+
+```{r plot the lineup, fig.height=8, fig.width=10}
+ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(.sample ~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+```
+
+---
+# A more complicated null
+
+*Null hypothesis*: TB incidence is has the same proportion of men and women, regardless of age and year.
+*Alternative hypothesis*: It isn't.
+
+```{r a more complicated null, echo=TRUE}
+# Compute proportion across all data
+tbl <- tb_us %>% group_by(sex) %>% summarise(count=sum(count))
+tbl
+p <- tbl$count[1]/sum(tbl$count)
+
+pos = sample(1:3, 1)
+l <- lineup(null_dist(var="sex01", dist="binom", 
+                      list(size=1, p=p)), 
+            true=tb_us_long, n=3, pos=pos)
+l <- l %>%
+  group_by(.sample, year, age) %>%
+  dplyr::count(sex01)
+
+```
+
+---
+
+```{r fig.height=8, fig.width=10}
+ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(.sample ~ age) +
+  scale_fill_brewer(palette="Dark2") + 
+  theme(legend.position="none")
+```
+
+---
+# Note
+
+- The null hypothesis is determined based on the plot type
+- It is not based on the structure seen in a data set
+
+---
+.pull-left[
+# Lineup
+
+Embed the data plot in a field of null plots
+
+```{r embed the data plot in a field of null plots, eval=FALSE}
+library(nullabor)
+pos <- sample(1:20, 1)
+df_null <- lineup(null_permute('v1'), df, pos=pos)
+ggplot(df_null, aes(x=v2, y=v1, fill=v2)) + 
+  geom_boxplot() +
+  facet_wrap(~.sample, ncol=5) + coord_flip()
+```
+
+Ask: Which plot is the most different?
+]
+.pull-right[
+# Null-generating mechanisms
+
+- Permutation: randomizing the order of one of the variables breaks association, but keeps marginal distributions the same
+- Simulation: from a given distribution, or model. Assumption is that the data comes from that model 
+
+# Evaluation
+
+- Compute $p$-value
+- Power $=$ signal strength
+]
+---
+# p-values
+
+Suppose $x$ individuals selected the data plot from a lineup of $m$ plots, shown to $K$ independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
+
+$$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$
+
+
+For $x=4, K=17, m=20$
+
+```{r compute pvalue}
+pvisual(4, 17, m=20)
+```
+
+---
+# Simulation approach
+
+- Scenario I: in each of K evaluations a different data set and a different set of (m-1) null plots is shown.
+- Scenario II: in each of K evaluations the same data set but a different set of (m-1) null plots is shown.
+- Scenario III: the same lineup, i.e. same data and same set of null plots, is shown to K different observers.
+
+---
+# Simulation
+
+Crucial idea: assign a $p$-value to each plot (data and null); under null hypothesis, this p-value is from U[0,1] 
+
+Scenario I:
+- for the $k$th lineup evaluation do:
+ - pick 20 $p$-values from $U[0,1]$
+ - for data plot compute 'strength' of other plots: $q = (1-p_\text{data})/\sum_j(1-p_j)$
+ - Use $q$ to determine whether data was picked in simulation: $x_k \tilde B_{1,q}$
+ - repeat above three steps $K$ times, and find the number of data picks $X = \sum_k x_k$
+- Repeat N times to get distribution of $X$
+
+---
+# Simulation
+
+
+Scenario II (same data, different nulls):
+- for the $k$th lineup evaluation pick 20 $p$-values from $U[0,1]$:
+- for data plot compute 'strength' of other plots: $q = (1-p_\text{data})/\sum_j(1-p_j)$
+- Use $q$ to determine whether data was picked in simulation: $x_k \tilde B_{1,q}$
+- find the number of data picks $X = \sum_k x_k$
+- Repeat N times to get distribution of $X$
+
+---
+# Simulation
+
+
+Scenario III (same data, same nulls):
+- for the $k$th lineup evaluation pick $p_\text{data} \sim U[0,1]$:
+ - pick 19 $p$-values from $U[0,1]$
+ - for data plot compute 'strength' of other plots: $q = (1-p_\text{data})/\sum_j(1-p_j)$
+ - simulate number of data picks $X ~ B_{K, q}$
+- Repeat $N$ times to get distribution of $X$
+
+
+
+---
+# More on making maps
+
+Make a choropleth map of the TB data across the globe. We will do something a little fancy first, by computing a linear regression model for each country, to extract the trend in TB counts. This trend will be used to colour the maps, to find the countries which have TB problems. 
+
+A polygon map of the world is extracted from the maps package. *The names of countries needs to be synchronised between the TB data and the map data.*
+
+```{r emake a choropleth map, cho=TRUE}
+world_map <- map_data("world")
+usa <- map_data("usa")
+tb_names <- tb %>% 
+  mutate(region=recode(country, 
+                       "United States of America"="USA", 
+                       "United Kingdom"="UK",
+                       "Russian Federation"="Russia"))
+```
+
+---
+
+```{r compute the linear trend in counts, echo=TRUE, eval=FALSE}
+# This is  code to compute the linear trend in counts
+# for each country.
+tb_names_inc <- tb_names %>% 
+  group_by(region) %>%
+  nest() %>%
+  mutate(
+    model = purrr::map(data, ~ lm(count ~ year, data = .))
+) %>%
+  unnest(model %>% purrr::map(broom::tidy)) %>%
+  select(region, term, estimate) %>% 
+  spread(term, estimate)
+```
+
+---
+
+One way to make the map is use `geom_map`, and link this dynamically with the TB data in the plotting code.
+
+```{r one way to make the map is use geom_map, echo=TRUE, eval=FALSE}
+ggplot(tb_names_inc, aes(map_id = region)) + 
+    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3, na.rm=TRUE) + 
+    expand_limits(x = world_map$long, y = world_map$lat) +
+    theme_few() +
+    scale_fill_viridis("trend") + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
+```
+
+
+---
+
+Another approach is to join the polygon data with the TB data.
+
+```{r aother approach is to join the polygon data, echo=TRUE, eval=FALSE}
+tb_map <- left_join(world_map, tb_names_inc, by="region")
+ggplot(tb_map) + 
+  geom_polygon(aes(x=long, y=lat, group=group, fill=year)) +
+      theme_few() +
+    scale_fill_viridis("trend", na.value = "grey70") + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
+```
+
+---
+class: inverse middle 
+# Your turn
+
+Why is India showing a drastically increasing TB incidence. 
+Make the plot of TB incidence for India. 
+
+```{r why is India showing a drastically increasing TB incidence, echo=FALSE, eval=FALSE}
+tb_india <- tb %>% 
+  filter(country == "India") %>%
+  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+  filter(year > 1996, year < 2013) %>%
+  group_by(year, country) %>%
+  summarise(count = sum(count, na.rm=TRUE)) 
+india_map <- world_map %>% filter(region == "India") %>%
+  filter(is.na(subregion))
+tb_map_india <- left_join(india_map, tb_india,
+                          by=c("region"="country")) 
+```
+
+```{r solution to hy is India showing a drastically increasing TB incidence, fig.height=7, echo=FALSE, eval=FALSE}
+ggplot(tb_map_india) + 
+  geom_polygon(aes(x=long, y=lat, fill=count, label=region)) +
+      theme_few() +
+    scale_fill_viridis("trend", na.value = "grey70", 
+                       limits=c(0,630000)) + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) +
+  facet_wrap(~year, ncol=4)
+```
+
+
+```{r interactive plot solution, echo=FALSE, eval=FALSE}
+p <- ggplot(tb_map_india) + 
+  geom_polygon(aes(x=long, y=lat, group=group, 
+  fill=count, label=region, frame=year)) +
+      theme_few() +
+    scale_fill_viridis("trend", na.value = "grey70", 
+                       limits=c(0,630000)) + 
+    theme(legend.position = "bottom",
+         axis.ticks = element_blank(), 
+         axis.title = element_blank(), 
+         axis.text =  element_blank()) +
+    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
+ggplotly(p) 
+```
+
+
+---
+# A map lineup example
+
+Cancer incidence across the US 2010-2014, all cancer types, per 100k. Data from American Cancer Society, https://cancerstatisticscenter.cancer.org. Does one map show a spatial trend?
+
+```{r make a map lineup, fig.height=6, fig.width=10}
+# Read xlsx spreadsheet on cancer incidence in USA, for a more
+# complex lneup example, a lineup of maps
+incd <- read_xlsx(here::here("data/IncRate.xlsx"), skip=6, sheet=2) %>%
+  filter(!(State %in% c("All U.S. combined", "Kansas"))) %>%
+  select(State, `Melanoma of the skin / Both sexes combined`) %>%
+  rename(Incidence=`Melanoma of the skin / Both sexes combined`) %>%
+  mutate(Incidence = as.numeric(substr(Incidence, 1, 3)))
+
+# State names need to coincide between data sets
+incd <- incd %>% mutate(State = tolower(State))
+
+# Choose a position 
+pos <- 6
+
+# Make lineup of cancenr incidence
+incd_lineup <- lineup(null_permute('Incidence'), incd, n=12, pos=pos)
+
+# Join cancer incidence data to map polygons
+incd_map <- left_join(fifty_states, filter(incd_lineup, .sample==1),
+                      by=c("id"="State"))
+for (i in 2:12) {
+  x <- left_join(fifty_states, filter(incd_lineup, .sample==i),
+                      by=c("id"="State"))
+  incd_map <- bind_rows(incd_map, x)
+}
+# Remove Kansas - it was missing the cancer data
+incd_map <- incd_map %>% filter(!is.na(.sample))
+
+# Plot the maps as a lineup
+#library(mapproj)
+ggplot(incd_map) + 
+  geom_polygon(aes(x=long, y=lat, fill = Incidence, group=group)) + 
+  expand_limits(x = incd_map$long, y = incd_map$lat) +
+  #coord_map() +
+  scale_x_continuous(breaks = NULL) + 
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "", y = "") +
+  scale_fill_distiller(palette="YlGn", type="seq", direction=1) +
+  theme(legend.position = "none", 
+        panel.background = element_blank()) +
+  facet_wrap(~.sample, ncol=4)
+```
+
+---
+# Resources
+
+- Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230.
+- Wickham, H., Cook, D., Hofmann, H. and Buja, A. (2010) Graphical Inference for Infovis,  http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161. 
+- Sievert, C. (2019) Interactive web-based data visualization with R, plotly, and shiny,  https://plotly-r.com/index.html
+---
+# Share and share alike
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
