@@ -68,7 +68,8 @@ Morning:
 
 Afternoon: 
 
-1. Multivariate plots using ggplot2, GGally and tourr (Di)
+1. Multivariate plots using ggplot2, GGally (Di)
+1. Touring on multivariate data (Di)
 1. Advanced graphics, and statistical inference (Di) 
 
 ### Day 3 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day3.zip)
