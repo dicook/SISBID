@@ -17,7 +17,7 @@ We will assume some familiarity with R.
 
 Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.cookbook-r.com>, and R for Data Science, by Garrett Grolemund and Hadley Wickham, available at <http://r4ds.had.co.nz>.
 
-## Schedule
+## Course Schedule
 
 
 | Wednesday, Jul 22 |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |
@@ -40,20 +40,11 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 | Lecture 6         |  1:45 - 2:30 pm | 6:45 - 7:30 am |  3:45 - 4:30 pm | 4:45 - 5:30 pm |
   
 
- changed from (will delete):
- 
-  - Lecture 1: 8-8:45
-  - Lecture 2: 9-9:45
-  - Lecture 3: 10:15-11
-  - Lecture 4: 11:15-noon
-  - Lecture 5: 12:30-1:15
-  - Lecture 6: 1:30-2:15
-
-
 ## Course outline
 
 ### Day 1 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day1.zip)
 
+1. [Preamble](0-preamble/index.html)
 1. The grammar of graphics and ggplot2 (Heike)
 1. Advancing the grammar to maps, time and interactivity (Heike)
 1. Visual perception and effective plot construction (Di)
