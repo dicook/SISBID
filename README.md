@@ -55,7 +55,6 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 ### Day 1 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day1.zip)
 
 1. The grammar of graphics and ggplot2 (Heike). 
-1. Making maps, time series plots and adding interactionusing plotly (Heike)
 1. Visual perception and effective plot construction (Di)
 
 ### Day 2 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day2.zip)
@@ -89,7 +88,7 @@ Afternoon:
 
 ## Software list
 
-Download [RStudio >= 1.2.1335 ](https://www.rstudio.com/products/rstudio/download/), [R version 3.6.1 (2019-07-05) -- "Action of the Toes"](https://cran.r-project.org)
+Download [RStudio >= 1.3.959 ](https://www.rstudio.com/products/rstudio/download/), [R version 4.0.1 (2020-06-06) -- "See Things Now"](https://cran.r-project.org)
 
 Open RStudio, and run the code below to install these packages and their dependencies:
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Tidying your data</title>
     <meta charset="utf-8" />
@@ -12,9 +12,9 @@
 class: center, middle, inverse, title-slide
 
 # Tidying your data
-## SISBID 2019 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+## SISBID 2020 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/24-26/2019
+### 07/22-24/2020
 
 ---
 
@@ -105,13 +105,13 @@ What's in the column names of this data? What are the experimental units? What a
 
 ```
 # A tibble: 3 x 12
-  id    `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
-  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 Gene…      2.18     2.20       4.20     2.63       5.06       4.54
-2 Gene…      1.46     0.585      1.86     0.515      2.88       1.36
-3 Gene…      2.03     0.870      3.28     0.533      4.63       2.18
-# … with 5 more variables: `WI-12.R2` &lt;dbl&gt;, `WI-12.R4` &lt;dbl&gt;,
-#   `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
+  id    `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1` `WI-12.R2`
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 Gene…      2.18     2.20       4.20     2.63       5.06       4.54       5.53
+2 Gene…      1.46     0.585      1.86     0.515      2.88       1.36       2.96
+3 Gene…      2.03     0.870      3.28     0.533      4.63       2.18       5.56
+# … with 4 more variables: `WI-12.R4` &lt;dbl&gt;, `WM-12.R1` &lt;dbl&gt;,
+#   `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
 ```
 
 
@@ -124,20 +124,20 @@ What are the variables? What are the records?
 
 
 ```
-           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49
-1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112
-2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56
-3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0
-4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127
-5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33
-6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5
-  V53 V57 V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
-1 126 112 115 133 134 126 104 143 141 134 117 142
-2  51  36  44  39  40  58  15  33  51  74  39  66
-3   5   0   0   0   0   0   8   0  18   0   0   0
-4 159 143 114  65 113 125 129 147 161 168 178 161
-5  67  84  11  41  18  50  22  28  74  94  73  88
-6   0   0  64   3  99  36   8   0   0   0   8  36
+           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49 V53
+1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112 126
+2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56  51
+3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0   5
+4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127 159
+5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33  67
+6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5   0
+  V57 V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
+1 112 115 133 134 126 104 143 141 134 117 142
+2  36  44  39  40  58  15  33  51  74  39  66
+3   0   0   0   0   0   8   0  18   0   0   0
+4 143 114  65 113 125 129 147 161 168 178 161
+5  84  11  41  18  50  22  28  74  94  73  88
+6   0  64   3  99  36   8   0   0   0   8  36
 ```
 
 
@@ -151,17 +151,17 @@ What are the variables? What are the experimental units?
 
 ```
 # A tibble: 6 x 22
-  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205
-2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198
-3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656
-4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199
-5 ZW     2007     6   132   138    500   3693      0    716    292   153
-6 ZW     2008    NA    NA   127    614      0   3316    704    263   185
-# … with 11 more variables: m_u &lt;dbl&gt;, f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;,
-#   f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;, f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;,
-#   f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
+  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65   m_u
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205    NA
+2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198    NA
+3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656    NA
+4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199    NA
+5 ZW     2007     6   132   138    500   3693      0    716    292   153    NA
+6 ZW     2008    NA    NA   127    614      0   3316    704    263   185     0
+# … with 10 more variables: f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;,
+#   f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;,
+#   f_u &lt;dbl&gt;
 ```
 
 ---
@@ -280,11 +280,10 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;%
 5 Afghan… AFG    1984         NA          NA          NA           NA
 6 Afghan… AFG    1985         NA          NA          NA           NA
 # … with 16 more variables: new_sp_m2534 &lt;dbl&gt;, new_sp_m3544 &lt;dbl&gt;,
-#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;,
-#   new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;,
-#   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,
-#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;,
-#   new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;
+#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;,
+#   new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;,
+#   new_sp_f2534 &lt;dbl&gt;, new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;,
+#   new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;
 ```
 
 
@@ -447,15 +446,15 @@ french_fries_weeks &lt;- spread(ff_long, key = time,
 
 head(french_fries_weeks)
 # A tibble: 6 x 14
-  treatment subject   rep type    `1`   `2`   `3`   `4`   `5`   `6`   `7`
-  &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 1         3           1 butt…   0     0.3   0.2   0.1   0.3   1.2   0  
-2 1         3           1 gras…   0     0.1   0     0     0     0     0  
-3 1         3           1 pain…   5.5   0.3   0     0     1.7   9.5   5.5
-4 1         3           1 pota…   2.9   9    11.8  13.6  14     0.4   2.9
-5 1         3           1 ranc…   0     5.8   6     1.7   0     0     0  
-6 1         3           2 butt…   0     0.5   0.5   0     0.8   1.1   0  
-# … with 3 more variables: `8` &lt;dbl&gt;, `9` &lt;dbl&gt;, `10` &lt;dbl&gt;
+  treatment subject   rep type    `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`
+  &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 1         3           1 butt…   0     0.3   0.2   0.1   0.3   1.2   0     0.5
+2 1         3           1 gras…   0     0.1   0     0     0     0     0     1.3
+3 1         3           1 pain…   5.5   0.3   0     0     1.7   9.5   5.5   3.8
+4 1         3           1 pota…   2.9   9    11.8  13.6  14     0.4   2.9   3.5
+5 1         3           1 ranc…   0     5.8   6     1.7   0     0     0     0  
+6 1         3           2 butt…   0     0.5   0.5   0     0.8   1.1   0     0.3
+# … with 2 more variables: `9` &lt;dbl&gt;, `10` &lt;dbl&gt;
 ```
 
 Plot Week 1 against Week 9 in a scatterplot:
@@ -693,11 +692,11 @@ One value for each:
 
 ```r
 glance(ff_lm)
-# A tibble: 1 x 11
-  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1     0.400         0.395  2.90      88.1       0    27 -8607. 17270.
-# … with 3 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;
+# A tibble: 1 x 12
+  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     0.400         0.395  2.90      88.1       0    26 -8607. 17270. 17442.
+# … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
 ```
 
 ---
@@ -707,13 +706,13 @@ glance(ff_lm)
 ```r
 ff_lm_tidy &lt;- tidy(ff_lm)
 glimpse(ff_lm_tidy)
-Observations: 27
-Variables: 5
-$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepotato…
-$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.032…
-$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200,…
-$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.0…
-$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-20…
+Rows: 27
+Columns: 5
+$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepotato", "t…
+$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.03292748…
+$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200, 0.12…
+$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.055019…
+$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-207, 4.…
 ```
 
 ---
@@ -723,21 +722,20 @@ $ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-20�
 ```r
 ff_lm_all &lt;- augment(ff_lm)
 glimpse(ff_lm_all)
-Observations: 3,471
-Variables: 13
-$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1…
-$ rating     &lt;dbl&gt; 2.9, 14.0, 11.0, 9.9, 1.2, 8.8, 9.0, 8.2, 7.0, 13.0, …
-$ type       &lt;chr&gt; "potato", "potato", "potato", "potato", "potato", "po…
-$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ subject    &lt;fct&gt; 3, 3, 10, 10, 15, 15, 16, 16, 19, 19, 31, 31, 51, 51,…
-$ .fitted    &lt;dbl&gt; 6.331728, 6.331728, 8.046235, 8.046235, 5.972622, 5.9…
-$ .se.fit    &lt;dbl&gt; 0.2578966, 0.2578966, 0.2523712, 0.2523712, 0.2530101…
-$ .resid     &lt;dbl&gt; -3.4317275, 7.6682725, 2.9537651, 1.8537651, -4.77262…
-$ .hat       &lt;dbl&gt; 0.007910376, 0.007910376, 0.007575050, 0.007575050, 0…
-$ .sigma     &lt;dbl&gt; 2.899486, 2.897111, 2.899641, 2.899907, 2.898931, 2.8…
-$ .cooksd    &lt;dbl&gt; 4.169299e-04, 2.081769e-03, 2.955862e-04, 1.164238e-0…
-$ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.65222…
+Rows: 3,471
+Columns: 12
+$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "…
+$ rating     &lt;dbl&gt; 2.9, 14.0, 11.0, 9.9, 1.2, 8.8, 9.0, 8.2, 7.0, 13.0, 12.2,…
+$ type       &lt;chr&gt; "potato", "potato", "potato", "potato", "potato", "potato"…
+$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ subject    &lt;fct&gt; 3, 3, 10, 10, 15, 15, 16, 16, 19, 19, 31, 31, 51, 51, 52, …
+$ .fitted    &lt;dbl&gt; 6.331728, 6.331728, 8.046235, 8.046235, 5.972622, 5.972622…
+$ .resid     &lt;dbl&gt; -3.4317275, 7.6682725, 2.9537651, 1.8537651, -4.7726224, 2…
+$ .std.resid &lt;dbl&gt; -1.1882021, 2.6550643, 1.0225395, 0.6417396, -1.6522266, 0…
+$ .hat       &lt;dbl&gt; 0.007910376, 0.007910376, 0.007575050, 0.007575050, 0.0076…
+$ .sigma     &lt;dbl&gt; 2.899486, 2.897111, 2.899641, 2.899907, 2.898931, 2.899677…
+$ .cooksd    &lt;dbl&gt; 4.169299e-04, 2.081769e-03, 2.955862e-04, 1.164238e-04, 7.…
 ```
 
 ---
@@ -831,9 +829,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -842,7 +856,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {
