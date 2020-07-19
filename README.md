@@ -62,12 +62,13 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 Morning: 
 
-1. Tidy data and tidying your messy data with tidyr (Heike).
-1. Data manipulation with dplyr, purrr and broom (Heike).
+1. Tidy data and tidying your messy data with tidyr (Heike)
+1. Tidying model data with broom (Heike)
+1. Data manipulation with dplyr, purrr and broom (Heike)
 
 Afternoon: 
 
-1. Multivariate plots using ggplot2, GGally and tourr (Di).
+1. Multivariate plots using ggplot2, GGally and tourr (Di)
 1. Advanced graphics, and statistical inference (Di) 
 
 ### Day 3 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day3.zip)
