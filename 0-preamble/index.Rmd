@@ -1,8 +1,8 @@
 ---
 title: "Preamble"
-subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/24-26/2019"
+date: "07/22-24/2020"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -80,6 +80,14 @@ viz_palette(sunset$col)
 
 
 <img src="Hello-Heike.png" width="80%" />
+
+---
+
+<img src="Hello-Kiegan.png" width="80%" />
+
+---
+
+<img src="Hello-Sherry.png" width="80%" />
 
 ---
 class: inverse middle 
@@ -163,7 +171,7 @@ packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat",
               "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
               "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
               "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-              "naniar", "htmltools")
+              "naniar", "htmltools", "mapproj")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 

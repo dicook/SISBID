@@ -1,8 +1,8 @@
 ---
 title: "Data manipulation with dplyr, purrr and broom"
-subtitle: "SISBID 2019 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/24-26/2019"
+date: "07/22-24/2020"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
