@@ -40,7 +40,6 @@ library(here)
 ```
 
 
----
 # Example 2: Platypus in Australia
 
 Where can you find the strange platypus in Australia?
@@ -108,6 +107,19 @@ ggmap(oz) +
   geom_point(data=platydata, aes(x=longitude, y=latitude), 
               alpha=0.1, colour="orange")
 ```
+---
+
+```{r leaflet map, echo=TRUE}
+library(leaflet)
+platydata %>%
+  filter(!is.na(latitude), !is.na(longitude), !(eventDate=="")) %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(
+    radius=1, opacity = 0.5, color = "orange", label = ~eventDate,
+    lat = ~latitude, lng = ~longitude) 
+```
+
 
 
 ---
