@@ -112,7 +112,7 @@ The 7 key elements of the grammar are:
 This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. There's also an R package, [getTBinR](https://cran.r-project.org/web/packages/getTBinR/index.html), that can be used to dynamically download this data.
 
 ```{r read TB data and wrangle and subset to USA}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>% 
   select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
   gather(stuff, count, new_sp_m04:new_sp_fu) %>%
   separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
@@ -125,7 +125,10 @@ tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 tb_us <- tb %>% 
   filter(country == "United States of America") %>%
   filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013)
+  filter(year > 1996, year < 2013) %>%
+  mutate(
+    age_group = factor(age, labels = c("15-24", "25-34", "35-44", "45-54", "55-64", "65-"))
+  )
 ```
 
 ```{r make a bar chart of US TB incidence, echo=TRUE, out.width="60%", fig.width=10, fig.height=3}
@@ -158,8 +161,8 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 # This uses a color blind proof scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(~age, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") 
+  facet_wrap(~age_group, ncol=6) +
+  scale_fill_brewer("Sex", palette="Dark2") 
 ```
 
 ---
@@ -169,8 +172,8 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 # Fill the bars, note the small change to the code
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
-  facet_wrap(~age, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") + ylab("proportion")
+  facet_wrap(~age_group, ncol=6) +
+  scale_fill_brewer("Sex", palette="Dark2") + ylab("proportion")
 ```
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
@@ -202,7 +205,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 # Make separate plots for males and females, focus on counts by category
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(sex~age, ncol=6) +
+  facet_wrap(sex~age_group, ncol=6) +
   scale_fill_brewer("", palette="Dark2") 
 ```
 ]
@@ -225,7 +228,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 # How to make a pie instead of a barchart - not straight forward
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(sex~age, ncol=6) +
+  facet_wrap(sex~age_group, ncol=6) +
   scale_fill_brewer("", palette="Dark2") +
   coord_polar()
 ```
@@ -239,7 +242,7 @@ Not a pie, a [rose plot](https://datavizcatalogue.com/methods/nightingale_rose_c
 # Step 1 to make the pie
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat="identity", position="fill") + 
-  facet_wrap(sex~age, ncol=6) +
+  facet_wrap(sex~age_group, ncol=6) +
   scale_fill_viridis_d("", option="inferno") 
 ```
 
@@ -251,7 +254,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 # and the modification to the coord_polar
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat="identity", position="fill") + 
-  facet_wrap(sex~age, ncol=6) +
+  facet_wrap(sex~age_group, ncol=6) +
   scale_fill_viridis_d("", option="inferno") +
   coord_polar(theta = "y") 
 ```
@@ -269,7 +272,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 ```{r use a line plot instead of bar, fig.height=3}
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
-  facet_wrap(~age, ncol=6) +
+  facet_wrap(~age_group, ncol=6) +
   scale_colour_brewer("", palette="Dark2") 
 ```
 
@@ -279,12 +282,12 @@ A line plot allows reading the counts for the two sexes. The counts are displaye
 # Line plot vs barchart
 
 ```{r use a line plot of proportions, fig.height=3}
-tb_us %>% group_by(year, age) %>% 
+tb_us %>% group_by(year, age_group) %>% 
   summarise(p = count[sex=="m"]/sum(count)) %>%
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="white", size=2) +
   geom_line() + geom_point() +
-  facet_wrap(~age, ncol=6) +
+  facet_wrap(~age_group, ncol=6) +
   ylab("proportion of males") 
 ```
 
@@ -372,6 +375,18 @@ load(here::here("data/oz.rda"))
 ggmap(oz) + 
   geom_point(data=platydata, aes(x=longitude, y=latitude), 
               alpha=0.1, colour="orange")
+```
+
+---
+
+```{r leaflet map, echo=TRUE}
+library(leaflet)
+platydata %>% 
+  filter(!is.na(latitude), !is.na(longitude), !(eventDate =="")) %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addCircleMarkers(
+    lat = ~latitude, lng = ~longitude, color = "orange", opacity = 0.5, radius = 1, label = ~eventDate)
 ```
 
 
