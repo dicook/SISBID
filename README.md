@@ -23,7 +23,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 | Wednesday, Jul 22 |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |
 |-------------------|----------------:|---------------:|----------------:|---------------:|
 | [Meet & Greet](0-preamble/index.html)        |   11:30 - 11:45 am | 4:30 - 4:45 am |  1:30 - 1:45 pm | 2:30 - 2:45 pm |
-| Lecture 1         |   11:45 - 12:30 | 4:45 - 5:30 am |  1:45 - 2:30 pm | 2:45 - 3:30 pm |
+| [Lecture 1](1.1-ggplot/index.html)        |   11:45 - 12:30 | 4:45 - 5:30 am |  1:45 - 2:30 pm | 2:45 - 3:30 pm |
 | Lecture 2         | 12:45 - 1:30 pm | 5:45 - 6:30 am |  2:45 - 3:30 pm | 3:45 - 4:30 pm |
 | Lecture 3         |  1:45 - 2:30 pm | 6:45 - 7:30 am |  3:45 - 4:30 pm | 4:45 - 5:30 pm |
 
@@ -45,7 +45,7 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 ### Day 1 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day1.zip)
 
 1. [Setting things up](0-preamble/index.html)
-1. The grammar of graphics and ggplot2 (Heike)
+1. [The grammar of graphics and ggplot2](1.1-ggplot/index.html) (Heike)
 1. Advancing the grammar to maps, time and interactivity (Heike)
 1. Visual perception and effective plot construction (Di)
 
