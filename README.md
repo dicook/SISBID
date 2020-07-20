@@ -1,6 +1,6 @@
 # SISBID 2020 Module 4: Visualization of Biomedical Big Data
 
-Instructors: Dianne Cook and Heike Hofmann
+Instructors: Di Cook and Heike Hofmann
 
 Module description: In this module, we will present general-purpose techniques for visualizing any sort of large data sets, 
 as well as specific techniques for visualizing common types of biological data sets. Often the challenge of visualizing Big Data 
