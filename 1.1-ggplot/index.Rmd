@@ -46,9 +46,11 @@ class: inverse middle
 <br>
 .large[Write down as many types of data plots that you can.] 
 
+Go to menti.com and enter code 26 17 04
+
 <br>
 
-`r emo::ji("clock")` `r anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")`
+`r emo::ji("clock")` `r anicon::nia("You've got 2 minutes!", colour="#FA700A", anitype="hover")`
 
 ---
 
@@ -58,6 +60,8 @@ namedplots <- c("histogram", "barchart", "scatterplot", "piechart", "lineplot", 
 pal <- c("#A1719D","#03329B","#0774E4","#702E8D","#6B44B7","#B71452","#D50321","#F39E9C","#FCB52C","#B78ED2")
 wordcloud(namedplots, freq = sample(1:10, length(namedplots), replace=TRUE), colors=pal)
 ```
+
+Results from [menti.com](https://www.mentimeter.com/s/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75)
 
 ---
 # What is a data plot?
@@ -139,16 +143,18 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
+Go to menti.com and enter code 26 17 04
+
 - What do you learn about tuberculosis incidence in the USA from this plot?
 - Give three changes to the plot that would improve it. 
 
 
 ```{r eval=FALSE}
 - Incidence is declining, in all age groups, except possibly 15-24
-- Much higher incidence for over 65s
+- Much higher incidence for over 65s and 35-44 year olds
+- We do not know the underlying population size
 - There appears to be a structural change around 2008. Either a recording change or a policy change?
-- Missing information for 1998
-- 
+- Missing information for 1998 # no longer true
 - Cannot compare counts for male/female using stacked bars, maybe fill to 100% to focus on proportion
 - Colour scheme is not color blind proof, switch to colorbrewer Dark2 palette
 - Axis labels, and tick marks?
@@ -266,6 +272,8 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - What are the pros, and cons, of using the pie chart for this data?
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
+Go to menti.com and enter code 26 17 04
+
 ---
 # Line plot vs barchart
 
@@ -305,7 +313,7 @@ Make sure you can make all the TB plots just shown. If you have extra time, try 
 - Facet by gender, and make line plots of counts of age. 
 - Show the points only, and overlay a linear model fit. 
 
-`r countdown::countdown(5)`
+`r countdown::countdown(7)`
 
 
 ---
