@@ -53,9 +53,9 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 Morning: 
 
-1.  [Tidy data and tidying your messy data with tidyr](https://dicook.github.io/SISBID/2.1-tidyr/index.html) (Heike)
-1. Tidying model data with broom (Heike)
-1. Data manipulation with dplyr, purrr and broom (Heike)
+1.  [Tidy data and tidying your messy data with tidyr](https://dicook.github.io/SISBID/2.1-tidyr/index.html) (Heike) gather
+1. Making Data Messy again (Heike) XXX focus on spread
+1. Tidy models with broom (Heike) XXX focus on broom - tidy models. The lists are too much for 45 mins
 
 Afternoon: 
 
