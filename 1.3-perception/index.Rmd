@@ -13,8 +13,12 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
+
+background-image: \url(images/who_wore_it_better.jpg)
+background-size: 20%
+background-position: 99% 50%
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(
@@ -40,13 +44,13 @@ library(dichromat)
 library(here)
 ```
 
+# Let's play a game: Which plot wears it better?
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
-  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
-  select(-stuff1, -stuff2) %>%
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
   mutate(sex=substr(sexage, 1, 1), 
          age=substr(sexage, 2, length(sexage))) %>%
   select(-sexage)
@@ -58,8 +62,22 @@ tb_us <- tb %>%
   filter(year > 1996, year < 2013)
 ```
 
+On the next slide we have made **two different plots** of 2012 TB incidence in the USA, based on two variables:
 
-```{r focus on one year gender, side-by-side bars of males/females, fig.height=3}
+```{r}
+tb_us %>% filter(year == 2012) %>% select(sex, age, count)
+```
+
+- In arrangement A, separate plots are made for age, and sex is mapped to the x axis. 
+- Conversely, in arrangement B, separate plots are made for sex, and age is mapped to the x axis. 
+
+If you were to answer the question:  **At which age(s) are the counts for males and females relatively the same?** Which plot makes this easier?
+
+---
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+```{r focus on one year gender side-by-side bars of males/females, fig.height=3}
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -68,7 +86,7 @@ tb_us %>% filter(year == 2012) %>%
   ggtitle("Arrangement A")
 ```
 
-```{r focus on one year age, side-by-side bars of age group, fig.height=3}
+```{r focus on one year age side-by-side bars of age group, fig.height=3}
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -77,18 +95,48 @@ tb_us %>% filter(year == 2012) %>%
   ggtitle("Arrangement B")
 ```
 
-`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-We've got two different rearrangements of the same information. 
+We've got two different rearrangements of the same information. **At which age(s) are the counts for males and females relatively the same? Which plot makes this easier?** Go to www.menti.com and use the code 72 74 10. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/c0547e36bd70)
 
-What do we learn? That is different from each? What's the focus of each? What's easy, what's harder?
+What do we learn? That is different from each? What's the focus of each? What's easy, what's harder? 
+
 
 ```{r eval=FALSE}
 - Arrangement A makes it easier to directly compare male and female counts, separately for each age group. Generally, male counts are higher than female counts. There is a big difference between counts in the 45-54 age group, and over 65 counts are almost the same.
 - Arrangement B makes it easier to directly compare counts by age group, separately for females and males. For females, incidence drops in the middle years. For males, it is pretty consistently high across age groups. 
 ```
 
+---
 
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+`r anicon::nia("Try to write out a question that would be easier to answer from arrangement B.", animate="float")` Go to www.menti.com and use the code 72 74 10. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/a74fa01892e5)
+
+<br>
+
+```{r ref.label='focus on one year gender side-by-side bars of males/females', fig.height=3}
+```
+
+```{r ref.label='focus on one year age side-by-side bars of age group', fig.height=3}
+```
+
+---
+
+On the next slide we have made **two different plots** of TB incidence in the USA, based on three variables:
+
+```{r}
+tb_us %>% select(year, sex, age, count) %>% head(10)
+```
+
+- In plot type A, a line plot of counts is drawn separately by age and sex, and year is mapped to the x axis. 
+- Conversely, in plot type B, counts for sex, and age are stacked into a bar chart, separately by age and sex, and year is mapped to the x axis
+
+If you were to answer the question:  **The trend in incidence over years for females is generally decreasing?** Which plot makes this easier? 
+
+```{r eval=FALSE}
+- Plot type A makes it easier to examine trend for each group. This plot should probably have used 0 as the lower limit.
+- Plot type  B is really only allowing the overall trend in count to be examined separately by age. It is also possible to see trend for males. Trend for females is buried because the bars start at irregular heights. The separated bars distract from digesting the overall count. 
+```
 
 ---
 
@@ -111,9 +159,29 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-What are the pros and cons of each way of displaying the same information?
+Which type of plot makes it easier to answer: **The trend in incidence over years for females is generally decreasing?** 
+
+What are the pros and cons of each way of displaying the same information? Should specific limits on axes be made?
 
 ---
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+`r anicon::nia("Should the limits of the y axes in plot type A have included 0 (zero)?", animate="float")` 
+
+<br>
+
+```{r ref.label='use a line plot instead of bar', fig.height=3}
+```
+
+```{r ref.label='colour and axes fixes', fig.height=3}
+```
+
+---
+
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+The following plots focus on proportion of males vs females. Plot A computes the proportion and displays this as a line plot. Plot B uses a 100% chart of stacked bars for females and males. What are the strengths and weaknesses of each?
 
 ```{r use a line plot for proportions, fig.height=3}
 tb_us %>% group_by(year, age) %>% 
@@ -135,9 +203,10 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   ggtitle("Type B") + theme(legend.position = "bottom")
 ```
 
-`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
-
-Which is better? Show the proportion of one group, or split the bars?
+```{r eval=FALSE}
+- Plot A makes it easier to examine the trend in proportion. It is easy to miss that all the proportions are greater than 0.5, despite having a guideline (white) at 0.5. It could be argued that setting the vertical axis limits could alleviate this.  The fluctuations from year to year are more visible. Maybe adding a trend model could be helpful, to reduce this noise. Without colour its less visually appealing.
+- Plot B makes it easier to see that the proportion for males is almost always higher than for females. It also suggests that there is little temporal trend, because the small fluctuations between years is less visible. Having colour makes it more visually appealing. There s less data processing.
+```
 
 ---
 # Perceptual principles

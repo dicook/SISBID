@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -19,25 +21,97 @@ class: center, middle, inverse, title-slide
 ---
 
 
+background-image: \url(images/who_wore_it_better.jpg)
+background-size: 20%
+background-position: 99% 50%
 
 
 
 
 
+# Let's play a game: Which plot wears it better?
 
 
 
-&lt;img src="index_files/figure-html/focus on one year gender, side-by-side bars of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
+On the next slide we have made **two different plots** of 2012 TB incidence in the USA, based on two variables:
 
-&lt;img src="index_files/figure-html/focus on one year age, side-by-side bars of age group-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+```
+# A tibble: 12 x 3
+   sex   age   count
+   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1 m     1524    239
+ 2 m     2534    322
+ 3 m     3544    333
+ 4 m     4554    502
+ 5 m     5564    455
+ 6 m     65      529
+ 7 f     1524    161
+ 8 f     2534    262
+ 9 f     3544    169
+10 f     4554    175
+11 f     5564    148
+12 f     65      243
+```
+
+- In arrangement A, separate plots are made for age, and sex is mapped to the x axis. 
+- Conversely, in arrangement B, separate plots are made for sex, and age is mapped to the x axis. 
+
+If you were to answer the question:  **At which age(s) are the counts for males and females relatively the same?** Which plot makes this easier?
+
+---
 
 🔮 👽 👼 **TWO MINUTE CHALLENGE**
 
-We've got two different rearrangements of the same information. 
+&lt;img src="index_files/figure-html/focus on one year gender side-by-side bars of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-What do we learn? That is different from each? What's the focus of each? What's easy, what's harder?
+&lt;img src="index_files/figure-html/focus on one year age side-by-side bars of age group-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
+We've got two different rearrangements of the same information. **At which age(s) are the counts for males and females relatively the same? Which plot makes this easier?** Go to www.menti.com and use the code 72 74 10. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/c0547e36bd70)
+
+What do we learn? That is different from each? What's the focus of each? What's easy, what's harder? 
+
+
+
+
+---
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+<span class=" faa-float animated " style=" display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Try to write out a question that would be easier to answer from arrangement B.</span> Go to www.menti.com and use the code 72 74 10. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/a74fa01892e5)
+
+&lt;br&gt;
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+On the next slide we have made **two different plots** of TB incidence in the USA, based on three variables:
+
+
+```
+# A tibble: 10 x 4
+    year sex   age   count
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1  1997 m     1524    330
+ 2  1997 m     2534    701
+ 3  1997 m     3544   1127
+ 4  1997 m     4554    979
+ 5  1997 m     5564    679
+ 6  1997 m     65      944
+ 7  1997 f     1524    269
+ 8  1997 f     2534    449
+ 9  1997 f     3544    447
+10  1997 f     4554    254
+```
+
+- In plot type A, a line plot of counts is drawn separately by age and sex, and year is mapped to the x axis. 
+- Conversely, in plot type B, counts for sex, and age are stacked into a bar chart, separately by age and sex, and year is mapped to the x axis
+
+If you were to answer the question:  **The trend in incidence over years for females is generally decreasing?** Which plot makes this easier? 
 
 
 
@@ -49,17 +123,33 @@ What do we learn? That is different from each? What's the focus of each? What's 
 
 🔮 👽 👼 **TWO MINUTE CHALLENGE**
 
-What are the pros and cons of each way of displaying the same information?
+Which type of plot makes it easier to answer: **The trend in incidence over years for females is generally decreasing?** 
+
+What are the pros and cons of each way of displaying the same information? Should specific limits on axes be made?
 
 ---
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+<span class=" faa-float animated " style=" display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Should the limits of the y axes in plot type A have included 0 (zero)?</span> 
+
+&lt;br&gt;
+
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+🔮 👽 👼 **TWO MINUTE CHALLENGE**
+
+The following plots focus on proportion of males vs females. Plot A computes the proportion and displays this as a line plot. Plot B uses a 100% chart of stacked bars for females and males. What are the strengths and weaknesses of each?
 
 &lt;img src="index_files/figure-html/use a line plot for proportions-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 &lt;img src="index_files/figure-html/compare proportions of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-🔮 👽 👼 **TWO MINUTE CHALLENGE**
 
-Which is better? Show the proportion of one group, or split the bars?
 
 ---
 # Perceptual principles
