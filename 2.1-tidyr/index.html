@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Tidying your data</title>
     <meta charset="utf-8" />
@@ -229,20 +229,20 @@ There are various features of messy data that one can observe in practice. Here 
 ---
 # Tidy verbs
 
-- `gather`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
-- `spread`: variables in columns (used to be called casting)
+- `pivot_longer`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting or gathering)
+- `pivot_wider`: variables in columns (used to be called casting or spreading)
 - `separate`/`unite`: split and combine columns
 - `nest`/`unnest`: working with list variables
 
 ---
-# Gathering
+# Gather the data 
   
-`gather(data, key = "key", value = "value", ...)`
+`pivot_longer(data, cols, names_to = "name", values_to = "value", ...)`
 
-`data %&gt;% gather(key = "key", value = "value", ...)`
+`data %&gt;% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
 
-- `gather` turns a wide format into a long format
-- two new variables are introduced (in key-value format): **key** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `key`, their values go into variable `value`.
+- `pivot_longer` turns a wide format into a long format
+- two new variables are introduced (in key-value format): **name** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `name`, their values go into variable `value`.
 
 
 
@@ -252,12 +252,14 @@ dframe
   id trtA trtB
 1  1  2.5   45
 2  2  4.6   35
-dframe %&gt;% gather(treatment, outcome, trtA, trtB)
-  id treatment outcome
-1  1      trtA     2.5
-2  2      trtA     4.6
-3  1      trtB    45.0
-4  2      trtB    35.0
+dframe %&gt;% pivot_longer(trtA:trtB, "treatment", "outcome")
+# A tibble: 4 x 3
+     id treatment value
+  &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
+1     1 trtA        2.5
+2     1 trtB       45  
+3     2 trtA        4.6
+4     2 trtB       35  
 ```
 
 ---
@@ -299,17 +301,17 @@ create two new variables: variable `key` (contains all variable names starting w
 ```r
 tb1 &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
   select(country, iso3, year, starts_with("new_sp_")) %&gt;%
-  gather(key, count, starts_with("new_sp_")) 
+  pivot_longer(starts_with("new_sp_"), "key", "count") 
 tb1 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 5
-  country     iso3   year key        count
-  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
-1 Afghanistan AFG    2010 new_sp_m04     4
-2 Afghanistan AFG    2011 new_sp_m04     2
-3 Afghanistan AFG    2012 new_sp_m04     0
-4 Albania     ALB    2005 new_sp_m04     0
-5 Albania     ALB    2006 new_sp_m04     1
-6 Albania     ALB    2007 new_sp_m04     0
+  country     iso3   year key          value
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+1 Afghanistan AFG    1997 new_sp_m014      0
+2 Afghanistan AFG    1997 new_sp_m1524    10
+3 Afghanistan AFG    1997 new_sp_m2534     6
+4 Afghanistan AFG    1997 new_sp_m3544     3
+5 Afghanistan AFG    1997 new_sp_m4554     5
+6 Afghanistan AFG    1997 new_sp_m5564     2
 ```
 
 ---
@@ -337,14 +339,14 @@ tb2 &lt;- tb1 %&gt;%
   separate(key, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
 tb2 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 7
-  country     iso3   year foo_new foo_sp sexage count
+  country     iso3   year foo_new foo_sp sexage value
   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
-1 Afghanistan AFG    2010 new     sp     m04        4
-2 Afghanistan AFG    2011 new     sp     m04        2
-3 Afghanistan AFG    2012 new     sp     m04        0
-4 Albania     ALB    2005 new     sp     m04        0
-5 Albania     ALB    2006 new     sp     m04        1
-6 Albania     ALB    2007 new     sp     m04        0
+1 Afghanistan AFG    1997 new     sp     m014       0
+2 Afghanistan AFG    1997 new     sp     m1524     10
+3 Afghanistan AFG    1997 new     sp     m2534      6
+4 Afghanistan AFG    1997 new     sp     m3544      3
+5 Afghanistan AFG    1997 new     sp     m4554      5
+6 Afghanistan AFG    1997 new     sp     m5564      2
 ```
 
 
@@ -362,14 +364,14 @@ tb3 &lt;- tb2 %&gt;% select(-starts_with("foo")) %&gt;%
   select(-sexage)
 tb3 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 6
-  country     iso3   year count sex   age  
+  country     iso3   year value sex   age  
   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
-1 Afghanistan AFG    2010     4 m     04   
-2 Afghanistan AFG    2011     2 m     04   
-3 Afghanistan AFG    2012     0 m     04   
-4 Albania     ALB    2005     0 m     04   
-5 Albania     ALB    2006     1 m     04   
-6 Albania     ALB    2007     0 m     04   
+1 Afghanistan AFG    1997     0 m     014  
+2 Afghanistan AFG    1997    10 m     1524 
+3 Afghanistan AFG    1997     6 m     2534 
+4 Afghanistan AFG    1997     3 m     3544 
+5 Afghanistan AFG    1997     5 m     4554 
+6 Afghanistan AFG    1997     2 m     5564 
 ```
 
 
@@ -395,12 +397,12 @@ head(gtidy)
 # A tibble: 6 x 5
   id     trt   time  rep    expr
   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
-1 Gene 1 I     6     1     2.18 
-2 Gene 2 I     6     1     1.46 
-3 Gene 3 I     6     1     2.03 
-4 Gene 1 I     6     2     2.20 
-5 Gene 2 I     6     2     0.585
-6 Gene 3 I     6     2     0.870
+1 Gene 1 I     6     1      2.18
+2 Gene 1 I     6     2      2.20
+3 Gene 1 I     6     4      4.20
+4 Gene 1 M     6     1      2.63
+5 Gene 1 M     6     2      5.06
+6 Gene 1 I     12    1      4.54
 ```
 
 
@@ -481,25 +483,9 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
+})();</script>
+
+<script>
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -508,23 +494,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
+</script>
 
 <script>
 slideshow._releaseMath = function(el) {
