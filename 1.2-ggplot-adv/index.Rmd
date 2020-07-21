@@ -251,6 +251,7 @@ class: inverse middle
 - [Data Visualization, Kieran Healy](https://socviz.co)
 - [Data Visualization with R, Rob Kabacoff](https://rkabacoff.github.io/datavis/index.html)
 - [Fundamentals of Data Visualization, Claus O. Wilke](https://serialmentor.com/dataviz/)
+- [Leaflet in R](https://rstudio.github.io/leaflet/)
 
 ---
 # Share and share alike

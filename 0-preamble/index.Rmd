@@ -102,6 +102,8 @@ at the end of the time you will be 'zoomed back' into the main session
 
 ... in cases you get disconnected, just log back into the Zoom session and we get you back to your group.
 
+<br><br><br><br><br>
+Let's try this!
 
 ---
 class: inverse middle 
@@ -116,12 +118,13 @@ Introduce yourself to the people around you. Find out a little about them: where
 
 .large[.yellow[You've got 5 minutes - timer is running!]]
 
+`r countdown::countdown(5)`
 
 ---
 class: inverse middle 
 # Your turn: Course materials
 
-https://github.com/dicook/SISBID  XXX link to slides
+<large>https://github.com/dicook/SISBID</large>
 
 - __Download__ `SISBID_day1.zip` (a zip archive) of the workshop files which contains all the code files, Rmarkdown files, and data for day 1 of this workshop. __Unzip the file__.
 - __Double-click__ `SISBID.Rproj`. The R project helps organise your work over these next few days. 
@@ -185,7 +188,7 @@ packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat",
               "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
               "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
               "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-              "naniar", "htmltools", "mapproj")
+              "naniar", "htmltools", "mapproj", "leaflet")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
