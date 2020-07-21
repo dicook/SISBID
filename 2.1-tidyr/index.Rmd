@@ -187,20 +187,20 @@ There are various features of messy data that one can observe in practice. Here 
 ---
 # Tidy verbs
 
-- `gather`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting)
-- `spread`: variables in columns (used to be called casting)
+- `pivot_longer`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting or gathering)
+- `pivot_wider`: variables in columns (used to be called casting or spreading)
 - `separate`/`unite`: split and combine columns
 - `nest`/`unnest`: working with list variables
 
 ---
-# Gathering
+# Gather the data 
   
-`gather(data, key = "key", value = "value", ...)`
+`pivot_longer(data, cols, names_to = "name", values_to = "value", ...)`
 
-`data %>% gather(key = "key", value = "value", ...)`
+`data %>% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
 
-- `gather` turns a wide format into a long format
-- two new variables are introduced (in key-value format): **key** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `key`, their values go into variable `value`.
+- `pivot_longer` turns a wide format into a long format
+- two new variables are introduced (in key-value format): **name** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `name`, their values go into variable `value`.
 
 ```{r setup a simple example, echo = FALSE}
 dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
@@ -208,7 +208,7 @@ dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
 
 ```{r gather the example data into long form}
 dframe
-dframe %>% gather(treatment, outcome, trtA, trtB)
+dframe %>% pivot_longer(trtA:trtB, "treatment", "outcome")
 ```
 
 ---
@@ -234,7 +234,7 @@ create two new variables: variable `key` (contains all variable names starting w
 ```{r turn TB data into long form}
 tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
-  gather(key, count, starts_with("new_sp_")) 
+  pivot_longer(starts_with("new_sp_"), "key", "count") 
 tb1 %>% na.omit() %>% head()
 ```
 
@@ -294,7 +294,7 @@ Produce the data frame called `gtidy` as shown below:
 
 ```{r code solution to genes wrangling, echo=FALSE}
 gtidy <- genes %>%
-gather(variable, expr, -id) %>%
+pivot_longer(-id, names_to="variable", values_to="expr") %>%
 separate(variable, c("trt", "leftover"), "-") %>%
 separate(leftover, c("time", "rep"), "\\.") %>%
 mutate(trt = sub("W", "", trt)) %>%
