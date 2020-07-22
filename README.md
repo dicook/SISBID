@@ -55,9 +55,9 @@ Zoom etiquette:
 
 Wednesday afternoon [zip file](SISBID_day1.zip)
 
-1. [Setting things up](https://dicook.github.io/SISBID/0-preamble/slides/index.html)
-1. [The grammar of graphics and ggplot2](https://dicook.github.io/SISBID/1.1-ggplot/slides/index.html) (Heike)
-1. [Advancing the grammar to maps, time and interactivity](https://dicook.github.io/SISBID/1.2-ggplot-adv/slides/index.html) (Heike)
+1. [Setting things up](https://dicook.github.io/SISBID/slides/0-preamble/index.html)
+1. [The grammar of graphics and ggplot2](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html) (Heike)
+1. [Advancing the grammar to maps, time and interactivity](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) (Heike)
 1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Di)
 
 
