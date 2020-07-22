@@ -17,6 +17,17 @@ We will assume some familiarity with R.
 
 Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.cookbook-r.com>, and R for Data Science, by Garrett Grolemund and Hadley Wickham, available at <http://r4ds.had.co.nz>.
 
+## Course Logistics
+
+We use zoom for lectures. All sessions will be recorded and made available. 
+
+Communication with the instructors should be in Zoom or on the slack channel. 
+
+Zoom etiquette: 
+
+- mute yourself when not talking, 
+- don't share the link. 
+
 ## Course Schedule
 
 
@@ -51,9 +62,9 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 Morning: 
 
-1.  [Tidy data and tidying your messy data with tidyr](https://dicook.github.io/SISBID/2.1-tidyr/slides/index.html) (Heike) gather
-1. Making Data Messy again (Heike) XXX focus on spread
-1. Tidy models with broom (Heike) XXX focus on broom - tidy models. The lists are too much for 45 mins
+1.  [Tidy data and tidying your messy data with tidyr](https://dicook.github.io/SISBID/2.1-tidyr/slides/index.html) (Heike) 
+1. [Making Data Messy again](https://dicook.github.io/SISBID/2.2-messy-it-up/slides/index.html) (Heike) 
+1. [Wrangling data and models](https://dicook.github.io/SISBID/2.3-wrangling/slides/index.html) (Heike) 
 
 Afternoon: 
 
@@ -83,7 +94,7 @@ Open RStudio, and run the code below to install these packages and their depende
 packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor",
 "forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally",
 "gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-"naniar", "htmltools")
+"naniar", "htmltools", "mapproj", "leaflet", "broom.mixed", "lme4")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
