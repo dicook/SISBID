@@ -164,7 +164,7 @@ Which type of plot makes it easier to answer: **The trend in incidence over year
 What are the pros and cons of each way of displaying the same information? Should specific limits on axes be made?
 
 ```{r}
-countdown::countdown(1,50)
+countdown::countdown(1,50, top=0, right=0)
 ```
 
 ---
@@ -331,7 +331,7 @@ class: inverse middle
 Of the previous three colour schemes on the same data, which would be the most appropriate? And why do you think so?
 
 ```{r}
-countdown::countdown(0, 80, right=50)
+countdown::countdown(0, 50, right=50, bottom=0)
 ```
 
 ---
