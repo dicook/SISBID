@@ -2,6 +2,8 @@
 
 Instructors: Di Cook and Heike Hofmann
 
+Website: https://dicook.github.io/SISBID/
+
 Module description: In this module, we will present general-purpose techniques for visualizing any sort of large data sets, 
 as well as specific techniques for visualizing common types of biological data sets. Often the challenge of visualizing Big Data 
 is to aggregate it down to a suitable level. Understanding Big Data involves an iterative cycle of visualization and modeling. 
