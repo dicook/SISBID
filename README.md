@@ -75,11 +75,6 @@ Afternoon:
 
 1. Polish and share your own shiny app (Di).
 
-
-## Examples
-
-- [Cyber Bullying](https://ztimpe.shinyapps.io/apppractice)
-
 ## Software list
 
 Download [RStudio >= 1.3.959 ](https://www.rstudio.com/products/rstudio/download/), [R version >= 4.0.1 (2020-06-06) -- "See Things Now"](https://cran.r-project.org)
