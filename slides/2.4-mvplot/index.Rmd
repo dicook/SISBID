@@ -1,0 +1,356 @@
+---
+title: "Multivariate data plots"
+subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+date: "07/22-24/2020"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(
+  echo=TRUE, 
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  collapse = TRUE,
+  comment = "",
+  fig.height = 4,
+  fig.width = 8,
+  fig.align = "center",
+  cache = FALSE
+)
+```
+
+```{r echo=FALSE}
+library(tidyverse)
+library(lubridate)
+library(GGally)
+# remotes::install_github("ggobi/tourr")
+library(tourr)
+library(broom)
+library(plotly)
+```
+
+class: inverse middle 
+# Your turn
+
+- What is multivariate data?
+- What makes multivariate analysis different from univariate analysis?
+
+```{r, eval=FALSE, echo = FALSE}
+data is multivariate, if we have more information than a single aspect for each entity/person/experimental unit.
+mutivariate analysis takes relationships between these different aspects into account.
+```
+
+---
+# Main types of plots
+
+- __pairwise plots__: explore association between pairs of variables
+- __parallel coordinate plots__: use parallel axes to lay out many variables on a page
+- __heatmaps__: represent data value using colour, present as a coloured table
+- __tours__: sequence of projections of high-dimensional data, good for examining shape and distribution between many variables
+
+---
+# Scatterplot matrix: GGally
+
+.pull-left[The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggscatmat`, `ggpairs`.
+
+<br>
+<br>
+
+*What do we learn?*
+
+- clustering
+- linear dependence
+- marginal discrete distribution
+]
+.pull-right[
+```{r scatterplot matrix, echo=TRUE, fig.width=6, fig.height=6}
+# Make a simple scatterplot matrix of a classic data set
+data(flea)
+ggscatmat(flea, columns = 1:6)
+```
+]
+
+---
+
+.pull-left[
+**Add some colour for groups**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+*What do we learn?*
+
+- clustering is due to the class variable
+]
+.pull-right[
+```{r scatterplot matrix with colour, echo=TRUE, fig.width=8, fig.height=8}
+# Re-make mapping colour to species (class)
+data(flea)
+ggscatmat(flea, columns = 1:6, color = "species") +
+  theme(legend.position="bottom")
+```
+]
+
+
+---
+# Generalized pairs plot
+
+.pull-left[
+These functions strictly take numeric variables. For a wider variety of variable types, use `ggpairs`.
+
+Its a bit slower, but it has a huge amount of flexibility.
+
+```{r PISA data wrangling}
+# Matrix plot when variables are not numeric
+data(australia_PISA2012)
+australia_PISA2012 <- australia_PISA2012 %>%
+  mutate(desk = factor(desk), 
+         room = factor(room),
+         study = factor(study), 
+         computer = factor(computer),
+         software = factor(software), 
+         internet = factor(internet),
+         literature = factor(literature), 
+         poetry= factor(poetry),
+         art = factor(art), 
+         textbook = factor(textbook),
+         dictionary = factor(dictionary),
+         dishwasher = factor(dishwasher))
+```
+]
+.pull-right[
+```{r generalised pairs plot, echo=TRUE, fig.width=6, fig.height=6}
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26))
+```
+]
+
+---
+
+```{r generalised pairs plot enhance plots, echo=TRUE, fig.width=6, fig.height=6}
+# Modify the defaults, set the transparency of points since there is a lot of data
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26), 
+          lower = list(continuous = wrap("points", alpha=0.05)))
+```
+
+---
+
+.pull-left[
+```{r design own plot function}
+# Make a special style of plot to put in the matirx
+my_fn <- function(data, mapping, method="loess", ...){
+      p <- ggplot(data = data, mapping = mapping) + 
+      geom_point(alpha=0.2, size=1) + 
+      geom_smooth(method="lm", ...)
+      p
+}
+```
+<br>
+<br>
+<br>
+
+*What do we learn?*
+
+- moderate increase in all scores as more time is spent on homework
+- test scores all have a very regular bivariate normal shape - is this simulated data? yes.
+- having a dishwasher in the household corresponds to small increase in homework time
+- very little but slight increase in scores with a dishwasher in household
+
+]
+.pull-right[
+```{r generalised pairs plot enhance more, echo=TRUE, fig.width=6, fig.height=6}
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26), 
+          lower = list(continuous = my_fn))
+
+```
+]
+
+---
+class: inverse middle
+
+# Your turn
+
+Re-make the plot with 
+
+- side-by-side boxplots on the lower triangle, for the combo variables, 
+- and the density plots in the upper triangle.
+
+---
+# Regression setting
+
+.pull-left[
+An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables.
+
+```{r wrangle housing data}
+housing <- read_csv(here::here("data/housing.csv")) %>%
+  mutate(date = dmy(date)) %>%
+  mutate(year = year(date)) %>%
+  filter(year == 2016) %>%
+  filter(!is.na(bedroom2), !is.na(price)) %>%
+  filter(bedroom2 < 7, bathroom < 5) %>%
+  mutate(bedroom2 = factor(bedroom2), 
+         bathroom = factor(bathroom)) 
+```
+]
+.pull-right[
+```{r make a regression style pairs plot, out.width="100%", fig.width=8, fig.height=3}
+ggduo(housing[, c(4,3,8,10,11)], 
+      columnsX = 2:5, columnsY = 1, 
+      aes(colour=type, fill=type), 
+      types = list(continuous = 
+                     wrap("smooth", 
+                       alpha = 0.10)))
+```
+]
+
+---
+# Let's explore tuberculosis mortality
+
+.pull-left[
+This data set is available from WHO along with the incidence data. The package `getTBinR` is a good way to download the burden table, which contains (estimated) mortality rates. 
+
+```{r how to pull the tb data directly, eval=FALSE}
+# library(getTBinR)
+# tb_burden <- get_tb_burden(verbose = FALSE)
+# dict <- get_data_dict(verbose = FALSE)
+# save(tb_burden, file="data/tb_burden.rda")
+```
+
+You have the data downloaded in the data directory already. We'd like to explore the rates across countries. To do this we will fit a linear model for each country and collect some statistics from each model fit. Using these, we'll extract countries with specific characteristics.
+]
+.pull-right[
+```{r compute statistics on tb mortality trends}
+# A more complex example of using the scatterplot matrix to explore
+# a large collection of time series. Compute statistics for each time
+# series, which might be called tignostics, and plot these. Explore 
+# the scatterplot matrix for anomalies and clusters. 
+load(here::here("data/tb_burden.rda"))
+# Fit a model for each country, and extract statistics
+tb_reg1 <- tb_burden %>%
+  group_by(country) %>%
+  nest() %>%
+  mutate(model = purrr::map(data, ~lm(e_mort_exc_tbhiv_100k ~ year, data = .x) %>% 
+                       tidy)) %>% 
+  unnest(model) %>%
+  select(country, term, estimate) %>%
+  spread(term, estimate) %>%
+  rename(intercept = `(Intercept)`, slope=year)
+tb_reg2 <- tb_burden %>%
+  group_by(country) %>%
+  nest() %>%
+  mutate(model = purrr::map(data, ~lm(e_mort_exc_tbhiv_100k ~ year, data = .x) %>% 
+                       glance)) %>% 
+  unnest(model) %>%
+  select(country, r.squared, sigma, BIC, deviance)
+tb_reg <- left_join(tb_reg1, tb_reg2)
+# Drop the 0 deviance, 0 sigma countries
+tb_reg <- tb_reg %>% filter(sigma > 0, BIC > -400)
+```
+]
+
+---
+
+.pull-left[
+```{r explore tb mortality trends, echo=TRUE, fig.width=6, fig.height=6}
+ggscatmat(tb_reg, columns=3:7)
+```
+]
+.pull-right[
+`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+What do you learn about mortality rates across the difference countries from this?
+]
+
+---
+
+.pull-left[
+`r icon::fa("hand-point-right")` **Add interactivity**
+
+```{r wranglw data to show labels interactively, echo=TRUE}
+# Add interaction to find the id's for countries that are anomalies
+tb_reg_m <- as.data.frame(tb_reg[,3:7])
+rownames(tb_reg_m) <- tb_reg$country
+```
+
+<br>
+<br>
+
+The row number of the data matrix that shows on mouseover can be used to find the country.
+
+
+]
+.pull-right[
+```{r explore tb mortality trends interactively, echo=TRUE, fig.width=8, fig.height=7}
+tb_reg_m %>% ggpairs() %>% ggplotly()
+```
+]
+
+---
+# Decreasing mortality
+
+
+```{r plot the countries that have decreasing mortality trend, echo=TRUE, fig.width=7, fig.height=4}
+# Use a dotplot with model overlaid, to better match analysis conducted
+declining <- tb_reg %>% filter(slope < -3.5)
+tb_burden %>% filter(country %in% declining$country) %>%
+  ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
+    geom_point() +
+    geom_smooth(method="lm", se=F) +
+  facet_wrap(~country, scales = "free_y")
+```
+
+---
+# Increasing mortality
+
+```{r explore tb mortality trends problem countries, echo=TRUE,  fig.width=7, fig.height=3}
+increasing <- tb_reg %>% filter(slope > 1, r.squared > 0.5)
+tb_burden %>% filter(country %in% increasing$country) %>%
+  ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
+    geom_point() +
+    geom_smooth(method="lm", se=F) +
+  facet_wrap(~country, scales = "free_y")
+```
+
+---
+class: inverse middle
+
+# Your turn
+
+- Plot the countries that have the highest variance
+- Plot the countries with the smallest variance, and highest slope
+- Plot all the countries in one plot, as transparent lines. 
+
+---
+# Resources
+
+- [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
+- Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
+- [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
+- Eunkyung Lee [PPtreeViz](https://www.jstatsoft.org/article/view/v083i08)
+- Wickham, Cook, Hofmann (2015) [Visualising Statistical Models: Removing the blindfold](http://dicook.org/publication/blindfold_2015/)
+- Cook and Swayne (2007) [Interactive and Dynamic Graphics for Data Analysis](http://ggobi.org/book/)
+- Wickham et al (2011) [tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf) and the R package [tourr](https://cran.r-project.org/web/packages/tourr/index.html)
+- Schloerke et al (2016) [Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and the R package [geozoo](https://cran.r-project.org/web/packages/geozoo/index.html)
+
+---
+# Share and share alike
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
