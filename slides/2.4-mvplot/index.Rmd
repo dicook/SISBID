@@ -37,6 +37,8 @@ library(GGally)
 library(tourr)
 library(broom)
 library(plotly)
+# remotes::install_github("allisonhorst/palmerpenguins")
+library(palmerpenguins)
 ```
 
 class: inverse middle 
@@ -61,7 +63,9 @@ mutivariate analysis takes relationships between these different aspects into ac
 ---
 # Scatterplot matrix: GGally
 
-.pull-left[The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggscatmat`, `ggpairs`.
+.pull-left[The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggpairs`.
+
+XXX replace with penguins!
 
 <br>
 <br>
@@ -70,13 +74,12 @@ mutivariate analysis takes relationships between these different aspects into ac
 
 - clustering
 - linear dependence
-- marginal discrete distribution
 ]
 .pull-right[
 ```{r scatterplot matrix, echo=TRUE, fig.width=6, fig.height=6}
-# Make a simple scatterplot matrix of a classic data set
-data(flea)
-ggscatmat(flea, columns = 1:6)
+# Make a simple scatterplot matrix of the new penguins data
+penguins <- penguins %>% filter(!is.na(bill_length_mm)) 
+ggpairs(penguins, columns=c(3:6))
 ```
 ]
 
@@ -98,9 +101,7 @@ ggscatmat(flea, columns = 1:6)
 .pull-right[
 ```{r scatterplot matrix with colour, echo=TRUE, fig.width=8, fig.height=8}
 # Re-make mapping colour to species (class)
-data(flea)
-ggscatmat(flea, columns = 1:6, color = "species") +
-  theme(legend.position="bottom")
+ggpairs(penguins, columns=c(3:6), ggplot2::aes(colour=species))
 ```
 ]
 
