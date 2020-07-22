@@ -42,14 +42,12 @@ Recommended Reading: Cookbook for R, by Winston Chang, available at <http://www.
 
 ## Course outline
 
-### Day 1 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day1.zip)
 
 1. [Setting things up](https://dicook.github.io/SISBID/0-preamble/slides/index.html)
 1. [The grammar of graphics and ggplot2](https://dicook.github.io/SISBID/1.1-ggplot/slides/index.html) (Heike)
 1. [Advancing the grammar to maps, time and interactivity](https://dicook.github.io/SISBID/1.2-ggplot-adv/slides/index.html) (Heike)
-1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/1.3-perception/slides/index.html) (Di)
+1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Di)
 
-### Day 2 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day2.zip)
 
 Morning: 
 
@@ -63,7 +61,6 @@ Afternoon:
 1. Touring on multivariate data (Di)
 1. Advanced graphics, and statistical inference (Di) 
 
-### Day 3 [zip file](https://github.com/dicook/SISBID/blob/master/SISBID_day3.zip)
 
 Morning:
 
