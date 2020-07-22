@@ -103,6 +103,12 @@ french_fries_weeks <- ff_long %>%
 head(french_fries_weeks)
 ```
 
+---
+# Spread
+
+```{r spread}
+head(french_fries_weeks)
+```
 
 `pivot_wider` introduces one new variable for each level of the variable in `names_from`
 

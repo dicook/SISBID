@@ -77,7 +77,7 @@ class: inverse middle
 What are the variables?
 
 ```{r example 1 What are the variables, echo=FALSE}
-grad <- read_csv("../data/graduate-programs.csv")
+grad <- read_csv(here::here("data/graduate-programs.csv"))
 head(grad[c(2,3,4,6)])
 ```
 
@@ -92,7 +92,7 @@ class: inverse middle
 What's in the column names of this data? What are the experimental units? What are the measured variables?
 
 ```{r example 2 whats in the column names, echo=FALSE}
-genes <- read_csv("../data/genes.csv")
+genes <- read_csv(here::here("data/genes.csv"))
 head(genes)
 ```
 
@@ -107,7 +107,7 @@ class: inverse middle
 What are the variables? What are the records?
 
 ```{r example 3 what are the variables and records, echo=FALSE}
-melbtemp <- read.fwf("../data/ASN00086282.dly", 
+melbtemp <- read.fwf(here::here("data/ASN00086282.dly"), 
    c(11, 4, 2, 4, rep(c(5, 1, 1, 1), 31)), fill=T)
 head(melbtemp[,c(1,2,3,4,seq(5,100,4))])
 ```
@@ -287,7 +287,7 @@ class: inverse middle
 Read the genes data from folder `data`. Column names contain data and are kind of messy. 
 
 ```{r}
-genes <- read_csv("../data/genes.csv")
+genes <- read_csv(here::here("data/genes.csv"))
 ```
 
 Produce the data frame called `gtidy` as shown below:
