@@ -7,6 +7,8 @@
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <link href="index_files/countdown-0.3.5/countdown.css" rel="stylesheet" />
+    <script src="index_files/countdown-0.3.5/countdown.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -127,6 +129,10 @@ Which type of plot makes it easier to answer: **The trend in incidence over year
 
 What are the pros and cons of each way of displaying the same information? Should specific limits on axes be made?
 
+<div class="countdown" id="timer_5f17bf9b" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">50</span></code>
+</div>
+
 ---
 
 🔮 👽 👼 **TWO MINUTE CHALLENGE**
@@ -135,15 +141,22 @@ What are the pros and cons of each way of displaying the same information? Shoul
 
 &lt;br&gt;
 
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
-
 &lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
+&lt;img src="index_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+<div class="countdown" id="timer_5f17c011" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
 ---
 
 🔮 👽 👼 **TWO MINUTE CHALLENGE**
 
 The following plots focus on proportion of males vs females. Plot A computes the proportion and displays this as a line plot. Plot B uses a 100% chart of stacked bars for females and males. What are the strengths and weaknesses of each?
+
+<div class="countdown" id="timer_5f17c111" style="top:100;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">05</span></code>
+</div>
 
 &lt;img src="index_files/figure-html/use a line plot for proportions-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
@@ -163,6 +176,7 @@ The following plots focus on proportion of males vs females. Plot A computes the
 ---
 # Hierarchy of mappings
 
+.pull-left[
 1. Position - common scale (BEST)
 2. Position - nonaligned scale
 3. Length, direction, angle
@@ -176,14 +190,38 @@ The following plots focus on proportion of males vs females. Plot A computes the
 
 Come up with a plot type for each of the mappings.
 
+<div class="countdown" id="timer_5f17bfbc" style="top:100;right:100;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">40</span></code>
+</div>
+
+]
+
+.pull-right[
+&lt;img src="images/list_of_plots.png" width="90%"&gt;
+]
+
+
+
 
 
 ---
 # Color palettes 
 
-&lt;img src="index_files/figure-html/show different types of color palettes-1.png" width="864" style="display: block; margin: auto;" /&gt;
+.left-column[
+
+```r
+display.brewer.all()
+```
 
 Sequential, diverging, qualitative: [Color Brewer web site](http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3) annotates the palettes indicating attributes of the palettes.
+
+]
+.right-column[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+]
+
 
 ---
 # Sequential
@@ -240,7 +278,11 @@ class: inverse middle
 
 🔮 👽 👼 **TWO MINUTE CHALLENGE**
 
-Of the previous three colour schemes on the same data, which would be the most appropriate?
+Of the previous three colour schemes on the same data, which would be the most appropriate? And why do you think so?
+
+<div class="countdown" id="timer_5f17c178" style="right:50;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">20</span></code>
+</div>
 
 ---
 # Color blind-proofing
@@ -259,7 +301,19 @@ Online checking tool [coblis](https://www.color-blindness.com/coblis-color-blind
 
 ---
 
-&lt;img src="index_files/figure-html/show the default colour scheme and dichromat adjusted colors-1.png" width="720" style="display: block; margin: auto;" /&gt;
+.pull-left[
+
+Original colours
+
+&lt;img src="index_files/figure-html/show the default colour scheme-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+Color blind view
+
+&lt;img src="index_files/figure-html/show the dichromat adjusted colors-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 # Pre-attentive
@@ -277,6 +331,8 @@ Is it easier now?
 ---
 # Proximity
 
+Place elements that you want to compare close to each other. If there are multiple comparisons to make, you need to decide which one is most important.
+
 &lt;img src="index_files/figure-html/a line plot on sex-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 &lt;img src="index_files/figure-html/a line plot on age-1.png" width="432" style="display: block; margin: auto;" /&gt;
@@ -284,17 +340,26 @@ Is it easier now?
 ---
 # Mapping and proximity
 
+.left-column[
+Same proximity is used, but different geoms. Is one better than the other to determine the relative ratios of males to females by age?
+]
+.right-column[
 &lt;img src="index_files/figure-html/side-by-side bars of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 &lt;img src="index_files/figure-html/piecharts of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
-
+]
 
 ---
 # Mapping and proximity
 
+.left-column[
+Same proximity is used, but different geoms. Is one better than the other to determine the relative ratios of ages by sex?
+]
+.right-column[
 &lt;img src="index_files/figure-html/side-by-side bars of age-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 &lt;img src="index_files/figure-html/piecharts of age-1.png" width="720" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 # Change blindness
@@ -339,6 +404,18 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 - Show the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself and to keep track of the variability.
 - One plot is never enough! Plot the data in different ways, it will help digest the relationships between variables, to gain a better understanding of the data.
 
+---
+class: inverse middle
+# Your turn
+
+This builds on the exercise from the previous session.
+
+- Using your choice of country, for example, Australia, make a set of plots to explore the TB incidence among males relative to females over different age groups for 2012.
+- Choose your best plot to answer this question: **Is there a higher prevalence of TB among younger women in 2012?**
+
+<div class="countdown" id="timer_5f17c27f" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 ---
 # Resources
 

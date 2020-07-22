@@ -163,6 +163,10 @@ Which type of plot makes it easier to answer: **The trend in incidence over year
 
 What are the pros and cons of each way of displaying the same information? Should specific limits on axes be made?
 
+```{r}
+countdown::countdown(1,50)
+```
+
 ---
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
@@ -177,11 +181,18 @@ What are the pros and cons of each way of displaying the same information? Shoul
 ```{r ref.label='colour and axes fixes', fig.height=3}
 ```
 
+```{r}
+countdown::countdown(0, 30, top=0, right=0)
+```
 ---
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
 The following plots focus on proportion of males vs females. Plot A computes the proportion and displays this as a line plot. Plot B uses a 100% chart of stacked bars for females and males. What are the strengths and weaknesses of each?
+
+```{r}
+countdown::countdown(1, 5, top=100, right=0)
+```
 
 ```{r use a line plot for proportions, fig.height=3}
 tb_us %>% group_by(year, age) %>% 
@@ -220,6 +231,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ---
 # Hierarchy of mappings
 
+.pull-left[
 1. Position - common scale (BEST)
 2. Position - nonaligned scale
 3. Length, direction, angle
@@ -233,6 +245,18 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 
 Come up with a plot type for each of the mappings.
 
+```{r}
+countdown::countdown(1, 40, top=100, right=100)
+```
+
+]
+
+.pull-right[
+<img src="images/list_of_plots.png" width="90%">
+]
+
+
+
 ```{r eval=FALSE}
 1. scatterplot, barchart
 2. side-by-side boxplot, stacked barchart
@@ -245,11 +269,21 @@ Come up with a plot type for each of the mappings.
 ---
 # Color palettes 
 
-```{r show different types of color palettes, fig.height=7, fig.width=12}
+.left-column[
+```{r show different types of color palettes, fig.height=7, fig.width=12, echo=TRUE, fig.show='hide'}
 display.brewer.all()
 ```
 
 Sequential, diverging, qualitative: [Color Brewer web site](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) annotates the palettes indicating attributes of the palettes.
+
+]
+.right-column[
+
+```{r ref.label='show different types of color palettes', fig.height=7, fig.width=12}
+```
+
+]
+
 
 ---
 # Sequential
@@ -294,7 +328,11 @@ class: inverse middle
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-Of the previous three colour schemes on the same data, which would be the most appropriate?
+Of the previous three colour schemes on the same data, which would be the most appropriate? And why do you think so?
+
+```{r}
+countdown::countdown(0, 80, right=50)
+```
 
 ---
 # Color blind-proofing
@@ -312,15 +350,28 @@ Online checking tool [coblis](https://www.color-blindness.com/coblis-color-blind
 
 ---
 
-```{r show the default colour scheme and dichromat adjusted colors, echo=FALSE, fig.height=8}
+.pull-left[
+
+Original colours
+
+```{r show the default colour scheme, echo=FALSE, fig.width=4, fig.height=4, out.width="100%"}
 clrs <- hue_pal()(9)
 p1 <- d + theme(legend.position = "none") + scale_color_discrete()
+p1
+```
+]
 
+.pull-right[
+
+Color blind view
+
+```{r show the dichromat adjusted colors, echo=FALSE, fig.width=4, fig.height=4, out.width="100%"}
 clrs <- dichromat(hue_pal()(9))
 p2 <- d + scale_color_manual("", values=clrs) + theme(legend.position = "none")
 
-grid.arrange(p1, p2, ncol=1)
+p2
 ```
+]
 
 ---
 # Pre-attentive
@@ -350,6 +401,8 @@ ggplot(data=df, aes(x, y, colour=cl)) +
 ---
 # Proximity
 
+Place elements that you want to compare close to each other. If there are multiple comparisons to make, you need to decide which one is most important.
+
 ```{r a line plot on sex, fig.height=3}
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
@@ -371,6 +424,10 @@ ggplot(tb_us, aes(x=year, y=count, colour=age)) +
 ---
 # Mapping and proximity
 
+.left-column[
+Same proximity is used, but different geoms. Is one better than the other to determine the relative ratios of males to females by age?
+]
+.right-column[
 ```{r side-by-side bars of males/females, fig.height=3}
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=sex, y=count, fill=sex)) +
@@ -389,11 +446,15 @@ tb_us %>% filter(year == 2012) %>%
   ggtitle("Angle") + xlab("") + ylab("") +
   coord_polar(theta = "y")
 ```
-
+]
 
 ---
 # Mapping and proximity
 
+.left-column[
+Same proximity is used, but different geoms. Is one better than the other to determine the relative ratios of ages by sex?
+]
+.right-column[
 ```{r side-by-side bars of age, fig.height=3}
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=age, y=count, fill=age)) +
@@ -412,6 +473,7 @@ tb_us %>% filter(year == 2012) %>%
   ggtitle("Angle") + xlab("") + ylab("") +
   coord_polar(theta = "y")
 ```
+]
 
 ---
 # Change blindness
@@ -450,6 +512,18 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 - Show the data! There are a lot of examples where the statistics are plotted, but the magic comes when you plot the data. Plot the statistics if the volume of data is overwhelming, to tighten the message, but still plot the data for yourself and to keep track of the variability.
 - One plot is never enough! Plot the data in different ways, it will help digest the relationships between variables, to gain a better understanding of the data.
 
+---
+class: inverse middle
+# Your turn
+
+This builds on the exercise from the previous session.
+
+- Using your choice of country, for example, Australia, make a set of plots to explore the TB incidence among males relative to females over different age groups for 2012.
+- Choose your best plot to answer this question: **Is there a higher prevalence of TB among younger women in 2012?**
+
+```{r}
+countdown::countdown(7, 0)
+```
 ---
 # Resources
 
