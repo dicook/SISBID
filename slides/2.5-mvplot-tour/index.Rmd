@@ -1,6 +1,6 @@
 ---
 title: "Touring multivariate data"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2020 <br> https://dicook.github.io/SISBID/"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/22-24/2020"
 output:
@@ -25,8 +25,9 @@ knitr::opts_chunk$set(
   fig.height = 4,
   fig.width = 8,
   fig.align = "center",
+  fig.retina = 3,
   cache = FALSE
-)
+ )
 ```
 
 ```{r echo=FALSE}
@@ -35,325 +36,490 @@ library(lubridate)
 library(GGally)
 # remotes::install_github("ggobi/tourr")
 library(tourr)
-library(broom)
 library(plotly)
+library(palmerpenguins)
+# remotes::install_github("ropenscilabs/ochRe")
+library(ochRe)
 ```
 
+Penguins data: See https://allisonhorst.github.io/palmerpenguins/ for more details.
 
-# Tours of high-dimensions
+<br>
+<br>
 
+<table>
+<tr> <td width="40%"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Adélie_Penguin.jpg/320px-Adélie_Penguin.jpg" width="100%" /> </td> <td width="30%"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg/273px-Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg" width="100%" /> </td> <td width="30%"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg/201px-A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg" width="90%" /> </td> </tr>
+<tr> <td> Adélie .footnote[[Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Adélie_Penguin.jpg/320px-Adélie_Penguin.jpg)]  </td> <td> Gentoo .footnote[[Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg/273px-Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg)] </td> 
+<td> Chinstrap .footnote[[Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg/201px-A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg)]</td> </tr>
+</table>
 
-Most of what you find when you google "visualising high-dimensions" is awful, e.g. use colour and symbol after 3D to show 5D; PCA, MDS, tSNE, are visualisation methods; "you can't see beyond 3D".... Rubbish!
-
-**What are dimensions?**
-
-<img src="cubes.png" style="width: 90%; align: center" />
-
-- When you add another variable, you implicitly add another orthogonal axis. 
-- The space is effectively a $p$-dimensional cube
-- The data might not fill the cube, and then dimension reduction might make it a $k(<p)$-dimensional cube
 
 ---
-# Quick intro
 
-<img src="images/tourr.png" width="10%" />
+.pull-left[
+.small[
+```{r penguins, echo=TRUE, eval=FALSE, fig.show='hide'}
+ggplot(penguins, 
+   aes(x=flipper_length_mm, 
+       y=body_mass_g,
+       colour=species,
+       shape=species)) +
+  geom_point(alpha=0.7, 
+             size=2) +
+  scale_colour_ochre(
+    palette="nolan_ned") + 
+  theme(aspect.ratio=1,
+  legend.position="bottom")
+```
+]
+]
 
-*Without thinking too much*: How many clusters do you see?
+.pull-right[
 
-```{r code for generating a 6D tour, eval=FALSE, echo=TRUE}
-# The tour requires making many plots, and updating.
-# The RStudio graphics device doesn't work well
-# Open a graphics window
-# quartz()  # Mac OSX
-# X11()     # Windows
-animate_xy(flea[,1:6], axes = "off")
+
+```{r ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"}
+```
+]
+
+---
+class: inverse middle center
+
+# Our first tour
+
+`r anicon::nia("What patterns do you see?", animate="rotate")` 
+
+Go to www.menti.com and use the code 74 55 67
+
+`r countdown::countdown(1,30)`
+
+---
+
+.pull-left[
+```{r echo=TRUE, eval=FALSE}
+clrs <- ochre_pal(
+  palette="nolan_ned")(3)
+col <- clrs[
+  as.numeric(
+    penguins$species)]
+animate_xy(penguins[,3:6], 
+           col=col, 
+           axes="off", 
+           fps=15)
+```
+]
+
+
+```{r eval=FALSE, echo=FALSE}
+# This code was used to make the animated gif
+set.seed(20200622)
+clrs <- ochre_pal(palette="nolan_ned")(3)
+col <- clrs[as.numeric(penguins$species)]
+penguins <- penguins %>%
+  rename(bl = bill_length_mm,
+         bd = bill_depth_mm, 
+         fl = flipper_length_mm, 
+         bm = body_mass_g)
+render_gif(penguins[,3:6], grand_tour(), 
+           display_xy(col=col, axes="bottomleft"), 
+           "penguins2d.gif", frames=100, width=300, height=300)
 ```
 
+.pull-right[
+<img src="penguins2d.gif" width="100%"> 
+]
+
+---
+class: inverse middle
+# What did you see?
+
+- clusters `r emo::ji("white_check_mark")`
+--
+
+- outliers `r emo::ji("white_check_mark")`
+--
+
+- linear dependence `r emo::ji("white_check_mark")`
+--
+
+- elliptical clusters with slightly different shapes `r emo::ji("white_check_mark")`
+--
+
+- separated elliptical clusters with slightly different shapes `r emo::ji("white_check_mark")`
+--
 
 ---
 # What is a tour?
 
 .pull-left[
+
 A grand tour is by definition a movie of low-dimensional projections constructed in such a way that it comes arbitrarily close to showing all possible low-dimensional projections; in other words, a grand tour is a space-filling curve in the manifold of low-dimensional projections of high-dimensional data spaces.
 
-<img src="images/hands.png" width="60%">
+<img src="images/hands.png" width="80%"> 
+]
+
+.pull-right[
+${\mathbf x}_i \in \mathcal{R}^p$, $i^{th}$ data vector
+
+$F$ is a $p\times d$ orthonormal basis, $F'F=I_d$, where $d$ is the projection dimension.
+
+The projection of ${\mathbf x_i}$ onto $F$ is ${\mathbf y}_i=F'{\mathbf x}_i$.
+
+Tour is indexed by time, $F(t)$, where $t\in [a, z]$. Starting and target frame denoted as $F_a = F(a), F_z=F(t)$.
+
+The animation of the projected data is given by a path ${\mathbf y}_i(t)=F'(t){\mathbf x}_i$.
+
+]
+
+---
+
+# Geodesic interpolation between planes
+
+.pull-left[
+Tour is indexed by time, $F(t)$, where $t\in [a, z]$. Starting and target frame denoted as $F_a = F(a), F_z=F(t)$.
+
+The animation of the projected data is given by a path ${\mathbf y}_i(t)=F'(t){\mathbf x}_i$.
+
 ]
 .pull-right[
-Movement patterns indicate structure:
 
-<img src="images/tour_schematic.png" width="80%">
+<img src="images/geodesic.png" width="120%">
+
 ]
----
-
-Here is a grand tour of a 3D classic data set
-
-<iframe src="images/flea3d.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
-
-The axes show the combination of variables making up any particular 2D projection.
 
 ---
+class: inverse middle center
 
-This is a grand tour of the full 6D. Can you see clusters? Corresponding to the colours? 
+# Reading axes - interpretation
 
-<iframe src="images/flea6d.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
-
-These two animations were made with `plotly`.
-
----
-# Why use a tour?
-
-Other than basic exploration:
-
-- **initial data analysis**: to examine whether the data 
-    - satisfies assumptions required for the method
-    - has unexpected complications like outliers or nonlinearity
-- **examine the model fit**:    
-    - dimension reduction, e.g. to look at more than 2 PCs
-    - clustering, and examine the model like the dendrogram in high-d, or the k-means, or the estimated model from model-based
-    - classification: boundaries between classes, misclassifications, diagnostics like vote matrix from random forest
+Length and direction of axes relative to the  pattern of interest
 
 ---
-# Guided tour
 
-The guided tour chooses new target projections by optimising a function of interest:
+<img src="images/reading_axes.001.png" width="100%"> 
 
-$$\mathop{\text{maximize}}_{\phi_{11},\dots,\phi_{p1}} f\left(\sum_{j=1}^p \phi_{j1}x_{ij}\right) \text{ subject to }
-\sum_{j=1}^p \phi^2_{j1} = 1$$
+---
 
-- `holes`: This is an inverse Gaussian filter, which is optimised wheren there is not much data in the center of the projection, i.e. a "hole" or donut shape in 2D.
-- `central mass`: The opposite of holes, high density in the centre of the projection, and often "outliers" on the edges. 
-- `LDA`: An index based on the linear discrimination dimension reduction, optimised by projections where the named classes are most separated.
+<img src="images/reading_axes.002.png" width="100%"> 
 
-```{r guided tour 6D, eval=FALSE, echo=TRUE}
-# The tour requires making many plots, and updating.
-# The RStudio graphics device doesn't work well
-# Open a graphics window
-# quartz()  # Mac OSX
-# X11()     # Windows
-animate_xy(flea[,1:6], guided_tour(lda_pp(flea$species)), axes="bottomleft")
+---
+# Reading axes - interpretation
+
+```{r reading axes, eval=FALSE, echo=FALSE}
+# Generate a plotly animation to demonstrate
+library(plotly)
+library(htmltools)
+
+# Standardise data
+scale2 <- function(x) {(x-mean(x))/sd(x)}
+penguins_s <- penguins %>% 
+  mutate_if(is.numeric, scale2)
+
+# Generate sequence of bases
+# set.seed(3)
+set.seed(4)
+random_start <- basis_random(4)
+bases <- save_history(penguins[,3:6], grand_tour(2), 
+    start=random_start, max = 5)
+bases[,,1] <- random_start # something needs fixing
+tour_path <- interpolate(bases, 0.1)
+d <- dim(tour_path)
+
+# Make really big data of all projections
+penguins_d <- NULL; penguins_axes <- NULL
+for (i in 1:d[3]) {
+  fp <- as.matrix(penguins_s[,3:6]) %*% 
+    matrix(tour_path[,,i], ncol=d[2])
+  fp <- tourr::center(fp)
+  colnames(fp) <- c("d1", "d2")
+  penguins_d <- rbind(penguins_d, cbind(fp, rep(i+10, nrow(fp))))
+  fa <- cbind(matrix(0, d[1], d[2]), 
+              matrix(tour_path[,,i], ncol=d[2]))
+  colnames(fa) <- c("origin1", "origin2", "d1", "d2") 
+  penguins_axes <- rbind(penguins_axes, 
+                         cbind(fa, rep(i+10, nrow(fa))))
+}
+colnames(penguins_d)[3] <- "indx"
+colnames(penguins_axes)[5] <- "indx"
+
+df <- as_tibble(penguins_d) %>% 
+  mutate(species = rep(penguins_s$species, d[3]))
+dfaxes <- as_tibble(penguins_axes) %>%
+  mutate(labels=rep(colnames(penguins_s[,3:6]), d[3]))
+dfaxes_mat <- dfaxes %>%
+  mutate(xloc = rep(max(df$d1)+1, d[3]*d[1]), 
+         yloc=rep(seq(-1.2, 1.2, 0.8), d[3]), 
+         coef=paste(round(dfaxes$d1, 2), ", ", 
+                    round(dfaxes$d2, 2)))
+p <- ggplot() +
+       geom_segment(data=dfaxes, 
+                    aes(x=d1*2-5, xend=origin1-5, 
+                        y=d2*2, yend=origin2, 
+                        frame = indx), colour="grey70") +
+       geom_text(data=dfaxes, aes(x=d1*2-5, y=d2*2, label=labels, 
+                                  frame = indx), colour="grey70") +
+       geom_point(data = df, aes(x = d1, y = d2, colour=species, 
+                                 frame = indx), size=1) +
+       scale_colour_ochre(palette="nolan_ned") +
+       geom_text(data=dfaxes_mat, aes(x=xloc, y=yloc, 
+                                  label=coef, frame = indx)) + 
+       theme_void() +
+       coord_fixed() +
+  theme(legend.position="none")
+pg <- ggplotly(p, width=700, height=400) %>%
+  animation_opts(200, redraw = FALSE, 
+                 easing = "linear", transition=0)
+save_html(pg, file="penguins.html")
 ```
+
+<iframe src="penguins.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
+
+---
+
+.pull-left[
+```{r runthis13, fig.width=4, fig.height=4, out.width="90%"}
+ggplot(penguins, 
+   aes(x=flipper_length_mm, 
+       y=bill_depth_mm,
+       colour=species,
+       shape=species)) +
+  geom_point(alpha=0.7, 
+             size=2) +
+  scale_colour_ochre(
+    palette="nolan_ned") + 
+  theme(aspect.ratio=1,
+  legend.position="bottom")
+```
+
+Gentoo from others in contrast of fl, bd
+]
+.pull-right[
+
+```{r runthis14, fig.width=4, fig.height=4, out.width="90%"}
+ggplot(penguins, 
+   aes(x=bill_length_mm, 
+       y=body_mass_g,
+       colour=species,
+       shape=species)) +
+  geom_point(alpha=0.7, 
+             size=2) +
+  scale_colour_ochre(
+    palette="nolan_ned") + 
+  theme(aspect.ratio=1,
+  legend.position="bottom")
+```
+
+Chinstrap from others in contrast of bl, bm
+
+]
+
+---
+class: inverse middle left
+
+There may be multiple and different combinations of variables that reveal similar structure. `r emo::ji("frowning_face")` 
+
+The tour can help to discover these, too. `r emo::ji("joy")` 
+
+---
+# Other tour types
+
+- .orange[guided]: follows the optimisation path for a projection pursuit index.
+- .orange[little]: interpolates between all variables. 
+- .orange[local]: rocks back and forth from a given projection, so shows all possible projections within a radius.
+- .orange[dependence]: two independent 1D tours
+- .orange[frozen]: fixes some variable coefficients, others vary freely. 
+- .orange[manual]: control coefficient of one variable, to examine the sensitivity of structure this variable. (In the .orange[spinifex] package)
+- .orange[slice]: use a section instead of a projection.
+
+---
+class: inverse middle center
+
+# guided tour 
+
+new target bases are chosen using a projection pursuit index function
+
+---
+$$\mathop{\text{maximize}}_{F} g(F'x) ~~~\text{ subject to }
+F \text{ being orthonormal}$$
+
+.font_small[
+- `holes`: This is an inverse Gaussian filter, which is optimised when there is not much data in the center of the projection, i.e. a "hole" or donut shape in 2D.
+- `central mass`: The opposite of holes, high density in the centre of the projection, and often "outliers" on the edges. 
+- `LDA`/`PDA`: An index based on the linear discriminant dimension reduction (and penalised), optimised by projections where the named classes are most separated.
+]
+
+---
+
+```{r eval=FALSE, echo=FALSE}
+clrs <- ochre_pal(
+  palette="nolan_ned")(3)
+col <- clrs[
+  as.numeric(
+    penguins$species)]
+set.seed(20200622)
+render_gif(penguins[,3:6], guided_tour(lda_pp(penguins$species)), 
+           display_xy(col=col, axes="bottomleft"), 
+           "penguins2d_guided.gif", 
+           frames=17, width=300, height=300, loop=FALSE)
+```
+
+```{r runthis15, eval=FALSE, echo=FALSE}
+animate_xy(penguins[,3:6], grand_tour(),
+           axes = "bottomleft", col=col)
+animate_xy(penguins[,3:6], guided_tour(lda_pp(penguins$species)),
+           axes = "bottomleft", col=col)
+best_proj <- matrix(c(0.940, 0.058, -0.253, 0.767, 
+                      -0.083, -0.393, -0.211, -0.504), ncol=2,
+                    byrow=TRUE)
+```
+
+.pull-left[
+Grand
+
+<img src="penguins2d.gif" width="80%">
+
+.small[
+Might accidentally see best separation
+]
+]
+
+.pull-right[
+
+Guided, using LDA index
+
+<img src="penguins2d_guided.gif" width="80%">
+
+.small[
+Moves to the best separation
+]
+]
+
+---
+class: inverse middle center
+
+# manual tour
+
+control the coefficient of one variable, reduce it to zero, increase it to 1, maintaining orthonormality
 
 ---
 # Manual tour
 
-This is a good way to determine how important a structure in the projection is to a particular variable contribution. You can "rotate" a variable out, and observe if the pattern remains or disappears. 
-
-```{r generate a sequence to rotate a variable out of a projection, eval=FALSE, echo=TRUE}
-# When you find a low dimensional projection from some other technique
-# such as principal component analysis, linear discriminant analysis or 
-# projection pursuit, it is useful to examine the sensitivity of structure
-# to variables in the projection. This is the purpose of the manual tour. 
-# Take a variable, and rotate it out of the projection and see if the structure
-# persists or disappears.
-flea_std <- tourr::rescale(flea[, 1:6])
-
-rb <- basis_random(n = ncol(flea_std))
-mtour <- manual_tour(basis = rb, manip_var = 4)
-sshow <- array2df(array = mtour, data = flea_std)
-render_plotly(slides = sshow)
-
-render_plotly(slides = sshow, col = col_of(flea$species), 
-  fps = 2)
+```{r eval=FALSE, echo=FALSE}
+mtour1 <- manual_tour(basis = best_proj, manip_var = 3)
+render_manual(penguins_s[,3:6], mtour1, "penguins_manual_fl.gif", col=col, dir = "images/manual1/")
+mtour2 <- manual_tour(basis = best_proj, manip_var = 1)
+render_manual(penguins_s[,3:6], mtour2, "penguins_manual_bl.gif", col=col, dir = "images/manual2")
 ```
-
----
-# Examining models: randomForest
-
-We will take a look at the vote matrix from a random forest fit, on the classic olive oil data. The vote matrix contains the proportion of times each observation is predicted to be in each class. Geometrically it is a simplex. Points close to a vertex, correspond to observations where the classifier almost always predicts to one class, that is, very certain. Points between vertices are observations with uncertainty.
-
-```{r read and tour on in a classic data set, echo=TRUE, eval=FALSE}
-olive <- read_csv("http://www.ggobi.org/book/data/olive.csv") %>%
-  rename(name=X1)
-olive <- olive %>%
-  filter(region == 1) %>%
-  mutate(area = factor(area))
-pal <- brewer.pal(4, "Dark2")
-col <- pal[olive$area]
-# drop eicosenoic, all low for south
-animate_xy(olive[,4:10], axes="bottomleft", col=col) 
-# Drop Sicily
-animate_xy(olive[olive$area!=4,4:10], axes="bottomleft", col=col[olive$area!=4]) 
-```
-
----
-
-```{r Fit a randomForest model an examine the vote matrix, echo=TRUE, eval=FALSE}
-olive_rf <- randomForest(area~., data=olive[,-c(1, 2, 11)], importance=TRUE, proximity=TRUE)
-olive_rf
-vt <- data.frame(olive_rf$votes)
-vt$area <- olive$area
-ggscatmat(vt, columns=1:4, col="area") + 
-  scale_colour_brewer("", palette="Dark2")
-proj <- t(geozoo::f_helmert(4)[-1,])
-vtp <- as.matrix(vt[,-5])%*%proj
-vtp <- data.frame(vtp, area=vt$area)
-ggscatmat(vtp, columns=1:3, col="area") + 
-  scale_colour_brewer("", palette="Dark2")
-pal <- brewer.pal(4, "Dark2")
-col <- pal[as.numeric(vtp[, 4])]
-animate_xy(vtp[,1:3], col=col, axes = "bottomleft")
-# Add simplex
-simp <- simplex(p=3)
-sp <- data.frame(simp$points)
-colnames(sp) <- c("x1", "x2", "x3")
-colnames(vtp) <- c("x1", "x2", "x3")
-vtp_s <- bind_rows(sp, vtp[,1:3])
-animate_xy(vtp_s, col=col, axes = "bottomleft", edges=as.matrix(simp$edges), center=TRUE)
-```
-
----
-# Examining models: principal component analysis
 
 .pull-left[
-```{r tb pca analysis, eval=FALSE, echo=TRUE}
-library(naniar) # Have missings!
-tb_burden_wide <- tb_burden %>%
-  select(country, g_whoregion, year, 
-         e_mort_exc_tbhiv_100k) %>%
-  spread(year, e_mort_exc_tbhiv_100k) %>%
-  filter(complete.cases(.)) %>%
-  rename(region = g_whoregion) %>%
-  mutate(country = factor(country), 
-         region = factor(region))
-# vis_miss(tb_burden_wide)  
-tb_pca <- prcomp(tb_burden_wide[,-c(1:2)], 
-                 scale=FALSE, retx=TRUE)
-screeplot(tb_pca, type="line")
-tb_pcs <- bind_cols(as_tibble(tb_pca$x), 
-                    tb_burden_wide[,1:2])
-ggscatmat(tb_pcs, columns=1:3, color="region")
-# quartz()
-# X11()
-pal <- brewer.pal(6, "Dark2")
-col <- pal[as.numeric(as.factor(tb_pcs$region))]
-animate_xy(tb_pcs[,1:4], col=col, 
-           axes = "bottomleft")
-```
+
+- start from best projection, given by projection pursuit
+- bl contribution controlled
+- if bl is removed form projection, Adelie and chinstrap are mixed
+- bl is important for Adelie
+
 ]
+
+
 .pull-right[
-- The main structure is a "shuttlecock" shape: that most countries have similarly low rates and a handful of countries deviate from this. 
-- A few, quite a few, outliers.
+
+<img src="penguins_manual_bl.gif" width="90%">
+
 ]
 
-```{r tb mortality line plots, eval=FALSE, echo=FALSE}
-tb_burden <- tb_burden %>%
-  rename(region = g_whoregion)
-ggplot(tb_burden, aes(x=year, y=e_mort_exc_tbhiv_100k, 
-                      group=country, colour=region)) +
-  geom_line() + facet_wrap(~region)
-```
-
 ---
-# Examining models: tsne
+# Manual tour
 
-This is a preliminary R package, [sneezy](https://github.com/sa-lee/sneezy) for exploring nonlinear dimension reduction solutions, with a tour. It is the work of [Stuart Lee](https://stuartlee.org).
 
-The data is 10D. [t-SNE](https://lvdmaaten.github.io/tsne/) is a non-linear dimension reduction algorithm which is used to view cluster structure in high-dimensional data. There is an R package implementation, [Rtsne](https://cran.r-project.org/web/packages/Rtsne/index.html). 
-
-It can be particularly hard to tune the parameters when fitting the t-SNE model. This provides a way to map back to the original data space, to see how the data was transformed. 
-
----
 .pull-left[
-```{r nonlinear dimension reduction, eval=FALSE, echo=TRUE}
-# remotes::install_github("sa-lee/sneezy")
-library(gganimate) # required for printing tours
-library(sneezy)
-# Read a benchmark data set
-spheres <- subset(multi, key %in% c("A", "D"))
-labels <- ifelse(spheres$key == "A", "sub-gaussian", "10-d 2x cluster")
-spheres <- as.matrix(spheres[, -c(1,2)])
 
-# t-SNE plot
-set.seed(1010010)
-coords <- basic_tsne(spheres, perplexity = 30)
-pl <- ggplot(as.data.frame(coords$Y), aes(V1, V2)) +
-  geom_point(aes(colour = labels)) +
-  coord_equal() +
-  scale_color_brewer(palette = "Dark2") +
-  theme(axis.title = element_blank(), 
-        axis.ticks = element_blank(), 
-        axis.text = element_blank(),
-        panel.grid = element_blank())
+- start from best projection, given by projection pursuit
+- fl contribution controlled
+- cluster less separated when fl is fully contributing
+- fl is important, in small amounts, for Gentoo
 
-pl +  add_triangles(coords) 
-
-# in data space, with a triangulation of the points from the tSNE view
-# quartz()
-# X11()
-pal <- c("#1B9E77", "#D95F02")[as.integer(as.factor(labels))]
-sneezy_triangles(spheres, coords, col = pal)
-```
 ]
+
+
 .pull-right[
-You can see that in the data space, that the 
 
-- three small clusters are there, are very close and very compact. 
-- Next to them is a long, elliptical cluster, that is also small and compact. 
-- The two big clusters are spherical and far apart. 
+<img src="penguins_manual_fl.gif" width="90%">
 
-From t-SNE 2D represenation, the 6 clusters are clearly identified. We probably would have missed that there were 6 clusters using the tour alone, because four of them are so close together, and the distance between clusters is heterogeneous. t-SNE destroys the between cluster information, and the relative position of clusters in the high-d space. 
-
-In combination with the tour, we get a deeper understanding of the cluster structure.
 ]
 ---
-# Comparison to parallel coordinates
+# Local tour
 
-```{r tour again for comparison, eval=FALSE, echo=FALSE}
+```{r eval=FALSE, echo=FALSE}
+render_gif(penguins[,3:6], local_tour(start=best_proj, 0.9), 
+           display_xy(col=col, axes="bottomleft"), 
+           "penguins2d_local.gif", 
+           frames=200, width=300, height=300)
+```
+
+```{r runthis16, eval=FALSE, echo=FALSE}
+animate_xy(penguins[,3:6], local_tour(start=best_proj, 0.9),
+           axes = "bottomleft", col=col)
+```
+
+.pull-left[
+Rocks from and to a given projection, in order to observe the neighbourhood
+
+]
+
+.pull-right[
+<img src="penguins2d_local.gif" width="90%">
+
+]
+---
+# Projection dimension and displays
+
+```{r eval=FALSE, echo=FALSE}
+render_gif(penguins[,3:6], grand_tour(), 
+           display_dist(half_range=1.3), 
+           "penguins1d.gif", 
+           frames=100, width=400, height=300)
+render_gif(penguins[,3:6], grand_tour(), 
+           display_density2d(col=col, axes="bottomleft"), 
+           "penguins2d_dens.gif", 
+           frames=100, width=300, height=300)
+```
+
+```{r runthis17, eval=FALSE, echo=FALSE}
+animate_dist(penguins[,3:6], half_range=1.3)
+animate_density2d(penguins[,3:6], col=col, axes="bottomleft")
+```
+.pull-left[
+<img src="penguins1d.gif" width="90%">
+
+]
+
+.pull-right[
+<img src="penguins2d_dens.gif" width="90%">
+
+]
+
+---
+class: inverse middle
+# Your turn
+
+Using the sample code from the tour package, check how many clusters in the example data.
+
+```{r eval=FALSE}
+library(tourr)
+data(flea)
+?animate_xy
+# On a Mac, you may need to start a quartz graphics window
 # quartz()
+# On windows, you may need to start an X11 graphics window
 # X11()
-pal <- brewer.pal(4, "Dark2")
-col <- pal[olive$area]
-# drop eicosenoic, all low for south
-animate_xy(olive[,4:10], axes="bottomleft", col=col) 
-# Drop Sicily
-animate_xy(olive[olive$area!=4,4:10], axes="bottomleft", col=col[olive$area!=4]) 
+animate_xy(flea[, 1:6])
+# If you want to use your RStudio graphics window, it might show up better 
+# if you reduce the frame rate for drawing.
+animate_xy(flea[, 1:6], fps=10)
 ```
 
-Parallel coordinates show multiple dimensions by drawing lines connectiong observations plotted as univariate dotplots. It is a parallel geometric space rather than a Euclidean space. But is can be useful for getting a single static view, as an alternative to a scatterplot matrix.
-
-```{r make a parallel coordinate plot of the olive data, eval=FALSE, echo=TRUE}
-ggparcoord(olive, columns=4:10, groupColumn=3, order="anyClass") + 
-  scale_colour_brewer("", palette="Dark2")
+```{r echo=FALSE}
+countdown::countdown(2,0)
 ```
-
----
-# Comparison to heatmap
-
-A heatmap uses maps a quantitative variable to colour, and displays in a matrix layout. Often accompanied by a clustering, or ordering of rows and columns. Colour mapping of a quantitative variable is the lowest on the hierarchy of mappings, and difficult for a user to accurately read the information. The coordinate system underlying this form of mapping is not clear, its not Euclidean.
-
-```{r make a heatmap of the olive data, eval=FALSE, echo=TRUE}
-library(superheat)
-superheat(olive[,4:10], scale=TRUE, 
-          pretty.order.rows=TRUE, pretty.order.cols=TRUE,
-          row.dendrogram = TRUE) 
-```
-
----
-# Making a tourr animation using plotly
-
-The easiest approach is to use the `play_tour_path` function from `spinifex`. Either show it like, or save it to an html file for later replay with `save_html` from the `htmltools` package.
-
-```{r plotly tourr, eval=FALSE, echo=TRUE}
-flea_std <- rescale(tourr::flea[,1:6])
-tpath    <- save_history(flea_std, max = 3)
-
-pg <- play_tour_path(tour_path = tpath, data = flea_std, angle = .15)
-pg 
-save_html(pg, file="mytour.html")
-```
-
----
-# Making a tourr animation using gganimate
-
-The function `render_gif` is available in the development version of the `tourr` package. It will save the tour projections as an animated gif.
-
-```{r saving a tour as an animated fig using gganimate, eval=FALSE, echo=TRUE}
-library(gganimate)
-render_gif(flea[,1:6], grand_tour(), display_xy(axes="off"),
-           frames=200, 
-           gif_file="mytour.gif")
-```
-
 
 ---
 # Resources
@@ -361,11 +527,11 @@ render_gif(flea[,1:6], grand_tour(), display_xy(axes="off"),
 - [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
 - Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
 - [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
-- Eunkyung Lee [PPtreeViz](https://www.jstatsoft.org/article/view/v083i08)
-- Wickham, Cook, Hofmann (2015) [Visualising Statistical Models: Removing the blindfold](http://dicook.org/publication/blindfold_2015/)
-- Cook and Swayne (2007) [Interactive and Dynamic Graphics for Data Analysis](http://ggobi.org/book/)
 - Wickham et al (2011) [tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf) and the R package [tourr](https://cran.r-project.org/web/packages/tourr/index.html)
 - Schloerke et al (2016) [Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and the R package [geozoo](https://cran.r-project.org/web/packages/geozoo/index.html)
+- Spyrison and  Cook (2020). spinifex: Manual Tours, Manual
+  Control of Dynamic Projections of Numeric Multivariate Data. https://CRAN.R-project.org/package=spinifex
+- Stuart Lee [liminal](https://github.com/sa-lee/liminal) New tools to do linked brushing between tours and PCA/tSNE/PDS views
 
 ---
 # Share and share alike
