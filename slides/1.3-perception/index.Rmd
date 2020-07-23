@@ -48,12 +48,12 @@ library(here)
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
   mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
   mutate(sex=substr(sexage, 1, 1), 
          age=substr(sexage, 2, length(sexage))) %>%
-  select(-sexage)
+  dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
 tb_us <- tb %>% 

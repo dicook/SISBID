@@ -128,8 +128,7 @@ ggplot(data) + geom_point(aes(x=x1, y=x2))
 
 <br>
 <br>
-<br>
-<br>
+
 
 B
 ```
@@ -143,14 +142,19 @@ ggplot(data) + geom_histogram(aes(x=x1))
 ```
 <br>
 <br>
-<br>
-<br>
 
 D
 ```
 ggplot(data) + geom_boxplot(aes(x=cl, y=x1))
 ```
 ]
+
+<br>
+<br>
+
+.orange[Which plot definition would most match to a null hypothesis stating **there is no difference in the distribution between the groups?**]
+
+Go to www.menti.com and use the code 79 16 10
 
 ---
 # Some examples
@@ -174,6 +178,7 @@ $H_o:$ no difference between levels of `cl`
 .pull-right[
 C
 $H_o:$ the distribution of `x1` is XXX
+
 <br>
 <br>
 <br>
@@ -209,6 +214,48 @@ ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
 
 
 ]
+---
+.pull-left[
+# Lineup
+
+Embed the data plot in a field of null plots
+
+```{r embed the data plot in a field of null plots, eval=FALSE}
+library(nullabor)
+pos <- sample(1:20, 1)
+df_null <- lineup(null_permute('v1'), df, pos=pos)
+ggplot(df_null, aes(x=v2, y=v1, fill=v2)) + 
+  geom_boxplot() +
+  facet_wrap(~.sample, ncol=5) + coord_flip()
+```
+
+Ask: Which plot is the most different?
+]
+.pull-right[
+# Null-generating mechanisms
+
+- Permutation: randomizing the order of one of the variables breaks association, but keeps marginal distributions the same
+- Simulation: from a given distribution, or model. Assumption is that the data comes from that model 
+
+# Evaluation
+
+- Compute $p$-value
+- Power $=$ signal strength
+]
+---
+# p-values
+
+Suppose $x$ individuals selected the data plot from a lineup of $m$ plots, shown to $K$ independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
+
+$$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$
+
+
+For $x=4, K=17, m=20$
+
+```{r compute pvalue}
+pvisual(4, 17, m=20)
+```
+
 
 ---
 
@@ -250,13 +297,12 @@ ggplot(l, aes(x=date, y=rate)) + geom_line() +
 
 ```{r lets talk TB, echo=FALSE}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
-  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
-  select(-stuff1, -stuff2) %>%
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
   mutate(sex=substr(sexage, 1, 1), 
          age=substr(sexage, 2, length(sexage))) %>%
-  select(-sexage)
+  dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
 tb_us <- tb %>% 
@@ -356,214 +402,14 @@ ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
 ```
 
 ---
-# Note
+class: inverse middle
 
-- The null hypothesis is determined based on the plot type
-- It is not based on the structure seen in a data set
+# Danger zone
 
----
-.pull-left[
-# Lineup
+- `r anicon::nia("The null hypothesis is determined based on the plot type", colour="orange", animate="pulse", anitype="hover")`
+--
 
-Embed the data plot in a field of null plots
-
-```{r embed the data plot in a field of null plots, eval=FALSE}
-library(nullabor)
-pos <- sample(1:20, 1)
-df_null <- lineup(null_permute('v1'), df, pos=pos)
-ggplot(df_null, aes(x=v2, y=v1, fill=v2)) + 
-  geom_boxplot() +
-  facet_wrap(~.sample, ncol=5) + coord_flip()
-```
-
-Ask: Which plot is the most different?
-]
-.pull-right[
-# Null-generating mechanisms
-
-- Permutation: randomizing the order of one of the variables breaks association, but keeps marginal distributions the same
-- Simulation: from a given distribution, or model. Assumption is that the data comes from that model 
-
-# Evaluation
-
-- Compute $p$-value
-- Power $=$ signal strength
-]
----
-# p-values
-
-Suppose $x$ individuals selected the data plot from a lineup of $m$ plots, shown to $K$ independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
-
-$$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$
-
-
-For $x=4, K=17, m=20$
-
-```{r compute pvalue}
-pvisual(4, 17, m=20)
-```
-
----
-# Simulation approach
-
-- Scenario I: in each of K evaluations a different data set and a different set of (m-1) null plots is shown.
-- Scenario II: in each of K evaluations the same data set but a different set of (m-1) null plots is shown.
-- Scenario III: the same lineup, i.e. same data and same set of null plots, is shown to K different observers.
-
----
-# Simulation
-
-Crucial idea: assign a $p$-value to each plot (data and null); under null hypothesis, this p-value is from U[0,1] 
-
-Scenario I:
-- for the $k$th lineup evaluation do:
- - pick 20 $p$-values from $U[0,1]$
- - for data plot compute 'strength' of other plots: $q = (1-p_\text{data})/\sum_j(1-p_j)$
- - Use $q$ to determine whether data was picked in simulation: $x_k \tilde B_{1,q}$
- - repeat above three steps $K$ times, and find the number of data picks $X = \sum_k x_k$
-- Repeat N times to get distribution of $X$
-
----
-# Simulation
-
-
-Scenario II (same data, different nulls):
-- for the $k$th lineup evaluation pick 20 $p$-values from $U[0,1]$:
-- for data plot compute 'strength' of other plots: $q = (1-p_\text{data})/\sum_j(1-p_j)$
-- Use $q$ to determine whether data was picked in simulation: $x_k \tilde B_{1,q}$
-- find the number of data picks $X = \sum_k x_k$
-- Repeat N times to get distribution of $X$
-
----
-# Simulation
-
-
-Scenario III (same data, same nulls):
-- for the $k$th lineup evaluation pick $p_\text{data} \sim U[0,1]$:
- - pick 19 $p$-values from $U[0,1]$
- - for data plot compute 'strength' of other plots: $q = (1-p_\text{data})/\sum_j(1-p_j)$
- - simulate number of data picks $X ~ B_{K, q}$
-- Repeat $N$ times to get distribution of $X$
-
-
-
----
-# More on making maps
-
-Make a choropleth map of the TB data across the globe. We will do something a little fancy first, by computing a linear regression model for each country, to extract the trend in TB counts. This trend will be used to colour the maps, to find the countries which have TB problems. 
-
-A polygon map of the world is extracted from the maps package. *The names of countries needs to be synchronised between the TB data and the map data.*
-
-```{r emake a choropleth map, cho=TRUE}
-world_map <- map_data("world")
-usa <- map_data("usa")
-tb_names <- tb %>% 
-  mutate(region=recode(country, 
-                       "United States of America"="USA", 
-                       "United Kingdom"="UK",
-                       "Russian Federation"="Russia"))
-```
-
----
-
-```{r compute the linear trend in counts, echo=TRUE, eval=FALSE}
-# This is  code to compute the linear trend in counts
-# for each country.
-tb_names_inc <- tb_names %>% 
-  group_by(region) %>%
-  nest() %>%
-  mutate(
-    model = purrr::map(data, ~ lm(count ~ year, data = .))
-) %>%
-  unnest(model %>% purrr::map(broom::tidy)) %>%
-  select(region, term, estimate) %>% 
-  spread(term, estimate)
-```
-
----
-
-One way to make the map is use `geom_map`, and link this dynamically with the TB data in the plotting code.
-
-```{r one way to make the map is use geom_map, echo=TRUE, eval=FALSE}
-ggplot(tb_names_inc, aes(map_id = region)) + 
-    geom_map(aes(fill=year), map = world_map, color="grey70", size=0.3, na.rm=TRUE) + 
-    expand_limits(x = world_map$long, y = world_map$lat) +
-    theme_few() +
-    scale_fill_viridis("trend") + 
-    theme(legend.position = "bottom",
-         axis.ticks = element_blank(), 
-         axis.title = element_blank(), 
-         axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5))
-```
-
-
----
-
-Another approach is to join the polygon data with the TB data.
-
-```{r aother approach is to join the polygon data, echo=TRUE, eval=FALSE}
-tb_map <- left_join(world_map, tb_names_inc, by="region")
-ggplot(tb_map) + 
-  geom_polygon(aes(x=long, y=lat, group=group, fill=year)) +
-      theme_few() +
-    scale_fill_viridis("trend", na.value = "grey70") + 
-    theme(legend.position = "bottom",
-         axis.ticks = element_blank(), 
-         axis.title = element_blank(), 
-         axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
-```
-
----
-class: inverse middle 
-# Your turn
-
-Why is India showing a drastically increasing TB incidence. 
-Make the plot of TB incidence for India. 
-
-```{r why is India showing a drastically increasing TB incidence, echo=FALSE, eval=FALSE}
-tb_india <- tb %>% 
-  filter(country == "India") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013) %>%
-  group_by(year, country) %>%
-  summarise(count = sum(count, na.rm=TRUE)) 
-india_map <- world_map %>% filter(region == "India") %>%
-  filter(is.na(subregion))
-tb_map_india <- left_join(india_map, tb_india,
-                          by=c("region"="country")) 
-```
-
-```{r solution to hy is India showing a drastically increasing TB incidence, fig.height=7, echo=FALSE, eval=FALSE}
-ggplot(tb_map_india) + 
-  geom_polygon(aes(x=long, y=lat, fill=count, label=region)) +
-      theme_few() +
-    scale_fill_viridis("trend", na.value = "grey70", 
-                       limits=c(0,630000)) + 
-    theme(legend.position = "bottom",
-         axis.ticks = element_blank(), 
-         axis.title = element_blank(), 
-         axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) +
-  facet_wrap(~year, ncol=4)
-```
-
-
-```{r interactive plot solution, echo=FALSE, eval=FALSE}
-p <- ggplot(tb_map_india) + 
-  geom_polygon(aes(x=long, y=lat, group=group, 
-  fill=count, label=region, frame=year)) +
-      theme_few() +
-    scale_fill_viridis("trend", na.value = "grey70", 
-                       limits=c(0,630000)) + 
-    theme(legend.position = "bottom",
-         axis.ticks = element_blank(), 
-         axis.title = element_blank(), 
-         axis.text =  element_blank()) +
-    guides(fill = guide_colorbar(barwidth = 15, barheight = .5)) 
-ggplotly(p) 
-```
+- `r anicon::nia("It is not based on the structure seen in a data set", colour="orange", animate="pulse", anitype="hover")`
 
 
 ---
@@ -586,7 +432,7 @@ incd <- incd %>% mutate(State = tolower(State))
 # Choose a position 
 pos <- 6
 
-# Make lineup of cancenr incidence
+# Make lineup of cancer incidence
 incd_lineup <- lineup(null_permute('Incidence'), incd, n=12, pos=pos)
 
 # Join cancer incidence data to map polygons
@@ -615,6 +461,53 @@ ggplot(incd_map) +
   facet_wrap(~.sample, ncol=4)
 ```
 
+---
+background-image: \url(https://pbs.twimg.com/profile_images/1092451626781163523/0YzJMi-8_400x400.jpg)
+background-size: 20%
+background-position: 40% 0%
+# Your turn
+
+.pull-left[
+
+Time to play Sesame Street, with your study group. 
+
+Each person can 
+
+1. run this code, 
+2. look at the lineup of plots, and choose which plot shows the most separation between classes (DON'T LOOK AT ANYONE ELSE's!)
+3. then run the `decrypt` line, produced when the `lineup` function was called
+4. tally up the number of your group members who picked the data plot, this is `x`
+5. use the `pvisual` function to compute the p-value, `K=` the number of people in your group, `m=12`
+]
+
+.pull-right[
+```{r eval=FALSE,echo=TRUE}
+library(MASS)
+data(wasps)
+lda_pred <- function(x) {
+  d <- predict(lda(Group~., 
+                   data=x[,-43]))$x[,1:2] %>%
+  as_tibble() %>%
+  mutate(Group = x$Group)
+  return(d)
+}
+wasps_lineup <- lineup(null_permute('Group'), 
+                       wasps[,-1], n=12) %>%
+  as_tibble()
+wasps_lineup_lda <- wasps_lineup %>%
+  split(.$.sample) %>%
+  map_df(~lda_pred(.)) %>%
+  mutate(.sample = wasps_lineup$.sample)
+ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2, 
+                             colour=Group)) + 
+  geom_point() +
+  facet_wrap(~.sample, ncol=4) +
+  scale_colour_brewer(palette="Dark2") +
+  theme(legend.position="none")
+```
+]
+
+Go to www.menti.com and use the code 79 16 10, and enter the p-value
 ---
 # Resources
 
