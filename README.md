@@ -73,7 +73,7 @@ Morning:
 
 Afternoon: 
 
-1. Multivariate plots using ggplot2, GGally (Di)
+1. [Multivariate plots using ggplot2, GGally](https://dicook.github.io/SISBID/2.4-mvplot/slides/index.html) (Di)
 1. Touring on multivariate data (Di)
 1. Advanced graphics, and statistical inference (Di) 
 

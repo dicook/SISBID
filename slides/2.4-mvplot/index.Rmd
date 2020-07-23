@@ -1,6 +1,6 @@
 ---
 title: "Multivariate data plots"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2020 <br> https://dicook.github.io/SISBID/"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/22-24/2020"
 output:
@@ -25,6 +25,7 @@ knitr::opts_chunk$set(
   fig.height = 4,
   fig.width = 8,
   fig.align = "center",
+  fig.retina = 3,
   cache = FALSE
 )
 ```
@@ -52,6 +53,12 @@ data is multivariate, if we have more information than a single aspect for each 
 mutivariate analysis takes relationships between these different aspects into account.
 ```
 
+Go to www.menti.com and use the code 74 55 67 to respond.
+
+```{r echo=FALSE}
+countdown::countdown(1,0)
+```
+
 ---
 # Main types of plots
 
@@ -65,10 +72,11 @@ mutivariate analysis takes relationships between these different aspects into ac
 
 .pull-left[The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggpairs`.
 
-XXX replace with penguins!
-
-<br>
-<br>
+```{r scatterplot matrix, fig.show='hide'}
+# Make a simple scatterplot matrix of the new penguins data
+penguins <- penguins %>% filter(!is.na(bill_length_mm)) 
+ggpairs(penguins, columns=c(3:6))
+```
 
 *What do we learn?*
 
@@ -76,10 +84,7 @@ XXX replace with penguins!
 - linear dependence
 ]
 .pull-right[
-```{r scatterplot matrix, echo=TRUE, fig.width=6, fig.height=6}
-# Make a simple scatterplot matrix of the new penguins data
-penguins <- penguins %>% filter(!is.na(bill_length_mm)) 
-ggpairs(penguins, columns=c(3:6))
+```{r ref.label="scatterplot matrix", echo=FALSE, fig.width=6, fig.height=6}
 ```
 ]
 
@@ -88,9 +93,12 @@ ggpairs(penguins, columns=c(3:6))
 .pull-left[
 **Add some colour for groups**
 
-<br>
-<br>
-<br>
+```{r scatterplot matrix with colour, echo=TRUE, fig.show='hide'}
+# Re-make mapping colour to species (class)
+ggpairs(penguins, columns=c(3:6), 
+        ggplot2::aes(colour=species))
+```
+
 <br>
 <br>
 <br>
@@ -99,9 +107,46 @@ ggpairs(penguins, columns=c(3:6))
 - clustering is due to the class variable
 ]
 .pull-right[
-```{r scatterplot matrix with colour, echo=TRUE, fig.width=8, fig.height=8}
-# Re-make mapping colour to species (class)
-ggpairs(penguins, columns=c(3:6), ggplot2::aes(colour=species))
+```{r ref.label="scatterplot matrix with colour", echo=FALSE, fig.width=6, fig.height=6}
+```
+]
+
+---
+
+.pull-left[
+Only show correlation. `r anicon::nia("This is dangerous!", animate="float")` Only appropriate if correlation is a good summary of the association.
+
+```{r correlation heatmap, echo=TRUE, fig.show='hide'}
+# Look at one species only
+adelie <- penguins %>% 
+  filter(species == "Adelie") %>%
+  select(bill_length_mm:body_mass_g)
+ggcorr(adelie)
+```
+
+]
+.pull-right[
+```{r ref.label="correlation heatmap", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"}
+```
+]
+
+---
+
+.pull-left[
+Only show correlation, using a corrgram. Again, this is dangerous, and only useful to get a broad overview of association that is suitably summarised by correlation.
+
+```{r corrgram, echo=TRUE, fig.show='hide'}
+# install.packages("corrgram")
+library(corrgram)
+corrgram(adelie, 
+  lower.panel=corrgram::panel.ellipse)
+```
+
+The `corrgram` package has numerous scatterplot matrix capabilities.
+
+]
+.pull-right[
+```{r ref.label="corrgram", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"}
 ```
 ]
 
@@ -110,11 +155,9 @@ ggpairs(penguins, columns=c(3:6), ggplot2::aes(colour=species))
 # Generalized pairs plot
 
 .pull-left[
-These functions strictly take numeric variables. For a wider variety of variable types, use `ggpairs`.
+The pairs plot can also incorporate non-numerical variables, and different types of two variable plots.
 
-Its a bit slower, but it has a huge amount of flexibility.
-
-```{r PISA data wrangling}
+```{r generalised pairs plot, fig.show='hide'}
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
 australia_PISA2012 <- australia_PISA2012 %>%
@@ -130,13 +173,13 @@ australia_PISA2012 <- australia_PISA2012 %>%
          textbook = factor(textbook),
          dictionary = factor(dictionary),
          dishwasher = factor(dishwasher))
-```
-]
-.pull-right[
-```{r generalised pairs plot, echo=TRUE, fig.width=6, fig.height=6}
 australia_PISA2012 %>% 
   filter(!is.na(dishwasher)) %>% 
   ggpairs(columns=c(3, 15, 16, 21, 26))
+```
+]
+.pull-right[
+```{r ref.label='generalised pairs plot', echo=FALSE, fig.width=6, fig.height=6, out.width="90%"}
 ```
 ]
 
@@ -162,9 +205,14 @@ my_fn <- function(data, mapping, method="loess", ...){
       p
 }
 ```
-<br>
-<br>
-<br>
+
+```{r generalised pairs plot enhance more, echo=TRUE, fig.show='hide'}
+australia_PISA2012 %>% 
+  filter(!is.na(dishwasher)) %>% 
+  ggpairs(columns=c(3, 15, 16, 21, 26), 
+          lower = list(continuous = my_fn))
+
+```
 
 *What do we learn?*
 
@@ -175,7 +223,7 @@ my_fn <- function(data, mapping, method="loess", ...){
 
 ]
 .pull-right[
-```{r generalised pairs plot enhance more, echo=TRUE, fig.width=6, fig.height=6}
+```{r ref.label='generalised pairs plot enhance more', echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"}
 australia_PISA2012 %>% 
   filter(!is.na(dishwasher)) %>% 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
@@ -193,6 +241,10 @@ Re-make the plot with
 
 - side-by-side boxplots on the lower triangle, for the combo variables, 
 - and the density plots in the upper triangle.
+
+```{r echo=FALSE}
+countdown::countdown(8,0)
+```
 
 ---
 # Regression setting
@@ -223,121 +275,94 @@ ggduo(housing[, c(4,3,8,10,11)],
 ]
 
 ---
-# Let's explore tuberculosis mortality
+# Big biological data
 
-.pull-left[
-This data set is available from WHO along with the incidence data. The package `getTBinR` is a good way to download the burden table, which contains (estimated) mortality rates. 
+The Bioconductor package `bigPint` has tools for working with larger amounts of data, as seen in RNA-Seq experiments. More info at https://lindsayrutter.github.io/bigPint/
 
-```{r how to pull the tb data directly, eval=FALSE}
-# library(getTBinR)
-# tb_burden <- get_tb_burden(verbose = FALSE)
-# dict <- get_data_dict(verbose = FALSE)
-# save(tb_burden, file="data/tb_burden.rda")
+```{r eval=FALSE, echo=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("bigPint")
 ```
 
-You have the data downloaded in the data directory already. We'd like to explore the rates across countries. To do this we will fit a linear model for each country and collect some statistics from each model fit. Using these, we'll extract countries with specific characteristics.
+.pull-left[
+
+Data on soybean experiment, with two treatments, and three replicates. Here's the scatterplot of the first replicate. 
+
+```{r soybean_scat, fig.show='hide'}
+library(bigPint)
+data(soybean_ir_sub)
+soybean_ir_sub[,-1] <- log(soybean_ir_sub[,-1]+1)
+ggplot(soybean_ir_sub, 
+       aes(x=N.1, y=P.1)) + 
+  geom_point() + 
+  theme(aspect.ratio=1)
+```
 ]
+
 .pull-right[
-```{r compute statistics on tb mortality trends}
-# A more complex example of using the scatterplot matrix to explore
-# a large collection of time series. Compute statistics for each time
-# series, which might be called tignostics, and plot these. Explore 
-# the scatterplot matrix for anomalies and clusters. 
-load(here::here("data/tb_burden.rda"))
-# Fit a model for each country, and extract statistics
-tb_reg1 <- tb_burden %>%
-  group_by(country) %>%
-  nest() %>%
-  mutate(model = purrr::map(data, ~lm(e_mort_exc_tbhiv_100k ~ year, data = .x) %>% 
-                       tidy)) %>% 
-  unnest(model) %>%
-  select(country, term, estimate) %>%
-  spread(term, estimate) %>%
-  rename(intercept = `(Intercept)`, slope=year)
-tb_reg2 <- tb_burden %>%
-  group_by(country) %>%
-  nest() %>%
-  mutate(model = purrr::map(data, ~lm(e_mort_exc_tbhiv_100k ~ year, data = .x) %>% 
-                       glance)) %>% 
-  unnest(model) %>%
-  select(country, r.squared, sigma, BIC, deviance)
-tb_reg <- left_join(tb_reg1, tb_reg2)
-# Drop the 0 deviance, 0 sigma countries
-tb_reg <- tb_reg %>% filter(sigma > 0, BIC > -400)
+
+```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE}
 ```
 ]
 
 ---
 
+The `litre` plot combines replicates into same plot, to look at the treatments. To handle the data size it uses a hexbin display. The data values for an individual gene can be overlaid on the plot.
+
 .pull-left[
-```{r explore tb mortality trends, echo=TRUE, fig.width=6, fig.height=6}
-ggscatmat(tb_reg, columns=3:7)
+```{r soybean_litre, fig.show='hide'}
+geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
+ret <- plotLitre(data = soybean_ir_sub, 
+                 geneList = geneList, 
+                 pointColor = "deeppink")
+names(ret)
+ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
 ```
 ]
-.pull-right[
-`r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-What do you learn about mortality rates across the difference countries from this?
+.pull-right[
+```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
+```
 ]
 
 ---
 
 .pull-left[
-`r icon::fa("hand-point-right")` **Add interactivity**
+This can be extended into a scatterplot matrix
 
-```{r wranglw data to show labels interactively, echo=TRUE}
-# Add interaction to find the id's for countries that are anomalies
-tb_reg_m <- as.data.frame(tb_reg[,3:7])
-rownames(tb_reg_m) <- tb_reg$country
+```{r soybean_litre_sm, fig.show='hide'}
+ret <- plotSM(soybean_cn_sub, 
+              soybean_cn_sub_metrics, 
+              option = "hexagon", 
+              xbins = 5, 
+              pointSize = 0.1, 
+              saveFile = FALSE)
+ret[[2]]
 ```
-
-<br>
-<br>
-
-The row number of the data matrix that shows on mouseover can be used to find the country.
-
-
 ]
 .pull-right[
-```{r explore tb mortality trends interactively, echo=TRUE, fig.width=8, fig.height=7}
-tb_reg_m %>% ggpairs() %>% ggplotly()
+```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide'}
 ```
 ]
 
 ---
-# Decreasing mortality
 
+.pull-left[
+When working with RNA-Seq data, it is useful to compare samples using a side-by-side boxplot. Overlaying the profiles of different genes can help to learn about the patterns across samples, particularly to examine the significant genes after testing. (This can be called a parallel coordinate plot.)
 
-```{r plot the countries that have decreasing mortality trend, echo=TRUE, fig.width=7, fig.height=4}
-# Use a dotplot with model overlaid, to better match analysis conducted
-declining <- tb_reg %>% filter(slope < -3.5)
-tb_burden %>% filter(country %in% declining$country) %>%
-  ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
-    geom_point() +
-    geom_smooth(method="lm", se=F) +
-  facet_wrap(~country, scales = "free_y")
+```{r soybean_pcp, fig.show='hide'}
+ret <- plotPCP(data = soybean_ir_sub, 
+               geneList = geneList, 
+               lineSize = 0.3, 
+               saveFile = FALSE)
+ret[[1]]
 ```
-
----
-# Increasing mortality
-
-```{r explore tb mortality trends problem countries, echo=TRUE,  fig.width=7, fig.height=3}
-increasing <- tb_reg %>% filter(slope > 1, r.squared > 0.5)
-tb_burden %>% filter(country %in% increasing$country) %>%
-  ggplot(aes(x=year, y=e_mort_exc_tbhiv_100k)) + 
-    geom_point() +
-    geom_smooth(method="lm", se=F) +
-  facet_wrap(~country, scales = "free_y")
+]
+.pull-right[
+```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
 ```
-
----
-class: inverse middle
-
-# Your turn
-
-- Plot the countries that have the highest variance
-- Plot the countries with the smallest variance, and highest slope
-- Plot all the countries in one plot, as transparent lines. 
+]
 
 ---
 # Resources
