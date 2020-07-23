@@ -1,6 +1,6 @@
 ---
 title: "Making a mess again - with the data"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2020 <br> https://dicook.github.io/SISBID/"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/22-24/2020"
 output:
@@ -40,7 +40,7 @@ load(here::here("data/french_fries.rda"))
 class: inverse middle 
 # Your turn
 
-
+Warmup: 
 
 Turn the `french_fries` data from wide format into a long format with variables `type` and `rating`. 
   
@@ -48,9 +48,14 @@ Turn the `french_fries` data from wide format into a long format with variables 
 head(french_fries)
 ```
 
-What would we like to find out about this data?
+`r countdown::countdown(5)`
+---
+class: middle, center, inverse
 
 
+<h1>What would we like to find out about the french fries data set?</h1>
+
+Go to menti.com at 68 87 34 and let us know!
 
 ---
 # What would we like to know?
@@ -155,8 +160,7 @@ ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
 - Are ratings similar on the different scales: potato'y, buttery, grassy, rancid and painty?
 - We need to gather the data into long form, and make plots facetted by the scale. 
 
----
-# Ratings on the different scales
+--
 
 ```{r ratings on the different scales}
 ff.m <- french_fries %>% 
@@ -164,7 +168,13 @@ pivot_longer(-(time:rep), names_to="type", values_to="rating")
 head(ff.m)
 ```
 
---
+---
+
+```{r ratings on the different scales too}
+ff.m <- french_fries %>% 
+pivot_longer(-(time:rep), names_to="type", values_to="rating")
+head(ff.m)
+```
 
 ```{r, fig.height=2, fig.width=8}
 ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) + 
