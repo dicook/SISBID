@@ -1,6 +1,6 @@
 ---
-title: "Data manipulation with dplyr, purrr and broom"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+title: "Wrangling Data and Models"
+subtitle: "SISBID 2020 <br> https://dicook.github.io/SISBID/"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/22-24/2020"
 output:
@@ -132,20 +132,27 @@ data = ff_long)
 class: inverse middle 
 # Your turn
 
-- Augment the ff_long data with the model diagnostics
-- Plot the residuals from the (a) fixed, (b) random effects
+The `broom.mixed` package provides similar functionality to mixed effects models as `broom` does for fixed effects models
+
+- Try out the functionality of `broom.mixed` on each level: model, parameters, and data
+- Augment the `ff_long` data with the model diagnostics
+- Plot the residuals from the random effects model
 - Plot fitted values against observed values
 
-`r `
+`r countdown::countdown(7)`
+
 ```{r solution to french fries modeling, eval=FALSE, echo=FALSE}
 ## the model is pretty bad:
+glance(fries_lmer)
+tidy(fries_lmer)
+
 ff_lmer_all <- augment(fries_lmer)
 
 ggplot(ff_lmer_all, aes(x=.fitted, y=.resid)) + geom_point() +
   coord_equal()
 
 ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
-  coord_equal()
+  coord_equal() 
 ```
 
 
@@ -236,6 +243,7 @@ class: inverse middle
 
 How many values do we have for each subject? Check the help for function `?n`
 
+`r countdown::countdown(5)`
 ---
 # French Fries - completeness
 
@@ -270,9 +278,7 @@ french_fries %>%
 # How do scores change over time?
 
 ```{r do scores change over time, fig.show='hide'}
-ff.m <- french_fries %>% 
-  gather(type, rating, -subject, -time, -treatment, -rep)
-ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) +
+ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   geom_point() +
   facet_grid(subject~type) 
 ```
@@ -281,7 +287,7 @@ ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) +
 
 
 ```{r echo=FALSE, fig.width=12, fig.height=9}
-ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) +
+ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   geom_point() +
   facet_grid(subject~type) 
 ```
@@ -289,42 +295,36 @@ ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) +
 very messy!
 
 ---
-# Get means over reps, and connect the dots
+class: inverse
+# Your Turn
 
-```{r get means over reps, and connect the dots, fig.show='hide'}
-ff.m.av <- ff.m %>% 
+Get summary of ratings over replicates and connect the dots for a picture as below:
+
+```{r echo=FALSE}
+ff_av <- ff_long %>% 
   group_by(subject, time, type, treatment) %>%
   summarise(rating=mean(rating))
 
-ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) + 
+ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) + 
   facet_grid(subject~type) +
-  geom_line(data=ff.m.av, aes(group=treatment))
+  geom_line(data=ff_av, aes(group=treatment))
 ```
+
+`r countdown::countdown(7)`
 
 ---
 
-```{r echo=FALSE, fig.width=12, fig.height=9}
-ggplot(data=ff.m, aes(x=time, y=rating, colour=treatment)) + 
+```{r fig.width=12, fig.height=9}
+ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) + 
   facet_grid(subject~type) +
-  geom_line(data=ff.m.av, aes(group=treatment))
+  geom_line(data=ff_av, aes(group=treatment))
 ```
-
----
-# Working with lots of models
-
-Why would we even do that?
-
-- Hans Rosling can explain that really well in his [TED talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en)
-- [gapminder project](https://www.gapminder.org/)
-- gapminder also makes data available (in R through the package `gapminder`)
 
 
 ---
 # References
 
-- Ian Lyttle's notes on using [purrr ](http://ijlyttle.github.io/isugg_purrr/presentation.html#(1)
-- RStudio's tutorial by Charlotte Wickham on using [purrr](https://www.rstudio.com/resources/videos/happy-r-users-purrr-tutorial/)
-- [R blogger's article on purrr](http://www.r-bloggers.com/purrr-0-1-0/)
+
 - [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12)
 - [broom vignettes, David Robinson](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)

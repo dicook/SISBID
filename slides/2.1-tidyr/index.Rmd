@@ -1,6 +1,6 @@
 ---
 title: "Tidying your data"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2020 <br> https://dicook.github.io/SISBID/"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/22-24/2020"
 output:
@@ -288,6 +288,8 @@ Read the genes data from folder `data`. Column names contain data and are kind o
 
 ```{r}
 genes <- read_csv(here::here("data/genes.csv"))
+
+names(genes)
 ```
 
 Produce the data frame called `gtidy` as shown below:
@@ -305,6 +307,8 @@ mutate(rep = sub("R", "", rep))
 head(gtidy)
 ```
 
+Break into zoom rooms, clock is ticking `r emo::ji("smile")`
+`r countdown::countdown(10)`
 
 ---
 # Plot the genes data overlaid with group means
