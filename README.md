@@ -67,15 +67,15 @@ Thursday
 
 Morning: 
 
-1.  [Tidy data and tidying your messy data with tidyr](https://dicook.github.io/SISBID/2.1-tidyr/slides/index.html) (Heike) 
-1. [Making Data Messy again](https://dicook.github.io/SISBID/2.2-messy-it-up/slides/index.html) (Heike) 
-1. [Wrangling data and models](https://dicook.github.io/SISBID/2.3-wrangling/slides/index.html) (Heike) 
+1.  [Tidy data and tidying your messy data with tidyr](https://dicook.github.io/SISBID/slides/2.1-tidyr/index.html) (Heike) 
+1. [Making Data Messy again](https://dicook.github.io/slides/SISBID/2.2-messy-it-up/index.html) (Heike) 
+1. [Wrangling data and models](https://dicook.github.io/slides/SISBID/2.3-wrangling/index.html) (Heike) 
 
 Afternoon: 
 
-1. [Multivariate plots using ggplot2, GGally](https://dicook.github.io/SISBID/2.4-mvplot/slides/index.html) (Di)
-1. [Touring on multivariate data](https://dicook.github.io/SISBID/2.5-mvplot-tour/slides/index.html) (Di)
-1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/2.6-adv-graphics/slides/index.html) (Di) 
+1. [Multivariate plots using ggplot2, GGally](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html) (Di)
+1. [Touring on multivariate data](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) (Di)
+1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html) (Di) 
 
 
 Friday 
