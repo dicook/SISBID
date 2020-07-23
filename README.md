@@ -68,8 +68,8 @@ Thursday [zip file](SISBID_day2.zip)
 Morning: 
 
 1.  [Tidy data and tidying your messy data with tidyr](https://dicook.github.io/SISBID/slides/2.1-tidyr/index.html) (Heike) 
-1. [Making Data Messy again](https://dicook.github.io/slides/SISBID/2.2-messy-it-up/index.html) (Heike) 
-1. [Wrangling data and models](https://dicook.github.io/slides/SISBID/2.3-wrangling/index.html) (Heike) 
+1. [Making Data Messy again](https://dicook.github.io/SISBID/slides/2.2-messy-it-up/index.html) (Heike) 
+1. [Wrangling data and models](https://dicook.github.io/SISBID/slides/2.3-wrangling/index.html) (Heike) 
 
 Afternoon: 
 
