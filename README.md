@@ -75,7 +75,7 @@ Afternoon:
 
 1. [Multivariate plots using ggplot2, GGally](https://dicook.github.io/SISBID/2.4-mvplot/slides/index.html) (Di)
 1. [Touring on multivariate data](https://dicook.github.io/SISBID/2.5-mvplot-tour/slides/index.html) (Di)
-1. Advanced graphics, and statistical inference (Di) 
+1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/2.6-adv-graphics/slides/index.html) (Di) 
 
 
 Friday 
