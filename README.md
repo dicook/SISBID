@@ -63,7 +63,7 @@ Wednesday afternoon [zip file](SISBID_day1.zip)
 1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Di)
 
 
-Thursday 
+Thursday [zip file](SISBID_day2.zip)
 
 Morning: 
 
