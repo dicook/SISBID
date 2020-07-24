@@ -25,38 +25,42 @@ This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country
 
 ```{r read TB data and wrangle and subset to USA}
 library(tidyverse)
+library(DT)
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, g_whoregion, new_sp_m04:new_sp_fu) %>%
-  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
-  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
-  select(-stuff1, -stuff2) %>%
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
   mutate(sex=substr(sexage, 1, 1), 
          age=substr(sexage, 2, length(sexage))) %>%
-  select(-sexage) %>%
-  filter(year > 1996, year < 2013) %>%
-  filter(!(age %in% c("04", "014", "514", "u")))
-ggplot(tb, aes(x=g_whoregion)) +
-  geom_bar(aes(weight = count))
+  dplyr::select(-sexage)  %>%
+  filter(country == "United States of America") %>%
+  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+  filter(year > 1996, year < 2013) 
+
+datatable(tb)
 ```
 
-### Quiz
+## Incidence
+
+```{r plot incidence by region}
+ggplot(tb, aes(x=year)) +
+  geom_bar(aes(weight = count)) 
+```
 
 ```{r quiz}
 quiz(
-  question("What region of the world has the highest incidence?",
-    answer("southeast Asia", correct = TRUE),
-    answer("Africa"),
-    answer("Europe"),
-    answer("America"),
-    answer("Western Pacific"), 
-    answer("Eastern Mediterranean"))
+  question("How would you describe the trend in TB incidence?",
+    answer("decreasing", correct = TRUE),
+    answer("increasing"),
+    answer("flat"),
+    answer("volatile"))
 )
 ```
 
 
 ## Exercises 
 
-Write the R code required to filter the platypus data to contain only incidence for 2010.
+Write the R code required to filter the TB data to contain only incidence for 2010.
 
 ```{r tb2010, exercise=TRUE}
 glimpse(tb)
@@ -73,12 +77,10 @@ This is a an example of an interactive chart that allows exploring the temporal 
 
 ```{r fig.width=6, fig.height=6}
 library(plotly)
-p <- tb %>% filter(iso3 == "IND") %>% 
-  filter(!is.na(count)) %>%
-  ggplot() + 
-  geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
-  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
-  scale_colour_brewer(palette = "Dark2") +
-  ylim(c(0, 100000))
+p <- tb %>% 
+  group_by(year, age) %>%
+  summarise(p_males = count[sex=="m"]/sum(count)) %>%
+  ggplot() +
+    geom_point(aes(x=age, y=p_males, frame=year))
 ggplotly(p)
 ```

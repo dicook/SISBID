@@ -1,6 +1,6 @@
 ---
-title: "Building your own shiny app"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+title: "Polish and share your own shiny app"
+subtitle: "SISBID 2020 <br> https://dicook.github.io/SISBID/"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/22-24/2020"
 output:
