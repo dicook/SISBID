@@ -29,6 +29,8 @@ library(tidyverse)
 ```
 # Example: An app on exploring Covid-19 reproduction rates and cases
 
+https://hofmann.shinyapps.io/covid-predict/
+
 ---
 # Next five minutes
 
