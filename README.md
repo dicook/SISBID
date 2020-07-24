@@ -88,7 +88,7 @@ Morning:
 
 Afternoon:
 
-1. Polish and share your own shiny app (Di).
+1. [Polish and share your own shiny app](https://dicook.github.io/SISBID/slides/3.4-build_a_shiny_app) (Di).
 1. [Building interactive documents with Rmarkdown tools, learnr, flexdashboard](https://dicook.github.io/SISBID/slides/3.5-make_your_own_interactive_document/index.html) (Di). 
 1. Show us what you've made (Di)
 

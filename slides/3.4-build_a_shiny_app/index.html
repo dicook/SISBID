@@ -32,7 +32,98 @@ class: inverse middle
     - at least one interactive plot
     - some GUI element like a menu or checkboxes
     - some nice styling
-- Best app, as judged by everyone here, will get a prize 
+
+😱 If this is too scary, work through the steps in the next few slides instead, to make an app.
+
+---
+# Initiate
+
+✅ Using the RStudio `File` menu, 
+
+- choose `New file`, 
+- choose "Shiny web app"
+- Give it a name, and choose `Single file`
+
+This will create a folder in your workspace with the same name as you gave your app. It will also open the `app.R` file in your text editor pane. 
+
+🛑 Click the `Run App` button on the RStudio window. 
+
+✅ Click `Publish` to upload your app to the shinyapps.io server. 
+
+㊗️ You've just published your first app
+
+---
+# Make it yours
+
+Change the plot to use `ggplot`, this invoves changing the server function to be this:
+
+```
+server &lt;- function(input, output) {
+
+    output$distPlot &lt;- renderPlot({
+        ggplot(faithful, aes(x=waiting)) + geom_histogram(bins = input$bins)
+    })
+}
+```
+
+You will also need to add `library(ggplot2)` at the top of the file, just after `library(shiny)`.
+
+🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
+
+✅ Click `Publish` to re-upload your app to the shinyapps.io server. 
+
+㊗️ You've just published your first modifed app
+
+---
+# Make the plot interactive
+
+Change from a static ggplot plot, to an interactive plotly plot, by 
+
+1. changing the server function to look like this. Note `renderPlotly`
+
+```
+server &lt;- function(input, output) {
+
+    output$distPlot &lt;- renderPlotly({
+        p &lt;- ggplot(faithful, aes(x=waiting)) +
+            geom_histogram(bins = input$bins)
+        print(ggplotly(p))
+    })
+}
+
+```
+
+2. Changing the `ui` function to render plotly output
+
+```
+        mainPanel(
+           plotlyOutput("distPlot")
+        )
+```
+
+3. Adding `library(plotly)` to the top of the file.
+
+🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
+
+---
+# Change the UI
+
+Convert the slide into a numeric input, by changing the `ui` function to be:
+
+```
+    sidebarLayout(
+        sidebarPanel(
+            numericInput("bins", "nbins", 30)
+        ),
+```
+
+(The `numericInput` replaces the `sliderInput` code)
+
+🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
+
+✅ Click `Publish` to re-upload your app to the shinyapps.io server. 
+
+㊗️ You've just published your second modifed app
 
 ---
 # Share and share alike
