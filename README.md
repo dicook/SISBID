@@ -55,7 +55,7 @@ Zoom etiquette:
 
 ## Course outline
 
-Wednesday afternoon [zip file](SISBID_day1.zip)
+### Wednesday afternoon [zip file](SISBID_day1.zip)
 
 1. [Setting things up](https://dicook.github.io/SISBID/slides/0-preamble/index.html)
 1. [The grammar of graphics and ggplot2](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html) (Heike)
@@ -63,7 +63,7 @@ Wednesday afternoon [zip file](SISBID_day1.zip)
 1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Di)
 
 
-Thursday [zip file](SISBID_day2.zip)
+### Thursday [zip file](SISBID_day2.zip)
 
 Morning: 
 
@@ -78,13 +78,13 @@ Afternoon:
 1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html) (Di) 
 
 
-Friday 
+### Friday [zip file](SISBID_day3.zip)
 
 Morning:
 
-1. Interactive and animated graphics using plotly and gganimate (Heike).
-1. How to build a shiny app (Heike).
-1. Reactive elements in shiny (Heike).
+1. [Interactive and animated graphics using plotly and gganimate](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html) (Heike).
+1. [How to build a shiny app](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html) (Heike).
+1. [Reactive elements in shiny](3.3-shiny-reactivity.pdf) (Heike).
 
 Afternoon:
 
