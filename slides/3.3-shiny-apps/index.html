@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/countdown-0.3.5/countdown.css" rel="stylesheet" />
+    <script src="index_files/countdown-0.3.5/countdown.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -20,40 +22,14 @@ class: center, middle, inverse, title-slide
 
 
 
-
-# Example: App to explore PISA data
-
-- Apps need to be in their own directory
-- Navigate to the pisa_world directory and double-click the `pisa_world.Rproj` to open the code for the app.
-- Open the file `app.R` in the text editor. 
-- There is a change on the RStudio menu, you should now see a button labelled `Run App`. Clicking on this will run it. Try it!
+# Example: An app on exploring Covid-19 reproduction rates and cases
 
 ---
-# Structure 
+# Next five minutes
 
-The structure of the app is very simple. It has a menu of a statistic to show on the map. Let's take a look at how it is constructed. 
-
-- There are 90 lines of code.
-- There are two functions: `ui()`, `server()`
-    - `ui()`: sets up the menu and the canvas to draw on
-    - `server()`: does the computations 
-- Global code at the top of the file reads and processes the data, loads libraries, and sets up lists for the menu.
-
----
-# User Interface
-
-- `fluidPage` allows the size of components to be driven by the size of the browser window
-- `titlePanel` puts a header on the page
-- `sidebarLayout` sets up the container for the user interface
-    - `sidebarPanel` puts in the side panel: `selectInput` defines the menu input, asking for the variable, we call `y` to be used to colour the map `Colour by` is the label shown to the user, and the menu items are in the `realvars` vector. 
-    - `mainPanel` makes the drawing canvas: `plotOutput` specifies we want to make a plot in this panel, and the code instructions to use are called `map`. You need to look in the server function to find the code in `output$map`
-        
----
-# Server
-
-- The function `output$map` contains code to create the plot, based on the user input.
-- `renderPlot` indicates the output is a plot
-- The code is the same as the plotting code see thus far, *except for* `aes_string`. We used `aes` before to specify variable mapping, but need to use `aes_string` because the name of variables are passed in as strings/text as read from the `selectInput` menu.
+- Create a new shiny app in RStudio
+- Run it
+- Stop it
 
 ---
 class: inverse middle 
@@ -63,11 +39,83 @@ class: inverse middle
 - The easiest start is the `One file`, which will put both server and ui functions in the same file, `app.R`
 
 ---
+# Two main parts
+
+- What we see and interact with: 
+
+  - user interface: layout with user input and (plot) output
+
+- What is going on underneath:
+
+  - the server: glue between user input and output
+  
+---
+# A Minimal Example
+
+
+```r
+library(shiny)
+
+ui &lt;- fluidPage(
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+
+
+---
+# A bit more fancy
+
+
+```r
+library(shiny)
+library(shinydashboard)
+
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+---
+# A bit more fancy
+
+
+```r
+library(shiny)
+library(shinydashboard)
+
+sidebar &lt;- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike")
+)
+
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+---
+
 # Shiny Inputs
 
-Shiny has many different input options:
+Shiny has many different [input options](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/):
 
 - `actionButton()` - creates a clickable button
+- `selectInput()` create a select list 
 - `checkboxInput()` and `checkboxGroupInput()`
 - `dateInput()` - calendar to select a date
 - `dateRangeInput()` - select a range of dates
@@ -76,6 +124,46 @@ Shiny has many different input options:
 - `radioButtons()` - select one or more items
 - `sliderInput()` - slide along a range of values
 - `textInput()` - input a string
+
+---
+class: inverse
+# Your Turn
+
+In the shiny app below add a list of your favorite states to the sidebar panel:
+
+
+```r
+library(shiny)
+library(shinydashboard)
+
+sidebar &lt;- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike")
+)
+
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+
+
+<div class="countdown" id="timer_5f1aa4c8" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+# Adding Output
+
+- Output typically goes into the body of an app
+- Output functions have the form
+  `xxxOutput (outputID)`
+- Output can be in form of tables, plots, text, ...
 
 ---
 # Shiny Outputs
@@ -92,19 +180,43 @@ Shiny also has many output options:
 - `renderImage()` - print an image to the page
 
 ---
-# Other User Interface Options
+# Adding a plot 
 
-- `tabsetPanel()` - make multiple different output views (i.e. a plot in one tab, a data table in another)
-- `helpText()` - create additional text to help users navigate your applet
-- `submitButton()` - only update outputs when this button is clicked
-- `conditionalPanel()` - only show certain UI options when conditions are met (i.e. if a certain tab is open, or a certain input is selected)
+
+```r
+sidebar &lt;- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike"),
+  selectInput("state", "Pick your favorite state:", 
+              choices = c("Iowa", "Washington", "Michigan"))
+)
+
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+
+
 
 ---
 class: inverse middle 
 # Your turn
 
 - Add an interactive plot of the TB data into your app.
-- Include a menu, so that the user can choose a country to display. 
+- Change the select box, so that the user can choose a country to display. Think of `unique(tb$country)` for defining the choices
+
+<div class="countdown" id="timer_5f1aa3b0" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+
 
 ---
 # Deploy an app
@@ -113,15 +225,6 @@ class: inverse middle
 - Authenticate your account
 - You may need to do some setup in your session, e.g. install the library `rsconnect`
 
----
-# Example apps
-
-- Soybean plant breeding, has data from different sources: lineage from breeding literature, yield trials, next-generation sequencing data
-    - explore copy number variation [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/CNV/)
-    - explore SNPs [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/SNP/)
-- Peptide Library Calculator: Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
-- Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
-- Finding a statistical answer to a bullet matching problem: https://oaiti.org/apps/bulletmatcher/
 
 ---
 # Resources

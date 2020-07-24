@@ -27,40 +27,14 @@ knitr::opts_chunk$set(
 )
 library(tidyverse)
 ```
-
-# Example: App to explore PISA data
-
-- Apps need to be in their own directory
-- Navigate to the pisa_world directory and double-click the `pisa_world.Rproj` to open the code for the app.
-- Open the file `app.R` in the text editor. 
-- There is a change on the RStudio menu, you should now see a button labelled `Run App`. Clicking on this will run it. Try it!
+# Example: An app on exploring Covid-19 reproduction rates and cases
 
 ---
-# Structure 
+# Next five minutes
 
-The structure of the app is very simple. It has a menu of a statistic to show on the map. Let's take a look at how it is constructed. 
-
-- There are 90 lines of code.
-- There are two functions: `ui()`, `server()`
-    - `ui()`: sets up the menu and the canvas to draw on
-    - `server()`: does the computations 
-- Global code at the top of the file reads and processes the data, loads libraries, and sets up lists for the menu.
-
----
-# User Interface
-
-- `fluidPage` allows the size of components to be driven by the size of the browser window
-- `titlePanel` puts a header on the page
-- `sidebarLayout` sets up the container for the user interface
-    - `sidebarPanel` puts in the side panel: `selectInput` defines the menu input, asking for the variable, we call `y` to be used to colour the map `Colour by` is the label shown to the user, and the menu items are in the `realvars` vector. 
-    - `mainPanel` makes the drawing canvas: `plotOutput` specifies we want to make a plot in this panel, and the code instructions to use are called `map`. You need to look in the server function to find the code in `output$map`
-        
----
-# Server
-
-- The function `output$map` contains code to create the plot, based on the user input.
-- `renderPlot` indicates the output is a plot
-- The code is the same as the plotting code see thus far, *except for* `aes_string`. We used `aes` before to specify variable mapping, but need to use `aes_string` because the name of variables are passed in as strings/text as read from the `selectInput` menu.
+- Create a new shiny app in RStudio
+- Run it
+- Stop it
 
 ---
 class: inverse middle 
@@ -70,11 +44,80 @@ class: inverse middle
 - The easiest start is the `One file`, which will put both server and ui functions in the same file, `app.R`
 
 ---
+# Two main parts
+
+- What we see and interact with: 
+
+  - user interface: layout with user input and (plot) output
+
+- What is going on underneath:
+
+  - the server: glue between user input and output
+  
+---
+# A Minimal Example
+
+```{r eval = FALSE}
+library(shiny)
+
+ui <- fluidPage(
+)
+
+server <- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+
+
+---
+# A bit more fancy
+
+```{r eval = FALSE}
+library(shiny)
+library(shinydashboard)
+
+ui <- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+
+server <- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+---
+# A bit more fancy
+
+```{r eval = FALSE}
+library(shiny)
+library(shinydashboard)
+
+sidebar <- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike")
+)
+
+ui <- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server <- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+---
+
 # Shiny Inputs
 
-Shiny has many different input options:
+Shiny has many different [input options](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/):
 
 - `actionButton()` - creates a clickable button
+- `selectInput()` create a select list 
 - `checkboxInput()` and `checkboxGroupInput()`
 - `dateInput()` - calendar to select a date
 - `dateRangeInput()` - select a range of dates
@@ -83,6 +126,60 @@ Shiny has many different input options:
 - `radioButtons()` - select one or more items
 - `sliderInput()` - slide along a range of values
 - `textInput()` - input a string
+
+---
+class: inverse
+# Your Turn
+
+In the shiny app below add a list of your favorite states to the sidebar panel:
+
+```{r eval=FALSE}
+library(shiny)
+library(shinydashboard)
+
+sidebar <- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike")
+)
+
+ui <- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server <- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+```{r echo=FALSE, eval=FALSE}
+sidebar <- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike"),
+  selectInput("state", "Pick your favorite state:", 
+              choices = c("Iowa", "Washington", "Michigan"))
+)
+
+ui <- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server <- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+
+`r countdown::countdown(5)`
+
+---
+# Adding Output
+
+- Output typically goes into the body of an app
+- Output functions have the form
+  `xxxOutput (outputID)`
+- Output can be in form of tables, plots, text, ...
 
 ---
 # Shiny Outputs
@@ -99,19 +196,97 @@ Shiny also has many output options:
 - `renderImage()` - print an image to the page
 
 ---
-# Other User Interface Options
+# Adding a plot 
 
-- `tabsetPanel()` - make multiple different output views (i.e. a plot in one tab, a data table in another)
-- `helpText()` - create additional text to help users navigate your applet
-- `submitButton()` - only update outputs when this button is clicked
-- `conditionalPanel()` - only show certain UI options when conditions are met (i.e. if a certain tab is open, or a certain input is selected)
+```{r eval=FALSE}
+sidebar <- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike"),
+  selectInput("state", "Pick your favorite state:", 
+              choices = c("Iowa", "Washington", "Michigan"))
+)
+
+ui <- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server <- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+
+```{r echo=FALSE, eval=FALSE}
+sidebar <- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike"),
+  selectInput("state", "Pick your favorite state:", 
+              choices = c("Iowa", "Washington", "Michigan"))
+)
+
+body <- dashboardBody(
+  plotOutput("scatter")
+)
+
+ui <- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  body = body
+)
+
+server <- function(input, output, session) {
+  output$scatter <- renderPlot({
+    mtcars %>% ggplot(aes(x = disp, y = mpg)) + 
+      geom_point() +
+      ggtitle(input$state)
+  })
+}
+
+shinyApp(ui, server)
+```
 
 ---
 class: inverse middle 
 # Your turn
 
 - Add an interactive plot of the TB data into your app.
-- Include a menu, so that the user can choose a country to display. 
+- Change the select box, so that the user can choose a country to display. Think of `unique(tb$country)` for defining the choices
+
+`r countdown::countdown(10)`
+
+```{r echo=FALSE, eval=FALSE}
+library(ggplot2)
+library(dplyr)
+tb <- read_csv(here::here("data/tb.csv"))
+sidebar <- dashboardSidebar(
+  selectInput("country", "Pick a country:", 
+              choices = unique(tb$iso2))
+)
+
+body <- dashboardBody(
+  plotOutput("scatter")
+)
+
+ui <- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  body = body
+)
+
+server <- function(input, output, session) {
+  output$scatter <- renderPlot({
+    tb %>% filter(iso2 == input$country) %>% 
+      pivot_longer(m_04:f_u, 
+                   values_to="cases", names_to="sex_age") %>%
+      filter(!is.na(cases)) %>%
+      ggplot(aes(x = year, y = cases)) + 
+      geom_line(aes(colour=sex_age)) 
+  })
+}
+
+shinyApp(ui, server)
+```
+
 
 ---
 # Deploy an app
@@ -120,15 +295,6 @@ class: inverse middle
 - Authenticate your account
 - You may need to do some setup in your session, e.g. install the library `rsconnect`
 
----
-# Example apps
-
-- Soybean plant breeding, has data from different sources: lineage from breeding literature, yield trials, next-generation sequencing data
-    - explore copy number variation [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/CNV/)
-    - explore SNPs [http://shiny.soybase.org/CNV/](http://shiny.soybase.org/SNP/)
-- Peptide Library Calculator: Exploring the answer space for a theoretical question: https://erichare.shinyapps.io/pelica/
-- Getting an image and the code for a logo plot:  https://erichare.shinyapps.io/gglogo/
-- Finding a statistical answer to a bullet matching problem: https://oaiti.org/apps/bulletmatcher/
 
 ---
 # Resources
