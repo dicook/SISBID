@@ -1,4 +1,4 @@
-# SISBID 2020 Module 4: Visualization of Biomedical Big Data
+# SISBID 2021 Module 4: Visualization of Biomedical Big Data
 
 Instructors: Di Cook and Heike Hofmann
 
@@ -33,7 +33,7 @@ Zoom etiquette:
 ## Course Schedule
 
 
-| Wednesday, Jul 22 |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |
+| Wednesday, Jul 21 |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |
 |-------------------|----------------:|---------------:|----------------:|---------------:|
 | [Meet & Greet](https://dicook.github.io/SISBID/slides/0-preamble/index.html)        |   11:30 - 11:45 am | 4:30 - 4:45 am |  1:30 - 1:45 pm | 2:30 - 2:45 pm |
 | [Lecture 1](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html)        |   11:45 - 12:30 | 4:45 - 5:30 am |  1:45 - 2:30 pm | 2:45 - 3:30 pm |
