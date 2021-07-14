@@ -2,7 +2,7 @@
 title: "Preamble"
 subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/22-24/2020"
+date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -32,12 +32,13 @@ knitr::opts_chunk$set(
 install.packages("remotes")
 install.packages("xaringan")
 remotes::install_github("hadley/emo")
-remotes::install_github("ropenscilabs/icon")
-remotes::install_github('emitanaka/anicon')
-remotes::install_github('dicook/gretchenalbrecht')
-gretchenalbrecht:::add_palette("sunset.png", "sunset")
-sunset <- get_pal(30, "sunset")
-viz_palette(sunset$col)
+remotes::install_github("mitchelloharawild/icons")
+remotes::install_github("emitanaka/anicon")
+remotes::install_github("dicook/gretchenalbrecht")
+remotes::install_github("gadenbuie/countdown")
+#gretchenalbrecht:::add_palette("sunset.png", "sunset")
+#sunset <- get_pal(30, "sunset")
+#viz_palette(sunset$col)
 # A tibble: 30 x 5
        k    red  blue  green col    
    <int>  <dbl> <dbl>  <dbl> <chr>  
@@ -83,11 +84,11 @@ viz_palette(sunset$col)
 
 ---
 
-<img src="Hello-Kiegan.png" width="80%" />
+<img src="Hello-Andy.png" width="80%" />
 
 ---
 
-<img src="Hello-Sherry.png" width="80%" />
+<img src="Hello-Patrick.png" width="80%" />
 
 
 ---
