@@ -94,7 +94,7 @@ Afternoon:
 
 ## Software list
 
-Download [RStudio >= 1.3.959 ](https://www.rstudio.com/products/rstudio/download/), [R version >= 4.0.1 (2020-06-06) -- "See Things Now"](https://cran.r-project.org)
+Download [RStudio >= 1.4.1717 ](https://www.rstudio.com/products/rstudio/download/), [R version >= 4.1.0 (2021-05-18) -- "Camp Pontanezen"](https://cran.r-project.org)
 
 Open RStudio, and run the code below to install these packages and their dependencies:
 
