@@ -1,7 +1,7 @@
 ---
 title: "Advancing the Grammar of Graphics"
 subtitle: "SISBID 2021 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
 date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
@@ -52,10 +52,16 @@ Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
 
 ```{r not to run this code, eval=FALSE}
 # Data extracted from ALA with this code
-# install.packages("ALA4R")
-library(ALA4R)
-l <- specieslist("platypus")
-platypus <- occurrences("Ornithorhynchus anatinus", download_reason_id=10)
+# Note that package ALA4Ris being replaced by package galah
+# install.packages("galah")
+library(galah)
+ala_config(atlas = "Australia")
+l <- ala_species("Platypus")
+
+taxa <- select_taxa("Ornithorhynchus anatinus", counts = TRUE)
+
+platypus <- ala_occurrences(taxa = taxa)
+
 save(platypus, file="data/platypus.rda")
 ```
 
@@ -137,7 +143,7 @@ platydata <- platydata %>%
 
 then we can simply plot occurrence over time.
 
-```{r show sightings ovre time, echo=TRUE, out.width="60%"}
+```{r show sightings over time, echo=TRUE, out.width="60%"}
 ggplot(data=platydata) +
   geom_point(aes(x=eventDate, y=1))
 ```
@@ -145,12 +151,16 @@ ggplot(data=platydata) +
 
 There are some records dating back before 1800. There were only records from 1770! And these first records are in the database!
 
-```{r solution code for filtering on location and time, eval=FALSE}
-# Check odd cases
-platydata %>% filter(latitude < (-50)) 
-# These just have the lat/long wrong
-platydata %>% filter(eventDate < ymd("1850-01-01")) 
+
+---
+
+There are a LOT more sightings in more recent years than in the 18th and 19th century, but this database has an amazing history!
+
+```{r show jittered sightings over time, echo=TRUE, out.width="60%"}
+ggplot(data=platydata) +
+  geom_jitter(aes(x=eventDate, y=1))
 ```
+
 
 ---
 
@@ -161,6 +171,13 @@ platydata1900 <- platydata %>% filter(year>1900) %>%
   count(year) 
 ggplot(data=platydata1900) +
   geom_point(aes(x=year, y=n))
+```
+
+```{r solution code for filtering on location and time, eval=FALSE}
+# Check odd cases
+platydata %>% filter(latitude < (-50)) 
+# These just have the lat/long wrong
+platydata %>% filter(eventDate < ymd("1850-01-01")) 
 ```
 
 ---
