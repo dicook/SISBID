@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Tidying your data</title>
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/countdown-0.3.5/countdown.css" rel="stylesheet" />
     <script src="index_files/countdown-0.3.5/countdown.js"></script>
@@ -16,7 +17,7 @@ class: center, middle, inverse, title-slide
 # Tidying your data
 ## SISBID 2020 <br> <a href="https://dicook.github.io/SISBID/" class="uri">https://dicook.github.io/SISBID/</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/22-24/2020
+### 07/21-23/2021
 
 ---
 
@@ -107,13 +108,13 @@ What's in the column names of this data? What are the experimental units? What a
 
 ```
 # A tibble: 3 x 12
-  id    `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1` `WI-12.R2`
-  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 Gene…      2.18     2.20       4.20     2.63       5.06       4.54       5.53
-2 Gene…      1.46     0.585      1.86     0.515      2.88       1.36       2.96
-3 Gene…      2.03     0.870      3.28     0.533      4.63       2.18       5.56
-# … with 4 more variables: `WI-12.R4` &lt;dbl&gt;, `WM-12.R1` &lt;dbl&gt;,
-#   `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
+  id     `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1` `WI-12.R2`
+  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 Gene 1      2.18     2.20       4.20     2.63       5.06       4.54       5.53
+2 Gene 2      1.46     0.585      1.86     0.515      2.88       1.36       2.96
+3 Gene 3      2.03     0.870      3.28     0.533      4.63       2.18       5.56
+# … with 4 more variables: WI-12.R4 &lt;dbl&gt;, WM-12.R1 &lt;dbl&gt;, WM-12.R2 &lt;dbl&gt;,
+#   WM-12.R4 &lt;dbl&gt;
 ```
 
 
@@ -275,14 +276,14 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;%
   select(country, iso3, year, starts_with("new_sp_")) %&gt;%
   head()
 # A tibble: 6 x 23
-  country iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524
-  &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
-1 Afghan… AFG    1980         NA          NA          NA           NA
-2 Afghan… AFG    1981         NA          NA          NA           NA
-3 Afghan… AFG    1982         NA          NA          NA           NA
-4 Afghan… AFG    1983         NA          NA          NA           NA
-5 Afghan… AFG    1984         NA          NA          NA           NA
-6 Afghan… AFG    1985         NA          NA          NA           NA
+  country     iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+1 Afghanistan AFG    1980         NA          NA          NA           NA
+2 Afghanistan AFG    1981         NA          NA          NA           NA
+3 Afghanistan AFG    1982         NA          NA          NA           NA
+4 Afghanistan AFG    1983         NA          NA          NA           NA
+5 Afghanistan AFG    1984         NA          NA          NA           NA
+6 Afghanistan AFG    1985         NA          NA          NA           NA
 # … with 16 more variables: new_sp_m2534 &lt;dbl&gt;, new_sp_m3544 &lt;dbl&gt;,
 #   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;,
 #   new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;,
@@ -412,7 +413,7 @@ head(gtidy)
 ```
 
 Break into zoom rooms, clock is ticking 😄
-<div class="countdown" id="timer_5f18f3b6" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60f5ccf4" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -446,6 +447,7 @@ gtidy %&gt;%
 # Share and share alike
 
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -493,9 +495,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -504,7 +522,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {

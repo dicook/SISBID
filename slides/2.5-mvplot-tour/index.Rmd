@@ -2,7 +2,7 @@
 title: "Touring multivariate data"
 subtitle: "SISBID 2020 <br> https://dicook.github.io/SISBID/"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/22-24/2020"
+date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]

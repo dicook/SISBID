@@ -1,8 +1,8 @@
 ---
 title: "A Grammar of Graphics"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2021 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/22-24/2020"
+date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -46,7 +46,7 @@ class: inverse middle
 <br>
 .large[Write down as many types of data plots that you can.] 
 
-Go to menti.com and enter code 16 75 98
+Go to menti.com and enter code 7692 1508
 
 <br>
 
@@ -143,7 +143,7 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-Go to menti.com and enter code 16 75 98
+Go to menti.com and enter code 7692 1508
 
 - What do you learn about tuberculosis incidence in the USA from this plot?
 - Give three changes to the plot that would improve it. 
@@ -272,7 +272,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - What are the pros, and cons, of using the pie chart for this data?
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
-Go to menti.com and enter code 16 75 98
+Go to menti.com and enter code 7692 1508
 
 ---
 # Line plot vs barchart
