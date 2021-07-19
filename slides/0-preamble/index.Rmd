@@ -1,7 +1,7 @@
 ---
 title: "Preamble"
 subtitle: "SISBID 2021 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu)"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
 date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
@@ -44,6 +44,12 @@ remotes::install_github("gadenbuie/countdown")
 
 ---
 
+<img src="Hello-Di-sick.png" width="80%" />
+
+---
+<img src="Hello-Susan.png" width="80%" />
+
+---
 
 <img src="Hello-Heike.png" width="80%" />
 
@@ -135,7 +141,7 @@ class: middle
 
 **Check your R setup**
 
-.orange["If R were an airplane, RStudio would be the airport"] [Julie Lowndes](http://jules32.github.io/resources/RStudio_intro/)
+.orange["If R were an airplane, RStudio would be the airport"] [Julie Lowndes, Openscapes](http://jules32.github.io/resources/RStudio_intro/)
 
 <img src="setup.png" width="200%" />
 
@@ -171,7 +177,7 @@ remotes::install_github("hadley/emo")
 
 Do you have these packages installed?
 
-```
+```{r eval=FALSE}
 # CRAN packages
 packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", 
               "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
