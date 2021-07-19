@@ -164,12 +164,14 @@ Go to menti.com and enter code 7692 1508
 # Fix the plot
 
 ```{r colour and axes fixes, echo=TRUE, fig.height=3}
-# This uses a color blind proof scale
+# This uses a color blind friendly scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_wrap(~age_group, ncol=6) +
-  scale_fill_brewer("Sex", palette="Dark2") 
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 ```
+
+.bottom[Colorblindness-friendly color schemes, https://davidmathlogic.com/colorblind/#%23005AB5-%23DC3220]
 
 ---
 # Compare males and females
@@ -179,7 +181,8 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age_group, ncol=6) +
-  scale_fill_brewer("Sex", palette="Dark2") + ylab("proportion")
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5"))  + 
+  ylab("proportion")
 ```
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
@@ -187,11 +190,11 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 - What do we learn about the data that is different from the previous plot?
 - What is easier, what is harder or impossible to learn from this arrangement?
 
-```{r eval=FALSE}
+???
 - Focus is now on proportions of male and female each year, within age group
 - Proportions are similar across year 
 - Roughly equal proportions at young and old age groups, more male incidence in middle years
-```
+
 
 ---
 # Separate plots
@@ -200,8 +203,8 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ```{r side-by-side bars of males/females, fig.height=3, eval=FALSE, echo=FALSE}
 # This code does something strange to the axis tick marks
 # We will skip it for now
-#ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
-#  geom_bar(stat="identity", position="dodge") + 
+# ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+#  geom_bar(stat="identity", position="dodge") +
 #  facet_wrap(~age, ncol=6) +
 #  scale_fill_brewer("", palette="Dark2") +
 #  scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10"))
@@ -212,7 +215,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_wrap(sex~age_group, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") 
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 ```
 ]
 .pull-right[
@@ -234,8 +237,8 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 # How to make a pie instead of a barchart - not straight forward
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(sex~age_group, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") +
+  facet_wrap(sex~age_group, ncol=6) + 
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
   coord_polar()
 ```
 
@@ -281,7 +284,7 @@ Go to menti.com and enter code 7692 1508
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age_group, ncol=6) +
-  scale_colour_brewer("", palette="Dark2") 
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 ```
 
 A line plot allows reading the counts for the two sexes. The counts are displayed in the same plot, and males and females can be directly compared as well as temporal trend.  

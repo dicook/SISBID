@@ -152,3 +152,12 @@ code {
   float: right;
   padding-top: 1em;
 }
+
+
+.bottom {
+  left: 5%;
+  position: absolute;
+  bottom: 5px;
+  font-size: 70%;
+  /*width: 100%;*/
+}
