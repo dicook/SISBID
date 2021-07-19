@@ -29,6 +29,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r eval=FALSE, echo=FALSE}
+# THIS CODE IS NOT TO BE RUN
 install.packages("remotes")
 install.packages("xaringan")
 remotes::install_github("hadley/emo")
