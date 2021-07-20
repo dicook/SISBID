@@ -46,7 +46,7 @@ class: inverse middle
 <br>
 .large[Write down as many types of data plots that you can.] 
 
-Go to menti.com and enter code 7692 1508
+Go to menti.com and enter code 7692 1506
 
 <br>
 
@@ -54,14 +54,8 @@ Go to menti.com and enter code 7692 1508
 
 ---
 
-```{r make a word cloud of plot names, fig.width=10, fig.height=8, out.width="70%"}
-library(wordcloud)
-namedplots <- c("histogram", "barchart", "scatterplot", "piechart", "lineplot", "density_plot", "boxplot", "dendrogram", "treemap", "scatterplot_matrix", "parallel_coordinate_plot", "biplot", "contourplot", "stem_and_leafplot", "rug_plot", "dotplot", "mosaic_plot", "spine_plot", "forest_plot", "heatmap", "qqplot", "star_plot", "chernoff_face","graph", "beeswarm", "violin_plot", "tour", "choropleth_map", "glyph_map", "cartogram", "bubble_plot", "correlogram", "area_chart", "population_pyramid", "seasonal_plot", "frequency_polygon", "biplot", "profile_plot", "funnel_plot")
-pal <- c("#A1719D","#03329B","#0774E4","#702E8D","#6B44B7","#B71452","#D50321","#F39E9C","#FCB52C","#B78ED2")
-wordcloud(namedplots, freq = sample(1:10, length(namedplots), replace=TRUE), colors=pal)
-```
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
-Results from [menti.com](https://www.mentimeter.com/s/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75)
 
 ---
 # What is a data plot?
@@ -131,7 +125,7 @@ tb_us <- tb %>%
   filter(!(age %in% c("04", "014", "514", "u"))) %>%
   filter(year > 1996, year < 2013) %>%
   mutate(
-    age_group = factor(age, labels = c("15-24", "25-34", "35-44", "45-54", "55-64", "65-"))
+    age_group = factor(age, labels = c("15-24", "25-34", "35-44", "45-54", "55-64", "65+"))
   )
 ```
 
@@ -143,13 +137,16 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-Go to menti.com and enter code 7692 1508
+Go to menti.com and enter code 7692 1506
 
 - What do you learn about tuberculosis incidence in the USA from this plot?
 - Give three changes to the plot that would improve it. 
 
+---
 
-```{r eval=FALSE}
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+
+???
 - Incidence is declining, in all age groups, except possibly 15-24
 - Much higher incidence for over 65s and 35-44 year olds
 - We do not know the underlying population size
@@ -158,7 +155,9 @@ Go to menti.com and enter code 7692 1508
 - Cannot compare counts for male/female using stacked bars, maybe fill to 100% to focus on proportion
 - Colour scheme is not color blind proof, switch to colorbrewer Dark2 palette
 - Axis labels, and tick marks?
-```
+
+
+
 
 ---
 # Fix the plot
@@ -275,7 +274,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - What are the pros, and cons, of using the pie chart for this data?
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
-Go to menti.com and enter code 7692 1508
+Go to menti.com and enter code 7692 1506
 
 ---
 # Line plot vs barchart
