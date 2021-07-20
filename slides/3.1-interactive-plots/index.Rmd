@@ -55,29 +55,43 @@ library(datasauRus)
 - `plotly`: has come a long way in the last years, started as part of Carson Sievert's PhD thesis research. The beauty is that it builds directly onto ggplot2
 - `leaflet`: (RStudio) allows to make interactive maps. Has been picking up users and has developed a stable user base.
 - `ggvis`: both static and interactive graphics, work on it has stalled ... (Wickham)
-- `animint`: Hasn't progressed much in the last year, but it's not dead either (Hocking, et al)
+- `animint2`: interactive, linked graphics with ggplot2 syntax (Toby Hocking)
 -  `rCharts`, `rbokeh`, `gridSVG`, `epivizr`, `cranvas`
 
 ---
 
-```{r, echo=FALSE, fig.width=10, fig.height = 8}
-interactive <- read_csv(here::here("data/package-info-Jul-2020.csv"))
-inter.summary <- interactive %>%
-  group_by(package) %>%
-  summarise(maxdown = max(downloads),
-            maxtime = start[which.max(downloads)])
+```{r, include = F}
+# Download cran data from metacran
+library(cranlogs)
+library(lubridate)
+cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
+                           from = "2019-01-01", to = today())
+write_csv(cran_dls, file = "../../data/package-info-July-2021.csv")
+```
 
-interactive %>% 
-  filter(start < lubridate::ymd("2020-06-01")) %>%
-  ggplot(aes(x = start, y = downloads, colour=package)) +
+```{r, echo=FALSE, fig.width=10, fig.height = 8}
+cran_dls <- read_csv(here::here("data/package-info-July-2021.csv"))
+cran_summary <- cran_dls %>%
+  mutate(date = ymd(date) %>% floor_date("week")) %>%
+  group_by(package, date) %>%
+  summarise(totaldown = sum(count))
+
+label_summary <- cran_summary %>%
+  ungroup() %>%
+  group_by(package) %>%
+  filter(totaldown == max(totaldown))
+
+cran_summary %>% 
+  ggplot(aes(x = date, y = totaldown, colour=package)) +
   geom_line() +
   theme_bw() +
   theme(legend.position="none") +
   geom_text(
-    aes(x = maxtime, y = 1.05*maxdown, label=package),
-    data = inter.summary %>% filter(maxdown > 10000)) +
+    aes(x = date, y = 1.05*totaldown, label=package),
+    data = label_summary) +
   ylab("Monthly downloads") +
-  xlab("Time")
+  xlab("Time") + 
+  scale_y_log10()
 
 
 ```
@@ -222,7 +236,7 @@ Countries are colored manually by `country_colors` (hue shows continent, saturat
 ---
 # A simple example
 
-- thanks to Mitch O'Hara Wild for the [example]()
+- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 
 #### 1. Start by passing the data to ggplot
 
@@ -239,7 +253,7 @@ ggplot(economics) #<<
 ---
 # A simple example
 
-- thanks to Mitch O'Hara Wild for the [example]()
+- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 
 #### 2. add the mapping
 
@@ -258,7 +272,7 @@ ggplot(economics) +
 ---
 # A simple example
 
-- thanks to Mitch O'Hara Wild for the [example]()
+- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 
 #### 3.add a graphical primitive, let's do a line 
 
@@ -277,7 +291,7 @@ ggplot(economics) +
 ---
 # A simple example
 
-- thanks to Mitch O'Hara Wild for the [example]()
+- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 
 #### 4. Just one extra line turns this into an animation!
 
