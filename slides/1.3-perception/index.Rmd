@@ -1,7 +1,12 @@
 ---
 title: "Visual perception and effective plot construction"
+<<<<<<< HEAD
+subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+=======
 subtitle: "SISBID 2021 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)<br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+>>>>>>> b28845a49819fee359d342d2e0df9ccf05ff8e9a
 date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
@@ -82,7 +87,7 @@ tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Arrangement A")
 ```
 
@@ -218,7 +223,7 @@ tb_us %>% group_by(year, age) %>%
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") + ylab("proportion") +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + ylab("proportion") +
   ggtitle("Type B") + theme(legend.position = "bottom")
 ```
 
@@ -416,7 +421,7 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
   ylim(c(0,1150)) +
-  scale_colour_brewer("", palette="Dark2") +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5"))  +
   ggtitle("Arrangement A")
 ```
 
@@ -441,7 +446,7 @@ tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5"))  +
   ggtitle("Position - common scale ")
 ```
 
@@ -450,7 +455,7 @@ tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Angle") + xlab("") + ylab("") +
   coord_polar(theta = "y")
 ```
