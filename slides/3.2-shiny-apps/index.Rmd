@@ -42,18 +42,15 @@ https://hofmann.shinyapps.io/covid-predict/
 class: inverse middle 
 # Create your first app
 
-- On the RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
+- In RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
 - The easiest start is the `One file`, which will put both server and ui functions in the same file, `app.R`
 
 ---
 # Two main parts
 
-- What we see and interact with: 
-
-  - user interface: layout with user input and (plot) output
-
-- What is going on underneath:
-
+- What we see and interact with: <br/><br/>
+  - user interface: layout with user input and (plot) output <br/><br/>
+- What is going on underneath: <br/><br/>
   - the server: glue between user input and output
   
 ---
