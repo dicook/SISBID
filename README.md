@@ -59,8 +59,8 @@ Zoom etiquette:
 
 1. [Setting things up](https://dicook.github.io/SISBID/slides/0-preamble/index.html)
 1. [The grammar of graphics and ggplot2](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html) (Heike)
-1. [Advancing the grammar to maps, time and interactivity](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) (Heike)
-1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Di)
+1. [Advancing the grammar to maps, time and interactivity](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) (Susan)
+1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Susan)
 
 
 ### Thursday [zip file](SISBID_day2.zip)
@@ -73,9 +73,9 @@ Morning:
 
 Afternoon: 
 
-1. [Multivariate plots using ggplot2, GGally](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html) (Di)
-1. [Touring on multivariate data](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) (Di)
-1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html) (Di) 
+1. [Multivariate plots using ggplot2, GGally](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html) (Heike)
+1. [Touring on multivariate data](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) (Susan)
+1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html) (Susan) 
 
 
 ### Friday [zip file](SISBID_day3.zip)
@@ -84,13 +84,13 @@ Morning:
 
 1. [Interactive and animated graphics using plotly and gganimate](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html) (Heike).
 1. [How to build a shiny app](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html) (Heike).
-1. [Reactive elements in shiny](https://github.com/dicook/SISBID/raw/master/slides/3.3-shiny-reactivity/3.3-shiny-reactivity.pdf) (Heike).
+1. [Reactive elements in shiny](https://github.com/dicook/SISBID/raw/master/slides/3.3-shiny-reactivity/3.3-shiny-reactivity.pdf) (Susan).
 
 Afternoon:
 
-1. [Polish and share your own shiny app](https://dicook.github.io/SISBID/slides/3.4-build_a_shiny_app) (Di).
-1. [Building interactive documents with Rmarkdown tools, learnr, flexdashboard](https://dicook.github.io/SISBID/slides/3.5-make_your_own_interactive_document/index.html) (Di). 
-1. Show us what you've made (Di)
+1. [Polish and share your own shiny app](https://dicook.github.io/SISBID/slides/3.4-build_a_shiny_app) (Susan).
+1. [Building interactive documents with Rmarkdown tools, learnr, flexdashboard](https://dicook.github.io/SISBID/slides/3.5-make_your_own_interactive_document/index.html) (Susan). 
+1. Show us what you've made (Susan & Heike)
 
 ## Software list
 

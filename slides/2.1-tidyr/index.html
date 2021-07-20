@@ -3,7 +3,7 @@
   <head>
     <title>Tidying your data</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
     <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/countdown-0.3.5/countdown.css" rel="stylesheet" />
@@ -15,8 +15,8 @@
 class: center, middle, inverse, title-slide
 
 # Tidying your data
-## SISBID 2020 <br> <a href="https://dicook.github.io/SISBID/" class="uri">https://dicook.github.io/SISBID/</a>
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+## SISBID 2021 <br> <a href="https://dicook.github.io/SISBID/" class="uri">https://dicook.github.io/SISBID/</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
 ### 07/21-23/2021
 
 ---
@@ -55,20 +55,6 @@ tb %&gt;%                                  # first we get the tb data
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
     ) %&gt;% 
   arrange(desc(cases))                  # then we sort countries to show highest number new cases first
-# A tibble: 216 x 2
-   country                            cases
-   &lt;chr&gt;                              &lt;dbl&gt;
- 1 India                            1763876
- 2 China                             778493
- 3 Indonesia                         364671
- 4 Pakistan                          356390
- 5 Philippines                       332941
- 6 South Africa                      237045
- 7 Bangladesh                        222248
- 8 Myanmar                           137551
- 9 Democratic Republic of the Congo  130596
-10 Ethiopia                          125836
-# … with 206 more rows
 ```
 
 ---
@@ -77,7 +63,9 @@ tb %&gt;%                                  # first we get the tb data
 - What do we expect tidy data to look like?
 - Couple of exercises to look closer at what we find in practice 
 
+&lt;img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_2.jpg" width="500"&gt;
 
+Artist: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
 ---
 class: inverse middle 
 # Your turn 1
@@ -207,7 +195,7 @@ What is the experimental unit? What are the factors of the experiment? What was 
 
 There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:
 
-- Column headers are values, not variable names
+- Column headers are not just variable names, but also contain values
 - Variables are stored in both rows and columns, contingency table format
 - One type of experimental unit stored in multiple tables
 - Dates in many different formats
@@ -264,6 +252,23 @@ dframe %&gt;% pivot_longer(trtA:trtB, "treatment", "outcome")
 3     2 trtA        4.6
 4     2 trtB       35  
 ```
+
+---
+# Gather the data (2)
+
+`data %&gt;% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
+
+`cols` argument identifies variables that should be combined.
+
+**Selectors** can be used to identify variables: variables can be identified by **name**, by **position**, by a range (using `:`), by a pattern, or by a combination of all.
+
+Pattern selectors:
+
+`starts_with(match, ignore.case = TRUE, vars = NULL)`
+
+`ends_with`, `contains`, `matches`
+
+
 
 ---
 # TB notifications
@@ -413,7 +418,7 @@ head(gtidy)
 ```
 
 Break into zoom rooms, clock is ticking 😄
-<div class="countdown" id="timer_60f5ccf4" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60f68fb5" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

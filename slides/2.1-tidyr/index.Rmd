@@ -1,7 +1,7 @@
 ---
 title: "Tidying your data"
 subtitle: "SISBID 2021 <br> https://dicook.github.io/SISBID/"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
 date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
@@ -52,7 +52,7 @@ library(broom)
 
 Example:
 
-```{r read TB incidence data and check}
+```{r read TB incidence data and check, results='hide'}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
 tb %>%                                  # first we get the tb data
   filter(year == 2016) %>%              # then we focus on just the year 2016
@@ -69,7 +69,9 @@ tb %>%                                  # first we get the tb data
 - What do we expect tidy data to look like?
 - Couple of exercises to look closer at what we find in practice 
 
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_2.jpg" width="500">
 
+Artist: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
 ---
 class: inverse middle 
 # Your turn 1
@@ -162,7 +164,7 @@ What is the experimental unit? What are the factors of the experiment? What was 
 
 There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:
 
-- Column headers are values, not variable names
+- Column headers are not just variable names, but also contain values
 - Variables are stored in both rows and columns, contingency table format
 - One type of experimental unit stored in multiple tables
 - Dates in many different formats
@@ -200,7 +202,8 @@ There are various features of messy data that one can observe in practice. Here 
 `data %>% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
 
 - `pivot_longer` turns a wide format into a long format
-- two new variables are introduced (in key-value format): **name** and **value**: multiple columns (specified in `...`) are collapsed; their names go into variable `name`, their values go into variable `value`.
+- two new variables are introduced (in key-value format): **name** and **value**
+- `col` defines which variables should be combined
 
 ```{r setup a simple example, echo = FALSE}
 dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
@@ -210,6 +213,23 @@ dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
 dframe
 dframe %>% pivot_longer(trtA:trtB, "treatment", "outcome")
 ```
+
+---
+# Variable Selectors
+
+`data %>% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
+
+`cols` argument identifies variables that should be combined.
+
+**Selectors** can be used to identify variables: variables can be identified by **name**, by **position**, by a range (using `:`), by a pattern, or by a combination of all.
+
+Pattern selectors:
+
+`starts_with(match, ignore.case = TRUE, vars = NULL)`
+
+`ends_with`, `contains`, `matches`
+
+
 
 ---
 # TB notifications
