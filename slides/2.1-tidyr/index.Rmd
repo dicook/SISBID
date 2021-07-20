@@ -357,6 +357,7 @@ gtidy %>%
 ---
 # Resources
 
+- [The tidy tools manifesto](https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html)
 - [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12)
 - [broom vignettes, David Robinson](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)

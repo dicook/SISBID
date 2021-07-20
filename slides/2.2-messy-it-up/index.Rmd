@@ -55,7 +55,7 @@ class: middle, center, inverse
 
 <h1>What would we like to find out about the french fries data set?</h1>
 
-Go to menti.com at 68 87 34 and let us know!
+Go to menti.com at 7692 1506 and let us know!
 
 ---
 # What would we like to know?
@@ -76,6 +76,7 @@ ff_long <- french_fries %>%
   pivot_longer(potato:painty, names_to = "type", values_to = "rating")
 head(ff_long)
 ```
+
 
 ---
 # Long to wide
