@@ -1,8 +1,8 @@
 ---
 title: "Visual perception and effective plot construction"
-subtitle: "SISBID 2020 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
-date: "07/22-24/2020"
+subtitle: "SISBID 2021 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)<br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+date: "07/21-23/2021"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -96,7 +96,7 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 
-We've got two different rearrangements of the same information. **At which age(s) are the counts for males and females relatively the same? Which plot makes this easier?** Go to www.menti.com and use the code 72 74 10. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/c0547e36bd70)
+We've got two different rearrangements of the same information. **At which age(s) are the counts for males and females relatively the same? Which plot makes this easier?** Go to www.menti.com and use the code 7692 1506. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/c0547e36bd70)
 
 What do we learn? That is different from each? What's the focus of each? What's easy, what's harder? 
 
@@ -110,7 +110,7 @@ What do we learn? That is different from each? What's the focus of each? What's 
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-`r anicon::nia("Try to write out a question that would be easier to answer from arrangement B.", animate="float")` Go to www.menti.com and use the code 72 74 10. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/a74fa01892e5)
+`r anicon::nia("Try to write out a question that would be easier to answer from arrangement B.", animate="float")` Go to www.menti.com and use the code 7692 1506. [Results](https://www.mentimeter.com/s/6f047f3fca40c512fad7a83043146da7/a74fa01892e5)
 
 <br>
 
