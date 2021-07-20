@@ -55,19 +55,23 @@ Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
 # Note that package ALA4Ris being replaced by package galah
 # install.packages("galah")
 library(galah)
-ala_config(atlas = "Australia")
+ala_config(atlas = "Australia", download_reason_id=)
 l <- ala_species("Platypus")
 
 taxa <- select_taxa("Ornithorhynchus anatinus", counts = TRUE)
 
 platypus <- ala_occurrences(taxa = taxa)
 
+platypus <- platypus %>% rename(
+  longitude = decimalLongitude,
+  latitude = decimalLatitude
+)
 save(platypus, file="data/platypus.rda")
 ```
 
 ```{r load the platypus obervation data, echo=TRUE}
 load(here::here("data/platypus.rda"))
-platydata <- platypus$data
+platydata <- platypus
 ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
 ```
 
@@ -136,7 +140,7 @@ The date of the sighting is another variable in the data set. Let's make a plot 
 ```{r create a date variable, echo=TRUE}
 library(lubridate)
 platydata <- platydata %>% 
-  mutate(eventDate = ymd(eventDate))
+  mutate(eventDate = ymd_hms(eventDate))
 ```
 
 ---
@@ -236,15 +240,15 @@ class: inverse middle
 
 *Discussion question:* Was there a population explosion in 1980 and 2004? Is the population of platypus increasing since 1900, and decreasing in the last decade?
 
-- Subset the data to 1950-2010
+- Subset the data to 1950-2020
 - Create a new variable for decade
 - Make a map separately for each decade - the `facet_wrap` function can help here.
 
 ```{r solution code for exploring population trend, echo=FALSE, eval=FALSE}
-platydata_50_10 <- platydata %>% filter(year>1949, year<2010) %>%
-  mutate(decade = cut(year, breaks=seq(1950, 2019, 10),
+platydata_50_10 <- platydata %>% filter(year>1949, year<2020) %>%
+  mutate(decade = cut(year, breaks=seq(1950, 2020, 10),
    include.lowest=TRUE, 
-   labels=c("50-59", "60-69", "70-79", "80-89", "90-99", "00-09")))
+   labels=c("50-59", "60-69", "70-79", "80-89", "90-99", "00-09", "10-19")))
 ggmap(oz) + geom_point(data=platydata_50_10, mapping=aes(x=longitude, y=latitude), colour="orange", alpha=0.1) +
   facet_wrap(~decade)
 ```
