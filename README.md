@@ -1,6 +1,6 @@
 # SISBID 2021 Module 4: Visualization of Biomedical Big Data
 
-Instructors: Di Cook and Heike Hofmann
+Instructors: (Di Cook) Susan VanderPlas and Heike Hofmann
 
 Website: [https://dicook.github.io/SISBID/](https://dicook.github.io/SISBID/)
 

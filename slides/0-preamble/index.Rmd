@@ -119,7 +119,8 @@ R cloud setup
 class: inverse middle 
 # Your turn: Course materials
 
-<large>https://github.com/dicook/SISBID</large>
+<large>All materials are available from [https://github.com/dicook/SISBID](https://github.com/dicook/SISBID
+)</large>
 
 - __Download__ `SISBID_day1.zip` (a zip archive) of the workshop files which contains all the code files, Rmarkdown files, and data for day 1 of this workshop. __Unzip the file__.
 - __Double-click__ `SISBID.Rproj`. The R project helps organise your work over these next few days. 
