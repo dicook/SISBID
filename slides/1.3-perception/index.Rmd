@@ -354,7 +354,7 @@ library(dichromat)
 clrs <- hue_pal()(9)
 d + theme(legend.position = "none")
 clrs <- dichromat(hue_pal()(9))
-d + scale_fill_manual("", values=clrs) + theme(legend.position = "none")
+d + scale_colour_manual("", values=clrs) + theme(legend.position = "none")
 ```
 
 Online checking tool [coblis](https://www.color-blindness.com/coblis-color-blindness-simulator/) allows you to upload an image and it will re-map the colors for different colour perception issues. The package `colorblind` has color blind friendly palettes but the colours are awful, to my eye.
