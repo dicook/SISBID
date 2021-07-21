@@ -11,10 +11,10 @@ purrr::walk(slides, rmarkdown::render)
 # Purl to code folder
 purrr::walk(slides, function(i) {
   knitr::purl(i)
-  file.copy(i, str_replace(i, "slides/(.*)/index.Rmd", "code/\\1.r"))
-  #file.unlink("index.R")
+  code_file <- str_replace(i, "slides/(.*)/index.Rmd", "code/\\1.r")
+  file.copy("index.R", to = code_file, overwrite = T)
+  file.remove("index.R")
 })
-file.remove("index.R")
 
 
 # Remove old zip files to prevent file accumulation
