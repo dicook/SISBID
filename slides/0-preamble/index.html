@@ -4,7 +4,7 @@
     <title>Preamble</title>
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
-    <script src="index_files/header-attrs-2.9.1/header-attrs.js"></script>
+    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
@@ -80,7 +80,7 @@ Introduce yourself to the people around you. Find out a little about them: where
 
 .large[.yellow[You've got 5 minutes - timer is running!]]
 
-<div class="countdown" id="timer_60f78388" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60f7aa49" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -145,27 +145,15 @@ The three main locations that we will draw packages from are CRAN, Bioconductor 
 From CRAN
 
 
-```r
-install.packages("ggenealogy")
-```
 
 
 From bioconductor
 
 
-```r
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("impute")
-```
 
 From github repos
 
 
-```r
-remotes::install_github("hadley/emo")
-```
 
 ---
 # List of packages
@@ -173,19 +161,6 @@ remotes::install_github("hadley/emo")
 Do you have these packages installed?
 
 
-```r
-# CRAN packages
-packages &lt;- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", 
-              "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
-              "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
-              "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-              "naniar", "htmltools", "mapproj", "leaflet", "broom.mixed", "lme4")
-
-install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
-
-# github packages
-remotes::install_github("wmurphyrd/fiftystater")
-```
 
 ---
 # Resources
