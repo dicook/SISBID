@@ -3,7 +3,8 @@
   <head>
     <title>Building interactive documents with Rmarkdown tools, learnr, flexdashboard</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
+    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
@@ -14,9 +15,9 @@
 class: center, middle, inverse, title-slide
 
 # Building interactive documents with Rmarkdown tools, learnr, flexdashboard
-## SISBID 2020 <br> <a href="https://dicook.github.io/SISBID/" class="uri">https://dicook.github.io/SISBID/</a>
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/22-24/2020
+## SISBID 2021 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
+### 07/21-23/2021
 
 ---
 
@@ -25,8 +26,98 @@ class: center, middle, inverse, title-slide
 
 
 
+
 class: inverse middle
 
+# Data dashboard
+
+A `flexdashboard` is an Rmarkdown format shiny app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
+
+---
+# Data dashboard 
+
+.pull-left[
+A `flexdashboard` allows you to create an interactive interface to a data set, that allows communicating a lot of information visually and numerically, and the flexibility for the user to explore their own choice of aspects of the data.
+
+To get started, make sure you have the `flexdashboard` package installed on your computer.
+
+```
+install.packages("flexdashboard")
+```
+]
+.pull-right[
+Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
+
+&lt;img src="images/flexdashboard.png" width="80%" /&gt;
+]
+
+---
+# Basic dashboard
+
+- Check that the document compiles, by clicking `Knit`
+- Modify the title and author 
+
+```
+---
+title: "TB incidence around the globe"
+author: "by Di Cook"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+```
+
+---
+# Components
+
+This creates a box or a pane for a plot or results
+
+```
+### Chart 1
+```
+
+This sets up columns
+
+```
+Column {data-width=600}
+-------------------------------------
+```
+---
+class:inverse
+## Your turn!
+
+- Change the default layout in your flexdashboard to have two plots in the left column.
+- Make each column equal width
+- Pick four countries and create the interactive chart of temporal trend. (We used India in the learnr tutorial. You can copy this code, and choose another three.)
+- Change the tab titles to reflect what country is displayed.
+- Add several sentences on each pane about the data, and some things they should learn about TB incidence in that country.
+
+
+---
+# Adding pages and tabs
+
+A new page (tab) can be added using
+
+```
+Page 1
+===================================== 
+```
+
+Add a second page to your flexdashboard that focuses on one country and has
+
+- a data table showing counts for year, age, sex 
+- a facetted barchart of counts by year, by age and sex
+
+---
+class: inverse middle
+
+# Upload your dashboard to your shiny.apps.io account
+
+
+
+---
+class: inverse middle
 # Interactive tutorial
 
 A set of notes with interactive plots, quizzes, and coding exercises.
@@ -48,6 +139,7 @@ install.packages("learnr")
 .pull-right[
 &lt;img src="images/learnr.png" width="100%" /&gt;
 ]
+
 ---
 # Basic tutorial
 
@@ -232,96 +324,6 @@ anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
 class: inverse middle
 
 # Upload your tutorial to your shiny.apps.io account
-
----
-class: inverse middle
-
-# Data dashboard
-
-A `flexdashboard` is an Rmarkdown format shiny app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
-
----
-# Data dashboard 
-
-.pull-left[
-A `flexdashboard` allows you to create an interactive interface to a data set, that allows communicating a lot of information visually and numerically, and the flexibility for the user to explore their own choice of aspects of the data.
-
-To get started, make sure you have the `flexdashboard` package installed on your computer.
-
-```
-install.packages("flexdashboard")
-```
-]
-.pull-right[
-Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
-
-&lt;img src="images/flexdashboard.png" width="80%" /&gt;
-]
-
----
-# Basic dashboard
-
-- Check that the document compiles, by clicking `Knit`
-- Modify the title and author 
-
-```
----
-title: "TB incidence around the globe"
-author: "by Di Cook"
-output: 
-  flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
----
-```
-
----
-# Components
-
-.pull-left[
-This creates a box or a pane for a plot or results
-
-```
-### Chart 1
-```
-
-This sets up columns
-
-```
-Column {data-width=600}
--------------------------------------
-```
-]
-.pull-right[
-
-## Your turn!
-
-- Change the default layout in your flexdashboard to have two plots in the left column.
-- Make each column equal width
-- Pick four countries and create the interactive chart of temporal trend. (We used India in the learnr tutorial. You can copy this code, and choose another three.)
-- Change the tab titles to reflect what country is displayed.
-- Add several sentences on each pane about the data, and some things they should learn about TB incidence in that country.
-]
-
----
-# Adding pages and tabs
-
-A new page (tab) can be added using
-
-```
-Page 1
-===================================== 
-```
-
-Add a second page to your flexdashboard that focuses on one country and has
-
-- a data table showing counts for year, age, sex 
-- a facetted barchart of counts by year, by age and sex
-
----
-class: inverse middle
-
-# Upload your dashboard to your shiny.apps.io account
 
 ---
 # Resources
