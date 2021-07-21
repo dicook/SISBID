@@ -3,6 +3,3 @@ TODO
 
 - Add rstudio cloud link to the zoom chat
 
-- Make zip files at the last possible second
-
-- Fix "colorblind" scheme in 1.1-ggplot slides
