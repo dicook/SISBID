@@ -66,7 +66,7 @@ $$X = \left[ \begin{array}{rrrr}
            X_{n1} & X_{n2} & ... & X_{np}
            \end{array} \right]$$
 
-- We might even make assumptions about the distribution of each variable, e.g. $X_1 \sim N(0,1), ~~X_2 \sim exp(1) ...$
+- We might even make assumptions about the distribution of each variable, e.g. $X_1 \sim N(0,1), ~~X_2 \sim \text{Exp}(1) ...$
 
 ---
 # Grammar of graphics and statistics
@@ -154,7 +154,12 @@ ggplot(data) + geom_boxplot(aes(x=cl, y=x1))
 
 .orange[Which plot definition would most match to a null hypothesis stating **there is no difference in the distribution between the groups?**]
 
-Go to www.menti.com and use the code 79 16 10
+Go to www.menti.com and use the code 7692 1506
+
+---
+
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+
 
 ---
 # Some examples
@@ -245,9 +250,10 @@ Ask: Which plot is the most different?
 ---
 # p-values
 
-Suppose $x$ individuals selected the data plot from a lineup of $m$ plots, shown to $K$ independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
+Suppose $x$ individuals selected the data plot from a lineup of $m$ plots, shown to $K$ independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. Assuming that all plots in a lineup are equally likely to be selected, this yields a binomial formula:
 
 $$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$
+
 
 
 For $x=4, K=17, m=20$
@@ -256,7 +262,19 @@ For $x=4, K=17, m=20$
 pvisual(4, 17, m=20)
 ```
 
+Assuming some null plots are visually more salient than others, we can introduce parameter $\alpha$ to get to more realistic $p$-values:
 
+```{r adjusted for variability in the plots}
+if (!require(vinference)) remotes::github_install("heike/vinference")
+res <- c(vinference::pVis(4,17,m=20, alpha=0.01, lower.tail=FALSE),
+         vinference::pVis(4,17,m=20, alpha=0.15, lower.tail=FALSE),
+         vinference::pVis(4,17,m=20, alpha=1, lower.tail=FALSE))
+names(res) <- c("alpha = 0.01", "alpha = 0.15", "alpha = 1")
+res
+```
+$$P(X \geq x) = \sum_{i = x}^{K} \binom{K}{x} \frac{1}{B(\alpha, (m-1)\alpha)}\cdot B(x+\alpha, K-x+(m-1)\alpha)$$,
+
+where $B(.,.)$ is the Beta function. Large values of $\alpha$ indicate that several null plots are 'interesting'. Generally, $\alpha = 0.15$ indicates that 1 or 2 null plots are interesting enough for viewers to pick them. 
 ---
 
 **Evaluating goodness-of-fit with a residual plot**
@@ -507,10 +525,11 @@ ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2,
 ```
 ]
 
-Go to www.menti.com and use the code 79 16 10, and enter the p-value
+Go to www.menti.com and use the code 7692 1506, and enter the p-value
 ---
 # Resources
 
+- VanderPlas S., Röttger Chr., Cook D., Hofmann H.: Statistical Significance Calculations for Scenarios in Visual Inference, STAT, 2020, doi:http://dx.doi.org/10.1002/sta4.337.
 - Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230.
 - Wickham, H., Cook, D., Hofmann, H. and Buja, A. (2010) Graphical Inference for Infovis,  http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161. 
 - Sievert, C. (2019) Interactive web-based data visualization with R, plotly, and shiny,  https://plotly-r.com/index.html

@@ -3,7 +3,8 @@
   <head>
     <title>Advanced plots and inference</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
+    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
@@ -14,9 +15,9 @@
 class: center, middle, inverse, title-slide
 
 # Advanced plots and inference
-## SISBID 2020 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-### 07/22-24/2020
+## SISBID 2021 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
+### 07/21-23/2021
 
 ---
 
@@ -42,7 +43,7 @@ class: center, middle, inverse, title-slide
            X_{n1} &amp; X_{n2} &amp; ... &amp; X_{np}
            \end{array} \right]$$`
 
-- We might even make assumptions about the distribution of each variable, e.g. `\(X_1 \sim N(0,1), ~~X_2 \sim exp(1) ...\)`
+- We might even make assumptions about the distribution of each variable, e.g. `\(X_1 \sim N(0,1), ~~X_2 \sim \text{Exp}(1) ...\)`
 
 ---
 # Grammar of graphics and statistics
@@ -130,7 +131,12 @@ ggplot(data) + geom_boxplot(aes(x=cl, y=x1))
 
 .orange[Which plot definition would most match to a null hypothesis stating **there is no difference in the distribution between the groups?**]
 
-Go to www.menti.com and use the code 79 16 10
+Go to www.menti.com and use the code 7692 1506
+
+---
+
+&lt;div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'&gt;&lt;iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'&gt;&lt;/iframe&gt;&lt;/div&gt;
+
 
 ---
 # Some examples
@@ -207,9 +213,10 @@ Ask: Which plot is the most different?
 ---
 # p-values
 
-Suppose `\(x\)` individuals selected the data plot from a lineup of `\(m\)` plots, shown to `\(K\)` independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. This yields a binomial formula:
+Suppose `\(x\)` individuals selected the data plot from a lineup of `\(m\)` plots, shown to `\(K\)` independent observers, then simplistically we can think about the probability of this happening, if the data plot is from the same distribution as the null plots. Assuming that all plots in a lineup are equally likely to be selected, this yields a binomial formula:
 
 `$$P(X\geq x) = \sum_{i=x}^{K} \binom{K}{i} \left(\frac{1}{m}\right)^i\left(\frac{m-1}{m}\right)^{K-i}$$`
+
 
 
 For `\(x=4, K=17, m=20\)`
@@ -220,7 +227,16 @@ For `\(x=4, K=17, m=20\)`
 [1,] 4    0.0225 0.008800605
 ```
 
+Assuming some null plots are visually more salient than others, we can introduce parameter `\(\alpha\)` to get to more realistic `\(p\)`-values:
 
+
+```
+alpha = 0.01 alpha = 0.15    alpha = 1 
+  0.03397441   0.25942593   0.47220162 
+```
+`$$P(X \geq x) = \sum_{i = x}^{K} \binom{K}{x} \frac{1}{B(\alpha, (m-1)\alpha)}\cdot B(x+\alpha, K-x+(m-1)\alpha)$$`,
+
+where `\(B(.,.)\)` is the Beta function. Large values of `\(\alpha\)` indicate that several null plots are 'interesting'. Generally, `\(\alpha = 0.15\)` indicates that 1 or 2 null plots are interesting enough for viewers to pick them. 
 ---
 
 **Evaluating goodness-of-fit with a residual plot**
@@ -387,10 +403,11 @@ ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2,
 ```
 ]
 
-Go to www.menti.com and use the code 79 16 10, and enter the p-value
+Go to www.menti.com and use the code 7692 1506, and enter the p-value
 ---
 # Resources
 
+- VanderPlas S., Röttger Chr., Cook D., Hofmann H.: Statistical Significance Calculations for Scenarios in Visual Inference, STAT, 2020, doi:http://dx.doi.org/10.1002/sta4.337.
 - Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230.
 - Wickham, H., Cook, D., Hofmann, H. and Buja, A. (2010) Graphical Inference for Infovis,  http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161. 
 - Sievert, C. (2019) Interactive web-based data visualization with R, plotly, and shiny,  https://plotly-r.com/index.html
