@@ -155,7 +155,7 @@ If you were to answer the question:  **The trend in incidence over years for fem
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
-  scale_colour_brewer("", palette="Dark2") +
+  scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Type A")
 ```
 
@@ -164,7 +164,7 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_wrap(~age, ncol=6) +
-  scale_fill_brewer("", palette="Dark2") +
+  scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Type B")
 ```
 
@@ -419,7 +419,7 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
   ylim(c(0,1150)) +
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5"))  +
+  scale_color_manual("Sex", values = c("#DC3220", "#005AB5"))  +
   ggtitle("Arrangement A")
 ```
 
