@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Polish and share your own shiny app</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
+    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-5.13.0/css/all.min.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-5.13.0/css/v4-shims.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="myremark.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Polish and share your own shiny app
+## SISBID 2021 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
+### 07/21-23/2021
+
+---
+
+
+
+
+# Theming your Shiny App
+
+- `shinydashboard` has many options available for theming and customizing your app &lt;br/&gt;&lt;br/&gt;
+- We'll cover built-in options here&lt;br/&gt;&lt;br/&gt;
+    - Exponentially more powerful with CSS and a bit of tinkering
+
+---
+# Skins
+.pull-left[
+- "Skins" are color themes for the dashboard&lt;br/&gt;&lt;br/&gt;
+- The default is blue, but other options:
+    - black, purple, green, red, yellow
+    - `dashboardPage(skin = "purple")`
+].pull-right[
+![purple dashboard skin](skin-purple.png)
+]
+
+
+---
+# Long Titles and Title CSS
+
+.pull-left[
+- Titles may sometimes not fit in the title area
+    - `titleWidth` argument, specify in pixels
+- Customize color of title area using CSS
+
+![example of long title](long-title.png)
+]
+.pull-right[
+
+```r
+shinyApp(
+  ui = dashboardPage(
+    dashboardHeader(
+      title = "Example of a long title that needs more space",
+      titleWidth = 450
+    ),
+    dashboardSidebar(),
+    dashboardBody(
+      # Also add some custom CSS to make the title 
+      # background area the same
+      # color as the rest of the header.
+      tags$head(tags$style(HTML('
+        .skin-blue .main-header .logo {
+          background-color: #3c8dbc;
+        }
+        .skin-blue .main-header .logo:hover {
+          background-color: #3c8dbc;
+        }
+      ')))
+    )
+  ),
+  server = function(input, output) { }
+)
+```
+]
+
+---
+# Change the width of the sidebar
+
+.pull-left[
+
+```r
+shinyApp(
+  ui = dashboardPage(
+    dashboardHeader(
+      title = "Title and sidebar 350 pixels wide",
+      titleWidth = 350
+    ),
+    dashboardSidebar(
+      width = 350,
+      sidebarMenu(
+        menuItem("Menu Item")
+      )
+    ),
+    dashboardBody()
+  ),
+  server = function(input, output) { }
+)
+```
+].pull-right[
+![350px sidebar width](sidebar-width.png)
+]
+
+---
+# Fun with icons!
+
+- `shinydashboard` includes icons from [`fontAwesome`](https://fontawesome.io/icons/) and [`Glyphicons`](https://getbootstrap.com/docs/3.4/components/#glyphicons)&lt;br/&gt;&lt;br/&gt;
+- `icon("calendar")` generates HTML for <i class="fa fa-calendar" role="presentation" aria-label="calendar icon"></i>
+
+
+```r
+shinyApp(
+  ui = dashboardPage(
+    dashboardHeader(
+      title = HTML(paste(icon("cog", lib="glyphicon"), "My app is a cog in the machine!")),
+      titleWidth = 450
+    ),
+    dashboardSidebar(),
+    dashboardBody()
+  ),
+  server = function(input, output) { }
+)
+```
+![Add an icon to the title](app-icon-title.png)
+
+
+---
+# Customizing Statuses and Colors
+
+.pull-left[
+- Status arguments can be customized (and this comes with a color)
+
+![Bootstrap statuses](statuses.png)
+]
+.pull-right[
+- Many functions also have a color argument&lt;br/&gt;&lt;br/&gt;
+- Default colors defined:
+![Bootstrap colors](colors.png)
+]
+---
+class: inverse middle
+
+# Your turn
+
+- Join forces with your neighbours or work alone
+- You need to make your own app, or interactive document, on a topic of your choice
+- Some ideas are data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday) or [fivethirtyeight](https://github.com/fivethirtyeight/data)
+- Your app needs to have 
+    - at least one interactive plot
+    - some GUI element like a menu or checkboxes
+    - some nice styling
+
+😱 If this is too scary, work through the steps in the next few slides instead, to make an app.
+
+---
+# Initiate
+
+✅ Using the RStudio `File` menu, 
+
+- choose `New file`, 
+- choose "Shiny web app"
+- Give it a name, and choose `Single file`
+
+This will create a folder in your workspace with the same name as you gave your app. It will also open the `app.R` file in your text editor pane. 
+
+🛑 Click the `Run App` button on the RStudio window. 
+
+✅ Click `Publish` to upload your app to the shinyapps.io server. 
+
+㊗️ You've just published your first app
+
+---
+# Make it yours
+
+Change the plot to use `ggplot`, this invoves changing the server function to be this:
+
+```
+server &lt;- function(input, output) {
+
+    output$distPlot &lt;- renderPlot({
+        ggplot(faithful, aes(x=waiting)) + geom_histogram(bins = input$bins)
+    })
+}
+```
+
+You will also need to add `library(ggplot2)` at the top of the file, just after `library(shiny)`.
+
+🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
+
+✅ Click `Publish` to re-upload your app to the shinyapps.io server. 
+
+㊗️ You've just published your first modifed app
+
+---
+# Make the plot interactive
+
+Change from a static ggplot plot, to an interactive plotly plot, by 
+
+1. changing the server function to look like this. Note `renderPlotly`
+
+```
+server &lt;- function(input, output) {
+
+    output$distPlot &lt;- renderPlotly({
+        p &lt;- ggplot(faithful, aes(x=waiting)) +
+            geom_histogram(bins = input$bins)
+        print(ggplotly(p))
+    })
+}
+
+```
+
+2. Changing the `ui` function to render plotly output
+
+```
+        mainPanel(
+           plotlyOutput("distPlot")
+        )
+```
+
+3. Adding `library(plotly)` to the top of the file.
+
+🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
+
+---
+# Change the UI
+
+Convert the slide into a numeric input, by changing the `ui` function to be:
+
+```
+    sidebarLayout(
+        sidebarPanel(
+            numericInput("bins", "nbins", 30)
+        ),
+```
+
+(The `numericInput` replaces the `sliderInput` code)
+
+🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
+
+✅ Click `Publish` to re-upload your app to the shinyapps.io server. 
+
+㊗️ You've just published your second modifed app
+
+---
+# Share and share alike
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Building interactive documents with Rmarkdown tools, learnr, flexdashboard</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
+    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="myremark.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Building interactive documents with Rmarkdown tools, learnr, flexdashboard
+## SISBID 2021 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
+### 07/21-23/2021
+
+---
+
+
+
+
+
+
+
+class: inverse middle
+
+# Data dashboard
+
+A `flexdashboard` is an Rmarkdown format shiny app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
+
+---
+# Data dashboard 
+
+.pull-left[
+A `flexdashboard` allows you to create an interactive interface to a data set, that allows communicating a lot of information visually and numerically, and the flexibility for the user to explore their own choice of aspects of the data.
+
+To get started, make sure you have the `flexdashboard` package installed on your computer.
+
+```
+install.packages("flexdashboard")
+```
+]
+.pull-right[
+Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
+
+&lt;img src="images/flexdashboard.png" width="80%" /&gt;
+]
+
+---
+# Basic dashboard
+
+- Check that the document compiles, by clicking `Knit`
+- Modify the title and author 
+
+```
+---
+title: "TB incidence around the globe"
+author: "by Di Cook"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+```
+
+---
+# Components
+
+This creates a box or a pane for a plot or results
+
+```
+### Chart 1
+```
+
+This sets up columns
+
+```
+Column {data-width=600}
+-------------------------------------
+```
+---
+class:inverse
+## Your turn!
+
+- Change the default layout in your flexdashboard to have two plots in the left column.
+- Make each column equal width
+- Pick four countries and create the interactive chart of temporal trend. (We used India in the learnr tutorial. You can copy this code, and choose another three.)
+- Change the tab titles to reflect what country is displayed.
+- Add several sentences on each pane about the data, and some things they should learn about TB incidence in that country.
+
+
+---
+# Adding pages and tabs
+
+A new page (tab) can be added using
+
+```
+Page 1
+===================================== 
+```
+
+Add a second page to your flexdashboard that focuses on one country and has
+
+- a data table showing counts for year, age, sex 
+- a facetted barchart of counts by year, by age and sex
+
+---
+class: inverse middle
+
+# Upload your dashboard to your shiny.apps.io account
+
+
+
+---
+class: inverse middle
+# Interactive tutorial
+
+A set of notes with interactive plots, quizzes, and coding exercises.
+
+---
+# `learnr` interactive tutorial
+
+.pull-left[
+This is a really simple way to build your plots into an online document. It has some great features like interactive multiple choice quizzes, coding exercises, and can incorporate interactive shiny elements like scrollbars on plots.
+
+🛑 To get started, make sure you have the `learnr` package installed on your computer.
+
+```
+install.packages("learnr")
+```
+
+✅ Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
+]
+.pull-right[
+&lt;img src="images/learnr.png" width="100%" /&gt;
+]
+
+---
+# Basic tutorial
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+&lt;br&gt;
+&lt;br&gt;
+
+✅ Modify the title and author 
+
+```
+---
+title: "TB Incidence Around the Globe"
+author: "Di Cook"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+```
+
+&lt;br&gt;
+&lt;br&gt;
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+# Write the first section
+
+✅ Set the first section to be a description of the data
+
+```
+## Data description
+
+This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), 
+the case notifications table. The data looks like this:
+```
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+&lt;br&gt;
+&lt;br&gt;
+
+✅ Create a `data` directory in your tutorial folder, and add the `TB_notifications_2019-07-01.csv` data into this. 
+
+---
+
+✅ Next, add a block of R code to read the data, and display the data in the page. This is the same code we have used earlier for working with the TB data, with the exception of using the `DT` package to display the data in the output html. 
+
+```
+library(tidyverse)
+library(DT)
+tb &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %&gt;%
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %&gt;%
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) %&gt;%
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) %&gt;%
+  dplyr::select(-sexage)  %&gt;%
+  filter(country == "United States of America") %&gt;%
+  filter(!(age %in% c("04", "014", "514", "u"))) %&gt;%
+  filter(year &gt; 1996, year &lt; 2013) 
+datatable(tb)
+```
+
+&lt;br&gt;
+&lt;br&gt;
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+# Add a plot
+
+✅ Make a separate section titled "Incidence", and add the code to make a plot, like the following
+
+```
+ggplot(tb, aes(x=year)) +
+  geom_bar(aes(weight = count)) 
+```
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+# Polishing the data description
+
+Loading the libraries generates some messages and warnings on the page. This is good interactively, but it is distracting in the web page. 
+
+```
+## ── Attaching packages ──────────────────────────────────────────── tidyverse 1.2.1 ──
+## ✔ ggplot2 3.2.0     ✔ purrr   0.3.2
+## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+...
+## Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
+## Please cite ggmap if you use it! See citation("ggmap") for details.
+## Warning: Removed 619 rows containing missing values (geom_point).
+```
+
+We need to change the setup chunk options to turn these off:
+
+```
+library(learnr)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  error = FALSE)
+```
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+# Building quizzes
+
+An example quiz is provided in the template. Note that the format of the R code is 
+
+- `quiz()` wraps a set of questions.
+- `question()` contains the text of the question, and is coupled with multiple `answer()` elements with possible choices. 
+- At least one of the answers needs to be noted as correct with `, correct = TRUE`. There can be more than one correct answer. 
+
+```
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  )
+)
+```
+
+<span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Try making a question about the TB data on the Incidence tab.</span>
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+# Exercises in coding
+
+Adding `exercise = TRUE` on a code chunk provides an R console window where readers can type R code, and check for correctness. The template provides several example exercises.
+
+1. Move these into a second section of the document. 
+2. Add a coding challenge that asks the reader to make a filter for the data to select just a single year. Click the "Run document" to make sure it works
+3. Add a hint, "you want to use the filter function" 
+4. Change the hint to a solution, that provides the correct code
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+# Adding a shiny element
+
+Because this is an html document, interactive graphics can be incorporated. We'll add a section to use interactive plots to examine the temporal trend in TB incidence. 
+
+```
+library(plotly)
+p &lt;- tb %&gt;% 
+  group_by(year, age) %&gt;%
+  summarise(p_males = count[sex=="m"]/sum(count)) %&gt;%
+  ggplot() +
+    geom_point(aes(x=age, y=p_males, frame=year))
+ggplotly(p)
+```
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+# Styling and cuteness
+
+Use your emoji and anicon skills to add some friendly elements to the notes. 
+
+```
+set.seed(20190709)
+emo::ji("fantasy")
+emo::ji("clock")
+```
+
+```
+anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")
+anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
+  position=c(0,0,0,200))
+```
+
+🛑  Check that the document compiles, by clicking `Run Document`
+
+---
+class: inverse middle
+
+# Upload your tutorial to your shiny.apps.io account
+
+---
+# Resources
+
+- [Introducing learnr, Garret Grolemund](https://blog.rstudio.com/2017/07/11/introducing-learnr/)
+- [flexdashboard: Easy interactive dashboards for R](https://rmarkdown.rstudio.com/flexdashboard/)
+- [R Markdown](https://rmarkdown.rstudio.com/)
+- [Interactive web-based data visualization with R, plotly, and shiny, Carson Sievert](https://plotly-r.com/index.html)
+
+---
+# Share and share alike
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
