@@ -75,7 +75,7 @@ Afternoon:
 
 1. [Multivariate plots using ggplot2, GGally](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html) (Heike)
 1. [Touring on multivariate data](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) (Susan)
-1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html) (Susan) 
+1. [Advanced graphics, and statistical inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html) (Heike) 
 
 
 ### Friday [zip file](SISBID_day3.zip)
