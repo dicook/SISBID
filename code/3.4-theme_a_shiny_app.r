@@ -1,0 +1,155 @@
+---
+title: "Polish and share your own shiny app"
+subtitle: "SISBID 2021 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+date: "07/21-23/2021"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 4,
+  fig.width = 8,
+  fig.align = "center",
+  cache = FALSE
+)
+library(ggplot2)
+library(shiny)
+library(shinydashboard)
+```
+
+# Theming your Shiny App
+
+- `shinydashboard` has many options available for theming and customizing your app <br/><br/>
+- We'll cover built-in options here<br/><br/>
+    - Exponentially more powerful with CSS and a bit of tinkering
+
+---
+# Skins
+.pull-left[
+- "Skins" are color themes for the dashboard<br/><br/>
+- The default is blue, but other options:
+    - black, purple, green, red, yellow
+    - `dashboardPage(skin = "purple")`
+].pull-right[
+![purple dashboard skin](skin-purple.png)
+]
+
+
+---
+# Long Titles and Title CSS
+
+.pull-left[
+- Titles may sometimes not fit in the title area
+    - `titleWidth` argument, specify in pixels
+- Customize color of title area using CSS
+
+![example of long title](long-title.png)
+]
+.pull-right[
+```{r eval = F}
+shinyApp(
+  ui = dashboardPage(
+    dashboardHeader(
+      title = "Example of a long title that needs more space",
+      titleWidth = 450
+    ),
+    dashboardSidebar(),
+    dashboardBody(
+      # Also add some custom CSS to make the title 
+      # background area the same
+      # color as the rest of the header.
+      tags$head(tags$style(HTML('
+        .skin-blue .main-header .logo {
+          background-color: #3c8dbc;
+        }
+        .skin-blue .main-header .logo:hover {
+          background-color: #3c8dbc;
+        }
+      ')))
+    )
+  ),
+  server = function(input, output) { }
+)
+```
+]
+
+---
+# Change the width of the sidebar
+
+.pull-left[
+```{r eval = F}
+shinyApp(
+  ui = dashboardPage(
+    dashboardHeader(
+      title = "Title and sidebar 350 pixels wide",
+      titleWidth = 350
+    ),
+    dashboardSidebar(
+      width = 350,
+      sidebarMenu(
+        menuItem("Menu Item")
+      )
+    ),
+    dashboardBody()
+  ),
+  server = function(input, output) { }
+)
+```
+].pull-right[
+![350px sidebar width](sidebar-width.png)
+]
+
+---
+# Fun with icons!
+
+- `shinydashboard` includes icons from [`fontAwesome`](https://fontawesome.io/icons/) and [`Glyphicons`](https://getbootstrap.com/docs/3.4/components/#glyphicons)<br/><br/>
+- `icon("calendar")` generates HTML for `r icon("calendar")`
+
+```{r eval = F}
+shinyApp(
+  ui = dashboardPage(
+    dashboardHeader(
+      title = HTML(paste(icon("cog", lib="glyphicon"), "My app is a cog in the machine!")),
+      titleWidth = 450
+    ),
+    dashboardSidebar(),
+    dashboardBody()
+  ),
+  server = function(input, output) { }
+)
+```
+![Add an icon to the title](app-icon-title.png)
+
+
+---
+# Customizing Statuses and Colors
+
+.pull-left[
+- Status arguments can be customized (and this comes with a color)
+
+![Bootstrap statuses](statuses.png)
+]
+.pull-right[
+- Many functions also have a color argument<br/><br/>
+- Default colors defined:
+![Bootstrap colors](colors.png)
+]
+
+
+---
+# Share and share alike
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.

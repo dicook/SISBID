@@ -96,13 +96,13 @@ What's in the column names of this data? What are the experimental units? What a
 
 ```
 # A tibble: 3 x 12
-  id     `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
-  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 Gene 1      2.18     2.20       4.20     2.63       5.06       4.54
-2 Gene 2      1.46     0.585      1.86     0.515      2.88       1.36
-3 Gene 3      2.03     0.870      3.28     0.533      4.63       2.18
-# … with 5 more variables: WI-12.R2 &lt;dbl&gt;, WI-12.R4 &lt;dbl&gt;,
-#   WM-12.R1 &lt;dbl&gt;, WM-12.R2 &lt;dbl&gt;, WM-12.R4 &lt;dbl&gt;
+  id     `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1` `WI-12.R2`
+  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 Gene 1      2.18     2.20       4.20     2.63       5.06       4.54       5.53
+2 Gene 2      1.46     0.585      1.86     0.515      2.88       1.36       2.96
+3 Gene 3      2.03     0.870      3.28     0.533      4.63       2.18       5.56
+# … with 4 more variables: WI-12.R4 &lt;dbl&gt;, WM-12.R1 &lt;dbl&gt;, WM-12.R2 &lt;dbl&gt;,
+#   WM-12.R4 &lt;dbl&gt;
 ```
 
 
@@ -115,20 +115,20 @@ What are the variables? What are the records?
 
 
 ```
-           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41
-1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108
-2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42
-3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23
-4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127
-5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62
-6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0
-  V45 V49 V53 V57 V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
-1 119 112 126 112 115 133 134 126 104 143 141 134 117 142
-2  48  56  51  36  44  39  40  58  15  33  51  74  39  66
-3   3   0   5   0   0   0   0   0   8   0  18   0   0   0
-4 117 127 159 143 114  65 113 125 129 147 161 168 178 161
-5  47  33  67  84  11  41  18  50  22  28  74  94  73  88
-6   3   5   0   0  64   3  99  36   8   0   0   0   8  36
+           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49 V53
+1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112 126
+2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56  51
+3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0   5
+4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127 159
+5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33  67
+6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5   0
+  V57 V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
+1 112 115 133 134 126 104 143 141 134 117 142
+2  36  44  39  40  58  15  33  51  74  39  66
+3   0   0   0   0   0   8   0  18   0   0   0
+4 143 114  65 113 125 129 147 161 168 178 161
+5  84  11  41  18  50  22  28  74  94  73  88
+6   0  64   3  99  36   8   0   0   0   8  36
 ```
 
 
@@ -142,17 +142,16 @@ What are the variables? What are the experimental units?
 
 ```
 # A tibble: 6 x 22
-  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 ZW     2003    NA    NA   133    874   3048   2228    981    367
-2 ZW     2004    NA    NA   187    833   2908   2298   1056    366
-3 ZW     2005    NA    NA   210    837   2264   1855    762    295
-4 ZW     2006    NA    NA   215    736   2391   1939    896    348
-5 ZW     2007     6   132   138    500   3693      0    716    292
-6 ZW     2008    NA    NA   127    614      0   3316    704    263
-# … with 12 more variables: m_65 &lt;dbl&gt;, m_u &lt;dbl&gt;, f_04 &lt;dbl&gt;,
-#   f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;, f_2534 &lt;dbl&gt;,
-#   f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
+  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65   m_u
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205    NA
+2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198    NA
+3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656    NA
+4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199    NA
+5 ZW     2007     6   132   138    500   3693      0    716    292   153    NA
+6 ZW     2008    NA    NA   127    614      0   3316    704    263   185     0
+# … with 10 more variables: f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;,
+#   f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
 ```
 
 ---
@@ -282,20 +281,19 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;%
   select(country, iso3, year, starts_with("new_sp_")) %&gt;%
   head()
 # A tibble: 6 x 23
-  country  iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524
-  &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
-1 Afghani… AFG    1980         NA          NA          NA           NA
-2 Afghani… AFG    1981         NA          NA          NA           NA
-3 Afghani… AFG    1982         NA          NA          NA           NA
-4 Afghani… AFG    1983         NA          NA          NA           NA
-5 Afghani… AFG    1984         NA          NA          NA           NA
-6 Afghani… AFG    1985         NA          NA          NA           NA
-# … with 16 more variables: new_sp_m2534 &lt;dbl&gt;, new_sp_m3544 &lt;dbl&gt;,
-#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;,
-#   new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;,
-#   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,
-#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;,
-#   new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;
+  country iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524 new_sp_m2534
+  &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 Afghan… AFG    1980         NA          NA          NA           NA           NA
+2 Afghan… AFG    1981         NA          NA          NA           NA           NA
+3 Afghan… AFG    1982         NA          NA          NA           NA           NA
+4 Afghan… AFG    1983         NA          NA          NA           NA           NA
+5 Afghan… AFG    1984         NA          NA          NA           NA           NA
+6 Afghan… AFG    1985         NA          NA          NA           NA           NA
+# … with 15 more variables: new_sp_m3544 &lt;dbl&gt;, new_sp_m4554 &lt;dbl&gt;,
+#   new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;,
+#   new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,
+#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;,
+#   new_sp_fu &lt;dbl&gt;
 ```
 
 
@@ -397,8 +395,8 @@ Read the genes data from folder `data`. Column names contain data and are kind o
 genes &lt;- read_csv(here::here("data/genes.csv"))
 
 names(genes)
- [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2" 
- [7] "WI-12.R1" "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
+ [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2"  "WI-12.R1"
+ [8] "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
 ```
 
 Produce the data frame called `gtidy` as shown below:
@@ -420,7 +418,7 @@ head(gtidy)
 ```
 
 Break into zoom rooms, clock is ticking 😄
-<div class="countdown" id="timer_60f82156" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60f82c19" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
