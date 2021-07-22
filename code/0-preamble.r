@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE-----------
+## ---- echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 
 
-## ----eval=FALSE, echo=FALSE-----------------------------------------------------
+## ----eval=FALSE, echo=FALSE------------------------------------------------------------
 ## # THIS CODE IS NOT TO BE RUN
 ## install.packages("remotes")
 ## install.packages("xaringan")
@@ -23,22 +23,22 @@ knitr::opts_chunk$set(
 ## remotes::install_github("gadenbuie/countdown")
 
 
-## ----eval=FALSE-----------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------
 ## install.packages("ggenealogy")
 
 
-## ----eval=FALSE-----------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------
 ## if (!requireNamespace("BiocManager", quietly = TRUE))
 ##     install.packages("BiocManager")
 ## 
 ## BiocManager::install("impute")
 
 
-## ----eval=FALSE-----------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------
 ## remotes::install_github("hadley/emo")
 
 
-## ----eval=FALSE-----------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------
 ## # CRAN packages
 ## packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat",
 ##               "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate",
