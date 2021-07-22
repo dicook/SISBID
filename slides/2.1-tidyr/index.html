@@ -151,7 +151,8 @@ What are the variables? What are the experimental units?
 5 ZW     2007     6   132   138    500   3693      0    716    292   153    NA
 6 ZW     2008    NA    NA   127    614      0   3316    704    263   185     0
 # … with 10 more variables: f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;,
-#   f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
+#   f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;,
+#   f_u &lt;dbl&gt;
 ```
 
 ---
@@ -243,14 +244,14 @@ dframe
   id trtA trtB
 1  1  2.5   45
 2  2  4.6   35
-dframe %&gt;% pivot_longer(trtA:trtB, "treatment", "outcome")
+dframe %&gt;% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 # A tibble: 4 x 3
-     id treatment value
-  &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
-1     1 trtA        2.5
-2     1 trtB       45  
-3     2 trtA        4.6
-4     2 trtB       35  
+     id treatment outcome
+  &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
+1     1 trtA          2.5
+2     1 trtB         45  
+3     2 trtA          4.6
+4     2 trtB         35  
 ```
 
 ---
@@ -279,21 +280,22 @@ new notifications of TB have the form `new_sp_sexage`:
 ```r
 read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
   select(country, iso3, year, starts_with("new_sp_")) %&gt;%
+  na.omit() %&gt;%
   head()
 # A tibble: 6 x 23
-  country iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524 new_sp_m2534
-  &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1 Afghan… AFG    1980         NA          NA          NA           NA           NA
-2 Afghan… AFG    1981         NA          NA          NA           NA           NA
-3 Afghan… AFG    1982         NA          NA          NA           NA           NA
-4 Afghan… AFG    1983         NA          NA          NA           NA           NA
-5 Afghan… AFG    1984         NA          NA          NA           NA           NA
-6 Afghan… AFG    1985         NA          NA          NA           NA           NA
-# … with 15 more variables: new_sp_m3544 &lt;dbl&gt;, new_sp_m4554 &lt;dbl&gt;,
-#   new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;,
-#   new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,
-#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;,
-#   new_sp_fu &lt;dbl&gt;
+  country     iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+1 Afghanistan AFG    2010          4         193         197          986
+2 Afghanistan AFG    2012          0         188         188         1116
+3 Albania     ALB    2005          0           0           0           26
+4 Albania     ALB    2006          1           4           5           24
+5 Albania     ALB    2007          0           0           0           19
+6 Albania     ALB    2009          0           0           0           22
+# … with 16 more variables: new_sp_m2534 &lt;dbl&gt;, new_sp_m3544 &lt;dbl&gt;,
+#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;,
+#   new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;,
+#   new_sp_f2534 &lt;dbl&gt;, new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;,
+#   new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;
 ```
 
 
@@ -303,16 +305,16 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;%
 ---
 # TB notifications (gather)
   
-create two new variables: variable `key` (contains all variable names starting with `new_sp_`) and variable `count` with the values:
+create two new variables: variable `name` (contains all variable names starting with `new_sp_`) and variable `value` with the values:
   
 
 ```r
 tb1 &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
   select(country, iso3, year, starts_with("new_sp_")) %&gt;%
-  pivot_longer(starts_with("new_sp_"), "key", "count") 
+  pivot_longer(starts_with("new_sp_")) 
 tb1 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 5
-  country     iso3   year key          value
+  country     iso3   year name         value
   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
 1 Afghanistan AFG    1997 new_sp_m014      0
 2 Afghanistan AFG    1997 new_sp_m1524    10
@@ -339,12 +341,12 @@ Pro tip: specify `sep` to have some more control; any regular expression will wo
 ---
 # TB notification (separate)
   
-Work on `key`: 
+Work on `name`: 
   
 
 ```r
 tb2 &lt;- tb1 %&gt;% 
-  separate(key, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
+  separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
 tb2 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 x 7
   country     iso3   year foo_new foo_sp sexage value
@@ -395,8 +397,8 @@ Read the genes data from folder `data`. Column names contain data and are kind o
 genes &lt;- read_csv(here::here("data/genes.csv"))
 
 names(genes)
- [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2"  "WI-12.R1"
- [8] "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
+ [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2" 
+ [7] "WI-12.R1" "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
 ```
 
 Produce the data frame called `gtidy` as shown below:
@@ -418,7 +420,7 @@ head(gtidy)
 ```
 
 Break into zoom rooms, clock is ticking 😄
-<div class="countdown" id="timer_60f83db8" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_60f8da93" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

@@ -211,7 +211,7 @@ dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
 
 ```{r gather the example data into long form}
 dframe
-dframe %>% pivot_longer(trtA:trtB, "treatment", "outcome")
+dframe %>% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 ```
 
 ---
@@ -239,6 +239,7 @@ new notifications of TB have the form `new_sp_sexage`:
 ```{r read in and process the TB data}
 read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
+  na.omit() %>%
   head()
 ```
 
@@ -249,12 +250,12 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 ---
 # TB notifications (gather)
   
-create two new variables: variable `key` (contains all variable names starting with `new_sp_`) and variable `count` with the values:
+create two new variables: variable `name` (contains all variable names starting with `new_sp_`) and variable `value` with the values:
   
 ```{r turn TB data into long form}
 tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
-  pivot_longer(starts_with("new_sp_"), "key", "count") 
+  pivot_longer(starts_with("new_sp_")) 
 tb1 %>% na.omit() %>% head()
 ```
 
@@ -275,11 +276,11 @@ Pro tip: specify `sep` to have some more control; any regular expression will wo
 ---
 # TB notification (separate)
   
-Work on `key`: 
+Work on `name`: 
   
 ```{r extract variable names from original column names}
 tb2 <- tb1 %>% 
-  separate(key, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
+  separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
 tb2 %>% na.omit() %>% head()
 ```
 
