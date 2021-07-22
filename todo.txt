@@ -1,5 +1,0 @@
-TODO
------
-
-- Add rstudio cloud link to the zoom chat
-

@@ -1,4 +1,4 @@
-## ---- echo = FALSE, warning = FALSE, message = FALSE----------
+## ---- echo = FALSE, warning = FALSE, message = FALSE----------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 library(tidyverse)
 
 
-## ----eval = FALSE---------------------------------------------
+## ----eval = FALSE---------------------------------------------------------------
 ## library(shiny)
 ## 
 ## ui <- fluidPage(
@@ -24,7 +24,7 @@ library(tidyverse)
 ## shinyApp(ui, server)
 
 
-## ----eval = FALSE---------------------------------------------
+## ----eval = FALSE---------------------------------------------------------------
 ## library(shiny)
 ## library(shinydashboard)
 ## 
@@ -40,7 +40,7 @@ library(tidyverse)
 ## shinyApp(ui, server)
 
 
-## ----eval = FALSE---------------------------------------------
+## ----eval = FALSE---------------------------------------------------------------
 ## library(shiny)
 ## library(shinydashboard)
 ## 
@@ -60,7 +60,7 @@ library(tidyverse)
 ## shinyApp(ui, server)
 
 
-## ----eval=FALSE-----------------------------------------------
+## ----eval=FALSE-----------------------------------------------------------------
 ## library(shiny)
 ## library(shinydashboard)
 ## 
@@ -79,7 +79,7 @@ library(tidyverse)
 ## 
 ## shinyApp(ui, server)
 
-## ----echo=FALSE, eval=FALSE-----------------------------------
+## ----echo=FALSE, eval=FALSE-----------------------------------------------------
 ## sidebar <- dashboardSidebar(
 ##   textInput("name", "Enter your name:", value = "Heike"),
 ##   selectInput("state", "Pick your favorite state:",
@@ -98,7 +98,7 @@ library(tidyverse)
 ## shinyApp(ui, server)
 
 
-## ----eval=FALSE-----------------------------------------------
+## ----eval=FALSE-----------------------------------------------------------------
 ## sidebar <- dashboardSidebar(
 ##   textInput("name", "Enter your name:", value = "Heike"),
 ##   selectInput("state", "Pick your favorite state:",
@@ -117,7 +117,7 @@ library(tidyverse)
 ## shinyApp(ui, server)
 
 
-## ----echo=FALSE, eval=FALSE-----------------------------------
+## ----echo=FALSE, eval=FALSE-----------------------------------------------------
 ## sidebar <- dashboardSidebar(
 ##   textInput("name", "Enter your name:", value = "Heike"),
 ##   selectInput("state", "Pick your favorite state:",
@@ -145,7 +145,7 @@ library(tidyverse)
 ## shinyApp(ui, server)
 
 
-## ----echo=FALSE, eval=FALSE-----------------------------------
+## ----echo=FALSE, eval=FALSE-----------------------------------------------------
 ## library(ggplot2)
 ## library(dplyr)
 ## tb <- read_csv(here::here("data/tb.csv"))
