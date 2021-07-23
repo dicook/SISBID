@@ -46,13 +46,6 @@ library(datasauRus)
 # Download cran data from metacran
 library(cranlogs)
 library(lubridate)
-<<<<<<< HEAD
-cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"),
-                           from = "2019-01-01", to = today())
-write_csv(cran_dls, file = "../../data/package-info-July-2021.csv")
-=======
->>>>>>> 633b6de6e0a2d796447ca35d3e025e830bebe407
-
 ## ---- include=F, eval=FALSE---------------------------------------------
 ## cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"),
 ##                            from = "2019-01-01", to = "2021-06-30")
@@ -92,13 +85,8 @@ library(plotly)
 plot_ly(data = economics, x = ~date, y = ~unemploy / pop)
 
 
-<<<<<<< HEAD
-## --------------------------------------------------------------------------------------
-gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +
-=======
 ## -----------------------------------------------------------------------
 gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +
->>>>>>> 633b6de6e0a2d796447ca35d3e025e830bebe407
         geom_point() + geom_line()
 
 ggplotly(gg)
@@ -231,15 +219,6 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 ## ----output8, ref.label="plot8", echo=FALSE, cache=TRUE, fig.height = 6----
 
 
-<<<<<<< HEAD
-## ----plot9, eval=FALSE, echo=TRUE------------------------------------------------------
-ggplot(datasaurus_dozen) +
-  aes(x, y) +
-  geom_point() +
-  transition_states(dataset, 3, 1) +
-  labs(title = "Dataset: {closest_state}")
-
-=======
 ## ----plot9, eval=FALSE, echo=TRUE---------------------------------------
 ## ggplot(datasaurus_dozen) +
 ##   aes(x, y) +
@@ -247,7 +226,6 @@ ggplot(datasaurus_dozen) +
 ##   transition_states(dataset, 3, 1) + #<<
 ##   labs(title = "Dataset: {closest_state}") #<<
 ##
->>>>>>> 633b6de6e0a2d796447ca35d3e025e830bebe407
 
 
 ## ----output9, ref.label="plot9", echo=FALSE, cache=TRUE, fig.height = 6----
