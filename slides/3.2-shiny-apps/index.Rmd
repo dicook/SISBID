@@ -27,11 +27,7 @@ knitr::opts_chunk$set(
 )
 library(tidyverse)
 ```
-# Example: An app on exploring Covid-19 reproduction rates and cases
 
-https://hofmann.shinyapps.io/covid-predict/
-
----
 # Next five minutes
 
 - Create a new shiny app in RStudio
@@ -113,7 +109,7 @@ shinyApp(ui, server)
 
 # Shiny Inputs
 
-Shiny has many different [input options](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/):
+Shiny has many different input options, see the [widget gallery](https://shiny.rstudio.com/gallery/widget-gallery.html):
 
 - `actionButton()` - creates a clickable button
 - `selectInput()` create a select list 
@@ -183,7 +179,7 @@ shinyApp(ui, server)
 ---
 # Shiny Outputs
 
-Shiny also has many output options:
+Shiny also has a variety of different output options:
 
 - `renderDataTable()` - outputs an interactive, sortable data table
 - `htmlOutput()` - output html elements
