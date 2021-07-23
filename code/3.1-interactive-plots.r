@@ -46,7 +46,7 @@ library(datasauRus)
 # Download cran data from metacran
 library(cranlogs)
 library(lubridate)
-cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
+cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"),
                            from = "2019-01-01", to = today())
 write_csv(cran_dls, file = "../../data/package-info-July-2021.csv")
 
@@ -63,7 +63,7 @@ label_summary <- cran_summary %>%
   group_by(package) %>%
   filter(totaldown == max(totaldown))
 
-cran_summary %>% 
+cran_summary %>%
   ggplot(aes(x = date, y = totaldown, colour=package)) +
   geom_line() +
   theme_bw() +
@@ -72,7 +72,7 @@ cran_summary %>%
     aes(x = date, y = 1.05*totaldown, label=package),
     data = label_summary) +
   ylab("Monthly downloads") +
-  xlab("Time") + 
+  xlab("Time") +
   scale_y_log10()
 
 
@@ -84,7 +84,7 @@ plot_ly(data = economics, x = ~date, y = ~unemploy / pop)
 
 
 ## --------------------------------------------------------------------------------------
-gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +  
+gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +
         geom_point() + geom_line()
 
 ggplotly(gg)
@@ -107,15 +107,15 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
 
 ## ----eval=FALSE------------------------------------------------------------------------
 ## sd <- highlight_key(txhousing, ~year)
-## 
+##
 ## p <- ggplot(sd, aes(month, median)) +
 ##    geom_line(aes(group = year)) +
 ##    geom_smooth(data = txhousing, method = "gam") +
 ##    facet_wrap(~ city)
-## 
+##
 ## gg <- ggplotly(p, height = 600, width = 1000) %>%
 ##    layout(title = "Click on a line to highlight a year")
-## 
+##
 ## highlight(gg)
 
 
@@ -123,8 +123,8 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
 sd <- highlight_key(txhousing, ~year)
 
 p <- ggplot(sd, aes(month, median)) +
-   geom_line(aes(group = year)) + 
-   geom_smooth(data = txhousing, method = "gam") + 
+   geom_line(aes(group = year)) +
+   geom_smooth(data = txhousing, method = "gam") +
    facet_wrap(~ city)
 
 gg <- ggplotly(p, height = 600, width = 1000) %>%
@@ -174,10 +174,11 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 
 
 ## ----plot5-anim, eval=FALSE, echo=TRUE-------------------------------------------------
-## ggplot(economics) +
-##   aes(date, unemploy) +
-##   geom_line() +
-##   transition_reveal(date) #<<
+ggplot(economics) +
+  aes(date, unemploy) +
+  geom_line() +
+  transition_reveal(date) +
+  view_follow()
 
 
 ## ----output5-anim, ref.label="plot5-anim", echo=FALSE, cache=TRUE, fig.height = 6------
@@ -218,12 +219,12 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 
 
 ## ----plot9, eval=FALSE, echo=TRUE------------------------------------------------------
-## ggplot(datasaurus_dozen) +
-##   aes(x, y) +
-##   geom_point() +
-##   transition_states(dataset, 3, 1) + #<<
-##   labs(title = "Dataset: {closest_state}") #<<
-## 
+ggplot(datasaurus_dozen) +
+  aes(x, y) +
+  geom_point() +
+  transition_states(dataset, 3, 1) +
+  labs(title = "Dataset: {closest_state}")
+
 
 
 ## ----output9, ref.label="plot9", echo=FALSE, cache=TRUE, fig.height = 6----------------
