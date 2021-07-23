@@ -97,7 +97,7 @@ plot_ly(data = economics, x = ~date, y = ~unemploy / pop)
 gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +
 =======
 ## -----------------------------------------------------------------------
-gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +  
+gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +
 >>>>>>> 633b6de6e0a2d796447ca35d3e025e830bebe407
         geom_point() + geom_line()
 
@@ -187,20 +187,11 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 ## ----output3, ref.label="plot3", echo=FALSE, cache=TRUE, fig.height = 6----
 
 
-<<<<<<< HEAD
-## ----plot5-anim, eval=FALSE, echo=TRUE-------------------------------------------------
-ggplot(economics) +
-  aes(date, unemploy) +
-  geom_line() +
-  transition_reveal(date) +
-  view_follow()
-=======
 ## ----plot5-anim, eval=FALSE, echo=TRUE----------------------------------
 ## ggplot(economics) +
 ##   aes(date, unemploy) +
 ##   geom_line() +
 ##   transition_reveal(date) #<<
->>>>>>> 633b6de6e0a2d796447ca35d3e025e830bebe407
 
 
 ## ----output5-anim, ref.label="plot5-anim", echo=FALSE, cache=TRUE, fig.height = 6----
@@ -255,7 +246,7 @@ ggplot(datasaurus_dozen) +
 ##   geom_point() +
 ##   transition_states(dataset, 3, 1) + #<<
 ##   labs(title = "Dataset: {closest_state}") #<<
-## 
+##
 >>>>>>> 633b6de6e0a2d796447ca35d3e025e830bebe407
 
 
