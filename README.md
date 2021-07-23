@@ -84,7 +84,7 @@ Morning:
 
 1. [Interactive and animated graphics using plotly and gganimate](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html) (Heike).
 1. [How to build a shiny app](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html) (Heike).
-1. [Reactive elements in shiny](https://github.com/dicook/SISBID/raw/master/slides/3.3-shiny-reactivity/3.3-shiny-reactivity.pdf) (Susan).
+1. [Reactive elements in shiny](https://github.com/dicook/SISBID/raw/master/slides/3.3-shiny-reactivity/index.html) (Susan).
 
 Afternoon:
 
