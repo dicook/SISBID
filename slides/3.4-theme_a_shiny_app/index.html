@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Polish and share your own shiny app</title>
+    <title>Theme a shiny app</title>
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
     <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
@@ -14,7 +14,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Polish and share your own shiny app
+# Theme a shiny app
 ## SISBID 2021 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
 ### 07/21-23/2021
@@ -144,110 +144,7 @@ shinyApp(
 - Default colors defined:
 ![Bootstrap colors](colors.png)
 ]
----
-class: inverse middle
 
-# Your turn
-
-- Join forces with your neighbours or work alone
-- You need to make your own app, or interactive document, on a topic of your choice
-- Some ideas are data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday) or [fivethirtyeight](https://github.com/fivethirtyeight/data)
-- Your app needs to have 
-    - at least one interactive plot
-    - some GUI element like a menu or checkboxes
-    - some nice styling
-
-😱 If this is too scary, work through the steps in the next few slides instead, to make an app.
-
----
-# Initiate
-
-✅ Using the RStudio `File` menu, 
-
-- choose `New file`, 
-- choose "Shiny web app"
-- Give it a name, and choose `Single file`
-
-This will create a folder in your workspace with the same name as you gave your app. It will also open the `app.R` file in your text editor pane. 
-
-🛑 Click the `Run App` button on the RStudio window. 
-
-✅ Click `Publish` to upload your app to the shinyapps.io server. 
-
-㊗️ You've just published your first app
-
----
-# Make it yours
-
-Change the plot to use `ggplot`, this invoves changing the server function to be this:
-
-```
-server &lt;- function(input, output) {
-
-    output$distPlot &lt;- renderPlot({
-        ggplot(faithful, aes(x=waiting)) + geom_histogram(bins = input$bins)
-    })
-}
-```
-
-You will also need to add `library(ggplot2)` at the top of the file, just after `library(shiny)`.
-
-🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
-
-✅ Click `Publish` to re-upload your app to the shinyapps.io server. 
-
-㊗️ You've just published your first modifed app
-
----
-# Make the plot interactive
-
-Change from a static ggplot plot, to an interactive plotly plot, by 
-
-1. changing the server function to look like this. Note `renderPlotly`
-
-```
-server &lt;- function(input, output) {
-
-    output$distPlot &lt;- renderPlotly({
-        p &lt;- ggplot(faithful, aes(x=waiting)) +
-            geom_histogram(bins = input$bins)
-        print(ggplotly(p))
-    })
-}
-
-```
-
-2. Changing the `ui` function to render plotly output
-
-```
-        mainPanel(
-           plotlyOutput("distPlot")
-        )
-```
-
-3. Adding `library(plotly)` to the top of the file.
-
-🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
-
----
-# Change the UI
-
-Convert the slide into a numeric input, by changing the `ui` function to be:
-
-```
-    sidebarLayout(
-        sidebarPanel(
-            numericInput("bins", "nbins", 30)
-        ),
-```
-
-(The `numericInput` replaces the `sliderInput` code)
-
-🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
-
-✅ Click `Publish` to re-upload your app to the shinyapps.io server. 
-
-㊗️ You've just published your second modifed app
 
 ---
 # Share and share alike

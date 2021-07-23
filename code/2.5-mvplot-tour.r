@@ -1,4 +1,4 @@
-## ----echo = FALSE----------------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------
 knitr::opts_chunk$set(
   echo=TRUE, 
   message = FALSE,
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
  )
 
 
-## ----echo=FALSE------------------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------
 library(tidyverse)
 library(lubridate)
 library(GGally)
@@ -26,7 +26,7 @@ library(palmerpenguins)
 library(ochRe)
 
 
-## ----penguins, echo=TRUE, eval=FALSE, fig.show='hide'----------------------------------
+## ----penguins, echo=TRUE, eval=FALSE, fig.show='hide'-------------------
 ## ggplot(penguins,
 ##    aes(x=flipper_length_mm,
 ##        y=body_mass_g,
@@ -40,10 +40,10 @@ library(ochRe)
 ##   legend.position="bottom")
 
 
-## ----ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"-----
+## ----ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"----
 
 
-## ----echo=TRUE, eval=FALSE-------------------------------------------------------------
+## ----echo=TRUE, eval=FALSE----------------------------------------------
 ## clrs <- ochre_pal(
 ##   palette="nolan_ned")(3)
 ## col <- clrs[
@@ -55,7 +55,7 @@ library(ochRe)
 ##            fps=15)
 
 
-## ----eval=FALSE, echo=FALSE------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------
 ## # This code was used to make the animated gif
 ## set.seed(20200622)
 ## clrs <- ochre_pal(palette="nolan_ned")(3)
@@ -70,7 +70,7 @@ library(ochRe)
 ##            "penguins2d.gif", frames=100, width=300, height=300)
 
 
-## ----reading axes, eval=FALSE, echo=FALSE----------------------------------------------
+## ----reading axes, eval=FALSE, echo=FALSE-------------------------------
 ## # Generate a plotly animation to demonstrate
 ## library(plotly)
 ## library(htmltools)
@@ -137,7 +137,7 @@ library(ochRe)
 ## save_html(pg, file="penguins.html")
 
 
-## ----runthis13, fig.width=4, fig.height=4, out.width="90%"-----------------------------
+## ----runthis13, fig.width=4, fig.height=4, out.width="90%"--------------
 ggplot(penguins, 
    aes(x=flipper_length_mm, 
        y=bill_depth_mm,
@@ -151,7 +151,7 @@ ggplot(penguins,
   legend.position="bottom")
 
 
-## ----runthis14, fig.width=4, fig.height=4, out.width="90%"-----------------------------
+## ----runthis14, fig.width=4, fig.height=4, out.width="90%"--------------
 ggplot(penguins, 
    aes(x=bill_length_mm, 
        y=body_mass_g,
@@ -165,7 +165,7 @@ ggplot(penguins,
   legend.position="bottom")
 
 
-## ----eval=FALSE, echo=FALSE------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------
 ## clrs <- ochre_pal(
 ##   palette="nolan_ned")(3)
 ## col <- clrs[
@@ -178,7 +178,7 @@ ggplot(penguins,
 ##            frames=17, width=300, height=300, loop=FALSE)
 
 
-## ----runthis15, eval=FALSE, echo=FALSE-------------------------------------------------
+## ----runthis15, eval=FALSE, echo=FALSE----------------------------------
 ## animate_xy(penguins[,3:6], grand_tour(),
 ##            axes = "bottomleft", col=col)
 ## animate_xy(penguins[,3:6], guided_tour(lda_pp(penguins$species)),
@@ -188,26 +188,26 @@ ggplot(penguins,
 ##                     byrow=TRUE)
 
 
-## ----eval=FALSE, echo=FALSE------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------
 ## mtour1 <- manual_tour(basis = best_proj, manip_var = 3)
 ## render_manual(penguins_s[,3:6], mtour1, "penguins_manual_fl.gif", col=col, dir = "images/manual1/")
 ## mtour2 <- manual_tour(basis = best_proj, manip_var = 1)
 ## render_manual(penguins_s[,3:6], mtour2, "penguins_manual_bl.gif", col=col, dir = "images/manual2")
 
 
-## ----eval=FALSE, echo=FALSE------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------
 ## render_gif(penguins[,3:6], local_tour(start=best_proj, 0.9),
 ##            display_xy(col=col, axes="bottomleft"),
 ##            "penguins2d_local.gif",
 ##            frames=200, width=300, height=300)
 
 
-## ----runthis16, eval=FALSE, echo=FALSE-------------------------------------------------
+## ----runthis16, eval=FALSE, echo=FALSE----------------------------------
 ## animate_xy(penguins[,3:6], local_tour(start=best_proj, 0.9),
 ##            axes = "bottomleft", col=col)
 
 
-## ----eval=FALSE, echo=FALSE------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------
 ## render_gif(penguins[,3:6], grand_tour(),
 ##            display_dist(half_range=1.3),
 ##            "penguins1d.gif",
@@ -218,12 +218,12 @@ ggplot(penguins,
 ##            frames=100, width=300, height=300)
 
 
-## ----runthis17, eval=FALSE, echo=FALSE-------------------------------------------------
+## ----runthis17, eval=FALSE, echo=FALSE----------------------------------
 ## animate_dist(penguins[,3:6], half_range=1.3)
 ## animate_density2d(penguins[,3:6], col=col, axes="bottomleft")
 
 
-## ----eval=FALSE------------------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------
 ## library(tourr)
 ## data(flea)
 ## ?animate_xy
@@ -237,6 +237,6 @@ ggplot(penguins,
 ## animate_xy(flea[, 1:6], fps=10)
 
 
-## ----echo=FALSE------------------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------
 countdown::countdown(2,0)
 

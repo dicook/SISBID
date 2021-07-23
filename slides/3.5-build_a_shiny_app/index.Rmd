@@ -45,6 +45,14 @@ class: inverse middle
 `r emo::ji("scream")` If this is too scary, work through the steps in the next few slides instead, to make an app.
 
 ---
+# RStudio Connect and ShinyApps
+
+- Sign up for an account on https://www.shinyapps.io/<br/><br/>
+- Authenticate your account<br/><br/>
+- Install the library rsconnect (this is the part that may require admin access to your machine)<br/><br/>
+- Follow the instructions on ShinyApps.io to authenticate and upload your first app!
+
+---
 # Initiate
 
 `r emo::ji("white_check_mark")` Using the RStudio `File` menu, 
