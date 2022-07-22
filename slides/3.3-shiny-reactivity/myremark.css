@@ -162,29 +162,16 @@ code {
   height: 92%;
   float: left;
 }
-  .left-column h2:last-of-type, .left-column h3:last-child {
+.left-column h2:last-of-type, .left-column h3:last-child {
     color: #000;
-  }
+}
 .right-column {
   width: 75%;
   float: right;
   padding-top: 1em;
 }
 
-.huge {font-size:150%}
-.large {font-size: 130%}
-.largish{font-size:110%;}
-.reg{font-size:100%;}
-.slightly-small {font-size: 80%}
-.smaller {font-size: 75%}
-.small {font-size: 70%}
-.tiny {font-size: 50%}
-
-.move-up { margin-top:-50px !important;}
-.nudge-up { margin-top:-20px !important;}
-
-.move-left { margin-left:-50px !important;}
-.nudge-left { margin-left:-20px !important;}
-
-.move-down {margin-top:50px !important;}
-.nudge-down { margin-top:20px !important;}
+/* Hide a slide number */
+.hide-count .remark-slide-number {
+  display: none;
+}

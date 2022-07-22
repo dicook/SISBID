@@ -1,7 +1,7 @@
 ---
 title: "Tidying your data"
 subtitle: "SISBID 2022 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) "
 date: "07/27-29/2022"
 output:
   xaringan::moon_reader:

@@ -1,7 +1,7 @@
 ---
 title: "A Grammar of Graphics"
 subtitle: "SISBID 2022 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) "
 date: "07/27-29/2022"
 output:
   xaringan::moon_reader:
@@ -107,7 +107,7 @@ The 7 key elements of the grammar are:
 ---
 # Example: Tuberculosis data
 
-This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. There's also an R package, [getTBinR](https://cran.r-project.org/web/packages/getTBinR/index.html), that can be used to dynamically download this data.
+Current tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://cran.r-project.org/web/packages/getTBinR/index.html).
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>% 
