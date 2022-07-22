@@ -1,7 +1,7 @@
 ---
 title: "Preamble"
 subtitle: "SISBID 2022 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/27-29/2022"
 output:
   xaringan::moon_reader:
@@ -30,6 +30,7 @@ knitr::opts_chunk$set(
 
 ```{r eval=FALSE, echo=FALSE}
 # THIS CODE IS NOT TO BE RUN
+# It is purely to make the slides prettier
 install.packages("remotes")
 install.packages("xaringan")
 remotes::install_github("hadley/emo")
@@ -39,28 +40,18 @@ remotes::install_github("dicook/gretchenalbrecht")
 remotes::install_github("gadenbuie/countdown")
 ```
 
+class: hide-count
 
+<center>
 <img src="Hello-Di.png" width="80%" />
+</center>
 
 ---
+class: hide-count
 
-<img src="Hello-Di-sick.png" width="80%" />
-
----
-<img src="Hello-Susan.png" width="80%" />
-
----
-
+<center>
 <img src="Hello-Heike.png" width="80%" />
-
----
-
-<img src="Hello-Andy.png" width="80%" />
-
----
-
-<img src="Hello-Patrick.png" width="80%" />
-
+</center>
 
 ---
 # Talking to people in  the class
@@ -79,7 +70,7 @@ Let's try this!
 
 
 ---
-class: inverse middle 
+class: inverse middle  hide-count
 # Your turn: meet the class!
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")`
@@ -119,8 +110,7 @@ R cloud setup
 class: inverse middle 
 # Your turn: Course materials
 
-<large>All materials are available from [https://github.com/dicook/SISBID](https://github.com/dicook/SISBID
-)</large>
+.large[All materials are available from [https://github.com/dicook/SISBID](https://github.com/dicook/SISBID)]
 
 - __Download__ `SISBID_day1.zip` (a zip archive) of the workshop files which contains all the code files, Rmarkdown files, and data for day 1 of this workshop. __Unzip the file__.
 - __Double-click__ `SISBID.Rproj`. The R project helps organise your work over these next few days. 
@@ -134,7 +124,9 @@ class: inverse middle
 - `data` folder containing data sets used in the course
 - `SISBID.Rproj` for starting RStudio in your course working directory
 
-`r anicon::nia("Please run, edit and change the code as we go! Experiment, break and fix.", colour="#B78ED2", anitype="hover")`
+<br><br>
+
+.large[`r anicon::nia("Please run, edit and change the code as we go! Experiment, break and fix.", colour="#B78ED2", anitype="hover")`]
 
 ---
 class: middle
