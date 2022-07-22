@@ -1,4 +1,4 @@
-## ----echo=FALSE---------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------
 knitr::opts_chunk$set(
   echo=FALSE,
   message = FALSE,
@@ -15,13 +15,13 @@ knitr::opts_chunk$set(
 )
 
 
-## ----load libraries, echo=FALSE-----------------------------------------
+## ----load libraries, echo=FALSE---------------------------------
 library(tidyverse)
 library(ggmap)
 library(here)
 
 
-## ----read TB data and wrangle and subset to USA-------------------------
+## ----read TB data and wrangle and subset to USA-----------------
 tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>% 
   select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
   gather(stuff, count, new_sp_m04:new_sp_fu) %>%
@@ -47,7 +47,7 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
   facet_grid(~ age) 
 
 
-## ----colour and axes fixes, echo=TRUE, fig.height=3---------------------
+## ----colour and axes fixes, echo=TRUE, fig.height=3-------------
 # This uses a color blind friendly scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
@@ -82,7 +82,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 
 
-## ----eval=FALSE---------------------------------------------------------
+## ----eval=FALSE-------------------------------------------------
 ## - Counts are generally higher for males than females
 ## - There are very few female cases in the middle years
 ## - Perhaps something of a older male outbreak in 2007-8, and possibly a young female outbreak in the same years
@@ -115,14 +115,14 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
   coord_polar(theta = "y") 
 
 
-## ----use a line plot instead of bar, fig.height=3-----------------------
+## ----use a line plot instead of bar, fig.height=3---------------
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age_group, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 
 
-## ----use a line plot of proportions, fig.height=3-----------------------
+## ----use a line plot of proportions, fig.height=3---------------
 tb_us %>% group_by(year, age_group) %>% 
   summarise(p = count[sex=="m"]/sum(count)) %>%
   ggplot(aes(x=year, y=p)) +
