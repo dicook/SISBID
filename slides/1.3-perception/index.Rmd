@@ -1,7 +1,7 @@
 ---
 title: "Visual perception and effective plot construction"
 subtitle: "SISBID 2022 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)<br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
+author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
 date: "07/27-29/2022"
 output:
   xaringan::moon_reader:
@@ -71,7 +71,7 @@ tb_us %>% filter(year == 2012) %>% select(sex, age, count)
 - In arrangement A, separate plots are made for age, and sex is mapped to the x axis. 
 - Conversely, in arrangement B, separate plots are made for sex, and age is mapped to the x axis. 
 
-If you were to answer the question:  **At which age(s) are the counts for males and females relatively the same?** Which plot makes this easier?
+If you were to answer the question:  .orange[At which age(s) are the counts for males and females relatively the same?] Which plot makes this easier?
 
 ---
 
@@ -96,17 +96,17 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 
-We've got two different rearrangements of the same information. **At which age(s) are the counts for males and females relatively the same? Which plot makes this easier?** 
+We've got two different rearrangements of the same information. .orange[At which age(s) are the counts for males and females relatively the same?] Which plot makes this easier?
 
 What do we learn? That is different from each? What's the focus of each? What's easy, what's harder? 
 
----
+<!--
 
 Go to www.menti.com and use the code 7692 1506. 
 
 <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
-
+-->
 
 ---
 
@@ -114,10 +114,12 @@ Go to www.menti.com and use the code 7692 1506.
 
 `r anicon::nia("Try to write out a question that would be easier to answer from arrangement B.", animate="float")` 
 
-Go to www.menti.com and use the code 7692 1506. 
----
+<!-- Go to www.menti.com and use the code 7692 1506.-->
 
+
+<!--
 <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+-->
 
 ???
 - Arrangement A makes it easier to directly compare male and female counts, separately for each age group. Generally, male counts are higher than female counts. There is a big difference between counts in the 45-54 age group, and over 65 counts are almost the same.
@@ -142,7 +144,7 @@ tb_us %>% select(year, sex, age, count) %>% head(10)
 - In plot type A, a line plot of counts is drawn separately by age and sex, and year is mapped to the x axis. 
 - Conversely, in plot type B, counts for sex, and age are stacked into a bar chart, separately by age and sex, and year is mapped to the x axis
 
-If you were to answer the question:  **The trend in incidence over years for females is generally decreasing?** Which plot makes this easier? 
+If you were to answer the question:  .orange[Is the trend for females generally decreasing over time?] Which plot makes this easier? 
 
 ```{r eval=FALSE}
 - Plot type A makes it easier to examine trend for each group. This plot should probably have used 0 as the lower limit.
@@ -164,15 +166,14 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_wrap(~age, ncol=6) +
-  scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Type B")
 ```
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-Which type of plot makes it easier to answer: **The trend in incidence over years for females is generally decreasing?** 
+Which type of plot makes it easier to answer: .orange[Is the trend for females generally decreasing over time?] 
 
-What are the pros and cons of each way of displaying the same information? Should specific limits on axes be made?
 
 ```{r}
 countdown::countdown(1,50, top=0, right=0)
@@ -181,6 +182,8 @@ countdown::countdown(1,50, top=0, right=0)
 ---
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
+
+What are the pros and cons of each way of displaying the same information? Should specific limits on axes be made?
 
 `r anicon::nia("Should the limits of the y axes in plot type A have included 0 (zero)?", animate="float")` 
 
@@ -199,7 +202,7 @@ countdown::countdown(0, 30, top=0, right=0)
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-The following plots focus on proportion of males vs females. Plot A computes the proportion and displays this as a line plot. Plot B uses a 100% chart of stacked bars for females and males. What are the strengths and weaknesses of each?
+Plot A computes the proportion and displays this as a line plot. Plot B uses a 100% chart of stacked bars for females and males. .orange[Is there an age effect in the proportion of incidence by gender? Is there also a temporal trend in the proportions?]
 
 ```{r}
 countdown::countdown(1, 5, top=100, right=0)
@@ -530,7 +533,7 @@ class: inverse middle
 This builds on the exercise from the previous session.
 
 - Using your choice of country, for example, Australia, make a set of plots to explore the TB incidence among males relative to females over different age groups for 2012.
-- Choose your best plot to answer this question: **Is there a higher prevalence of TB among younger women in 2012?**
+- Choose your best plot to answer this question: .orange[Is there a higher prevalence of TB among younger women in 2012?]
 
 ```{r}
 countdown::countdown(7, 0)
@@ -538,6 +541,7 @@ countdown::countdown(7, 0)
 ---
 # Resources
 
+- [Claus O. Wilke, Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
 - [Naomi Robbins, Creating More Effective Graphs](http://www.nbr-graphs.com)
 - [Cleveland WS, McGill R. 1984. Graphical perception: Theory, experimentation, ...](https://www.tandfonline.com/doi/abs/10.1080/01621459.1984.10478080)
 - [Heer J, Bostock M. 2010. Crowdsourcing graphical perception](http://vis.stanford.edu/files/2010-MTurk-CHI.pdf)
