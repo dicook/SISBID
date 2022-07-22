@@ -1,6 +1,6 @@
-# SISBID 2021 Module 4: Visualization of Biomedical Big Data
+# SISBID 2022 Module 4: Visualization of Biomedical Big Data
 
-Instructors: (Di Cook) Susan VanderPlas and Heike Hofmann
+Instructors: Di Cook and Heike Hofmann
 
 Website: [https://dicook.github.io/SISBID/](https://dicook.github.io/SISBID/)
 
@@ -94,7 +94,7 @@ Afternoon:
 
 ## Software list
 
-Download [RStudio >= 1.4.1717 ](https://www.rstudio.com/products/rstudio/download/), [R version >= 4.1.0 (2021-05-18) -- "Camp Pontanezen"](https://cran.r-project.org)
+Download [RStudio](https://www.rstudio.com/products/rstudio/download/), and [latest R version](https://cran.r-project.org).
 
 Open RStudio, and run the code below to install these packages and their dependencies:
 
