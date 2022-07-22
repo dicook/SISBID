@@ -33,7 +33,7 @@ Zoom etiquette:
 ## Course Schedule
 
 
-| Wednesday, Jul 21 |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |      Singapore |      Korea |      Denmark |
+| Wednesday, Jul 27 |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |      Singapore |      Korea |      Denmark |
 |-------------------|----------------:|---------------:|----------------:|---------------:|---------------:|---------------:|---------------:|
 | [Meet & Greet](https://dicook.github.io/SISBID/slides/0-preamble/index.html)        |   11:30 - 11:45 am | 4:30 - 4:45 am |  1:30 - 1:45 pm | 2:30 - 2:45 pm | 2:30 - 2:45 am | 3:30 - 3:45 am | 8:30 - 8:45 pm |
 | [Lecture 1](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html)        |   11:45 - 12:30 | 4:45 - 5:30 am |  1:45 - 2:30 pm | 2:45 - 3:30 pm | 2:45 - 3:30 am | 3:45 - 4:30 am | 8:45 - 9:30 pm |
