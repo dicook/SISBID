@@ -84,10 +84,11 @@ ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude), alpha=0.1)
 ```
 
 ---
+class: middle
 
 If you are good at recognising the shape of Australia, you might realise that the sightings are all along the east coast and Tasmania. There is a strange location, that looks like someone saw one in Antarctica! We might need to filter this observation out later, because its extremely unlikely to have been found that far south.
 
-But, we can make it look a bit more like Australia by making a map projection, using `coord_map`.
+We can make the data look a bit more like it is collected in Australia by making a map projection, using `coord_map`.
 
 ---
 
@@ -95,7 +96,8 @@ But, we can make it look a bit more like Australia by making a map projection, u
 
 ```{r making a map projection, echo=TRUE, fig.height=10, out.width="100%"}
 ggplot(data=platydata) + 
-  geom_point(aes(x=longitude, y=latitude), alpha=0.1) +
+  geom_point(aes(x=longitude, y=latitude), 
+             alpha=0.1) +
   coord_map()
 ```
 ]
@@ -106,8 +108,11 @@ The locations would be even more recognisable if we added a real map underneath.
 
 ```{r you need a developer API to run this code, echo=FALSE, eval=FALSE}
 library(ggmap)
-register_google(XXX)
-oz <- get_map(location=c(lon=133.8807, lat=-23.6980), zoom=4)
+oz_bbox <- c(112.9, # min long
+              -45, # min lat
+              159, # max long
+              -10) # max lat
+oz_map <- get_map(location = oz_bbox, source = "osm") 
 save(oz, file="data/oz.rda")
 ```
 
@@ -232,7 +237,7 @@ Not a lot different. It shows perhaps high density regions around Melbourne, Bri
 class: inverse middle 
 # Your turn
 
-Platypus are mostly found on the east coast of the country, but there is a population close to Adelaide in south Australia. Why is this?
+Platypus are mostly found on the east coast of the country, but there is a population close to Adelaide in south Australia. Why is this? (You might need to do some sleuthing with a web search engine to answer this.)
 
 ---
 class: inverse middle 
