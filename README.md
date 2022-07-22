@@ -1,4 +1,4 @@
-# SISBID 2022 Module 4: Visualization of Biomedical Big Data
+# SISBID 2022 Module 2: Visualization of Biomedical Big Data
 
 Instructors: Di Cook and Heike Hofmann
 
