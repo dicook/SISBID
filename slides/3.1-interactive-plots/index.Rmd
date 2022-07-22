@@ -1,8 +1,8 @@
 ---
 title: "Interactive graphics"
-subtitle: "SISBID 2021 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2022 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) <br> Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)"
-date: "07/21-23/2021"
+date: "07/27-29/2022"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -67,13 +67,13 @@ library(lubridate)
 ```
 ```{r, include=F, eval=FALSE}
 cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
-                           from = "2019-01-01", to = "2021-06-30")
-write_csv(cran_dls, file = "../../data/package-info-July-2021.csv")
+                           from = "2019-01-01", to = "2022-06-30")
+write_csv(cran_dls, file = "../../data/package-info-July-2022.csv")
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.height = 8}
 
-cran_dls <- read_csv(here::here("data/package-info-July-2021.csv"))
+cran_dls <- read_csv(here::here("data/package-info-July-2022.csv"))
 cran_summary <- cran_dls %>%
   mutate(date = ymd(date) %>% floor_date("week")) %>%
   group_by(package, date) %>%
