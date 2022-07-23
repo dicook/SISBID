@@ -109,6 +109,11 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
 # github packages
 remotes::install_github("wmurphyrd/fiftystater")
+
+# Bioconductor packages
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("bigPint")
 ```
 
 **Note:** If you run into problems installing all of the packages at once, it can take some time, especially if you get an error on an install, try installing one at a time, or three or a few. If you have a problem with installing the `sf` package, make sure you install from binary, not from source.
