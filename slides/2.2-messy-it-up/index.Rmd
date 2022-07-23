@@ -69,7 +69,7 @@ Go to menti.com at 7692 1506 and let us know!
 Each of these questions involves different summaries of the data.
 
 ---
-# Gathering the french fries
+# Pivot french fries to long
   
 ```{r put french fries in long form}
 ff_long <- french_fries %>% 
@@ -79,11 +79,11 @@ head(ff_long)
 
 
 ---
-# Long to wide
+# Pivot long to wide
   
-In certain applications, we may wish to take a long dataset and convert it to a wide dataset (perhaps displaying in a table).
+In certain applications, we may wish to take a long dataset and pivot it to a wide dataset (perhaps displaying in a table).
 
-This is called "spreading" the data.
+This was called "spreading" the data.
 
 Examples: 
 
@@ -96,7 +96,7 @@ Examples:
 
 
 ---
-# Spread
+# Pivot to wide form
   
 We use the **pivot_wider** function from `tidyr` to do introduce variables with comparable values:
   
@@ -110,7 +110,7 @@ head(french_fries_weeks)
 ```
 
 ---
-# Spread
+# Pivot to wide form
 
 ```{r spread}
 head(french_fries_weeks)
@@ -134,7 +134,7 @@ french_fries_weeks %>%
   ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
 
-Note the use of the backtick for variable names with special characters or numbers
+Note the use of the backtick for variable names with special characters or numbers.
 
 ---
 class: inverse middle 
@@ -142,7 +142,7 @@ class: inverse middle
 
 Tackle this by plotting the replicates against each other using a scatterplot. 
 
-You will need to first gather the data into long form, and then get the replicates spread into separate columns by replicate. 
+You will need to first convert the data into long form, and then get the replicates spread into separate columns by replicate. 
 
 `r countdown::countdown(5)`
 
@@ -159,7 +159,7 @@ ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
 # Are ratings similar on different scales?
   
 - Are ratings similar on the different scales: potato'y, buttery, grassy, rancid and painty?
-- We need to gather the data into long form, and make plots facetted by the scale. 
+- We need to pivot the data into long form, and make plots facetted by the scale. 
 
 --
 
