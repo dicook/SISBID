@@ -88,8 +88,6 @@ class: inverse middle center
 
 `r anicon::nia("What patterns do you see?", animate="rotate")` 
 
-Go to www.menti.com and use the code 6703 6131
-
 `r countdown::countdown(1,30)`
 
 ---
@@ -329,6 +327,7 @@ The tour can help to discover these, too. `r emo::ji("joy")`
 - .orange[frozen]: fixes some variable coefficients, others vary freely. 
 - .orange[manual]: control coefficient of one variable, to examine the sensitivity of structure this variable. (In the .orange[spinifex] package)
 - .orange[slice]: use a section instead of a projection.
+- .orange[sage]: transform a 2D projection, to avoid data  piling.
 
 ---
 class: inverse middle center
