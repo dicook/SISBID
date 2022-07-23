@@ -68,7 +68,7 @@ library(lubridate)
 ```{r, include=F, eval=FALSE}
 cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
                            from = "2019-01-01", to = "2022-06-30")
-write_csv(cran_dls, file = "../../data/package-info-July-2022.csv")
+write_csv(cran_dls, file = "../../data/package-info-Jul-2022.csv")
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.height = 8}
