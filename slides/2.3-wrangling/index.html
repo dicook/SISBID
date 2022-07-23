@@ -3,8 +3,8 @@
   <head>
     <title>Wrangling Data and Models</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
-    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <script src="index_files/header-attrs-2.14/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/countdown-0.3.5/countdown.css" rel="stylesheet" />
     <script src="index_files/countdown-0.3.5/countdown.js"></script>
@@ -14,10 +14,18 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Wrangling Data and Models
-## SISBID 2021 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
-### 07/21-23/2021
+]
+.subtitle[
+## SISBID 2022 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+]
+.author[
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+]
+.date[
+### 07/27-29/2022
+]
 
 ---
 
@@ -125,12 +133,13 @@ One value for each:
 
 ```r
 glance(ff_lm)
-# A tibble: 1 x 12
-  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1     0.400         0.395  2.90      88.1       0    26 -8607. 17270.
-# … with 4 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;,
-#   nobs &lt;int&gt;
+# A tibble: 1 × 12
+  r.squared adj.r.squ…¹ sigma stati…² p.value    df logLik    AIC    BIC devia…³
+      &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1     0.400       0.395  2.90    88.1       0    26 -8607. 17270. 17442.  28957.
+# … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
+#   variable names ¹​adj.r.squared, ²​statistic, ³​deviance
+# ℹ Use `colnames()` to see all variable names
 ```
 
 ---
@@ -142,11 +151,11 @@ ff_lm_tidy &lt;- tidy(ff_lm)
 glimpse(ff_lm_tidy)
 Rows: 27
 Columns: 5
-$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepotato…
-$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.032…
-$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200,…
-$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.0…
-$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-20…
+$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepotato", "ty…
+$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.03292748,…
+$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200, 0.120…
+$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.0550191…
+$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-207, 4.6…
 ```
 
 ---
@@ -158,18 +167,18 @@ ff_lm_all &lt;- augment(ff_lm)
 glimpse(ff_lm_all)
 Rows: 3,471
 Columns: 12
-$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1…
-$ rating     &lt;dbl&gt; 2.9, 0.0, 0.0, 0.0, 5.5, 14.0, 0.0, 0.0, 1.1, 0.0, 11…
-$ type       &lt;chr&gt; "potato", "buttery", "grassy", "rancid", "painty", "p…
-$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ subject    &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 10, 10, 10, 10, 10,…
-$ .fitted    &lt;dbl&gt; 6.33172754, 1.19851228, 0.04338221, 3.23143977, 1.899…
-$ .resid     &lt;dbl&gt; -3.43172754, -1.19851228, -0.04338221, -3.23143977, 3…
-$ .hat       &lt;dbl&gt; 0.007910376, 0.007911506, 0.007910376, 0.007910376, 0…
-$ .sigma     &lt;dbl&gt; 2.899486, 2.900008, 2.900081, 2.899554, 2.899426, 2.8…
-$ .cooksd    &lt;dbl&gt; 4.169299e-04, 5.086106e-05, 6.662863e-08, 3.696831e-0…
-$ .std.resid &lt;dbl&gt; -1.18820206, -0.41497338, -0.01502067, -1.11885438, 1…
+$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "1…
+$ rating     &lt;dbl&gt; 2.9, 0.0, 0.0, 0.0, 5.5, 14.0, 0.0, 0.0, 1.1, 0.0, 11.0, 6.…
+$ type       &lt;chr&gt; "potato", "buttery", "grassy", "rancid", "painty", "potato"…
+$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ subject    &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 10, 10, 10, 10, 10, 10, 1…
+$ .fitted    &lt;dbl&gt; 6.33172754, 1.19851228, 0.04338221, 3.23143977, 1.89905775,…
+$ .resid     &lt;dbl&gt; -3.43172754, -1.19851228, -0.04338221, -3.23143977, 3.60094…
+$ .hat       &lt;dbl&gt; 0.007910376, 0.007911506, 0.007910376, 0.007910376, 0.00790…
+$ .sigma     &lt;dbl&gt; 2.899486, 2.900008, 2.900081, 2.899554, 2.899426, 2.897111,…
+$ .cooksd    &lt;dbl&gt; 4.169299e-04, 5.086106e-05, 6.662863e-08, 3.696831e-04, 4.5…
+$ .std.resid &lt;dbl&gt; -1.18820206, -0.41497338, -0.01502067, -1.11885438, 1.24679…
 ```
 
 ---
@@ -206,7 +215,7 @@ The `broom.mixed` package provides similar functionality to mixed effects models
 - Plot the residuals from the random effects model
 - Plot fitted values against observed values
 
-<div class="countdown" id="timer_60facdda" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62dbdde5" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -235,7 +244,7 @@ select a subset of the observations (horizontal selection)
 load(here::here("data/french_fries.rda"))
 french_fries %&gt;%
     filter(subject == 3, time == 1)
-# A tibble: 6 x 9
+# A tibble: 6 × 9
   time  treatment subject   rep potato buttery grassy rancid painty
 * &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 1 1     1         3           1    2.9     0      0      0      5.5
@@ -255,7 +264,7 @@ order the observations (hierarchically)
 french_fries %&gt;%
     arrange(desc(rancid)) %&gt;%
     head
-# A tibble: 6 x 9
+# A tibble: 6 × 9
   time  treatment subject   rep potato buttery grassy rancid painty
   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 1 9     2         51          1    7.3     2.3      0   14.9    0.1
@@ -275,7 +284,7 @@ select a subset of the variables (vertical selection)
 french_fries %&gt;%
     select(time, treatment, subject, rep, potato) %&gt;%
     head
-# A tibble: 6 x 5
+# A tibble: 6 × 5
   time  treatment subject   rep potato
   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;
 1 1     1         3           1    2.9
@@ -295,7 +304,7 @@ summarize observations into a (set of) one-number statistic(s):
 french_fries %&gt;%
     summarise(mean_rancid = mean(rancid, na.rm=TRUE), 
               sd_rancid = sd(rancid, na.rm = TRUE))
-# A tibble: 1 x 2
+# A tibble: 1 × 2
   mean_rancid sd_rancid
         &lt;dbl&gt;     &lt;dbl&gt;
 1        3.85      3.78
@@ -309,7 +318,7 @@ french_fries %&gt;%
 french_fries %&gt;%
     group_by(time, treatment) %&gt;%
     summarise(mean_rancid = mean(rancid), sd_rancid = sd(rancid))
-# A tibble: 30 x 4
+# A tibble: 30 × 4
 # Groups:   time [10]
    time  treatment mean_rancid sd_rancid
    &lt;fct&gt; &lt;fct&gt;           &lt;dbl&gt;     &lt;dbl&gt;
@@ -324,6 +333,7 @@ french_fries %&gt;%
  9 3     3                3.6       3.59
 10 4     1                2.08      2.39
 # … with 20 more rows
+# ℹ Use `print(n = ...)` to see more rows
 ```
 
 
@@ -351,7 +361,7 @@ class: inverse middle
 
 How many values do we have for each subject? Check the help for function `?n`
 
-<div class="countdown" id="timer_60facf7b" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62dbdcbc" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 ---
@@ -364,7 +374,7 @@ How many values do we have for each subject? Check the help for function `?n`
 french_fries %&gt;% 
   group_by(subject) %&gt;% 
   summarize(n = n()) 
-# A tibble: 12 x 2
+# A tibble: 12 × 2
    subject     n
    &lt;fct&gt;   &lt;int&gt;
  1 3          54
@@ -398,7 +408,7 @@ french_fries %&gt;%
   na.omit() %&gt;%
   count(subject, time) %&gt;%
   spread(time, n)
-# A tibble: 12 x 11
+# A tibble: 12 × 11
    subject   `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`   `9`  `10`
    &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
  1 3           6     6     6     6     6     6     6     6     6    NA
@@ -419,6 +429,8 @@ french_fries %&gt;%
 ---
 # How do scores change over time?
 
+&lt;br&gt;&lt;br&gt;
+
 
 ```r
 ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
@@ -426,12 +438,17 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   facet_grid(subject~type) 
 ```
 
+&lt;br&gt;&lt;br&gt;
+
+Plot on next slide...very messy!
+
 ---
+class: hide-count
+count: false
+
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
-
-very messy!
 
 ---
 class: inverse
@@ -439,23 +456,11 @@ class: inverse
 
 Get summary of ratings over replicates and connect the dots for a picture as below:
 
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
-<div class="countdown" id="timer_60faceff" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62dbdf5c" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
-
----
-
-
-```r
-ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) + 
-  facet_grid(subject~type) +
-  geom_line(data=ff_av, aes(group=treatment))
-```
-
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
-
 
 ---
 # References
@@ -518,6 +523,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

@@ -277,22 +277,26 @@ french_fries %>%
 ---
 # How do scores change over time?
 
-```{r do scores change over time, fig.show='hide'}
+<br><br>
+
+```{r do-scores-change-over-time, fig.show='hide'}
 ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   geom_point() +
   facet_grid(subject~type) 
 ```
+
+<br><br>
+
+Plot on next slide...very messy!
 
 ---
+class: hide-count
+count: false
 
-
-```{r echo=FALSE, fig.width=12, fig.height=9}
-ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
-  geom_point() +
-  facet_grid(subject~type) 
+```{r ref.label="do-scores-change-over-time", echo=FALSE, fig.width=12, fig.height=9, out.width="80%"}
 ```
 
-very messy!
+
 
 ---
 class: inverse
@@ -300,7 +304,7 @@ class: inverse
 
 Get summary of ratings over replicates and connect the dots for a picture as below:
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.width=12, fig.height=9, out.width="60%"}
 ff_av <- ff_long %>% 
   group_by(subject, time, type, treatment) %>%
   summarise(rating=mean(rating))
@@ -310,16 +314,7 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   geom_line(data=ff_av, aes(group=treatment))
 ```
 
-`r countdown::countdown(7)`
-
----
-
-```{r fig.width=12, fig.height=9}
-ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) + 
-  facet_grid(subject~type) +
-  geom_line(data=ff_av, aes(group=treatment))
-```
-
+`r countdown::countdown(7, 0)`
 
 ---
 # References
