@@ -63,15 +63,24 @@ tb %>%                                  # first we get the tb data
   arrange(desc(cases))                  # then we sort countries to show highest number new cases first
 ```
 
+Note that the new base R pipe `|>` can mostly substitute for the magrittr pipe. A good explanation can be found [here](https://towardsdatascience.com/understanding-the-native-r-pipe-98dea6d8b61b).
+
 ---
+.pull-left[
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_2.jpg" width="100%">
+
+Artist: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+]
+
+.pull-right[
 # What is **tidy data**? 
 
 - What do we expect tidy data to look like?
 - Couple of exercises to look closer at what we find in practice 
 
-<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_2.jpg" width="500">
+]
 
-Artist: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
 ---
 class: inverse middle 
 # Your turn 1
@@ -179,12 +188,15 @@ There are various features of messy data that one can observe in practice. Here 
 - Wider forms are common for analysis
 
 ---
-
-![](lego.png)
+background-image: url(lego.png)
+background-size: 100%
+background-position: 50% 5%
 
 ---
+background-image: url(playmobile.png)
+background-size: 100%
+background-position: 50% 5%
 
-![](playmobile.png)
 
 ---
 # Tidy verbs
@@ -195,7 +207,7 @@ There are various features of messy data that one can observe in practice. Here 
 - `nest`/`unnest`: working with list variables
 
 ---
-# Gather the data 
+# Pivot to long form
   
 `pivot_longer(data, cols, names_to = "name", values_to = "value", ...)`
 
@@ -248,7 +260,7 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 
 
 ---
-# TB notifications (gather)
+# TB notifications (pivot_long)
   
 create two new variables: variable `name` (contains all variable names starting with `new_sp_`) and variable `value` with the values:
   
@@ -343,7 +355,8 @@ gtidy %>%
   ggplot(aes(x = trt, y = expr, colour=time)) +
   geom_point() +
   geom_line(data = gmean, aes(group = time)) +
-  facet_wrap(~id)
+  facet_wrap(~id) +
+  scale_colour_brewer("", palette="Set1")
 ```
 ]
 .pull-right[
@@ -352,7 +365,8 @@ gtidy %>%
   ggplot(aes(x = trt, y = expr, colour=time)) +
   geom_point() +
   geom_line(data = gmean, aes(group = time)) +
-  facet_wrap(~id)
+  facet_wrap(~id) +
+  scale_colour_brewer("", palette="Set1")
 ```
 ]
 ---
