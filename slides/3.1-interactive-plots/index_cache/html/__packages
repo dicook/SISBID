@@ -1,4 +1,3 @@
-base
 usethis
 devtools
 tidyverse
@@ -15,3 +14,5 @@ gganimate
 datasauRus
 GGally
 gapminder
+cranlogs
+lubridate
