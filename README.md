@@ -100,15 +100,15 @@ Open RStudio, and run the code below to install these packages and their depende
 
 ```
 # CRAN packages
-packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", "janitor",
-"forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally",
+packages <- c("tidyverse", "RColorBrewer", "viridis", "gridExtra", "dichromat", "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", "plotly", "broom", "GGally",
 "gapminder", "nullabor", "shiny", "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-"naniar", "htmltools", "mapproj", "leaflet", "broom.mixed", "lme4")
+"naniar", "htmltools",  "broom.mixed", "lme4", "splitstackshape", "forecast", "maps", "mapproj", "leaflet", "ggmap")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
 # github packages
 remotes::install_github("wmurphyrd/fiftystater")
+remotes::install_github("heike/vinference")
 
 # Bioconductor packages
 if (!require("BiocManager", quietly = TRUE))

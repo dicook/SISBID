@@ -47,6 +47,8 @@ library(forecast)
 library(readxl)
 # remotes::install_github("wmurphyrd/fiftystater")
 library(fiftystater)
+# remotes::github_install("heike/vinference")
+library(vinference)
 ```
 
 # Tidy data and random variables
@@ -154,12 +156,6 @@ ggplot(data) + geom_boxplot(aes(x=cl, y=x1))
 
 .orange[Which plot definition would most match to a null hypothesis stating **there is no difference in the distribution between the groups?**]
 
-Go to www.menti.com and use the code 7692 1506
-
----
-
-<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
-
 
 ---
 # Some examples
@@ -265,7 +261,6 @@ pvisual(4, 17, m=20)
 Assuming some null plots are visually more salient than others, we can introduce parameter $\alpha$ to get to more realistic $p$-values:
 
 ```{r adjusted for variability in the plots}
-if (!require(vinference)) remotes::github_install("heike/vinference")
 res <- c(vinference::pVis(4,17,m=20, alpha=0.01, lower.tail=FALSE),
          vinference::pVis(4,17,m=20, alpha=0.15, lower.tail=FALSE),
          vinference::pVis(4,17,m=20, alpha=1, lower.tail=FALSE))
@@ -481,8 +476,8 @@ ggplot(incd_map) +
 
 ---
 background-image: \url(https://pbs.twimg.com/profile_images/1092451626781163523/0YzJMi-8_400x400.jpg)
-background-size: 20%
-background-position: 40% 0%
+background-size: 12%
+background-position: 100% 0%
 # Your turn
 
 .pull-left[
@@ -525,7 +520,7 @@ ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2,
 ```
 ]
 
-Go to www.menti.com and use the code 7692 1506, and enter the p-value
+.orange[Enter the p-value in the chat!]
 ---
 # Resources
 
