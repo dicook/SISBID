@@ -146,7 +146,7 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
  ggplotly(viz)
 ```
 
-- Not all `ggplot2` geoms are supported in plotly yet, but when they are, they just work out of the box
+- Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
 
 ---
 # Modifying plotly 
@@ -155,11 +155,17 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
 
 
 ```{r eval=FALSE}
-sd <- highlight_key(txhousing, ~year)
+txh_shared <- highlight_key(txhousing, ~year)
 
-p <- ggplot(sd, aes(month, median)) +
+p <- ggplot(txh_shared, aes(month, median)) +
    geom_line(aes(group = year)) + 
    geom_smooth(data = txhousing, method = "gam") + 
+   scale_x_continuous("", breaks=seq(1, 12, 1),
+        labels=c("J", "F", "M", "A", "M", "J", 
+                 "J", "A", "S", "O", "N", "D")) +
+   scale_y_continuous("Median price ('00,000)", 
+                      breaks = seq(0,300000,100000),
+                      labels = seq(0,3,1)) +
    facet_wrap(~ city)
 
 gg <- ggplotly(p, height = 600, width = 1000) %>%
@@ -438,7 +444,7 @@ Add animation parts! adding `transition_time(year)` results in the visualisation
 
 What other animation are helpful? What views do you want to set? Maybe a shadow looks interesting?
 
-```{r}
+```{r fig.show='hide'}
 library(gapminder)
 
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
