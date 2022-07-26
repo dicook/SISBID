@@ -156,13 +156,13 @@ From bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("impute")
+BiocManager::install("bigPint")
 ```
 
 From github repos
 
 ```{r eval=FALSE}
-remotes::install_github("hadley/emo")
+remotes::install_github("heike/vinference")
 ```
 
 ---
