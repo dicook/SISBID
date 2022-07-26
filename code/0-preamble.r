@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 
 
-## ----eval=FALSE, echo=FALSE-------------------------------------
+## ----eval=FALSE, echo=FALSE-------------------------------
 ## # THIS CODE IS NOT TO BE RUN
 ## # It is purely to make the slides prettier
 ## install.packages("remotes")
@@ -24,22 +24,22 @@ knitr::opts_chunk$set(
 ## remotes::install_github("gadenbuie/countdown")
 
 
-## ----eval=FALSE-------------------------------------------------
+## ----eval=FALSE-------------------------------------------
 ## install.packages("ggenealogy")
 
 
-## ----eval=FALSE-------------------------------------------------
+## ----eval=FALSE-------------------------------------------
 ## if (!requireNamespace("BiocManager", quietly = TRUE))
 ##     install.packages("BiocManager")
 ## 
-## BiocManager::install("impute")
+## BiocManager::install("bigPint")
 
 
-## ----eval=FALSE-------------------------------------------------
-## remotes::install_github("hadley/emo")
+## ----eval=FALSE-------------------------------------------
+## remotes::install_github("heike/vinference")
 
 
-## ----eval=FALSE-------------------------------------------------
+## ----eval=FALSE-------------------------------------------
 ## # CRAN packages
 ## packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat",
 ##               "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate",
