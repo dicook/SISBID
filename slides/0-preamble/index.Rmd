@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 ```{r eval=FALSE, echo=FALSE}
 # THIS CODE IS NOT TO BE RUN
-# It is purely to make the slides prettier
+# These packages are only used to make the slides prettier
 install.packages("remotes")
 install.packages("xaringan")
 remotes::install_github("hadley/emo")
