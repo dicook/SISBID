@@ -102,7 +102,7 @@ What do we learn? That is different from each? What's the focus of each? What's 
 
 <!--
 
-Go to www.menti.com and use the code 7692 1506. 
+Go to www.menti.com and use the code 2929 5844. 
 
 <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
@@ -114,12 +114,10 @@ Go to www.menti.com and use the code 7692 1506.
 
 `r anicon::nia("Try to write out a question that would be easier to answer from arrangement B.", animate="float")` 
 
-<!-- Go to www.menti.com and use the code 7692 1506.-->
+Go to www.menti.com and use the code 2929 5844.
 
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
-<!--
-<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
--->
 
 ???
 - Arrangement A makes it easier to directly compare male and female counts, separately for each age group. Generally, male counts are higher than female counts. There is a big difference between counts in the 45-54 age group, and over 65 counts are almost the same.
@@ -360,7 +358,7 @@ clrs <- dichromat(hue_pal()(9))
 d + scale_colour_manual("", values=clrs) + theme(legend.position = "none")
 ```
 
-Online checking tool [coblis](https://www.color-blindness.com/coblis-color-blindness-simulator/) allows you to upload an image and it will re-map the colors for different colour perception issues. The package `colorblind` has color blind friendly palettes but the colours are awful, to my eye.
+Online checking tool [coblis](https://www.color-blindness.com/coblis-color-blindness-simulator/) allows you to upload an image and it will re-map the colors for different colour perception issues. The package `colorblind` has color blind friendly palettes (Susan VanderPlas: but the colours are awful, to my eye).
 
 ---
 
