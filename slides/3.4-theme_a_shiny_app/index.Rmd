@@ -108,7 +108,8 @@ shinyApp(
   server = function(input, output) { }
 )
 ```
-].pull-right[
+]
+.pull-right[
 ![350px sidebar width](sidebar-width.png)
 ]
 
@@ -131,6 +132,9 @@ shinyApp(
   server = function(input, output) { }
 )
 ```
+
+---
+
 ![Add an icon to the title](app-icon-title.png)
 
 

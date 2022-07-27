@@ -3,8 +3,8 @@
   <head>
     <title>Polish and share your own shiny app</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)   Susan VanderPlas (susan.vanderplas@unl.edu, @srvanderplas)" />
-    <script src="index_files/header-attrs-2.9/header-attrs.js"></script>
+    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
+    <script src="index_files/header-attrs-2.14/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
@@ -12,10 +12,18 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Polish and share your own shiny app
-## SISBID 2021 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>) <br> Susan VanderPlas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>, <span class="citation">@srvanderplas</span>)
-### 07/21-23/2021
+]
+.subtitle[
+## SISBID 2022 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+]
+.author[
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+]
+.date[
+### 07/27-29/2022
+]
 
 ---
 
@@ -34,7 +42,7 @@ class: inverse middle
     - some GUI element like a menu or checkboxes
     - some nice styling
 
-😱 If this is too scary, work through the steps in the next few slides instead, to make an app.
+😱 If you are not confident going alone, work through the steps in the next few slides instead, to make an app.
 
 ---
 # RStudio Connect and ShinyApps
@@ -89,7 +97,7 @@ You will also need to add `library(ggplot2)` at the top of the file, just after 
 
 Change from a static ggplot plot, to an interactive plotly plot, by 
 
-1. changing the server function to look like this. Note `renderPlotly`
+1.Changing the server function to look like this. Note `renderPlotly`
 
 
 ```r
@@ -103,7 +111,9 @@ server &lt;- function(input, output) {
 }
 ```
 
-2. Changing the `ui` function to render plotly output
+---
+
+2.Changing the `ui` function to render plotly output
 
 
 ```r
@@ -112,7 +122,9 @@ mainPanel(
 )
 ```
 
-3. Adding `library(plotly)` to the top of the file.
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+3.Adding `library(plotly)` to the top of the file.
 
 🛑 Click the `Run App` button on the RStudio window. (Fix any errors) 
 
@@ -189,6 +201,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

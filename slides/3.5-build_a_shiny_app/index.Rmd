@@ -42,7 +42,7 @@ class: inverse middle
     - some GUI element like a menu or checkboxes
     - some nice styling
 
-`r emo::ji("scream")` If this is too scary, work through the steps in the next few slides instead, to make an app.
+`r emo::ji("scream")` If you are not confident going alone, work through the steps in the next few slides instead, to make an app.
 
 ---
 # RStudio Connect and ShinyApps
@@ -96,7 +96,7 @@ You will also need to add `library(ggplot2)` at the top of the file, just after 
 
 Change from a static ggplot plot, to an interactive plotly plot, by 
 
-1. changing the server function to look like this. Note `renderPlotly`
+1.Changing the server function to look like this. Note `renderPlotly`
 
 ```{r eval = F}
 server <- function(input, output) {
@@ -109,7 +109,9 @@ server <- function(input, output) {
 }
 ```
 
-2. Changing the `ui` function to render plotly output
+---
+
+2.Changing the `ui` function to render plotly output
 
 ```{r eval = F}
 mainPanel(
@@ -117,7 +119,9 @@ mainPanel(
 )
 ```
 
-3. Adding `library(plotly)` to the top of the file.
+
+<br><br><br>
+3.Adding `library(plotly)` to the top of the file.
 
 `r emo::ji("stop_sign")` Click the `Run App` button on the RStudio window. (Fix any errors) 
 
