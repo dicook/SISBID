@@ -1,4 +1,4 @@
-## ---- echo = FALSE, warning = FALSE, message = FALSE--------------------
+## ---- echo = FALSE, warning = FALSE, message = FALSE------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -14,7 +14,7 @@ library(shiny)
 library(shinydashboard)
 
 
-## ----eval = F-----------------------------------------------------------
+## ----eval = F---------------------------------------------
 ## server <- function(input, output) {
 ## 
 ##     output$distPlot <- renderPlot({
@@ -23,7 +23,7 @@ library(shinydashboard)
 ## }
 
 
-## ----eval = F-----------------------------------------------------------
+## ----eval = F---------------------------------------------
 ## server <- function(input, output) {
 ## 
 ##     output$distPlot <- renderPlotly({
@@ -34,13 +34,13 @@ library(shinydashboard)
 ## }
 
 
-## ----eval = F-----------------------------------------------------------
+## ----eval = F---------------------------------------------
 ## mainPanel(
 ##   plotlyOutput("distPlot")
 ## )
 
 
-## ----eval = F-----------------------------------------------------------
+## ----eval = F---------------------------------------------
 ## sidebarLayout(
 ##   sidebarPanel(
 ##     numericInput("bins", "nbins", 30)

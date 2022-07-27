@@ -24,23 +24,17 @@ knitr::opts_chunk$set(
 
 The platypus is a very strange animal, one of just two mammals in the worl to lay eggs! They are found exclusively in Australia. 
 
-The data used in this tutorial is downloaded from [Atlas of Living Australia](https://www.ala.org.au), using this code:
-
-```
-library(ALA4R)
-l <- specieslist("platypus")
-platypus <- occurrences("Ornithorhynchus anatinus", download_reason_id=10)
-save(platypus, file="data/platypus.rda")
-```
+The data used in this tutorial is downloaded from [Atlas of Living Australia](https://www.ala.org.au), downloading occurrences of "Ornithorhynchus anatinus":
 
 ```{r}
 library(tidyverse)
 library(ggmap)
 load(here::here("data/platypus.rda"))
-platydata <- platypus$data
 load(here::here("data/oz.rda"))
+platypus <- platypus$data
 ggmap(oz) + 
-  geom_point(data=platydata, aes(x=longitude, y=latitude), 
+  geom_point(data=platypus, 
+             aes(x=longitude, y=latitude), 
               alpha=0.1, colour="orange") 
 ```
 
@@ -62,23 +56,27 @@ quiz(
 Write the R code required to filter the platypus data to contain sightings since 2010.
 
 ```{r since-2010, exercise=TRUE}
-glimpse(platydata)
+glimpse(platypus)
 ```
 
 ```{r since-2010-solution}
-platydata %>% filter(year >= 2010)
+platypus %>% filter(year >= 2010)
 ```
 
 ## Interactive plot
 
 ```{r fig.width=6, fig.height=6}
 library(plotly)
-platy_2010 <- platydata %>% filter(year >= 2010)
+library(ggthemes)
+platy_2010 <- platypus %>% filter(year >= 2010)
 p <- ggmap(oz) + 
-  geom_point(data=platy_2010, aes(x=longitude, y=latitude), 
+  geom_point(data=platy_2010, 
+             aes(x=longitude, y=latitude), 
               alpha=0.1) +
-  geom_point(data=platy_2010, aes(x=longitude, y=latitude, frame = year), 
-              alpha=0.5, colour="orange") 
+  geom_point(data=platy_2010, 
+             aes(x=longitude, y=latitude, frame = year), 
+              alpha=0.5, colour="orange") +
+  theme_map()
 ggplotly(p)
 ```
 
