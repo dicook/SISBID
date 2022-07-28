@@ -21,6 +21,12 @@ library(gridExtra)
 library(dichromat)
 library(here)
 
+# just to make sure that we use the dplyr filter and select function when in doubt
+library(conflicted)
+
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
+
 
 ## ----read TB data and wrangle and subset to USA----------------------------------------------------------
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
@@ -39,7 +45,7 @@ tb_us <- tb %>%
 
 
 ## --------------------------------------------------------------------------------------------------------
-tb_us %>% filter(year == 2012) %>% select(sex, age, count)
+tb_us %>% filter(year == 2012) %>% dplyr::select(sex, age, count)
 
 
 ## ----focus on one year gender side-by-side bars of males/females, fig.height=3---------------------------

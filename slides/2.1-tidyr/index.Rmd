@@ -277,7 +277,7 @@ new notifications of TB have the form `new_sp_<sex><age group>`:
   
 ```{r read in and process the TB data}
 read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, starts_with("new_sp_")) %>%
+  dplyr::select(country, iso3, year, starts_with("new_sp_")) %>%
   na.omit() %>%
   head()
 ```
@@ -296,7 +296,7 @@ create two new variables:
   
 ```{r turn TB data into long form}
 tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, starts_with("new_sp_")) %>%
+  dplyr::select(country, iso3, year, starts_with("new_sp_")) %>%
   pivot_longer(starts_with("new_sp_")) 
 
 tb1 %>% na.omit() %>% head()
@@ -337,12 +337,12 @@ Now split `sexage` into first character (m/f) and rest.
 `substr` allows to extract sub strings from a character vector (see `?substr`):
   
 ```{r continue extracting variable names}
-tb3 <- tb2 %>% select(-starts_with("foo")) %>% # remove the `foo` variables
+tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) %>% # remove the `foo` variables
   mutate(
     sex = substr(sexage, 1, 1),                # extract the first character 
     age = substr(sexage, 2, length(sexage))    # get all but first character
   ) %>%
-  select(-sexage)
+  dplyr::select(-sexage)
 
 
 tb3 %>% na.omit() %>% head()

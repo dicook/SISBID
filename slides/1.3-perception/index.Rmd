@@ -42,6 +42,12 @@ library(RColorBrewer)
 library(gridExtra)
 library(dichromat)
 library(here)
+
+# just to make sure that we use the dplyr filter and select function when in doubt
+library(conflicted)
+
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
 ```
 
 # Let's play a game: Which plot wears it better?
@@ -65,7 +71,7 @@ tb_us <- tb %>%
 On the next slide we have made **two different plots** of 2012 TB incidence in the USA, based on two variables:
 
 ```{r}
-tb_us %>% filter(year == 2012) %>% select(sex, age, count)
+tb_us %>% filter(year == 2012) %>% dplyr::select(sex, age, count)
 ```
 
 - In arrangement A, separate plots are made for age, and sex is mapped to the x axis. 

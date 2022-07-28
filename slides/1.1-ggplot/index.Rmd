@@ -112,13 +112,13 @@ Current tuberculosis data from [WHO](http://www.who.int/tb/country/data/download
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>% 
-  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  gather(stuff, count, new_sp_m04:new_sp_fu) %>%
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
+  pivot_longer(new_sp_m04:new_sp_fu, names_to="stuff", values_to="count") %>%
   separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
-  select(-stuff1, -stuff2) %>%
+  dplyr::select(-stuff1, -stuff2) %>%
   mutate(sex=substr(sexage, 1, 1), 
          age=substr(sexage, 2, length(sexage))) %>%
-  select(-sexage)
+  dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
 tb_us <- tb %>% 
