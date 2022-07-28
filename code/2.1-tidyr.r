@@ -82,7 +82,10 @@ dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
 
 
 ## ----gather the example data into long form--------------------------------------------------------------
+# wide format
 dframe
+
+# long format
 dframe %>% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 
 
@@ -97,20 +100,27 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
   select(country, iso3, year, starts_with("new_sp_")) %>%
   pivot_longer(starts_with("new_sp_")) 
+
 tb1 %>% na.omit() %>% head()
 
 
 ## ----extract variable names from original column names---------------------------------------------------
 tb2 <- tb1 %>% 
   separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
+
+
 tb2 %>% na.omit() %>% head()
 
 
 ## ----continue extracting variable names------------------------------------------------------------------
-tb3 <- tb2 %>% select(-starts_with("foo")) %>%
-  mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
+tb3 <- tb2 %>% select(-starts_with("foo")) %>% # remove the `foo` variables
+  mutate(
+    sex = substr(sexage, 1, 1),                # extract the first character 
+    age = substr(sexage, 2, length(sexage))    # get all but first character
+  ) %>%
   select(-sexage)
+
+
 tb3 %>% na.omit() %>% head()
 
 

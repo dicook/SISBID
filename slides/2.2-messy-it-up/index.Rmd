@@ -55,7 +55,10 @@ class: middle, center, inverse
 
 <h1>What would we like to find out about the french fries data set?</h1>
 
-Go to menti.com at 7692 1506 and let us know!
+Go to menti.com at 2929 5844 and let us know!
+
+<img src="images/mentimeter_qr_code.png" width = 200>
+
 
 ---
 # What would we like to know?
@@ -74,6 +77,8 @@ Each of these questions involves different summaries of the data.
 ```{r put french fries in long form}
 ff_long <- french_fries %>% 
   pivot_longer(potato:painty, names_to = "type", values_to = "rating")
+
+
 head(ff_long)
 ```
 
@@ -121,7 +126,7 @@ head(french_fries_weeks)
 and fills values in from the variable in `values_from`
 
 
-RStudio cheatsheet: https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf
+RStudio cheatsheet: https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf
 
 ---
 # Comparing ratings from different weeks

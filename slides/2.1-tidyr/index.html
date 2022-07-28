@@ -40,7 +40,7 @@ class: center, middle, inverse, title-slide
 
 - `x %&gt;% f(y)` is the same as `f(x, y)`
 - read as `then` 
-- part of `dplyr` package
+- part of `dplyr` package (or more precisely, the `magrittr` package)
 - pipes allow the code to be *read* like a sequence of operations
 
 Example:
@@ -219,6 +219,9 @@ background-position: 50% 5%
 
 
 ---
+
+![](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_3.jpg)
+---
 # Tidy verbs
 
 - `pivot_longer`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting or gathering)
@@ -228,7 +231,10 @@ background-position: 50% 5%
 
 ---
 # Pivot to long form
-  
+
+
+.pull-left[
+
 `pivot_longer(data, cols, names_to = "name", values_to = "value", ...)`
 
 `data %&gt;% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
@@ -236,6 +242,22 @@ background-position: 50% 5%
 - `pivot_longer` turns a wide format into a long format
 - two new variables are introduced (in key-value format): **name** and **value**
 - `col` defines which variables should be combined
+
+The animation on the right is from Garrick Aden-Buie's `tidyexplain` package.
+
+]
+
+--
+.pull-right[
+
+&lt;img src="https://github.com/gadenbuie/tidyexplain/raw/main/images/tidyr-pivoting.gif" width = 450&gt;
+]
+  
+
+
+---
+# Pivoting an example
+
 
 
 
@@ -256,7 +278,7 @@ background-position: 50% 5%
 ---
 # Variable Selectors
 
-`data %&gt;% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
+`data %&gt;% pivot_longer(cols, names_to = "key", values_to = "value", ...)`
 
 `cols` argument identifies variables that should be combined.
 
@@ -266,14 +288,16 @@ Pattern selectors:
 
 `starts_with(match, ignore.case = TRUE, vars = NULL)`
 
-`ends_with`, `contains`, `matches`
+other select functions: `ends_with`, `contains`, `matches`.
+
+For more details, see `?tidyselect::language`
 
 
 
 ---
 # TB notifications
   
-new notifications of TB have the form `new_sp_sexage`:
+new notifications of TB have the form `new_sp_&lt;sex&gt;&lt;age group&gt;`:
   
 
 ```
@@ -298,9 +322,12 @@ new notifications of TB have the form `new_sp_sexage`:
 
 
 ---
-# TB notifications (pivot_long)
+# TB notifications (pivot_longer)
   
-create two new variables: variable `name` (contains all variable names starting with `new_sp_`) and variable `value` with the values:
+create two new variables: 
+
+- variable `name` (contains all variable names starting with `new_sp_`) and 
+- variable `value` with the values:
   
 
 ```
@@ -399,7 +426,7 @@ Produce the data frame called `gtidy` as shown below:
 ```
 
 Break into zoom rooms, clock is ticking 😄
-<div class="countdown" id="timer_62e2208c" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62e237d9" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 

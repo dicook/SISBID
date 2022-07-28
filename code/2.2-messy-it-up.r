@@ -28,6 +28,8 @@ head(french_fries)
 ## ----put french fries in long form-----------------------------------------------------------------------
 ff_long <- french_fries %>% 
   pivot_longer(potato:painty, names_to = "type", values_to = "rating")
+
+
 head(ff_long)
 
 
