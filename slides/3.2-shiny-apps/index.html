@@ -21,6 +21,16 @@ class: center, middle, inverse, title-slide
 
 ---
 
+# Shiny Apps in R
+
+- `shiny` package developed and supported by RStudio (Winston Chang, Joe Cheng, JJ Allaire and others)
+- Resources for shiny: https://shiny.rstudio.com/: 
+    - [Gallery](https://shiny.rstudio.com/gallery/) of great examples,
+    - [Tutorials](https://shiny.rstudio.com/tutorial/) at different levels
+
+
+
+--
 
 
 
@@ -35,7 +45,7 @@ class: inverse middle
 # Create your first app
 
 - In RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
-- The easiest start is the `One file`, which will put both server and ui functions in the same file, `app.R`
+- The easiest start is the `Single file`, which will put both server and ui functions in the same file, `app.R`
 
 ---
 # Two main parts
@@ -49,16 +59,61 @@ class: inverse middle
 # A Minimal Example
 
 
+```r
+library(shiny)
+
+ui &lt;- fluidPage(
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
 
 
 ---
 # A bit more fancy
 
 
+```r
+library(shiny)
+library(shinydashboard)
+
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
 ---
 # A bit more fancy
 
 
+```r
+library(shiny)
+library(shinydashboard)
+
+sidebar &lt;- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike")
+)
+
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
 ---
 
 # Shiny Inputs
@@ -80,22 +135,51 @@ Shiny has many different input options, see the [widget gallery](https://shiny.r
 class: inverse
 # Your Turn
 
-In the shiny app below add a list of your favorite states to the sidebar panel:
+In the shiny app below add a list of your favorite countries to the sidebar panel:
+
+
+```r
+library(shiny)
+library(shinydashboard)
+
+sidebar &lt;- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike")
+)
+
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  dashboardBody()
+)
+
+server &lt;- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
 
 
 
-
-<div class="countdown" id="timer_62e29681" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62e37430" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
 ---
 # Adding Output
 
-- Output typically goes into the body of an app
-- Output functions have the form
+- Output needs to be specified in two places: 
+  - in the `ui` function we need to set a placeholder to reserve space for the output
+  - in the `server` function, we need to create the output.
+
+
+1. `ui` functionality for output has typically the form
   `xxxOutput (outputID)`
-- Output can be in form of tables, plots, text, ...
+Output can be in form of tables, plots, text, ...
+
+2. `server` funtionality has typically the form
+  `renderXXX`, where `xxx` is a table, plot, text, etc.
+
+
 
 ---
 # Shiny Outputs
@@ -115,26 +199,47 @@ Shiny also has a variety of different output options:
 # Adding a plot 
 
 
+```r
+sidebar &lt;- dashboardSidebar(
+  textInput("name", "Enter your name:", value = "Heike"),
+  selectInput("country", "Pick your favorite country:", 
+              choices = c("Australia", "United States", "Germany"))
+)
 
+*body &lt;- dashboardBody(
+* plotOutput("scatter")
+*) 
 
+ui &lt;- dashboardPage(
+  dashboardHeader(),
+  sidebar = sidebar,
+  body = body,
+)
+
+server &lt;- function(input, output, session) {
+* output$scatter &lt;- renderPlot({
+*   mtcars %&gt;% ggplot(aes(x = disp, y = mpg)) +
+*     geom_point() +
+*     ggtitle(input$country)
+  })
+}
+
+shinyApp(ui, server)
+```
 
 ---
 class: inverse middle 
 # Your turn
 
 - Add an interactive plot of the TB data into your app.
-- Change the select box, so that the user can choose a country to display. Think of `unique(tb$country)` for defining the choices
+- Change the select box, so that the user can choose any country. Think of `unique(tb$country)` for defining the choices
 
-<div class="countdown" id="timer_62e296ce" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62e37549" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
 
 
----
-# Output in an app
-
-![](output.png)
 
 ---
 # Deploy an app
