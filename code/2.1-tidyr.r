@@ -24,7 +24,7 @@ tb %>%                                  # first we get the tb data
   group_by(country) %>%                 # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
-    ) %>% 
+    ) %>%
   arrange(desc(cases))                  # then we sort countries to show highest number new cases first
 
 
@@ -47,7 +47,7 @@ the experimental design is coded into the variable names, genotype:WI/WM, time:6
 
 
 ## ----example 3 what are the variables and records, echo=FALSE--------------------------------------------
-melbtemp <- read.fwf(here::here("data/ASN00086282.dly"), 
+melbtemp <- read.fwf(here::here("data/ASN00086282.dly"),
    c(11, 4, 2, 4, rep(c(5, 1, 1, 1), 31)), fill=T)
 head(melbtemp[,c(1,2,3,4,seq(5,100,4))])
 
@@ -90,23 +90,23 @@ dframe %>% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 
 
 ## ----read in and process the TB data---------------------------------------------------------------------
-read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
   dplyr::select(country, iso3, year, starts_with("new_sp_")) %>%
   na.omit() %>%
   head()
 
 
 ## ----turn TB data into long form-------------------------------------------------------------------------
-tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
   dplyr::select(country, iso3, year, starts_with("new_sp_")) %>%
-  pivot_longer(starts_with("new_sp_")) 
+  pivot_longer(starts_with("new_sp_"))
 
 tb1 %>% na.omit() %>% head()
 
 
 ## ----extract variable names from original column names---------------------------------------------------
-tb2 <- tb1 %>% 
-  separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
+tb2 <- tb1 %>%
+  separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage"))
 
 
 tb2 %>% na.omit() %>% head()
@@ -115,7 +115,7 @@ tb2 %>% na.omit() %>% head()
 ## ----continue extracting variable names------------------------------------------------------------------
 tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) %>% # remove the `foo` variables
   mutate(
-    sex = substr(sexage, 1, 1),                # extract the first character 
+    sex = substr(sexage, 1, 1),                # extract the first character
     age = substr(sexage, 2, length(sexage))    # get all but first character
   ) %>%
   dplyr::select(-sexage)
@@ -128,6 +128,16 @@ tb3 %>% na.omit() %>% head()
 genes <- read_csv(here::here("data/genes.csv"))
 
 names(genes)
+
+gtidy <- genes %>%
+  pivot_longer(-id) %>%
+  separate(name, into=c("trt", "time", "rep")) %>%
+  mutate(
+    trt = gsub("W", "", trt),
+    time = as.numeric(time),
+    rep = parse_number(rep)
+  )
+
 
 
 ## ----code solution to genes wrangling, echo=FALSE--------------------------------------------------------
@@ -144,10 +154,10 @@ head(gtidy)
 
 
 ## ----compute group means, fig.show='hide'----------------------------------------------------------------
-gmean <- gtidy %>% 
-  group_by(id, trt, time) %>% 
+gmean <- gtidy %>%
+  group_by(id, trt, time) %>%
   summarise(expr = mean(expr))
-gtidy %>% 
+gtidy %>%
   ggplot(aes(x = trt, y = expr, colour=time)) +
   geom_point() +
   geom_line(data = gmean, aes(group = time)) +
@@ -156,7 +166,7 @@ gtidy %>%
 
 
 ## ----plot the genes data overlais with group means, echo=FALSE, fig.width=5, fig.height = 5--------------
-gtidy %>% 
+gtidy %>%
   ggplot(aes(x = trt, y = expr, colour=time)) +
   geom_point() +
   geom_line(data = gmean, aes(group = time)) +
