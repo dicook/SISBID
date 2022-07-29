@@ -47,7 +47,7 @@ library(broom)
 
 - `x %>% f(y)` is the same as `f(x, y)`
 - read as `then` 
-- part of `dplyr` package
+- part of `dplyr` package (or more precisely, the `magrittr` package)
 - pipes allow the code to be *read* like a sequence of operations
 
 Example:
@@ -199,6 +199,9 @@ background-position: 50% 5%
 
 
 ---
+
+![](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_3.jpg)
+---
 # Tidy verbs
 
 - `pivot_longer`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting or gathering)
@@ -208,7 +211,10 @@ background-position: 50% 5%
 
 ---
 # Pivot to long form
-  
+
+
+.pull-left[
+
 `pivot_longer(data, cols, names_to = "name", values_to = "value", ...)`
 
 `data %>% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
@@ -217,19 +223,38 @@ background-position: 50% 5%
 - two new variables are introduced (in key-value format): **name** and **value**
 - `col` defines which variables should be combined
 
+The animation on the right is from Garrick Aden-Buie's `tidyexplain` package.
+
+]
+
+--
+.pull-right[
+
+<img src="https://github.com/gadenbuie/tidyexplain/raw/main/images/tidyr-pivoting.gif" width = 450>
+]
+  
+
+
+---
+# Pivoting an example
+
 ```{r setup a simple example, echo = FALSE}
 dframe <- data.frame(id = 1:2, trtA=c(2.5,4.6), trtB = c(45, 35))
 ```
 
+
 ```{r gather the example data into long form}
+# wide format
 dframe
+
+# long format
 dframe %>% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 ```
 
 ---
 # Variable Selectors
 
-`data %>% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
+`data %>% pivot_longer(cols, names_to = "key", values_to = "value", ...)`
 
 `cols` argument identifies variables that should be combined.
 
@@ -239,18 +264,20 @@ Pattern selectors:
 
 `starts_with(match, ignore.case = TRUE, vars = NULL)`
 
-`ends_with`, `contains`, `matches`
+other select functions: `ends_with`, `contains`, `matches`.
+
+For more details, see `?tidyselect::language`
 
 
 
 ---
 # TB notifications
   
-new notifications of TB have the form `new_sp_sexage`:
+new notifications of TB have the form `new_sp_<sex><age group>`:
   
 ```{r read in and process the TB data}
 read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, starts_with("new_sp_")) %>%
+  dplyr::select(country, iso3, year, starts_with("new_sp_")) %>%
   na.omit() %>%
   head()
 ```
@@ -260,14 +287,18 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
 
 
 ---
-# TB notifications (pivot_long)
+# TB notifications (pivot_longer)
   
-create two new variables: variable `name` (contains all variable names starting with `new_sp_`) and variable `value` with the values:
+create two new variables: 
+
+- variable `name` (contains all variable names starting with `new_sp_`) and 
+- variable `value` with the values:
   
 ```{r turn TB data into long form}
 tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, starts_with("new_sp_")) %>%
+  dplyr::select(country, iso3, year, starts_with("new_sp_")) %>%
   pivot_longer(starts_with("new_sp_")) 
+
 tb1 %>% na.omit() %>% head()
 ```
 
@@ -293,6 +324,8 @@ Work on `name`:
 ```{r extract variable names from original column names}
 tb2 <- tb1 %>% 
   separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
+
+
 tb2 %>% na.omit() %>% head()
 ```
 
@@ -304,10 +337,14 @@ Now split `sexage` into first character (m/f) and rest.
 `substr` allows to extract sub strings from a character vector (see `?substr`):
   
 ```{r continue extracting variable names}
-tb3 <- tb2 %>% select(-starts_with("foo")) %>%
-  mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
-  select(-sexage)
+tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) %>% # remove the `foo` variables
+  mutate(
+    sex = substr(sexage, 1, 1),                # extract the first character 
+    age = substr(sexage, 2, length(sexage))    # get all but first character
+  ) %>%
+  dplyr::select(-sexage)
+
+
 tb3 %>% na.omit() %>% head()
 ```
 

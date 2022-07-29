@@ -14,18 +14,10 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-.title[
 # Tidying your data
-]
-.subtitle[
 ## SISBID 2022 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
-]
-.author[
 ### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
-]
-.date[
 ### 07/27-29/2022
-]
 
 ---
 
@@ -48,7 +40,7 @@ class: center, middle, inverse, title-slide
 
 - `x %&gt;% f(y)` is the same as `f(x, y)`
 - read as `then` 
-- part of `dplyr` package
+- part of `dplyr` package (or more precisely, the `magrittr` package)
 - pipes allow the code to be *read* like a sequence of operations
 
 Example:
@@ -113,14 +105,14 @@ What's in the column names of this data? What are the experimental units? What a
 
 ```
 # A tibble: 3 × 12
-  id     WI-6.…¹ WI-6.…² WI-6.…³ WM-6.…⁴ WM-6.…⁵ WI-12…⁶ WI-12…⁷ WI-12…⁸ WM-12…⁹
-  &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1 Gene 1    2.18   2.20     4.20   2.63     5.06    4.54    5.53    4.41    3.85
-2 Gene 2    1.46   0.585    1.86   0.515    2.88    1.36    2.96    1.31    1.18
-3 Gene 3    2.03   0.870    3.28   0.533    4.63    2.18    5.56    2.54    2.54
+  id     `WI-6.R1` `WI-6.R2` WI-6.R…¹ WM-6.…² WM-6.…³ WI-12…⁴ WI-12…⁵ WI-12…⁶ WM-12…⁷
+  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 Gene 1      2.18     2.20      4.20   2.63     5.06    4.54    5.53    4.41    3.85
+2 Gene 2      1.46     0.585     1.86   0.515    2.88    1.36    2.96    1.31    1.18
+3 Gene 3      2.03     0.870     3.28   0.533    4.63    2.18    5.56    2.54    2.54
 # … with 2 more variables: `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;, and abbreviated
-#   variable names ¹​`WI-6.R1`, ²​`WI-6.R2`, ³​`WI-6.R4`, ⁴​`WM-6.R1`, ⁵​`WM-6.R2`,
-#   ⁶​`WI-12.R1`, ⁷​`WI-12.R2`, ⁸​`WI-12.R4`, ⁹​`WM-12.R1`
+#   variable names ¹​`WI-6.R4`, ²​`WM-6.R1`, ³​`WM-6.R2`, ⁴​`WI-12.R1`, ⁵​`WI-12.R2`,
+#   ⁶​`WI-12.R4`, ⁷​`WM-12.R1`
 # ℹ Use `colnames()` to see all variable names
 ```
 
@@ -134,20 +126,20 @@ What are the variables? What are the records?
 
 
 ```
-           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49 V53
-1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112 126
-2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56  51
-3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0   5
-4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127 159
-5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33  67
-6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5   0
-  V57 V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
-1 112 115 133 134 126 104 143 141 134 117 142
-2  36  44  39  40  58  15  33  51  74  39  66
-3   0   0   0   0   0   8   0  18   0   0   0
-4 143 114  65 113 125 129 147 161 168 178 161
-5  84  11  41  18  50  22  28  74  94  73  88
-6   0  64   3  99  36   8   0   0   0   8  36
+           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49 V53 V57
+1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112 126 112
+2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56  51  36
+3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0   5   0
+4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127 159 143
+5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33  67  84
+6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5   0   0
+  V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
+1 115 133 134 126 104 143 141 134 117 142
+2  44  39  40  58  15  33  51  74  39  66
+3   0   0   0   0   8   0  18   0   0   0
+4 114  65 113 125 129 147 161 168 178 161
+5  11  41  18  50  22  28  74  94  73  88
+6  64   3  99  36   8   0   0   0   8  36
 ```
 
 
@@ -161,17 +153,16 @@ What are the variables? What are the experimental units?
 
 ```
 # A tibble: 6 × 22
-  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65   m_u
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205    NA
-2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198    NA
-3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656    NA
-4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199    NA
-5 ZW     2007     6   132   138    500   3693      0    716    292   153    NA
-6 ZW     2008    NA    NA   127    614      0   3316    704    263   185     0
-# … with 10 more variables: f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;,
-#   f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;,
-#   f_u &lt;dbl&gt;
+  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65   m_u  f_04
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205    NA    NA
+2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198    NA    NA
+3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656    NA    NA
+4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199    NA    NA
+5 ZW     2007     6   132   138    500   3693      0    716    292   153    NA     7
+6 ZW     2008    NA    NA   127    614      0   3316    704    263   185     0    NA
+# … with 9 more variables: f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;, f_2534 &lt;dbl&gt;,
+#   f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
 # ℹ Use `colnames()` to see all variable names
 ```
 
@@ -241,6 +232,9 @@ background-position: 50% 5%
 
 
 ---
+
+![](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_3.jpg)
+---
 # Tidy verbs
 
 - `pivot_longer`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting or gathering)
@@ -250,7 +244,10 @@ background-position: 50% 5%
 
 ---
 # Pivot to long form
-  
+
+
+.pull-left[
+
 `pivot_longer(data, cols, names_to = "name", values_to = "value", ...)`
 
 `data %&gt;% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
@@ -259,14 +256,33 @@ background-position: 50% 5%
 - two new variables are introduced (in key-value format): **name** and **value**
 - `col` defines which variables should be combined
 
+The animation on the right is from Garrick Aden-Buie's `tidyexplain` package.
+
+]
+
+--
+.pull-right[
+
+&lt;img src="https://github.com/gadenbuie/tidyexplain/raw/main/images/tidyr-pivoting.gif" width = 450&gt;
+]
+  
+
+
+---
+# Pivoting an example
+
+
 
 
 
 ```r
+# wide format
 dframe
   id trtA trtB
 1  1  2.5   45
 2  2  4.6   35
+
+# long format
 dframe %&gt;% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 # A tibble: 4 × 3
      id treatment outcome
@@ -280,7 +296,7 @@ dframe %&gt;% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 ---
 # Variable Selectors
 
-`data %&gt;% pivot_longer(cols, names_to = "name", values_to = "value", ...)`
+`data %&gt;% pivot_longer(cols, names_to = "key", values_to = "value", ...)`
 
 `cols` argument identifies variables that should be combined.
 
@@ -290,36 +306,38 @@ Pattern selectors:
 
 `starts_with(match, ignore.case = TRUE, vars = NULL)`
 
-`ends_with`, `contains`, `matches`
+other select functions: `ends_with`, `contains`, `matches`.
+
+For more details, see `?tidyselect::language`
 
 
 
 ---
 # TB notifications
   
-new notifications of TB have the form `new_sp_sexage`:
+new notifications of TB have the form `new_sp_&lt;sex&gt;&lt;age group&gt;`:
   
 
 ```r
 read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
-  select(country, iso3, year, starts_with("new_sp_")) %&gt;%
+  dplyr::select(country, iso3, year, starts_with("new_sp_")) %&gt;%
   na.omit() %&gt;%
   head()
 # A tibble: 6 × 23
-  country    iso3   year new_s…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶ new_s…⁷
-  &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1 Afghanist… AFG    2010       4     193     197     986     819     491     490
-2 Afghanist… AFG    2012       0     188     188    1116     801     586     521
-3 Albania    ALB    2005       0       0       0      26      21      16      31
-4 Albania    ALB    2006       1       4       5      24      19      22      21
-5 Albania    ALB    2007       0       0       0      19      13      16      24
-6 Albania    ALB    2009       0       0       0      22      21      12      24
-# … with 13 more variables: new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;,
-#   new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;,
-#   new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;, new_sp_f3544 &lt;dbl&gt;,
-#   new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;,
-#   and abbreviated variable names ¹​new_sp_m04, ²​new_sp_m514, ³​new_sp_m014,
-#   ⁴​new_sp_m1524, ⁵​new_sp_m2534, ⁶​new_sp_m3544, ⁷​new_sp_m4554
+  country iso3   year new_s…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶ new_s…⁷ new_s…⁸
+  &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 Afghan… AFG    2010       4     193     197     986     819     491     490     641
+2 Afghan… AFG    2012       0     188     188    1116     801     586     521     585
+3 Albania ALB    2005       0       0       0      26      21      16      31      20
+4 Albania ALB    2006       1       4       5      24      19      22      21      19
+5 Albania ALB    2007       0       0       0      19      13      16      24      16
+6 Albania ALB    2009       0       0       0      22      21      12      24      15
+# … with 12 more variables: new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;,
+#   new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,
+#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;,
+#   new_sp_fu &lt;dbl&gt;, and abbreviated variable names ¹​new_sp_m04, ²​new_sp_m514,
+#   ³​new_sp_m014, ⁴​new_sp_m1524, ⁵​new_sp_m2534, ⁶​new_sp_m3544, ⁷​new_sp_m4554,
+#   ⁸​new_sp_m5564
 # ℹ Use `colnames()` to see all variable names
 ```
 
@@ -328,15 +346,19 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;%
 
 
 ---
-# TB notifications (pivot_long)
+# TB notifications (pivot_longer)
   
-create two new variables: variable `name` (contains all variable names starting with `new_sp_`) and variable `value` with the values:
+create two new variables: 
+
+- variable `name` (contains all variable names starting with `new_sp_`) and 
+- variable `value` with the values:
   
 
 ```r
 tb1 &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
-  select(country, iso3, year, starts_with("new_sp_")) %&gt;%
+  dplyr::select(country, iso3, year, starts_with("new_sp_")) %&gt;%
   pivot_longer(starts_with("new_sp_")) 
+
 tb1 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 × 5
   country     iso3   year name         value
@@ -372,6 +394,8 @@ Work on `name`:
 ```r
 tb2 &lt;- tb1 %&gt;% 
   separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
+
+
 tb2 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 × 7
   country     iso3   year foo_new foo_sp sexage value
@@ -393,10 +417,14 @@ Now split `sexage` into first character (m/f) and rest.
   
 
 ```r
-tb3 &lt;- tb2 %&gt;% select(-starts_with("foo")) %&gt;%
-  mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %&gt;%
-  select(-sexage)
+tb3 &lt;- tb2 %&gt;% dplyr::select(-starts_with("foo")) %&gt;% # remove the `foo` variables
+  mutate(
+    sex = substr(sexage, 1, 1),                # extract the first character 
+    age = substr(sexage, 2, length(sexage))    # get all but first character
+  ) %&gt;%
+  dplyr::select(-sexage)
+
+
 tb3 %&gt;% na.omit() %&gt;% head()
 # A tibble: 6 × 6
   country     iso3   year value sex   age  
@@ -422,8 +450,8 @@ Read the genes data from folder `data`. Column names contain data and are kind o
 genes &lt;- read_csv(here::here("data/genes.csv"))
 
 names(genes)
- [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2" 
- [7] "WI-12.R1" "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
+ [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2"  "WI-12.R1"
+ [8] "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
 ```
 
 Produce the data frame called `gtidy` as shown below:
@@ -445,7 +473,7 @@ head(gtidy)
 ```
 
 Break into zoom rooms, clock is ticking 😄
-<div class="countdown" id="timer_62dbd464" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62e3780a" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -530,19 +558,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
