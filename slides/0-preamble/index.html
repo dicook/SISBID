@@ -70,7 +70,7 @@ Introduce yourself to the people around you. Find out a little about them: where
 
 .large[.yellow[You've got 5 minutes - timer is running!]]
 
-<div class="countdown" id="timer_62e296f5" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_62e37999" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -136,15 +136,27 @@ The three main locations that we will draw packages from are CRAN, Bioconductor 
 From CRAN
 
 
+```r
+install.packages("ggenealogy")
+```
 
 
 From bioconductor
 
 
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("bigPint")
+```
 
 From github repos
 
 
+```r
+remotes::install_github("heike/vinference")
+```
 
 ---
 # List of packages
@@ -152,6 +164,19 @@ From github repos
 Do you have these packages installed?
 
 
+```r
+# CRAN packages
+packages &lt;- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", 
+              "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
+              "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
+              "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
+              "naniar", "htmltools", "mapproj", "leaflet", "broom.mixed", "lme4")
+
+install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
+
+# github packages
+remotes::install_github("wmurphyrd/fiftystater")
+```
 
 ---
 # Resources
