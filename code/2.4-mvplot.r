@@ -1,6 +1,6 @@
 ## ----echo = FALSE-----------------------------------------
 knitr::opts_chunk$set(
-  echo=TRUE, 
+  echo=TRUE,
   message = FALSE,
   warning = FALSE,
   error = FALSE,
@@ -32,7 +32,7 @@ countdown::countdown(1,0)
 
 ## ----scatterplot matrix, fig.show='hide'------------------
 # Make a simple scatterplot matrix of the new penguins data
-penguins <- penguins %>% filter(!is.na(bill_length_mm)) 
+penguins <- penguins %>% filter(!is.na(bill_length_mm))
 ggpairs(penguins, columns=c(3:6))
 
 
@@ -41,7 +41,7 @@ ggpairs(penguins, columns=c(3:6))
 
 ## ----scatterplot matrix with colour, echo=TRUE, fig.show='hide'----
 # Re-make mapping colour to species (class)
-ggpairs(penguins, columns=c(3:6), 
+ggpairs(penguins, columns=c(3:6),
         ggplot2::aes(colour=species))
 
 
@@ -50,7 +50,7 @@ ggpairs(penguins, columns=c(3:6),
 
 ## ----correlation heatmap, echo=TRUE, fig.show='hide'------
 # Look at one species only
-adelie <- penguins %>% 
+adelie <- penguins %>%
   filter(species == "Adelie") %>%
   select(bill_length_mm:body_mass_g)
 ggcorr(adelie)
@@ -62,7 +62,7 @@ ggcorr(adelie)
 ## ----corrgram, echo=TRUE, fig.show='hide'-----------------
 # install.packages("corrgram")
 library(corrgram)
-corrgram(adelie, 
+corrgram(adelie,
   lower.panel=corrgram::panel.ellipse)
 
 
@@ -73,20 +73,20 @@ corrgram(adelie,
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
 australia_PISA2012 <- australia_PISA2012 %>%
-  mutate(desk = factor(desk), 
+  mutate(desk = factor(desk),
          room = factor(room),
-         study = factor(study), 
+         study = factor(study),
          computer = factor(computer),
-         software = factor(software), 
+         software = factor(software),
          internet = factor(internet),
-         literature = factor(literature), 
+         literature = factor(literature),
          poetry= factor(poetry),
-         art = factor(art), 
+         art = factor(art),
          textbook = factor(textbook),
          dictionary = factor(dictionary),
          dishwasher = factor(dishwasher))
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 %>%
+  filter(!is.na(dishwasher)) %>%
   ggpairs(columns=c(3, 15, 16, 21, 26))
 
 
@@ -95,34 +95,34 @@ australia_PISA2012 %>%
 
 ## ----generalised pairs plot enhance plots, echo=TRUE, fig.width=6, fig.height=6----
 # Modify the defaults, set the transparency of points since there is a lot of data
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
-  ggpairs(columns=c(3, 15, 16, 21, 26), 
+australia_PISA2012 %>%
+  filter(!is.na(dishwasher)) %>%
+  ggpairs(columns=c(3, 15, 16, 21, 26),
           lower = list(continuous = wrap("points", alpha=0.05)))
 
 
 ## ----design own plot function-----------------------------
 # Make a special style of plot to put in the matrix
 my_fn <- function(data, mapping, method="loess", ...){
-      p <- ggplot(data = data, mapping = mapping) + 
-      geom_point(alpha=0.2, size=1) + 
+      p <- ggplot(data = data, mapping = mapping) +
+      geom_point(alpha=0.2, size=1) +
       geom_smooth(method="lm", ...)
       p
 }
 
 
 ## ----generalised pairs plot enhance more, echo=TRUE, fig.show='hide'----
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
-  ggpairs(columns=c(3, 15, 16, 21, 26), 
+australia_PISA2012 %>%
+  filter(!is.na(dishwasher)) %>%
+  ggpairs(columns=c(3, 15, 16, 21, 26),
           lower = list(continuous = my_fn))
 
 
 
 ## ----ref.label='generalised pairs plot enhance more', echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"----
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
-  ggpairs(columns=c(3, 15, 16, 21, 26), 
+australia_PISA2012 %>%
+  filter(!is.na(dishwasher)) %>%
+  ggpairs(columns=c(3, 15, 16, 21, 26),
           lower = list(continuous = my_fn))
 
 
@@ -132,11 +132,13 @@ countdown::countdown(8,0)
 
 
 ## ----echo=FALSE, eval=FALSE-------------------------------
-## australia_PISA2012 %>%
-##   filter(!is.na(dishwasher)) %>%
-##   ggpairs(columns=c(3, 15, 16, 21, 26),
-##           lower = list(combo = "box_no_facet"),
-##           upper = list(continuous = "density"))
+australia_PISA2012 %>%
+   filter(!is.na(dishwasher)) %>%
+   mutate(dishwasher = factor(dishwasher)) %>%
+   ggpairs(columns=c(3, 15, 16, 21, 26),
+           lower = list(combo = "box_no_facet"),
+           upper = list(continuous = "density",
+                        combo = "facet_density"))
 
 
 ## ----wrangle housing data---------------------------------
@@ -146,16 +148,16 @@ housing <- read_csv(here::here("data/housing.csv")) %>%
   filter(year == 2016) %>%
   filter(!is.na(bedroom2), !is.na(price)) %>%
   filter(bedroom2 < 7, bathroom < 5) %>%
-  mutate(bedroom2 = factor(bedroom2), 
-         bathroom = factor(bathroom)) 
+  mutate(bedroom2 = factor(bedroom2),
+         bathroom = factor(bathroom))
 
 
 ## ----make a regression style pairs plot, out.width="100%", fig.width=8, fig.height=3----
-ggduo(housing[, c(4,3,8,10,11)], 
-      columnsX = 2:5, columnsY = 1, 
-      aes(colour=type, fill=type), 
-      types = list(continuous = 
-                     wrap("smooth", 
+ggduo(housing[, c(4,3,8,10,11)],
+      columnsX = 2:5, columnsY = 1,
+      aes(colour=type, fill=type),
+      types = list(continuous =
+                     wrap("smooth",
                        alpha = 0.10)))
 
 
@@ -169,9 +171,9 @@ ggduo(housing[, c(4,3,8,10,11)],
 library(bigPint) # BiocManager::install("bigPint")
 data(soybean_ir_sub)
 soybean_ir_sub[,-1] <- log(soybean_ir_sub[,-1]+1)
-ggplot(soybean_ir_sub, 
-       aes(x=N.1, y=P.1)) + 
-  geom_point() + 
+ggplot(soybean_ir_sub,
+       aes(x=N.1, y=P.1)) +
+  geom_point() +
   theme(aspect.ratio=1)
 
 
@@ -180,8 +182,8 @@ ggplot(soybean_ir_sub,
 
 ## ----soybean_litre, fig.show='hide'-----------------------
 geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
-ret <- plotLitre(data = soybean_ir_sub, 
-                 geneList = geneList, 
+ret <- plotLitre(data = soybean_ir_sub,
+                 geneList = geneList,
                  pointColor = "deeppink")
 names(ret)
 ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
@@ -191,11 +193,11 @@ ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
 
 
 ## ----soybean_litre_sm, fig.show='hide'--------------------
-ret <- plotSM(soybean_cn_sub, 
-              soybean_cn_sub_metrics, 
-              option = "hexagon", 
-              xbins = 5, 
-              pointSize = 0.1, 
+ret <- plotSM(soybean_cn_sub,
+              soybean_cn_sub_metrics,
+              option = "hexagon",
+              xbins = 5,
+              pointSize = 0.1,
               saveFile = FALSE)
 ret[[2]]
 
@@ -204,9 +206,9 @@ ret[[2]]
 
 
 ## ----soybean_pcp, fig.show='hide'-------------------------
-ret <- plotPCP(data = soybean_ir_sub, 
-               geneList = geneList, 
-               lineSize = 0.3, 
+ret <- plotPCP(data = soybean_ir_sub,
+               geneList = geneList,
+               lineSize = 0.3,
                saveFile = FALSE)
 ret[[1]]
 

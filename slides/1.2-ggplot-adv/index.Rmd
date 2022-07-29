@@ -119,9 +119,11 @@ save(oz, file="data/oz.rda")
 ```{r load the saved map data, echo=TRUE}
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
-  geom_point(data=platydata, aes(x=longitude, y=latitude), 
+  geom_point(data=platydata, 
+             aes(x=longitude, y=latitude), 
               alpha=0.1, colour="orange")
 ```
+
 ---
 
 ```{r leaflet map, echo=TRUE}
@@ -135,9 +137,8 @@ platydata %>%
     lat = ~latitude, lng = ~longitude) 
 ```
 
-
-
 ---
+
 # Temporal trend
 
 The date of the sighting is another variable in the data set. Let's make a plot of the sightings over time. The variable is called `eventDate`. It is considered to be a `character` variable by R, so the first step is to get R to recognise that it is a date time object.

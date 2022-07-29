@@ -3,7 +3,7 @@ knitr::opts_chunk$set(
   echo=FALSE,
   message = FALSE,
   warning = FALSE,
-  error = FALSE, 
+  error = FALSE,
   collapse = TRUE,
   comment = "",
   fig.height = 6,
@@ -23,16 +23,16 @@ library(here)
 
 
 ## ----read TB data and wrangle and subset to USA-------------------------
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
   mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
-  mutate(sex=substr(sexage, 1, 1), 
+  mutate(sex=substr(sexage, 1, 1),
          age=substr(sexage, 2, length(sexage))) %>%
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb %>% 
+tb_us <- tb %>%
   filter(country == "United States of America") %>%
   filter(!(age %in% c("04", "014", "514", "u"))) %>%
   filter(year > 1996, year < 2013)
@@ -45,7 +45,7 @@ tb_us %>% filter(year == 2012) %>% select(sex, age, count)
 ## ----focus on one year gender side-by-side bars of males/females, fig.height=3----
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=sex, y=count, fill=sex)) +
-  geom_bar(stat="identity", position="dodge") + 
+  geom_bar(stat="identity", position="dodge") +
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Arrangement A")
@@ -54,7 +54,7 @@ tb_us %>% filter(year == 2012) %>%
 ## ----focus on one year age side-by-side bars of age group, fig.height=3----
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=age, y=count, fill=age)) +
-  geom_bar(stat="identity", position="dodge") + 
+  geom_bar(stat="identity", position="dodge") +
   facet_wrap(~sex, ncol=6) +
   scale_fill_brewer("", palette="Dark2") +
   ggtitle("Arrangement B")
@@ -86,7 +86,7 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
 ## ----colour and axes fixes, fig.height=3--------------------------------
 # This uses a color blind proof scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
-  geom_bar(stat="identity") + 
+  geom_bar(stat="identity") +
   facet_wrap(~age, ncol=6) +
   scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Type B")
@@ -111,7 +111,7 @@ countdown::countdown(1, 5, top=100, right=0)
 
 
 ## ----use a line plot for proportions, fig.height=3----------------------
-tb_us %>% group_by(year, age) %>% 
+tb_us %>% group_by(year, age) %>%
   summarise(p = count[sex=="m"]/sum(count)) %>%
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="white", size=2) +
@@ -124,7 +124,7 @@ tb_us %>% group_by(year, age) %>%
 ## ----compare proportions of males/females, fig.height=4-----------------
 # Fill the bars, note the small change to the code
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
-  geom_bar(stat="identity", position="fill") + 
+  geom_bar(stat="identity", position="fill") +
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + ylab("proportion") +
   ggtitle("Type B") + theme(legend.position = "bottom")
@@ -202,15 +202,15 @@ p2
 ## ----is shape preattentive, echo=FALSE----------------------------------
 set.seed(20190715)
 df <- data.frame(x=runif(100), y=runif(100), cl=sample(c(rep("A", 1), rep("B", 99))))
-ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() + 
+ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() +
   geom_point(size=3) +
   theme(legend.position="None", aspect.ratio=1)
 
 
 ## ----is color preattentive, echo=FALSE----------------------------------
-ggplot(data=df, aes(x, y, colour=cl)) + 
+ggplot(data=df, aes(x, y, colour=cl)) +
   geom_point(size=3) +
-  theme_bw() + 
+  theme_bw() +
   scale_colour_brewer(palette="Set1") +
   theme(legend.position="None", aspect.ratio=1)
 
@@ -236,7 +236,7 @@ ggplot(tb_us, aes(x=year, y=count, colour=age)) +
 ## ----side-by-side bars of males/females, fig.height=3-------------------
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=sex, y=count, fill=sex)) +
-  geom_bar(stat="identity", position="dodge") + 
+  geom_bar(stat="identity", position="dodge") +
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5"))  +
   ggtitle("Position - common scale ")
@@ -245,17 +245,20 @@ tb_us %>% filter(year == 2012) %>%
 ## ----piecharts of males/females, fig.height=3---------------------------
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=1, y=count, fill=sex)) +
-  geom_bar(stat="identity", position="fill") + 
+  geom_bar(stat="identity", position="fill") +
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ggtitle("Angle") + xlab("") + ylab("") +
-  coord_polar(theta = "y")
+  coord_polar(theta = "y") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  scale_y_continuous(labels = NULL)
 
 
 ## ----side-by-side bars of age, fig.height=3-----------------------------
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=age, y=count, fill=age)) +
-  geom_bar(stat="identity", position="dodge") + 
+  geom_bar(stat="identity", position="dodge") +
   facet_wrap(~sex, ncol=6) +
   scale_fill_brewer("", palette="Dark2") +
   ggtitle("Position - common scale ")
@@ -264,11 +267,14 @@ tb_us %>% filter(year == 2012) %>%
 ## ----piecharts of age, fig.height=3-------------------------------------
 tb_us %>% filter(year == 2012) %>%
   ggplot(aes(x=1, y=count, fill=age)) +
-  geom_bar(stat="identity", position="fill") + 
+  geom_bar(stat="identity", position="fill") +
   facet_wrap(~sex, ncol=6) +
   scale_fill_brewer("", palette="Dark2") +
   ggtitle("Angle") + xlab("") + ylab("") +
-  coord_polar(theta = "y")
+  coord_polar(theta = "y") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  scale_y_continuous(labels = NULL)
 
 
 ## ----facetting plots can result in change blindness, echo=TRUE, out.width="50%", fig.width=6.5, fig.height=3.5----
@@ -283,7 +289,7 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   geom_point() +
   geom_smooth(se=FALSE) +
-  scale_color_brewer(palette="Set1") 
+  scale_color_brewer(palette="Set1")
 
 
 ## -----------------------------------------------------------------------

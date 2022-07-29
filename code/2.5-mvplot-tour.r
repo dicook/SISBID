@@ -1,6 +1,6 @@
 ## ----echo = FALSE-----------------------------------------
 knitr::opts_chunk$set(
-  echo=TRUE, 
+  echo=TRUE,
   message = FALSE,
   warning = FALSE,
   error = FALSE,
@@ -27,32 +27,32 @@ library(ochRe)
 
 
 ## ----penguins, echo=TRUE, eval=FALSE, fig.show='hide'-----
-## ggplot(penguins,
-##    aes(x=flipper_length_mm,
-##        y=body_mass_g,
-##        colour=species,
-##        shape=species)) +
-##   geom_point(alpha=0.7,
-##              size=2) +
-##   scale_colour_ochre(
-##     palette="nolan_ned") +
-##   theme(aspect.ratio=1,
-##   legend.position="bottom")
+ggplot(penguins,
+    aes(x=flipper_length_mm,
+        y=body_mass_g,
+        colour=species,
+        shape=species)) +
+   geom_point(alpha=0.7,
+              size=2) +
+  scale_colour_ochre(
+     palette="nolan_ned") +
+   theme(aspect.ratio=1,
+   legend.position="bottom")
 
 
 ## ----ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"----
 
 
 ## ----echo=TRUE, eval=FALSE--------------------------------
-## clrs <- ochre_pal(
-##   palette="nolan_ned")(3)
-## col <- clrs[
-##   as.numeric(
-##     penguins$species)]
-## animate_xy(penguins[,3:6],
-##            col=col,
-##            axes="off",
-##            fps=15)
+clrs <- ochre_pal(
+  palette="nolan_ned")(3)
+ col <- clrs[
+   as.numeric(
+     penguins$species)]
+animate_xy(penguins[,3:6],
+           col=col,
+            axes="off",
+            fps=15)
 
 
 ## ----eval=FALSE, echo=FALSE-------------------------------
@@ -74,12 +74,12 @@ library(ochRe)
 ## # Generate a plotly animation to demonstrate
 ## library(plotly)
 ## library(htmltools)
-## 
+##
 ## # Standardise data
 ## scale2 <- function(x) {(x-mean(x))/sd(x)}
 ## penguins_s <- penguins %>%
 ##   mutate_if(is.numeric, scale2)
-## 
+##
 ## # Generate sequence of bases
 ## # set.seed(3)
 ## set.seed(4)
@@ -89,7 +89,7 @@ library(ochRe)
 ## bases[,,1] <- random_start # something needs fixing
 ## tour_path <- interpolate(bases, 0.1)
 ## d <- dim(tour_path)
-## 
+##
 ## # Make really big data of all projections
 ## penguins_d <- NULL; penguins_axes <- NULL
 ## for (i in 1:d[3]) {
@@ -106,7 +106,7 @@ library(ochRe)
 ## }
 ## colnames(penguins_d)[3] <- "indx"
 ## colnames(penguins_axes)[5] <- "indx"
-## 
+##
 ## df <- as_tibble(penguins_d) %>%
 ##   mutate(species = rep(penguins_s$species, d[3]))
 ## dfaxes <- as_tibble(penguins_axes) %>%
@@ -138,29 +138,29 @@ library(ochRe)
 
 
 ## ----runthis13, fig.width=4, fig.height=4, out.width="90%"----
-ggplot(penguins, 
-   aes(x=flipper_length_mm, 
+ggplot(penguins,
+   aes(x=flipper_length_mm,
        y=bill_depth_mm,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
+  geom_point(alpha=0.7,
              size=2) +
   scale_colour_ochre(
-    palette="nolan_ned") + 
+    palette="nolan_ned") +
   theme(aspect.ratio=1,
   legend.position="bottom")
 
 
 ## ----runthis14, fig.width=4, fig.height=4, out.width="90%"----
-ggplot(penguins, 
-   aes(x=bill_length_mm, 
+ggplot(penguins,
+   aes(x=bill_length_mm,
        y=body_mass_g,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
+  geom_point(alpha=0.7,
              size=2) +
   scale_colour_ochre(
-    palette="nolan_ned") + 
+    palette="nolan_ned") +
   theme(aspect.ratio=1,
   legend.position="bottom")
 
@@ -179,8 +179,8 @@ ggplot(penguins,
 
 
 ## ----runthis15, eval=FALSE, echo=FALSE--------------------
-## animate_xy(penguins[,3:6], grand_tour(),
-##            axes = "bottomleft", col=col)
+animate_xy(penguins[,3:6], grand_tour(),
+           axes = "bottomleft", col=col)
 ## animate_xy(penguins[,3:6], guided_tour(lda_pp(penguins$species)),
 ##            axes = "bottomleft", col=col)
 ## best_proj <- matrix(c(0.940, 0.058, -0.253, 0.767,
