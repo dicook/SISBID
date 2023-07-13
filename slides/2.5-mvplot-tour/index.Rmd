@@ -38,7 +38,7 @@ library(GGally)
 library(tourr)
 library(plotly)
 library(palmerpenguins)
-# remotes::install_github("ropenscilabs/ochRe")
+# remotes::install_github("hollykirk/ochRe")
 library(ochRe)
 ```
 

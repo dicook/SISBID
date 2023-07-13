@@ -47,7 +47,7 @@ library(forecast)
 library(readxl)
 # remotes::install_github("wmurphyrd/fiftystater")
 library(fiftystater)
-# remotes::github_install("heike/vinference")
+# remotes::install_github("heike/vinference")
 library(vinference)
 ```
 

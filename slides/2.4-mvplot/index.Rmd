@@ -298,7 +298,10 @@ BiocManager::install("bigPint")
 Data on soybean experiment, with two treatments, and three replicates. Here's the scatterplot of the first replicate. 
 
 ```{r soybean_scat, fig.show='hide'}
-library(bigPint) # BiocManager::install("bigPint")
+# if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install("bigPint")
+library(bigPint) 
 data(soybean_ir_sub)
 soybean_ir_sub[,-1] <- log(soybean_ir_sub[,-1]+1)
 ggplot(soybean_ir_sub, 
