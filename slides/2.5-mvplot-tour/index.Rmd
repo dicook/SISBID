@@ -1,8 +1,8 @@
 ---
 title: "Touring multivariate data"
-subtitle: "SISBID 2022 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) "
-date: "07/27-29/2022"
+date: "07/26-28/2023"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
