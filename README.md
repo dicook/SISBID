@@ -1,6 +1,6 @@
 # SISBID 2023 Module 2: Visualization of Biomedical Big Data
 
-Instructors: Di Cook and Heike Hofmann
+Instructors: Di Cook, Heike Hofmann and Susan Vanderplas
 
 Website: [https://dicook.github.io/SISBID/](https://dicook.github.io/SISBID/)
 
@@ -60,7 +60,7 @@ Zoom etiquette:
 1. [Setting things up](https://dicook.github.io/SISBID/slides/0-preamble/index.html)
 1. [The grammar of graphics and ggplot2](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html) (Heike)
 1. [Advancing the grammar to maps, time and interactivity](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) (Di)
-1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Heike)
+1. [Visual perception and effective plot construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) (Susan)
 
 
 ### Thursday [zip file](SISBID_day2.zip)
@@ -83,13 +83,13 @@ Afternoon:
 Morning:
 
 1. [Interactive and animated graphics using plotly and gganimate](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html) (Heike).
-1. [How to build a shiny app](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html) (Heike).
-1. [Reactive elements in shiny](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html) (Heike).
+1. [How to build a shiny app](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html) (Susan).
+1. [Reactive elements in shiny](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html) (Susan).
 
 Afternoon:
 
-1. [Theme a shiny app](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/) (Di).
-1. [Build your own Shiny app](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/) (Di). 
+1. [Theme a shiny app](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/) (Susan).
+1. [Build your own Shiny app](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/) (Susan). 
 1. Show us what you've made and [additional interactivity options with Rmarkdown](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/) (Di & Heike)
 
 ## Software list
