@@ -37,8 +37,8 @@ p1 <- tb %>% filter(iso3 == "IND") %>%
   filter(!is.na(count)) %>%
   ggplot() + 
   geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
-  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
-  scale_colour_brewer(palette = "Dark2") 
+  geom_line(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer("", palette="Dark2") 
 ggplotly(p1)
 ```
 
@@ -49,8 +49,8 @@ p2 <- tb %>% filter(iso3 == "AUS") %>%
   filter(!is.na(count)) %>%
   ggplot() + 
   geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
-  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
-  scale_colour_brewer(palette = "Dark2") 
+  geom_line(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer("", palette="Dark2") 
 ggplotly(p2)
 ```
 
@@ -64,8 +64,8 @@ p3 <- tb %>% filter(iso3 == "TUR") %>%
   filter(!is.na(count)) %>%
   ggplot() + 
   geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
-  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
-  scale_colour_brewer(palette = "Dark2") 
+  geom_line(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer("", palette="Dark2") 
 ggplotly(p3)
 ```
 
@@ -76,8 +76,8 @@ p4 <- tb %>% filter(iso3 == "USA") %>%
   filter(!is.na(count)) %>%
   ggplot() + 
   geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
-  geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
-  scale_colour_brewer(palette = "Dark2") 
+  geom_line(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) + 
+  scale_colour_brewer("", palette="Dark2") 
 ggplotly(p4)
 ```
 
@@ -102,8 +102,13 @@ Column {data-width=700}
 ```{r fig.width=10, fig.height=6}
 p <- ggplot(tb_ind, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(sex~age, ncol=6) +
+  facet_grid(sex~age) +
   scale_fill_brewer("", palette="Dark2") +
+  scale_x_continuous("", breaks=c(2000, 2005, 2010), 
+                     labels=c("00", "05", "10")) +
+  scale_y_continuous("Count ('000)", 
+                     breaks=c(0, 25000, 50000, 75000),
+                     labels=c("0", "25", "50", "75")) +
   theme(legend.position="none")
-ggplotly(p)
+ggplotly(p, height=400, width=660)
 ```
