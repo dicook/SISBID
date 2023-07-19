@@ -34,11 +34,9 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(lubridate)
 library(GGally)
-# remotes::install_github("ggobi/tourr")
 library(tourr)
 library(broom)
 library(plotly)
-# remotes::install_github("allisonhorst/palmerpenguins")
 library(palmerpenguins)
 ```
 

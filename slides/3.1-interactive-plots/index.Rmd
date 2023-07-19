@@ -214,6 +214,7 @@ class: inverse middle
 
 ```{r, echo=FALSE, fig.width = 8, fig.height = 6}
 library(gapminder)
+library(gganimate)
 
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +

@@ -54,6 +54,13 @@ class: hide-count
 </center>
 
 ---
+class: hide-count
+
+<center>
+<img src="Hello-Susan.png" width="80%" />
+</center>
+
+---
 # Talking to people in  the class
 
 We will be using breakout rooms throughout the class
@@ -168,20 +175,23 @@ remotes::install_github("heike/vinference")
 ---
 # List of packages
 
-Do you have these packages installed?
+Do you have these packages installed? (Note: this list is from the course website https://dicook.github.io/SISBID/)
 
 ```{r eval=FALSE}
 # CRAN packages
-packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", 
-              "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
-              "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
-              "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-              "naniar", "htmltools", "mapproj", "leaflet", "broom.mixed", "lme4")
+packages <- c("tidyverse", "ggmap", "here", "leaflet", "lubridate", "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", "ggmosaic", "gganimate", "remotes", "mapproj", "rsconnect")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
+# Bioconductor packages
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("bigPint")
+
 # github packages
 remotes::install_github("wmurphyrd/fiftystater")
+remotes::install_github("heike/vinference")
+remotes::install_github("hollykirk/ochRe")
 ```
 
 ---

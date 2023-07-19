@@ -50,6 +50,13 @@ class: hide-count
 &lt;/center&gt;
 
 ---
+class: hide-count
+
+&lt;center&gt;
+&lt;img src="Hello-Susan.png" width="80%" /&gt;
+&lt;/center&gt;
+
+---
 # Talking to people in  the class
 
 We will be using breakout rooms throughout the class
@@ -78,7 +85,7 @@ Introduce yourself to the people around you. Find out a little about them: where
 
 .large[.yellow[You've got 5 minutes - timer is running!]]
 
-<div class="countdown" id="timer_21db8af7" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_8b370c3d" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -170,21 +177,24 @@ remotes::install_github("heike/vinference")
 ---
 # List of packages
 
-Do you have these packages installed?
+Do you have these packages installed? (Note: this list is from the course website https://dicook.github.io/SISBID/)
 
 
 ```r
 # CRAN packages
-packages &lt;- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat", 
-              "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate", 
-              "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny", 
-              "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-              "naniar", "htmltools", "mapproj", "leaflet", "broom.mixed", "lme4")
+packages &lt;- c("tidyverse", "ggmap", "here", "leaflet", "lubridate", "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", "ggmosaic", "gganimate", "remotes", "mapproj", "rsconnect")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
+# Bioconductor packages
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("bigPint")
+
 # github packages
 remotes::install_github("wmurphyrd/fiftystater")
+remotes::install_github("heike/vinference")
+remotes::install_github("hollykirk/ochRe")
 ```
 
 ---
