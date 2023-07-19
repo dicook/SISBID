@@ -33,7 +33,7 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel = (
             selectInput("country", label="country",
-                        countries, selected = countries[3])
+                        countries, selected = "Australia")
             ),
 
         # Show a plot of the generated distribution
@@ -51,7 +51,7 @@ server <- function(input, output) {
             filter(!is.na(count)) %>%
             ggplot() +
             geom_point(aes(x=year, y=count, colour=sex, frame=age, label=iso3)) +
-            geom_smooth(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) +
+            geom_line(aes(x=year, y=count, colour=sex, frame=age),  se=FALSE) +
             scale_colour_brewer(palette = "Dark2")
         ggplotly(p)
         })
