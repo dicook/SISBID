@@ -100,7 +100,7 @@ Open RStudio, and run the code below to install these packages and their depende
 
 ```
 # CRAN packages
-packages <- c("tidyverse", "ggmap", "here", "leaflet", "lubridate", "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", "ggmosaic", "gganimate", "remotes", "mapproj", "rsconnect")
+packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "ggmap", "here", "leaflet", "lubridate", "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", "ggmosaic", "gganimate", "remotes", "mapproj", "rsconnect")
 
 # Install packages and their dependencies
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
@@ -114,9 +114,14 @@ remotes::install_github("hollykirk/ochRe")
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("bigPint")
+
+# For sharing web apps, 
+# but you need adminstrator rights to your computer:
+
+install.packages("rsconnect")
 ```
 
-**Note:** If you run into problems installing all of the packages at once, it can take some time, especially if you get an error on an install, try installing one at a time, or three or a few. For example, the `tidyverse` is a suite of packages, of which we primarily need `tidyr`, `dplyr`, `readr`, `ggplot2`, `tibble`, `purrr`, `forcats`, `stringr`. These can be installed individually, if you have problems with `install.packages("tidyverse")`. 
+**Note:** You can install all of the `tidyverse` of packages - `tidyr`, `dplyr`, `readr`, `ggplot2`, `tibble`, `purrr`, `forcats`, `stringr` - with `install.packages("tidyverse")`. But some operating systems seem to run into difficulties doing this, so installing just a subset is easier. 
 
 If you want to compile the slides - you really don't want to do this, but if you do - you will need these additional packages:
 

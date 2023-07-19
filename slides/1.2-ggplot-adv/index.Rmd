@@ -1,7 +1,7 @@
 ---
 title: "Advancing the Grammar of Graphics"
 subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) "
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
 date: "07/26-28/2023"
 output:
   xaringan::moon_reader:
@@ -34,7 +34,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r load libraries, echo=FALSE}
-library(tidyverse)
+#library(tidyverse)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(readr)
 library(ggmap)
 library(here)
 ```

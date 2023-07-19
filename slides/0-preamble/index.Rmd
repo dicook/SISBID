@@ -1,7 +1,7 @@
 ---
 title: "Preamble"
 subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu)"
 date: "07/26-28/2023"
 output:
   xaringan::moon_reader:
@@ -153,7 +153,7 @@ The three main locations that we will draw packages from are CRAN, Bioconductor 
 From CRAN
 
 ```{r eval=FALSE}
-install.packages("ggenealogy")
+install.packages("nullabor")
 ```
 
 
@@ -179,7 +179,12 @@ Do you have these packages installed? (Note: this list is from the course websit
 
 ```{r eval=FALSE}
 # CRAN packages
-packages <- c("tidyverse", "ggmap", "here", "leaflet", "lubridate", "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", "ggmosaic", "gganimate", "remotes", "mapproj", "rsconnect")
+packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "ggmap", "here", "leaflet", "lubridate", 
+              "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", 
+              "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", 
+              "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", 
+              "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", 
+              "ggmosaic", "gganimate", "remotes", "mapproj")
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
@@ -192,6 +197,11 @@ BiocManager::install("bigPint")
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
 remotes::install_github("hollykirk/ochRe")
+
+# For sharing web apps, 
+# but you need adminstrator rights to your computer:
+
+install.packages("rsconnect")
 ```
 
 ---

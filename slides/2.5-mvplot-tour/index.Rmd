@@ -1,7 +1,7 @@
 ---
 title: "Touring multivariate data"
 subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu, @visnut) <br> Heike Hofmann (heike.hofmann@gmail.com, @heike_hh) "
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
 date: "07/26-28/2023"
 output:
   xaringan::moon_reader:
@@ -31,14 +31,16 @@ knitr::opts_chunk$set(
 ```
 
 ```{r echo=FALSE}
-library(tidyverse)
+#library(tidyverse)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(readr)
 library(lubridate)
 library(GGally)
-# remotes::install_github("ggobi/tourr")
 library(tourr)
 library(plotly)
 library(palmerpenguins)
-# remotes::install_github("hollykirk/ochRe")
 library(ochRe)
 ```
 
