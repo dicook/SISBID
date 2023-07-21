@@ -196,7 +196,7 @@ BiocManager::install("bigPint")
 # github packages
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
-remotes::install_github("hollykirk/ochRe")
+remotes::install_github("hollylkirk/ochRe")
 
 # For sharing web apps, 
 # but you need adminstrator rights to your computer:

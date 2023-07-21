@@ -108,7 +108,7 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 # Install some packages from GitHub 
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
-remotes::install_github("hollykirk/ochRe")
+remotes::install_github("hollylkirk/ochRe")
 
 # Bioconductor packages
 if (!require("BiocManager", quietly = TRUE))
