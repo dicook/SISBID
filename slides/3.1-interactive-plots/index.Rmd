@@ -138,19 +138,29 @@ p <- ggpairs(economics[,3:6])
 ggplotly(p, width=450, height=450)
 ```
 ]
----
-# 
 
+---
+# Maps
+
+.pull-left[
 ```{r}
 data(canada.cities, package = "maps")
 viz <- ggplot(canada.cities, aes(long, lat)) +
   borders(regions = "canada") +
   coord_equal() +
   geom_point(aes(text = name, size = log2(pop)), colour = "red", alpha = 1/4)
- ggplotly(viz)
 ```
+]
 
-- Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
+.pull-right[
+```{r}
+viz
+#ggplotly(viz)
+```
+]
+
+Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
+
 
 ---
 # Modifying plotly 
@@ -180,7 +190,7 @@ highlight(gg)
 
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, out.width="70%", fig.height=10, fig.width=12}
 sd <- highlight_key(txhousing, ~year)
 
 p <- ggplot(sd, aes(month, median)) +
@@ -191,7 +201,8 @@ p <- ggplot(sd, aes(month, median)) +
 gg <- ggplotly(p, height = 600, width = 1000) %>%
    layout(title = "Click on a line to highlight a year")
 
-highlight(gg)
+p
+#highlight(gg)
 ```
 
 ---
@@ -202,7 +213,6 @@ class: inverse middle
 - the function `highlight` allows to make modifications in how highlighted values are presented in plotly. Read through the parameter details in `?highlight`. 
 - the parameter `dynamic` is set to `FALSE` by default. Turn it to `TRUE`. What is the effect? 
 
-`r countdown::countdown(7)`
 ---
 # Animations
 
@@ -413,8 +423,6 @@ The `datasaurus_dozen` data set is part of the R package `datasauRus`.
 - The function `transition_states` drives the animation. It has values 1 and 3. What do these values mean? 
 Read up on their meaning and change them.
 
-
-`r countdown::countdown(5)`
 ---
 # Controlling an animation
 
@@ -461,7 +469,6 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   theme(legend.position = "bottom")
 ```
 
-`r countdown::countdown(5)`
 ---
 # Resources
 
