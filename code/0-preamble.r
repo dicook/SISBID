@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ---- echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 
 
-## ----eval=FALSE, echo=FALSE--------------------------------------
+## ----eval=FALSE, echo=FALSE----------------------------------------------------------
 ## # THIS CODE IS NOT TO BE RUN
 ## # These packages are only used to make the slides prettier
 ## install.packages("remotes")
@@ -24,31 +24,44 @@ knitr::opts_chunk$set(
 ## remotes::install_github("gadenbuie/countdown")
 
 
-## ----eval=FALSE--------------------------------------------------
-## install.packages("ggenealogy")
+## ----eval=FALSE----------------------------------------------------------------------
+## install.packages("nullabor")
 
 
-## ----eval=FALSE--------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------
 ## if (!requireNamespace("BiocManager", quietly = TRUE))
 ##     install.packages("BiocManager")
 ## 
 ## BiocManager::install("bigPint")
 
 
-## ----eval=FALSE--------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------
 ## remotes::install_github("heike/vinference")
 
 
-## ----eval=FALSE--------------------------------------------------
+## ----eval=FALSE----------------------------------------------------------------------
 ## # CRAN packages
-## packages <- c("tidyverse", "ggmap", "RColorBrewer", "gridExtra", "dichromat",
-##               "janitor", "forcats", "ggthemes", "here", "wordcloud", "lubridate",
-##               "plotly", "broom", "GGally", "gapminder", "nullabor", "shiny",
-##               "ggenealogy", "ggmosaic", "HLMdiag",  "gganimate", "remotes",
-##               "naniar", "htmltools", "mapproj", "leaflet", "broom.mixed", "lme4")
+## packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "ggmap", "here", "leaflet", "lubridate",
+##               "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom",
+##               "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools",
+##               "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl",
+##               "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr",
+##               "ggmosaic", "gganimate", "remotes", "mapproj")
 ## 
 ## install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 ## 
+## # Bioconductor packages
+## if (!require("BiocManager", quietly = TRUE))
+##     install.packages("BiocManager")
+## BiocManager::install("bigPint")
+## 
 ## # github packages
 ## remotes::install_github("wmurphyrd/fiftystater")
+## remotes::install_github("heike/vinference")
+## remotes::install_github("hollylkirk/ochRe")
+## 
+## # For sharing web apps,
+## # but you need adminstrator rights to your computer:
+## 
+## install.packages("rsconnect")
 

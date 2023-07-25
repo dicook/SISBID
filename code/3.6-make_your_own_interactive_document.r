@@ -1,4 +1,4 @@
-## ----echo = FALSE------------------------------------------------
+## ----echo = FALSE--------------------------------------------------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -11,8 +11,9 @@ knitr::opts_chunk$set(
 )
 
 
-## ----load packages, echo=FALSE-----------------------------------
-library(tidyverse)
+## ----load packages, echo=FALSE-------------------------------------------------------
+#library(tidyverse)
+library(ggplot2)
 library(ggmap)
 library(plotly)
 library(gganimate)

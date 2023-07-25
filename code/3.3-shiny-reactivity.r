@@ -1,4 +1,4 @@
-## ---- echo = FALSE, warning = FALSE, message = FALSE-------------
+## ---- echo = FALSE, warning = FALSE, message = FALSE---------------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -9,30 +9,34 @@ knitr::opts_chunk$set(
   fig.align = "center",
   cache = FALSE
 )
-library(tidyverse)
+#library(tidyverse)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(readr)
 
 
-## ---- eval = F---------------------------------------------------
+## ---- eval = F-----------------------------------------------------------------------
 ## rval <- reactive({
 ##   ...
 ## })
 
 
-## ---- eval = F---------------------------------------------------
+## ---- eval = F-----------------------------------------------------------------------
 ## rval <- eventReactive(actionbutton, {
 ##   ...
 ## })
 
 
-## ----eval = F----------------------------------------------------
+## ----eval = F------------------------------------------------------------------------
 ## runApp("03_submission/", display.mode = "showcase")
 
 
-## ---- eval = F---------------------------------------------------
+## ---- eval = F-----------------------------------------------------------------------
 ## box(..., title = NULL, width = 6, height = NULL)
 
 
-## ---- eval = F---------------------------------------------------
+## ---- eval = F-----------------------------------------------------------------------
 ## body <- dashboardBody(
 ##   fluidRow(
 ##     box(title = "Box with a width of 12 columns",
@@ -45,7 +49,7 @@ library(tidyverse)
 ## )
 
 
-## ---- eval = F---------------------------------------------------
+## ---- eval = F-----------------------------------------------------------------------
 ## sidebar <- dashboardSidebar(
 ##   sidebarMenu(
 ##     menuItem("Dashboard", tabName = "dashboard",
@@ -56,7 +60,7 @@ library(tidyverse)
 ## )
 
 
-## ---- eval = F---------------------------------------------------
+## ---- eval = F-----------------------------------------------------------------------
 ## 
 ## sidebar <- dashboardSidebar(
 ##   sidebarMenu(

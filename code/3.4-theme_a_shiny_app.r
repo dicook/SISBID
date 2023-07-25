@@ -1,4 +1,4 @@
-## ---- echo = FALSE, warning = FALSE, message = FALSE-------------
+## ---- echo = FALSE, warning = FALSE, message = FALSE---------------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -14,7 +14,7 @@ library(shiny)
 library(shinydashboard)
 
 
-## ----eval = F----------------------------------------------------
+## ----eval = F------------------------------------------------------------------------
 ## shinyApp(
 ##   ui = dashboardPage(
 ##     dashboardHeader(
@@ -40,7 +40,7 @@ library(shinydashboard)
 ## )
 
 
-## ----eval = F----------------------------------------------------
+## ----eval = F------------------------------------------------------------------------
 ## shinyApp(
 ##   ui = dashboardPage(
 ##     dashboardHeader(
@@ -59,7 +59,7 @@ library(shinydashboard)
 ## )
 
 
-## ----eval = F----------------------------------------------------
+## ----eval = F------------------------------------------------------------------------
 ## shinyApp(
 ##   ui = dashboardPage(
 ##     dashboardHeader(
