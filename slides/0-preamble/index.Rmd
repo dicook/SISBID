@@ -40,7 +40,7 @@ remotes::install_github("dicook/gretchenalbrecht")
 remotes::install_github("gadenbuie/countdown")
 ```
 
-
+class: hide-count
 
 <center>
 <img src="Hello-Di.png" width="80%" />

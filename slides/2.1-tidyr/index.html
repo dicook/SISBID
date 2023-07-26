@@ -4,7 +4,7 @@
     <title>Tidying your data</title>
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (heike.hofmann@gmail.com)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
-    <script src="index_files/header-attrs-2.22/header-attrs.js"></script>
+    <script src="index_files/header-attrs-2.23/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/countdown-0.4.0/countdown.css" rel="stylesheet" />
     <script src="index_files/countdown-0.4.0/countdown.js"></script>
@@ -54,16 +54,6 @@ class: center, middle, inverse, title-slide
 Example:
 
 
-```r
-tb &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
-tb %&gt;%                                  # first we get the tb data
-  filter(year == 2016) %&gt;%              # then we focus on just the year 2016
-  group_by(country) %&gt;%                 # then we group by country
-  summarize(
-    cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
-    ) %&gt;% 
-  arrange(desc(cases))                  # then we sort countries to show highest number new cases first
-```
 
 Note that the new base R pipe `|&gt;` can mostly substitute for the magrittr pipe. A good explanation can be found [here](https://towardsdatascience.com/understanding-the-native-r-pipe-98dea6d8b61b).
 
@@ -113,13 +103,13 @@ What's in the column names of this data? What are the experimental units? What a
 
 ```
 # A tibble: 3 × 12
-  id     `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1` `WI-12.R2`
-  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 Gene 1      2.18     2.20       4.20     2.63       5.06       4.54       5.53
-2 Gene 2      1.46     0.585      1.86     0.515      2.88       1.36       2.96
-3 Gene 3      2.03     0.870      3.28     0.533      4.63       2.18       5.56
-# ℹ 4 more variables: `WI-12.R4` &lt;dbl&gt;, `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;,
-#   `WM-12.R4` &lt;dbl&gt;
+  id     `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1`
+  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 Gene 1      2.18     2.20       4.20     2.63       5.06       4.54
+2 Gene 2      1.46     0.585      1.86     0.515      2.88       1.36
+3 Gene 3      2.03     0.870      3.28     0.533      4.63       2.18
+# ℹ 5 more variables: `WI-12.R2` &lt;dbl&gt;, `WI-12.R4` &lt;dbl&gt;,
+#   `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;, `WM-12.R4` &lt;dbl&gt;
 ```
 
 
@@ -132,20 +122,20 @@ What are the variables? What are the records?
 
 
 ```
-           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49 V53 V57 V61
-1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112 126 112 115
-2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56  51  36  44
-3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0   5   0   0
-4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127 159 143 114
-5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33  67  84  11
-6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5   0   0  64
-  V65 V69 V73 V77 V81 V85 V89 V93 V97
-1 133 134 126 104 143 141 134 117 142
-2  39  40  58  15  33  51  74  39  66
-3   0   0   0   8   0  18   0   0   0
-4  65 113 125 129 147 161 168 178 161
-5  41  18  50  22  28  74  94  73  88
-6   3  99  36   8   0   0   0   8  36
+           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49
+1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112
+2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56
+3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0
+4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127
+5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33
+6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5
+  V53 V57 V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
+1 126 112 115 133 134 126 104 143 141 134 117 142
+2  51  36  44  39  40  58  15  33  51  74  39  66
+3   5   0   0   0   0   0   8   0  18   0   0   0
+4 159 143 114  65 113 125 129 147 161 168 178 161
+5  67  84  11  41  18  50  22  28  74  94  73  88
+6   0   0  64   3  99  36   8   0   0   0   8  36
 ```
 
 
@@ -159,16 +149,17 @@ What are the variables? What are the experimental units?
 
 ```
 # A tibble: 6 × 22
-  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65   m_u  f_04
-  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205    NA    NA
-2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198    NA    NA
-3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656    NA    NA
-4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199    NA    NA
-5 ZW     2007     6   132   138    500   3693      0    716    292   153    NA     7
-6 ZW     2008    NA    NA   127    614      0   3316    704    263   185     0    NA
-# ℹ 9 more variables: f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;, f_2534 &lt;dbl&gt;,
-#   f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
+  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205
+2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198
+3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656
+4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199
+5 ZW     2007     6   132   138    500   3693      0    716    292   153
+6 ZW     2008    NA    NA   127    614      0   3316    704    263   185
+# ℹ 11 more variables: m_u &lt;dbl&gt;, f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;,
+#   f_1524 &lt;dbl&gt;, f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;,
+#   f_65 &lt;dbl&gt;, f_u &lt;dbl&gt;
 ```
 
 ---
@@ -280,15 +271,10 @@ The animation on the right is from Garrick Aden-Buie's `tidyexplain` package.
 
 
 
-```r
-# wide format
-dframe
+```
   id trtA trtB
 1  1  2.5   45
 2  2  4.6   35
-
-# long format
-dframe %&gt;% pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 # A tibble: 4 × 3
      id treatment outcome
   &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
@@ -323,24 +309,22 @@ For more details, see `?tidyselect::language`
 new notifications of TB have the form `new_sp_&lt;sex&gt;&lt;age group&gt;`:
   
 
-```r
-read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
-  dplyr::select(country, iso3, year, starts_with("new_sp_")) %&gt;%
-  na.omit() %&gt;%
-  head()
+```
 # A tibble: 6 × 23
-  country     iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524 new_sp_m2534
-  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1 Afghanistan AFG    2010          4         193         197          986          819
-2 Afghanistan AFG    2012          0         188         188         1116          801
-3 Albania     ALB    2005          0           0           0           26           21
-4 Albania     ALB    2006          1           4           5           24           19
-5 Albania     ALB    2007          0           0           0           19           13
-6 Albania     ALB    2009          0           0           0           22           21
-# ℹ 15 more variables: new_sp_m3544 &lt;dbl&gt;, new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;,
-#   new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;,
-#   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;, new_sp_f3544 &lt;dbl&gt;,
-#   new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;
+  country     iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524
+  &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+1 Afghanistan AFG    2010          4         193         197          986
+2 Afghanistan AFG    2012          0         188         188         1116
+3 Albania     ALB    2005          0           0           0           26
+4 Albania     ALB    2006          1           4           5           24
+5 Albania     ALB    2007          0           0           0           19
+6 Albania     ALB    2009          0           0           0           22
+# ℹ 16 more variables: new_sp_m2534 &lt;dbl&gt;, new_sp_m3544 &lt;dbl&gt;,
+#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;,
+#   new_sp_mu &lt;dbl&gt;, new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;,
+#   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,
+#   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;,
+#   new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;
 ```
 
 
@@ -356,12 +340,7 @@ create two new variables:
 - variable `value` with the values:
   
 
-```r
-tb1 &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %&gt;% 
-  dplyr::select(country, iso3, year, starts_with("new_sp_")) %&gt;%
-  pivot_longer(starts_with("new_sp_")) 
-
-tb1 %&gt;% na.omit() %&gt;% head()
+```
 # A tibble: 6 × 5
   country     iso3   year name         value
   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
@@ -393,12 +372,7 @@ Pro tip: specify `sep` to have some more control; any regular expression will wo
 Work on `name`: 
   
 
-```r
-tb2 &lt;- tb1 %&gt;% 
-  separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
-
-
-tb2 %&gt;% na.omit() %&gt;% head()
+```
 # A tibble: 6 × 7
   country     iso3   year foo_new foo_sp sexage value
   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
@@ -418,16 +392,7 @@ Now split `sexage` into first character (m/f) and rest.
 `substr` allows to extract sub strings from a character vector (see `?substr`):
   
 
-```r
-tb3 &lt;- tb2 %&gt;% dplyr::select(-starts_with("foo")) %&gt;% # remove the `foo` variables
-  mutate(
-    sex = substr(sexage, 1, 1),                # extract the first character 
-    age = substr(sexage, 2, length(sexage))    # get all but first character
-  ) %&gt;%
-  dplyr::select(-sexage)
-
-
-tb3 %&gt;% na.omit() %&gt;% head()
+```
 # A tibble: 6 × 6
   country     iso3   year value sex   age  
   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
@@ -448,12 +413,9 @@ class: inverse middle
 Read the genes data from folder `data`. Column names contain data and are kind of messy. 
 
 
-```r
-genes &lt;- read_csv(here::here("data/genes.csv"))
-
-names(genes)
- [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2"  "WI-12.R1"
- [8] "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
+```
+ [1] "id"       "WI-6.R1"  "WI-6.R2"  "WI-6.R4"  "WM-6.R1"  "WM-6.R2" 
+ [7] "WI-12.R1" "WI-12.R2" "WI-12.R4" "WM-12.R1" "WM-12.R2" "WM-12.R4"
 ```
 
 Produce the data frame called `gtidy` as shown below:
@@ -461,8 +423,7 @@ Produce the data frame called `gtidy` as shown below:
 
 
 
-```r
-head(gtidy)
+```
 # A tibble: 6 × 5
   id     trt   time  rep    expr
   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
@@ -475,7 +436,7 @@ head(gtidy)
 ```
 
 Break into zoom rooms, clock is ticking 😄
-<div class="countdown" id="timer_05956f1d" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_83f67f5b" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -485,20 +446,9 @@ Break into zoom rooms, clock is ticking 😄
 
 .pull-left[
 
-```r
-gmean &lt;- gtidy %&gt;% 
-  group_by(id, trt, time) %&gt;% 
-  summarise(expr = mean(expr))
-gtidy %&gt;% 
-  ggplot(aes(x = trt, y = expr, colour=time)) +
-  geom_point() +
-  geom_line(data = gmean, aes(group = time)) +
-  facet_wrap(~id) +
-  scale_colour_brewer("", palette="Set1")
-```
 ]
 .pull-right[
-&lt;img src="index_files/figure-html/plot the genes data overlais with group means-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/plot the genes data overlais with group means-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 ]
 ---
 # Resources
