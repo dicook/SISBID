@@ -50,7 +50,7 @@ class: inverse middle
 <br>
 .large[Write down as many types of data plots that you can think of.] 
 
-Go to menti.com and enter code 2929 5844
+Go to menti.com and enter code 2821 2021
 
 <img src="images/mentimeter_qr_code.png" width=200>
 <br>
@@ -142,7 +142,7 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-Go to menti.com and enter code 2929 5844
+Go to menti.com and enter code 2821 2021
 
 - What do you learn about tuberculosis incidence in the USA from this plot?
 - Give three changes to the plot that would improve it. 
@@ -280,7 +280,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - What are the pros, and cons, of using the pie chart for this data?
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
-Go to menti.com and enter code 2929 5844
+Go to menti.com and enter code 2821 2021
 
 ---
 # Line plot vs barchart

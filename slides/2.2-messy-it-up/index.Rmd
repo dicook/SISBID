@@ -59,7 +59,7 @@ class: middle, center, inverse
 
 <h1>What would we like to find out about the french fries data set?</h1>
 
-Go to menti.com at 2929 5844 and let us know!
+Go to menti.com at 2821 2021 and let us know!
 
 <img src="images/mentimeter_qr_code.png" width = 200>
 
