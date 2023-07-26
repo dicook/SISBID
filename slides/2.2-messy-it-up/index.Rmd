@@ -130,7 +130,7 @@ head(french_fries_weeks)
 and fills values in from the variable in `values_from`
 
 
-RStudio cheatsheet: https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf
+posit cheatsheet: https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf
 
 ---
 # Comparing ratings from different weeks
@@ -267,9 +267,10 @@ geom_smooth(method="lm", se=FALSE, aes(colour = type))
 ---
 # Resources
 
-- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [posit cheatsheets](https://posit.co/resources/cheatsheets/)
 - [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12)
-
+- [R for Data Science (Wickham & Grolemund), chapter 9](https://r4ds.had.co.nz/wrangle-intro.html)
+- [Telling Stories with Data (Alexander), chapters 9 & 10](https://tellingstorieswithdata.com/09-clean_and_prepare.html)
 
 ---
 # Share and share alike
