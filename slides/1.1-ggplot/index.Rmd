@@ -1,7 +1,7 @@
 ---
 title: "A Grammar of Graphics"
 subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hofmann@iastate.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
 date: "07/26-28/2023"
 output:
   xaringan::moon_reader:
@@ -112,7 +112,7 @@ The 7 key elements of the grammar are:
 ---
 # Example: Tuberculosis data
 
-Current tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://cran.r-project.org/web/packages/getTBinR/index.html).
+Current tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://github.com/seabbs/getTBinR).
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>% 
@@ -172,8 +172,8 @@ Go to menti.com and enter code 2821 2021
 # This uses a color blind friendly scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(~age_group, ncol=6) +
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
+  facet_grid(~age_group) + #<<
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) #<<
 ```
 
 .bottom[Colorblindness-friendly color schemes, https://davidmathlogic.com/colorblind/#%23005AB5-%23DC3220]
@@ -184,10 +184,10 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ```{r compare proportions of males/females, out.width="70%", echo=TRUE, fig.height=3}
 # Fill the bars, note the small change to the code
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
-  geom_bar(stat="identity", position="fill") + 
-  facet_wrap(~age_group, ncol=6) +
+  geom_bar(stat="identity", position="fill") + #<<
+  facet_grid(~age_group) + 
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5"))  + 
-  ylab("proportion")
+  ylab("proportion") #<<
 ```
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
@@ -219,7 +219,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 # Make separate plots for males and females, focus on counts by category
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(sex~age_group, ncol=6) +
+  facet_grid(sex~age_group) + #<<
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 ```
 ]
@@ -242,9 +242,9 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 # How to make a pie instead of a barchart - not straight forward
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_wrap(sex~age_group, ncol=6) + 
+  facet_grid(sex~age_group) + 
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  coord_polar()
+  coord_polar() #<<
 ```
 
 Not a pie, a [rose plot](https://datavizcatalogue.com/methods/nightingale_rose_chart.html)!
@@ -255,8 +255,8 @@ Not a pie, a [rose plot](https://datavizcatalogue.com/methods/nightingale_rose_c
 ```{r stacked barchart of males/females, out.width="60%", echo=TRUE, fig.height=5}
 # Step 1 to make the pie
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat="identity", position="fill") + 
-  facet_wrap(sex~age_group, ncol=6) +
+  geom_bar(stat="identity", position="fill") + #<<
+  facet_grid(sex~age_group) +
   scale_fill_viridis_d("", option="inferno") 
 ```
 
@@ -268,9 +268,9 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 # and the modification to the coord_polar
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
   geom_bar(stat="identity", position="fill") + 
-  facet_wrap(sex~age_group, ncol=6) +
+  facet_grid(sex~age_group) +
   scale_fill_viridis_d("", option="inferno") +
-  coord_polar(theta = "y") 
+  coord_polar(theta = "y") #<<
 ```
 
 ---
@@ -288,8 +288,9 @@ Go to menti.com and enter code 2821 2021
 ```{r use a line plot instead of bar, fig.height=3}
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
-  facet_wrap(~age_group, ncol=6) +
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
+  facet_grid(~age_group) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ylim(c(0,NA))
 ```
 
 A line plot allows reading the counts for the two sexes. The counts are displayed in the same plot, and males and females can be directly compared as well as temporal trend.  
@@ -301,9 +302,9 @@ A line plot allows reading the counts for the two sexes. The counts are displaye
 tb_us %>% group_by(year, age_group) %>% 
   summarise(p = count[sex=="m"]/sum(count)) %>%
   ggplot(aes(x=year, y=p)) +
-  geom_hline(yintercept = 0.50, colour="white", size=2) +
+  geom_hline(yintercept = 0.50, colour="white", linewidth=2) +
   geom_line() + geom_point() +
-  facet_wrap(~age_group, ncol=6) +
+  facet_grid(~age_group) +
   ylab("proportion of males") 
 ```
 
@@ -328,7 +329,7 @@ Make sure you can make all the TB plots just shown. If you have extra time, try 
 
 # Resources
 
-- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [posit cheatsheets](https://posit.co/resources/cheatsheets/)
 - [ggplot2: Elegant Graphics for Data Analysis, Hadley Wickham](https://ggplot2-book.org), [web site](https://ggplot2.tidyverse.org)
 - [R Graphics Cookbook, Winston Chang](http://www.cookbook-r.com/Graphs/)
 - [Data Visualization, Kieran Healy](https://socviz.co)
