@@ -71,9 +71,9 @@ Note that the new base R pipe `|>` can mostly substitute for the magrittr pipe. 
 
 ---
 .pull-left[
-<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_2.jpg" width="100%">
+<img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/6e297111-efb7-4555-93d2-085071d1853c_rw_1920.jpg?h=f1951b118eaddaaab8a572422bc16566" width="100%">
 
-Artist: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by [Julia Lowndes and Allison Horst](https://allisonhorst.com/other-r-fun)
 
 ]
 
@@ -204,7 +204,10 @@ background-position: 50% 5%
 
 ---
 
-![](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_3.jpg)
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/209ee1eb-fd83-4e4c-9bed-82ae43b0f3e9_rw_3840.jpg?h=b00690a8a5eef3c901d6609cfefee987)
+
+Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by [Julia Lowndes and Allison Horst](https://allisonhorst.com/other-r-fun)
+
 ---
 # Tidy verbs
 
