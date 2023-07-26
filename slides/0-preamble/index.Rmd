@@ -24,7 +24,8 @@ knitr::opts_chunk$set(
   fig.height = 8,
   fig.width = 12,
   fig.align = "center",
-  cache = FALSE
+  cache = FALSE,
+  echo=TRUE
 )
 ```
 
