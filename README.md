@@ -33,7 +33,7 @@ Zoom etiquette:
 ## Course Schedule
 
 
-| Wednesday |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |      Singapore |      Korea |      Denmark |
+| Wednesday |         Pacific | Melbourne (Di) | Central (Heike & Susan) |     East Coast |      Singapore |      Korea |      Denmark |
 |-------------------|----------------:|---------------:|----------------:|---------------:|---------------:|---------------:|---------------:|
 | [Meet & Greet](https://dicook.github.io/SISBID/slides/0-preamble/index.html)        |   11:30 - 11:45 am | 4:30 - 4:45 am |  1:30 - 1:45 pm | 2:30 - 2:45 pm | 2:30 - 2:45 am | 3:30 - 3:45 am | 8:30 - 8:45 pm |
 | [Lecture 1](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html)        |   11:45 - 12:30 | 4:45 - 5:30 am |  1:45 - 2:30 pm | 2:45 - 3:30 pm | 2:45 - 3:30 am | 3:45 - 4:30 am | 8:45 - 9:30 pm |
@@ -42,7 +42,7 @@ Zoom etiquette:
 
 
   
-  | Thursday, Friday |         Pacific | Melbourne (Di) | Central (Heike) |     East Coast |     Singapore |      Korea |      Denmark |
+  | Thursday, Friday |         Pacific | Melbourne (Di) | Central (Heike & Susan) |     East Coast |     Singapore |      Korea |      Denmark |
 |------------------|----------------:|---------------:|----------------:|---------------:|---------------:|---------------:|---------------:|
 | Lecture 1         |   8:00 - 8:45 am | 1:00 - 1:45 am |  10:00 - 10:45 am | 11:00 - 11:45 am | 11:00 - 11:45 pm | 12:00 - 12:45 am | 6:00 - 6:45 pm |
 | Lecture 2         | 9:00 - 9:45 am | 2:00 - 2:45 am |  11:00 - 11:45 am | 12:00 - 12:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am | 7:00 - 7:45 pm |
