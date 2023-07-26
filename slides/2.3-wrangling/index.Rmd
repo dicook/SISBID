@@ -324,7 +324,7 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
 # References
 
 
-- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [posit cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12)
 - [broom vignettes, David Robinson](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
 - [Wickham (2011) Split-Apply-Combine](https://www.jstatsoft.org/article/view/v040i01)
