@@ -5,8 +5,30 @@ library(tidyverse)
 # List all slides
 slides <- list.files("slides", "*.Rmd", full.names = T, recursive = T)
 
+# First, remove all index_files in slides
+index_files_list <- list.files("slides", "index_files", recursive = T, include.dirs = T, full.names = T)
+unlink(index_files_list, force = T)
+
+default_yaml <- yaml::read_yaml(
+  text = '    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false')
+
+xaringanfn <- function(., ...)
+  rmarkdown::render(., xaringan::moon_reader(css = default_yaml$css,
+                                             self_contained = FALSE,
+                                             nature = default_yaml$nature), ...)
+safe_xaringan <- safely(xaringanfn)
+
 # Render to html
-purrr::walk(slides, rmarkdown::render)
+res <- purrr::map(slides, ~safe_xaringan(.))
+
+stopifnot(is.null(purrr::map(res, "error") %>% unlist()))
+
 
 # Purl to code folder
 purrr::walk(slides, function(i) {
@@ -40,6 +62,7 @@ zip("SISBID_day2.zip", files = c(code, data, slides, "SISBID.Rproj"))
 # Day 3
 code <- list.files("code/", pattern = "^[3]", full.names = T, recursive = T)
 code <- c(code, list.files("code/3.3-apps/", full.names = T, recursive = T))
+code <- c(code, list.files("code/3.4-theme/", full.names = T, recursive = T))
 data <- list.files("data/", ".*", full.names = T)
 slides <- list.files("slides/", recursive = T, full.names = T)
 slides <- slides[str_detect(slides, "slides//3")]

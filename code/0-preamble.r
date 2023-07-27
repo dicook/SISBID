@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------------
+## ---- echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE------------------------------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -8,11 +8,12 @@ knitr::opts_chunk$set(
   fig.height = 8,
   fig.width = 12,
   fig.align = "center",
-  cache = FALSE
+  cache = FALSE,
+  echo=TRUE
 )
 
 
-## ----eval=FALSE, echo=FALSE----------------------------------------------------------
+## ----eval=FALSE, echo=FALSE------------------------------------------------------------------------------------------
 ## # THIS CODE IS NOT TO BE RUN
 ## # These packages are only used to make the slides prettier
 ## install.packages("remotes")
@@ -24,22 +25,22 @@ knitr::opts_chunk$set(
 ## remotes::install_github("gadenbuie/countdown")
 
 
-## ----eval=FALSE----------------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------------------------------------
 ## install.packages("nullabor")
 
 
-## ----eval=FALSE----------------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------------------------------------
 ## if (!requireNamespace("BiocManager", quietly = TRUE))
 ##     install.packages("BiocManager")
 ## 
 ## BiocManager::install("bigPint")
 
 
-## ----eval=FALSE----------------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------------------------------------
 ## remotes::install_github("heike/vinference")
 
 
-## ----eval=FALSE----------------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------------------------------------
 ## # CRAN packages
 ## packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "ggmap", "here", "leaflet", "lubridate",
 ##               "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom",

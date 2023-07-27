@@ -27,130 +27,132 @@ knitr::opts_chunk$set(
 )
 library(ggplot2)
 library(shiny)
-library(shinydashboard)
+library(bslib)
+
+xaringanExtra::use_xaringan_extra(
+  include = c("panelset")
+)
 ```
 
 # Theming your Shiny App
 
-- `shinydashboard` has many options available for theming and customizing your app <br/><br/>
-- We'll cover built-in options here<br/><br/>
+- `bslib` has many options available for theming and customizing your app <br/><br/>
+- We'll cover the easily available options here<br/><br/>
     - Exponentially more powerful with CSS and a bit of tinkering
 
 ---
-# Skins
+# Preset Themes
 .pull-left[
-- "Skins" are color themes for the dashboard<br/><br/>
-- The default is blue, but other options:
-    - black, purple, green, red, yellow
-    - `dashboardPage(skin = "purple")`
-].pull-right[
-![purple dashboard skin](skin-purple.png)
-]
+- Bootswatch provides preset themes
+- `bs_themer()` lets you choose interactively
 
+.center.large[`bs_themer.R`]
+].pull-right[
+.panelset.sideways[
+.panel[.panel-name[default]
+![](bs_themer.png)
+]
+.panel[.panel-name[flatly]
+![](bs_themer_flatly.png)
+]
+.panel[.panel-name[darkly]
+![](bs_themer_darkly.png)
+]
+]
+]
 
 ---
-# Long Titles and Title CSS
+class: inverse middle
+# Your Turn
+
+Run the code in `bs_themer.R` and pick a theme you like. 
+
+Get the console output corresponding to that theme and modify `bs_themed.R` to use your theme code.
+
+Hint: Use the `theme = ...` argument in one of the `page_xxx` functions.
+
+
+`r countdown::countdown(5)`
+
+---
+# Customizing Your Navbar
+
+- You may want to add a logo to your title area
+- pictures should be placed in the `www/` folder
 
 .pull-left[
-- Titles may sometimes not fit in the title area
-    - `titleWidth` argument, specify in pixels
-- Customize color of title area using CSS
-
-![example of long title](long-title.png)
-]
-.pull-right[
-```{r eval = F}
-shinyApp(
-  ui = dashboardPage(
-    dashboardHeader(
-      title = "Example of a long title that needs more space",
-      titleWidth = 450
-    ),
-    dashboardSidebar(),
-    dashboardBody(
-      # Also add some custom CSS to make the title 
-      # background area the same
-      # color as the rest of the header.
-      tags$head(tags$style(HTML('
-        .skin-blue .main-header .logo {
-          background-color: #3c8dbc;
-        }
-        .skin-blue .main-header .logo:hover {
-          background-color: #3c8dbc;
-        }
-      ')))
-    )
-  ),
-  server = function(input, output) { }
-)
+```{r, eval = F}
+title = div(
+  img(src = "wave.gif", width = "40px"),
+  img(src = "globe.png", width = "40px"),
+  "Hello World", style = "display: inline;"),
 ```
+].pull-right[
+
+![](title_image.png)
+
 ]
+
+---
+# Adding Icons
+
+- You can add icons to your `nav_panels()` with the `icon` argument
+    - [Bootstrap Icons](https://icons.getbootstrap.com/) 
+    - Match the version of Bootstrap your app uses
+    
+
+.pull-left[
+```{r, eval = F}
+nav_panel(
+  title = "Dashboard", body, 
+  icon = bs_icon("bar-chart", a11y = "deco") 
+  # marks icon as decorative for screen readers
+),
+```
+].pull-right[
+![](navbar-icon.png)
+]
+
+---
+class: inverse middle
+# Your Turn
+
+Customize the title and icons on the `nav_panels` in `title_customization.R`.
+
+Choose appropriate icons and decide if they are decorative or semantic. 
+
+`r countdown::countdown(5)`
 
 ---
 # Change the width of the sidebar
 
-.pull-left[
 ```{r eval = F}
-shinyApp(
-  ui = dashboardPage(
-    dashboardHeader(
-      title = "Title and sidebar 350 pixels wide",
-      titleWidth = 350
-    ),
-    dashboardSidebar(
-      width = 350,
-      sidebarMenu(
-        menuItem("Menu Item")
-      )
-    ),
-    dashboardBody()
-  ),
-  server = function(input, output) { }
-)
-```
-]
-.pull-right[
-![350px sidebar width](sidebar-width.png)
-]
-
----
-# Fun with icons!
-
-- `shinydashboard` includes icons from [`fontAwesome`](https://fontawesome.io/icons/) and [`Glyphicons`](https://getbootstrap.com/docs/3.4/components/#glyphicons)<br/><br/>
-- `icon("calendar")` generates HTML for `r icon("calendar")`
-
-```{r eval = F}
-shinyApp(
-  ui = dashboardPage(
-    dashboardHeader(
-      title = HTML(paste(icon("cog", lib="glyphicon"), "My app is a cog in the machine!")),
-      titleWidth = 450
-    ),
-    dashboardSidebar(),
-    dashboardBody()
-  ),
-  server = function(input, output) { }
+side <- sidebar(
+  width = "20%",
+  h2("Inputs"),
+  sliderInput(
+    "mpg", label = "MPG range",
+    min = min(floor(mtcars$mpg), na.rm = T),
+    max = max(ceiling(mtcars$mpg), na.rm = T),
+    step = 1, value = range(mtcars$mpg))
 )
 ```
 
----
-
-![Add an icon to the title](app-icon-title.png)
-
-
----
-# Customizing Statuses and Colors
-
-.pull-left[
-- Status arguments can be customized (and this comes with a color)
-
-![Bootstrap statuses](statuses.png)
+.panelset.sideways[
+.panel[.panel-name[10%]
+![](sidebar-10.png)
 ]
-.pull-right[
-- Many functions also have a color argument<br/><br/>
-- Default colors defined:
-![Bootstrap colors](colors.png)
+.panel[.panel-name[20%]
+![](sidebar-20.png)
 ]
+.panel[.panel-name[100px]
+![](sidebar-100px.png)
+]
+.panel[.panel-name[100px (small window)]
+![](sidebar-100px-2.png)
+]
+]
+
 
 
 ---

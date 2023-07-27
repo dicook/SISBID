@@ -1,4 +1,10 @@
-## ---- echo = FALSE, warning = FALSE, message = FALSE---------------------------------
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## # Additional packages for Shiny
+## install.packages(c("bsicons", "showtext", "ragg", "thematic"))
+## remotes::install_github("rstudio/bslib") # Get the latest version
+
+
+## ---- echo = FALSE, warning = FALSE, message = FALSE-----------------------------------------------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -16,7 +22,7 @@ library(ggplot2)
 library(readr)
 
 
-## ----eval = FALSE--------------------------------------------------------------------
+## ----eval = FALSE----------------------------------------------------------------------------------------------------
 ## library(shiny)
 ## 
 ## ui <- fluidPage(
@@ -28,14 +34,17 @@ library(readr)
 ## shinyApp(ui, server)
 
 
-## ----eval = FALSE--------------------------------------------------------------------
+## ----eval = FALSE----------------------------------------------------------------------------------------------------
 ## library(shiny)
-## library(shinydashboard)
+## sidebar <-  sidebarPanel(width = 3,
+##                          "Fun inputs")
 ## 
-## ui <- dashboardPage(
-##   dashboardHeader(),
-##   dashboardSidebar(),
-##   dashboardBody()
+## main_col <- column(width = 9,
+##                    "Some results")
+## 
+## ui <- fluidPage(
+##   title = "App Title",
+##   tabsetPanel("Stuff", sidebar, main_col)
 ## )
 ## 
 ## server <- function(input, output, session) {
@@ -44,18 +53,19 @@ library(readr)
 ## shinyApp(ui, server)
 
 
-## ----eval = FALSE--------------------------------------------------------------------
+## ----eval = FALSE----------------------------------------------------------------------------------------------------
 ## library(shiny)
-## library(shinydashboard)
 ## 
-## sidebar <- dashboardSidebar(
-##   textInput("name", "Enter your name:", value = "Heike")
-## )
+## sidebar <-  sidebarPanel(
+##   width = 3,
+##   textInput("name", "Enter your name:", value = "Heike"))
 ## 
-## ui <- dashboardPage(
-##   dashboardHeader(),
-##   sidebar = sidebar,
-##   dashboardBody()
+## main_col <- column(width = 9,
+##                    "Some results")
+## 
+## ui <- fluidPage(
+##   title = "App Title",
+##   tabsetPanel("Stuff", sidebar, main_col)
 ## )
 ## 
 ## server <- function(input, output, session) {
@@ -64,18 +74,18 @@ library(readr)
 ## shinyApp(ui, server)
 
 
-## ----eval=FALSE----------------------------------------------------------------------
+## ----eval=FALSE------------------------------------------------------------------------------------------------------
 ## library(shiny)
-## library(shinydashboard)
 ## 
-## sidebar <- dashboardSidebar(
-##   textInput("name", "Enter your name:", value = "Heike")
-## )
+## sidebar <-  sidebarPanel(
+##   width = 3,
+##   textInput("name", "Enter your name:", value = "Heike"))
 ## 
-## ui <- dashboardPage(
-##   dashboardHeader(),
-##   sidebar = sidebar,
-##   dashboardBody()
+## main_col <- column(width = 9,
+##                    "Some results")
+## ui <- fluidPage(
+##   title = "App Title",
+##   tabsetPanel("Stuff", sidebar, main_col)
 ## )
 ## 
 ## server <- function(input, output, session) {
@@ -84,41 +94,45 @@ library(readr)
 ## shinyApp(ui, server)
 
 
-## ----echo=FALSE, eval=FALSE----------------------------------------------------------
-## sidebar <- dashboardSidebar(
+## ----echo=FALSE, eval=FALSE------------------------------------------------------------------------------------------
+## 
+## library(shiny)
+## 
+## sidebar <-  sidebarPanel(
+##   width = 3,
 ##   textInput("name", "Enter your name:", value = "Heike"),
+##   selectInput("state", "Pick your favorite country:",
+##               choices = c("Australia", "United States", "Germany")))
+## main_col <- column(width = 9,
+##                    "Some results")
+## 
+## ui <- fluidPage(
+##   title = "App Title",
+##   tabsetPanel("Stuff", sidebar, main_col)
+## )
+## 
+## server <- function(input, output, session) {
+## }
+## 
+## shinyApp(ui, server)
+
+
+## ----eval=FALSE------------------------------------------------------------------------------------------------------
+## library(shiny)
+## 
+## sidebar <-  sidebarPanel(
+##   width = 3,
 ##   selectInput("state", "Pick your favorite country:",
 ##               choices = c("Australia", "United States", "Germany"))
 ## )
-## 
-## 
-## ui <- dashboardPage(
-##   dashboardHeader(),
-##   sidebar = sidebar,
-##   dashboardBody()
-## )
-## 
-## server <- function(input, output, session) {
-## }
-## 
-## shinyApp(ui, server)
-
-
-## ----eval=FALSE----------------------------------------------------------------------
-## sidebar <- dashboardSidebar(
-##   textInput("name", "Enter your name:", value = "Heike"),
-##   selectInput("country", "Pick your favorite country:",
-##               choices = c("Australia", "United States", "Germany"))
-## )
-## 
-## body <- dashboardBody(     #<<
+## main_col <- column(        #<<
+##   width = 9,               #<<
 ##   plotOutput("scatter")    #<<
 ## )                          #<<
 ## 
-## ui <- dashboardPage(
-##   dashboardHeader(),
-##   sidebar = sidebar,
-##   body = body,
+## ui <- fluidPage(
+##   title = "App Title",
+##   tabsetPanel("Stuff", sidebar, main_col)
 ## )
 ## 
 ## server <- function(input, output, session) {
@@ -132,26 +146,24 @@ library(readr)
 ## shinyApp(ui, server)
 
 
-## ----echo=FALSE, eval=FALSE----------------------------------------------------------
+## ----echo=FALSE, eval=FALSE------------------------------------------------------------------------------------------
+## library(shiny)
 ## library(ggplot2)
 ## library(dplyr)
-## library(shinydashboard)
 ## tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv"))
-## sidebar <- dashboardSidebar(
+## 
+## sidebar <-  sidebarPanel(
+##   width = 3,
 ##   selectInput("country", "Pick a country:",
 ##               choices = unique(tb$country),
 ##               multiple = TRUE,
 ##               selected = "United States of America")
 ## )
+## main_col <- column(width = 9, plotOutput("scatter", height = "600px"))
 ## 
-## body <- dashboardBody(
-##   plotOutput("scatter")
-## )
-## 
-## ui <- dashboardPage(
-##   dashboardHeader(),
-##   sidebar = sidebar,
-##   body = body
+## ui <- fluidPage(
+##   title = "App Title",
+##   tabsetPanel("Stuff", sidebar, main_col)
 ## )
 ## 
 ## server <- function(input, output, session) {
