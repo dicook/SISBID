@@ -196,7 +196,7 @@ p <- ggplot(sd, aes(month, median)) +
    facet_wrap(~ city)
 
 gg <- ggplotly(p, height = 600, width = 1000) %>%
-   layout(title = "Click on a line to highlight a year")
+   plotly::layout(title = "Click on a line to highlight a year")
 
 p
 #highlight(gg)
