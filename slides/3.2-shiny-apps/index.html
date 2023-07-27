@@ -37,6 +37,11 @@ class: center, middle, inverse, title-slide
     - [Tutorials](https://shiny.rstudio.com/tutorial/) at different levels
 
 
+```r
+# Additional packages for Shiny
+install.packages(c("bsicons", "showtext", "ragg", "thematic"))
+remotes::install_github("rstudio/bslib") # Get the latest version
+```
 
 --
 
@@ -172,7 +177,7 @@ shinyApp(ui, server)
 
 
 
-<div class="countdown" id="timer_749fbeb4" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_adbdc88c" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -248,7 +253,7 @@ class: inverse middle
 - Add an interactive plot of the TB data into your app.
 - Change the select box, so that the user can choose any country. Think of `unique(tb$country)` for defining the choices
 
-<div class="countdown" id="timer_af138964" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_4d0d0cc5" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

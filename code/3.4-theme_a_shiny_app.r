@@ -11,64 +11,36 @@ knitr::opts_chunk$set(
 )
 library(ggplot2)
 library(shiny)
-library(shinydashboard)
+library(bslib)
+
+xaringanExtra::use_xaringan_extra(
+  include = c("panelset")
+)
+
+
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## title = div(
+##   img(src = "wave.gif", width = "40px"),
+##   img(src = "globe.png", width = "40px"),
+##   "Hello World", style = "display: inline;"),
+
+
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## nav_panel(
+##   title = "Dashboard", body,
+##   icon = bs_icon("bar-chart", a11y = "deco")
+##   # marks icon as decorative for screen readers
+## ),
 
 
 ## ----eval = F--------------------------------------------------------------------------------------------------------
-## shinyApp(
-##   ui = dashboardPage(
-##     dashboardHeader(
-##       title = "Example of a long title that needs more space",
-##       titleWidth = 450
-##     ),
-##     dashboardSidebar(),
-##     dashboardBody(
-##       # Also add some custom CSS to make the title
-##       # background area the same
-##       # color as the rest of the header.
-##       tags$head(tags$style(HTML('
-##         .skin-blue .main-header .logo {
-##           background-color: #3c8dbc;
-##         }
-##         .skin-blue .main-header .logo:hover {
-##           background-color: #3c8dbc;
-##         }
-##       ')))
-##     )
-##   ),
-##   server = function(input, output) { }
-## )
-
-
-## ----eval = F--------------------------------------------------------------------------------------------------------
-## shinyApp(
-##   ui = dashboardPage(
-##     dashboardHeader(
-##       title = "Title and sidebar 350 pixels wide",
-##       titleWidth = 350
-##     ),
-##     dashboardSidebar(
-##       width = 350,
-##       sidebarMenu(
-##         menuItem("Menu Item")
-##       )
-##     ),
-##     dashboardBody()
-##   ),
-##   server = function(input, output) { }
-## )
-
-
-## ----eval = F--------------------------------------------------------------------------------------------------------
-## shinyApp(
-##   ui = dashboardPage(
-##     dashboardHeader(
-##       title = HTML(paste(icon("cog", lib="glyphicon"), "My app is a cog in the machine!")),
-##       titleWidth = 450
-##     ),
-##     dashboardSidebar(),
-##     dashboardBody()
-##   ),
-##   server = function(input, output) { }
+## side <- sidebar(
+##   width = "20%",
+##   h2("Inputs"),
+##   sliderInput(
+##     "mpg", label = "MPG range",
+##     min = min(floor(mtcars$mpg), na.rm = T),
+##     max = max(ceiling(mtcars$mpg), na.rm = T),
+##     step = 1, value = range(mtcars$mpg))
 ## )
 

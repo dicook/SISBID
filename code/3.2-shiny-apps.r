@@ -1,3 +1,9 @@
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## # Additional packages for Shiny
+## install.packages(c("bsicons", "showtext", "ragg", "thematic"))
+## remotes::install_github("rstudio/bslib") # Get the latest version
+
+
 ## ---- echo = FALSE, warning = FALSE, message = FALSE-----------------------------------------------------------------
 knitr::opts_chunk$set(
   message = FALSE,

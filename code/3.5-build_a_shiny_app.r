@@ -11,12 +11,11 @@ knitr::opts_chunk$set(
 )
 library(ggplot2)
 library(shiny)
-library(shinydashboard)
+library(bslib)
 
 
 ## ----eval = F--------------------------------------------------------------------------------------------------------
 ## server <- function(input, output) {
-## 
 ##     output$distPlot <- renderPlot({
 ##         ggplot(faithful, aes(x=waiting)) + geom_histogram(bins = input$bins)
 ##     })
