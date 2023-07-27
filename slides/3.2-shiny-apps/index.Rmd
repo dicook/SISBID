@@ -20,7 +20,11 @@ output:
     - [Gallery](https://shiny.rstudio.com/gallery/) of great examples,
     - [Tutorials](https://shiny.rstudio.com/tutorial/) at different levels
 
-
+```{r, eval = F}
+# Additional packages for Shiny
+install.packages(c("bsicons", "showtext", "ragg", "thematic"))
+remotes::install_github("rstudio/bslib") # Get the latest version
+```
 
 --
 

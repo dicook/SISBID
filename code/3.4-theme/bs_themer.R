@@ -48,33 +48,44 @@ body <- page_fillable(
 )
 
 server <- function(input, output, session) {
+  bs_themer()
   output$myplot <- renderPlot({
-    gg <- ggplot(data = mtcars, aes(x = mpg, y = disp)) +
+    data <- mtcars |>
+      filter(mpg >= min(input$mpg) & mpg <= max(input$mpg))
+
+    gg <- ggplot(data = data, aes(x = mpg, y = disp)) +
       geom_point()
 
     idx <- input$mytable_rows_selected
     if (!is.null(idx))
-      gg + geom_point(size = 5, data = mtcars %>% slice(idx))
+      gg + geom_point(size = 5, data = data %>% slice(idx))
     else gg
   })
 
   output$mytable <- DT::renderDT({
-    mtcars
+    mtcars |>
+      filter(mpg >= min(input$mpg) & mpg <= max(input$mpg))
   })
 }
 
-
-ui <- page_fillable(
-  navset_pill_list(
-    nav_panel(title = h2("App Title"), "Some information about my app"),
-    nav_panel(title = "Dashboard", body),
-    nav_panel(title = "Cars",
-              h2("What do you want to know about Cars?"),
-              plotOutput("myplot"),
-              DTOutput("mytable")),
-    widths = c(2, 10)
-  )
+side <- sidebar(
+  h2("Inputs"),
+  sliderInput("mpg", label = "MPG range",
+              min = min(floor(mtcars$mpg), na.rm = T),
+              max = max(ceiling(mtcars$mpg), na.rm = T),
+              step = 1, value = range(mtcars$mpg))
 )
+
+ui <- bslib::page_navbar(
+  title = "Hello World",
+  sidebar = side,
+  nav_panel(title = "Dashboard", body),
+  nav_panel(title = "Cars",
+            h2("What do you want to know about Cars?"),
+            plotOutput("myplot"),
+            DTOutput("mytable"))
+)
+
 
 shinyApp(ui, server)
 

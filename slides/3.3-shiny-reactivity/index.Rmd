@@ -242,6 +242,12 @@ body <- page_fillable(
 ---
 # Other Layouts
 
+- `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
+
+- `page_navbar()` can be used to create tabs across the top (more on this in a minute)
+    - `sidebar()` allows for common inputs across all tabs
+
+
 - `layout_column_wrap()` can accomplish some [very neat tricks](https://rstudio.github.io/bslib/articles/column-layout.html)    
 ```{r, eval = F}
 layout_column_wrap(
@@ -252,7 +258,7 @@ layout_column_wrap(
 ```
 
 - [Shiny UI Editor](https://rstudio.github.io/shinyuieditor/) is currently in Alpha but allows UI creation without writing code
-- `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
+
 
 ---
 # Tab Layouts
@@ -297,6 +303,17 @@ Code: 05_tabsets.R
 ]
 ]
 
+
+---
+class: inverse middle
+# Your Turn
+
+Modify the code in 05_tabsets.R to use a `page_navbar()`. 
+
+- What modifications do you have to make?
+- Can you add a sidebar using the `sidebar()` function?
+
+`r countdown::countdown(5)`
 
 ---
 # Resources
