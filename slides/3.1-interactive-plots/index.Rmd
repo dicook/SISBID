@@ -272,7 +272,7 @@ ggplot(economics) #<<
 ```
 ]
 .right-plot[
-```{r output1, ref.label="plot1", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot1, echo=FALSE, fig.height = 6}
 ```
 ]
 
@@ -290,7 +290,7 @@ ggplot(economics) +
 ```
 ]
 .right-plot[
-```{r output2, ref.label="plot2", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot2, echo=FALSE, fig.height = 6}
 ```
 ]
 
@@ -310,7 +310,7 @@ ggplot(economics) +
 ```
 ]
 .right-plot[
-```{r output3, ref.label="plot3", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot3, echo=FALSE, fig.height = 6}
 ```
 ]
 
@@ -330,7 +330,7 @@ ggplot(economics) +
 ```
 ]
 .right-plot[
-```{r output5-anim, ref.label="plot5-anim", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot5-anim, echo=FALSE,  fig.height = 6}
 ```
 ]
 
@@ -344,7 +344,7 @@ ggplot(datasaurus_dozen)#<<
 ```
 ]
 .right-plot[
-```{r output5, ref.label="plot5", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot5, echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -358,7 +358,7 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output6, ref.label="plot6", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot6, echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -372,7 +372,7 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output7, ref.label="plot7", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot7, echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -388,7 +388,7 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output8, ref.label="plot8", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot8, echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 ---
@@ -406,7 +406,7 @@ ggplot(datasaurus_dozen) +
 ```
 ]
 .right-plot[
-```{r output9, ref.label="plot9", echo=FALSE, cache=TRUE, fig.height = 6}
+```{r plot9, echo=FALSE, cache=TRUE, fig.height = 6}
 ```
 ]
 
