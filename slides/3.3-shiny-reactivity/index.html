@@ -125,7 +125,7 @@ Answers are in `03b_submission.R`
 .pull-right[
 ![Screenshot of completed app](your-turn-screenshot-days.png)
 ]
-<div class="countdown" id="timer_4d0e2c47" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_dad41a71" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -248,6 +248,12 @@ body &lt;- page_fillable(
 ---
 # Other Layouts
 
+- `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
+
+- `page_navbar()` can be used to create tabs across the top (more on this in a minute)
+    - `sidebar()` allows for common inputs across all tabs
+
+
 - `layout_column_wrap()` can accomplish some [very neat tricks](https://rstudio.github.io/bslib/articles/column-layout.html)    
 
 ```r
@@ -259,7 +265,7 @@ layout_column_wrap(
 ```
 
 - [Shiny UI Editor](https://rstudio.github.io/shinyuieditor/) is currently in Alpha but allows UI creation without writing code
-- `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
+
 
 ---
 # Tab Layouts
@@ -302,6 +308,20 @@ Code: 05_tabsets.R
 ]
 ]
 
+
+---
+class: inverse middle
+# Your Turn
+
+Modify the code in 05_tabsets.R to use a `page_navbar()`. 
+
+- What modifications do you have to make?
+- Can you add a sidebar using the `sidebar()` function?
+
+<div class="countdown" id="timer_0f63440a" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 # Resources
