@@ -4,7 +4,7 @@
     <title>Building a shiny app</title>
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (heike.hofmann@gmail.com)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
-    <script src="index_files/header-attrs-2.22/header-attrs.js"></script>
+    <script src="index_files/header-attrs-2.21/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/countdown-0.4.0/countdown.css" rel="stylesheet" />
     <script src="index_files/countdown-0.4.0/countdown.js"></script>
@@ -86,12 +86,15 @@ shinyApp(ui, server)
 
 ```r
 library(shiny)
-library(shinydashboard)
+sidebar &lt;-  sidebarPanel(width = 3, 
+                         "Fun inputs")
 
-ui &lt;- dashboardPage(
-  dashboardHeader(),
-  dashboardSidebar(),
-  dashboardBody()
+main_col &lt;- column(width = 9, 
+                   "Some results")
+
+ui &lt;- fluidPage(
+  title = "App Title",
+  tabsetPanel("Stuff", sidebar, main_col)
 )
 
 server &lt;- function(input, output, session) {
@@ -105,16 +108,17 @@ shinyApp(ui, server)
 
 ```r
 library(shiny)
-library(shinydashboard)
 
-sidebar &lt;- dashboardSidebar(
-  textInput("name", "Enter your name:", value = "Heike")
-)
+sidebar &lt;-  sidebarPanel(
+  width = 3, 
+  textInput("name", "Enter your name:", value = "Heike"))
 
-ui &lt;- dashboardPage(
-  dashboardHeader(),
-  sidebar = sidebar,
-  dashboardBody()
+main_col &lt;- column(width = 9, 
+                   "Some results")
+
+ui &lt;- fluidPage(
+  title = "App Title",
+  tabsetPanel("Stuff", sidebar, main_col)
 )
 
 server &lt;- function(input, output, session) {
@@ -148,16 +152,16 @@ In the shiny app below add a list of your favorite countries to the sidebar pane
 
 ```r
 library(shiny)
-library(shinydashboard)
 
-sidebar &lt;- dashboardSidebar(
-  textInput("name", "Enter your name:", value = "Heike")
-)
+sidebar &lt;-  sidebarPanel(
+  width = 3, 
+  textInput("name", "Enter your name:", value = "Heike"))
 
-ui &lt;- dashboardPage(
-  dashboardHeader(),
-  sidebar = sidebar,
-  dashboardBody()
+main_col &lt;- column(width = 9, 
+                   "Some results")
+ui &lt;- fluidPage(
+  title = "App Title",
+  tabsetPanel("Stuff", sidebar, main_col)
 )
 
 server &lt;- function(input, output, session) {
@@ -168,7 +172,7 @@ shinyApp(ui, server)
 
 
 
-<div class="countdown" id="timer_a40501ea" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_749fbeb4" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -177,7 +181,7 @@ shinyApp(ui, server)
 # Adding Output
 
 - Output needs to be specified in two places: 
-  - in the `ui` function we need to set a placeholder to reserve space for the output
+  - in the `ui` function we need to create a placeholder to reserve space for the output
   - in the `server` function, we need to create the output.
 
 
@@ -209,20 +213,21 @@ Shiny also has a variety of different output options:
 
 
 ```r
-sidebar &lt;- dashboardSidebar(
-  textInput("name", "Enter your name:", value = "Heike"),
-  selectInput("country", "Pick your favorite country:", 
+library(shiny)
+
+sidebar &lt;-  sidebarPanel(
+  width = 3, 
+  selectInput("state", "Pick your favorite country:", 
               choices = c("Australia", "United States", "Germany"))
 )
-
-*body &lt;- dashboardBody(
+*main_col &lt;- column(
+* width = 9,
 * plotOutput("scatter")
 *) 
 
-ui &lt;- dashboardPage(
-  dashboardHeader(),
-  sidebar = sidebar,
-  body = body,
+ui &lt;- fluidPage(
+  title = "App Title",
+  tabsetPanel("Stuff", sidebar, main_col)
 )
 
 server &lt;- function(input, output, session) {
@@ -243,7 +248,7 @@ class: inverse middle
 - Add an interactive plot of the TB data into your app.
 - Change the select box, so that the user can choose any country. Think of `unique(tb$country)` for defining the choices
 
-<div class="countdown" id="timer_a36381c9" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_af138964" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
