@@ -40,6 +40,7 @@ zip("SISBID_day2.zip", files = c(code, data, slides, "SISBID.Rproj"))
 # Day 3
 code <- list.files("code/", pattern = "^[3]", full.names = T, recursive = T)
 code <- c(code, list.files("code/3.3-apps/", full.names = T, recursive = T))
+code <- c(code, list.files("code/3.4-theme/", full.names = T, recursive = T))
 data <- list.files("data/", ".*", full.names = T)
 slides <- list.files("slides/", recursive = T, full.names = T)
 slides <- slides[str_detect(slides, "slides//3")]
