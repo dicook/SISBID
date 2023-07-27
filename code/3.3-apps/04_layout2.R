@@ -7,10 +7,9 @@ card1 <- card(
   "The status of this box is primary")
 
 card2 <- card(
-  card_header("Card in 2 columns", class = "bg-secondary"),
+  card_header("Card in 2 columns"),
   class = "border-secondary",
-  "The status of this box is secondary, and the color is shown in the border.",
-  markdown("Color in the header is added by using `class='bg-secondary'`"))
+  "The status of this box is secondary, and the color is shown in the border only")
 
 card3 <- card(
   card_header("Success Card"),
@@ -36,9 +35,13 @@ card6 <- card(
 
 body <- page_fillable(
   layout_columns(
-    col_widths = c(12, 6, 6, -1, 3, 5, 2, -1), # 12 cols per row
-    row_heights = c("100px", "200px", "300px"),
-    card1, card2, card3, card4, card5, card6)
+    col_widths = c(2, 4, 4, 2), # 12 cols per row
+    row_heights = "600px",
+    card1,
+    layout_columns(card2, card3, card5,
+                   col_widths = c(12, 12, 12),
+                   row_heights = "auto"),
+    card4, card6)
 )
 
 ui <- page_fillable(

@@ -4,8 +4,10 @@
     <title>Reactivity</title>
     <meta charset="utf-8" />
     <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (heike.hofmann@gmail.com)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
-    <script src="index_files/header-attrs-2.22/header-attrs.js"></script>
+    <script src="index_files/header-attrs-2.21/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="index_files/panelset-0.2.6/panelset.js"></script>
     <link href="index_files/countdown-0.4.0/countdown.css" rel="stylesheet" />
     <script src="index_files/countdown-0.4.0/countdown.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
@@ -123,7 +125,7 @@ Answers are in `03b_submission.R`
 .pull-right[
 ![Screenshot of completed app](your-turn-screenshot-days.png)
 ]
-<div class="countdown" id="timer_5d26ddbd" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_4d0e2c47" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -144,144 +146,162 @@ Answers are in `03b_submission.R`
 ]
 
 ---
-# Layout of Dashboards
-
 .pull-left[
-- The body can be laid out in a grid - either row based or column based&lt;br/&gt;&lt;br/&gt;
-- Structure is introduced by boxes    
+# App Layout
+
+- The body is laid out using a responsive grid
+    - responsive: adapts to different screen sizes
+    - different on a cell phone than a laptop
+    - boxes are rearranged automatically
+- Structure is introduced by cards
+
 
 ```r
-box(..., title = NULL, width = 6, height = NULL)
+card1 &lt;- card(
+  card_header("Hi, I'm a card"),
+  class = "bg-primary",
+  "I contain some information - ",
+  "text, plot, image, input area...",  
+  "your choice!")
 ```
 
-![The app layout has 12 columns (width) and you can specify rows as well.](12 cols.png)
 
 ]
 .pull-right[
-![You can specify columns within rows, or rows within columns](12 columns-rows-demo.png)
+.move-up[.move-up[![The app layout has 12 columns (width) and you can specify rows as well.](bslib-layout-cards-cols.svg)]]
+
+![Row heights can be specified as well](bslib-layout-cards-rows.svg)
 ]
 
 ---
-# Boxes
+# Cards
 
 .pull-left[
-- Boxes help with structuring output&lt;br/&gt;&lt;br/&gt;
-- Boxes have a `status` parameter 
-    - a colored bar along the top of a box
-    - `?validStatuses` are `primary`, `success`, `info`, `warning`, `danger`
+.move-up.center.huge[`04_layout.R`]    
+
+- Cards help with structuring output&lt;br/&gt;&lt;br/&gt;
+- Cards have a `class` parameter 
+    - `bg-xxx` produces a colored box
+    - `border-xxx` produces a box with a colored outline
+    - `card_header(..., class = "bg-xxx")` produces a box with a colored header
+    - `?validStatuses`, represented by `xxx` above, are `primary`, `secondary`, `success`, `info`, `warning`, `danger`, `light`, `dark`
+
 ]
 .pull-right[
-.move-up[![Demonstration of an app with different box statuses](boxes.png)]
+.move-up[![Demonstration of an app with different box statuses](bslib-layout-cards-narrow.png)]
 ]
 
 ---
-# Row Based Layout
+# Nested Layouts
 
 .pull-left[
-- Body is wrapped in a `fluidRow` function&lt;br/&gt;&lt;br/&gt;
-- Tops of boxes are aligned&lt;br/&gt;&lt;br/&gt;
-- Bottom of the boxes can be aligned by setting height in pixels&lt;br/&gt;&lt;br/&gt;
+- Body is wrapped in a `page_fillable` function&lt;br/&gt;&lt;br/&gt;
+- Cards are aligned using columns&lt;br/&gt;&lt;br/&gt;
+- Additional rows can be created by nesting `layout_columns()` functions&lt;br/&gt;&lt;br/&gt;
 
 
 ```r
-body &lt;- dashboardBody(
-  fluidRow(
-    box(title = "Box with a width of 12 columns", 
-        width = 12),
-    box(title = "Box with a width of 6 columns", 
-        width = 6, height = 200),
-    box(title = "Another box with a width of 6 cols", 
-        width = 6, height = 200), ...
-  )
+body &lt;- page_fillable(
+  layout_columns(
+    col_widths = c(2, 4, 4, 2), # 12 cols per row
+    row_heights = "600px",
+    card1,
+    layout_columns(card2, card3, card5,
+                   col_widths = c(12, 12, 12),
+                   row_heights = "auto"),
+    card4, card6)
 )
 ```
 ]
 .pull-right[
-.move-up.center.huge[`04_layout.R`]    
-![Showing a fluidRow layout](boxes.png)
+.move-up.center.huge[`04_layout2.R`]    
+![Nesting rows and columns](bslib-nested-col-layout.svg)
+]
+
+---
+# Nested Layouts
+
+.pull-left[
+- Body is wrapped in a `page_fillable` function&lt;br/&gt;&lt;br/&gt;
+- Cards are aligned using columns&lt;br/&gt;&lt;br/&gt;
+- Additional rows can be created by nesting `layout_columns()` functions&lt;br/&gt;&lt;br/&gt;
+
+
+```r
+body &lt;- page_fillable(
+  layout_columns(
+    col_widths = c(2, 4, 4, 2), # 12 cols per row
+    row_heights = "600px",
+    card1,
+    layout_columns(card2, card3, card5,
+                   col_widths = c(12, 12, 12),
+                   row_heights = "auto"),
+    card4, card6)
+)
+```
+]
+.pull-right[
+.move-up.center.huge[`04_layout2.R`]    
+![Nesting rows and columns](bslib-nested-col-layout-interior.svg)
 ]
 
 ---
 # Other Layouts
 
-- In **column** based layouts, the body is wrapped in a fluidRow function &lt;br/&gt;&lt;br/&gt;
-    - Height of boxes are aligned&lt;br/&gt;&lt;br/&gt;
-    - Each column has to define a width&lt;br/&gt;&lt;br/&gt;
-    - Boxes are aligned in width&lt;br/&gt;&lt;br/&gt;
-- In **mixed** layouts fluidRow and column can be used sequentially
-
-
----
-# Tabs in Dashboards 
-
-- `05_tabsets.R`
-- The sidebar menu can be used to introduce tabs for quick navigation
-
-.pull-left[
-![](tab1.png)
-].pull-right[
-![](tab2.png)
-]
-
----
-# Tabs in Dashboards
-.right-column[
+- `layout_column_wrap()` can accomplish some [very neat tricks](https://rstudio.github.io/bslib/articles/column-layout.html)    
 
 ```r
-sidebar &lt;- dashboardSidebar(
-  sidebarMenu(
-    menuItem("Dashboard", tabName = "dashboard", 
-             icon = icon("dashboard")),
-    menuItem("Cars", icon = icon("th"), tabName = "cars",
-             badgeLabel = "new", badgeColor = "green")
-  )
-)
-```
-].left-column[
-.move-up.move-up.huge[`05_tabsets.R`]
-
-![](sidebar-setup.png)
-]
-
----
-# Tabs in Dashboards
-.right-column[
-
-```r
-
-sidebar &lt;- dashboardSidebar(
-  sidebarMenu(
-    menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-    menuItem("Cars", icon = icon("th"), tabName = "cars",
-             badgeLabel = "new", badgeColor = "green")
-  )
-)
-
-
-body &lt;- dashboardBody(
-  tabItems(
-    tabItem(tabName = "dashboard",
-            h2("Dashboard tab content"),
-            fluidRow(
-              # Boxes
-              ...
-            )
-    ),
-    
-    tabItem(tabName = "cars",
-            h2("What do you want to know about Cars?"),
-            plotOutput("myplot"),
-            DTOutput("mytable")
-    )
-  )
+layout_column_wrap(
+  width = NULL, height = 300, fill = FALSE,
+  style = css(grid_template_columns = "2fr 1fr 2fr"),
+  card1, card2, card3
 )
 ```
 
-].left-column[
-.move-up.move-up.huge[`05_tabsets.R`]
+- [Shiny UI Editor](https://rstudio.github.io/shinyuieditor/) is currently in Alpha but allows UI creation without writing code
+- `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
 
-![](sidebar-setup.png)
+---
+# Tab Layouts
+
+
+Code: 05_tabsets.R
+.panelset.sideways[
+.panel[.panel-name[tab1]
+![](bslib-navset-pill-list1.png)
 ]
+.panel[.panel-name[tab2]
+![](bslib-navset-pill-list2.png)
+]
+.panel[.panel-name[tab3]
+![](bslib-navset-pill-list3.png)
+]
+]
+
+
+---
+# Tabs 
+- Different options for multi-page applets:
+.panelset.sideways[
+.panel[.panel-name[`navset_tab()`]
+![](bslib-tabset.png)
+]
+.panel[.panel-name[`navset_pill()`]
+![](bslib-pill.png)
+]
+.panel[.panel-name[`navset_bar()`]
+![](bslib-bar.png)
+]
+.panel[.panel-name[`navset_pill_list()`]
+![](bslib-pill-list.png)
+]
+.panel[.panel-name[`navset_card_tab()`]
+![](bslib-card-tab.png)
+].panel[.panel-name[`navset_card_pill()`]
+![](bslib-card-pill.png)
+]
+]
+
 
 ---
 # Resources
@@ -289,6 +309,7 @@ body &lt;- dashboardBody(
 - RStudio Tutorial: https://shiny.rstudio.com/articles/reactivity-overview.html&lt;br/&gt;&lt;br/&gt;
 - Shiny Cheat Sheet: https://raw.githubusercontent.com/rstudio/cheatsheets/master/shiny.pdf&lt;br/&gt;&lt;br/&gt;
 - Gallery of Shiny Apps: https://shiny.rstudio.com/gallery/
+- bslib documentation: https://rstudio.github.io/bslib/
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

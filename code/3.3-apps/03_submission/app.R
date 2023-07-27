@@ -25,8 +25,8 @@ server <- function(input, output, session) {
 
     favs
   })
-  
-  
+
+
   output$greeting <- eventReactive(input$submit, {
     daysdiff <- today() - input$date
     if (daysdiff > 1) dateout <- paste0("it has been ", daysdiff, " days since your favorite day.")
@@ -34,15 +34,15 @@ server <- function(input, output, session) {
     else if (daysdiff == 0) dateout <- paste0("today is your favorite day, how fabulous!")
     else if (daysdiff == -1) dateout <- paste0("tomorrow is your favorite day, how exciting!")
     else dateout <- paste0("it is ", -daysdiff, " days until your favorite day.")
-    
-    
+
+
     paste0("Hello ", input$name, ", ", dateout)
   })
-  
+
   output$histogram <- renderPlot({
-    gg <- ggplot() + ggtitle("When are our favorite days?") 
+    gg <- ggplot() + ggtitle("When are our favorite days?")
     if (nrow(rval_favs()) > 0) {
-      gg <- gg +  geom_dotplot(aes(x = date), binwidth = 7, data = rval_favs()) 
+      gg <- gg +  geom_dotplot(aes(x = date), binwidth = 7, data = rval_favs())
     }
     gg
   })
