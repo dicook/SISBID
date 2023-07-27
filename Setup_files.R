@@ -5,8 +5,30 @@ library(tidyverse)
 # List all slides
 slides <- list.files("slides", "*.Rmd", full.names = T, recursive = T)
 
+# First, remove all index_files in slides
+index_files_list <- list.files("slides", "index_files", recursive = T, include.dirs = T, full.names = T)
+unlink(index_files_list, force = T)
+
+default_yaml <- yaml::read_yaml(
+  text = '    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false')
+
+xaringanfn <- function(., ...)
+  rmarkdown::render(., xaringan::moon_reader(css = default_yaml$css,
+                                             self_contained = FALSE,
+                                             nature = default_yaml$nature), ...)
+safe_xaringan <- safely(xaringanfn)
+
 # Render to html
-purrr::walk(slides, rmarkdown::render)
+res <- purrr::map(slides, ~safe_xaringan(.))
+
+stopifnot(is.null(purrr::map(res, "error") %>% unlist()))
+
 
 # Purl to code folder
 purrr::walk(slides, function(i) {
