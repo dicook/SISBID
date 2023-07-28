@@ -40,18 +40,17 @@ Zoom etiquette:
 | [Lecture 2](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) |  12:45 - 1:30 pm |          2:45 - 3:30 pm | 3:45 - 4:30 pm |  9:45 - 10:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 am | 5:45 - 6:30 am |
 | [Lecture 3](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) |   1:45 - 2:30 pm |          3:45 - 4:30 pm | 4:45 - 5:30 pm | 10:45 - 11:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am | 6:45 - 7:30 am |
 
-| Thursday & Friday                                                                        | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
+| Thursday                                                                       | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
 |---------|---------|---------|---------|---------|----------|---------|---------|
-| [Lecture 1](https://dicook.github.io/SISBID/slides/2.1-tidyr/index.html)        | 8:00 - 8:45 am   | 10:00 - 10:45 am        | 11:00 - 11:45 am | 6:00 - 6:45 pm   | 11:00 - 11:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
-| [Lecture 2](https://dicook.github.io/SISBID/slides/2.2-messy-it-up/index.html)  | 9:00 - 9:45 am   | 11:00 - 11:45 am        | 12:00 - 12:45 pm | 7:00 - 7:45 pm   | 12:00 - 12:45 am | 1:00 - 1:45 am   | 2:00 - 2:45 am |
-| [Lecture 3](https://dicook.github.io/SISBID/slides/2.3-wrangling/index.html)    | 10:00 - 10:45 am | 12:00 - 12:45 pm        | 1:00 - 1:45 pm   | 8:00 - 8:45 pm   | 1:00 - 1:45 am   | 2:00 - 2:45 am   | 3:00 - 3:45 am |
+| [Lecture 1](https://dicook.github.io/SISBID/slides/2.1-tidyr/index.html)        | 8:00 - 9:00 am   | 10:00 - 11:00 am        | 11:00 - 12:00 pm | 6:00 - 7:00 pm   | 11:00 - 12:00 am | 12:00 - 1:00 am | 1:00 - 2:00 am |
+| [Lecture 2](https://dicook.github.io/SISBID/slides/2.2-messy-it-up/index.html)  | 9:15 - 10:00 am   | 11:15 - 12:00 pm        | 12:15 - 1:00 pm | 7:15 - 8:00 pm   | 12:15 - 1:00 am | 1:15 - 2:00 am   | 2:15 - 3:00 am |
+| [Lecture 3](https://dicook.github.io/SISBID/slides/2.3-wrangling/index.html)    | 10:15 - 11:15 am | 12:15 - 1:15 pm        | 1:15 - 2:15 pm   | 8:15 - 9:15 pm   | 1:15 - 2:15 am   | 2:15 - 3:15 am   | 3:15 - 4:15 am |
 | Break                                                                           |                  |                         |                  |                  |                  |                  |                |
-| [Lecture 4](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html)       | 11:45 - 12:30    | 1:45 - 2:30 pm          | 2:45 - 3:30 pm   | 8:45 - 9:30 pm   | 2:45 - 3:30 am   | 3:45 - 4:30 am   | 4:45 - 5:30 pm |
-| [Lecture 5](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html)  | 12:45 - 1:30 pm  | 2:45 - 3:30 pm          | 3:45 - 4:30 pm   | 9:45 - 10:30 pm  | 3:45 - 4:30 am   | 4:45 - 5:30 am   | 5:45 - 6:30 am |
-| [Lecture 6](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 10:45 - 11:30 pm | 4:45 - 5:30 am   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
+| [Lecture 4](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html)       | 12:15 - 1:30 pm    | 1:15 - 2:30 pm          | 2:15 - 3:30 pm   | 8:15 - 9:30 pm   | 2:15 - 3:30 am   | 3:15 - 4:30 am   | 4:15 - 5:30 pm |
+| [Lecture 5](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 10:45 - 11:30 pm | 4:45 - 5:30 am   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
 
 
-| Friday                                                                        | Pacific          | Central (Heike & Susan) | East Coast       | Denmark          | Singapore        | Korea            | Melbourne (Di) |
+| Friday                                                                        | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
 |---------|---------|---------|---------|---------|----------|---------|---------|
 | [Lecture 1](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html)        | 8:00 - 8:45 am   | 10:00 - 10:45 am        | 11:00 - 11:45 am | 6:00 - 6:45 pm   | 11:00 - 11:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
 | [Lecture 2](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html)  | 9:00 - 9:45 am   | 11:00 - 11:45 am        | 12:00 - 12:45 pm | 7:00 - 7:45 pm   | 12:00 - 12:45 am | 1:00 - 1:45 am   | 2:00 - 2:45 am |
@@ -94,35 +93,37 @@ Morning:
 
 Afternoon:
 
-1.  [Multivariate plots using ggplot2,
+4.  [Multivariate plots using ggplot2,
     GGally](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html)
     (Di)
-2.  [Touring on multivariate
+5.  [Touring on multivariate
     data](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html)
-    (Di)
-3.  [Advanced graphics, and statistical
-    inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html)
     (Di)
 
 ### Friday [zip file](SISBID_day3.zip)
 
 Morning:
 
-1.  [Interactive and animated graphics using plotly and
+
+1.  [Advanced graphics, and statistical
+    inference](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html)
+    (Susan)
+2.  [Interactive and animated graphics using plotly and
     gganimate](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html)
     (Heike).
-2.  [How to build a shiny
+3.  [How to build a shiny
     app](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html)
     (Susan).
-3.  [Reactive elements in
-    shiny](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html)
-    (Susan).
+
 
 Afternoon:
 
-1. [Theme a shiny app](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/) (Susan).
-1. [Build your own Shiny app](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/) (Susan). 
-1. Show us what you've made and [additional interactivity options with Rmarkdown](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/) (Di)
+4.  [Reactive elements in
+    shiny](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html)
+    (Susan).
+5. [Theme a shiny app](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/) (Susan).
+6. [Build your own Shiny app](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/) (Susan). 
+7. Show us what you've made and [additional interactivity options with Rmarkdown](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/) (Di)
 
 ## Software list
 
