@@ -3,11 +3,13 @@
   <head>
     <title>Theme a shiny app</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu, @visnut)   Heike Hofmann (heike.hofmann@gmail.com, @heike_hh)" />
-    <script src="index_files/header-attrs-2.22/header-attrs.js"></script>
+    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (heike.hofmann@gmail.com)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
+    <script src="index_files/header-attrs-2.21/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="index_files/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="index_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="index_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="index_files/panelset-0.2.6/panelset.js"></script>
+    <link href="index_files/countdown-0.4.0/countdown.css" rel="stylesheet" />
+    <script src="index_files/countdown-0.4.0/countdown.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -21,7 +23,7 @@ class: center, middle, inverse, title-slide
 ## SISBID 2023 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ]
 .author[
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>, <span class="citation">@visnut</span>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>, <span class="citation">@heike_hh</span>)
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
 ]
 .date[
 ### 07/26-28/2023
@@ -34,128 +36,132 @@ class: center, middle, inverse, title-slide
 
 # Theming your Shiny App
 
-- `shinydashboard` has many options available for theming and customizing your app &lt;br/&gt;&lt;br/&gt;
-- We'll cover built-in options here&lt;br/&gt;&lt;br/&gt;
+- `bslib` has many options available for theming and customizing your app &lt;br/&gt;&lt;br/&gt;
+- We'll cover the easily available options here&lt;br/&gt;&lt;br/&gt;
     - Exponentially more powerful with CSS and a bit of tinkering
 
 ---
-# Skins
+# Preset Themes
 .pull-left[
-- "Skins" are color themes for the dashboard&lt;br/&gt;&lt;br/&gt;
-- The default is blue, but other options:
-    - black, purple, green, red, yellow
-    - `dashboardPage(skin = "purple")`
-].pull-right[
-![purple dashboard skin](skin-purple.png)
-]
+- Bootswatch provides preset themes
+- `bs_themer()` lets you choose interactively
 
+.center.large[`bs_themer.R`]
+].pull-right[
+.panelset.sideways[
+.panel[.panel-name[default]
+![](bs_themer.png)
+]
+.panel[.panel-name[flatly]
+![](bs_themer_flatly.png)
+]
+.panel[.panel-name[darkly]
+![](bs_themer_darkly.png)
+]
+]
+]
 
 ---
-# Long Titles and Title CSS
+class: inverse middle
+# Your Turn
+
+Run the code in `bs_themer.R` and pick a theme you like. 
+
+Get the console output corresponding to that theme and modify `bs_themed.R` to use your theme code.
+
+Hint: Use the `theme = ...` argument in one of the `page_xxx` functions.
+
+
+<div class="countdown" id="timer_740c7dd7" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+# Customizing Your Navbar
+
+- You may want to add a logo to your title area
+- pictures should be placed in the `www/` folder
 
 .pull-left[
-- Titles may sometimes not fit in the title area
-    - `titleWidth` argument, specify in pixels
-- Customize color of title area using CSS
-
-![example of long title](long-title.png)
-]
-.pull-right[
 
 ```r
-shinyApp(
-  ui = dashboardPage(
-    dashboardHeader(
-      title = "Example of a long title that needs more space",
-      titleWidth = 450
-    ),
-    dashboardSidebar(),
-    dashboardBody(
-      # Also add some custom CSS to make the title 
-      # background area the same
-      # color as the rest of the header.
-      tags$head(tags$style(HTML('
-        .skin-blue .main-header .logo {
-          background-color: #3c8dbc;
-        }
-        .skin-blue .main-header .logo:hover {
-          background-color: #3c8dbc;
-        }
-      ')))
-    )
-  ),
-  server = function(input, output) { }
-)
+title = div(
+  img(src = "wave.gif", width = "40px"),
+  img(src = "globe.png", width = "40px"),
+  "Hello World", style = "display: inline;"),
 ```
+].pull-right[
+
+![](title_image.png)
+
 ]
+
+---
+# Adding Icons
+
+- You can add icons to your `nav_panels()` with the `icon` argument
+    - [Bootstrap Icons](https://icons.getbootstrap.com/) 
+    - Match the version of Bootstrap your app uses
+    
+
+.pull-left[
+
+```r
+nav_panel(
+  title = "Dashboard", body, 
+  icon = bs_icon("bar-chart", a11y = "deco") 
+  # marks icon as decorative for screen readers
+),
+```
+].pull-right[
+![](navbar-icon.png)
+]
+
+---
+class: inverse middle
+# Your Turn
+
+Customize the title and icons on the `nav_panels` in `title_customization.R`.
+
+Choose appropriate icons and decide if they are decorative or semantic. 
+
+<div class="countdown" id="timer_d7f1b397" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 # Change the width of the sidebar
 
-.pull-left[
 
 ```r
-shinyApp(
-  ui = dashboardPage(
-    dashboardHeader(
-      title = "Title and sidebar 350 pixels wide",
-      titleWidth = 350
-    ),
-    dashboardSidebar(
-      width = 350,
-      sidebarMenu(
-        menuItem("Menu Item")
-      )
-    ),
-    dashboardBody()
-  ),
-  server = function(input, output) { }
-)
-```
-]
-.pull-right[
-![350px sidebar width](sidebar-width.png)
-]
-
----
-# Fun with icons!
-
-- `shinydashboard` includes icons from [`fontAwesome`](https://fontawesome.io/icons/) and [`Glyphicons`](https://getbootstrap.com/docs/3.4/components/#glyphicons)&lt;br/&gt;&lt;br/&gt;
-- `icon("calendar")` generates HTML for <i class="far fa-calendar" role="presentation" aria-label="calendar icon"></i>
-
-
-```r
-shinyApp(
-  ui = dashboardPage(
-    dashboardHeader(
-      title = HTML(paste(icon("cog", lib="glyphicon"), "My app is a cog in the machine!")),
-      titleWidth = 450
-    ),
-    dashboardSidebar(),
-    dashboardBody()
-  ),
-  server = function(input, output) { }
+side &lt;- sidebar(
+  width = "20%",
+  h2("Inputs"),
+  sliderInput(
+    "mpg", label = "MPG range",
+    min = min(floor(mtcars$mpg), na.rm = T),
+    max = max(ceiling(mtcars$mpg), na.rm = T),
+    step = 1, value = range(mtcars$mpg))
 )
 ```
 
----
-
-![Add an icon to the title](app-icon-title.png)
-
-
----
-# Customizing Statuses and Colors
-
-.pull-left[
-- Status arguments can be customized (and this comes with a color)
-
-![Bootstrap statuses](statuses.png)
+.panelset.sideways[
+.panel[.panel-name[10%]
+![](sidebar-10.png)
 ]
-.pull-right[
-- Many functions also have a color argument&lt;br/&gt;&lt;br/&gt;
-- Default colors defined:
-![Bootstrap colors](colors.png)
+.panel[.panel-name[20%]
+![](sidebar-20.png)
 ]
+.panel[.panel-name[100px]
+![](sidebar-100px.png)
+]
+.panel[.panel-name[100px (small window)]
+![](sidebar-100px-2.png)
+]
+]
+
 
 
 ---

@@ -1,4 +1,4 @@
-## ---- echo = FALSE, warning = FALSE, message = FALSE---------------------
+## ---- echo = FALSE, warning = FALSE, message = FALSE-----------------------------------------------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -14,78 +14,72 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(readr)
+library(xaringanExtra)
 
-
-## ---- eval = F-----------------------------------------------------------
-rval <- reactive({
-  ...
-})
-
-
-## ---- eval = F-----------------------------------------------------------
-rval <- eventReactive(actionbutton, {
-  ...
-})
-
-
-## ----eval = F------------------------------------------------------------
-runApp("03_submission/", display.mode = "showcase")
-
-
-## ---- eval = F-----------------------------------------------------------
-box(..., title = NULL, width = 6, height = NULL)
-
-
-## ---- eval = F-----------------------------------------------------------
-body <- dashboardBody(
-  fluidRow(
-    box(title = "Box with a width of 12 columns", 
-        width = 12),
-    box(title = "Box with a width of 6 columns", 
-        width = 6, height = 200),
-    box(title = "Another box with a width of 6 cols", 
-        width = 6, height = 200), ...
-  )
+use_xaringan_extra(
+  include = c("panelset")
 )
 
 
-## ---- eval = F-----------------------------------------------------------
-sidebar <- dashboardSidebar(
-  sidebarMenu(
-    menuItem("Dashboard", tabName = "dashboard", 
-             icon = icon("dashboard")),
-    menuItem("Cars", icon = icon("th"), tabName = "cars",
-             badgeLabel = "new", badgeColor = "green")
-  )
-)
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## rval <- reactive({
+##   ...
+## })
 
 
-## ---- eval = F-----------------------------------------------------------
-
-sidebar <- dashboardSidebar(
-  sidebarMenu(
-    menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-    menuItem("Cars", icon = icon("th"), tabName = "cars",
-             badgeLabel = "new", badgeColor = "green")
-  )
-)
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## rval <- eventReactive(actionbutton, {
+##   ...
+## })
 
 
-body <- dashboardBody(
-  tabItems(
-    tabItem(tabName = "dashboard",
-            h2("Dashboard tab content"),
-            fluidRow(
-              # Boxes
-              ...
-            )
-    ),
-    
-    tabItem(tabName = "cars",
-            h2("What do you want to know about Cars?"),
-            plotOutput("myplot"),
-            DTOutput("mytable")
-    )
-  )
-)
+## ----eval = F--------------------------------------------------------------------------------------------------------
+## runApp("03_submission/", display.mode = "showcase")
+
+
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## card1 <- card(
+##   card_header("Hi, I'm a card"),
+##   class = "bg-primary",
+##   "I contain some information - ",
+##   "text, plot, image, input area...",
+##   "your choice!")
+
+
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## body <- page_fillable(
+##   layout_columns(
+##     col_widths = c(2, 4, 4, 2), # 12 cols per row
+##     row_heights = "600px",
+##     card1,
+##     layout_columns(card2, card3, card5,
+##                    col_widths = c(12, 12, 12),
+##                    row_heights = "auto"),
+##     card4, card6)
+## )
+
+
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## body <- page_fillable(
+##   layout_columns(
+##     col_widths = c(2, 4, 4, 2), # 12 cols per row
+##     row_heights = "600px",
+##     card1,
+##     layout_columns(card2, card3, card5,
+##                    col_widths = c(12, 12, 12),
+##                    row_heights = "auto"),
+##     card4, card6)
+## )
+
+
+## ---- eval = F-------------------------------------------------------------------------------------------------------
+## layout_column_wrap(
+##   width = NULL, height = 300, fill = FALSE,
+##   style = css(grid_template_columns = "2fr 1fr 2fr"),
+##   card1, card2, card3
+## )
+
+
+## ----xaringan-panelset, echo=FALSE-----------------------------------------------------------------------------------
+xaringanExtra::use_panelset()
 
