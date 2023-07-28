@@ -243,11 +243,8 @@ body <- page_fillable(
 # Other Layouts
 
 - `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
-
 - `page_navbar()` can be used to create tabs across the top (more on this in a minute)
     - `sidebar()` allows for common inputs across all tabs
-
-
 - `layout_column_wrap()` can accomplish some [very neat tricks](https://rstudio.github.io/bslib/articles/column-layout.html)    
 ```{r, eval = F}
 layout_column_wrap(
