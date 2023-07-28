@@ -153,9 +153,9 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
 ]
 
 .pull-right[
-```{r}
-viz
-#ggplotly(viz)
+```{r out.width="80%"}
+#viz
+ggplotly(viz)
 ```
 ]
 
@@ -168,7 +168,7 @@ Not all `ggplot2` geoms are supported in plotly, but when they are, they just wo
 `plotly` uses elements of `crosstalk` to provide additional interactivity, such as linked highlighting
 
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 txh_shared <- highlight_key(txhousing, ~year)
 
 p <- ggplot(txh_shared, aes(month, median)) +
@@ -183,7 +183,7 @@ p <- ggplot(txh_shared, aes(month, median)) +
    facet_wrap(~ city)
 
 gg <- ggplotly(p, height = 600, width = 1000) %>%
-   layout(title = "Click on a line to highlight a year")
+   plotly::layout(title = "Click on a line to highlight a year")
 
 highlight(gg)
 ```
@@ -201,8 +201,8 @@ p <- ggplot(sd, aes(month, median)) +
 gg <- ggplotly(p, height = 600, width = 1000) %>%
    layout(title = "Click on a line to highlight a year")
 
-p
-#highlight(gg)
+#p
+highlight(gg)
 ```
 
 ---
