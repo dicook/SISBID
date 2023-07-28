@@ -111,29 +111,29 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
   geom_point(aes(text = name, size = log2(pop)), colour = "red", alpha = 1/4)
 
 
-## --------------------------------------------------------------------------------------------------------------------
-viz
-#ggplotly(viz)
+## ----out.width="80%"-------------------------------------------------------------------------------------------------
+#viz
+ggplotly(viz)
 
 
-## ----eval=FALSE------------------------------------------------------------------------------------------------------
-## txh_shared <- highlight_key(txhousing, ~year)
-## 
-## p <- ggplot(txh_shared, aes(month, median)) +
-##    geom_line(aes(group = year)) +
-##    geom_smooth(data = txhousing, method = "gam") +
-##    scale_x_continuous("", breaks=seq(1, 12, 1),
-##         labels=c("J", "F", "M", "A", "M", "J",
-##                  "J", "A", "S", "O", "N", "D")) +
-##    scale_y_continuous("Median price ('00,000)",
-##                       breaks = seq(0,300000,100000),
-##                       labels = seq(0,3,1)) +
-##    facet_wrap(~ city)
-## 
-## gg <- ggplotly(p, height = 600, width = 1000) %>%
-##    layout(title = "Click on a line to highlight a year")
-## 
-## highlight(gg)
+## ----eval=TRUE-------------------------------------------------------------------------------------------------------
+txh_shared <- highlight_key(txhousing, ~year)
+
+p <- ggplot(txh_shared, aes(month, median)) +
+   geom_line(aes(group = year)) + 
+   geom_smooth(data = txhousing, method = "gam") + 
+   scale_x_continuous("", breaks=seq(1, 12, 1),
+        labels=c("J", "F", "M", "A", "M", "J", 
+                 "J", "A", "S", "O", "N", "D")) +
+   scale_y_continuous("Median price ('00,000)", 
+                      breaks = seq(0,300000,100000),
+                      labels = seq(0,3,1)) +
+   facet_wrap(~ city)
+
+gg <- ggplotly(p, height = 600, width = 1000) %>%
+   plotly::layout(title = "Click on a line to highlight a year")
+
+#highlight(gg)
 
 
 ## ----echo=FALSE, out.width="70%", fig.height=10, fig.width=12--------------------------------------------------------
@@ -147,8 +147,8 @@ p <- ggplot(sd, aes(month, median)) +
 gg <- ggplotly(p, height = 600, width = 1000) %>%
    plotly::layout(title = "Click on a line to highlight a year")
 
-p
-#highlight(gg)
+#p
+highlight(gg)
 
 
 ## ---- echo=FALSE, fig.width = 8, fig.height = 6----------------------------------------------------------------------

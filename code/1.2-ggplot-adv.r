@@ -3,10 +3,10 @@ knitr::opts_chunk$set(
   echo=FALSE,
   message = FALSE,
   warning = FALSE,
-  error = FALSE,
+  error = FALSE, 
   collapse = TRUE,
   comment = "",
-  out.width = "80%",
+  out.width = "80%", 
   fig.height = 6,
   fig.width = 10,
   fig.align = "center",
@@ -32,11 +32,11 @@ library(here)
 ## library(galah)
 ## ala_config(atlas = "Australia", download_reason_id=)
 ## l <- ala_species("Platypus")
-##
+## 
 ## taxa <- select_taxa("Ornithorhynchus anatinus", counts = TRUE)
-##
+## 
 ## platypus <- ala_occurrences(taxa = taxa)
-##
+## 
 ## platypus <- platypus %>% rename(
 ##   longitude = decimalLongitude,
 ##   latitude = decimalLatitude
@@ -55,8 +55,8 @@ ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude), alpha=0.1)
 
 
 ## ----making a map projection, echo=TRUE, fig.height=10, out.width="100%"---------------------------------------------
-ggplot(data=platydata) +
-  geom_point(aes(x=longitude, y=latitude),
+ggplot(data=platydata) + 
+  geom_point(aes(x=longitude, y=latitude), 
              alpha=0.1) +
   coord_map()
 
@@ -73,9 +73,9 @@ ggplot(data=platydata) +
 
 ## ----load the saved map data, echo=TRUE------------------------------------------------------------------------------
 load(here::here("data/oz.rda"))
-ggmap(oz) +
-  geom_point(data=platydata,
-             aes(x=longitude, y=latitude),
+ggmap(oz) + 
+  geom_point(data=platydata, 
+             aes(x=longitude, y=latitude), 
               alpha=0.1, colour="orange")
 
 
@@ -87,12 +87,12 @@ platydata %>%
   addTiles() %>%
   addCircleMarkers(
     radius=1, opacity = 0.5, color = "orange", label = ~eventDate,
-    lat = ~latitude, lng = ~longitude)
+    lat = ~latitude, lng = ~longitude) 
 
 
 ## ----create a date variable, echo=TRUE-------------------------------------------------------------------------------
 library(lubridate)
-platydata <- platydata %>%
+platydata <- platydata %>% 
   mutate(eventDate = ymd_hms(eventDate))
 
 
@@ -103,13 +103,12 @@ ggplot(data=platydata) +
 
 ## ----show jittered sightings over time, echo=TRUE, out.width="60%"---------------------------------------------------
 ggplot(data=platydata) +
-  geom_jitter(aes(x=eventDate, y=1),
-              width=0, height=0.2)
+  geom_jitter(aes(x=eventDate, y=1))
 
 
 ## ----focus on records since 1900 and count the number for each year, echo=TRUE, out.width="60%"----------------------
 platydata1900 <- platydata %>% filter(year>1900) %>%
-  count(year)
+  count(year) 
 ggplot(data=platydata1900) +
   geom_point(aes(x=year, y=n))
 
@@ -124,8 +123,7 @@ ggplot(data=platydata1900) +
 ## ----add a trend line, echo=TRUE, out.width="60%"--------------------------------------------------------------------
 ggplot(data=platydata1900, aes(x=year, y=n)) +
   geom_point() +
-  geom_smooth(se=F) +
-  ylim(c(0, 500))
+  geom_smooth(se=F)
 
 
 ## ----make it interactive to investigate some observations, echo=TRUE-------------------------------------------------
