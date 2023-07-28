@@ -99,7 +99,8 @@ main_col &lt;- column(width = 9,
 
 ui &lt;- fluidPage(
   title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  sidebar, 
+  main_col)
 )
 
 server &lt;- function(input, output, session) {
@@ -123,7 +124,8 @@ main_col &lt;- column(width = 9,
 
 ui &lt;- fluidPage(
   title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  sidebar, 
+  main_col
 )
 
 server &lt;- function(input, output, session) {
@@ -166,7 +168,8 @@ main_col &lt;- column(width = 9,
                    "Some results")
 ui &lt;- fluidPage(
   title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  sidebar, 
+  main_col
 )
 
 server &lt;- function(input, output, session) {
@@ -177,7 +180,7 @@ shinyApp(ui, server)
 
 
 
-<div class="countdown" id="timer_414f5888" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_cea03a7c" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -222,7 +225,7 @@ library(shiny)
 
 sidebar &lt;-  sidebarPanel(
   width = 3, 
-  selectInput("state", "Pick your favorite country:", 
+  selectInput("country", "Pick your favorite country:", 
               choices = c("Australia", "United States", "Germany"))
 )
 *main_col &lt;- column(
@@ -231,8 +234,7 @@ sidebar &lt;-  sidebarPanel(
 *) 
 
 ui &lt;- fluidPage(
-  title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  title = "App Title", sidebar, main_col)
 )
 
 server &lt;- function(input, output, session) {
@@ -253,7 +255,7 @@ class: inverse middle
 - Add an interactive plot of the TB data into your app.
 - Change the select box, so that the user can choose any country. Think of `unique(tb$country)` for defining the choices
 
-<div class="countdown" id="timer_c274db93" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_22a3e1ca" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

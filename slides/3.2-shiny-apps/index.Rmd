@@ -96,7 +96,8 @@ main_col <- column(width = 9,
 
 ui <- fluidPage(
   title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  sidebar, 
+  main_col)
 )
 
 server <- function(input, output, session) {
@@ -119,7 +120,8 @@ main_col <- column(width = 9,
 
 ui <- fluidPage(
   title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  sidebar, 
+  main_col
 )
 
 server <- function(input, output, session) {
@@ -161,7 +163,8 @@ main_col <- column(width = 9,
                    "Some results")
 ui <- fluidPage(
   title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  sidebar, 
+  main_col
 )
 
 server <- function(input, output, session) {
@@ -176,15 +179,15 @@ library(shiny)
 
 sidebar <-  sidebarPanel(
   width = 3, 
-  textInput("name", "Enter your name:", value = "Heike"),
-  selectInput("state", "Pick your favorite country:", 
+  selectInput("country", "Pick your favorite country:", 
               choices = c("Australia", "United States", "Germany")))
 main_col <- column(width = 9, 
                    "Some results")
 
 ui <- fluidPage(
   title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  sidebar, 
+  main_col
 )
 
 server <- function(input, output, session) {
@@ -234,7 +237,7 @@ library(shiny)
 
 sidebar <-  sidebarPanel(
   width = 3, 
-  selectInput("state", "Pick your favorite country:", 
+  selectInput("country", "Pick your favorite country:", 
               choices = c("Australia", "United States", "Germany"))
 )
 main_col <- column(        #<<
@@ -243,8 +246,7 @@ main_col <- column(        #<<
 )                          #<<
 
 ui <- fluidPage(
-  title = "App Title",
-  tabsetPanel("Stuff", sidebar, main_col)
+  title = "App Title", sidebar, main_col)
 )
 
 server <- function(input, output, session) {
