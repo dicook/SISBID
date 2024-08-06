@@ -1,8 +1,8 @@
 ---
 title: "Touring multivariate data"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
+subtitle: "SISBID 2024 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "08/14-16/2024"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -41,7 +41,7 @@ library(GGally)
 library(tourr)
 library(plotly)
 library(palmerpenguins)
-library(ochRe)
+library(colorspace)
 ```
 
 Penguins data: See https://allisonhorst.github.io/palmerpenguins/ for more details.
@@ -71,8 +71,7 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
+  scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
 ```
@@ -114,8 +113,8 @@ penguins_std <- penguins %>%
 
 ```{r echo=TRUE, eval=FALSE}
 # Run the tour
-clrs <- ochre_pal(
-  palette="nolan_ned")(3)
+clrs <- divergingx_hcl(3,
+  palette="Zissou 1")
 col <- clrs[
   as.numeric(
     penguins$species)]
@@ -130,7 +129,8 @@ animate_xy(penguins_std[,2:5],
 ```{r eval=FALSE, echo=FALSE}
 # This code was used to make the animated gif
 set.seed(20200622)
-clrs <- ochre_pal(palette="nolan_ned")(3)
+clrs <- divergingx_hcl(3,
+  palette="Zissou 1")
 col <- clrs[as.numeric(penguins$species)]
 render_gif(penguins_std[,2:5], grand_tour(), 
            display_xy(col=col, axes="bottomleft"), 
@@ -169,7 +169,7 @@ class: inverse middle
 
 .pull-right[
 ```{r echo=FALSE, out.width="100%", fig.width=6, fig.height=6, fig.retina=5}
-ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") + scale_colour_ochre(palette="nolan_ned") +
+ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") +   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(legend.position="bottom")
 ```
 ]
@@ -288,7 +288,7 @@ p <- ggplot() +
                                   frame = indx), colour="grey70") +
        geom_point(data = df, aes(x = d1, y = d2, colour=species, 
                                  frame = indx), size=1) +
-       scale_colour_ochre(palette="nolan_ned") +
+         scale_colour_discrete_divergingx(palette = "Zissou 1") + 
        geom_text(data=dfaxes_mat, aes(x=xloc, y=yloc, 
                                   label=coef, frame = indx)) + 
        theme_void() +
@@ -313,8 +313,7 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
+    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
 ```
@@ -331,8 +330,7 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
+    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
 ```
@@ -380,8 +378,8 @@ F \text{ being orthonormal}$$
 ---
 
 ```{r eval=FALSE, echo=FALSE}
-clrs <- ochre_pal(
-  palette="nolan_ned")(3)
+clrs <- divergingx_hcl(3,
+  palette="Zissou 1")
 col <- clrs[
   as.numeric(
     penguins$species)]
@@ -634,7 +632,7 @@ penguins_gp <- ggplot() +
 .pull-right[
 ```{r eval=FALSE}
      xlim(-1,1) + ylim(-1,1) +
-     scale_colour_ochre(palette="nolan_ned") +
+     scale_colour_discrete_divergingx(palette = "Zissou 1") +
      coord_equal() +
      theme_bw() +
      theme(legend.position = "none",
@@ -686,7 +684,7 @@ pg27 <- ggplot() +
              aes(x=P1, y=P2,
                  colour=species,
                  label=obs_labels)) +
-  scale_colour_ochre(palette="nolan_ned") +
+  scale_colour_discrete_divergingx(palette = "Zissou 1") +
   xlim(-1,1) + ylim(-1, 1) +
   ggtitle("Frame 27") +
   theme_bw() +

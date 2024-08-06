@@ -1,4 +1,4 @@
-# SISBID 2023 Module 2: Visualization of Biomedical Big Data
+# SISBID 2024 Module 2: Visualization of Biomedical Big Data
 
 Instructors: Di Cook, Heike Hofmann and Susan Vanderplas
 

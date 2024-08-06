@@ -1,8 +1,8 @@
 ---
 title: "Theme a shiny app"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
+subtitle: "SISBID 2024 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhhofmann@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "08/14-16/2024"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]

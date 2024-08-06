@@ -3,8 +3,8 @@
   <head>
     <title>Advanced plots and inference</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (heike.hofmann@gmail.com)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
-    <script src="index_files/header-attrs-2.21/header-attrs.js"></script>
+    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhofmann@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
+    <script src="index_files/header-attrs-2.27/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
@@ -18,13 +18,13 @@ class: center, middle, inverse, title-slide
 # Advanced plots and inference
 ]
 .subtitle[
-## SISBID 2023 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+## SISBID 2024 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ]
 .author[
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:heike.hofmann@gmail.com" class="email">heike.hofmann@gmail.com</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhofmann@unl.edu" class="email">hhofmann@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
 ]
 .date[
-### 07/26-28/2023
+### 08/14-16/2024
 ]
 
 ---
@@ -283,7 +283,7 @@ The plot is constructed by plotting count against year, separately by age group,
 ---
 
 
-```r
+``` r
 # Make expanded rows of categorical variables
 # matching the counts of aggregated data.
 # sex needs to be converted to 0, 1 to 
@@ -316,7 +316,7 @@ l &lt;- l %&gt;%
 *Alternative hypothesis*: It isn't.
 
 
-```r
+``` r
 # Compute proportion across all data
 tbl &lt;- tb_us %&gt;% group_by(sex) %&gt;% summarise(count=sum(count))
 tbl
@@ -379,7 +379,7 @@ Each person can
 
 .pull-right[
 
-```r
+``` r
 library(MASS)
 data(wasps)
 lda_pred &lt;- function(x) {
@@ -424,7 +424,8 @@ ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2,
 "ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"incremental": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

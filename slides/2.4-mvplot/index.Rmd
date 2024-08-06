@@ -1,8 +1,8 @@
 ---
 title: "Multivariate data plots"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
+subtitle: "SISBID 2024 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "08/14-16/2024"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
@@ -299,7 +299,7 @@ BiocManager::install("bigPint")
 
 Data on soybean experiment, with two treatments, and three replicates. Here's the scatterplot of the first replicate. 
 
-```{r soybean_scat, fig.show='hide'}
+```{r soybean_scat, fig.show='hide', eval=FALSE}
 # if (!require("BiocManager", quietly = TRUE))
 #    install.packages("BiocManager")
 # BiocManager::install("bigPint")
@@ -315,7 +315,7 @@ ggplot(soybean_ir_sub,
 
 .pull-right[
 
-```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE}
+```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE, eval=FALSE}
 ```
 ]
 
@@ -324,7 +324,7 @@ ggplot(soybean_ir_sub,
 The `litre` plot combines replicates into same plot, to look at the treatments. To handle the data size it uses a hexbin display. The data values for an individual gene can be overlaid on the plot.
 
 .pull-left[
-```{r soybean_litre, fig.show='hide'}
+```{r soybean_litre, fig.show='hide', eval=FALSE}
 geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
 ret <- plotLitre(data = soybean_ir_sub, 
                  geneList = geneList, 
@@ -335,7 +335,7 @@ ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
 ]
 
 .pull-right[
-```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
+```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide', eval=FALSE}
 ```
 ]
 
@@ -344,18 +344,18 @@ ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
 .pull-left[
 This can be extended into a scatterplot matrix
 
-```{r soybean_litre_sm, fig.show='hide'}
+```{r soybean_litre_sm, fig.show='hide', eval=FALSE}
 ret <- plotSM(soybean_cn_sub, 
               soybean_cn_sub_metrics, 
               option = "hexagon", 
               xbins = 5, 
               pointSize = 0.1, 
-              saveFile = FALSE)
+              saveFile = FALSE, eval=FALSE)
 ret[[2]]
 ```
 ]
 .pull-right[
-```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide'}
+```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide', eval=FALSE}
 ```
 ]
 
@@ -364,7 +364,7 @@ ret[[2]]
 .pull-left[
 When working with RNA-Seq data, it is useful to compare samples using a side-by-side boxplot. Overlaying the profiles of different genes can help to learn about the patterns across samples, particularly to examine the significant genes after testing. (This can be called a parallel coordinate plot.)
 
-```{r soybean_pcp, fig.show='hide'}
+```{r soybean_pcp, fig.show='hide', eval=FALSE}
 ret <- plotPCP(data = soybean_ir_sub, 
                geneList = geneList, 
                lineSize = 0.3, 
@@ -373,7 +373,7 @@ ret[[1]]
 ```
 ]
 .pull-right[
-```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
+```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide', eval=FALSE}
 ```
 ]
 
