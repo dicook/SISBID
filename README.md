@@ -143,11 +143,6 @@ remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
 remotes::install_github("hollylkirk/ochRe")
 
-# Bioconductor packages
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("bigPint")
-
 # For sharing web apps, 
 # but you need adminstrator rights to your computer:
 
