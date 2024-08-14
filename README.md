@@ -163,5 +163,11 @@ remotes::install_github("hadley/emo")
 remotes::install_github("mitchelloharawild/icons")
 remotes::install_github("emitanaka/anicon")
 remotes::install_github("dicook/gretchenalbrecht")
-remotes::install_github("gadenbuie/countdown")
+options(repos = c(
+  gadenbuie = 'https://gadenbuie.r-universe.dev',
+  getOption("repos")
+))
+
+install.packages('countdown')
 ```
+
