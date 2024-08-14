@@ -3,7 +3,7 @@
   <head>
     <title>Advanced plots and inference</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhofmann@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
+    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhofmann4@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
     <script src="index_files/header-attrs-2.27/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide
 ## SISBID 2024 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ]
 .author[
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhofmann@unl.edu" class="email">hhofmann@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhofmann4@unl.edu" class="email">hhofmann4@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
 ]
 .date[
 ### 08/14-16/2024
@@ -187,7 +187,7 @@ When you run the example yourself, you get a `decrypt` code line, that you run a
 
 ]
 .pull-right[
-&lt;img src="index_files/figure-html/lineup 1-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/lineup 1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -246,7 +246,7 @@ where `\(B(.,.)\)` is the Beta function. Large values of `\(\alpha\)` indicate t
 - plot is a residual vs fitted scatterplot, null hypothesis is *there is no association between the two statistics*
 - null generating mechanism: residual rotation
 
-&lt;img src="index_files/figure-html/lineup 2-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/lineup 2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 **Assessing temporal dependence**
@@ -254,14 +254,14 @@ where `\(B(.,.)\)` is the Beta function. Large values of `\(\alpha\)` indicate t
 - plot is a lineplot, null hypothesis is *there is no temporal trend*
 - null generating mechanism: simulation from a time series model
 
-&lt;img src="index_files/figure-html/lineup 3-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/lineup 3-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 # Let's talk TB
 
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 There are many aspects of this plot, this is what we said earlier:
 
@@ -307,7 +307,7 @@ l &lt;- l %&gt;%
 
 ---
 
-&lt;img src="index_files/figure-html/plot the lineup-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/plot the lineup-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 # A more complicated null
@@ -338,7 +338,7 @@ l &lt;- l %&gt;%
 
 ---
 
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse middle
@@ -356,7 +356,7 @@ class: inverse middle
 
 Cancer incidence across the US 2010-2014, all cancer types, per 100k. Data from American Cancer Society, https://cancerstatisticscenter.cancer.org. Does one map show a spatial trend?
 
-&lt;img src="index_files/figure-html/make a map lineup-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/make a map lineup-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 background-image: \url(https://pbs.twimg.com/profile_images/1092451626781163523/0YzJMi-8_400x400.jpg)
@@ -424,8 +424,7 @@ ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2,
 "ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false,
-"incremental": true
+"countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

@@ -3,7 +3,7 @@
   <head>
     <title>Polish and share your own shiny app</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhhofmann@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
+    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhhofmann4@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
     <script src="index_files/header-attrs-2.27/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="myremark.css" type="text/css" />
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 ## SISBID 2024 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ]
 .author[
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhhofmann@unl.edu" class="email">hhhofmann@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhhofmann4@unl.edu" class="email">hhhofmann4@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
 ]
 .date[
 ### 08/14-16/2024
@@ -75,13 +75,6 @@ This will create a folder in your workspace with the same name as you gave your 
 Change the plot to use `ggplot`, this involves changing the server function to be this:
 
 
-``` r
-server &lt;- function(input, output) {
-    output$distPlot &lt;- renderPlot({
-        ggplot(faithful, aes(x=waiting)) + geom_histogram(bins = input$bins)
-    })
-}
-```
 
 You will also need to add `library(ggplot2)` at the top of the file, just after `library(shiny)`.
 
@@ -99,27 +92,12 @@ Change from a static ggplot plot, to an interactive plotly plot, by
 1.Changing the server function to look like this. Note `renderPlotly`
 
 
-``` r
-server &lt;- function(input, output) {
-
-    output$distPlot &lt;- renderPlotly({
-        p &lt;- ggplot(faithful, aes(x=waiting)) +
-            geom_histogram(bins = input$bins)
-        print(ggplotly(p))
-    })
-}
-```
 
 ---
 
 2.Changing the `ui` function to render plotly output
 
 
-``` r
-mainPanel(
-  plotlyOutput("distPlot")
-)
-```
 
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
@@ -133,12 +111,6 @@ mainPanel(
 Convert the slide into a numeric input, by changing the `ui` function to be:
 
 
-``` r
-sidebarLayout(
-  sidebarPanel(
-    numericInput("bins", "nbins", 30)
-  ),
-```
 
 (The `numericInput` replaces the `sliderInput` code)
 

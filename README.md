@@ -46,8 +46,8 @@ Zoom etiquette:
 | [Lecture 2](https://dicook.github.io/SISBID/slides/2.2-messy-it-up/index.html)  | 9:15 - 10:00 am   | 11:15 - 12:00 pm        | 12:15 - 1:00 pm | 7:15 - 8:00 pm   | 12:15 - 1:00 am | 1:15 - 2:00 am   | 2:15 - 3:00 am |
 | [Lecture 3](https://dicook.github.io/SISBID/slides/2.3-wrangling/index.html)    | 10:15 - 11:15 am | 12:15 - 1:15 pm        | 1:15 - 2:15 pm   | 8:15 - 9:15 pm   | 1:15 - 2:15 am   | 2:15 - 3:15 am   | 3:15 - 4:15 am |
 | Break                                                                           |                  |                         |                  |                  |                  |                  |                |
-| [Lecture 4](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html)       | 12:15 - 1:30 pm    | 1:15 - 2:30 pm          | 2:15 - 3:30 pm   | 8:15 - 9:30 pm   | 2:15 - 3:30 am   | 3:15 - 4:30 am   | 4:15 - 5:30 pm |
-| [Lecture 5](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 10:45 - 11:30 pm | 4:45 - 5:30 am   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
+| [Lecture 4](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html)       | 12:15 - 1:30 pm    | 1:15 - 2:30 pm          | 2:15 - 3:30 pm   | 10:15 - 11:30 pm   | 2:15 - 3:30 am   | 3:15 - 4:30 am   | 4:15 - 5:30 pm |
+| [Lecture 5](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 11:45 pm - 12:30 am | 4:45 - 5:30 am   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
 
 
 | Friday                                                                        | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
@@ -163,5 +163,11 @@ remotes::install_github("hadley/emo")
 remotes::install_github("mitchelloharawild/icons")
 remotes::install_github("emitanaka/anicon")
 remotes::install_github("dicook/gretchenalbrecht")
-remotes::install_github("gadenbuie/countdown")
+options(repos = c(
+  gadenbuie = 'https://gadenbuie.r-universe.dev',
+  getOption("repos")
+))
+
+install.packages('countdown')
 ```
+

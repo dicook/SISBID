@@ -1,7 +1,7 @@
 ---
 title: "A Grammar of Graphics"
 subtitle: "SISBID 2024 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
 date: "08/14-16/2024"
 output:
   xaringan::moon_reader:
@@ -48,9 +48,9 @@ class: inverse middle
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
 <br>
-.large[Write down as many types of data plots that you can think of.] 
+.large[Write down as many types of data plots/charts that you can think of.] 
 
-Go to menti.com and enter code 2821 2021
+Go to menti.com and enter code 4651 9428
 
 <img src="images/mentimeter_qr_code.png" width=200>
 <br>
@@ -112,7 +112,7 @@ The 7 key elements of the grammar are:
 ---
 # Example: Tuberculosis data
 
-Current tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://github.com/seabbs/getTBinR).
+(Current) tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://github.com/seabbs/getTBinR).
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
@@ -142,7 +142,7 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-Go to menti.com and enter code 2821 2021
+Go to menti.com and enter code 4651 9428
 
 - What do you learn about tuberculosis incidence in the USA from this plot?
 - Give three changes to the plot that would improve it. 
@@ -280,7 +280,18 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - What are the pros, and cons, of using the pie chart for this data?
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
-Go to menti.com and enter code 2821 2021
+Go to menti.com and enter code 4651 9428
+
+
+```{r eval=FALSE, out.width="60%", echo=FALSE, fig.height=5}
+# age for segments, facet by year and sex
+ggplot(tb_us, aes(x = 1, y = count, fill = factor(age_group))) + #<<
+  geom_bar(stat="identity", position="fill") + 
+  facet_grid(sex~year) + #<<
+  scale_fill_viridis_d("", option="inferno") +
+  coord_polar(theta = "y") +
+  theme(legend.position="bottom")
+```
 
 ---
 # Line plot vs barchart

@@ -3,13 +3,13 @@
   <head>
     <title>Preamble</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhofmann@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
+    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhofmann4@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
     <script src="index_files/header-attrs-2.27/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="index_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="index_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
-    <link href="index_files/countdown-0.4.0/countdown.css" rel="stylesheet" />
-    <script src="index_files/countdown-0.4.0/countdown.js"></script>
+    <link href="index_files/countdown-0.5.0/countdown.css" rel="stylesheet" />
+    <script src="index_files/countdown-0.5.0/countdown.js"></script>
     <link rel="stylesheet" href="myremark.css" type="text/css" />
   </head>
   <body>
@@ -23,7 +23,7 @@ class: center, middle, inverse, title-slide
 ## SISBID 2024 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
 ]
 .author[
-### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhofmann@unl.edu" class="email">hhofmann@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhofmann4@unl.edu" class="email">hhofmann4@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
 ]
 .date[
 ### 08/14-16/2024
@@ -85,7 +85,7 @@ Introduce yourself to the people around you. Find out a little about them: where
 
 .large[.yellow[You've got 5 minutes - timer is running!]]
 
-<div class="countdown" id="timer_07ba36ea" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_4445c8c6" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -164,14 +164,14 @@ From bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("bigPint")
+BiocManager::install("ggbio")
 ```
 
 From github repos
 
 
 ``` r
-remotes::install_github("heike/vinference")
+remotes::install_github("lindsayrutter/bigPint")
 ```
 
 ---
@@ -191,12 +191,8 @@ packages &lt;- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "ggmap", "here
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
-# Bioconductor packages
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("bigPint")
-
 # github packages
+remotes::install_github("lindsayrutter/bigPint")
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
 remotes::install_github("hollylkirk/ochRe")
@@ -211,7 +207,7 @@ install.packages("rsconnect")
 # Resources
 
 
-- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [posit cheatsheets](https://posit.co/resources/cheatsheets/)
 - Q/A site: [http://stackoverflow.com](http://stackoverflow.com)
 
 ---
