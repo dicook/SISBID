@@ -36,9 +36,9 @@ Zoom etiquette:
 | Wednesday                                                                        | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
 |---------|--------:|--------:|--------:|--------:|--------:|--------:|--------:|
 | [Meet & Greet](https://dicook.github.io/SISBID/slides/0-preamble/index.html)  | 11:30 - 11:45 am |          1:30 - 1:45 pm | 2:30 - 2:45 pm |   8:30 - 8:45 pm | 2:30 - 2:45 am | 3:30 - 3:45 am | 4:30 - 4:45 am |
-| [Lecture 1](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html)     |    11:45 - 12:30 |          1:45 - 2:30 pm | 2:45 - 3:30 pm |   8:45 - 9:30 pm | 2:45 - 3:30 am | 3:45 - 4:30 am | 4:45 - 5:30 am |
-| [Lecture 2](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) |  12:45 - 1:30 pm |          2:45 - 3:30 pm | 3:45 - 4:30 pm |  9:45 - 10:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 am | 5:45 - 6:30 am |
-| [Lecture 3](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) |   1:45 - 2:30 pm |          3:45 - 4:30 pm | 4:45 - 5:30 pm | 10:45 - 11:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am | 6:45 - 7:30 am |
+| [Lecture 1](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html)     |    11:45 - 12:30 |          1:45 - 2:30 pm | 2:45 - 3:30 pm |   9:45 - 10:30 pm | 2:45 - 3:30 am | 3:45 - 4:30 am | 4:45 - 5:30 am |
+| [Lecture 2](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) |  12:45 - 1:30 pm |          2:45 - 3:30 pm | 3:45 - 4:30 pm |  10:45 - 11:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 am | 5:45 - 6:30 am |
+| [Lecture 3](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) |   1:45 - 2:30 pm |          3:45 - 4:30 pm | 4:45 - 5:30 pm | 11:45 pm - 12:30 am | 4:45 - 5:30 am | 5:45 - 6:30 am | 6:45 - 7:30 am |
 
 | Thursday                                                                       | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
 |---------|---------|---------|---------|---------|----------|---------|---------|
