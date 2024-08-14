@@ -33,32 +33,33 @@ Zoom etiquette:
 ## Course Schedule
 
 
-| Wednesday                                                                        | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
+| Wednesday                                                                        | US Pacific          | US Central | US Eastern       | Accra          |  London        | Korea            | Melbourne |
 |---------|--------:|--------:|--------:|--------:|--------:|--------:|--------:|
-| [Meet & Greet](https://dicook.github.io/SISBID/slides/0-preamble/index.html)  | 11:30 - 11:45 am |          1:30 - 1:45 pm | 2:30 - 2:45 pm |   8:30 - 8:45 pm | 2:30 - 2:45 am | 3:30 - 3:45 am | 4:30 - 4:45 am |
-| [Lecture 1](https://dicook.github.io/SISBID/slides/1.1-ggplot/index.html)     |    11:45 - 12:30 |          1:45 - 2:30 pm | 2:45 - 3:30 pm |   8:45 - 9:30 pm | 2:45 - 3:30 am | 3:45 - 4:30 am | 4:45 - 5:30 am |
-| [Lecture 2](https://dicook.github.io/SISBID/slides/1.2-ggplot-adv/index.html) |  12:45 - 1:30 pm |          2:45 - 3:30 pm | 3:45 - 4:30 pm |  9:45 - 10:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 am | 5:45 - 6:30 am |
-| [Lecture 3](https://dicook.github.io/SISBID/slides/1.3-perception/index.html) |   1:45 - 2:30 pm |          3:45 - 4:30 pm | 4:45 - 5:30 pm | 10:45 - 11:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am | 6:45 - 7:30 am |
+| [Meet & Greet](https://dicook.github.io/SISBID/slides/0-preamble/index.html)  | 11:30 - 11:45 am |          1:30 - 1:45 pm | 2:30 - 2:45 pm |   6:30 - 6:45 pm | 7:30 - 7:45 pm | 3:30 - 3:45 am | 4:30 - 4:45 am |
+| [Lecture 1](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html)       | 11:45 - 12:30    | 1:45 - 2:30 pm          | 2:45 - 3:30 pm   | 6:45 - 7:30 pm   | 7:45 - 8:30 pm   | 3:45 - 4:30 am   | 4:45 - 5:30 pm |
+| [Lecture 2](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/index.html)  | 12:45 - 1:30 pm  | 2:45 - 3:30 pm          | 3:45 - 4:30 pm   | 7:45 - 8:30 pm  | 8:45 - 9:30 pm   | 4:45 - 5:30 am   | 5:45 - 6:30 am |
+| [Lecture 3](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/index.html) and [Lecture 7](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 8:45 - 9:30 pm | 9:45 - 10:30 pm   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
 
-| Thursday                                                                       | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
+| Thursday                                                                       | US Pacific          | US Central | US Eastern       | Accra          |  London        | Korea            | Melbourne |
 |---------|---------|---------|---------|---------|----------|---------|---------|
-| [Lecture 1](https://dicook.github.io/SISBID/slides/2.1-tidyr/index.html)        | 8:00 - 9:00 am   | 10:00 - 11:00 am        | 11:00 - 12:00 pm | 6:00 - 7:00 pm   | 11:00 - 12:00 am | 12:00 - 1:00 am | 1:00 - 2:00 am |
-| [Lecture 2](https://dicook.github.io/SISBID/slides/2.2-messy-it-up/index.html)  | 9:15 - 10:00 am   | 11:15 - 12:00 pm        | 12:15 - 1:00 pm | 7:15 - 8:00 pm   | 12:15 - 1:00 am | 1:15 - 2:00 am   | 2:15 - 3:00 am |
-| [Lecture 3](https://dicook.github.io/SISBID/slides/2.3-wrangling/index.html)    | 10:15 - 11:15 am | 12:15 - 1:15 pm        | 1:15 - 2:15 pm   | 8:15 - 9:15 pm   | 1:15 - 2:15 am   | 2:15 - 3:15 am   | 3:15 - 4:15 am |
+| [Lecture 1](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html)        | 8:00 - 8:45 am   | 10:00 - 10:45 am        | 11:00 - 11:45 am | 3:00 - 3:45 pm   | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
+| [Lecture 2](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html)  | 9:00 - 9:45 am   | 11:00 - 11:45 am        | 12:00 - 12:45 pm | 4:00 - 4:45 pm   | 5:00 - 5:45 pm | 1:00 - 1:45 am   | 2:00 - 2:45 am |
+| [Lecture 3](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html)    | 10:00 - 10:45 am | 12:00 - 12:45 pm        | 1:00 - 1:45 pm   | 5:00 - 5:45 pm   | 6:00 - 6:45 pm   | 2:00 - 2:45 am   | 3:00 - 3:45 am |
 | Break                                                                           |                  |                         |                  |                  |                  |                  |                |
-| [Lecture 4](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html)       | 12:15 - 1:30 pm    | 1:15 - 2:30 pm          | 2:15 - 3:30 pm   | 10:15 - 11:30 pm   | 2:15 - 3:30 am   | 3:15 - 4:30 am   | 4:15 - 5:30 pm |
-| [Lecture 5](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 11:45 pm - 12:30 am | 4:45 - 5:30 am   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
+| [Lecture 4](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html)       | 11:45 - 12:30    | 1:45 - 2:30 pm          | 2:45 - 3:30 pm   | 6:45 - 7:30 pm   | 7:45 - 8:30 pm   | 3:45 - 4:30 am   | 4:45 - 5:30 pm |
+| [Lecture 5](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/index.html)  | 12:45 - 1:30 pm  | 2:45 - 3:30 pm          | 3:45 - 4:30 pm   | 7:45 - 8:30 pm  | 8:45 - 9:30 pm   | 4:45 - 5:30 am   | 5:45 - 6:30 am |
+| [Lecture 6](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/index.html) and [Lecture 7](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 8:45 - 9:30 pm | 9:45 - 10:30 pm   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
 
 
-| Friday                                                                        | US Pacific          | US Central | US Eastern       | Denmark          |  Singapore        | Korea            | Melbourne |
+| Friday                                                                        | US Pacific          | US Central | US Eastern       | Accra          |  London        | Korea            | Melbourne |
 |---------|---------|---------|---------|---------|----------|---------|---------|
-| [Lecture 1](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html)        | 8:00 - 8:45 am   | 10:00 - 10:45 am        | 11:00 - 11:45 am | 6:00 - 6:45 pm   | 11:00 - 11:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
-| [Lecture 2](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html)  | 9:00 - 9:45 am   | 11:00 - 11:45 am        | 12:00 - 12:45 pm | 7:00 - 7:45 pm   | 12:00 - 12:45 am | 1:00 - 1:45 am   | 2:00 - 2:45 am |
-| [Lecture 3](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html)    | 10:00 - 10:45 am | 12:00 - 12:45 pm        | 1:00 - 1:45 pm   | 8:00 - 8:45 pm   | 1:00 - 1:45 am   | 2:00 - 2:45 am   | 3:00 - 3:45 am |
+| [Lecture 1](https://dicook.github.io/SISBID/slides/2.6-adv-graphics/index.html)        | 8:00 - 8:45 am   | 10:00 - 10:45 am        | 11:00 - 11:45 am | 3:00 - 3:45 pm   | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
+| [Lecture 2](https://dicook.github.io/SISBID/slides/3.1-interactive-plots/index.html)  | 9:00 - 9:45 am   | 11:00 - 11:45 am        | 12:00 - 12:45 pm | 4:00 - 4:45 pm   | 5:00 - 5:45 pm | 1:00 - 1:45 am   | 2:00 - 2:45 am |
+| [Lecture 3](https://dicook.github.io/SISBID/slides/3.2-shiny-apps/index.html)    | 10:00 - 10:45 am | 12:00 - 12:45 pm        | 1:00 - 1:45 pm   | 5:00 - 5:45 pm   | 6:00 - 6:45 pm   | 2:00 - 2:45 am   | 3:00 - 3:45 am |
 | Break                                                                           |                  |                         |                  |                  |                  |                  |                |
-| [Lecture 4](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html)       | 11:45 - 12:30    | 1:45 - 2:30 pm          | 2:45 - 3:30 pm   | 8:45 - 9:30 pm   | 2:45 - 3:30 am   | 3:45 - 4:30 am   | 4:45 - 5:30 pm |
-| [Lecture 5](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/index.html)  | 12:45 - 1:30 pm  | 2:45 - 3:30 pm          | 3:45 - 4:30 pm   | 9:45 - 10:30 pm  | 3:45 - 4:30 am   | 4:45 - 5:30 am   | 5:45 - 6:30 am |
-| [Lecture 6](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/index.html) and [Lecture 7](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 10:45 - 11:30 pm | 4:45 - 5:30 am   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
+| [Lecture 4](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html)       | 11:45 - 12:30    | 1:45 - 2:30 pm          | 2:45 - 3:30 pm   | 6:45 - 7:30 pm   | 7:45 - 8:30 pm   | 3:45 - 4:30 am   | 4:45 - 5:30 pm |
+| [Lecture 5](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/index.html)  | 12:45 - 1:30 pm  | 2:45 - 3:30 pm          | 3:45 - 4:30 pm   | 7:45 - 8:30 pm  | 8:45 - 9:30 pm   | 4:45 - 5:30 am   | 5:45 - 6:30 am |
+| [Lecture 6](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/index.html) and [Lecture 7](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/index.html) | 1:45 - 2:30 pm   | 3:45 - 4:30 pm          | 4:45 - 5:30 pm   | 8:45 - 9:30 pm | 9:45 - 10:30 pm   | 5:45 - 6:30 am   | 6:45 - 7:30 am |
 
 
 ## Course outline
