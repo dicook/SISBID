@@ -112,7 +112,7 @@ The 7 key elements of the grammar are:
 ---
 # Example: Tuberculosis data
 
-Current tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://github.com/seabbs/getTBinR).
+(Current) tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://github.com/seabbs/getTBinR).
 
 ```{r read TB data and wrangle and subset to USA}
 tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
@@ -281,6 +281,17 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
 Go to menti.com and enter code 4651 9428
+
+
+```{r eval=FALSE, out.width="60%", echo=FALSE, fig.height=5}
+# age for segments, facet by year and sex
+ggplot(tb_us, aes(x = 1, y = count, fill = factor(age_group))) + #<<
+  geom_bar(stat="identity", position="fill") + 
+  facet_grid(sex~year) + #<<
+  scale_fill_viridis_d("", option="inferno") +
+  coord_polar(theta = "y") +
+  theme(legend.position="bottom")
+```
 
 ---
 # Line plot vs barchart
