@@ -63,6 +63,9 @@ Zoom etiquette:
 
 ## Course outline
 
+### Slack
+Find us on slack: SISBID.slack.com
+
 ### Wednesday afternoon [zip file](SISBID_day1.zip)
 
 1.  [Setting things
@@ -86,7 +89,7 @@ Morning:
     (Heike)
 2.  [Making Data Messy
     again](https://dicook.github.io/SISBID/slides/2.2-messy-it-up/index.html)
-    (Heike)
+    (Susan)
 3.  [Wrangling data and
     models](https://dicook.github.io/SISBID/slides/2.3-wrangling/index.html)
     (Heike)
@@ -120,10 +123,10 @@ Afternoon:
 
 4.  [Reactive elements in
     shiny](https://dicook.github.io/SISBID/slides/3.3-shiny-reactivity/index.html)
-    (Susan).
+    (Heike).
 5. [Theme a shiny app](https://dicook.github.io/SISBID/slides/3.4-theme_a_shiny_app/) (Susan).
-6. [Build your own Shiny app](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/) (Susan). 
-7. Show us what you've made and [additional interactivity options with Rmarkdown](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/) (Di)
+6. [Build your own Shiny app](https://dicook.github.io/SISBID/slides/3.5-build_a_shiny_app/) (Heike). 
+7. Show us what you've made and [additional interactivity options with Rmarkdown](https://dicook.github.io/SISBID/slides/3.6-make_your_own_interactive_document/) (Di, Susan & Heike)
 
 ## Software list
 
