@@ -164,13 +164,13 @@ From bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("bigPint")
+BiocManager::install("ggbio")
 ```
 
 From github repos
 
 ```{r eval=FALSE}
-remotes::install_github("heike/vinference")
+remotes::install_github("lindsayrutter/bigPint")
 ```
 
 ---
@@ -189,12 +189,8 @@ packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "ggmap", "here", 
 
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 
-# Bioconductor packages
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("bigPint")
-
 # github packages
+remotes::install_github("lindsayrutter/bigPint")
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
 remotes::install_github("hollylkirk/ochRe")
@@ -209,7 +205,7 @@ install.packages("rsconnect")
 # Resources
 
 
-- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [posit cheatsheets](https://posit.co/resources/cheatsheets/)
 - Q/A site: [http://stackoverflow.com](http://stackoverflow.com)
 
 ---
