@@ -115,20 +115,20 @@ The 7 key elements of the grammar are:
 Current tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://github.com/seabbs/getTBinR).
 
 ```{r read TB data and wrangle and subset to USA}
-tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>% 
-  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  pivot_longer(new_sp_m04:new_sp_fu, names_to="stuff", values_to="count") %>%
-  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
-  dplyr::select(-stuff1, -stuff2) %>%
+tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
+  pivot_longer(new_sp_m04:new_sp_fu, names_to="stuff", values_to="count") |>
+  separate(stuff, c("stuff1", "stuff2", "sexage")) |>
+  dplyr::select(-stuff1, -stuff2) |>
   mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
+         age=substr(sexage, 2, length(sexage))) |>
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb %>% 
-  filter(country == "United States of America") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013) %>%
+tb_us <- tb |> 
+  filter(country == "United States of America") |>
+  filter(!(age %in% c("04", "014", "514", "u"))) |>
+  filter(year > 1996, year < 2013) |>
   mutate(
     age_group = factor(age, labels = c("15-24", "25-34", "35-44", "45-54", "55-64", "65+"))
   )
@@ -299,8 +299,8 @@ A line plot allows reading the counts for the two sexes. The counts are displaye
 # Line plot vs barchart
 
 ```{r use a line plot of proportions, fig.height=3}
-tb_us %>% group_by(year, age_group) %>% 
-  summarise(p = count[sex=="m"]/sum(count)) %>%
+tb_us |> group_by(year, age_group) |> 
+  summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="white", linewidth=2) +
   geom_line() + geom_point() +

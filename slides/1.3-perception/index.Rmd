@@ -58,25 +58,25 @@ conflict_prefer("filter", "dplyr")
 # Let's play a game: Which plot wears it better?
 
 ```{r read TB data and wrangle and subset to USA}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
-  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
   mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
+         age=substr(sexage, 2, length(sexage))) |>
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb %>% 
-  filter(country == "United States of America") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+tb_us <- tb |> 
+  filter(country == "United States of America") |>
+  filter(!(age %in% c("04", "014", "514", "u"))) |>
   filter(year > 1996, year < 2013)
 ```
 
 On the next slide we have made **two different plots** of 2012 TB incidence in the USA, based on two variables:
 
 ```{r}
-tb_us %>% filter(year == 2012) %>% dplyr::select(sex, age, count)
+tb_us |> filter(year == 2012) |> dplyr::select(sex, age, count)
 ```
 
 - In arrangement A, separate plots are made for age, and sex is mapped to the x axis. 
@@ -89,7 +89,7 @@ If you were to answer the question:  .orange[At which age(s) are the counts for 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
 ```{r focus on one year gender side-by-side bars of males/females, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -98,7 +98,7 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 ```{r focus on one year age side-by-side bars of age group, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -125,10 +125,6 @@ Go to www.menti.com and use the code 2821 2021.
 
 `r anicon::nia("Try to write out a question that would be easier to answer from arrangement B.", animate="float")` 
 
-Go to www.menti.com and use the code 2821 2021.
-
-<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
-
 
 ???
 - Arrangement A makes it easier to directly compare male and female counts, separately for each age group. Generally, male counts are higher than female counts. There is a big difference between counts in the 45-54 age group, and over 65 counts are almost the same.
@@ -147,7 +143,7 @@ Go to www.menti.com and use the code 2821 2021.
 On the next slide we have made **two different plots** of TB incidence in the USA, based on three variables:
 
 ```{r}
-tb_us %>% select(year, sex, age, count) %>% head(10)
+tb_us |> select(year, sex, age, count) |> head(10)
 ```
 
 - In plot type A, a line plot of counts is drawn separately by age and sex, and year is mapped to the x axis. 
@@ -218,8 +214,8 @@ countdown::countdown(1, 5, top=100, right=0)
 ```
 
 ```{r use a line plot for proportions, fig.height=3}
-tb_us %>% group_by(year, age) %>% 
-  summarise(p = count[sex=="m"]/sum(count)) %>%
+tb_us |> group_by(year, age) |> 
+  summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="white", size=2) +
   geom_line() + geom_point() +
@@ -452,7 +448,7 @@ Same proximity is used, but different geoms. Is one better than the other to det
 ]
 .right-column[
 ```{r side-by-side bars of males/females, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -461,7 +457,7 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 ```{r piecharts of males/females, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
@@ -479,7 +475,7 @@ Same proximity is used, but different geoms. Is one better than the other to det
 ]
 .right-column[
 ```{r side-by-side bars of age, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -488,7 +484,7 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 ```{r piecharts of age, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~sex, ncol=6) +
