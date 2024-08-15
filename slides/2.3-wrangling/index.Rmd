@@ -183,10 +183,10 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 # Filter
 
 select a subset of the observations (horizontal selection)
-```{r select a subset of the observations}
+```{r select_a_subset_of_the_observations}
 load(here::here("data/french_fries.rda"))
 french_fries |>
-    filter(subject == 3, time == 1)
+    filter(subject == 3, time == 1) #<<
 ```
 
 ---
@@ -195,8 +195,8 @@ french_fries |>
 order the observations (hierarchically)
 ```{r order the observations}
 french_fries |>
-    arrange(desc(rancid)) |>
-    head
+    arrange(desc(rancid)) |> #<<
+    head()
 ```
 
 ---
@@ -205,8 +205,8 @@ french_fries |>
 select a subset of the variables (vertical selection)
 ```{r select a subset of the variables}
 french_fries |>
-    select(time, treatment, subject, rep, potato) |>
-    head
+    select(time, treatment, subject, rep, potato) |> #<<
+    head()
 ```
 
 ---
@@ -215,8 +215,10 @@ french_fries |>
 summarize observations into a (set of) one-number statistic(s):
 ```{r summarize observations into one-number statistic}
 french_fries |>
-    summarise(mean_rancid = mean(rancid, na.rm=TRUE), 
-              sd_rancid = sd(rancid, na.rm = TRUE))
+    summarise( #<<
+      mean_rancid = mean(rancid, na.rm=TRUE), 
+      sd_rancid = sd(rancid, na.rm = TRUE)
+      ) #<<
 ```
 
 ---
@@ -253,7 +255,7 @@ class: inverse middle
 
 How many values do we have for each subject? Check the help for function `?n`
 
-`r countdown::countdown(5)`
+`r countdown::countdown(2)`
 ---
 # French Fries - completeness
 
@@ -277,10 +279,10 @@ instead of `group_by(subject) |> summarize(n = n())` we can use:
 # Counts for subject by time
 
 ```{r counts for subject by time}
-french_fries |> 
+french_fries |>
   na.omit() |>
   count(subject, time) |>
-  spread(time, n)
+  pivot_wider(names_from="time", values_from="n")
 ```
 
 

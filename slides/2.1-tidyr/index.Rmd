@@ -55,15 +55,16 @@ library(here)
 ---
 # The pipe operator `%>%` or `\>`
 
-- `x %>% f(y)` and `x |> f(y)` are the same as `f(x, y)`
 - read as `then` 
-- part of `dplyr` package (or more precisely, the `magrittr` package)
+- `x %>% f(y)` and `x |> f(y)` is the same as `f(x, y)`
+- `%>%` is part of the `dplyr` package (or more precisely, the `magrittr` package), 
+`|>` is part of base R 
 - pipes allow the code to be *read* like a sequence of operations
 
 Example:
 
 ```{r read TB incidence data and check, results='hide'}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv"))
 tb |>                                  # first we get the tb data
   filter(year == 2016) |>              # then we focus on just the year 2016
   group_by(country) |>                 # then we group by country
@@ -73,7 +74,7 @@ tb |>                                  # first we get the tb data
   arrange(desc(cases))                  # then we sort countries to show highest number new cases first
 ```
 
-Note that the new base R pipe `|>` can mostly substitute for the magrittr pipe. A good explanation can be found [here](https://towardsdatascience.com/understanding-the-native-r-pipe-98dea6d8b61b).
+There are some subtle differences between the base pipe `|>` and the tidy pipe `%>%`, see  [here](https://towardsdatascience.com/understanding-the-native-r-pipe-98dea6d8b61b) for details.
 
 ---
 .pull-left[
@@ -151,32 +152,16 @@ tail(tb)
 
 ---
 class: inverse middle 
-# Your turn 5 
+# Your turn 5
 
-What are the variables? What are the observations?
-
-```{r example 4 what are the variables and observations, echo=FALSE}
-pew <- read.delim(
-  file = "http://stat405.had.co.nz/data/pew.txt",
-  header = TRUE,
-  stringsAsFactors = FALSE,
-  check.names = F
-)
-pew[1:5, 1:5]
-```
-
----
-class: inverse middle 
-# Your turn 6
-
-10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice. First few rows:
+<!--10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice. First few rows:-->
 
 ```{r example 6 what are the factors measurements and experimental units, echo = FALSE}
 load(here::here("data/french_fries.rda"))
 head(french_fries, 4)
 ```
 
-What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?
+<!--What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?-->
 
 ---
 # Messy data patterns
@@ -194,8 +179,16 @@ There are various features of messy data that one can observe in practice. Here 
 - Each observation forms a row
 - Each variable forms a column
 - Data is contained in a single table
-- Long form makes it easier to reshape in many different ways
-- Wider forms are common for analysis
+
+
+
+- *Long form* makes it easier to reshape in many different ways
+- *Wider forms* are common for analysis
+
+Long form: **one** measured value per row. All other variables are descriptors (key variables)
+
+Widest form: **all** measured values for an entity are in a single row.
+
 
 ---
 background-image: url(lego.png)
@@ -238,6 +231,7 @@ Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency
 
 The animation on the right is from Garrick Aden-Buie's `tidyexplain` package.
 
+[tidyr cheat sheet](https://rstudio.github.io/cheatsheets/tidyr.pdf)
 ]
 
 --
@@ -289,7 +283,7 @@ For more details, see `?tidyselect::language`
 new notifications of TB have the form `new_sp_<sex><age group>`:
   
 ```{r read in and process the TB data}
-read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   na.omit() |>
   head()
@@ -305,10 +299,10 @@ read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |>
 create two new variables: 
 
 - variable `name` (contains all variable names starting with `new_sp_`) and 
-- variable `value` with the values:
+- variable `value` with the values of the selected variables
   
 ```{r turn TB data into long form}
-tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+tb1 <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   pivot_longer(starts_with("new_sp_")) 
 
@@ -318,16 +312,14 @@ tb1 |> na.omit() |> head()
 ---
 # Separate columns
   
-`separate (data, col, into, sep = "[^[:alnum:]]+", ...)`
+`separate_wider_delim (data, col, delim, names, ...)`
 
-`data |> separate (col, into, sep = "[^[:alnum:]]+", ...)`
+`data |> separate_wider_delim (col, delim, names, ...)`
 
 
+- split column `col` from data frame `frame` into a set of columns as specified in `names`
+- `delim` is the delimiter at which we split into columns, splitting separator. 
 
-- split column `col` from data frame `frame` into a set of columns as specified in `into`
-- `sep` is the splitting separator. By default splits happen for any non-alphanumeric value. <br>
-Pro tip: specify `sep` to have some more control; any regular expression will work
-- `unite` combines multiple variables into one
 
 ---
 # TB notification (separate)
@@ -335,27 +327,36 @@ Pro tip: specify `sep` to have some more control; any regular expression will wo
 Work on `name`: 
   
 ```{r extract variable names from original column names}
-tb2 <- tb1 |> 
-  separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
-
+tb2 <- tb1 |>
+  separate_wider_delim(name, delim = "_", names=c("foo_new", "foo_sp", "sexage")) 
 
 tb2 |> na.omit() |> head()
 ```
 
+---
+# Separate columns
+  
+`separate_wider_position (data, col, widths, ...)`
+
+`data %>% separate_wider_position(col, widths, ...)`
+
+
+- split column `col` from data frame `frame` into a set of columns as specified in `widths`
+- `widths` is named numeric vector where the names become column names; unnamed components will be matched but not included. 
 
 ---
 # TB notification (separate again)
   
 Now split `sexage` into first character (m/f) and rest.
-`substr` allows to extract sub strings from a character vector (see `?substr`):
+
   
 ```{r continue extracting variable names}
-tb3 <- tb2 |> dplyr::select(-starts_with("foo")) |> # remove the `foo` variables
-  mutate(
-    sex = substr(sexage, 1, 1),                # extract the first character 
-    age = substr(sexage, 2, length(sexage))    # get all but first character
-  ) |>
-  dplyr::select(-sexage)
+tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) |> # remove the `foo` variables
+  separate_wider_position(
+    sexage,
+    widths = c(sex = 1, age = 4),
+    too_few = "align_start"
+  )
 
 
 tb3 |> na.omit() |> head()
@@ -380,8 +381,8 @@ Produce the data frame called `gtidy` as shown below:
 ```{r code solution to genes wrangling, echo=FALSE}
 gtidy <- genes |>
 pivot_longer(-id, names_to="variable", values_to="expr") |>
-separate(variable, c("trt", "leftover"), "-") |>
-separate(leftover, c("time", "rep"), "\\.") |>
+separate_wider_delim(variable, names=c("trt", "leftover"), delim = "-") |>
+separate_wider_delim(leftover, names=c("time", "rep"), delim = ".") |>
 mutate(trt = sub("W", "", trt)) |>
 mutate(rep = sub("R", "", rep))
 ```

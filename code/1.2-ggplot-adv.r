@@ -1,4 +1,4 @@
-## ----echo=FALSE---------------------------------------
+## ----echo=FALSE---------------------------------------------------------------------------------
 knitr::opts_chunk$set(
   echo=FALSE,
   message = FALSE,
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 
 
-## ----load libraries, echo=FALSE-----------------------
+## ----load libraries, echo=FALSE-----------------------------------------------------------------
 #library(tidyverse)
 library(tidyr)
 library(dplyr)
@@ -33,7 +33,7 @@ conflicts_prefer(palmerpenguins::penguins)
 library(here)
 
 
-## ----not to run this code, eval=FALSE-----------------
+## ----not to run this code, eval=FALSE-----------------------------------------------------------
 ## # Data extracted from ALA with this code
 ## # Note that package ALA4Ris being replaced by package galah
 ## # install.packages("galah")
@@ -58,25 +58,25 @@ library(here)
 ## save(platypus, file="data/platypus.rda")
 
 
-## ----load the platypus obervation data, echo=TRUE-----
+## ----load the platypus obervation data, echo=TRUE-----------------------------------------------
 load(here::here("data/platypus.rda"))
 platydata <- platypus
 ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
 
 
-## ----Add some transparency to see density of locations, echo=TRUE----
+## ----Add some transparency to see density of locations, echo=TRUE-------------------------------
 ggplot(data=platydata) + 
   geom_point(aes(x=longitude, y=latitude), alpha=0.1)
 
 
-## ----making a map projection, echo=TRUE, fig.height=10, out.width="100%"----
+## ----making a map projection, echo=TRUE, fig.height=10, out.width="100%"------------------------
 ggplot(data=platydata) + 
   geom_point(aes(x=longitude, y=latitude), 
              alpha=0.1) +
   coord_map()
 
 
-## ----you need a developer API to run this code, echo=FALSE, eval=FALSE----
+## ----you need a developer API to run this code, echo=FALSE, eval=FALSE--------------------------
 ## library(ggmap)
 ## library(osmdata)
 ## oz_bbox <- c(112.9, # min long
@@ -87,7 +87,7 @@ ggplot(data=platydata) +
 ## save(oz, file="data/oz.rda")
 
 
-## ----load the saved map data, echo=TRUE---------------
+## ----load the saved map data, echo=TRUE---------------------------------------------------------
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
   geom_point(data=platydata, 
@@ -95,7 +95,7 @@ ggmap(oz) +
               alpha=0.1, colour="orange")
 
 
-## ----leaflet map, echo=TRUE, eval=FALSE---------------
+## ----leaflet map, echo=TRUE, eval=FALSE---------------------------------------------------------
 ## library(leaflet)
 ## platydata |>
 ##   filter(!is.na(latitude),
@@ -110,10 +110,10 @@ ggmap(oz) +
 ##     lat = ~latitude, lng = ~longitude)
 
 
-## ----ref.label="leaflet map", echo=FALSE--------------
+## ----ref.label="leaflet map", echo=FALSE--------------------------------------------------------
 
 
-## ----create a date variable, echo=TRUE, eval=FALSE----
+## ----create a date variable, echo=TRUE, eval=FALSE----------------------------------------------
 ## library(lubridate)
 ## platypus <- platypus |>
 ##   rename(
@@ -126,12 +126,12 @@ ggmap(oz) +
 ##     hour = as.numeric(str_sub(eventDate, 15, 16)))
 
 
-## ----show sightings over time, echo=TRUE, out.width="60%"----
+## ----show sightings over time, echo=TRUE, out.width="60%"---------------------------------------
 ggplot(data=platydata) +
   geom_point(aes(x=day, y=1), alpha=0.2)
 
 
-## ----show jittered sightings over time, echo=TRUE, out.width="60%"----
+## ----show jittered sightings over time, echo=TRUE, out.width="60%"------------------------------
 ggplot(data=platydata) +
   geom_quasirandom(aes(x=1, y=day), alpha=0.2)
 
@@ -146,36 +146,36 @@ ggplot(data=platydata1900) +
   geom_point(aes(x=year, y=n))
 
 
-## ----solution code for filtering on location and time, eval=FALSE----
+## ----solution code for filtering on location and time, eval=FALSE-------------------------------
 ## # Check odd cases
 ## platydata |> filter(latitude < (-50))
 ## # These just have the lat/long wrong
 ## platydata |> filter(day < ymd("1850-01-01"))
 
 
-## ----add a trend line, echo=TRUE, out.width="60%"-----
+## ----add a trend line, echo=TRUE, out.width="60%"-----------------------------------------------
 ggplot(data=platydata1900, aes(x=year, y=n)) +
   geom_point() +
   geom_smooth(se=F)
 
 
-## ----make it interactive to investigate some observations, echo=TRUE----
+## ----make it interactive to investigate some observations, echo=TRUE----------------------------
 library(plotly)
 ggplotly()
 
 
-## ----solution code to density plot on map, eval=FALSE, echo=FALSE----
+## ----solution code to density plot on map, eval=FALSE, echo=FALSE-------------------------------
 ## ggmap(oz) +
 ##   geom_density2d(data=platydata,
 ##                  aes(x=longitude, y=latitude),
 ##               colour="orange")
 
 
-## ----eval=FALSE, echo=FALSE---------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------
 ## Not a lot different. It shows perhaps high density regions around Melbourne, Brisbane and south of Sydney. These match high population sites, though, and maybe reiterates the sampling being convenience sampling. We miss the smaller areas of sightings, like northern Queensland.
 
 
-## ----solution code for exploring population trend, echo=FALSE, eval=FALSE----
+## ----solution code for exploring population trend, echo=FALSE, eval=FALSE-----------------------
 ## platydata_50_10 <- platydata |>
 ##   filter(between(year, 1949, 2020)) |>
 ##   mutate(decade = cut(year,
