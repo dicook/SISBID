@@ -43,7 +43,7 @@ Zoom etiquette:
 | Thursday                                                                       | US Pacific          | US Central | US Eastern       | Accra          |  London        | Korea            | Melbourne |
 |---------|---------|---------|---------|---------|----------|---------|---------|
 | [Lecture 1](https://dicook.github.io/SISBID/slides/2.1-tidyr/index.html)        | 8:00 - 8:45 am   | 10:00 - 10:45 am        | 11:00 - 11:45 am | 3:00 - 3:45 pm   | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
-| [Lecture 2](https://dicook.github.io/SISBID/slides/2.2-mess-it-up/index.html)  | 9:00 - 9:45 am   | 11:00 - 11:45 am        | 12:00 - 12:45 pm | 4:00 - 4:45 pm   | 5:00 - 5:45 pm | 1:00 - 1:45 am   | 2:00 - 2:45 am |
+| [Lecture 2](https://dicook.github.io/SISBID/slides/2.2-messy-it-up/index.html)  | 9:00 - 9:45 am   | 11:00 - 11:45 am        | 12:00 - 12:45 pm | 4:00 - 4:45 pm   | 5:00 - 5:45 pm | 1:00 - 1:45 am   | 2:00 - 2:45 am |
 | [Lecture 3](https://dicook.github.io/SISBID/slides/2.3-wrangling/index.html)    | 10:00 - 10:45 am | 12:00 - 12:45 pm        | 1:00 - 1:45 pm   | 5:00 - 5:45 pm   | 6:00 - 6:45 pm   | 2:00 - 2:45 am   | 3:00 - 3:45 am |
 | Break                                                                           |                  |                         |                  |                  |                  |                  |                |
 | [Lecture 4](https://dicook.github.io/SISBID/slides/2.4-mvplot/index.html)       | 11:45 - 12:30    | 1:45 - 2:30 pm          | 2:45 - 3:30 pm   | 6:45 - 7:30 pm   | 7:45 - 8:30 pm   | 3:45 - 4:30 am   | 4:45 - 5:30 pm |
