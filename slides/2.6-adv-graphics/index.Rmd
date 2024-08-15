@@ -54,6 +54,12 @@ library(readxl)
 library(fiftystater)
 # remotes::install_github("heike/vinference")
 library(vinference)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::slice)
+conflicts_prefer(palmerpenguins::penguins)
+library(here)
 ```
 
 # Tidy data and random variables
@@ -314,18 +320,18 @@ ggplot(l, aes(x=date, y=rate)) + geom_line() +
 # Let's talk TB
 
 ```{r lets talk TB, echo=FALSE}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
-  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
   mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
+         age=substr(sexage, 2, length(sexage))) |>
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb %>% 
-  filter(country == "United States of America") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+tb_us <- tb |> 
+  filter(country == "United States of America") |>
+  filter(!(age %in% c("04", "014", "514", "u"))) |>
   filter(year > 1996, year < 2013)
 ```
 
@@ -361,8 +367,8 @@ The plot is constructed by plotting count against year, separately by age group,
 # sex needs to be converted to 0, 1 to 
 # match binomial simulations
 tb_us_long <- expandRows(tb_us, "count")
-tb_us_long <- tb_us_long %>%
-  mutate(sex01 = ifelse(sex=="m", 0, 1)) %>%
+tb_us_long <- tb_us_long |>
+  mutate(sex01 = ifelse(sex=="m", 0, 1)) |>
   select(-sex)
 
 # Generate a lineup of three, randomly choose one of the
@@ -372,8 +378,8 @@ pos = sample(1:3, 1)
 l <- lineup(null_dist(var="sex01", dist="binom", 
                       list(size=1, p=0.5)), 
             true=tb_us_long, n=3, pos=pos)
-l <- l %>%
-  group_by(.sample, year, age) %>%
+l <- l |>
+  group_by(.sample, year, age) |>
   dplyr::count(sex01)
 ```
 
@@ -395,7 +401,7 @@ ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
 
 ```{r a more complicated null, echo=TRUE}
 # Compute proportion across all data
-tbl <- tb_us %>% group_by(sex) %>% summarise(count=sum(count))
+tbl <- tb_us |> group_by(sex) |> summarise(count=sum(count))
 tbl
 p <- tbl$count[1]/sum(tbl$count)
 
@@ -403,8 +409,8 @@ pos = sample(1:3, 1)
 l <- lineup(null_dist(var="sex01", dist="binom", 
                       list(size=1, p=p)), 
             true=tb_us_long, n=3, pos=pos)
-l <- l %>%
-  group_by(.sample, year, age) %>%
+l <- l |>
+  group_by(.sample, year, age) |>
   dplyr::count(sex01)
 
 ```
@@ -438,14 +444,14 @@ Cancer incidence across the US 2010-2014, all cancer types, per 100k. Data from 
 ```{r make a map lineup, fig.height=6, fig.width=10}
 # Read xlsx spreadsheet on cancer incidence in USA, for a more
 # complex lneup example, a lineup of maps
-incd <- read_xlsx(here::here("data/IncRate.xlsx"), skip=6, sheet=2) %>%
-  filter(!(State %in% c("All U.S. combined", "Kansas"))) %>%
-  select(State, `Melanoma of the skin / Both sexes combined`) %>%
-  rename(Incidence=`Melanoma of the skin / Both sexes combined`) %>%
+incd <- read_xlsx(here::here("data/IncRate.xlsx"), skip=6, sheet=2) |>
+  filter(!(State %in% c("All U.S. combined", "Kansas"))) |>
+  select(State, `Melanoma of the skin / Both sexes combined`) |>
+  rename(Incidence=`Melanoma of the skin / Both sexes combined`) |>
   mutate(Incidence = as.numeric(substr(Incidence, 1, 3)))
 
 # State names need to coincide between data sets
-incd <- incd %>% mutate(State = tolower(State))
+incd <- incd |> mutate(State = tolower(State))
 
 # Choose a position 
 pos <- 6
@@ -462,7 +468,7 @@ for (i in 2:12) {
   incd_map <- bind_rows(incd_map, x)
 }
 # Remove Kansas - it was missing the cancer data
-incd_map <- incd_map %>% filter(!is.na(.sample))
+incd_map <- incd_map |> filter(!is.na(.sample))
 
 # Plot the maps as a lineup
 #library(mapproj)
@@ -504,17 +510,17 @@ library(MASS)
 data(wasps)
 lda_pred <- function(x) {
   d <- predict(lda(Group~., 
-                   data=x[,-43]))$x[,1:2] %>%
-  as_tibble() %>%
+                   data=x[,-43]))$x[,1:2] |>
+  as_tibble() |>
   mutate(Group = x$Group)
   return(d)
 }
 wasps_lineup <- lineup(null_permute('Group'), 
-                       wasps[,-1], n=12) %>%
+                       wasps[,-1], n=12) |>
   as_tibble()
-wasps_lineup_lda <- wasps_lineup %>%
-  split(.$.sample) %>%
-  map_df(~lda_pred(.)) %>%
+wasps_lineup_lda <- wasps_lineup |>
+  split(.$.sample) |>
+  map_df(~lda_pred(.)) |>
   mutate(.sample = wasps_lineup$.sample)
 ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2, 
                              colour=Group)) + 

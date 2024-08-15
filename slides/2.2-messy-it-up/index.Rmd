@@ -35,6 +35,12 @@ library(ggplot2)
 library(readr)
 library(lubridate)
 library(broom)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::slice)
+conflicts_prefer(palmerpenguins::penguins)
+library(here)
 ```
 
 ```{r example 6 what are the factors measurements and experimental units, echo = FALSE}
@@ -79,7 +85,7 @@ Each of these questions involves different summaries of the data.
 # Pivot french fries to long
   
 ```{r put french fries in long form}
-ff_long <- french_fries %>% 
+ff_long <- french_fries |> 
   pivot_longer(potato:painty, names_to = "type", values_to = "rating")
 
 
@@ -112,7 +118,7 @@ We use the **pivot_wider** function from `tidyr` to do introduce variables with 
 ```{r spread it back into wide form}
 head(ff_long, 3)
 
-french_fries_weeks <- ff_long %>% 
+french_fries_weeks <- ff_long |> 
   pivot_wider(names_from = "time", values_from = "rating")
 
 head(french_fries_weeks)
@@ -130,7 +136,7 @@ head(french_fries_weeks)
 and fills values in from the variable in `values_from`
 
 
-posit cheatsheet: https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf
+Posit cheatsheet: https://tidyr.tidyverse.org
 
 ---
 # Comparing ratings from different weeks
@@ -139,7 +145,7 @@ Plot Week 1 against Week 9 in a scatterplot:
 
 
 ```{r week 1 vs week 9, fig.width=5, fig.height = 5}
-french_fries_weeks %>%
+french_fries_weeks |>
   ggplot(aes(x = `1`, y = `9`)) + geom_point()
 ```
 
@@ -156,7 +162,7 @@ You will need to first convert the data into long form, and then get the replica
 `r countdown::countdown(5)`
 
 ```{r solution to do the replicates look like each other, echo=FALSE, eval=FALSE}
-ff.s <- ff_long %>% pivot_wider(names_from=rep, values_from=rating)
+ff.s <- ff_long |> pivot_wider(names_from=rep, values_from=rating)
 ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
   theme(aspect.ratio=1) 
 ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
@@ -173,7 +179,7 @@ ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
 --
 
 ```{r ratings on the different scales}
-ff.m <- french_fries %>% 
+ff.m <- french_fries |> 
 pivot_longer(-(time:rep), names_to="type", values_to="rating")
 head(ff.m)
 ```
@@ -181,7 +187,7 @@ head(ff.m)
 ---
 
 ```{r ratings on the different scales too}
-ff.m <- french_fries %>% 
+ff.m <- french_fries |> 
 pivot_longer(-(time:rep), names_to="type", values_to="rating")
 head(ff.m)
 ```
@@ -212,7 +218,7 @@ Draw a scatterplot of two scales with the highest (positive or negative) correla
 `r countdown::countdown(7)`
 
 ```{r solution to whether scales look like each other, echo=FALSE, eval=FALSE}
-ff.scales <- ff_long %>% pivot_wider(names_from=type, values_from=rating)
+ff.scales <- ff_long |> pivot_wider(names_from=type, values_from=rating)
 
 cor(ff.scales[,5:9], use="pairwise.complete")
 

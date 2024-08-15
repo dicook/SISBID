@@ -40,6 +40,12 @@ library(lubridate)
 library(broom)
 library(broom.mixed)
 library(lme4)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::slice)
+conflicts_prefer(palmerpenguins::penguins)
+library(here)
 ```
 
 # Outline
@@ -62,7 +68,7 @@ e.g. fit french fry rating with respect to all designed main effects:
 
 ```{r models and model output}
 
-ff_long <- french_fries %>% pivot_longer(potato:painty, names_to = "type", values_to = "rating")
+ff_long <- french_fries |> pivot_longer(potato:painty, names_to = "type", values_to = "rating")
 ff_lm <- lm(rating~type+treatment+time+subject, 
 data=ff_long)
 ```
@@ -179,7 +185,7 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 select a subset of the observations (horizontal selection)
 ```{r select a subset of the observations}
 load(here::here("data/french_fries.rda"))
-french_fries %>%
+french_fries |>
     filter(subject == 3, time == 1)
 ```
 
@@ -188,8 +194,8 @@ french_fries %>%
 
 order the observations (hierarchically)
 ```{r order the observations}
-french_fries %>%
-    arrange(desc(rancid)) %>%
+french_fries |>
+    arrange(desc(rancid)) |>
     head
 ```
 
@@ -198,8 +204,8 @@ french_fries %>%
 
 select a subset of the variables (vertical selection)
 ```{r select a subset of the variables}
-french_fries %>%
-    select(time, treatment, subject, rep, potato) %>%
+french_fries |>
+    select(time, treatment, subject, rep, potato) |>
     head
 ```
 
@@ -208,7 +214,7 @@ french_fries %>%
 
 summarize observations into a (set of) one-number statistic(s):
 ```{r summarize observations into one-number statistic}
-french_fries %>%
+french_fries |>
     summarise(mean_rancid = mean(rancid, na.rm=TRUE), 
               sd_rancid = sd(rancid, na.rm = TRUE))
 ```
@@ -217,8 +223,8 @@ french_fries %>%
 # Summarise and group_by
 
 ```{r summarise and group_by}
-french_fries %>%
-    group_by(time, treatment) %>%
+french_fries |>
+    group_by(time, treatment) |>
     summarise(mean_rancid = mean(rancid), sd_rancid = sd(rancid))
 ```
 
@@ -254,26 +260,26 @@ How many values do we have for each subject? Check the help for function `?n`
 `n()`
 
 ```{r checking design completeness}
-french_fries %>% 
-  group_by(subject) %>% 
+french_fries |> 
+  group_by(subject) |> 
   summarize(n = n()) 
 ```
 
 ---
 # Other nice short cuts 
 
-instead of `group_by(subject) %>% summarize(n = n())` we can use:
+instead of `group_by(subject) |> summarize(n = n())` we can use:
 
-- `group_by(subject) %>% tally()`
+- `group_by(subject) |> tally()`
 - `count(subject)`
 
 ---
 # Counts for subject by time
 
 ```{r counts for subject by time}
-french_fries %>% 
-  na.omit() %>%
-  count(subject, time) %>%
+french_fries |> 
+  na.omit() |>
+  count(subject, time) |>
   spread(time, n)
 ```
 
@@ -309,8 +315,8 @@ class: inverse
 Get summary of ratings over replicates and connect the dots for a picture as below:
 
 ```{r echo=FALSE, fig.width=12, fig.height=9, out.width="60%"}
-ff_av <- ff_long %>% 
-  group_by(subject, time, type, treatment) %>%
+ff_av <- ff_long |> 
+  group_by(subject, time, type, treatment) |>
   summarise(rating=mean(rating))
 
 ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) + 
@@ -324,7 +330,7 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
 # References
 
 
-- [posit cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [Posit cheatsheets](https://posit.co/resources/cheatsheets/)
 - [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12)
 - [broom vignettes, David Robinson](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
 - [Wickham (2011) Split-Apply-Combine](https://www.jstatsoft.org/article/view/v040i01)

@@ -42,6 +42,15 @@ library(tourr)
 library(broom)
 library(plotly)
 library(palmerpenguins)
+library(ggpcp)
+library(colorspace)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::slice)
+conflicts_prefer(dplyr::rename)
+conflicts_prefer(palmerpenguins::penguins)
+library(here)
 ```
 
 class: inverse middle 
@@ -74,10 +83,17 @@ countdown::countdown(1,0)
 
 .pull-left[The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggpairs`.
 
-```{r scatterplot matrix, fig.show='hide'}
+```{r scatterplot matrix, echo=TRUE, eval=FALSE}
 # Make a simple scatterplot matrix of the new penguins data
-penguins <- penguins %>% filter(!is.na(bill_length_mm)) 
-ggpairs(penguins, columns=c(3:6))
+stdd <- function(x) (x-mean(x))/sd(x)
+penguins <- penguins |> 
+  filter(!is.na(bill_length_mm)) |>
+  rename(bl = bill_length_mm,
+         bd = bill_depth_mm,
+         fl = flipper_length_mm,
+         bm = body_mass_g) |>
+  mutate_at(vars(bl:bm), stdd)
+ggpairs(penguins, columns=c(3:6)) 
 ```
 
 *What do we learn?*
@@ -98,7 +114,9 @@ ggpairs(penguins, columns=c(3:6))
 ```{r scatterplot matrix with colour, echo=TRUE, fig.show='hide'}
 # Re-make mapping colour to species (class)
 ggpairs(penguins, columns=c(3:6), 
-        ggplot2::aes(colour=species))
+        ggplot2::aes(colour=species)) +
+  scale_color_viridis_d(option = "plasma", begin=0.2, end=0.8) +
+  scale_fill_viridis_d(option = "plasma", begin=0.2, end=0.8)
 ```
 
 <br>
@@ -116,13 +134,13 @@ ggpairs(penguins, columns=c(3:6),
 ---
 
 .pull-left[
-Only show correlation. `r anicon::nia("This is dangerous!", animate="float")` Only appropriate if correlation is a good summary of the association.
+Only show correlation. `r anicon::nia("This is dangerous!", animate="float")` Only appropriate if correlation is a good summary of the association, or if you have a large number of variables that you need to scan quickly.
 
 ```{r correlation heatmap, echo=TRUE, fig.show='hide'}
 # Look at one species only
-adelie <- penguins %>% 
-  filter(species == "Adelie") %>%
-  select(bill_length_mm:body_mass_g)
+adelie <- penguins |> 
+  filter(species == "Adelie") |>
+  select(bl:bm)
 ggcorr(adelie)
 ```
 
@@ -152,6 +170,30 @@ The `corrgram` package has numerous scatterplot matrix capabilities.
 ```
 ]
 
+---
+# Large sample size
+
+.pull-left[
+```{r hexbin scatterplot, fig.width=6, fig.height=6, eval=FALSE}
+# Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
+# This chunk takes some time to run, so evaluated off-line
+tcga <- data.table(read.csv(here("data/TCGA-PANCAN-HiSeq-801x20531/data.csv")))
+tcga_t <- t(as.matrix(tcga[,2:20532]))
+colnames(tcga_t) <- tcga$X
+tcga_t_pc <- prcomp(tcga_t, scale = FALSE)$x
+ggally_hexbin <- function (data, mapping, ...)  {
+    p <- ggplot(data = data, mapping = mapping) + geom_hex(binwidth=20, ...)
+    p
+}
+ggpairs(tcga_t_pc, columns=c(1:4),
+        lower = list(continuous = "hexbin")) +
+  scale_fill_gradient(trans="log", 
+    low="#E24C80", high="#FDF6B5")
+```
+]
+.pull-right[
+![](ggpairs-hexbin.png)
+]
 
 ---
 # Generalized pairs plot
@@ -162,7 +204,7 @@ The pairs plot can also incorporate non-numerical variables, and different types
 ```{r generalised pairs plot, fig.show='hide'}
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
-australia_PISA2012 <- australia_PISA2012 %>%
+australia_PISA2012 <- australia_PISA2012 |>
   mutate(desk = factor(desk), 
          room = factor(room),
          study = factor(study), 
@@ -175,8 +217,8 @@ australia_PISA2012 <- australia_PISA2012 %>%
          textbook = factor(textbook),
          dictionary = factor(dictionary),
          dishwasher = factor(dishwasher))
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26))
 ```
 ]
@@ -189,8 +231,8 @@ australia_PISA2012 %>%
 
 ```{r generalised pairs plot enhance plots, echo=TRUE, fig.width=6, fig.height=6}
 # Modify the defaults, set the transparency of points since there is a lot of data
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
           lower = list(continuous = wrap("points", alpha=0.05)))
 ```
@@ -209,8 +251,8 @@ my_fn <- function(data, mapping, method="loess", ...){
 ```
 
 ```{r generalised pairs plot enhance more, echo=TRUE, fig.show='hide'}
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
           lower = list(continuous = my_fn))
 
@@ -226,8 +268,8 @@ australia_PISA2012 %>%
 ]
 .pull-right[
 ```{r ref.label='generalised pairs plot enhance more', echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"}
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
           lower = list(continuous = my_fn))
 
@@ -249,8 +291,8 @@ countdown::countdown(8,0)
 ```
 
 ```{r echo=FALSE, eval=FALSE}
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
           lower = list(combo = "box_no_facet"),
           upper = list(continuous = "density"))
@@ -263,12 +305,12 @@ australia_PISA2012 %>%
 An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables.
 
 ```{r wrangle housing data}
-housing <- read_csv(here::here("data/housing.csv")) %>%
-  mutate(date = dmy(date)) %>%
-  mutate(year = year(date)) %>%
-  filter(year == 2016) %>%
-  filter(!is.na(bedroom2), !is.na(price)) %>%
-  filter(bedroom2 < 7, bathroom < 5) %>%
+housing <- read_csv(here::here("data/housing.csv")) |>
+  mutate(date = dmy(date)) |>
+  mutate(year = year(date)) |>
+  filter(year == 2016) |>
+  filter(!is.na(bedroom2), !is.na(price)) |>
+  filter(bedroom2 < 7, bathroom < 5) |>
   mutate(bedroom2 = factor(bedroom2), 
          bathroom = factor(bathroom)) 
 ```
@@ -285,102 +327,91 @@ ggduo(housing[, c(4,3,8,10,11)],
 ]
 
 ---
-# Big biological data
-
-The Bioconductor package `bigPint` has tools for working with larger amounts of data, as seen in RNA-Seq experiments. More info at https://lindsayrutter.github.io/bigPint/
-
-```{r eval=FALSE, echo=FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("bigPint")
-```
+# Parallel coordinate plots
 
 .pull-left[
-
-Data on soybean experiment, with two treatments, and three replicates. Here's the scatterplot of the first replicate. 
-
-```{r soybean_scat, fig.show='hide', eval=FALSE}
-# if (!require("BiocManager", quietly = TRUE))
-#    install.packages("BiocManager")
-# BiocManager::install("bigPint")
-library(bigPint) 
-data(soybean_ir_sub)
-soybean_ir_sub[,-1] <- log(soybean_ir_sub[,-1]+1)
-ggplot(soybean_ir_sub, 
-       aes(x=N.1, y=P.1)) + 
-  geom_point() + 
-  theme(aspect.ratio=1)
+```{r generalised pcp, echo=TRUE, eval=FALSE, fig.width=6, fig.height=6}
+library(ggpcp)
+library(colorspace)
+penguins |>
+  pcp_select(species, bl:bm) |>
+  pcp_arrange() |>
+  ggplot(aes_pcp()) +
+    geom_pcp(aes(colour=species)) +
+    geom_pcp_boxes() +
+    geom_pcp_labels() +
+    scale_colour_discrete_divergingx(palette = "Zissou 1") +
+    theme_pcp() +
+    theme(legend.position = "none")
 ```
+
+Axes are parallel, observations are connecting lines.
+
 ]
-
 .pull-right[
-
-```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE, eval=FALSE}
+```{r ref.label='generalised pcp', echo=FALSE, eval=TRUE, fig.width=6, fig.height=6}
 ```
 ]
 
 ---
-
-The `litre` plot combines replicates into same plot, to look at the treatments. To handle the data size it uses a hexbin display. The data values for an individual gene can be overlaid on the plot.
-
-.pull-left[
-```{r soybean_litre, fig.show='hide', eval=FALSE}
-geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
-ret <- plotLitre(data = soybean_ir_sub, 
-                 geneList = geneList, 
-                 pointColor = "deeppink")
-names(ret)
-ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
-```
-]
-
-.pull-right[
-```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide', eval=FALSE}
-```
-]
-
----
+# PCP: large sample size
 
 .pull-left[
-This can be extended into a scatterplot matrix
+```{r organise data pcp, eval=FALSE, echo=FALSE}
+tcga_t_pc_pcp <- tcga_t_pc |>
+  as_tibble() |>
+  pcp_select(PC1:PC10) |>
+  pcp_scale() |>
+  pcp_arrange() 
+probs <- c(0.025, 0.25, 0.75, 0.975)
 
-```{r soybean_litre_sm, fig.show='hide', eval=FALSE}
-ret <- plotSM(soybean_cn_sub, 
-              soybean_cn_sub_metrics, 
-              option = "hexagon", 
-              xbins = 5, 
-              pointSize = 0.1, 
-              saveFile = FALSE, eval=FALSE)
-ret[[2]]
+dframe <-
+  tcga_t_pc_pcp |>
+  summarise(
+    value = quantile(pcp_y, prob = probs),
+    quantile = probs,
+    lower = probs < 0.5,
+    level = round(10 * abs(quantile - 0.5), digits = 1)
+  ) |>
+  select(-quantile) |>
+  mutate(lower = factor(lower, labels = c("upper", "lower"))) |>
+  pivot_wider(names_from = "lower", values_from = "value") |>
+  ungroup() |>
+  mutate(
+    level = ifelse(level > 2.5, "Inner 95%", "Inner 50%"),
+    level = factor(level, levels = c("Inner 50%", "Inner 95%"))
+  )
+
+tcga_t_pc_pcp_sub <- tcga_t_pc_pcp |>
+  slice_head(n=5)
 ```
+
+```{r ribbon pcp, eval=FALSE}
+ggplot() +
+    geom_ribbon(data = dframe, 
+              aes(x=pcp_x, ymin = lower, ymax = upper,
+              group = level), alpha=0.5) +
+    geom_pcp_axes(data=tcga_t_pc_pcp_sub, 
+             aes_pcp()) +
+    geom_pcp_boxes(data=tcga_t_pc_pcp_sub, 
+             aes_pcp(), boxwidth = 0.1) +
+    geom_pcp(data=tcga_t_pc_pcp_sub, 
+             aes_pcp(), colour="orange") +
+    theme_pcp()
+```
+
+With large data, aggregate to get an overview, and select some observations to show.
+
 ]
 .pull-right[
-```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide', eval=FALSE}
-```
+![](ggpcp-ribbon.png)
 ]
 
----
-
-.pull-left[
-When working with RNA-Seq data, it is useful to compare samples using a side-by-side boxplot. Overlaying the profiles of different genes can help to learn about the patterns across samples, particularly to examine the significant genes after testing. (This can be called a parallel coordinate plot.)
-
-```{r soybean_pcp, fig.show='hide', eval=FALSE}
-ret <- plotPCP(data = soybean_ir_sub, 
-               geneList = geneList, 
-               lineSize = 0.3, 
-               saveFile = FALSE)
-ret[[1]]
-```
-]
-.pull-right[
-```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide', eval=FALSE}
-```
-]
 
 ---
 # Resources
 
-- [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
+- [Cook and Laa (2024)](https://dicook.github.io/mulgar_book/)
 - Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
 - [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
 - Eunkyung Lee [PPtreeViz](https://www.jstatsoft.org/article/view/v083i08)
