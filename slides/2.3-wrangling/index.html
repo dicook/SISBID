@@ -52,13 +52,20 @@ Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
 e.g. fit french fry rating with respect to all designed main effects:
 
 
+``` r
+
+ff_long &lt;- french_fries %&gt;% pivot_longer(potato:painty, names_to = "type", values_to = "rating")
+ff_lm &lt;- lm(rating~type+treatment+time+subject, 
+data=ff_long)
+```
 
 ---
 
 `summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
 
 
-```
+``` r
+summary(ff_lm)
 
 Call:
 lm(formula = rating ~ type + treatment + time + subject, data = ff_long)
@@ -124,52 +131,63 @@ One value for each:
 # Goodness of fit statistics: `glance`
 
 
-```
+``` r
+glance(ff_lm)
 # A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC deviance df.residual  nobs
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1     0.400         0.395  2.90      88.1       0    26 -8607. 17270. 17442.   28957.        3444  3471
+  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     0.400         0.395  2.90      88.1       0    26 -8607. 17270. 17442.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
 ```
 
 ---
 # Model estimates: `tidy`
 
 
-```
+``` r
+ff_lm_tidy &lt;- tidy(ff_lm)
+glimpse(ff_lm_tidy)
 Rows: 27
 Columns: 5
-$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepotato", "typerancid", "treatment2", "treatment3", "time2", "time3", "time4…
-$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.03292748, -0.05127634, -0.04545600, 0.10194444, -0.01361111, -0.10250000…
-$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200, 0.1205061, 0.1205621, 0.2161279, 0.2161279, 0.2161279, 0.2169018, 0.…
-$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.05501911, -0.42550826, -0.37703402, 0.47168577, -0.06297712, -0.474256…
-$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-207, 4.694019e-38, 6.704928e-01, 7.061716e-01, 6.371810e-01, 9.497884e-…
+$ term      &lt;chr&gt; "(Intercept)", "typegrassy", "typepainty", "typepotato", "ty…
+$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.03292748,…
+$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200, 0.120…
+$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.0550191…
+$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-207, 4.6…
 ```
 
 ---
 # Model diagnostics: `augment`
 
 
-```
+``` r
+ff_lm_all &lt;- augment(ff_lm)
+glimpse(ff_lm_all)
 Rows: 3,471
 Columns: 12
-$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22",…
-$ rating     &lt;dbl&gt; 2.9, 0.0, 0.0, 0.0, 5.5, 14.0, 0.0, 0.0, 1.1, 0.0, 11.0, 6.4, 0.0, 0.0, 0.0, 9.9, 5.9, 2.9, 2.2, 0.0, 1.2, 0.1, 0.0, 1.1, …
-$ type       &lt;chr&gt; "potato", "buttery", "grassy", "rancid", "painty", "potato", "buttery", "grassy", "rancid", "painty", "potato", "buttery",…
-$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ subject    &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 16, 16, …
-$ .fitted    &lt;dbl&gt; 6.33172754, 1.19851228, 0.04338221, 3.23143977, 1.89905775, 6.33172754, 1.19851228, 0.04338221, 3.23143977, 1.89905775, 8.…
-$ .resid     &lt;dbl&gt; -3.43172754, -1.19851228, -0.04338221, -3.23143977, 3.60094225, 7.66827246, -1.19851228, -0.04338221, -2.13143977, -1.8990…
-$ .hat       &lt;dbl&gt; 0.007910376, 0.007911506, 0.007910376, 0.007910376, 0.007909910, 0.007910376, 0.007911506, 0.007910376, 0.007910376, 0.007…
-$ .sigma     &lt;dbl&gt; 2.899486, 2.900008, 2.900081, 2.899554, 2.899426, 2.897111, 2.900008, 2.900081, 2.899852, 2.899899, 2.899641, 2.899467, 2.…
-$ .cooksd    &lt;dbl&gt; 4.169299e-04, 5.086106e-05, 6.662863e-08, 3.696831e-04, 4.590328e-04, 2.081769e-03, 5.086106e-05, 6.662863e-08, 1.608361e-…
-$ .std.resid &lt;dbl&gt; -1.188202062, -0.414973381, -0.015020667, -1.118854383, 1.246790706, 2.655064264, -0.414973381, -0.015020667, -0.737990152…
+$ .rownames  &lt;chr&gt; "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "1…
+$ rating     &lt;dbl&gt; 2.9, 0.0, 0.0, 0.0, 5.5, 14.0, 0.0, 0.0, 1.1, 0.0, 11.0, 6.…
+$ type       &lt;chr&gt; "potato", "buttery", "grassy", "rancid", "painty", "potato"…
+$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ subject    &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 10, 10, 10, 10, 10, 10, 1…
+$ .fitted    &lt;dbl&gt; 6.33172754, 1.19851228, 0.04338221, 3.23143977, 1.89905775,…
+$ .resid     &lt;dbl&gt; -3.43172754, -1.19851228, -0.04338221, -3.23143977, 3.60094…
+$ .hat       &lt;dbl&gt; 0.007910376, 0.007911506, 0.007910376, 0.007910376, 0.00790…
+$ .sigma     &lt;dbl&gt; 2.899486, 2.900008, 2.900081, 2.899554, 2.899426, 2.897111,…
+$ .cooksd    &lt;dbl&gt; 4.169299e-04, 5.086106e-05, 6.662863e-08, 3.696831e-04, 4.5…
+$ .std.resid &lt;dbl&gt; -1.18820206, -0.41497338, -0.01502067, -1.11885438, 1.24679…
 ```
 
 ---
 # Residual plot
 
-&lt;img src="index_files/figure-html/residual plot-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+``` r
+ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
+```
+
+&lt;img src="index_files/figure-html/residual plot-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Adding random effects
@@ -177,6 +195,11 @@ $ .std.resid &lt;dbl&gt; -1.188202062, -0.414973381, -0.015020667, -1.118854383,
 Add random intercepts for each subject
 
 
+``` r
+library(lme4)
+fries_lmer &lt;- lmer(rating~type+treatment+time+subject + ( 1 | subject ), 
+data = ff_long)
+```
 
 
 ---
@@ -190,7 +213,7 @@ The `broom.mixed` package provides similar functionality to mixed effects models
 - Plot the residuals from the random effects model
 - Plot fitted values against observed values
 
-<div class="countdown" id="timer_a7c25c12" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_ba5afb62" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -216,7 +239,10 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 
 select a subset of the observations (horizontal selection)
 
-```
+``` r
+load(here::here("data/french_fries.rda"))
+french_fries %&gt;%
+*   filter(subject == 3, time == 1)
 # A tibble: 6 × 9
   time  treatment subject   rep potato buttery grassy rancid painty
 * &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -233,7 +259,10 @@ select a subset of the observations (horizontal selection)
 
 order the observations (hierarchically)
 
-```
+``` r
+french_fries %&gt;%
+*   arrange(desc(rancid)) %&gt;%
+    head
 # A tibble: 6 × 9
   time  treatment subject   rep potato buttery grassy rancid painty
   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -250,7 +279,10 @@ order the observations (hierarchically)
 
 select a subset of the variables (vertical selection)
 
-```
+``` r
+french_fries %&gt;%
+*   select(time, treatment, subject, rep, potato) %&gt;%
+    head
 # A tibble: 6 × 5
   time  treatment subject   rep potato
   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -267,7 +299,12 @@ select a subset of the variables (vertical selection)
 
 summarize observations into a (set of) one-number statistic(s):
 
-```
+``` r
+french_fries %&gt;%
+*   summarise(
+      mean_rancid = mean(rancid, na.rm=TRUE), 
+      sd_rancid = sd(rancid, na.rm = TRUE)
+*     )
 # A tibble: 1 × 2
   mean_rancid sd_rancid
         &lt;dbl&gt;     &lt;dbl&gt;
@@ -278,7 +315,10 @@ summarize observations into a (set of) one-number statistic(s):
 # Summarise and group_by
 
 
-```
+``` r
+french_fries %&gt;%
+    group_by(time, treatment) %&gt;%
+    summarise(mean_rancid = mean(rancid), sd_rancid = sd(rancid))
 # A tibble: 30 × 4
 # Groups:   time [10]
    time  treatment mean_rancid sd_rancid
@@ -321,9 +361,9 @@ class: inverse middle
 
 How many values do we have for each subject? Check the help for function `?n`
 
-<div class="countdown" id="timer_8e7644d0" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_2f22b216" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 ---
 # French Fries - completeness
@@ -331,7 +371,10 @@ How many values do we have for each subject? Check the help for function `?n`
 `n()`
 
 
-```
+``` r
+french_fries %&gt;% 
+  group_by(subject) %&gt;% 
+  summarize(n = n()) 
 # A tibble: 12 × 2
    subject     n
    &lt;fct&gt;   &lt;int&gt;
@@ -361,7 +404,11 @@ instead of `group_by(subject) %&gt;% summarize(n = n())` we can use:
 # Counts for subject by time
 
 
-```
+``` r
+french_fries %&gt;% 
+  na.omit() %&gt;%
+  count(subject, time) %&gt;%
+  pivot_wider(names_from="time", values_from="n")
 # A tibble: 12 × 11
    subject   `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`   `9`  `10`
    &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -386,6 +433,11 @@ instead of `group_by(subject) %&gt;% summarize(n = n())` we can use:
 &lt;br&gt;&lt;br&gt;
 
 
+``` r
+ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
+  geom_point() +
+  facet_grid(subject~type) 
+```
 
 &lt;br&gt;&lt;br&gt;
 
@@ -407,7 +459,7 @@ Get summary of ratings over replicates and connect the dots for a picture as bel
 
 &lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
-<div class="countdown" id="timer_8bd691dc" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_88061432" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
