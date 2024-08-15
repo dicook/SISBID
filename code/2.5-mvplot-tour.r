@@ -1,4 +1,4 @@
-## ----echo = FALSE-------------------------------------------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------------------------
 knitr::opts_chunk$set(
   echo=TRUE, 
   message = FALSE,
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
  )
 
 
-## ----echo=FALSE---------------------------------------------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------------------------
 #library(tidyverse)
 library(tidyr)
 library(dplyr)
@@ -25,10 +25,10 @@ library(GGally)
 library(tourr)
 library(plotly)
 library(palmerpenguins)
-library(ochRe)
+library(colorspace)
 
 
-## ----penguins, echo=TRUE, eval=FALSE, fig.show='hide'-------------------------------------------------------------
+## ----penguins, echo=TRUE, eval=FALSE, fig.show='hide'-------------------------------------------
 ## ggplot(penguins,
 ##    aes(x=flipper_length_mm,
 ##        y=body_mass_g,
@@ -36,16 +36,15 @@ library(ochRe)
 ##        shape=species)) +
 ##   geom_point(alpha=0.7,
 ##              size=2) +
-##   scale_colour_ochre(
-##     palette="nolan_ned") +
+##   scale_colour_discrete_divergingx(palette = "Zissou 1") +
 ##   theme(aspect.ratio=1,
 ##   legend.position="bottom")
 
 
-## ----ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"--------------------------------
+## ----ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"--------------
 
 
-## -----------------------------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------
 # Pre-process the data
 penguins_std <- penguins %>%
   rename(bl = bill_length_mm,
@@ -57,10 +56,10 @@ penguins_std <- penguins %>%
   mutate_if(is.numeric, function(x) (x-mean(x))/sd(x))
 
 
-## ----echo=TRUE, eval=FALSE----------------------------------------------------------------------------------------
+## ----echo=TRUE, eval=FALSE----------------------------------------------------------------------
 ## # Run the tour
-## clrs <- ochre_pal(
-##   palette="nolan_ned")(3)
+## clrs <- divergingx_hcl(3,
+##   palette="Zissou 1")
 ## col <- clrs[
 ##   as.numeric(
 ##     penguins$species)]
@@ -70,22 +69,23 @@ penguins_std <- penguins %>%
 ##            fps=15)
 
 
-## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------
 ## # This code was used to make the animated gif
 ## set.seed(20200622)
-## clrs <- ochre_pal(palette="nolan_ned")(3)
+## clrs <- divergingx_hcl(3,
+##   palette="Zissou 1")
 ## col <- clrs[as.numeric(penguins$species)]
 ## render_gif(penguins_std[,2:5], grand_tour(),
 ##            display_xy(col=col, axes="bottomleft"),
 ##            "penguins2d.gif", frames=100, width=300, height=300)
 
 
-## ----echo=FALSE, out.width="100%", fig.width=6, fig.height=6, fig.retina=5----------------------------------------
-ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") + scale_colour_ochre(palette="nolan_ned") +
+## ----echo=FALSE, out.width="100%", fig.width=6, fig.height=6, fig.retina=5----------------------
+ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") +   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(legend.position="bottom")
 
 
-## ----reading axes, eval=FALSE, echo=FALSE-------------------------------------------------------------------------
+## ----reading axes, eval=FALSE, echo=FALSE-------------------------------------------------------
 ## # Generate a plotly animation to demonstrate
 ## library(plotly)
 ## library(htmltools)
@@ -140,7 +140,7 @@ ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") + scale_colour_oc
 ##                                   frame = indx), colour="grey70") +
 ##        geom_point(data = df, aes(x = d1, y = d2, colour=species,
 ##                                  frame = indx), size=1) +
-##        scale_colour_ochre(palette="nolan_ned") +
+##          scale_colour_discrete_divergingx(palette = "Zissou 1") +
 ##        geom_text(data=dfaxes_mat, aes(x=xloc, y=yloc,
 ##                                   label=coef, frame = indx)) +
 ##        theme_void() +
@@ -152,7 +152,7 @@ ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") + scale_colour_oc
 ## save_html(pg, file="penguins.html")
 
 
-## ----runthis13, fig.width=4, fig.height=4, out.width="90%"--------------------------------------------------------
+## ----runthis13, fig.width=4, fig.height=4, out.width="90%"--------------------------------------
 ggplot(penguins, 
    aes(x=flipper_length_mm, 
        y=bill_depth_mm,
@@ -160,13 +160,12 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
+    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
 
 
-## ----runthis14, fig.width=4, fig.height=4, out.width="90%"--------------------------------------------------------
+## ----runthis14, fig.width=4, fig.height=4, out.width="90%"--------------------------------------
 ggplot(penguins, 
    aes(x=bill_length_mm, 
        y=body_mass_g,
@@ -174,15 +173,14 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
+    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
 
 
-## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------------------------
-## clrs <- ochre_pal(
-##   palette="nolan_ned")(3)
+## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------
+## clrs <- divergingx_hcl(3,
+##   palette="Zissou 1")
 ## col <- clrs[
 ##   as.numeric(
 ##     penguins$species)]
@@ -193,7 +191,7 @@ ggplot(penguins,
 ##            frames=17, width=300, height=300, loop=FALSE)
 
 
-## ----runthis15, eval=FALSE, echo=FALSE----------------------------------------------------------------------------
+## ----runthis15, eval=FALSE, echo=FALSE----------------------------------------------------------
 ## animate_xy(penguins_std[,2:5], grand_tour(),
 ##            axes = "bottomleft", col=col)
 ## animate_xy(penguins_std[,2:5], guided_tour(lda_pp(penguins$species)),
@@ -203,26 +201,26 @@ ggplot(penguins,
 ##                     byrow=TRUE)
 
 
-## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------
 ## mtour1 <- manual_tour(basis = best_proj, manip_var = 3)
 ## render_manual(penguins_s[,3:6], mtour1, "penguins_manual_fl.gif", col=col, dir = "images/manual1/")
 ## mtour2 <- manual_tour(basis = best_proj, manip_var = 1)
 ## render_manual(penguins_s[,3:6], mtour2, "penguins_manual_bl.gif", col=col, dir = "images/manual2")
 
 
-## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------
 ## render_gif(penguins_std[,2:5], local_tour(start=best_proj, 0.9),
 ##            display_xy(col=col, axes="bottomleft"),
 ##            "penguins2d_local.gif",
 ##            frames=200, width=300, height=300)
 
 
-## ----runthis16, eval=FALSE, echo=FALSE----------------------------------------------------------------------------
+## ----runthis16, eval=FALSE, echo=FALSE----------------------------------------------------------
 ## animate_xy(penguins_std[,2:5], local_tour(start=best_proj, 0.9),
 ##            axes = "bottomleft", col=col)
 
 
-## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------------------------
 ## render_gif(penguins_std[,2:5], grand_tour(),
 ##            display_dist(half_range=1.3),
 ##            "penguins1d.gif",
@@ -233,12 +231,12 @@ ggplot(penguins,
 ##            frames=100, width=300, height=300)
 
 
-## ----runthis17, eval=FALSE, echo=FALSE----------------------------------------------------------------------------
+## ----runthis17, eval=FALSE, echo=FALSE----------------------------------------------------------
 ## animate_dist(penguins_std[,2:5], half_range=1.3)
 ## animate_density2d(penguins_std[,2:5], col=col, axes="bottomleft")
 
 
-## ----eval=FALSE---------------------------------------------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------------------------
 ## library(tourr)
 ## data(flea)
 ## ?animate_xy
@@ -252,11 +250,11 @@ ggplot(penguins,
 ## animate_xy(flea[, 1:6], fps=10)
 
 
-## ----echo=FALSE---------------------------------------------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------------------------
 countdown::countdown(2,0)
 
 
-## ----eval=FALSE---------------------------------------------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------------------------
 ## render_gif(
 ##   penguins_std[,2:5],
 ##   grand_tour(),
@@ -268,7 +266,7 @@ countdown::countdown(2,0)
 ##   height=300)
 
 
-## ----eval=FALSE---------------------------------------------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------------------------
 ## set.seed(209)
 ## b <- basis_random(4, 2)
 ## penguins_pct <- tourr::save_history(penguins_std[,2:5],
@@ -284,7 +282,7 @@ countdown::countdown(2,0)
 ##       obs_labels=penguins_std$species)
 
 
-## ----eval=FALSE---------------------------------------------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------------------------
 ## penguins_gp <- ggplot() +
 ##      geom_path(data=penguins_anim$circle,
 ##                aes(x=c1, y=c2,
@@ -306,9 +304,9 @@ countdown::countdown(2,0)
 ##                 alpha=0.8) +
 
 
-## ----eval=FALSE---------------------------------------------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------------------------
 ##      xlim(-1,1) + ylim(-1,1) +
-##      scale_colour_ochre(palette="nolan_ned") +
+##      scale_colour_discrete_divergingx(palette = "Zissou 1") +
 ##      coord_equal() +
 ##      theme_bw() +
 ##      theme(legend.position = "none",
@@ -332,7 +330,7 @@ countdown::countdown(2,0)
 ##           selfcontained = TRUE)
 
 
-## -----------------------------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------
 load(here::here("data/p_tour_path.rda"))
 penguins_pcti <- interpolate(penguins_pct, 0.2)
 f27 <- matrix(penguins_pcti[,,27], ncol=2)
@@ -341,7 +339,7 @@ p27 <- render_proj(penguins_std[,2:5],
           obs_labels=penguins_std$species)
 
 
-## ----echo=FALSE---------------------------------------------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------------------------
 p27$data_prj <- p27$data_prj %>%
   mutate(species = penguins_std$species)
 pg27 <- ggplot() +
@@ -352,7 +350,7 @@ pg27 <- ggplot() +
              aes(x=P1, y=P2,
                  colour=species,
                  label=obs_labels)) +
-  scale_colour_ochre(palette="nolan_ned") +
+  scale_colour_discrete_divergingx(palette = "Zissou 1") +
   xlim(-1,1) + ylim(-1, 1) +
   ggtitle("Frame 27") +
   theme_bw() +
@@ -364,7 +362,7 @@ pg27 <- ggplot() +
     panel.grid=element_blank())
 
 
-## ----echo=FALSE, out.width="80%", fig.width=7, fig.height=6-------------------------------------------------------
+## ----echo=FALSE, out.width="80%", fig.width=7, fig.height=6-------------------------------------
 # pg27
 ggplotly(pg27, width=450, height=450)
 
