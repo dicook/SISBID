@@ -320,7 +320,7 @@ ggplot(l, aes(x=date, y=rate)) + geom_line() +
 # Let's talk TB
 
 ```{r lets talk TB, echo=FALSE}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
   mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
