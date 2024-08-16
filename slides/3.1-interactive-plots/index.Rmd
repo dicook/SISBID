@@ -286,7 +286,7 @@ ggplot(economics) #<<
 
 - thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 
-#### 2. add the mapping
+#### 2. Add the mapping
 
 .left-code[
 ```{r plot2, eval=FALSE, echo=TRUE}
@@ -305,7 +305,7 @@ ggplot(economics) +
 
 - thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 
-#### 3.add a graphical primitive, let's do a line 
+#### 3. Add a graphical primitive -- let's do a line 
 
 .left-code[
 ```{r plot3, eval=FALSE, echo=TRUE}
@@ -324,7 +324,7 @@ ggplot(economics) +
 
 - thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 
-#### 4. Just one extra line turns this into an animation!
+#### 4. Just one extra line of code turns this into an animation!
 
 .left-code[
 ```{r plot5-anim, eval=FALSE, echo=TRUE}
@@ -345,7 +345,7 @@ Again, we first pass in the dataset to ggplot
 
 .left-code[
 ```{r plot5, eval=FALSE, echo=TRUE}
-ggplot(datasaurus_dozen)#<<
+ggplot(datasaurus_dozen) #<<
 ```
 ]
 .right-plot[
@@ -359,7 +359,7 @@ For each dataset we have x and y values, in addition we can map dataset to color
 .left-code[
 ```{r plot6, eval=FALSE, echo=TRUE}
 ggplot(datasaurus_dozen) +
-  aes(x, y, color=dataset)#<<
+  aes(x, y, color=dataset) #<<
 ```
 ]
 .right-plot[
@@ -389,7 +389,7 @@ We can use facets to split up by dataset, revealing the different distributions
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() +
-  facet_wrap(~dataset)#<<
+  facet_wrap(~dataset) #<<
 ```
 ]
 .right-plot[
