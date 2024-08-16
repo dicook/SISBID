@@ -56,9 +56,10 @@ library(here)
 
  <img src="images/broom.png" width="10%" /><img src="images/dplyr.png" width="10%" /> 
 
-```{r setting up, echo=FALSE}
+```{r setting_up, echo=FALSE}
 load(here::here("data/french_fries.rda"))
 ```
+
 ---
 # Models and model output
 
@@ -133,7 +134,7 @@ Add random intercepts for each subject
 
 ```{r add random intercepts for each subject, results='hide'}
 library(lme4)
-fries_lmer <- lmer(rating~type+treatment+time+subject + ( 1 | subject ), 
+fries_lmer <- lmer(rating~type+treatment+time + ( 1 | subject ), 
 data = ff_long)
 ```
 
