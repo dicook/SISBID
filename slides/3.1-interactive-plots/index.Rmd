@@ -50,6 +50,24 @@ library(readr)
 library(plotly)
 library(gganimate)
 library(datasauRus)
+library(ggthemes)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::slice)
+conflicts_prefer(palmerpenguins::penguins)
+library(here)
+
+library(palmerpenguins)
+stdd <- function(x) (x-mean(x))/sd(x)
+penguins <- penguins |> 
+  filter(!is.na(bill_length_mm)) |>
+  rename(bl = bill_length_mm,
+         bd = bill_depth_mm,
+         fl = flipper_length_mm,
+         bm = body_mass_g) |>
+  mutate_at(vars(bl:bm), stdd) |>
+  select(species, bl:bm)
 ```
 
 
@@ -73,7 +91,7 @@ library(lubridate)
 ```{r, include=F, eval=FALSE}
 cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
                            from = "2018-01-01", to = "2024-07-27")
-write_csv(cran_dls, file = "../../data/package-info-Jul-2024.csv")
+write_csv(cran_dls, file = here("data/package-info-Jul-2024.csv"))
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.height = 8}
@@ -105,24 +123,25 @@ cran_summary %>%
 ---
 # plotly
 
+.left-code[
 The `plotly` package in R builds on the `ggplot2` package, adding interactive elements to these plots. It translates plots to javascript.
 
 ```{r plotly}
 library(plotly)
-library(palmerpenguins)
-
-plot_ly(data = penguins, x = ~flipper_length_mm, y = ~bill_depth_mm, color = ~species, size = 5)
+plot_ly(data = penguins, x = ~fl, y = ~bl, 
+  color = ~species, size = 3, width=420, height=300)
 ```
+]
+.right-plot[
 
----
-# Or using ggplot2
+Or using `ggplot2`
 
 ```{r}
-gg <- ggplot(data=penguins, aes(x = flipper_length_mm, y = bill_depth_mm, colour = species)) +  
-        geom_point() + geom_smooth(method = "lm")
-
-ggplotly(gg)
+gg <- ggplot(data=penguins, aes(x = fl, y = bl, colour = species)) +  
+  geom_point(alpha=0.5) + geom_smooth(method = "lm", se=F)
+ggplotly(gg, width=390, height=300)
 ```
+]
 
 ---
 # Scatterplot(ly) matrix 
@@ -130,7 +149,7 @@ ggplotly(gg)
 .pull-left[
 ```{r scatterplotly, fig.show='hide'}
 library(GGally)
-p <- ggpairs(penguins, columns = 3:6, 
+p <- ggpairs(penguins, columns = 2:5, 
              ggplot2::aes(colour = species))
 ```
 ]
@@ -150,18 +169,21 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
   borders(regions = "canada") +
   coord_equal() +
   geom_point(aes(text = name, size = log2(pop)), 
-             colour = "red", alpha = 1/4)
+             colour = "red", alpha = 1/4) +
+  theme_map()
 ```
+
+Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
+
 ]
 
 .pull-right[
-```{r out.width="80%"}
+```{r out.width="100%"}
 #viz
 ggplotly(viz)
 ```
 ]
 
-Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
 
 
 ---

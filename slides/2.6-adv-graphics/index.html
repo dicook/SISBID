@@ -289,8 +289,8 @@ The plot is constructed by plotting count against year, separately by age group,
 # sex needs to be converted to 0, 1 to 
 # match binomial simulations
 tb_us_long &lt;- expandRows(tb_us, "count")
-tb_us_long &lt;- tb_us_long %&gt;%
-  mutate(sex01 = ifelse(sex=="m", 0, 1)) %&gt;%
+tb_us_long &lt;- tb_us_long |&gt;
+  mutate(sex01 = ifelse(sex=="m", 0, 1)) |&gt;
   select(-sex)
 
 # Generate a lineup of three, randomly choose one of the
@@ -300,8 +300,8 @@ pos = sample(1:3, 1)
 l &lt;- lineup(null_dist(var="sex01", dist="binom", 
                       list(size=1, p=0.5)), 
             true=tb_us_long, n=3, pos=pos)
-l &lt;- l %&gt;%
-  group_by(.sample, year, age) %&gt;%
+l &lt;- l |&gt;
+  group_by(.sample, year, age) |&gt;
   dplyr::count(sex01)
 ```
 
@@ -318,7 +318,7 @@ l &lt;- l %&gt;%
 
 ``` r
 # Compute proportion across all data
-tbl &lt;- tb_us %&gt;% group_by(sex) %&gt;% summarise(count=sum(count))
+tbl &lt;- tb_us |&gt; group_by(sex) |&gt; summarise(count=sum(count))
 tbl
 # A tibble: 2 × 2
   sex   count
@@ -331,8 +331,8 @@ pos = sample(1:3, 1)
 l &lt;- lineup(null_dist(var="sex01", dist="binom", 
                       list(size=1, p=p)), 
             true=tb_us_long, n=3, pos=pos)
-l &lt;- l %&gt;%
-  group_by(.sample, year, age) %&gt;%
+l &lt;- l |&gt;
+  group_by(.sample, year, age) |&gt;
   dplyr::count(sex01)
 ```
 
@@ -384,17 +384,17 @@ library(MASS)
 data(wasps)
 lda_pred &lt;- function(x) {
   d &lt;- predict(lda(Group~., 
-                   data=x[,-43]))$x[,1:2] %&gt;%
-  as_tibble() %&gt;%
+                   data=x[,-43]))$x[,1:2] |&gt;
+  as_tibble() |&gt;
   mutate(Group = x$Group)
   return(d)
 }
 wasps_lineup &lt;- lineup(null_permute('Group'), 
-                       wasps[,-1], n=12) %&gt;%
+                       wasps[,-1], n=12) |&gt;
   as_tibble()
-wasps_lineup_lda &lt;- wasps_lineup %&gt;%
-  split(.$.sample) %&gt;%
-  map_df(~lda_pred(.)) %&gt;%
+wasps_lineup_lda &lt;- wasps_lineup |&gt;
+  split(.$.sample) |&gt;
+  map_df(~lda_pred(.)) |&gt;
   mutate(.sample = wasps_lineup$.sample)
 ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2, 
                              colour=Group)) + 
@@ -424,7 +424,8 @@ ggplot(wasps_lineup_lda, aes(x=LD1, y=LD2,
 "ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"incremental": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

@@ -65,7 +65,7 @@ Zoom etiquette:
 ## Course outline
 
 ### Slack
-Find us on slack: SISBID.slack.com
+Find us on slack: SISBID.slack.com. The channel is `data-visualization-2024` which contains zoom and video links.
 
 ### Wednesday afternoon [zip file](SISBID_day1.zip)
 
@@ -81,7 +81,7 @@ Find us on slack: SISBID.slack.com
     construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html)
     (Susan)
 
-### Thursday [zip file](SISBID_day2.zip)
+### Thursday [zip file](SISBID_day2.zip) [minimal zip file](SISBID-day2.zip)
 
 Morning:
 
@@ -104,7 +104,7 @@ Afternoon:
     data](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html)
     (Di)
 
-### Friday [zip file](SISBID_day3.zip)
+### Friday [zip file](SISBID_day3.zip) [minimal zip file](SISBID-day3.zip)
 
 Morning:
 

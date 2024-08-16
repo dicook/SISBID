@@ -1,4 +1,4 @@
-## ----echo = FALSE-------------------------------------------------------------------------------
+## ----echo = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -10,20 +10,7 @@ knitr::opts_chunk$set(
   cache = FALSE
 )
 
-
-## /* custom.css */
-## .left-code {
-##   color: #777;
-##   width: 48%;
-##   height: 92%;
-##   float: left;
-## }
-## .right-plot {
-##   width: 50%;
-##   float: right;
-##   padding-left: 1%;
-## }
-## ----echo=FALSE---------------------------------------------------------------------------------
+## ----echo=FALSE-----------------------------------------------------------
 #library(tidyverse)
 library(tidyr)
 library(dplyr)
@@ -32,21 +19,39 @@ library(readr)
 library(plotly)
 library(gganimate)
 library(datasauRus)
+library(ggthemes)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::slice)
+conflicts_prefer(palmerpenguins::penguins)
+library(here)
+
+library(palmerpenguins)
+stdd <- function(x) (x-mean(x))/sd(x)
+penguins <- penguins |>
+  filter(!is.na(bill_length_mm)) |>
+  rename(bl = bill_length_mm,
+         bd = bill_depth_mm,
+         fl = flipper_length_mm,
+         bm = body_mass_g) |>
+  mutate_at(vars(bl:bm), stdd) |>
+  select(species, bl:bm)
 
 
-## ----include = F--------------------------------------------------------------------------------
+## ----include = F----------------------------------------------------------
 # Download cran data from metacran
 library(cranlogs)
 library(lubridate)
 
-## ----include=F, eval=FALSE----------------------------------------------------------------------
+## ----include=F, eval=FALSE------------------------------------------------
 ## cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"),
-##                            from = "2019-01-01", to = "2023-06-30")
-## write_csv(cran_dls, file = "../../data/package-info-Jul-2023.csv")
+##                            from = "2018-01-01", to = "2024-07-27")
+## write_csv(cran_dls, file = here("data/package-info-Jul-2024.csv"))
 
 
-## ----echo=FALSE, fig.width=10, fig.height = 8---------------------------------------------------
-cran_dls <- read_csv(here::here("data/package-info-Jul-2023.csv"))
+## ----echo=FALSE, fig.width=10, fig.height = 8-----------------------------
+cran_dls <- read_csv(here::here("data/package-info-Jul-2024.csv"))
 cran_summary <- cran_dls %>%
   mutate(date = ymd(date) %>% floor_date("week")) %>%
   group_by(package, date) %>%
@@ -57,7 +62,7 @@ label_summary <- cran_summary %>%
   group_by(package) %>%
   filter(totaldown == max(totaldown))
 
-cran_summary %>% 
+cran_summary %>%
   ggplot(aes(x = date, y = totaldown, colour=package)) +
   geom_line() +
   theme_bw() +
@@ -66,54 +71,57 @@ cran_summary %>%
     aes(x = date, y = 1.05*totaldown, label=package),
     data = label_summary) +
   ylab("Monthly downloads") +
-  xlab("Time") + 
+  xlab("Time") +
   scale_y_log10()
 
 
-## ----plotly-------------------------------------------------------------------------------------
+## ----plotly---------------------------------------------------------------
 library(plotly)
-plot_ly(data = economics, x = ~date, y = ~unemploy / pop)
+plot_ly(data = penguins, x = ~fl, y = ~bl,
+  color = ~species, size = 3, width=420, height=300)
 
 
-## -----------------------------------------------------------------------------------------------
-gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +  
-        geom_point() + geom_line()
+## -------------------------------------------------------------------------
+gg <- ggplot(data=penguins, aes(x = fl, y = bl, colour = species)) +
+  geom_point(alpha=0.5) + geom_smooth(method = "lm", se=F)
+ggplotly(gg, width=390, height=300)
 
-ggplotly(gg)
 
-
-## ----scatterplotly, fig.show='hide'-------------------------------------------------------------
+## ----scatterplotly, fig.show='hide'---------------------------------------
 library(GGally)
-p <- ggpairs(economics[,3:6])
+p <- ggpairs(penguins, columns = 2:5,
+             ggplot2::aes(colour = species))
 
 
-## ----out.width="80%"----------------------------------------------------------------------------
+## -------------------------------------------------------------------------
 ggplotly(p, width=450, height=450)
 
 
-## -----------------------------------------------------------------------------------------------
+## -------------------------------------------------------------------------
 data(canada.cities, package = "maps")
 viz <- ggplot(canada.cities, aes(long, lat)) +
   borders(regions = "canada") +
   coord_equal() +
-  geom_point(aes(text = name, size = log2(pop)), colour = "red", alpha = 1/4)
+  geom_point(aes(text = name, size = log2(pop)),
+             colour = "red", alpha = 1/4) +
+  theme_map()
 
 
-## ----out.width="80%"----------------------------------------------------------------------------
+## ----out.width="100%"-----------------------------------------------------
 #viz
 ggplotly(viz)
 
 
-## ----eval=TRUE----------------------------------------------------------------------------------
+## ----eval=TRUE------------------------------------------------------------
 txh_shared <- highlight_key(txhousing, ~year)
 
 p <- ggplot(txh_shared, aes(month, median)) +
-   geom_line(aes(group = year)) + 
-   geom_smooth(data = txhousing, method = "gam") + 
+   geom_line(aes(group = year)) +
+   geom_smooth(data = txhousing, method = "gam") +
    scale_x_continuous("", breaks=seq(1, 12, 1),
-        labels=c("J", "F", "M", "A", "M", "J", 
+        labels=c("J", "F", "M", "A", "M", "J",
                  "J", "A", "S", "O", "N", "D")) +
-   scale_y_continuous("Median price ('00,000)", 
+   scale_y_continuous("Median price ('00,000)",
                       breaks = seq(0,300000,100000),
                       labels = seq(0,3,1)) +
    facet_wrap(~ city)
@@ -124,12 +132,12 @@ gg <- ggplotly(p, height = 600, width = 1000) %>%
 #highlight(gg)
 
 
-## ----echo=FALSE, out.width="70%", fig.height=10, fig.width=12-----------------------------------
+## ----echo=FALSE, out.width="70%", fig.height=10, fig.width=12-------------
 sd <- highlight_key(txhousing, ~year)
 
 p <- ggplot(sd, aes(month, median)) +
-   geom_line(aes(group = year)) + 
-   geom_smooth(data = txhousing, method = "gam") + 
+   geom_line(aes(group = year)) +
+   geom_smooth(data = txhousing, method = "gam") +
    facet_wrap(~ city)
 
 gg <- ggplotly(p, height = 600, width = 1000) %>%
@@ -139,7 +147,7 @@ gg <- ggplotly(p, height = 600, width = 1000) %>%
 highlight(gg)
 
 
-## ----echo=FALSE, fig.width = 8, fig.height = 6--------------------------------------------------
+## ----echo=FALSE, fig.width = 8, fig.height = 6----------------------------
 library(gapminder)
 library(gganimate)
 
@@ -156,104 +164,104 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   gganimate::ease_aes('linear')
 
 
-## ----plot1, eval=FALSE, echo=TRUE---------------------------------------------------------------
+## ----plot1, eval=FALSE, echo=TRUE-----------------------------------------
 ## ggplot(economics) #<<
 
 
-## ----plot1, echo=FALSE, fig.height = 6----------------------------------------------------------
+## ----plot1, echo=FALSE, fig.height = 6------------------------------------
 ggplot(economics) #<<
 
 
-## ----plot2, eval=FALSE, echo=TRUE---------------------------------------------------------------
+## ----plot2, eval=FALSE, echo=TRUE-----------------------------------------
 ## ggplot(economics) +
 ##   aes(date, unemploy) #<<
 
 
-## ----plot2, echo=FALSE, fig.height = 6----------------------------------------------------------
+## ----plot2, echo=FALSE, fig.height = 6------------------------------------
 ggplot(economics) +
   aes(date, unemploy) #<<
 
 
-## ----plot3, eval=FALSE, echo=TRUE---------------------------------------------------------------
+## ----plot3, eval=FALSE, echo=TRUE-----------------------------------------
 ## ggplot(economics) +
 ##   aes(date, unemploy) +
 ##   geom_line() #<<
 
 
-## ----plot3, echo=FALSE, fig.height = 6----------------------------------------------------------
+## ----plot3, echo=FALSE, fig.height = 6------------------------------------
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() #<<
 
 
-## ----plot5-anim, eval=FALSE, echo=TRUE----------------------------------------------------------
+## ----plot5-anim, eval=FALSE, echo=TRUE------------------------------------
 ## ggplot(economics) +
 ##   aes(date, unemploy) +
 ##   geom_line() +
 ##   transition_reveal(date) #<<
 
 
-## ----plot5-anim, echo=FALSE,  fig.height = 6----------------------------------------------------
+## ----plot5-anim, echo=FALSE,  fig.height = 6------------------------------
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() +
   transition_reveal(date) #<<
 
 
-## ----plot5, eval=FALSE, echo=TRUE---------------------------------------------------------------
-## ggplot(datasaurus_dozen)#<<
+## ----plot5, eval=FALSE, echo=TRUE-----------------------------------------
+## ggplot(datasaurus_dozen) #<<
 
 
-## ----plot5, echo=FALSE, cache=TRUE, fig.height = 6----------------------------------------------
-ggplot(datasaurus_dozen)#<<
+## ----plot5, echo=FALSE, cache=TRUE, fig.height = 6------------------------
+ggplot(datasaurus_dozen) #<<
 
 
-## ----plot6, eval=FALSE, echo=TRUE---------------------------------------------------------------
+## ----plot6, eval=FALSE, echo=TRUE-----------------------------------------
 ## ggplot(datasaurus_dozen) +
-##   aes(x, y, color=dataset)#<<
+##   aes(x, y, color=dataset) #<<
 
 
-## ----plot6, echo=FALSE, cache=TRUE, fig.height = 6----------------------------------------------
+## ----plot6, echo=FALSE, cache=TRUE, fig.height = 6------------------------
 ggplot(datasaurus_dozen) +
-  aes(x, y, color=dataset)#<<
+  aes(x, y, color=dataset) #<<
 
 
-## ----plot7, eval=FALSE, echo=TRUE---------------------------------------------------------------
+## ----plot7, eval=FALSE, echo=TRUE-----------------------------------------
 ## ggplot(datasaurus_dozen) +
 ##   aes(x, y, color=dataset) +
 ##   geom_point() #<<
 
 
-## ----plot7, echo=FALSE, cache=TRUE, fig.height = 6----------------------------------------------
+## ----plot7, echo=FALSE, cache=TRUE, fig.height = 6------------------------
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() #<<
 
 
-## ----plot8, eval=FALSE, echo=TRUE---------------------------------------------------------------
+## ----plot8, eval=FALSE, echo=TRUE-----------------------------------------
 ## ggplot(datasaurus_dozen) +
 ##   aes(x, y, color=dataset) +
 ##   geom_point() +
-##   facet_wrap(~dataset)#<<
+##   facet_wrap(~dataset) #<<
 
 
-## ----plot8, echo=FALSE, cache=TRUE, fig.height = 6----------------------------------------------
+## ----plot8, echo=FALSE, cache=TRUE, fig.height = 6------------------------
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() +
-  facet_wrap(~dataset)#<<
+  facet_wrap(~dataset) #<<
 
 
-## ----plot9, eval=FALSE, echo=TRUE---------------------------------------------------------------
+## ----plot9, eval=FALSE, echo=TRUE-----------------------------------------
 ## ggplot(datasaurus_dozen) +
 ##   aes(x, y) +
 ##   geom_point() +
 ##   transition_states(dataset, 3, 1) + #<<
 ##   labs(title = "Dataset: {closest_state}") #<<
-## 
+##
 
 
-## ----plot9, echo=FALSE, cache=TRUE, fig.height = 6----------------------------------------------
+## ----plot9, echo=FALSE, cache=TRUE, fig.height = 6------------------------
 ggplot(datasaurus_dozen) +
   aes(x, y) +
   geom_point() +
@@ -262,7 +270,7 @@ ggplot(datasaurus_dozen) +
 
 
 
-## ----fig.show='hide'----------------------------------------------------------------------------
+## ----fig.show='hide'------------------------------------------------------
 library(gapminder)
 
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +

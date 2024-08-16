@@ -1,6 +1,6 @@
 ## ----echo = FALSE----------------------------------------------
 knitr::opts_chunk$set(
-  echo=TRUE, 
+  echo=TRUE,
   message = FALSE,
   warning = FALSE,
   error = FALSE,
@@ -38,7 +38,7 @@ library(here)
 ## ----scatterplot matrix, echo=FALSE, eval=TRUE, fig.width=6, fig.height=6----
 # Make a simple scatterplot matrix of the new penguins data
 stdd <- function(x) (x-mean(x))/sd(x)
-penguins <- penguins |> 
+penguins <- penguins |>
   filter(!is.na(bill_length_mm)) |>
   rename(bl = bill_length_mm,
          bd = bill_depth_mm,
@@ -46,7 +46,7 @@ penguins <- penguins |>
          bm = body_mass_g) |>
   mutate_at(vars(bl:bm), stdd) |>
   select(species, bl:bm)
-ggpairs(penguins, columns=c(2:5), 
+ggpairs(penguins, columns=c(2:5),
         ggplot2::aes(colour=species)) +
   scale_color_discrete_divergingx(palette = "Zissou 1") +
   scale_fill_discrete_divergingx(palette = "Zissou 1")
@@ -69,7 +69,7 @@ ggpairs(penguins, columns=c(2:5),
 
 
 ## ----echo=FALSE, out.width="100%", fig.width=6, fig.height=6, fig.retina=5----
-ggscatmat(penguins, columns = 2:5, color="species") +   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
+ggscatmat(penguins, columns = 2:5, color="species") +   scale_colour_discrete_divergingx(palette = "Zissou 1") +
   theme(legend.position="bottom")
 
 
@@ -77,7 +77,7 @@ ggscatmat(penguins, columns = 2:5, color="species") +   scale_colour_discrete_di
 ## # Generate a plotly animation to demonstrate
 ## library(plotly)
 ## library(htmltools)
-## 
+##
 ## # Generate sequence of bases
 ## # set.seed(3)
 ## set.seed(4)
@@ -87,7 +87,7 @@ ggscatmat(penguins, columns = 2:5, color="species") +   scale_colour_discrete_di
 ## bases[,,1] <- random_start # something needs fixing
 ## tour_path <- interpolate(bases, 0.1)
 ## d <- dim(tour_path)
-## 
+##
 ## # Make really big data of all projections
 ## penguins_d <- NULL; penguins_axes <- NULL
 ## for (i in 1:d[3]) {
@@ -104,7 +104,7 @@ ggscatmat(penguins, columns = 2:5, color="species") +   scale_colour_discrete_di
 ## }
 ## colnames(penguins_d)[3] <- "indx"
 ## colnames(penguins_axes)[5] <- "indx"
-## 
+##
 ## df <- as_tibble(penguins_d) |>
 ##   mutate(species = rep(penguins$species, d[3]))
 ## dfaxes <- as_tibble(penguins_axes) |>
@@ -136,27 +136,27 @@ ggscatmat(penguins, columns = 2:5, color="species") +   scale_colour_discrete_di
 
 
 ## ----runthis13, fig.width=4, fig.height=4, out.width="90%"-----
-ggplot(penguins, 
-   aes(x=fl, 
+ggplot(penguins,
+   aes(x=fl,
        y=bd,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
+  geom_point(alpha=0.7,
              size=2) +
-    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
+    scale_colour_discrete_divergingx(palette = "Zissou 1") +
   theme(aspect.ratio=1,
   legend.position="bottom")
 
 
 ## ----runthis14, fig.width=4, fig.height=4, out.width="90%"-----
-ggplot(penguins, 
-   aes(x=bl, 
+ggplot(penguins,
+   aes(x=bl,
        y=bm,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
+  geom_point(alpha=0.7,
              size=2) +
-    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
+    scale_colour_discrete_divergingx(palette = "Zissou 1") +
   theme(aspect.ratio=1,
   legend.position="bottom")
 
@@ -171,11 +171,11 @@ ggplot(penguins,
 
 
 ## ----runthis15, eval=FALSE, echo=FALSE-------------------------
-## animate_xy(penguins[,2:5], grand_tour(),
-##            axes = "bottomleft", col=penguins$species)
-## animate_xy(penguins[,2:5],
-##            guided_tour(lda_pp(penguins$species)),
-##            axes = "bottomleft", col=penguins$species)
+animate_xy(penguins[,2:5], grand_tour(),
+           axes = "bottomleft", col=penguins$species)
+animate_xy(penguins[,2:5],
+           guided_tour(lda_pp(penguins$species)),
+           axes = "bottomleft", col=penguins$species)
 ## best_proj <- matrix(c(0.940, 0.058, -0.253, 0.767,
 ##                       -0.083, -0.393, -0.211, -0.504), ncol=2,
 ##                     byrow=TRUE)
@@ -209,10 +209,10 @@ ggplot(penguins,
 
 
 ## ----eval=FALSE------------------------------------------------
-## library(tourr)
-## data(flea)
-## ?animate_xy
-## animate_xy(flea[, 1:6])
+library(tourr)
+data(flea)
+?animate_xy
+animate_xy(flea[, 1:6], axes="bottomleft")
 
 
 ## ----echo=FALSE------------------------------------------------
@@ -247,7 +247,7 @@ pg27 <- ggplot() +
   geom_path(data=p27$circle, aes(x=c1, y=c2)) +
   geom_segment(data=p27$axes, aes(x=x1, y=y1, xend=x2, yend=y2)) +
   geom_text(data=p27$axes, aes(x=x2, y=y2, label=rownames(p27$axes))) +
-  geom_point(data=p27$data_prj, 
+  geom_point(data=p27$data_prj,
              aes(x=P1, y=P2,
                  colour=species,
                  label=obs_labels)) +
