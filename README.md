@@ -1,4 +1,4 @@
-# SISBID 2024 Module 2: Data Visualization
+# SISBID 2025 Module 2: Data Visualization
 
 Instructors: Di Cook, Heike Hofmann and Susan Vanderplas
 
