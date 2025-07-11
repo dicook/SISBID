@@ -1,8 +1,8 @@
 ---
 title: "Tidying your data"
-subtitle: "SISBID 2024 <br> https://github.com/dicook/SISBID"
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "08/14-16/2024"
+date: "07/23-25/2025"
 output:
   xaringan::moon_reader:
     css: ["default", "myremark.css"]
