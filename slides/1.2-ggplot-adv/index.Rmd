@@ -1,5 +1,5 @@
 ---
-title: "Advancing the Grammar of Graphics"
+title: "Advancing the Grammar of Graphics: gg packages, maps, interactivity"
 subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
 date: "07/23-25/2025"
@@ -51,14 +51,20 @@ conflicts_prefer(palmerpenguins::penguins)
 library(here)
 ```
 
+# to do
 
-# Example 2: Platypus in Australia
+- new platypus, maybe add a new creature for an exercise
+- talk about the ggverse, ggdist, https://exts.ggplot2.tidyverse.org
 
-Where can you find the strange platypus in Australia?
+# Example 2: Monotremes in Australia
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Platypus-sketch.jpg" width="60%" />
+Where can you find the strange platypus and echidna live in Australia?
 
-Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Platypus-sketch.jpg" width="45%" />
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/EchidnainCanberra.JPG/500px-EchidnainCanberra.JPG" width="45%" />
+
+Source: [wikipedia: platypus](https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg), [wikipedia:echidna](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/EchidnainCanberra.JPG/500px-EchidnainCanberra.JPG)
 
 ---
 
@@ -68,38 +74,50 @@ Source: https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg
 # install.packages("galah")
 library(galah)
 
-galah_config(email = YOUR_EMAIL_HERE#"dicook@monash.edu",
-             download_reason_id = 0)
+galah_config(email = YOUR_EMAIL_HERE #"dicook@monash.edu",
+             atlas = "Australia")
 
-platypus <- galah_call() |>
-  galah_identify("Ornithorhynchus anatinus") |>
+search_taxa(c("Ornithorhynchus", "Tachyglossidae"))
+
+galah_call() |>
+  galah_identify(c("Ornithorhynchus", "Tachyglossidae")) |>
+  count() |> 
+  collect()
+
+monotremes <- galah_call() |>
+  galah_identify(c("Ornithorhynchus", "Tachyglossidae")) |>
+  galah_filter(year == 2024) |>   
+  select(scientificName, eventDate, basisOfRecord, 
+         decimalLongitude, decimalLatitude) |>
   atlas_occurrences()
-  
-platypus <- platypus |> 
+
+monotremes <- monotremes |> 
   rename(
     longitude = decimalLongitude,
-    latitude = decimalLatitude
+    latitude = decimalLatitude,
+    datetime = eventDate,
+    obs_type = basisOfRecord
   ) |>
   mutate(
-    day = ymd(str_sub(eventDate, 1, 10),
+    day = ymd(str_sub(datetime, 1, 10),
               tz="Australia/Sydney"), 
-    hour = as.numeric(str_sub(eventDate, 15, 16)))
-save(platypus, file="data/platypus.rda")
+    hour = as.numeric(str_sub(datetime, 15, 16))) |>
+    separate(scientificName, into = c("family", "species")) |>
+  mutate(family = if_else(family == "TACHYGLOSSIDAE", "Tachyglossus", family)) |>
+  mutate(common_name = if_else(
+    family == "Tachyglossus", "echidna",
+                              "platypus"))
+save(monotremes, file="data/monotremes.rda")
 ```
 
 ```{r load the platypus obervation data, echo=TRUE}
-load(here::here("data/platypus.rda"))
-platydata <- platypus
-ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
-```
-
----
-
-Add some transparency to see density of locations.
-
-```{r Add some transparency to see density of locations, echo=TRUE}
-ggplot(data=platydata) + 
-  geom_point(aes(x=longitude, y=latitude), alpha=0.1)
+load(here::here("data/monotremes.rda"))
+ggplot(data=monotremes) + 
+  geom_point(aes(x = longitude, 
+                 y = latitude, 
+                 colour = family),
+             alpha=0.5) +
+  scale_colour_brewer("", palette = "Dark2")
 ```
 
 ---
@@ -114,9 +132,12 @@ We can make the data look a bit more like it is collected in Australia by making
 .pull-left[
 
 ```{r making a map projection, echo=TRUE, fig.height=10, out.width="100%"}
-ggplot(data=platydata) + 
-  geom_point(aes(x=longitude, y=latitude), 
+ggplot(data=monotremes) + 
+  geom_point(aes(x=longitude, 
+                 y=latitude, 
+                 colour = common_name), 
              alpha=0.1) +
+  scale_colour_brewer("", palette = "Dark2") +
   coord_map()
 ```
 ]
@@ -139,9 +160,12 @@ save(oz, file="data/oz.rda")
 ```{r load the saved map data, echo=TRUE}
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
-  geom_point(data=platydata, 
-             aes(x=longitude, y=latitude), 
-              alpha=0.1, colour="orange")
+  geom_point(data=monotremes, 
+             aes(x=longitude, 
+                 y=latitude, 
+                 colour=common_name), 
+              alpha=0.1) +
+  scale_colour_brewer("", palette = "Dark2")
 ```
 
 ---
@@ -149,7 +173,8 @@ ggmap(oz) +
 .pull-left[
 ```{r leaflet map, echo=TRUE, eval=FALSE}
 library(leaflet)
-platydata |>
+monotremes |>
+  filter(family == "Ornithorhynchus") |>
   filter(!is.na(latitude), 
          !is.na(longitude)) |>
   leaflet() |>
@@ -173,73 +198,45 @@ platydata |>
 
 # Temporal trend
 
-The date of the sighting is another variable in the data set. Let's make a plot of the sightings over time. The original variable is called `eventDate`. It has both date and time. This has been split into two variables `day` which is a date variable by R, and hour.
+The date of the sighting is another variable in the data set. In the pre-processing of the data the variable `eventDate` was converted into two variables `day` which is a date variable by R, and hour.
 
-```{r create a date variable, echo=TRUE, eval=FALSE}
-library(lubridate)
-platypus <- platypus |> 
-  rename(
-    longitude = decimalLongitude,
-    latitude = decimalLatitude
-  ) |>
+```{r eval=FALSE}
+SOME STUFF HERE |>
   mutate(
-    day = ymd(str_sub(eventDate, 1, 10),
+    day = ymd(str_sub(datetime, 1, 10),
               tz="Australia/Sydney"), 
-    hour = as.numeric(str_sub(eventDate, 15, 16)))
+    hour = as.numeric(str_sub(datetime, 15, 16)))
 ```
 
 ---
 
-then we can simply plot occurrence by day.
+then we can simply plot the number of occurrences by day.
 
 ```{r show sightings over time, echo=TRUE, out.width="60%"}
-ggplot(data=platydata) +
-  geom_point(aes(x=day, y=1), alpha=0.2)
+monotremes |>
+  group_by(day, common_name) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  ggplot(aes(x=day, y=n)) +
+    geom_point() +
+    facet_wrap(~common_name)
 ```
 
-
-There are some records dating back before 1800. There were only records from 1770! And these first records are in the database!
-
+There looks to be some trend.
 
 ---
 
-There are a LOT more sightings in more recent years than in the 18th and 19th century, but this database has an amazing history!
-
-```{r show jittered sightings over time, echo=TRUE, out.width="60%"}
-ggplot(data=platydata) +
-  geom_quasirandom(aes(x=1, y=day), alpha=0.2)
-```
-
-
----
-
-Let's focus on records since 1900, and count the number for each year.
-
-```{r focus on records since 1900 and count the number for each year, echo=TRUE, out.width="60%"}
-platydata <- platydata |> 
-  mutate(year = year(day)) 
-platydata1900 <- platydata |> 
-  filter(year>1900) |>
-  count(year) 
-ggplot(data=platydata1900) +
-  geom_point(aes(x=year, y=n))
-```
-
-```{r solution code for filtering on location and time, eval=FALSE}
-# Check odd cases
-platydata |> filter(latitude < (-50)) 
-# These just have the lat/long wrong
-platydata |> filter(day < ymd("1850-01-01")) 
-```
-
----
-
-Add a trend line.
+Add a trend line to focus attention on trend.
 
 ```{r add a trend line, echo=TRUE, out.width="60%"}
-ggplot(data=platydata1900, aes(x=year, y=n)) +
-  geom_point() +
-  geom_smooth(se=F)
+monotremes |>
+  group_by(day, common_name) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  ggplot(aes(x=day, y=n)) +
+    geom_point() +
+    geom_smooth(se=F) +
+    facet_wrap(~common_name) 
 ```
 
 ---
@@ -263,60 +260,53 @@ Make sure you can make all the plots shown in this session, and then tackle the 
 class: inverse middle 
 # Your turn
 
-Change the dotplot into a density plot, to focus on the locations of frequent sightings.
-
-Do you learn anything different than from the scatterplot?
+Change the map to show a density plot instead of points. Maybe facet by the creatures instead of overlaying them here. How does this change the focus of the plot?
 
 ```{r solution code to density plot on map, eval=FALSE, echo=FALSE}
 ggmap(oz) + 
-  geom_density2d(data=platydata, 
+  geom_density2d(data=monotremes, 
                  aes(x=longitude, y=latitude), 
-              colour="orange") 
+              colour="orange") +
+  facet_wrap(~common_name, ncol=2)
 ```
 
 ```{r eval=FALSE, echo=FALSE}
-Not a lot different. It shows perhaps high density regions around Melbourne, Brisbane and south of Sydney. These match high population sites, though, and maybe reiterates the sampling being convenience sampling. We miss the smaller areas of sightings, like northern Queensland.
+Previously it looked like echidnas are found all over Australia. The density plot suggests they are found in the south-east similar to platypus. This possibly reveals a limitation of this data, that to be an occurrence requires a person to be present. There are a lot more people in Australia's southeast than the rest of the country, so it is possibly just showing where people are!
 ```
 
 ---
 class: inverse middle 
 # Your turn
 
-Platypus are mostly found on the east coast of the country, but there is a population close to Adelaide in south Australia. Why is this? (You might need to do some sleuthing with a web search engine to answer this.)
+Have a go at making a side-by-side boxplot of the occurrences over month. How does this change the focus for the temporal trend. 
 
----
-class: inverse middle 
-# Your turn
-
-*Discussion question:* Was there a population explosion in 1980 and 2004? Is the population of platypus increasing since 1900, and decreasing in the last decade?
-
-- Subset the data to 1950-2020
-- Create a new variable for decade
-- Make a map separately for each decade - the `facet_wrap` function can help here.
-
-```{r solution code for exploring population trend, echo=FALSE, eval=FALSE}
-platydata_50_10 <- platydata |> 
-  filter(between(year, 1949, 2020)) |>
-  mutate(decade = cut(year, 
-   breaks=seq(1950, 2020, 10),
-     include.lowest=TRUE, 
-     labels=c("50-59", "60-69", "70-79", "80-89",
-              "90-99", "00-09", "10-19")))
-ggmap(oz) + 
-  geom_point(data=platydata_50_10,
-             mapping=aes(x=longitude, y=latitude), colour="orange", alpha=0.1) +
-  facet_wrap(~decade, ncol=4)
+```{r solution code to boxplot task, eval=FALSE, echo=FALSE}
+monotremes |>
+  group_by(day, common_name) |>
+  summarise(n = n(), .groups = "drop") |>
+  mutate(month = month(day, label = TRUE, abbr = TRUE)) |>
+  ggplot(aes(x=month, y=n)) +
+    geom_boxplot() +
+    facet_wrap(~common_name, ncol=2) 
 ```
 
+```{r eval=FALSE, echo=FALSE}
+The focus now is median, and IQR over the year.
+```
 
 ---
 class: inverse middle 
 # Your turn
 
-- Focusing again on TB, choose a different country to examine, for example, Australia. 
-- Create a similar sequence of plots for your chosen country's data, and feel free to experiment with new types.
-- Write a data story describing what you have learned about TB in your chosen country based on a selection of your favorite plots, by putting the code and explanations into an Rmarkdown document, and compile to html.
-- Feel free to share with your instructors.
+There is something quite wrong in the previous plots. Can you guess what it is?
+
+```{r eval=FALSE, echo=FALSE}
+Days without any observations are missing from these plots. This is something that would need to be created in the pre-processing.
+
+What should it be?
+  
+If no observations happened on any day, it would be reasonable to use 0 for these days. So we would need to complete the data to have a row for each day in the year, and fill the `n` column with 0. 
+```
 
 ---
 # Resources
