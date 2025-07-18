@@ -1,5 +1,5 @@
 ---
-title: "Advancing the Grammar of Graphics: gg packages, maps, interactivity"
+title: "Advancing the Grammar of Graphics: `gg` packages, maps, interactivity"
 subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
 author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
 date: "07/23-25/2025"
