@@ -41,7 +41,7 @@ class: inverse middle
 - What makes multivariate analysis different from univariate analysis?
 
 
-<div class="countdown" id="timer_5de6c7fd" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_2dd505a4" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -68,15 +68,7 @@ class: inverse middle
 
 ``` r
 # Make a simple scatterplot matrix of the new penguins data
-stdd &lt;- function(x) (x-mean(x))/sd(x)
-penguins &lt;- penguins |&gt; 
-  filter(!is.na(bill_length_mm)) |&gt;
-  rename(bl = bill_length_mm,
-         bd = bill_depth_mm,
-         fl = flipper_length_mm,
-         bm = body_mass_g) |&gt;
-  mutate_at(vars(bl:bm), stdd)
-ggpairs(penguins, columns=c(3:6)) 
+ggpairs(penguins_std, columns=c(2:5)) 
 ```
 
 *What do we learn?*
@@ -96,7 +88,7 @@ ggpairs(penguins, columns=c(3:6))
 
 ``` r
 # Re-make mapping colour to species (class)
-ggpairs(penguins, columns=c(3:6), 
+ggpairs(penguins_std, columns=c(2:5), 
         ggplot2::aes(colour=species)) +
   scale_color_viridis_d(option = "plasma", begin=0.2, end=0.8) +
   scale_fill_viridis_d(option = "plasma", begin=0.2, end=0.8)
@@ -121,7 +113,7 @@ Only show correlation. <span class=" faa-float animated " style=" display: -moz-
 
 ``` r
 # Look at one species only
-adelie &lt;- penguins |&gt; 
+adelie &lt;- penguins_std |&gt; 
   filter(species == "Adelie") |&gt;
   select(bl:bm)
 ggcorr(adelie)
@@ -265,7 +257,7 @@ Re-make the plot with
 - side-by-side boxplots on the lower triangle, for the combo variables, 
 - and the density plots in the upper triangle.
 
-<div class="countdown" id="timer_9702805e" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_15b49d97" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -310,7 +302,7 @@ ggduo(housing[, c(4,3,8,10,11)],
 .pull-left[
 
 ``` r
-penguins |&gt;
+penguins_std |&gt;
   pcp_select(species, bl:bm) |&gt;
   pcp_arrange() |&gt;
   ggplot(aes_pcp()) +

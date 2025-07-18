@@ -20,7 +20,6 @@ library(lme4)
 library(ggpcp)
 library(colorspace)
 library(corrgram)
-library(palmerpenguins)
 library(GGally)
 library(htmltools)
 library(tourr)
@@ -63,10 +62,10 @@ conflicts_prefer(palmerpenguins::penguins)
 # Better formatted penguins data
 stdd <- function(x) (x-mean(x))/sd(x)
 penguins_std <- penguins |>
-  filter(!is.na(bill_length_mm)) |>
-  rename(bl = bill_length_mm,
-         bd = bill_depth_mm,
-         fl = flipper_length_mm,
-         bm = body_mass_g) |>
+  filter(!is.na(bill_len)) |>
+  rename(bl = bill_len,
+         bd = bill_dep,
+         fl = flipper_len,
+         bm = body_mass) |>
   mutate_at(vars(bl:bm), stdd) |>
   select(species, bl:bm)

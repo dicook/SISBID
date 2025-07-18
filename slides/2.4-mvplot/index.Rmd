@@ -51,15 +51,7 @@ countdown::countdown(1,0)
 
 ```{r scatterplot matrix, echo=TRUE, eval=FALSE}
 # Make a simple scatterplot matrix of the new penguins data
-stdd <- function(x) (x-mean(x))/sd(x)
-penguins <- penguins |> 
-  filter(!is.na(bill_length_mm)) |>
-  rename(bl = bill_length_mm,
-         bd = bill_depth_mm,
-         fl = flipper_length_mm,
-         bm = body_mass_g) |>
-  mutate_at(vars(bl:bm), stdd)
-ggpairs(penguins, columns=c(3:6)) 
+ggpairs(penguins_std, columns=c(2:5)) 
 ```
 
 *What do we learn?*
@@ -79,7 +71,7 @@ ggpairs(penguins, columns=c(3:6))
 
 ```{r scatterplot matrix with colour, echo=TRUE, fig.show='hide'}
 # Re-make mapping colour to species (class)
-ggpairs(penguins, columns=c(3:6), 
+ggpairs(penguins_std, columns=c(2:5), 
         ggplot2::aes(colour=species)) +
   scale_color_viridis_d(option = "plasma", begin=0.2, end=0.8) +
   scale_fill_viridis_d(option = "plasma", begin=0.2, end=0.8)
@@ -104,7 +96,7 @@ Only show correlation. `r anicon::nia("This is dangerous!", animate="float")` On
 
 ```{r correlation heatmap, echo=TRUE, fig.show='hide'}
 # Look at one species only
-adelie <- penguins |> 
+adelie <- penguins_std |> 
   filter(species == "Adelie") |>
   select(bl:bm)
 ggcorr(adelie)
@@ -295,7 +287,7 @@ ggduo(housing[, c(4,3,8,10,11)],
 
 .pull-left[
 ```{r generalised pcp, echo=TRUE, eval=FALSE, fig.width=6, fig.height=6}
-penguins |>
+penguins_std |>
   pcp_select(species, bl:bm) |>
   pcp_arrange() |>
   ggplot(aes_pcp()) +
