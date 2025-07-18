@@ -62,33 +62,24 @@ class: hide-count
 </center>
 
 ---
-# Talking to people in  the class
-
-We will be using breakout rooms throughout the class
-
-4-6 people in each room
-
-at the end of the time you will be 'zoomed back' into the main session
-
-
-... in cases you get disconnected, just log back into the Zoom session and we get you back to your group.
-
-<br><br><br><br><br>
-Let's try this!
-
-
----
 class: inverse middle  hide-count
 # Your turn: meet the class!
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")`
 
-Introduce yourself to the people around you. Find out a little about them: where they come from, why they chose to do the workshop, what sort of data they usually work with, whether they have used R before, and a fun fact! 
+We are going to break into three groups, you'll be with either Heike, Susan and Di.
+
+In this group we'd like you to:
+
+1. What is your favorite data plot?
+2. What are you hoping to learn from this workshop?
+3. What type of data are you often working with?
+4. Is there some analysis task that you have found really hard?
 
 `r anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2", position=c(0,0,0,200))` `r anicon::faa("handshake", animate="shake", grow=20, color="#F33816", position=c(0,0,0,250))` `r anicon::faa("hand-spock", animate="wrench", grow=20, color="#0774E4", position=c(0,0,0,300))`
 
 
-.large[.yellow[You've got 5 minutes - timer is running!]]
+.large[.yellow[We've got 5 minutes for this!]]
 
 `r countdown::countdown(5)`
 
