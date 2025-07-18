@@ -65,7 +65,7 @@ Zoom etiquette:
 ### Slack
 Find us on slack: SISBID.slack.com. The channel is `data-visualization-2024` which contains zoom and video links.
 
-### Wednesday afternoon [zip file](SISBID_day1.zip)
+### Wednesday afternoon [zip file]()
 
 1.  [Setting things
     up](https://dicook.github.io/SISBID/slides/0-preamble/index.html)
@@ -79,7 +79,7 @@ Find us on slack: SISBID.slack.com. The channel is `data-visualization-2024` whi
     construction](https://dicook.github.io/SISBID/slides/1.3-perception/index.html)
     (Susan)
 
-### Thursday [zip file](SISBID_day2.zip) [minimal zip file](SISBID-day2.zip)
+### Thursday [zip file]() [minimal zip file]()
 
 Morning:
 
@@ -102,7 +102,7 @@ Afternoon:
     data](https://dicook.github.io/SISBID/slides/2.5-mvplot-tour/index.html)
     (Di)
 
-### Friday [zip file](SISBID_day3.zip) [minimal zip file](SISBID-day3.zip)
+### Friday [zip file]() [minimal zip file]()
 
 Morning:
 
@@ -135,7 +135,7 @@ Open RStudio, and run the code below to install these packages and their depende
 
 ```
 # CRAN packages
-packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "ggmap", "here", "leaflet", "lubridate", "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", "ggmosaic", "gganimate", "remotes", "mapproj", "rsconnect")
+packages <- c("tidyr", "dplyr", "ggplot2", "readr", "ggmap", "here", "lubridate", "stringr", "ggbeeswarm", "leaflet", "plotly", "RColorBrewer", "gridExtra", "scales", "dichromat", "broom", "broom.mixed", "lme4", "ggpcp", "colorspace", "corrgram", "GGally", "htmltools", "tourr", "viridis", "nullabor", "forecast", "readxl", "ggthemes", "maps", "splitstackshape", "MASS", "gganimate", "datasauRus", "gapminder", "cranlogs", "shiny", "bslib", "DT")
 
 # Install packages and their dependencies
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
@@ -143,7 +143,6 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 # Install some packages from GitHub 
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
-remotes::install_github("hollylkirk/ochRe")
 
 # For sharing web apps, 
 # but you need adminstrator rights to your computer:
