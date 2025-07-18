@@ -13,6 +13,12 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("setup.R"))
+source(here::here("libraries.R"))
+```
+
 # Shiny Apps in R
 
 - `shiny` package developed and supported by RStudio (Winston Chang, Joe Cheng, JJ Allaire and others)

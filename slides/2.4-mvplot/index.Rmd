@@ -14,43 +14,9 @@ output:
       countIncrementalSlides: false
 ---
 
-```{r echo = FALSE}
-knitr::opts_chunk$set(
-  echo=TRUE, 
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
-```
-
-```{r echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(lubridate)
-library(GGally)
-library(tourr)
-library(broom)
-library(plotly)
-library(palmerpenguins)
-library(ggpcp)
-library(colorspace)
-library(conflicted)
-conflicts_prefer(dplyr::filter)
-conflicts_prefer(dplyr::select)
-conflicts_prefer(dplyr::slice)
-conflicts_prefer(dplyr::rename)
-conflicts_prefer(palmerpenguins::penguins)
-library(here)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("setup.R"))
+source(here::here("libraries.R"))
 ```
 
 class: inverse middle 
@@ -156,8 +122,6 @@ ggcorr(adelie)
 Only show correlation, using a corrgram. Again, this is dangerous, and only useful to get a broad overview of association that is suitably summarised by correlation.
 
 ```{r corrgram, echo=TRUE, fig.show='hide'}
-# install.packages("corrgram")
-library(corrgram)
 corrgram(adelie, 
   lower.panel=corrgram::panel.ellipse)
 ```
@@ -331,8 +295,6 @@ ggduo(housing[, c(4,3,8,10,11)],
 
 .pull-left[
 ```{r generalised pcp, echo=TRUE, eval=FALSE, fig.width=6, fig.height=6}
-library(ggpcp)
-library(colorspace)
 penguins |>
   pcp_select(species, bl:bm) |>
   pcp_arrange() |>

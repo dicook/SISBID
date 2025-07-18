@@ -20,39 +20,9 @@ background-image: \url(images/who_wore_it_better.jpg)
 background-size: 20%
 background-position: 99% 50%
 
-```{r echo=FALSE}
-knitr::opts_chunk$set(
-  echo=FALSE,
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE, 
-  collapse = TRUE,
-  comment = "",
-  fig.height = 6,
-  fig.width = 10,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
-```
-
-```{r load libraries, echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(stringr)
-library(RColorBrewer)
-library(gridExtra)
-library(dichromat)
-library(here)
-
-# just to make sure that we use the dplyr filter and select function when in doubt
-library(conflicted)
-
-conflict_prefer("select", "dplyr")
-conflict_prefer("filter", "dplyr")
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("setup.R"))
+source(here::here("libraries.R"))
 ```
 
 # Let's play a game: Which plot wears it better?
@@ -357,8 +327,6 @@ countdown::countdown(0, 50, right=50, bottom=0)
 # Color blind-proofing
 
 ```{r using the dichromat package to check color blind appearance, echo=TRUE, fig.show='hide'}
-library(scales)
-library(dichromat)
 clrs <- hue_pal()(9)
 d + theme(legend.position = "none")
 clrs <- dichromat(hue_pal()(9))

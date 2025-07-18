@@ -14,33 +14,9 @@ output:
       countIncrementalSlides: false
 ---
 
-```{r echo = FALSE}
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
-```
-
-```{r load packages, echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(lubridate)
-library(broom)
-library(conflicted)
-conflicts_prefer(dplyr::filter)
-conflicts_prefer(dplyr::select)
-conflicts_prefer(dplyr::slice)
-conflicts_prefer(palmerpenguins::penguins)
-library(here)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("setup.R"))
+source(here::here("libraries.R"))
 ```
 
 # Using `tidyr`, `dplyr`

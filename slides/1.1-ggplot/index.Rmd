@@ -16,31 +16,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r echo=FALSE}
-knitr::opts_chunk$set(
-  echo=FALSE,
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE, 
-  collapse = TRUE,
-  comment = "",
-  out.width = "80%", 
-  fig.height = 6,
-  fig.width = 10,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
-```
-
-```{r load libraries, echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(ggmap)
-library(here)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("setup.R"))
+source(here::here("libraries.R"))
 ```
 
 

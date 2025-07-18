@@ -17,49 +17,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r echo = FALSE, warning = FALSE, message=FALSE}
-knitr::opts_chunk$set(
-  echo = FALSE, 
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE,
-  fig.retina = 4
-)
-```
-
-```{r echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(stringr)
-library(ggthemes)
-library(maps)
-library(scales)
-library(RColorBrewer)
-library(gridExtra)
-library(viridis)
-library(nullabor)
-library(splitstackshape)
-library(plotly)
-library(forecast)
-library(readxl)
-# remotes::install_github("wmurphyrd/fiftystater")
-library(fiftystater)
-# remotes::install_github("heike/vinference")
-library(vinference)
-library(conflicted)
-conflicts_prefer(dplyr::filter)
-conflicts_prefer(dplyr::select)
-conflicts_prefer(dplyr::slice)
-conflicts_prefer(palmerpenguins::penguins)
-library(here)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("setup.R"))
+source(here::here("libraries.R"))
 ```
 
 # Tidy data and random variables
@@ -471,7 +431,6 @@ for (i in 2:12) {
 incd_map <- incd_map |> filter(!is.na(.sample))
 
 # Plot the maps as a lineup
-#library(mapproj)
 ggplot(incd_map) + 
   geom_polygon(aes(x=long, y=lat, fill = Incidence, group=group)) + 
   expand_limits(x = incd_map$long, y = incd_map$lat) +
@@ -506,7 +465,6 @@ Each person can
 
 .pull-right[
 ```{r eval=FALSE,echo=TRUE}
-library(MASS)
 data(wasps)
 lda_pred <- function(x) {
   d <- predict(lda(Group~., 

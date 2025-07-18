@@ -16,37 +16,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("setup.R"))
+source(here::here("libraries.R"))
 ```
 
-
-```{r load packages, echo = FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(lubridate)
-library(broom)
-library(broom.mixed)
-library(lme4)
-library(conflicted)
-conflicts_prefer(dplyr::filter)
-conflicts_prefer(dplyr::select)
-conflicts_prefer(dplyr::slice)
-conflicts_prefer(palmerpenguins::penguins)
-library(here)
-```
 
 # Outline
 
@@ -133,7 +107,6 @@ ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 Add random intercepts for each subject
 
 ```{r add random intercepts for each subject, results='hide'}
-library(lme4)
 fries_lmer <- lmer(rating~type+treatment+time + ( 1 | subject ), 
 data = ff_long)
 ```

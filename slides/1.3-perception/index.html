@@ -38,16 +38,30 @@ background-position: 99% 50%
 
 
 
-
-
 # Let's play a game: Which plot wears it better?
 
 
+``` r
+tb &lt;- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |&gt; 
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |&gt;
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |&gt;
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) |&gt;
+  mutate(sex=substr(sexage, 1, 1), 
+         age=substr(sexage, 2, length(sexage))) |&gt;
+  dplyr::select(-sexage)
+
+# Filter years between 1997 and 2012 due to missings
+tb_us &lt;- tb |&gt; 
+  filter(country == "United States of America") |&gt;
+  filter(!(age %in% c("04", "014", "514", "u"))) |&gt;
+  filter(year &gt; 1996, year &lt; 2013)
+```
 
 On the next slide we have made **two different plots** of 2012 TB incidence in the USA, based on two variables:
 
 
-```
+``` r
+tb_us |&gt; filter(year == 2012) |&gt; dplyr::select(sex, age, count)
 # A tibble: 12 × 3
    sex   age   count
    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
@@ -74,9 +88,29 @@ If you were to answer the question:  .orange[At which age(s) are the counts for 
 
 🔮 👽 👼 **TWO MINUTE CHALLENGE**
 
-&lt;img src="index_files/figure-html/focus on one year gender side-by-side bars of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/focus on one year age side-by-side bars of age group-1.png" width="720" style="display: block; margin: auto;" /&gt;
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=sex, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ggtitle("Arrangement A")
+```
+
+&lt;img src="index_files/figure-html/focus on one year gender side-by-side bars of males/females-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=age, y=count, fill=age)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Arrangement B")
+```
+
+&lt;img src="index_files/figure-html/focus on one year age side-by-side bars of age group-1.png" style="display: block; margin: auto;" /&gt;
 
 
 We've got two different rearrangements of the same information. .orange[At which age(s) are the counts for males and females relatively the same?] Which plot makes this easier?
@@ -104,16 +138,37 @@ Go to www.menti.com and use the code 4651 9428.
 
 &lt;br&gt;
 
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /&gt;
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=sex, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ggtitle("Arrangement A")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=age, y=count, fill=age)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Arrangement B")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 On the next slide we have made **two different plots** of TB incidence in the USA, based on three variables:
 
 
-```
+``` r
+tb_us |&gt; select(year, sex, age, count) |&gt; head(10)
 # A tibble: 10 × 4
     year sex   age   count
    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
@@ -135,19 +190,47 @@ On the next slide we have made **two different plots** of TB incidence in the US
 If you were to answer the question:  .orange[Is the trend for females generally decreasing over time?] Which plot makes this easier? 
 
 
+``` r
+- Plot type A makes it easier to examine trend for each group. This plot should probably have used 0 as the lower limit.
+- Plot type  B is really only allowing the overall trend in count to be examined separately by age. It is also possible to see trend for males. Trend for females is buried because the bars start at irregular heights. The separated bars distract from digesting the overall count. 
+```
 
 ---
 
-&lt;img src="index_files/figure-html/use a line plot instead of bar-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/colour and axes fixes-1.png" width="720" style="display: block; margin: auto;" /&gt;
+``` r
+ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ggtitle("Type A")
+```
+
+&lt;img src="index_files/figure-html/use a line plot instead of bar-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+# This uses a color blind proof scale
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ggtitle("Type B")
+```
+
+&lt;img src="index_files/figure-html/colour and axes fixes-1.png" style="display: block; margin: auto;" /&gt;
 
 🔮 👽 👼 **TWO MINUTE CHALLENGE**
 
 Which type of plot makes it easier to answer: .orange[Is the trend for females generally decreasing over time?] 
 
 
-<div class="countdown" id="timer_f7f53c9c" data-update-every="1" tabindex="0" style="top:0;right:0;">
+
+``` r
+countdown::countdown(1,50, top=0, right=0)
+```
+
+<div class="countdown" id="timer_1413dd36" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">50</span></code>
 </div>
@@ -162,11 +245,35 @@ What are the pros and cons of each way of displaying the same information? Shoul
 
 &lt;br&gt;
 
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /&gt;
+``` r
+ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ggtitle("Type A")
+```
 
-<div class="countdown" id="timer_9f22eb5c" data-update-every="1" tabindex="0" style="top:0;right:0;">
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+# This uses a color blind proof scale
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ggtitle("Type B")
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+countdown::countdown(0, 30, top=0, right=0)
+```
+
+<div class="countdown" id="timer_1a857b55" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
@@ -176,16 +283,47 @@ What are the pros and cons of each way of displaying the same information? Shoul
 
 Plot A computes the proportion and displays this as a line plot. Plot B uses a 100% chart of stacked bars for females and males. .orange[Is there an age effect in the proportion of incidence by gender? Is there also a temporal trend in the proportions?]
 
-<div class="countdown" id="timer_8d89275f" data-update-every="1" tabindex="0" style="top:100;right:0;">
+
+``` r
+countdown::countdown(1, 5, top=100, right=0)
+```
+
+<div class="countdown" id="timer_19ecea91" data-update-every="1" tabindex="0" style="top:100;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">05</span></code>
 </div>
 
-&lt;img src="index_files/figure-html/use a line plot for proportions-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/compare proportions of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
+``` r
+tb_us |&gt; group_by(year, age) |&gt; 
+  summarise(p = count[sex=="m"]/sum(count)) |&gt;
+  ggplot(aes(x=year, y=p)) +
+  geom_hline(yintercept = 0.50, colour="white", size=2) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  ylab("proportion of males") +
+  ggtitle("Type A")
+```
+
+&lt;img src="index_files/figure-html/use a line plot for proportions-1.png" style="display: block; margin: auto;" /&gt;
 
 
+``` r
+# Fill the bars, note the small change to the code
+ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + ylab("proportion") +
+  ggtitle("Type B") + theme(legend.position = "bottom")
+```
+
+&lt;img src="index_files/figure-html/compare proportions of males/females-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+- Plot A makes it easier to examine the trend in proportion. It is easy to miss that all the proportions are greater than 0.5, despite having a guideline (white) at 0.5. It could be argued that setting the vertical axis limits could alleviate this.  The fluctuations from year to year are more visible. Maybe adding a trend model could be helpful, to reduce this noise. Without colour its less visually appealing.
+- Plot B makes it easier to see that the proportion for males is almost always higher than for females. It also suggests that there is little temporal trend, because the small fluctuations between years is less visible. Having colour makes it more visually appealing. There s less data processing.
+```
 
 ---
 # Perceptual principles
@@ -213,7 +351,12 @@ Plot A computes the proportion and displays this as a line plot. Plot B uses a 1
 
 Come up with a plot type for each of the mappings.
 
-<div class="countdown" id="timer_a3367be2" data-update-every="1" tabindex="0" style="top:100;right:100;">
+
+``` r
+countdown::countdown(1, 40, top=100, right=100)
+```
+
+<div class="countdown" id="timer_d06a5b72" data-update-every="1" tabindex="0" style="top:100;right:100;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">40</span></code>
 </div>
@@ -227,6 +370,14 @@ Come up with a plot type for each of the mappings.
 
 
 
+``` r
+1. scatterplot, barchart
+2. side-by-side boxplot, stacked barchart
+3. piechart, rose plot, gauge plot, donut, wind direction map, starplot
+4. treemap, bubble chart, mosaicplot
+5. chernoff face
+6. choropleth map
+```
 
 ---
 # Color palettes 
@@ -242,7 +393,12 @@ Sequential, diverging, qualitative: [Color Brewer web site](http://colorbrewer2.
 ]
 .right-column[
 
-&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="864" style="display: block; margin: auto;" /&gt;
+
+``` r
+display.brewer.all()
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -304,7 +460,12 @@ class: inverse middle
 
 Of the previous three colour schemes on the same data, which would be the most appropriate? And why do you think so?
 
-<div class="countdown" id="timer_0baf1f48" data-update-every="1" tabindex="0" style="right:50;bottom:0;">
+
+``` r
+countdown::countdown(0, 50, right=50, bottom=0)
+```
+
+<div class="countdown" id="timer_5d1e88bb" data-update-every="1" tabindex="0" style="right:50;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">50</span></code>
 </div>
@@ -314,8 +475,6 @@ Of the previous three colour schemes on the same data, which would be the most a
 
 
 ``` r
-library(scales)
-library(dichromat)
 clrs &lt;- hue_pal()(9)
 d + theme(legend.position = "none")
 clrs &lt;- dichromat(hue_pal()(9))
@@ -345,22 +504,42 @@ Color blind view
 
 Can you find the odd one out?
 
-&lt;img src="index_files/figure-html/is shape preattentive-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/is shape preattentive-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 Is it easier now?
 
-&lt;img src="index_files/figure-html/is color preattentive-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/is color preattentive-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Proximity
 
 Place elements that you want to compare close to each other. If there are multiple comparisons to make, you need to decide which one is most important.
 
-&lt;img src="index_files/figure-html/a line plot on sex-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/a line plot on age-1.png" width="432" style="display: block; margin: auto;" /&gt;
+``` r
+ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+  geom_line() + geom_point() +
+  facet_wrap(~age, ncol=6) +
+  ylim(c(0,1150)) +
+  scale_color_manual("Sex", values = c("#DC3220", "#005AB5"))  +
+  ggtitle("Arrangement A")
+```
+
+&lt;img src="index_files/figure-html/a line plot on sex-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+ggplot(tb_us, aes(x=year, y=count, colour=age)) +
+  geom_line() + geom_point() +
+  facet_wrap(~sex, ncol=6) +
+  ylim(c(0,1150)) +
+  scale_colour_brewer("", palette="Dark2") +
+  ggtitle("Arrangement B")
+```
+
+&lt;img src="index_files/figure-html/a line plot on age-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Mapping and proximity
@@ -369,9 +548,30 @@ Place elements that you want to compare close to each other. If there are multip
 Same proximity is used, but different geoms. Is one better than the other to determine the relative ratios of males to females by age?
 ]
 .right-column[
-&lt;img src="index_files/figure-html/side-by-side bars of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/piecharts of males/females-1.png" width="720" style="display: block; margin: auto;" /&gt;
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=sex, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5"))  +
+  ggtitle("Position - common scale ")
+```
+
+&lt;img src="index_files/figure-html/side-by-side bars of males/females-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=1, y=count, fill=sex)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~age, ncol=6) +
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  ggtitle("Angle") + xlab("") + ylab("") +
+  coord_polar(theta = "y")
+```
+
+&lt;img src="index_files/figure-html/piecharts of males/females-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -381,9 +581,30 @@ Same proximity is used, but different geoms. Is one better than the other to det
 Same proximity is used, but different geoms. Is one better than the other to determine the relative ratios of ages by sex?
 ]
 .right-column[
-&lt;img src="index_files/figure-html/side-by-side bars of age-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="index_files/figure-html/piecharts of age-1.png" width="720" style="display: block; margin: auto;" /&gt;
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=age, y=count, fill=age)) +
+  geom_bar(stat="identity", position="dodge") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Position - common scale ")
+```
+
+&lt;img src="index_files/figure-html/side-by-side bars of age-1.png" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+tb_us |&gt; filter(year == 2012) |&gt;
+  ggplot(aes(x=1, y=count, fill=age)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Angle") + xlab("") + ylab("") +
+  coord_polar(theta = "y")
+```
+
+&lt;img src="index_files/figure-html/piecharts of age-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -438,7 +659,12 @@ This builds on the exercise from the previous session.
 - Using your choice of country, for example, Australia, make a set of plots to explore the TB incidence among males relative to females over different age groups for 2012.
 - Choose your best plot to answer this question: .orange[Is there a higher prevalence of TB among younger women in 2012?]
 
-<div class="countdown" id="timer_fb504db0" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+
+``` r
+countdown::countdown(7, 0)
+```
+
+<div class="countdown" id="timer_ced72cb3" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
