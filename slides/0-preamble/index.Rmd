@@ -90,7 +90,6 @@ class: inverse middle
 .large[All materials are available from [https://github.com/dicook/SISBID](https://github.com/dicook/SISBID)]
 
 - __Download__ `SISBID_day1.zip` (a zip archive). This contains all 
-
     - the code files, 
     - Rmarkdown files, 
     - and data for day 1 of this workshop. 
