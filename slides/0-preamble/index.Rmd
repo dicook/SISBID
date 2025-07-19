@@ -47,7 +47,7 @@ class: inverse middle  hide-count
 
 We are going to break into three groups, you'll be with either Heike, Susan and Di.
 
-In this group we'd like you to:
+In this group we'd like you to answer the following questions:
 
 1. What is your favorite data plot?
 2. What are you hoping to learn from this workshop?
