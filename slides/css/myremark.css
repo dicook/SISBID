@@ -71,17 +71,7 @@ code {
 }
 .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; font-size: 80%; }
 .remark-code-line-highlighted     { background-color: #373832; }
-.pull-left {
-  float: left;
-  width: 47%;
-}
-.pull-right {
-  float: right;
-  width: 47%;
-}
-.pull-right ~ p {
-  clear: both;
-}
+
 #slideshow .slide .content code {
   font-size: 0.8em;
 }
@@ -89,6 +79,11 @@ code {
   font-size: 0.9em;
   padding: 15px;
 }
+
+.smaller {
+  font-size: 80%;
+}
+
 .inverse {
   color: #E6DDD9;
   background: #0C3F5C;
@@ -118,6 +113,10 @@ code {
   p {
       color: #E6DDD9;
   }
+}
+
+.tightlist ol li {
+  line-height: 1.25em!important;
 }
 
 .tightlist ul li {
