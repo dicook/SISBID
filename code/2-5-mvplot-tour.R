@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
   fig.retina = 3,
   cache = FALSE
  )
+source("../code/utils.R")
 
 
 #library(tidyverse)
@@ -29,7 +30,7 @@ library(GGally)
 library(tourr)
 library(plotly)
 library(palmerpenguins)
-library(ochRe)
+library(viridis)
 
 
 ggplot(penguins, 
@@ -39,10 +40,10 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
+  theme_bw() + 
   theme(aspect.ratio=1,
   legend.position="bottom")
+
 
 
 
@@ -58,12 +59,11 @@ penguins_std <- penguins %>%
   mutate_if(is.numeric, function(x) (x-mean(x))/sd(x))
 
 
+clrs <- scales::pal_hue()(3)
+col <- clrs[as.numeric(penguins_std$species)]
+
+
 # Run the tour
-clrs <- ochre_pal(
-  palette="nolan_ned")(3)
-col <- clrs[
-  as.numeric(
-    penguins$species)]
 animate_xy(penguins_std[,2:5], 
            col=col, 
            axes="off", 
@@ -72,14 +72,12 @@ animate_xy(penguins_std[,2:5],
 
 # This code was used to make the animated gif
 set.seed(20200622)
-clrs <- ochre_pal(palette="nolan_ned")(3)
-col <- clrs[as.numeric(penguins$species)]
 render_gif(penguins_std[,2:5], grand_tour(), 
            display_xy(col=col, axes="bottomleft"), 
-           "penguins2d.gif", frames=100, width=300, height=300)
+           "images/penguins2d.gif", frames=100, width=400, height=400)
 
 
-ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") + scale_colour_ochre(palette="nolan_ned") +
+ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") + 
   theme(legend.position="bottom")
 
 
@@ -98,8 +96,9 @@ set.seed(4)
 random_start <- basis_random(4)
 bases <- save_history(penguins_std[,2:5], grand_tour(2), 
     start=random_start, max = 5)
-bases[,,1] <- random_start # something needs fixing
-tour_path <- interpolate(bases, 0.1)
+class(bases) <- "history_array"
+# bases[,,1] <- random_start # something needs fixing
+tour_path <- tourr::interpolate(bases, 0.1)
 d <- dim(tour_path)
 
 # Make really big data of all projections
@@ -137,7 +136,6 @@ p <- ggplot() +
                                   frame = indx), colour="grey70") +
        geom_point(data = df, aes(x = d1, y = d2, colour=species, 
                                  frame = indx), size=1) +
-       scale_colour_ochre(palette="nolan_ned") +
        geom_text(data=dfaxes_mat, aes(x=xloc, y=yloc, 
                                   label=coef, frame = indx)) + 
        theme_void() +
@@ -146,7 +144,7 @@ p <- ggplot() +
 pg <- ggplotly(p, width=700, height=400) %>%
   animation_opts(200, redraw = FALSE, 
                  easing = "linear", transition=0)
-save_html(pg, file="penguins.html")
+save_html(pg, file="html/penguins.html")
 
 
 ggplot(penguins, 
@@ -156,8 +154,6 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
 
@@ -169,60 +165,149 @@ ggplot(penguins,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
-  scale_colour_ochre(
-    palette="nolan_ned") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
 
 
-clrs <- ochre_pal(
-  palette="nolan_ned")(3)
-col <- clrs[
-  as.numeric(
-    penguins$species)]
-set.seed(20200622)
-render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins$species)), 
+set.seed(2093467)
+render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins_std$species)), 
            display_xy(col=col, axes="bottomleft"), 
-           "penguins2d_guided.gif", 
-           frames=17, width=300, height=300, loop=FALSE)
+           "images/penguins2d_guided.gif", 
+           frames=100, width=400, height=400, loop=FALSE)
 
 
 animate_xy(penguins_std[,2:5], grand_tour(),
            axes = "bottomleft", col=col)
-animate_xy(penguins_std[,2:5], guided_tour(lda_pp(penguins$species)),
+set.seed(2022)
+pp <- animate_xy(penguins_std[,2:5],
+           guided_tour(lda_pp(penguins_std$species)),
            axes = "bottomleft", col=col)
-best_proj <- matrix(c(0.940, 0.058, -0.253, 0.767, 
-                      -0.083, -0.393, -0.211, -0.504), ncol=2,
-                    byrow=TRUE)
+best_proj <- pp$basis[length(pp$basis)][[1]] # Save the final projection
 
 
-mtour1 <- manual_tour(basis = best_proj, manip_var = 3)
-render_manual(penguins_s[,3:6], mtour1, "penguins_manual_fl.gif", col=col, dir = "images/manual1/")
-mtour2 <- manual_tour(basis = best_proj, manip_var = 1)
-render_manual(penguins_s[,3:6], mtour2, "penguins_manual_bl.gif", col=col, dir = "images/manual2")
+render_gif(data=penguins_std[,2:5],
+           tour_path = radial_tour(as.matrix(best_proj), mvar = 2),
+           display = display_xy(col = col),
+           gif_file = "images/penguins_rt_bd.gif",
+           apf = 1/20, 
+           frames = 100, 
+           width = 300, height = 300)
+
+render_gif(data=penguins_std[,2:5],
+           tour_path = radial_tour(as.matrix(best_proj), mvar = 1),
+           display = display_xy(col = col),
+           gif_file = "images/penguins_rt_bl.gif",
+           apf = 1/20, 
+           frames = 100, 
+           width = 300, height = 300)
+
+render_gif(data=penguins_std[,2:5],
+           tour_path = radial_tour(as.matrix(best_proj), mvar = 3),
+           display = display_xy(col = col),
+           gif_file = "images/penguins_rt_fl.gif",
+           apf = 1/20, 
+           frames = 100, 
+           width = 300, height = 300)
+
+render_gif(data=penguins_std[,2:5],
+           tour_path = radial_tour(as.matrix(best_proj), mvar = 4),
+           display = display_xy(col = col),
+           gif_file = "images/penguins_rt_bm.gif",
+           apf = 1/20, 
+           frames = 100, 
+           width = 300, height = 300)
+
+
+
+# Check contribution of bl, change mvar to switch variables
+animate_xy(penguins_std[,2:5], 
+           radial_tour(as.matrix(best_proj), mvar = 2),
+           col = col)
 
 
 render_gif(penguins_std[,2:5], local_tour(start=best_proj, 0.9), 
            display_xy(col=col, axes="bottomleft"), 
-           "penguins2d_local.gif", 
-           frames=200, width=300, height=300)
+           "images/penguins2d_local.gif", 
+           frames=200, width=400, height=400)
 
 
 animate_xy(penguins_std[,2:5], local_tour(start=best_proj, 0.9),
            axes = "bottomleft", col=col)
 
 
-render_gif(penguins_std[,2:5], grand_tour(), 
-           display_dist(half_range=1.3), 
-           "penguins1d.gif", 
-           frames=100, width=400, height=300)
-render_gif(penguins_std[,2:5], grand_tour(), 
-           display_density2d(col=col, axes="bottomleft"), 
-           "penguins2d_dens.gif", 
-           frames=100, width=300, height=300)
+library(geozoo)
+sphere2 <- sphere.solid.random(p=4)$points %>% as_tibble()
+animate_slice(sphere2, axes="bottomleft")
 
 
-animate_dist(penguins_std[,2:5], half_range=1.3)
+render_gif(sphere2, grand_tour(), 
+           display_slice(axes="bottomleft"), 
+           "images/sphere4d_solid_slice.gif", frames=100, width=400, height=400)
+
+
+
+sphere1 <- sphere.hollow(p=4)$points %>% as_tibble()
+animate_slice(sphere1, axes="bottomleft", half_range=0.6)
+
+
+render_gif(sphere1, grand_tour(), 
+           display_slice(axes="bottomleft", half_range=0.6), 
+           "images/sphere4d_slice.gif", frames=100, width=400, height=400)
+
+
+torus <- torus(p = 4, n = 5000, radius=c(8, 4, 1))$points %>% as_tibble()
+animate_slice(torus, axes="bottomleft", half_range=0.8)
+
+
+render_gif(torus, grand_tour(), 
+           display_slice(axes="bottomleft", half_range=0.8), 
+           "images/torus4d_slice.gif", frames=100, width=400, height=400)
+
+
+cube1 <- cube.face(p=4)$points %>% as_tibble()
+# Slicing needs data to be on a standard scale
+cube1_std <- cube1 %>% 
+  mutate(across(where(is.numeric),  ~ scale(.)[,1]))
+animate_slice(cube1_std, axes="bottomleft")
+
+
+render_gif(cube1_std, grand_tour(), 
+           display_slice(axes="bottomleft"), 
+           "images/cube4d_slice.gif", frames=100, width=400, height=400)
+
+
+penguins_pca <- prcomp(penguins_std[,2:5], center = FALSE)
+penguins_coefs <- penguins_pca$rotation[, 1:3]
+penguins_scores <- penguins_pca$x[, 1:3]
+
+animate_pca(penguins_scores, pc_coefs = penguins_coefs, col=col)
+
+
+render_gif(penguins_scores, grand_tour(), 
+           display_pca(pc_coefs = penguins_coefs, 
+                       col=col, axes="bottomleft"), 
+           "images/penguins2d_pca.gif", 
+           frames=100, width=400, height=400)
+
+
+
+render_gif(data=penguins_std[,2:5],
+           tour_path = grand_tour(1),
+           display = display_dist(half_range = 1.3),
+           gif_file = "images/penguins1d.gif",
+           apf = 1/20, 
+           frames = 100, 
+           width = 400, height = 400)
+render_gif(penguins_std[,2:5], 
+           tour_path = grand_tour(d=2), 
+           display = display_density2d(col=col, axes="bottomleft"), 
+           gif_file = "images/penguins2d_dens.gif", 
+           apf = 1/20,
+           frames=100,
+           width=400, height=400)
+
+
+animate_dist_cl(penguins_std[,2:5], half_range=1.3)
 animate_density2d(penguins_std[,2:5], col=col, axes="bottomleft")
 
 
@@ -232,23 +317,25 @@ data(flea)
 # On a Mac, start quartz window with:  quartz()
 # On windows, start X11 window with:   X11()
 
-animate_xy(flea[, 1:6])
+animate_xy(flea[, 2:7])
 # RStudio graphics windows: may want to reduce frame rate
-animate_xy(flea[, 1:6], fps=10)
+animate_xy(flea[, 2:7], fps=10)
 
 
 countdown::countdown(2,0)
 
 
+clrs <- scales::pal_hue()(3)
+col <- clrs[as.numeric(penguins_std$species)]
 render_gif(    
   penguins_std[,2:5], 
   grand_tour(), 
   display_xy(col=col, 
              axes="bottomleft"), 
-  file="penguins2d.gif", 
+  gif_file="images/penguins2d.gif", 
   frames=100, 
-  width=300, 
-  height=300)
+  width=400, 
+  height=400)
 
 
 set.seed(209)
@@ -258,7 +345,7 @@ penguins_pct <- tourr::save_history(penguins_std[,2:5],
                     start = b,
                     max_bases = 5)
 save(penguins_pct,
-     file="data/p_tour_path.rda")
+     file="../data/p_tour_path.rda")
 penguins_pcti <- interpolate(penguins_pct, 0.2)
 penguins_anim <- render_anim(penguins_std,
       vars = 2:5,
@@ -288,7 +375,6 @@ penguins_gp <- ggplot() +
 
 
      xlim(-1,1) + ylim(-1,1) +
-     scale_colour_ochre(palette="nolan_ned") +
      coord_equal() +
      theme_bw() +
      theme(legend.position = "none",
@@ -330,7 +416,6 @@ pg27 <- ggplot() +
              aes(x=P1, y=P2,
                  colour=species,
                  label=obs_labels)) +
-  scale_colour_ochre(palette="nolan_ned") +
   xlim(-1,1) + ylim(-1, 1) +
   ggtitle("Frame 27") +
   theme_bw() +
