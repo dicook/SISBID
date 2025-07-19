@@ -15,7 +15,7 @@ output:
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
-source(here::here("setup.R"))
+source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 

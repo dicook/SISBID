@@ -21,7 +21,7 @@ background-size: 20%
 background-position: 99% 50%
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
-source(here::here("setup.R"))
+source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
