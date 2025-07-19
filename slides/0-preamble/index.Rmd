@@ -15,7 +15,7 @@ output:
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
-source(here::here("setup.R"))
+source(here::here("knitr-setup.R"))
 ```
 
 
@@ -79,9 +79,9 @@ Asking questions
 - You can ask questions in Zoom
 - We are also using slack for questions
 
-R cloud setup
+<!-- R cloud setup -->
 
-- R cloud link available from website & slack in case of technical problems
+<!-- - R cloud link available from website & slack in case of technical problems -->
 
 ---
 class: inverse middle 
@@ -89,7 +89,12 @@ class: inverse middle
 
 .large[All materials are available from [https://github.com/dicook/SISBID](https://github.com/dicook/SISBID)]
 
-- __Download__ `SISBID_day1.zip` (a zip archive) of the workshop files which contains all the code files, Rmarkdown files, and data for day 1 of this workshop. __Unzip the file__.
+- __Download__ `SISBID_day1.zip` (a zip archive). This contains all 
+
+    - the code files, 
+    - Rmarkdown files, 
+    - and data for day 1 of this workshop. 
+- __Unzip the file__ Windows user: use **extract**, don't just double-click
 - __Double-click__ `SISBID.Rproj`. The R project helps organise your work over these next few days. 
 
 ![](projectname.png)
