@@ -56,7 +56,7 @@ countdown::countdown(1,0)
 
 ## Scatterplot matrix: GGally
 
-::: columns
+:::: columns
 ::: column
 The basic plot plot for multivariate data is a scatterplot matrix. There are two functions available in the GGally package: `ggpairs`.
 
@@ -71,16 +71,17 @@ ggpairs(penguins, columns=c(3:6))
 - clustering
 - linear dependence
 :::
+
 ::: column
 
 ```{r ref.label="scatterplot matrix", echo=FALSE, fig.width=6, fig.height=6}
 ```
 :::
-:::
+::::
 
 ## Scatterplot matrix
 
-::: columns
+:::: columns
 ::: column
 **Add some colour for groups**
 
@@ -90,21 +91,19 @@ ggpairs(penguins, columns=c(3:6),
         ggplot2::aes(colour=species))
 ```
 
-<br>
-<br>
-<br>
 *What do we learn?*
 
 - clustering is due to the class variable
 :::
+
 ::: column
 ```{r ref.label="scatterplot matrix with colour", echo=FALSE, fig.width=6, fig.height=6}
 ```
 :::
-:::
+::::
 
 ## Scatterplot Matrices
-::: columns
+:::: columns
 ::: column
 Only show correlation. `r anicon::nia("This is dangerous!", animate="float")`
 
@@ -118,14 +117,16 @@ adelie <- penguins %>%
 ggcorr(adelie)
 ```
 :::
+
 ::: column
 ```{r ref.label="correlation heatmap", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"}
 ```
 :::
-:::
----
+::::
 
-::: columns
+##
+
+:::: columns
 ::: column
 Only show correlation, using a corrgram. Again, this is dangerous, and only useful to get a broad overview of association that is suitably summarized by correlation.
 
@@ -138,14 +139,15 @@ corrgram(adelie,
 
 The `corrgram` package has numerous scatterplot matrix capabilities.
 :::
+
 ::: column
 ```{r ref.label="corrgram", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"}
 ```
 :::
-:::
+::::
 
 ## Generalized pairs plot
-::: columns
+:::: columns
 ::: column
 The pairs plot can also incorporate non-numerical variables, and different types of two variable plots.
 
@@ -170,11 +172,12 @@ australia_PISA2012 %>%
   ggpairs(columns=c(3, 15, 16, 21, 26))
 ```
 :::
+
 ::: column
 ```{r ref.label='generalised pairs plot', echo=FALSE, fig.width=6, fig.height=6, out.width="90%"}
 ```
 :::
-:::
+::::
 
 ## Generalized Pairs Plots
 
@@ -187,7 +190,7 @@ australia_PISA2012 %>%
 ```
 
 ## Customized Generalized Pairs Plots
-::: columns
+:::: columns
 ::: column
 ```{r design own plot function}
 # Make a special style of plot to put in the matrix
@@ -214,6 +217,7 @@ australia_PISA2012 %>%
 - having a dishwasher in the household corresponds to small increase in homework time
 - very little but slight increase in scores with a dishwasher in household
 :::
+
 ::: column
 ```{r ref.label='generalised pairs plot enhance more', echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"}
 australia_PISA2012 %>% 
@@ -223,7 +227,7 @@ australia_PISA2012 %>%
 
 ```
 :::
-:::
+::::
 
 ## Your turn {.inverse}
 
@@ -245,7 +249,7 @@ australia_PISA2012 %>%
 ```
 
 ## Regression setting
-::: columns
+:::: columns
 ::: column
 An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables.
 
@@ -260,6 +264,7 @@ housing <- read_csv(here::here("data/housing.csv")) %>%
          bathroom = factor(bathroom)) 
 ```
 :::
+
 ::: column
 ```{r make a regression style pairs plot, out.width="100%", fig.width=8, fig.height=3}
 ggduo(housing[, c(4,3,8,10,11)], 
@@ -270,7 +275,7 @@ ggduo(housing[, c(4,3,8,10,11)],
                        alpha = 0.10)))
 ```
 :::
-:::
+::::
 
 ## Big biological data
 
@@ -281,7 +286,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("bigPint")
 ```
-::: columns
+:::: columns
 ::: column
 
 Data on soybean experiment, with two treatments, and three replicates. Here's the scatterplot of the first replicate. 
@@ -299,16 +304,17 @@ ggplot(soybean_ir_sub,
   theme(aspect.ratio=1)
 ```
 :::
+
 ::: column
 ```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE}
 ```
 :::
-:::
+::::
 
 ## `bigPint`
 
 The `litre` plot combines replicates into same plot, to look at the treatments. To handle the data size it uses a hexbin display. The data values for an individual gene can be overlaid on the plot.
-::: columns
+:::: columns
 ::: column
 ```{r soybean_litre, fig.show='hide'}
 geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
@@ -319,14 +325,15 @@ names(ret)
 ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
 ```
 :::
+
 ::: column
 ```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
 ```
 :::
-:::
+::::
 
 ## Bigpint Scatterplot Matrices
-::: columns
+:::: columns
 ::: column
 This can be extended into a scatterplot matrix
 
@@ -340,14 +347,15 @@ ret <- plotSM(soybean_cn_sub,
 ret[[2]]
 ```
 :::
+
 ::: column
 ```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide'}
 ```
 :::
-:::
+::::
 
 ## Side-by-Side Boxplots
-::: columns
+:::: columns
 ::: column
 When working with RNA-Seq data, it is useful to compare samples using a side-by-side boxplot. Overlaying the profiles of different genes can help to learn about the patterns across samples, particularly to examine the significant genes after testing. (This can be called a parallel coordinate plot.)
 
@@ -359,11 +367,12 @@ ret <- plotPCP(data = soybean_ir_sub,
 ret[[1]]
 ```
 :::
+
 ::: column
 ```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
 ```
 :::
-:::
+::::
 
 ## Resources {.smaller}
 
