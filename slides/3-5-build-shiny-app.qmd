@@ -1,17 +1,5 @@
 ---
 title: "Polish and share your own shiny app"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
@@ -30,12 +18,10 @@ library(shiny)
 library(bslib)
 ```
 
-class: inverse middle
-
-# Your turn
+## Your turn {.inverse}
 
 - Join forces with your neighbours or work alone
-- You need to make your own app, or interactive document, on a topic of your choice
+- Make your own app, or interactive document, on a topic of your choice
 - Some ideas are data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday) or [fivethirtyeight](https://github.com/fivethirtyeight/data)
 - Your app needs to have 
     - at least one interactive plot
@@ -44,16 +30,16 @@ class: inverse middle
 
 `r emo::ji("scream")` If you are not confident going alone, work through the steps in the next few slides instead, to make an app.
 
----
-# RStudio Connect and ShinyApps
+Out of ideas? [Try the TidyTuesday Cocktail Data](https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-05-26/readme.md) and [this prompt](https://unl-statistics.github.io/stat850/homework/12.html)
+
+## RStudio Connect and ShinyApps
 
 - Sign up for an account on https://www.shinyapps.io/<br/><br/>
 - Authenticate your account<br/><br/>
 - Install the library rsconnect (this is the part that may require admin access to your machine)<br/><br/>
 - Follow the instructions on ShinyApps.io to authenticate and upload your first app!
 
----
-# Initiate
+## Initiate
 
 `r emo::ji("white_check_mark")` Using the RStudio `File` menu, 
 
@@ -69,8 +55,7 @@ This will create a folder in your workspace with the same name as you gave your 
 
 `r emo::ji("congratulations")` You've just published your first app
 
----
-# Make it yours
+## Make it yours
 
 Change the plot to use `ggplot`, this involves changing the server function to be this:
 
@@ -90,12 +75,14 @@ You will also need to add `library(ggplot2)` at the top of the file, just after 
 
 `r emo::ji("congratulations")` You've just published your first modifed app
 
----
-# Make the plot interactive
+## Make the plot interactive
 
 Change from a static ggplot plot, to an interactive plotly plot, by 
 
-1.Changing the server function to look like this. Note `renderPlotly`
+::: panel-tabset
+### 1. Server {-}
+Change the server function to look like this. 
+Note `renderPlotly`
 
 ```{r eval = F}
 server <- function(input, output) {
@@ -108,9 +95,8 @@ server <- function(input, output) {
 }
 ```
 
----
-
-2.Changing the `ui` function to render plotly output
+### 2. UI
+Change the `ui` function to render plotly output
 
 ```{r eval = F}
 mainPanel(
@@ -118,14 +104,15 @@ mainPanel(
 )
 ```
 
+### 3. Libraries
 
-<br><br><br>
-3.Adding `library(plotly)` to the top of the file.
+Add `library(plotly)` to the top of the file.
+:::
+
 
 `r emo::ji("stop_sign")` Click the `Run App` button on the RStudio window. (Fix any errors) 
 
----
-# Change the UI
+## Change the UI
 
 Convert the slide into a numeric input, by changing the `ui` function to be:
 
@@ -144,7 +131,7 @@ sidebarLayout(
 
 `r emo::ji("congratulations")` You've just published your second modifed app
 
----
-# Share and share alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::

@@ -1,17 +1,5 @@
 ---
 title: "Interactive graphics"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
 ---
 
 ```{r echo = FALSE}
@@ -27,20 +15,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{css, echo=FALSE}
-/* custom.css */
-.left-code {
-  color: #777;
-  width: 48%;
-  height: 92%;
-  float: left;
-}
-.right-plot {
-  width: 50%;
-  float: right;
-  padding-left: 1%;
-}
-```
 ```{r echo=FALSE}
 #library(tidyverse)
 library(tidyr)
@@ -56,13 +30,13 @@ library(datasauRus)
 # Choices of packages for interactive graphics
 
 - `crosstalk`: that's what shiny is based on - we will look into shiny later
-- `plotly`: has come a long way in the last years, started as part of Carson Sievert's PhD thesis research. The beauty is that it builds directly onto ggplot2
+- `plotly`: interactive javascript graphics (part of Carson Sievert's PhD thesis research)
 - `leaflet`: (RStudio) allows to make interactive maps. Has been picking up users and has developed a stable user base.
 - `ggvis`: both static and interactive graphics, work on it has stalled ... (Wickham)
 - `animint2`: interactive, linked graphics with ggplot2 syntax (Toby Hocking)
 -  `rCharts`, `rbokeh`, `gridSVG`, `epivizr`, `cranvas`
 
----
+## Interactive Graphics Packages
 
 ```{r, include = F}
 # Download cran data from metacran
@@ -101,18 +75,21 @@ cran_summary %>%
 ```
 
 
----
-# plotly
+## plotly
 
-The `plotly` package in R builds on the `ggplot2` package, adding interactive elements to these plots. It translates plots to javascript.
+The `plotly` package in R has two interfaces:
+
+- plot specification via plotly
+- translating `ggplot2` plots and adding interactive elements
+
+Plotly creates interactive plots with javascript.
 
 ```{r plotly}
 library(plotly)
 plot_ly(data = economics, x = ~date, y = ~unemploy / pop)
 ```
 
----
-# Or using ggplot2
+## Or using ggplot2
 
 ```{r}
 gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +  
@@ -121,25 +98,20 @@ gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +
 ggplotly(gg)
 ```
 
----
-# Scatterplot(ly) matrix 
+## Scatterplot(ly) matrix 
 
-.pull-left[
-```{r scatterplotly, fig.show='hide'}
+```{r scatterplotly, eval=T, echo=T}
+#| output-location: column
 library(GGally)
 p <- ggpairs(economics[,3:6])
-```
-]
-.pull-right[
-```{r out.width="80%"}
 ggplotly(p, width=450, height=450)
 ```
-]
 
----
-# Maps
 
-.pull-left[
+## Maps
+
+::: columns
+::: column
 ```{r}
 data(canada.cities, package = "maps")
 viz <- ggplot(canada.cities, aes(long, lat)) +
@@ -147,20 +119,19 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
   coord_equal() +
   geom_point(aes(text = name, size = log2(pop)), colour = "red", alpha = 1/4)
 ```
-]
 
-.pull-right[
+Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
+:::
+::: column
 ```{r out.width="80%"}
 #viz
 ggplotly(viz)
 ```
-]
-
-Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
+:::
 
 
----
-# Modifying plotly 
+
+## Modifying plotly 
 
 `plotly` uses elements of `crosstalk` to provide additional interactivity, such as linked highlighting
 
@@ -184,8 +155,7 @@ gg <- ggplotly(p, height = 600, width = 1000) %>%
 
 #highlight(gg)
 ```
-
----
+##
 
 ```{r echo=FALSE, out.width="70%", fig.height=10, fig.width=12}
 sd <- highlight_key(txhousing, ~year)
@@ -202,26 +172,20 @@ gg <- ggplotly(p, height = 600, width = 1000) %>%
 highlight(gg)
 ```
 
----
-class: inverse middle 
-# Your turn
+## Your Turn {.inverse}
  
 - get the  code from the previous plot to run in your RStudio session
 - the function `highlight` allows to make modifications in how highlighted values are presented in plotly. Read through the parameter details in `?highlight`. 
 - the parameter `dynamic` is set to `FALSE` by default. Turn it to `TRUE`. What is the effect? 
 
----
-# Animations
+## Animations
 
 - `gganimate` (Lin-Pederson) allows to make and save animations
 - Animations are different from interactive graphics in that the viewer does not have any control
 - useful for different important stages of a visualization (e.g. time) and to keep track of how different visualizations are related 
---
+- [can also be used in talks ]{.fragment}
 
-- can also be used in talks 
-
----
-# An example animation
+## An example animation
 
 ```{r, echo=FALSE, fig.width = 8, fig.height = 6}
 library(gapminder)
@@ -242,161 +206,119 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 
 Countries are colored manually by `country_colors` (hue shows continent, saturation is individual country)
 
----
-# How does `gganimate` work?
+## `gganimate`
 
+1. Start with a ggplot2 specification 
+2. Add layers with graphical primitives (geoms)
+3. Add formatting specifications
+4. Add animation specifications
 
-#### Start with a ggplot2 specification 
---
+## A simple example
 
-#### Add layers with graphical primitives (geoms)
+1. Start by passing the data to ggplot
 
---
-
-#### Add formatting specifications
-
---
-
-#### Add animation specifications
-
----
-# A simple example
-
-- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
-
-#### 1. Start by passing the data to ggplot
-
-.left-code[
-```{r plot1, eval=FALSE, echo=TRUE}
+```{r plot1, eval=T, echo=T}
+#| output-location: column
 ggplot(economics) #<<
 ```
-]
-.right-plot[
-```{r plot1, echo=FALSE, fig.height = 6}
-```
-]
 
----
-# A simple example
+::: bottom
+Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
+:::
 
-- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
+## A simple example
 
-#### 2. add the mapping
+2. add the mapping
 
-.left-code[
-```{r plot2, eval=FALSE, echo=TRUE}
+```{r plot2, eval=T, echo=T}
+#| output-location: column
 ggplot(economics) +
   aes(date, unemploy) #<<
 ```
-]
-.right-plot[
-```{r plot2, echo=FALSE, fig.height = 6}
-```
-]
+::: bottom
+Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
+:::
 
 
----
-# A simple example
+## A simple example
 
-- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
+3. Add a graphical primitive, let's do a line 
 
-#### 3.add a graphical primitive, let's do a line 
-
-.left-code[
-```{r plot3, eval=FALSE, echo=TRUE}
+```{r plot3, eval=T, echo=T}
+#| output-location: column
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() #<<
 ```
-]
-.right-plot[
-```{r plot3, echo=FALSE, fig.height = 6}
-```
-]
 
----
-# A simple example
 
-- thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
+::: bottom
+Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
+:::
 
-#### 4. Just one extra line turns this into an animation!
+## A simple example
 
-.left-code[
-```{r plot5-anim, eval=FALSE, echo=TRUE}
+
+4. Just one extra line turns this into an animation!
+
+```{r plot5-anim, eval=T, echo=T}
+#| output-location: column
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() +
   transition_reveal(date) #<<
 ```
-]
-.right-plot[
-```{r plot5-anim, echo=FALSE,  fig.height = 6}
-```
-]
 
----
+::: bottom
+Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
+:::
+
+
 ## A not-so-simple example, the datasaurus dozen
 Again, we first pass in the dataset to ggplot
 
-.left-code[
-```{r plot5, eval=FALSE, echo=TRUE}
+```{r plot5, eval=T, echo=T}
+#| output-location: column
 ggplot(datasaurus_dozen)#<<
 ```
-]
-.right-plot[
-```{r plot5, echo=FALSE, cache=TRUE, fig.height = 6}
-```
-]
----
+
 ## A not-so-simple example, the datasaurus dozen
 For each dataset we have x and y values, in addition we can map dataset to color
 
-.left-code[
-```{r plot6, eval=FALSE, echo=TRUE}
+```{r plot6, eval=T, echo=T}
+#| output-location: column
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset)#<<
 ```
-]
-.right-plot[
-```{r plot6, echo=FALSE, cache=TRUE, fig.height = 6}
-```
-]
----
+
 ## A not-so-simple example, the datasaurus dozen
 Trying a simple scatter plot first, but there is too much information
-.left-code[
-```{r plot7, eval=FALSE, echo=TRUE}
+
+
+```{r plot7, eval=T, echo=T}
+#| output-location: column
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() #<<
 ```
-]
-.right-plot[
-```{r plot7, echo=FALSE, cache=TRUE, fig.height = 6}
-```
-]
----
+
 ## A not-so-simple example, the datasaurus dozen
 
 We can use facets to split up by dataset, revealing the different distributions
-.left-code[
-```{r plot8, eval=FALSE, echo=TRUE}
+
+```{r plot8, eval=T, echo=T}
+#| output-location: column
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() +
   facet_wrap(~dataset)#<<
 ```
-]
-.right-plot[
-```{r plot8, echo=FALSE, cache=TRUE, fig.height = 6}
-```
-]
----
+
 ## A not-so-simple example, the datasaurus dozen
 We can just as easily turn it into an animation, transitioning between dataset states! 
 
-.left-code[
-```{r plot9, eval=FALSE, echo=TRUE}
+```{r plot9, eval=T, echo=T}
+#| output-location: column
 ggplot(datasaurus_dozen) +
   aes(x, y) +
   geom_point() +
@@ -404,15 +326,8 @@ ggplot(datasaurus_dozen) +
   labs(title = "Dataset: {closest_state}") #<<
 
 ```
-]
-.right-plot[
-```{r plot9, echo=FALSE, cache=TRUE, fig.height = 6}
-```
-]
 
----
-class: inverse
-# Your turn
+## Your Turn {.inverse}
 
 The `datasaurus_dozen` data set is part of the R package `datasauRus`. 
 
@@ -420,33 +335,17 @@ The `datasaurus_dozen` data set is part of the R package `datasauRus`.
 - The function `transition_states` drives the animation. It has values 1 and 3. What do these values mean? 
 Read up on their meaning and change them.
 
----
-# Controlling an animation
+## Controlling an animation {.incremental}
 
 We control plot movement with (a grammar of animation):
 
+- Transitions: `transition_*()` define how the data should be spread out and how it relates to itself across time.
+- Views: `view_*()` defines how the positional scales should change along the animation.
+- Shadows: `shadow_*()` defines how data from other points in time should be presented in the given point in time.
+- Entrances/Exits: `enter_*()` and `exit_*()` define how new data should appear and how old data should disappear during the course of the animation.
+- Easing: `ease_aes()` defines how different aesthetics should be eased during transitions.
 
-#### Transitions: `transition_*()` define how the data should be spread out and how it relates to itself across time.
-
---
-
-#### Views: `view_*()` defines how the positional scales should change along the animation.
-
---
-
-#### Shadows: `shadow_*()` defines how data from other points in time should be presented in the given point in time.
-
---
-
-#### Entrances/Exits: `enter_*()` and `exit_*()` define how new data should appear and how old data should disappear during the course of the animation.
-
---
-
-#### Easing: `ease_aes()` defines how different aesthetics should be eased during transitions.
-
----
-class: inverse middle
-# Your Turn
+## Your Turn {.inverse}
 
 The gapminder example from the beginning has the static part shown below
 
@@ -466,14 +365,14 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   theme(legend.position = "bottom")
 ```
 
----
-# Resources
+## Resources
 
 - Carson Sievert [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com)
 - website for [gganimate](https://gganimate.com/)
 - Mitch O'Hara-Wild's [tutorial on gganimate](https://github.com/numbats/gganimate-workshop)
 
----
-# Share and share alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::

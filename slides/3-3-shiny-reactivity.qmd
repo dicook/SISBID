@@ -1,17 +1,5 @@
 ---
 title: "Reactivity"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
@@ -39,32 +27,33 @@ use_xaringan_extra(
 
 
 # Elements of Reactivity
+::: columns
+::: column
 
-.pull-left[
 - Sources
-    - Any input widget is a source<br/><br/>
+    - Any input widget is a source<br/>
 - Conductors
-    - Use input and pass values to another component<br/><br/>
+    - Use input and pass values to another component<br/>
 - Observers
     - Any output is an observer
-]
-.pull-right[
-![](reactivity.png)
-]
+    
+:::
+::: column
+![](images/reactivity.png)
+:::
+:::
 
----
-# Two Conductors
+## Two Conductors
 
-- Reactive expressions and reactive events are two types of conductors<br/><br/>
-- Reactive expressions are the archetypical conductor: <br/><br/>
+- Reactive expressions and reactive events are two types of conductors<br/>
+- Reactive expressions are the archetypical conductor: <br/>
     - envelope functionality used in multiple places of an app
     - run evaluations only once
     - store current values
-    - update when inputs change<br/><br/>
+    - update when inputs change<br/>
 - Reactive events are only triggered by specific events (e.g. click on an action button)
 
----
-# Reactive Expressions
+## Reactive Expressions
 
 ```{r, eval = F}
 rval <- reactive({
@@ -79,8 +68,7 @@ Called like a function as `rval()`
 - **Cached**: (re-)evaluated only when the value of a dependency changed
 
 
----
-# Reactive Events
+## Reactive Events
 
 ```{r, eval = F}
 rval <- eventReactive(actionbutton, {
@@ -94,58 +82,60 @@ Called like a function as `rval()`
     - only on demand<br/><br/>
     - requested by an actionButton (usually)
     
----
-# Example: Submission Form
+## Example: Submission Form
 
-.pull-left[
+::: columns
+::: column
 - In RStudio open file `app.R` in `03_submission`<br/><br/>
 - Run the app (a couple of times) <br/><br/>
 - Turn on showcase mode:    
 ```{r eval = F}
 runApp("03_submission/", display.mode = "showcase")
 ```
-]
-.pull-right[
+:::
+::: column
 ![Submission form applet screenshot](submission_form.png)
-]
 
+:::
+:::
 
----
-class: inverse middle 
-# Your turn
+## Your turn {.inverse}
 
-.pull-left[
+::: columns
+::: column
 - Open the file `03_submission.R`
 - The package `colourpicker` implements a color wheel as an input widget
 - Allow users to change the color of the dots in the dot plot
 - What other interactive elements can you think of adding?
 
 Answers are in `03b_submission.R`
-]
-.pull-right[
+:::
+::: column
 ![Screenshot of completed app](your-turn-screenshot-days.png)
-]
+
 `r countdown::countdown(5)`
+:::
+:::
 
+## Conditional Panels
 
----
-# Conditional Panels
-
-.left-column[
+::: columns
+::: column
 ![Screenshot of the inputs without a conditional panel](without-conditional-panel.png)
 ![Screenshot of the inputs with a conditional panel](with-conditional-panel.png)
-]
-.right-column[
+:::
+::: column
 - Showing a color picker before it is needed could confuse app users <br/><br/>
 - `conditionalPanel(condition, ...)` allows us to encapsulate elements of the UI and only show them when `condition` is fulfilled<br/><br/>
 - Here, a condition of `condition = 'input.submit > 0'` is true when the submit button was pressed at least once.<br/><br/>
 - This is implemented in `03c_submission.R`
-]
+:::
+:::
 
----
-.pull-left[
-# App Layout
+## App Layout
 
+::: columns
+::: column
 - The body is laid out using a responsive grid
     - responsive: adapts to different screen sizes
     - different on a cell phone than a laptop
@@ -161,39 +151,40 @@ card1 <- card(
   "your choice!")
 ```
 
-
-]
-.pull-right[
-.move-up[.move-up[![The app layout has 12 columns (width) and you can specify rows as well.](bslib-layout-cards-cols.svg)]]
+:::
+::: column
+![The app layout has 12 columns (width) and you can specify rows as well.](bslib-layout-cards-cols.svg)
 
 ![Row heights can be specified as well](bslib-layout-cards-rows.svg)
-]
+:::
+:::
 
----
-# Cards
+## Cards
 
-.pull-left[
-.move-up.center.huge[`04_layout.R`]    
+::: columns
+::: column
+[`04_layout.R`]{.move-up .center .huge}    
 
-- Cards help with structuring output<br/><br/>
+- Cards help with structuring output
 - Cards have a `class` parameter 
     - `bg-xxx` produces a colored box
     - `border-xxx` produces a box with a colored outline
     - `card_header(..., class = "bg-xxx")` produces a box with a colored header
     - `?validStatuses`, represented by `xxx` above, are `primary`, `secondary`, `success`, `info`, `warning`, `danger`, `light`, `dark`
 
-]
-.pull-right[
-.move-up[![Demonstration of an app with different box statuses](bslib-layout-cards-narrow.png)]
-]
+:::
+::: column
+[![Demonstration of an app with different box statuses](bslib-layout-cards-narrow.png)]{.move-up}
+:::
+:::
 
----
-# Nested Layouts
+## Nested Layouts
 
-.pull-left[
-- Body is wrapped in a `page_fillable` function<br/><br/>
-- Cards are aligned using columns<br/><br/>
-- Additional rows can be created by nesting `layout_columns()` functions<br/><br/>
+::: columns
+::: column
+- Body is wrapped in a `page_fillable` function
+- Cards are aligned using columns
+- Additional rows can be created by nesting `layout_columns()` functions
 
 ```{r, eval = F}
 body <- page_fillable(
@@ -207,19 +198,20 @@ body <- page_fillable(
     card4, card6)
 )
 ```
-]
-.pull-right[
-.move-up.center.huge[`04_layout2.R`]    
+:::
+::: column
+[`04_layout2.R`]{.move-up .center .huge}    
 ![Nesting rows and columns](bslib-nested-col-layout.svg)
-]
+:::
+:::
 
----
-# Nested Layouts
+## Nested Layouts
 
-.pull-left[
-- Body is wrapped in a `page_fillable` function<br/><br/>
-- Cards are aligned using columns<br/><br/>
-- Additional rows can be created by nesting `layout_columns()` functions<br/><br/>
+::: columns
+::: column
+- Body is wrapped in a `page_fillable` function
+- Cards are aligned using columns
+- Additional rows can be created by nesting `layout_columns()` functions
 
 ```{r, eval = F}
 body <- page_fillable(
@@ -233,14 +225,14 @@ body <- page_fillable(
     card4, card6)
 )
 ```
-]
-.pull-right[
-.move-up.center.huge[`04_layout2.R`]    
+:::
+::: column
+[`04_layout2.R`]{.move-up .center .huge}    
 ![Nesting rows and columns](bslib-nested-col-layout-interior.svg)
-]
+:::
+:::
 
----
-# Other Layouts
+## Other Layouts
 
 - `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
 - `page_navbar()` can be used to create tabs across the top (more on this in a minute)
@@ -257,65 +249,67 @@ layout_column_wrap(
 - [Shiny UI Editor](https://rstudio.github.io/shinyuieditor/) is currently in Alpha but allows UI creation without writing code
 
 
----
-# Tab Layouts
+## Tab Layouts
 
 ```{r xaringan-panelset, echo=FALSE}
 xaringanExtra::use_panelset()
 ```
 Code: 05_tabsets.R
-.panelset.sideways[
-.panel[.panel-name[tab1]
-![](bslib-navset-pill-list1.png)
-]
-.panel[.panel-name[tab2]
-![](bslib-navset-pill-list2.png)
-]
-.panel[.panel-name[tab3]
-![](bslib-navset-pill-list3.png)
-]
-]
+[
+[[tab1]{.panel-name}
+![](images/bslib-navset-pill-list1.png)
+]{.panel}
+[[tab2]{.panel-name}
+![](images/bslib-navset-pill-list2.png)
+]{.panel}
+[[tab3]{.panel-name}
+![](images/bslib-navset-pill-list3.png)
+]{.panel}
+]{.panelset.sideways}
 
 
----
-# Tabs 
+## Tabs 
 - Different options for multi-page applets:
-.panelset.sideways[
-.panel[.panel-name[`navset_tab()`]
-![](bslib-tabset.png)
-]
-.panel[.panel-name[`navset_pill()`]
-![](bslib-pill.png)
-]
-.panel[.panel-name[`navset_bar()`]
-![](bslib-bar.png)
-]
-.panel[.panel-name[`navset_pill_list()`]
-![](bslib-pill-list.png)
-]
-.panel[.panel-name[`navset_card_tab()`]
-![](bslib-card-tab.png)
-].panel[.panel-name[`navset_card_pill()`]
-![](bslib-card-pill.png)
-]
-]
+[
+[[`navset_tab()`]{.panel-name}
+![](images/bslib-tabset.png)
+]{.panel}
+[[`navset_pill()`]{.panel-name}
+![](images/bslib-pill.png)
+]{.panel}
+[[`navset_bar()`]{.panel-name}
+![](images/bslib-bar.png)
+]{.panel}
+[[`navset_pill_list()`]{.panel-name}
+![](images/bslib-pill-list.png)
+]{.panel}
+[[`navset_card_tab()`]{.panel-name}
+![](images/bslib-card-tab.png)
+]{.panel}
+[[`navset_card_pill()`]{.panel-name}
+![](images/bslib-card-pill.png)
+]{.panel}
+]{.panelset.sideways}
 
 
----
-class: inverse middle
-# Your Turn
+## Your Turn {.inverse}
 
-Modify the code in 05_tabsets.R to use a `page_navbar()`. 
+Modify the code in `05_tabsets.R` to use a `page_navbar()`. 
 
 - What modifications do you have to make?
 - Can you add a sidebar using the `sidebar()` function?
 
 `r countdown::countdown(5)`
 
----
-# Resources
+## Resources
 
 - RStudio Tutorial: https://shiny.rstudio.com/articles/reactivity-overview.html<br/><br/>
 - Shiny Cheat Sheet: https://raw.githubusercontent.com/rstudio/cheatsheets/master/shiny.pdf<br/><br/>
 - Gallery of Shiny Apps: https://shiny.rstudio.com/gallery/
 - bslib documentation: https://rstudio.github.io/bslib/
+
+
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::
+

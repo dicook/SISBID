@@ -1,19 +1,8 @@
 ---
 title: "Building a shiny app"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
 ---
-# Shiny Apps in R
+
+## Shiny Apps in R
 
 - `shiny` package developed and supported by RStudio (Winston Chang, Joe Cheng, JJ Allaire and others)
 - Resources for shiny: https://shiny.rstudio.com/: 
@@ -26,7 +15,7 @@ install.packages(c("bsicons", "showtext", "ragg", "thematic"))
 remotes::install_github("rstudio/bslib") # Get the latest version
 ```
 
---
+
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(
@@ -46,29 +35,25 @@ library(ggplot2)
 library(readr)
 ```
 
-# Next five minutes
+## Next five minutes
 
 - Create a new shiny app in RStudio
 - Run it
 - Stop it
 
----
-class: inverse middle 
-# Create your first app
+## Create your first app {.inverse}
 
 - In RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
 - The easiest start is the `Single file`, which will put both server and ui functions in the same file, `app.R`
 
----
-# Two main parts
+## Two main parts
 
 - What we see and interact with: <br/><br/>
   - user interface: layout with user input and (plot) output <br/><br/>
 - What is going on underneath: <br/><br/>
   - the server: glue between user input and output
   
----
-# A Minimal Example
+## A Minimal Example
 
 ```{r eval = FALSE}
 library(shiny)
@@ -83,8 +68,7 @@ shinyApp(ui, server)
 ```
 
 
----
-# A bit more fancy
+## A bit more fancy
 
 ```{r eval = FALSE}
 library(shiny)
@@ -105,8 +89,7 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
----
-# A bit more fancy
+## A bit more fancy
 
 ```{r eval = FALSE}
 library(shiny)
@@ -129,9 +112,8 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
----
 
-# Shiny Inputs
+## Shiny Inputs
 
 Shiny has many different input options, see the [widget gallery](https://shiny.rstudio.com/gallery/widget-gallery.html):
 
@@ -146,9 +128,7 @@ Shiny has many different input options, see the [widget gallery](https://shiny.r
 - `sliderInput()` - slide along a range of values
 - `textInput()` - input a string
 
----
-class: inverse
-# Your Turn
+## Your Turn {.inverse}
 
 In the shiny app below add a list of your favorite countries to the sidebar panel:
 
@@ -198,8 +178,7 @@ shinyApp(ui, server)
 
 `r countdown::countdown(5)`
 
----
-# Adding Output
+## Adding Output
 
 - Output needs to be specified in two places: 
   - in the `ui` function we need to create a placeholder to reserve space for the output
@@ -215,8 +194,7 @@ Output can be in form of tables, plots, text, ...
 
 
 
----
-# Shiny Outputs
+## Shiny Outputs
 
 Shiny also has a variety of different output options:
 
@@ -229,8 +207,7 @@ Shiny also has a variety of different output options:
 - `renderUI()` - output a custom part of the user interface
 - `renderImage()` - print an image to the page
 
----
-# Adding a plot 
+## Adding a plot 
 
 ```{r eval=FALSE}
 library(shiny)
@@ -260,9 +237,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
----
-class: inverse middle 
-# Your turn
+## Your turn {.inverse}
 
 - Add an interactive plot of the TB data into your app.
 - Change the select box, so that the user can choose any country. Think of `unique(tb$country)` for defining the choices
@@ -305,23 +280,22 @@ shinyApp(ui, server)
 ```
 
 
----
-# Deploy an app
+## Deploy an app
 
 - Sign up for an account on [https://www.shinyapps.io/](https://www.shinyapps.io/)
 - Authenticate your account
 - You may need to do some setup in your session, e.g. install the library `rsconnect`
 
 
----
-# Resources
+## Resources
 
 - [RStudio Tutorial](http://shiny.rstudio.com/tutorial/)  
 - [Deploy your app for others to use](https://www.shinyapps.io/)
 - [Shiny Setup, Showcase, and Server](http://shiny.rstudio.com)  
 - [Community discussion](https://community.rstudio.com)
 
----
-# Share and share alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::
+

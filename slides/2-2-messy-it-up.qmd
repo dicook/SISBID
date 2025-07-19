@@ -109,6 +109,7 @@ Wide form:
 ```{r spread it back into wide form}
 french_fries_weeks <- ff_long |> 
   pivot_wider(names_from = "time", values_from = "rating")
+```
 
 ```{r}
 knitr::kable(head(french_fries_weeks,3))
@@ -266,7 +267,8 @@ geom_smooth(method="lm", se=FALSE, aes(colour = type))
 - [Telling Stories with Data (Alexander), chapters 9 & 10](https://tellingstorieswithdata.com/09-clean_and_prepare.html)
 
 
-### Share and share alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::

@@ -1,19 +1,5 @@
 ---
 title: "Wrangling Data and Models"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r, echo = FALSE}
@@ -42,7 +28,7 @@ library(broom.mixed)
 library(lme4)
 ```
 
-# Outline
+## Outline
 
 - `broom`, `broom.mixed`: tidily extract elements from model summaries
 - `dplyr`:  motivation, functions, chaining
@@ -53,8 +39,7 @@ library(lme4)
 ```{r setting up, echo=FALSE}
 load(here::here("data/french_fries.rda"))
 ```
----
-# Models and model output
+## Models and model output
 
 Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
 
@@ -67,7 +52,7 @@ ff_lm <- lm(rating~type+treatment+time+subject,
 data=ff_long)
 ```
 
----
+##
 
 `summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
 
@@ -77,8 +62,7 @@ summary(ff_lm)
 
 
 
----
-# Tidying model output
+## Tidying model output
 
 The package `broom` gets model results into a tidy format at different levels
 
@@ -90,38 +74,33 @@ One value for each:
 
 
 
----
-# Goodness of fit statistics: `glance`
+## Goodness of fit statistics: `glance`
 
 ```{r goodness of fit statistics}
 glance(ff_lm)
 ```
 
----
-# Model estimates: `tidy`
+## Model estimates: `tidy`
 
 ```{r model estimates}
 ff_lm_tidy <- tidy(ff_lm)
 glimpse(ff_lm_tidy)
 ```
 
----
-# Model diagnostics: `augment`
+## Model diagnostics: `augment`
 
 ```{r model diagnostics}
 ff_lm_all <- augment(ff_lm)
 glimpse(ff_lm_all)
 ```
 
----
-# Residual plot
+## Residual plot
 
 ```{r residual plot}
 ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 ```
 
----
-# Adding random effects
+## Adding random effects
 
 Add random intercepts for each subject
 
@@ -132,9 +111,7 @@ data = ff_long)
 ```
 
 
----
-class: inverse middle 
-# Your turn
+## Your turn {.inverse}
 
 The `broom.mixed` package provides similar functionality to mixed effects models as `broom` does for fixed effects models
 
@@ -160,8 +137,7 @@ ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
 ```
 
 
----
-# dplyr verbs
+## dplyr verbs
 
 There are five primary dplyr **verbs**, representing distinct data analysis tasks:
 
@@ -173,28 +149,27 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 - (`group_by`: Introduce structure to a data frame)
  
  
----
-# Filter
+## Filter
 
 select a subset of the observations (horizontal selection)
+
 ```{r select a subset of the observations}
 load(here::here("data/french_fries.rda"))
 french_fries %>%
     filter(subject == 3, time == 1)
 ```
 
----
-# Arrange
+## Arrange
 
 order the observations (hierarchically)
+
 ```{r order the observations}
 french_fries %>%
     arrange(desc(rancid)) %>%
     head
 ```
 
----
-# Select
+## Select
 
 select a subset of the variables (vertical selection)
 ```{r select a subset of the variables}
@@ -203,8 +178,7 @@ french_fries %>%
     head
 ```
 
----
-# Summarise
+## Summarise
 
 summarize observations into a (set of) one-number statistic(s):
 ```{r summarize observations into one-number statistic}
@@ -213,8 +187,7 @@ french_fries %>%
               sd_rancid = sd(rancid, na.rm = TRUE))
 ```
 
----
-# Summarise and group_by
+## Summarise and group_by
 
 ```{r summarise and group_by}
 french_fries %>%
@@ -224,8 +197,7 @@ french_fries %>%
 
 
 
----
-# Let's use these tools
+## Let's use these tools
 
 to answer these french fry experiment questions:
 
@@ -235,21 +207,18 @@ to answer these french fry experiment questions:
 - Are raters giving different scores on average?
 - Do ratings change over the weeks?
 
----
-# Completeness 
+## Completeness 
 If the data is complete it should be 12 x 10 x 3 x 2, that is, 6 records for each person. (Assuming that each person rated on all scales.) 
 
 To check this we want to tabulate the number of records for each subject, time and treatment. This means select appropriate columns, tabulate, count and spread it out to give a nice table.
 
----
-class: inverse middle 
-# Your turn
+##Your turn {.inverse}
 
 How many values do we have for each subject? Check the help for function `?n`
 
 `r countdown::countdown(5)`
----
-# French Fries - completeness
+
+## French Fries - completeness
 
 `n()`
 
@@ -259,16 +228,14 @@ french_fries %>%
   summarize(n = n()) 
 ```
 
----
-# Other nice short cuts 
+## Other nice short cuts 
 
 instead of `group_by(subject) %>% summarize(n = n())` we can use:
 
 - `group_by(subject) %>% tally()`
 - `count(subject)`
 
----
-# Counts for subject by time
+## Counts for subject by time
 
 ```{r counts for subject by time}
 french_fries %>% 
@@ -277,11 +244,10 @@ french_fries %>%
   spread(time, n)
 ```
 
+## How do scores change over time?
 
----
-# How do scores change over time?
-
-<br><br>
+::: panel-tabset
+### Code{-}
 
 ```{r do-scores-change-over-time, fig.show='hide'}
 ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
@@ -289,22 +255,13 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   facet_grid(subject~type) 
 ```
 
-<br><br>
-
-Plot on next slide...very messy!
-
----
-class: hide-count
-count: false
-
+### Plot {-}
 ```{r ref.label="do-scores-change-over-time", echo=FALSE, fig.width=12, fig.height=9, out.width="80%"}
 ```
 
+:::
 
-
----
-class: inverse
-# Your Turn
+## Your Turn {.inverse}
 
 Get summary of ratings over replicates and connect the dots for a picture as below:
 
@@ -320,8 +277,7 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
 
 `r countdown::countdown(7, 0)`
 
----
-# References
+## References 
 
 
 - [posit cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
@@ -329,7 +285,7 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
 - [broom vignettes, David Robinson](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
 - [Wickham (2011) Split-Apply-Combine](https://www.jstatsoft.org/article/view/v040i01)
 
----
-# Share and share alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::

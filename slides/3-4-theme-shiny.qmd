@@ -1,17 +1,5 @@
 ---
 title: "Theme a shiny app"
-subtitle: "SISBID 2023 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (heike.hofmann@gmail.com) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/26-28/2023"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
@@ -34,36 +22,31 @@ xaringanExtra::use_xaringan_extra(
 )
 ```
 
-# Theming your Shiny App
+## Theming your Shiny App
 
 - `bslib` has many options available for theming and customizing your app <br/><br/>
 - We'll cover the easily available options here<br/><br/>
     - Exponentially more powerful with CSS and a bit of tinkering
 
----
-# Preset Themes
-.pull-left[
+## Preset Themes
+
+::: columns
+::: column
 - Bootswatch provides preset themes
 - `bs_themer()` lets you choose interactively
 
-.center.large[`bs_themer.R`]
-].pull-right[
-.panelset.sideways[
-.panel[.panel-name[default]
-![](bs_themer.png)
-]
-.panel[.panel-name[flatly]
-![](bs_themer_flatly.png)
-]
-.panel[.panel-name[darkly]
-![](bs_themer_darkly.png)
-]
-]
-]
+[`bs_themer.R`]{.center .large}
+:::
+::: column
+[
+[[default]{.panel-name} ![](images/bs_themer.png)        ]{.panel}
+[[flatly]{.panel-name}  ![](images/bs_themer_flatly.png) ]{.panel}
+[[darkly]{.panel-name}  ![](images/bs_themer_darkly.png) ]{.panel}
+]{.panelset .sideways}
+:::
+:::
 
----
-class: inverse middle
-# Your Turn
+## Your Turn {.inverse}
 
 Run the code in `bs_themer.R` and pick a theme you like. 
 
@@ -74,34 +57,33 @@ Hint: Use the `theme = ...` argument in one of the `page_xxx` functions.
 
 `r countdown::countdown(5)`
 
----
-# Customizing Your Navbar
+## Customizing Your Navbar
 
 - You may want to add a logo to your title area
 - pictures should be placed in the `www/` folder
 
-.pull-left[
+::: columns
+::: column
 ```{r, eval = F}
 title = div(
   img(src = "wave.gif", width = "40px"),
   img(src = "globe.png", width = "40px"),
   "Hello World", style = "display: inline;"),
 ```
-].pull-right[
+:::
+::: column
+![](images/title_image.png)
+:::
+:::
 
-![](title_image.png)
-
-]
-
----
-# Adding Icons
+## Adding Icons
 
 - You can add icons to your `nav_panels()` with the `icon` argument
     - [Bootstrap Icons](https://icons.getbootstrap.com/) 
     - Match the version of Bootstrap your app uses
     
-
-.pull-left[
+::: columns
+::: column
 ```{r, eval = F}
 nav_panel(
   title = "Dashboard", body, 
@@ -109,13 +91,13 @@ nav_panel(
   # marks icon as decorative for screen readers
 ),
 ```
-].pull-right[
-![](navbar-icon.png)
-]
+:::
+::: column
+![](images/navbar-icon.png)
+:::
+:::
 
----
-class: inverse middle
-# Your Turn
+## Your Turn {.inverse}
 
 Customize the title and icons on the `nav_panels` in `title_customization.R`.
 
@@ -123,8 +105,7 @@ Choose appropriate icons and decide if they are decorative or semantic.
 
 `r countdown::countdown(5)`
 
----
-# Change the width of the sidebar
+## Change the width of the sidebar
 
 ```{r eval = F}
 side <- sidebar(
@@ -138,24 +119,16 @@ side <- sidebar(
 )
 ```
 
-.panelset.sideways[
-.panel[.panel-name[10%]
-![](sidebar-10.png)
-]
-.panel[.panel-name[20%]
-![](sidebar-20.png)
-]
-.panel[.panel-name[100px]
-![](sidebar-100px.png)
-]
-.panel[.panel-name[100px (small window)]
-![](sidebar-100px-2.png)
-]
-]
+[
+[[10%]{.panel-name}                  ![](images/sidebar-10.png)      ]{.panel}
+[[20%]{.panel-name}                  ![](images/sidebar-20.png)      ]{.panel}
+[[100px]{.panel-name}                ![](images/sidebar-100px.png)   ]{.panel}
+[[100px (small window)]{.panel-name} ![](images/sidebar-100px-2.png) ]{.panel}
+]{.panelset .sideways}
 
 
 
----
-# Share and share alike
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::

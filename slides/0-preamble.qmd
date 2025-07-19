@@ -21,7 +21,6 @@ knitr::opts_chunk$set(
 # THIS CODE IS NOT TO BE RUN
 # These packages are only used to make the slides prettier
 install.packages("remotes")
-install.packages("xaringan")
 remotes::install_github("hadley/emo")
 remotes::install_github("mitchelloharawild/icons")
 remotes::install_github("emitanaka/anicon")
@@ -105,6 +104,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("bigPint")
+# remotes::install_github("lindsayrutter/bigPint") # Since Bioconductor 3.18
 ```
 
 Github
@@ -131,7 +131,8 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 # Bioconductor packages
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("bigPint")
+# BiocManager::install("bigPint")
+remotes::install_github("lindsayrutter/bigPint")
 
 # github packages
 remotes::install_github("wmurphyrd/fiftystater")
