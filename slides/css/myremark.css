@@ -1,0 +1,183 @@
+@import url(https://fonts.googleapis.com/css?family=Actor);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600);
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+body {
+  font-family: 'Actor', sans-serif;
+}
+h1, h2, h3 {
+  font-family: 'Lato';
+  font-weight: 400;
+  margin-bottom: 0;
+}
+h1 {
+  color: #0645BE;
+  font-size: 3em;
+}
+h2 {
+  color: #702E8D;
+  font-size: 1.9em;
+}
+h3 {
+  color: #BBA9C6;
+  font-size: 1.5em;
+}
+h1:before {
+  color: #702E8D;
+  font-family: "FontAwesome";
+  margin-right: 10px;
+}
+
+.slide-background-content{
+  background-color: #FDFEFE;
+}
+p {
+  color: #0C3F5C;
+}
+
+li { line-height: 1.45em; }
+li p { line-height: 1.25em; }
+ul{
+  margin-left:1.5em!important;
+}
+ul li {
+  list-style-type: none;
+}
+ul li:before {
+    content: "\f080";
+    font-family: "FontAwesome";
+    margin-left: -1.5em;
+    margin-right: 10px;
+}
+ul li li:before {
+  content: "\f1fe";
+  font-family: "FontAwesome";
+  margin-right: 10px;
+  color: #B71452;
+}
+.red { color: #D50321; }
+.orange { color: #FA700A; }
+.blue { color: #0645BE; }
+.yellow { color: #FCB52C;}
+.large { font-size: 2em; }
+a, a > code {
+  color: #F33816;
+  text-decoration: none;
+}
+code {
+  border-radius: 5px;
+}
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro'; font-size: 80%; }
+.remark-code-line-highlighted     { background-color: #373832; }
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+#slideshow .slide .content code {
+  font-size: 0.8em;
+}
+#slideshow .slide .content pre code {
+  font-size: 0.9em;
+  padding: 15px;
+}
+.inverse {
+  color: #E6DDD9;
+  background: #0C3F5C;
+
+  .slide-background-content {
+    background-color: #0C3F5C;
+  }
+  h1 {
+    color: #FACB52;
+  }
+  h2 {
+    color: #F87826;
+  }
+  h3 {
+    color: #BBA9C6;
+  }
+  ul li:before {
+    color: #D2664E;
+  }
+  code {
+    color: #FACB52;
+  }
+  a {
+    color: #F33816;
+    text-decoration: none;
+  }
+  p {
+      color: #E6DDD9;
+  }
+}
+
+.tightlist ul li {
+  line-height: 1.25em!important;
+}
+
+/* Slide-specific styling */
+#slide-inverse .footnote {
+  bottom: 12px;
+  left: 20px;
+}
+#slide-how .slides {
+  font-size: 0.9em;
+  position: absolute;
+  top:  151px;
+  right: 140px;
+}
+#slide-how .slides h3 {
+  margin-top: 0.2em;
+}
+#slide-how .slides .first, #slide-how .slides .second {
+  padding: 1px 20px;
+  height: 90px;
+  width: 120px;
+  -moz-box-shadow: 0 0 10px #777;
+  -webkit-box-shadow: 0 0 10px #777;
+  box-shadow: 0 0 10px #777;
+}
+#slide-how .slides .first {
+  background: #fff;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  z-index: 1;
+}
+#slide-how .slides .second {
+  position: relative;
+  background: #fff;
+  z-index: 0;
+}
+
+.bottom {
+  left: 5%;
+  position: absolute;
+  bottom: 5px;
+  font-size: 50%;
+  /*width: 100%;*/
+  dominant-baseline:middle;
+  img {
+    margin: 0;
+  }
+}
+
+.footnote {
+  position: absolute;
+  bottom: 3em;
+  font-style: italic;
+  font-size: 70%;
+}
+/* Hide a slide number */
+.hide-count .remark-slide-number {
+  display: none;
+}

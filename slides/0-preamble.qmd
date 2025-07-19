@@ -1,0 +1,156 @@
+---
+title: "Preamble"
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE, 
+  collapse = TRUE,
+  comment = "",
+  fig.height = 8,
+  fig.width = 12,
+  fig.align = "center",
+  cache = FALSE,
+  echo=TRUE
+)
+```
+
+```{r eval=FALSE, echo=FALSE}
+# THIS CODE IS NOT TO BE RUN
+# These packages are only used to make the slides prettier
+install.packages("remotes")
+install.packages("xaringan")
+remotes::install_github("hadley/emo")
+remotes::install_github("mitchelloharawild/icons")
+remotes::install_github("emitanaka/anicon")
+remotes::install_github("dicook/gretchenalbrecht")
+remotes::install_github("gadenbuie/countdown")
+```
+
+
+## Interactive Sessions
+
+We will be using breakout rooms throughout the class
+
+- 4-6 people in each room
+- at the end of the time you will be 'zoomed back' into the main session
+- ... if you get disconnected, just log back into the Zoom session and we will get you back to your group.
+
+<br>
+Let's try this!
+
+
+## Your turn: meet the class! `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` {.inverse}
+
+Introduce yourself to others in your breakout room. Find out:
+
+- where they come from, 
+- why they chose to do the workshop, 
+- what sort of data they usually work with,
+- whether they have used R before, 
+- a fun fact! 
+
+`r countdown::countdown(5)` [You've got 5 minutes - timer is running!]{.yellow}
+
+
+
+## Datavis module logistics {.smaller}
+
+- Website: [https://dicook.github.io/SISBID/](https://dicook.github.io/SISBID/)
+- Zoom
+  - Sessions will be recorded and links will be made available via Slack
+  - Please remember to mute when not speaking
+  - In case of bandwidth issues, try turning off your camera
+- Questions
+  - Zoom chat and Slack are both good places to ask questions
+- R cloud link available from website & slack in case of technical problems
+
+## Your turn: Course materials {.inverse .middle}
+
+All materials at [https://github.com/dicook/SISBID](https://github.com/dicook/SISBID)
+
+- __Download__ `SISBID_day1.zip` (a zip archive) of the workshop files which contains all the code files, Rmarkdown files, and data for day 1 of this workshop. __Unzip the file__.
+- __Double-click__ `SISBID.Rproj`. The R project helps organize your work. ![](images/projectname.png)
+
+## What's in the zip?
+
+- `.R` file of code, one for each module of the course, use this to follow along
+- `data` folder containing data sets used in the course
+- `SISBID.Rproj` for starting RStudio in your course working directory
+
+`r anicon::nia("Please run, edit and change the code as we go! Experiment, break and fix.", colour="#B78ED2", anitype="hover")`
+
+## Check your R setup
+
+> ["If R were an airplane, RStudio would be the airport"    
+[Julie Lowndes, Openscapes](http://jules32.github.io/resources/RStudio_intro/)]{.orange}
+
+<img src="images/setup.png" width="200%" />
+
+## R package locations:
+
+CRAN
+
+```{r eval=FALSE}
+install.packages("nullabor")
+```
+
+
+Bioconductor
+
+```{r eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("bigPint")
+```
+
+Github
+
+```{r eval=FALSE}
+remotes::install_github("heike/vinference")
+```
+
+## List of packages {.smaller}
+
+Do you have these packages installed? (Note: this list is from the course website https://dicook.github.io/SISBID/)
+
+```{r eval=FALSE}
+# CRAN packages
+packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "here", "leaflet", "lubridate", 
+              "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", 
+              "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", 
+              "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", 
+              "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", 
+              "ggmosaic", "gganimate", "remotes", "mapproj")
+
+install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
+
+# Bioconductor packages
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("bigPint")
+
+# github packages
+remotes::install_github("wmurphyrd/fiftystater")
+remotes::install_github("heike/vinference")
+remotes::install_github("hollylkirk/ochRe")
+
+# For sharing web apps, 
+# but you need adminstrator rights to your computer:
+
+install.packages("rsconnect")
+```
+
+## Resources
+
+
+- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- Q/A site: [http://stackoverflow.com](http://stackoverflow.com)
+
+
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::
