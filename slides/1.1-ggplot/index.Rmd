@@ -28,7 +28,7 @@ class: inverse middle
 <br>
 .large[Write down as many types of data plots/charts that you can think of.] 
 
-Go to menti.com and enter code 4651 9428
+[Go to menti.com and enter code 2979 2396](https://www.menti.com/al44t5ak5nwj)
 
 <img src="images/mentimeter_qr_code.png" width=200>
 <br>
@@ -120,7 +120,10 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 
 `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE**
 
-Go to menti.com and enter code 4651 9428
+Go to menti.com and enter code 2979 2396
+
+XXX change menti code on Tuesday
+
 
 - What do you learn about tuberculosis incidence in the USA from this plot?
 - Give three changes to the plot that would improve it. 
@@ -258,7 +261,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - What are the pros, and cons, of using the pie chart for this data?
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
-Go to menti.com and enter code 4651 9428
+Go to menti.com and enter code 2979 2396
 
 
 ```{r eval=FALSE, out.width="60%", echo=FALSE, fig.height=5}
