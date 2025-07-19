@@ -1,3 +1,4 @@
+install.packages("remotes")
 remotes::install_github("hadley/emo")
 remotes::install_github("mitchelloharawild/icons")
 remotes::install_github("emitanaka/anicon")
