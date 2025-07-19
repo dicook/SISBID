@@ -91,8 +91,8 @@ The 7 key elements of the grammar are:
 
 (Current) tuberculosis data from [WHO](http://www.who.int/tb/country/data/download/en/), the case notifications table. Also can download with R package, [getTBinR](https://github.com/seabbs/getTBinR).
 
-```{r read TB data and wrangle and subset to USA}
-tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
+```{r read and wrangle TB data, echo=FALSE}
+tb <- readr::read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |>
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(new_sp_m04:new_sp_fu, names_to="stuff", values_to="count") |>
   separate(stuff, c("stuff1", "stuff2", "sexage")) |>
@@ -210,7 +210,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 - What do we learn about the data that is different from the previous plot?
 - What is easier, what is harder or impossible to learn from this arrangement?
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=FALSE}
 - Counts are generally higher for males than females 
 - There are very few female cases in the middle years
 - Perhaps something of a older male outbreak in 2007-8, and possibly a young female outbreak in the same years
@@ -281,7 +281,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(age_group))) + #<<
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  scale_colour_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ylim(c(0,NA))
 ```
 
