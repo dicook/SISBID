@@ -24,7 +24,21 @@ source(here::here("libraries.R"))
 # to do
 
 - new platypus, maybe add a new creature for an exercise
+HH: with the rinat package (on CRAN) we could let participants search for an animal of their choosing (rinat is based on data submitted to the iNaturalist app)
+```
+pelican6 <- get_inat_obs(query = "Pelican", year = 2025, month=6)
+pelican12 <- get_inat_obs(query = "Pelican", year = 2024, month=12)
+pelican <- rbind(pelican6, pelican12) 
+pelican |> 
+  ggplot(aes(x = longitude, y = latitude)) +  
+  geom_path(aes(x = long, y = lat, group = group), data = map_data("world"), colour = "grey50") +
+  geom_point(aes(colour = month(label=TRUE, ymd_hms(datetime)))) + 
+  theme_bw() +
+  scale_colour_manual("Month", values = c("purple", "orange"))
+```
+
 - talk about the ggverse, ggdist, https://exts.ggplot2.tidyverse.org
+- HH: bug that I don't know how to fix: label in first leaflet map is not showing up at the right place (probably because of the pull-right)
 
 # Example 2: Monotremes in Australia
 
@@ -38,7 +52,7 @@ Source: [wikipedia: platypus](https://en.wikipedia.org/wiki/File:Platypus-sketch
 
 ---
 
-```{r not to run this code, eval=FALSE}
+```{r not to run this code, eval=FALSE, echo = FALSE}
 # Data extracted from ALA with this code
 # Note that package ALA4Ris being replaced by package galah
 # install.packages("galah")
