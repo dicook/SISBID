@@ -4,6 +4,7 @@ project:
     - "!code/*"
     - slides/
     - index.qmd
+  output-dir: docs
 
 website:
   title: "SISBID Data Visualization"
@@ -58,5 +59,4 @@ format:
     css: styles.css
     toc: true
 
-editor: visual
 
