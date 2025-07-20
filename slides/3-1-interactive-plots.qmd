@@ -1,20 +1,5 @@
 ---
 title: "Interactive graphics"
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
-=======
-subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/23-25/2025"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
@@ -22,7 +7,6 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r echo=FALSE}
 #library(tidyverse)
 library(tidyr)
@@ -33,23 +17,6 @@ library(plotly)
 library(gganimate)
 library(datasauRus)
 ```
-
-=======
-```{css, echo=FALSE}
-/* custom.css */
-.left-code {
-  color: #777;
-  width: 48%;
-  height: 92%;
-  float: left;
-}
-.right-plot {
-  width: 50%;
-  float: right;
-  padding-left: 1%;
-}
-```
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 # Choices of packages for interactive graphics
 
@@ -97,55 +64,31 @@ cran_summary %>%
 
 ## plotly
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 The `plotly` package in R has two interfaces:
 
 - plot specification via plotly
 - translating `ggplot2` plots and adding interactive elements
 
 Plotly creates interactive plots with javascript.
-=======
-.left-code[
-The `plotly` package in R builds on the `ggplot2` package, adding interactive elements to these plots. It translates plots to javascript.
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 ```{r plotly}
 plot_ly(data = penguins_std, x = ~fl, y = ~bl, 
   color = ~species, size = 3, width=420, height=300)
 ```
-]
-.right-plot[
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ## Or using ggplot2
-=======
-Or using `ggplot2`
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
-
 ```{r}
 gg <- ggplot(data=penguins_std, aes(x = fl, y = bl, colour = species)) +  
   geom_point(alpha=0.5) + geom_smooth(method = "lm", se=F)
 ggplotly(gg, width=390, height=300)
 ```
-]
 
 ## Scatterplot(ly) matrix 
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r scatterplotly, eval=T, echo=T}
 #| output-location: column
 library(GGally)
 p <- ggpairs(economics[,3:6])
-=======
-.pull-left[
-```{r scatterplotly, fig.show='hide'}
-p <- ggpairs(penguins_std, columns = 2:5, 
-             ggplot2::aes(colour = species))
-```
-]
-.pull-right[
-```{r}
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ggplotly(p, width=450, height=450)
 ```
 
@@ -163,8 +106,6 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
              colour = "red", alpha = 1/4) +
   theme_map()
 ```
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
-
 Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
 :::
 ::: column
@@ -173,21 +114,7 @@ Not all `ggplot2` geoms are supported in plotly, but when they are, they just wo
 ggplotly(viz)
 ```
 :::
-=======
-
-Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
-
-]
-
-.pull-right[
-```{r out.width="100%"}
-#viz
-ggplotly(viz)
-```
-]
-
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
-
+:::
 
 
 ## Modifying plotly 
@@ -284,11 +211,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 ## A simple example
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 2. add the mapping
-=======
-#### 2. Add the mapping
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 ```{r plot2, eval=T, echo=T}
 #| output-location: column
@@ -304,15 +227,8 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 3. Add a graphical primitive, let's do a line 
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r plot3, eval=T, echo=T}
 #| output-location: column
-=======
-#### 3. Add a graphical primitive -- let's do a line 
-
-.left-code[
-```{r plot3, eval=FALSE, echo=TRUE}
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() #<<
@@ -323,11 +239,7 @@ ggplot(economics) +
 Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 :::
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ## A simple example
-=======
-#### 4. Just one extra line of code turns this into an animation!
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 
 4. Just one extra line turns this into an animation!
@@ -348,15 +260,9 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 ## A not-so-simple example, the datasaurus dozen
 Again, we first pass in the dataset to ggplot
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r plot5, eval=T, echo=T}
 #| output-location: column
 ggplot(datasaurus_dozen)#<<
-=======
-.left-code[
-```{r plot5, eval=FALSE, echo=TRUE}
-ggplot(datasaurus_dozen) #<<
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ```
 
 ## A not-so-simple example, the datasaurus dozen
@@ -422,31 +328,7 @@ We control plot movement with (a grammar of animation):
 - Entrances/Exits: `enter_*()` and `exit_*()` define how new data should appear and how old data should disappear during the course of the animation.
 - Easing: `ease_aes()` defines how different aesthetics should be eased during transitions.
 
-<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ## Your Turn {.inverse}
-=======
-#### Transitions: `transition_*()` defines which variable(s) should control the animation and how.
-
---
-
-#### Views: `view_*()` defines how the scales in x and y change during the animation (fixed? re-scale?).
-
---
-
-#### Shadows: `shadow_*()` defines how data from other points in time should be presented at any given point in time.
-
---
-
-#### Entrances/Exits: `enter_*()` and `exit_*()` define how new data should appear and how old data should disappear during the course of the animation.
-
---
-
-#### Easing: `ease_aes()` defines the pace of transitions.
-
----
-class: inverse middle
-# Your Turn
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 The gapminder example from the beginning has the static part shown below
 
