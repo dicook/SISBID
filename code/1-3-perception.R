@@ -8,58 +8,29 @@
 #' 
 
 
-knitr::opts_chunk$set(
-  echo=FALSE,
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE, 
-  collapse = TRUE,
-  comment = "",
-  fig.height = 6,
-  fig.width = 10,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 
 
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(stringr)
-library(RColorBrewer)
-library(gridExtra)
-library(dichromat)
-library(here)
-
-# just to make sure that we use the dplyr filter and select function when in doubt
-library(conflicted)
-
-conflict_prefer("select", "dplyr")
-conflict_prefer("filter", "dplyr")
-
-
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
-  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
   mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
+         age=substr(sexage, 2, length(sexage))) |>
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb %>% 
-  filter(country == "United States of America") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+tb_us <- tb |> 
+  filter(country == "United States of America") |>
+  filter(!(age %in% c("04", "014", "514", "u"))) |>
   filter(year > 1996, year < 2013)
 
 
-tb_us %>% filter(year == 2012) %>% dplyr::select(sex, age, count)
+tb_us |> filter(year == 2012) |> dplyr::select(sex, age, count)
 
 
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -67,7 +38,7 @@ tb_us %>% filter(year == 2012) %>%
   ggtitle("Arrangement A")
 
 
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -79,7 +50,7 @@ tb_us %>% filter(year == 2012) %>%
 
 
 
-tb_us %>% select(year, sex, age, count) %>% head(10)
+tb_us |> select(year, sex, age, count) |> head(10)
 
 
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
@@ -110,8 +81,8 @@ countdown::countdown(0, 30)
 countdown::countdown(1, 5)
 
 
-tb_us %>% group_by(year, age) %>% 
-  summarise(p = count[sex=="m"]/sum(count)) %>%
+tb_us |> group_by(year, age) |> 
+  summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="white", size=2) +
   geom_line() + geom_point() +
@@ -156,8 +127,6 @@ d + scale_colour_brewer(palette="Set1")
 countdown::countdown(0, 50, right=50, bottom=0)
 
 
-library(scales)
-library(dichromat)
 clrs <- hue_pal()(9)
 d + theme(legend.position = "none")
 clrs <- dichromat(hue_pal()(9))
@@ -205,7 +174,7 @@ ggplot(tb_us, aes(x=year, y=count, colour=age)) +
   ggtitle("Arrangement B")
 
 
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -213,7 +182,7 @@ tb_us %>% filter(year == 2012) %>%
   ggtitle("Position - common scale ")
 
 
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
@@ -222,7 +191,7 @@ tb_us %>% filter(year == 2012) %>%
   coord_polar(theta = "y")
 
 
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -230,7 +199,7 @@ tb_us %>% filter(year == 2012) %>%
   ggtitle("Position - common scale ")
 
 
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~sex, ncol=6) +

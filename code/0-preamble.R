@@ -34,11 +34,10 @@ install.packages("nullabor")
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("bigPint")
-# remotes::install_github("lindsayrutter/bigPint") # Since Bioconductor 3.18
+BiocManager::install("ggbio")
 
 
-remotes::install_github("heike/vinference")
+remotes::install_github("lindsayrutter/bigPint")
 
 
 # CRAN packages
@@ -54,7 +53,6 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 # Bioconductor packages
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-# BiocManager::install("bigPint")
 remotes::install_github("lindsayrutter/bigPint")
 
 # github packages

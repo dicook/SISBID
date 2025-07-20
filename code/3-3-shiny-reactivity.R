@@ -4,26 +4,8 @@
 #' 
 
 
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "#>",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(xaringanExtra)
-
-use_xaringan_extra(
-  include = c("panelset")
-)
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 
 
 rval <- reactive({
@@ -36,7 +18,8 @@ rval <- eventReactive(actionbutton, {
 })
 
 
-runApp("03_submission/", display.mode = "showcase")
+runApp("code/3.3-apps/03_submission/", 
+       display.mode = "showcase")
 
 
 card1 <- card(

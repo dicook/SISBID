@@ -4,19 +4,8 @@
 #' 
 
 
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "#>",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
-library(ggplot2)
-library(shiny)
-library(bslib)
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 
 
 server <- function(input, output) {

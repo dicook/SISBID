@@ -4,47 +4,49 @@
 #' 
 
 
-knitr::opts_chunk$set(
-  echo=FALSE,
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE, 
-  collapse = TRUE,
-  comment = "",
-  out.width = "80%", 
-  fig.height = 6,
-  fig.width = 10,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
-
-
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(ggmap)
-library(here)
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 
 
 # Data extracted from ALA with this code
 # Note that package ALA4Ris being replaced by package galah
 # install.packages("galah")
 library(galah)
-ala_config(atlas = "Australia", download_reason_id=)
-l <- ala_species("Platypus")
 
-taxa <- select_taxa("Ornithorhynchus anatinus", counts = TRUE)
+galah_config(email = YOUR_EMAIL_HERE #"dicook@monash.edu",
+             atlas = "Australia")
 
-platypus <- ala_occurrences(taxa = taxa)
+search_taxa(c("Ornithorhynchus", "Tachyglossidae"))
 
-platypus <- platypus %>% rename(
-  longitude = decimalLongitude,
-  latitude = decimalLatitude
-)
-save(platypus, file="data/platypus.rda")
+galah_call() |>
+  galah_identify(c("Ornithorhynchus", "Tachyglossidae")) |>
+  count() |> 
+  collect()
+
+monotremes <- galah_call() |>
+  galah_identify(c("Ornithorhynchus", "Tachyglossidae")) |>
+  galah_filter(year == 2024) |>   
+  select(scientificName, eventDate, basisOfRecord, 
+         decimalLongitude, decimalLatitude) |>
+  atlas_occurrences()
+
+monotremes <- monotremes |> 
+  rename(
+    longitude = decimalLongitude,
+    latitude = decimalLatitude,
+    datetime = eventDate,
+    obs_type = basisOfRecord
+  ) |>
+  mutate(
+    day = ymd(str_sub(datetime, 1, 10),
+              tz="Australia/Sydney"), 
+    hour = as.numeric(str_sub(datetime, 15, 16))) |>
+    separate(scientificName, into = c("family", "species")) |>
+  mutate(family = if_else(family == "TACHYGLOSSIDAE", "Tachyglossus", family)) |>
+  mutate(common_name = if_else(
+    family == "Tachyglossus", "echidna",
+                              "platypus"))
+save(monotremes, file="data/monotremes.rda")
 
 
 load(here::here("data/platypus.rda"))
@@ -52,33 +54,74 @@ platydata <- platypus
 ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
 
 
-ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude), alpha=0.1)
+load(here::here("data/monotremes.rda"))
+ggplot(data=monotremes) + 
+  geom_point(aes(x = longitude, 
+                 y = latitude, 
+                 colour = family),
+             alpha=0.5)
 
 
-ggplot(data=platydata) + 
-  geom_point(aes(x=longitude, y=latitude), alpha=0.1) +
+ggplot(data=monotremes) + 
+  geom_point(aes(x=longitude, 
+                 y=latitude, 
+                 colour = common_name), 
+             alpha=0.1) +
+  scale_colour_brewer("", palette = "Dark2") +
   coord_map()
 
 
 
 
+library(ggmap)
+library(osmdata)
+oz_bbox <- c(112.9, # min long
+              -45, # min lat
+              159, # max long
+              -10) # max lat
+oz_map <- get_map(location = oz_bbox, source = "osm") 
+save(oz, file="data/oz.rda")
+
+
+load(here::here("data/oz.rda"))
+ggmap(oz) + 
+  geom_point(data=monotremes, 
+             aes(x=longitude, 
+                 y=latitude, 
+                 colour=common_name), 
+              alpha=0.1) +
+  scale_colour_brewer("", palette = "Dark2")
+
+#| output-location: column
 library(leaflet)
-platydata %>%
-  filter(!is.na(latitude), !is.na(longitude), !(eventDate=="")) %>%
-  leaflet() %>%
-  addTiles() %>%
+monotremes |>
+  filter(family == "Ornithorhynchus") |>
+  filter(!is.na(latitude), 
+         !is.na(longitude)) |>
+  leaflet() |>
+  addTiles() |>
   addCircleMarkers(
-    radius=1, opacity = 0.5, color = "orange", label = ~eventDate,
+    radius=1, 
+    opacity = 0.5, 
+    color = "orange", 
+    label = ~day,
     lat = ~latitude, lng = ~longitude) 
 
 
-library(lubridate)
-platydata <- platydata %>% 
-  mutate(eventDate = ymd_hms(eventDate))
+SOME STUFF HERE |>
+  mutate(
+    day = ymd(str_sub(datetime, 1, 10),
+              tz="Australia/Sydney"), 
+    hour = as.numeric(str_sub(datetime, 15, 16)))
 
 
-ggplot(data=platydata) +
-  geom_point(aes(x=eventDate, y=1))
+monotremes |>
+  group_by(day, common_name) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  ggplot(aes(x=day, y=n)) +
+    geom_point() +
+    facet_wrap(~common_name)
 
 
 ggplot(data=platydata) +
@@ -100,10 +143,14 @@ platydata %>% filter(latitude < (-50))
 platydata %>% filter(eventDate < ymd("1850-01-01")) 
 
 
-ggplot(data=platydata1900, 
-       aes(x=year, y=n)) +
-  geom_point() +
-  geom_smooth(se=F)
+monotremes |>
+  group_by(day, common_name) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  ggplot(aes(x=day, y=n)) +
+    geom_point() +
+    geom_smooth(se=F) +
+    facet_wrap(~common_name) 
 
 
 
@@ -113,14 +160,17 @@ ggplotly()
 
 
 ggmap(oz) + 
-  geom_density2d(data=platydata, aes(x=longitude, y=latitude), 
-              colour="orange") 
+  geom_density2d(data=monotremes, 
+                 aes(x=longitude, y=latitude), 
+              colour="orange") +
+  facet_wrap(~common_name, ncol=2)
 
 
-platydata_50_10 <- platydata %>% filter(year>1949, year<2020) %>%
-  mutate(decade = cut(year, breaks=seq(1950, 2020, 10),
-   include.lowest=TRUE, 
-   labels=c("50-59", "60-69", "70-79", "80-89", "90-99", "00-09", "10-19")))
-ggmap(oz) + geom_point(data=platydata_50_10, mapping=aes(x=longitude, y=latitude), colour="orange", alpha=0.1) +
-  facet_wrap(~decade)
+monotremes |>
+  group_by(day, common_name) |>
+  summarise(n = n(), .groups = "drop") |>
+  mutate(month = month(day, label = TRUE, abbr = TRUE)) |>
+  ggplot(aes(x=month, y=n)) +
+    geom_boxplot() +
+    facet_wrap(~common_name, ncol=2) 
 

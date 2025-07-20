@@ -4,6 +4,10 @@
 #' 
 
 
+# source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
+
+
 # Additional packages for Shiny
 install.packages(c("bsicons", "showtext", "ragg", "thematic"))
 remotes::install_github("rstudio/bslib") # Get the latest version

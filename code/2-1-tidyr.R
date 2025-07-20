@@ -4,28 +4,11 @@
 #' 
 
 
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 
 
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(lubridate)
-library(broom)
-
-
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv"))
 tb |>                                  # first we get the tb data
   filter(year == 2016) |>              # then we focus on just the year 2016
   group_by(country) |>                 # then we group by country
@@ -86,33 +69,31 @@ dframe
 dframe |> pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 
 
-read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   na.omit() |>
   head()
 
 
-tb1 <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+tb1 <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   pivot_longer(starts_with("new_sp_")) 
 
 tb1 |> na.omit() |> head()
 
 
-tb2 <- tb1 |> 
-  separate(name, sep = "_", into=c("foo_new", "foo_sp", "sexage")) 
-
+tb2 <- tb1 |>
+  separate_wider_delim(name, delim = "_", names=c("foo_new", "foo_sp", "sexage")) 
 
 tb2 |> na.omit() |> head()
 
 
-tb3 <- tb2 |> dplyr::select(-starts_with("foo")) |> # remove the `foo` variables
-  mutate(
-    sex = substr(sexage, 1, 1),                # extract the first character 
-    age = substr(sexage, 2, length(sexage))    # get all but first character
-  ) |>
-  dplyr::select(-sexage)
-
+tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) |> # remove the `foo` variables
+  separate_wider_position(
+    sexage,
+    widths = c(sex = 1, age = 4),
+    too_few = "align_start"
+  )
 
 tb3 |> na.omit() |> head()
 
@@ -124,8 +105,8 @@ names(genes)
 
 gtidy <- genes |>
 pivot_longer(-id, names_to="variable", values_to="expr") |>
-separate(variable, c("trt", "leftover"), "-") |>
-separate(leftover, c("time", "rep"), "\\.") |>
+separate_wider_delim(variable, names=c("trt", "leftover"), delim = "-") |>
+separate_wider_delim(leftover, names=c("time", "rep"), delim = ".") |>
 mutate(trt = sub("W", "", trt)) |>
 mutate(rep = sub("R", "", rep))
 

@@ -1,4 +1,4 @@
-library(rmarkdown)
+# library(rmarkdown)
 library(tidyverse)
 library(quarto) # Requires dev version at least as recent as 07-2025
 library(stringr)
@@ -9,7 +9,7 @@ slides <- list.files("slides", "*.qmd", full.names = T, recursive = T)
 code_files <- str_replace_all(slides, "slides/", "code/") |>
   str_replace_all("\\.qmd$", ".R")
 
-unlink(list.files("code", "*.R", full.names = T))
+unlink(list.files("code", "^\\d-*.R", full.names = T))
 purrr::map2(slides, code_files, qmd_to_r_script)
 
 common_to_all <- c(
