@@ -42,7 +42,10 @@ corrgram(adelie,
 #| output-location: column
 # Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
 # This chunk takes some time to run, so evaluated off-line
-tcga <- data.table(read.csv(here("data/TCGA-PANCAN-HiSeq-801x20531/data.csv")))
+download.file("https://archive.ics.uci.edu/static/public/401/gene+expression+cancer+rna+seq.zip", here::here("data/TCGA-PANCAN-HiSeq-801x20531.tar.gz"), mode = "wb")
+# Untar into folder
+
+tcga <- tibble(read.csv(here("data/TCGA-PANCAN-HiSeq-801x20531/data.csv")))
 tcga_t <- t(as.matrix(tcga[,2:20532]))
 colnames(tcga_t) <- tcga$X
 tcga_t_pc <- prcomp(tcga_t, scale = FALSE)$x

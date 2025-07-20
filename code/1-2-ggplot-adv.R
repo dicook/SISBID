@@ -26,8 +26,8 @@ galah_call() |>
 monotremes <- galah_call() |>
   galah_identify(c("Ornithorhynchus", "Tachyglossidae")) |>
   galah_filter(year == 2024) |>   
-  select(scientificName, eventDate, basisOfRecord, 
-         decimalLongitude, decimalLatitude) |>
+  galah_select(scientificName, eventDate, basisOfRecord, 
+               decimalLongitude, decimalLatitude) |>
   atlas_occurrences()
 
 monotremes <- monotremes |> 
@@ -47,11 +47,6 @@ monotremes <- monotremes |>
     family == "Tachyglossus", "echidna",
                               "platypus"))
 save(monotremes, file="data/monotremes.rda")
-
-
-load(here::here("data/platypus.rda"))
-platydata <- platypus
-ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
 
 
 load(here::here("data/monotremes.rda"))
@@ -89,8 +84,8 @@ ggmap(oz) +
              aes(x=longitude, 
                  y=latitude, 
                  colour=common_name), 
-              alpha=0.1) +
-  scale_colour_brewer("", palette = "Dark2")
+              alpha=0.2) +
+  scale_color_manual(values = c("#e66100", "#5d3a9b"))
 
 #| output-location: column
 library(leaflet)
@@ -122,25 +117,6 @@ monotremes |>
   ggplot(aes(x=day, y=n)) +
     geom_point() +
     facet_wrap(~common_name)
-
-
-ggplot(data=platydata) +
-  geom_jitter(aes(x=eventDate, y=1), alpha = .2)
-
-
-platydata1900 <- platydata %>% 
-  filter(year>1900) %>%
-  count(year) 
-ggplot(data=platydata1900) +
-  geom_point(aes(x=year, y=n))
-
-
-
-
-# Check odd cases
-platydata %>% filter(latitude < (-50)) 
-# These just have the lat/long wrong
-platydata %>% filter(eventDate < ymd("1850-01-01")) 
 
 
 monotremes |>
