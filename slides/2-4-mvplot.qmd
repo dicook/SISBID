@@ -140,6 +140,7 @@ if (!file.exists(here("data", "TCGA-PANCAN-HiSeq-801x20531", "data.csv"))) {
 }
 
 tcga <- tibble(read.csv(here("data", "TCGA-PANCAN-HiSeq-801x20531", "data.csv")))
+
 tcga_t <- t(as.matrix(tcga[,2:20532]))
 colnames(tcga_t) <- tcga$X
 tcga_t_pc <- prcomp(tcga_t, scale = FALSE)$x
