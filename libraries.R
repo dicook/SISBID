@@ -1,5 +1,6 @@
 #library(tidyverse)
-library(rmarkdown) # to be able to knit a document
+# library(rmarkdown) # to be able to knit a document
+library(quarto)
 library(tidyr)
 library(dplyr)
 library(ggplot2)

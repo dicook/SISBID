@@ -1,23 +1,5 @@
 ---
 title: "Advanced plots and inference"
-<<<<<<< HEAD:slides/2-6-adv-graphics.qmd
-=======
-subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
-author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
-date: "07/23-25/2025"
-output:
-  xaringan::moon_reader:
-    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      incremental: true
-editor_options: 
-  chunk_output_type: console
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.6-adv-graphics/index.Rmd
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
