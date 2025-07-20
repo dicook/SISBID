@@ -1,35 +1,25 @@
 ---
 title: "Multivariate data plots"
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
+=======
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "07/23-25/2025"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 ---
 
-```{r echo = FALSE}
-knitr::opts_chunk$set(
-  echo=TRUE, 
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
-```
-
-```{r echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(lubridate)
-library(GGally)
-library(tourr)
-library(broom)
-library(plotly)
-library(palmerpenguins)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 ```
 
 ## Your turn {.inverse}
@@ -62,12 +52,16 @@ The basic plot plot for multivariate data is a scatterplot matrix.
 
 Use the GGally package function `ggpairs`.
 
-```{r scatterplot matrix, fig.show='hide'}
+```{r scatterplot matrix, echo=TRUE, eval=FALSE}
 # Make a simple scatterplot matrix of the new penguins data
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 penguins <- penguins %>% 
   filter(!is.na(bill_length_mm)) 
 ggpairs(penguins, 
         columns=c(3:6))
+=======
+ggpairs(penguins_std, columns=c(2:5)) 
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 ```
 
 *What do we learn?*
@@ -90,10 +84,17 @@ ggpairs(penguins,
 
 ```{r scatterplot matrix with colour, echo=TRUE, fig.show='hide'}
 # Re-make mapping colour to species (class)
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 ggpairs(penguins, 
         columns=c(3:6), 
         ggplot2::aes(
           colour=species))
+=======
+ggpairs(penguins_std, columns=c(2:5), 
+        ggplot2::aes(colour=species)) +
+  scale_color_viridis_d(option = "plasma", begin=0.2, end=0.8) +
+  scale_fill_viridis_d(option = "plasma", begin=0.2, end=0.8)
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 ```
 
 *What do we learn?*
@@ -112,13 +113,18 @@ ggpairs(penguins,
 ::: column
 Only show correlation. `r anicon::nia("This is dangerous!", animate="float")`
 
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 Only appropriate if correlation is a good summary of the association.
+=======
+.pull-left[
+Only show correlation. `r anicon::nia("This is dangerous!", animate="float")` Only appropriate if correlation is a good summary of the association, or if you have a large number of variables that you need to scan quickly.
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 
 ```{r correlation heatmap, echo=TRUE, fig.show='hide'}
 # Look at one species only
-adelie <- penguins %>% 
-  filter(species == "Adelie") %>%
-  select(bill_length_mm:body_mass_g)
+adelie <- penguins_std |> 
+  filter(species == "Adelie") |>
+  select(bl:bm)
 ggcorr(adelie)
 ```
 :::
@@ -139,8 +145,6 @@ ggcorr(adelie)
 - useful for a broad overview IF correlation is a good summary
 
 ```{r corrgram, echo=TRUE, fig.show='hide'}
-# install.packages("corrgram")
-library(corrgram)
 corrgram(adelie, 
   lower.panel=
     corrgram::panel.ellipse)
@@ -155,7 +159,34 @@ The `corrgram` package has numerous scatterplot matrix capabilities.
 :::
 ::::
 
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 ## Generalized pairs plot {.smaller}
+=======
+---
+# Large sample size
+
+.pull-left[
+```{r hexbin scatterplot, fig.width=6, fig.height=6, eval=FALSE}
+# Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
+# This chunk takes some time to run, so evaluated off-line
+tcga <- data.table(read.csv(here("data/TCGA-PANCAN-HiSeq-801x20531/data.csv")))
+tcga_t <- t(as.matrix(tcga[,2:20532]))
+colnames(tcga_t) <- tcga$X
+tcga_t_pc <- prcomp(tcga_t, scale = FALSE)$x
+ggally_hexbin <- function (data, mapping, ...)  {
+    p <- ggplot(data = data, mapping = mapping) + geom_hex(binwidth=20, ...)
+    p
+}
+ggpairs(tcga_t_pc, columns=c(1:4),
+        lower = list(continuous = "hexbin")) +
+  scale_fill_gradient(trans="log", 
+    low="#E24C80", high="#FDF6B5")
+```
+]
+.pull-right[
+![](ggpairs-hexbin.png)
+]
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 
 The pairs plot can also incorporate non-numerical variables, and different types of two variable plots.
 
@@ -165,10 +196,28 @@ The pairs plot can also incorporate non-numerical variables, and different types
 ```{r generalised pairs plot, fig.show='hide'}
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 australia_PISA2012 <- australia_PISA2012 %>%
   mutate(across(desk:dishwasher, factor))
 australia_PISA2012 %>% 
   filter(!is.na(dishwasher)) %>% 
+=======
+australia_PISA2012 <- australia_PISA2012 |>
+  mutate(desk = factor(desk), 
+         room = factor(room),
+         study = factor(study), 
+         computer = factor(computer),
+         software = factor(software), 
+         internet = factor(internet),
+         literature = factor(literature), 
+         poetry= factor(poetry),
+         art = factor(art), 
+         textbook = factor(textbook),
+         dictionary = factor(dictionary),
+         dishwasher = factor(dishwasher))
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
   ggpairs(columns=c(3, 15, 16, 21, 26))
 ```
 :::
@@ -184,11 +233,18 @@ australia_PISA2012 %>%
 ```{r generalised pairs plot enhance plots, echo=TRUE, fig.width=6, fig.height=6}
 #| output-location: 'column'
 # Modify the defaults, set the transparency of points since there is a lot of data
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 australia_PISA2012 %>% 
   filter(!is.na(dishwasher)) %>% 
   ggpairs(
     columns=c(3, 15, 16, 21, 26), 
     lower = list(continuous = wrap("points", alpha=0.05)))
+=======
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
+  ggpairs(columns=c(3, 15, 16, 21, 26), 
+          lower = list(continuous = wrap("points", alpha=0.05)))
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 ```
 
 ## Customized Generalized Pairs Plots
@@ -204,8 +260,8 @@ my_fn <- function(data, mapping, method="loess", ...){
 ```
 
 ```{r generalised pairs plot enhance more, echo=TRUE, fig.show='hide'}
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
           lower = list(continuous = my_fn))
 
@@ -224,8 +280,8 @@ australia_PISA2012 %>%
 
 ::: column
 ```{r ref.label='generalised pairs plot enhance more', echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"}
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
           lower = list(continuous = my_fn))
 
@@ -245,8 +301,8 @@ countdown::countdown(8,0)
 ```
 
 ```{r echo=FALSE, eval=FALSE}
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
           lower = list(combo = "box_no_facet"),
           upper = list(continuous = "density"))
@@ -256,6 +312,7 @@ australia_PISA2012 %>%
 
 <!-- An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables. -->
 
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 ```{r wrangle housing data and make a regression style pairs plot, out.width="100%", fig.width=8, fig.height=3}
 #| output-location: 'column'
 housing <- read_csv(here::here("data/housing.csv")) %>%
@@ -264,6 +321,15 @@ housing <- read_csv(here::here("data/housing.csv")) %>%
   filter(year == 2016) %>%
   filter(!is.na(bedroom2), !is.na(price)) %>%
   filter(bedroom2 < 7, bathroom < 5) %>%
+=======
+```{r wrangle housing data}
+housing <- read_csv(here::here("data/housing.csv")) |>
+  mutate(date = dmy(date)) |>
+  mutate(year = year(date)) |>
+  filter(year == 2016) |>
+  filter(!is.na(bedroom2), !is.na(price)) |>
+  filter(bedroom2 < 7, bathroom < 5) |>
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
   mutate(bedroom2 = factor(bedroom2), 
          bathroom = factor(bathroom)) 
 ggduo(housing[, c(4,3,8,10,11)], 
@@ -274,6 +340,7 @@ ggduo(housing[, c(4,3,8,10,11)],
                        alpha = 0.10)))
 ```
 
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 ## Big biological data
 
 ::: columns
@@ -316,10 +383,35 @@ ggplot(soybean_ir_sub,
 
 ::: column
 ```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE}
+=======
+---
+# Parallel coordinate plots
+
+.pull-left[
+```{r generalised pcp, echo=TRUE, eval=FALSE, fig.width=6, fig.height=6}
+penguins_std |>
+  pcp_select(species, bl:bm) |>
+  pcp_arrange() |>
+  ggplot(aes_pcp()) +
+    geom_pcp(aes(colour=species)) +
+    geom_pcp_boxes() +
+    geom_pcp_labels() +
+    scale_colour_discrete_divergingx(palette = "Zissou 1") +
+    theme_pcp() +
+    theme(legend.position = "none")
+```
+
+Axes are parallel, observations are connecting lines.
+
+]
+.pull-right[
+```{r ref.label='generalised pcp', echo=FALSE, eval=TRUE, fig.width=6, fig.height=6}
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 ```
 :::
 ::::
 
+<<<<<<< HEAD:slides/2-4-mvplot.qmd
 ## `bigPint`
 
 
@@ -390,10 +482,66 @@ ret[[1]]
 ```
 :::
 ::::
+=======
+---
+# PCP: large sample size
+
+.pull-left[
+```{r organise data pcp, eval=FALSE, echo=FALSE}
+tcga_t_pc_pcp <- tcga_t_pc |>
+  as_tibble() |>
+  pcp_select(PC1:PC10) |>
+  pcp_scale() |>
+  pcp_arrange() 
+probs <- c(0.025, 0.25, 0.75, 0.975)
+
+dframe <-
+  tcga_t_pc_pcp |>
+  summarise(
+    value = quantile(pcp_y, prob = probs),
+    quantile = probs,
+    lower = probs < 0.5,
+    level = round(10 * abs(quantile - 0.5), digits = 1)
+  ) |>
+  select(-quantile) |>
+  mutate(lower = factor(lower, labels = c("upper", "lower"))) |>
+  pivot_wider(names_from = "lower", values_from = "value") |>
+  ungroup() |>
+  mutate(
+    level = ifelse(level > 2.5, "Inner 95%", "Inner 50%"),
+    level = factor(level, levels = c("Inner 50%", "Inner 95%"))
+  )
+
+tcga_t_pc_pcp_sub <- tcga_t_pc_pcp |>
+  slice_head(n=5)
+```
+
+```{r ribbon pcp, eval=FALSE}
+ggplot() +
+    geom_ribbon(data = dframe, 
+              aes(x=pcp_x, ymin = lower, ymax = upper,
+              group = level), alpha=0.5) +
+    geom_pcp_axes(data=tcga_t_pc_pcp_sub, 
+             aes_pcp()) +
+    geom_pcp_boxes(data=tcga_t_pc_pcp_sub, 
+             aes_pcp(), boxwidth = 0.1) +
+    geom_pcp(data=tcga_t_pc_pcp_sub, 
+             aes_pcp(), colour="orange") +
+    theme_pcp()
+```
+
+With large data, aggregate to get an overview, and select some observations to show.
+
+]
+.pull-right[
+![](ggpcp-ribbon.png)
+]
+
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.4-mvplot/index.Rmd
 
 ## Resources {.smaller}
 
-- [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
+- [Cook and Laa (2024)](https://dicook.github.io/mulgar_book/)
 - Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
 - [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
 - Eunkyung Lee [PPtreeViz](https://www.jstatsoft.org/article/view/v083i08)

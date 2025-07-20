@@ -2,55 +2,27 @@
 title: "A Grammar of Graphics"
 ---
 
-```{r echo=FALSE}
-knitr::opts_chunk$set(
-  echo=FALSE,
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE, 
-  collapse = TRUE,
-  comment = "",
-  out.width = "80%", 
-  fig.height = 6,
-  fig.width = 10,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
-```
-
-```{r load libraries, echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(ggmap)
-library(here)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 ```
 
 ## TWO MINUTE CHALLENGE `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` {.inverse}
 
-<br/>
-
 Write down as many types of data plots that you can think of.
-
-<br/>
 
 ::: columns
 ::: {.column width="30%"}
 <img src="images/mentimeter_qr_code.png" width="100%">
 :::
 ::: {.column width="70%"}
-Go to menti.com and enter code 2821 2021
+[Go to menti.com and enter code 2979 2396](https://www.menti.com/al44t5ak5nwj)
 
 `r emo::ji("clock")` `r anicon::nia("You've got 2 minutes!", colour="#FA700A", anitype="hover")`
 :::
 :::
----
 
-<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
-
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/aljjh6s6sxadt9kzy8uqz2824d3ezhuo/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
 ## What is a data plot? {.smaller}
 
@@ -105,24 +77,24 @@ ggplot(data = <DATA>) +
 
 ## Example: Tuberculosis data
 
-TB case notifications data from [WHO](http://www.who.int/tb/country/data/download/en/).    
+(Current) TB case notifications data from [WHO](http://www.who.int/tb/country/data/download/en/).    
 Also available via R package [`getTBinR`](https://github.com/seabbs/getTBinR).
 
-```{r read TB data and wrangle and subset to USA}
-tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>% 
-  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  pivot_longer(new_sp_m04:new_sp_fu, names_to="stuff", values_to="count") %>%
-  separate(stuff, c("stuff1", "stuff2", "sexage")) %>%
-  dplyr::select(-stuff1, -stuff2) %>%
+```{r read and wrangle TB data, echo=FALSE}
+tb <- readr::read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |>
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
+  pivot_longer(new_sp_m04:new_sp_fu, names_to="stuff", values_to="count") |>
+  separate(stuff, c("stuff1", "stuff2", "sexage")) |>
+  dplyr::select(-stuff1, -stuff2) |>
   mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
+         age=substr(sexage, 2, length(sexage))) |>
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb %>% 
-  filter(country == "United States of America") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013) %>%
+tb_us <- tb |> 
+  filter(country == "United States of America") |>
+  filter(!(age %in% c("04", "014", "514", "u"))) |>
+  filter(year > 1996, year < 2013) |>
   mutate(
     age_group = factor(age, labels = c("15-24", "25-34", "35-44", "45-54", "55-64", "65+"))
   )
@@ -137,15 +109,18 @@ ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
 
 ## **TWO MINUTE CHALLENGE** `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")`  {.inverse}
 
-Go to menti.com and enter code 2821 2021
+Go to menti.com and enter code 2979 2396
+
+
 
 - What do you learn about tuberculosis incidence in the USA from this plot?
 - Give three changes to the plot that would improve it. 
 
+## Results `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")`
 
----
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/aljjh6s6sxadt9kzy8uqz2824d3ezhuo/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
-<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+
 
 ::: notes
 - Incidence is declining, in all age groups, except possibly 15-24
@@ -266,7 +241,18 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 - What are the pros, and cons, of using the pie chart for this data?
 - Would it be better if the pies used age for the segments, and facetted by year (and sex)?
 
-Go to menti.com and enter code 2821 2021
+Go to menti.com and enter code 2979 2396
+
+
+```{r eval=FALSE, out.width="60%", echo=FALSE, fig.height=5}
+# age for segments, facet by year and sex
+ggplot(tb_us, aes(x = 1, y = count, fill = factor(age_group))) + #<<
+  geom_bar(stat="identity", position="fill") + 
+  facet_grid(sex~year) + #<<
+  scale_fill_viridis_d("", option="inferno") +
+  coord_polar(theta = "y") +
+  theme(legend.position="bottom")
+```
 
 
 ## Line plot vs barchart
@@ -275,7 +261,7 @@ Go to menti.com and enter code 2821 2021
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  scale_colour_manual("Sex", values = c("#DC3220", "#005AB5")) +
   ylim(c(0,NA))
 ```
 
@@ -287,9 +273,8 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
 ## Line plot vs barchart
 
 ```{r use a line plot of proportions, fig.height=3}
-tb_us %>% 
-  group_by(year, age_group) %>% 
-  summarise(p = count[sex=="m"]/sum(count)) %>%
+tb_us |> group_by(year, age_group) |> 
+  summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="grey50", linewidth=2) +
   geom_line() + geom_point() +

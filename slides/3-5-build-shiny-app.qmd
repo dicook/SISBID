@@ -1,21 +1,25 @@
 ---
 title: "Polish and share your own shiny app"
+<<<<<<< HEAD:slides/3-5-build-shiny-app.qmd
+=======
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "07/23-25/2025"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.5-build_a_shiny_app/index.Rmd
 ---
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "#>",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
-library(ggplot2)
-library(shiny)
-library(bslib)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 ```
 
 ## Your turn {.inverse}

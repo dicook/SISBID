@@ -1,20 +1,28 @@
 ---
 title: "Building interactive documents with Rmarkdown tools, learnr, flexdashboard"
+<<<<<<< HEAD:slides/_3-6-interactive-document.qmd
+=======
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "07/23-25/2025"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.6-make_your_own_interactive_document/index.Rmd
 ---
 
-```{r echo = FALSE}
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "#>",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 ```
 
+<<<<<<< HEAD:slides/_3-6-interactive-document.qmd
 ```{r load packages, echo=FALSE}
 #library(tidyverse)
 library(ggplot2)
@@ -26,6 +34,9 @@ library(gganimate)
 ## Data dashboard {.inverse}
 
 A dashboard is a `quarto` format `shiny` app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
+=======
+class: inverse middle
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.6-make_your_own_interactive_document/index.Rmd
 
 ## Data dashboard 
 

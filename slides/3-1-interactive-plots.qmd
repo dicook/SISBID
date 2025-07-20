@@ -1,20 +1,28 @@
 ---
 title: "Interactive graphics"
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
+=======
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "07/23-25/2025"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ---
 
-```{r echo = FALSE}
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "#>",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 ```
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r echo=FALSE}
 #library(tidyverse)
 library(tidyr)
@@ -26,6 +34,22 @@ library(gganimate)
 library(datasauRus)
 ```
 
+=======
+```{css, echo=FALSE}
+/* custom.css */
+.left-code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+```
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 # Choices of packages for interactive graphics
 
@@ -34,27 +58,23 @@ library(datasauRus)
 - `leaflet`: (RStudio) allows to make interactive maps. Has been picking up users and has developed a stable user base.
 - `ggvis`: both static and interactive graphics, work on it has stalled ... (Wickham)
 - `animint2`: interactive, linked graphics with ggplot2 syntax (Toby Hocking)
--  `rCharts`, `rbokeh`, `gridSVG`, `epivizr`, `cranvas`
+-  `rCharts`, `rbokeh`, `gridSVG`, `epivizr`, `cranvas` previous approaches to packages with interactive graphics
+- see also https://r-graph-gallery.com/interactive-charts.html for additional packages (more specific)
 
 ## Interactive Graphics Packages
 
-```{r, include = F}
-# Download cran data from metacran
-library(cranlogs)
-library(lubridate)
-```
 ```{r, include=F, eval=FALSE}
 cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
-                           from = "2019-01-01", to = "2023-06-30")
-write_csv(cran_dls, file = "../../data/package-info-Jul-2023.csv")
+                           from = "2018-01-01", to = "2024-07-27")
+write_csv(cran_dls, file = here("data/package-info-Jul-2024.csv"))
 ```
 
 ```{r, echo=FALSE, fig.width=10, fig.height = 8}
-cran_dls <- read_csv(here::here("data/package-info-Jul-2023.csv"))
+cran_dls <- read_csv(here::here("data/package-info-Jul-2024.csv"))
 cran_summary <- cran_dls %>%
   mutate(date = ymd(date) %>% floor_date("week")) %>%
   group_by(package, date) %>%
-  summarise(totaldown = sum(count))
+  summarise(totaldown = sum(count)) 
 
 label_summary <- cran_summary %>%
   ungroup() %>%
@@ -77,33 +97,55 @@ cran_summary %>%
 
 ## plotly
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 The `plotly` package in R has two interfaces:
 
 - plot specification via plotly
 - translating `ggplot2` plots and adding interactive elements
 
 Plotly creates interactive plots with javascript.
+=======
+.left-code[
+The `plotly` package in R builds on the `ggplot2` package, adding interactive elements to these plots. It translates plots to javascript.
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 ```{r plotly}
-library(plotly)
-plot_ly(data = economics, x = ~date, y = ~unemploy / pop)
+plot_ly(data = penguins_std, x = ~fl, y = ~bl, 
+  color = ~species, size = 3, width=420, height=300)
 ```
+]
+.right-plot[
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ## Or using ggplot2
+=======
+Or using `ggplot2`
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 ```{r}
-gg <- ggplot(data=economics, aes(x = date, y = unemploy / pop)) +  
-        geom_point() + geom_line()
-
-ggplotly(gg)
+gg <- ggplot(data=penguins_std, aes(x = fl, y = bl, colour = species)) +  
+  geom_point(alpha=0.5) + geom_smooth(method = "lm", se=F)
+ggplotly(gg, width=390, height=300)
 ```
+]
 
 ## Scatterplot(ly) matrix 
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r scatterplotly, eval=T, echo=T}
 #| output-location: column
 library(GGally)
 p <- ggpairs(economics[,3:6])
+=======
+.pull-left[
+```{r scatterplotly, fig.show='hide'}
+p <- ggpairs(penguins_std, columns = 2:5, 
+             ggplot2::aes(colour = species))
+```
+]
+.pull-right[
+```{r}
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ggplotly(p, width=450, height=450)
 ```
 
@@ -117,8 +159,11 @@ data(canada.cities, package = "maps")
 viz <- ggplot(canada.cities, aes(long, lat)) +
   borders(regions = "canada") +
   coord_equal() +
-  geom_point(aes(text = name, size = log2(pop)), colour = "red", alpha = 1/4)
+  geom_point(aes(text = name, size = log2(pop)), 
+             colour = "red", alpha = 1/4) +
+  theme_map()
 ```
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 
 Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
 :::
@@ -128,6 +173,20 @@ Not all `ggplot2` geoms are supported in plotly, but when they are, they just wo
 ggplotly(viz)
 ```
 :::
+=======
+
+Not all `ggplot2` geoms are supported in plotly, but when they are, they just work out of the box
+
+]
+
+.pull-right[
+```{r out.width="100%"}
+#viz
+ggplotly(viz)
+```
+]
+
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 
 
@@ -180,7 +239,7 @@ highlight(gg)
 
 ## Animations
 
-- `gganimate` (Lin-Pederson) allows to make and save animations
+- `gganimate` (Lin-Pederson) allows to make and save animations: [gganimate cheat sheet](https://rstudio.github.io/cheatsheets/gganimate.pdf)
 - Animations are different from interactive graphics in that the viewer does not have any control
 - useful for different important stages of a visualization (e.g. time) and to keep track of how different visualizations are related 
 - [can also be used in talks ]{.fragment}
@@ -188,9 +247,6 @@ highlight(gg)
 ## An example animation
 
 ```{r, echo=FALSE, fig.width = 8, fig.height = 6}
-library(gapminder)
-library(gganimate)
-
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors, guide=FALSE) +
@@ -228,7 +284,11 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 ## A simple example
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 2. add the mapping
+=======
+#### 2. Add the mapping
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 ```{r plot2, eval=T, echo=T}
 #| output-location: column
@@ -244,8 +304,15 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 3. Add a graphical primitive, let's do a line 
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r plot3, eval=T, echo=T}
 #| output-location: column
+=======
+#### 3. Add a graphical primitive -- let's do a line 
+
+.left-code[
+```{r plot3, eval=FALSE, echo=TRUE}
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() #<<
@@ -256,7 +323,11 @@ ggplot(economics) +
 Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 :::
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ## A simple example
+=======
+#### 4. Just one extra line of code turns this into an animation!
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 
 4. Just one extra line turns this into an animation!
@@ -277,9 +348,15 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 ## A not-so-simple example, the datasaurus dozen
 Again, we first pass in the dataset to ggplot
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ```{r plot5, eval=T, echo=T}
 #| output-location: column
 ggplot(datasaurus_dozen)#<<
+=======
+.left-code[
+```{r plot5, eval=FALSE, echo=TRUE}
+ggplot(datasaurus_dozen) #<<
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 ```
 
 ## A not-so-simple example, the datasaurus dozen
@@ -288,7 +365,7 @@ For each dataset we have x and y values, in addition we can map dataset to color
 ```{r plot6, eval=T, echo=T}
 #| output-location: column
 ggplot(datasaurus_dozen) +
-  aes(x, y, color=dataset)#<<
+  aes(x, y, color=dataset) #<<
 ```
 
 ## A not-so-simple example, the datasaurus dozen
@@ -311,7 +388,7 @@ We can use facets to split up by dataset, revealing the different distributions
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() +
-  facet_wrap(~dataset)#<<
+  facet_wrap(~dataset) #<<
 ```
 
 ## A not-so-simple example, the datasaurus dozen
@@ -345,7 +422,31 @@ We control plot movement with (a grammar of animation):
 - Entrances/Exits: `enter_*()` and `exit_*()` define how new data should appear and how old data should disappear during the course of the animation.
 - Easing: `ease_aes()` defines how different aesthetics should be eased during transitions.
 
+<<<<<<< HEAD:slides/3-1-interactive-plots.qmd
 ## Your Turn {.inverse}
+=======
+#### Transitions: `transition_*()` defines which variable(s) should control the animation and how.
+
+--
+
+#### Views: `view_*()` defines how the scales in x and y change during the animation (fixed? re-scale?).
+
+--
+
+#### Shadows: `shadow_*()` defines how data from other points in time should be presented at any given point in time.
+
+--
+
+#### Entrances/Exits: `enter_*()` and `exit_*()` define how new data should appear and how old data should disappear during the course of the animation.
+
+--
+
+#### Easing: `ease_aes()` defines the pace of transitions.
+
+---
+class: inverse middle
+# Your Turn
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/3.1-interactive-plots/index.Rmd
 
 The gapminder example from the beginning has the static part shown below
 
@@ -354,8 +455,6 @@ Add animation parts! adding `transition_time(year)` results in the visualisation
 What other animation are helpful? What views do you want to set? Maybe a shadow looks interesting?
 
 ```{r fig.show='hide'}
-library(gapminder)
-
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors, guide=FALSE) +

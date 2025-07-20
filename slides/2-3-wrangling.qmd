@@ -1,21 +1,31 @@
 ---
 title: "Wrangling Data and Models"
+<<<<<<< HEAD:slides/2-3-wrangling.qmd
+=======
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "07/23-25/2025"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.3-wrangling/index.Rmd
 ---
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  cache = FALSE
-)
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 ```
 
 
+<<<<<<< HEAD:slides/2-3-wrangling.qmd
 ```{r load packages, echo = FALSE}
 #library(tidyverse)
 library(tidyr)
@@ -29,6 +39,9 @@ library(lme4)
 ```
 
 ## Outline
+=======
+# Outline
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.3-wrangling/index.Rmd
 
 - `broom`, `broom.mixed`: tidily extract elements from model summaries
 - `dplyr`:  motivation, functions, chaining
@@ -36,10 +49,16 @@ library(lme4)
 
  <img src="images/broom.png" width="10%" /><img src="images/dplyr.png" width="10%" /> 
 
-```{r setting up, echo=FALSE}
+```{r setting_up, echo=FALSE}
 load(here::here("data/french_fries.rda"))
 ```
+<<<<<<< HEAD:slides/2-3-wrangling.qmd
 ## Models and model output
+=======
+
+---
+# Models and model output
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.3-wrangling/index.Rmd
 
 Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
 
@@ -47,7 +66,7 @@ e.g. fit french fry rating with respect to all designed main effects:
 
 ```{r models and model output}
 
-ff_long <- french_fries %>% pivot_longer(potato:painty, names_to = "type", values_to = "rating")
+ff_long <- french_fries |> pivot_longer(potato:painty, names_to = "type", values_to = "rating")
 ff_lm <- lm(rating~type+treatment+time+subject, 
 data=ff_long)
 ```
@@ -105,8 +124,7 @@ ggplot(ff_lm_all, aes(x=.fitted, y=.resid)) + geom_point()
 Add random intercepts for each subject
 
 ```{r add random intercepts for each subject, results='hide'}
-library(lme4)
-fries_lmer <- lmer(rating~type+treatment+time+subject + ( 1 | subject ), 
+fries_lmer <- lmer(rating~type+treatment+time + ( 1 | subject ), 
 data = ff_long)
 ```
 
@@ -152,11 +170,15 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 ## Filter
 
 select a subset of the observations (horizontal selection)
+<<<<<<< HEAD:slides/2-3-wrangling.qmd
 
 ```{r select a subset of the observations}
+=======
+```{r select_a_subset_of_the_observations}
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.3-wrangling/index.Rmd
 load(here::here("data/french_fries.rda"))
-french_fries %>%
-    filter(subject == 3, time == 1)
+french_fries |>
+    filter(subject == 3, time == 1) #<<
 ```
 
 ## Arrange
@@ -164,34 +186,36 @@ french_fries %>%
 order the observations (hierarchically)
 
 ```{r order the observations}
-french_fries %>%
-    arrange(desc(rancid)) %>%
-    head
+french_fries |>
+    arrange(desc(rancid)) |> #<<
+    head()
 ```
 
 ## Select
 
 select a subset of the variables (vertical selection)
 ```{r select a subset of the variables}
-french_fries %>%
-    select(time, treatment, subject, rep, potato) %>%
-    head
+french_fries |>
+    select(time, treatment, subject, rep, potato) |> #<<
+    head()
 ```
 
 ## Summarise
 
 summarize observations into a (set of) one-number statistic(s):
 ```{r summarize observations into one-number statistic}
-french_fries %>%
-    summarise(mean_rancid = mean(rancid, na.rm=TRUE), 
-              sd_rancid = sd(rancid, na.rm = TRUE))
+french_fries |>
+    summarise( #<<
+      mean_rancid = mean(rancid, na.rm=TRUE), 
+      sd_rancid = sd(rancid, na.rm = TRUE)
+      ) #<<
 ```
 
 ## Summarise and group_by
 
 ```{r summarise and group_by}
-french_fries %>%
-    group_by(time, treatment) %>%
+french_fries |>
+    group_by(time, treatment) |>
     summarise(mean_rancid = mean(rancid), sd_rancid = sd(rancid))
 ```
 
@@ -216,32 +240,38 @@ To check this we want to tabulate the number of records for each subject, time a
 
 How many values do we have for each subject? Check the help for function `?n`
 
+<<<<<<< HEAD:slides/2-3-wrangling.qmd
 `r countdown::countdown(5)`
 
 ## French Fries - completeness
+=======
+`r countdown::countdown(2)`
+---
+# French Fries - completeness
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.3-wrangling/index.Rmd
 
 `n()`
 
 ```{r checking design completeness}
-french_fries %>% 
-  group_by(subject) %>% 
+french_fries |> 
+  group_by(subject) |> 
   summarize(n = n()) 
 ```
 
 ## Other nice short cuts 
 
-instead of `group_by(subject) %>% summarize(n = n())` we can use:
+instead of `group_by(subject) |> summarize(n = n())` we can use:
 
-- `group_by(subject) %>% tally()`
+- `group_by(subject) |> tally()`
 - `count(subject)`
 
 ## Counts for subject by time
 
 ```{r counts for subject by time}
-french_fries %>% 
-  na.omit() %>%
-  count(subject, time) %>%
-  spread(time, n)
+french_fries |>
+  na.omit() |>
+  count(subject, time) |>
+  pivot_wider(names_from="time", values_from="n")
 ```
 
 ## How do scores change over time?
@@ -266,8 +296,8 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
 Get summary of ratings over replicates and connect the dots for a picture as below:
 
 ```{r echo=FALSE, fig.width=12, fig.height=9, out.width="60%"}
-ff_av <- ff_long %>% 
-  group_by(subject, time, type, treatment) %>%
+ff_av <- ff_long |> 
+  group_by(subject, time, type, treatment) |>
   summarise(rating=mean(rating))
 
 ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) + 
@@ -280,7 +310,7 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
 ## References 
 
 
-- [posit cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+- [Posit cheatsheets](https://posit.co/resources/cheatsheets/)
 - [Wickham (2007) Reshaping data](https://www.jstatsoft.org/article/view/v021i12)
 - [broom vignettes, David Robinson](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
 - [Wickham (2011) Split-Apply-Combine](https://www.jstatsoft.org/article/view/v040i01)

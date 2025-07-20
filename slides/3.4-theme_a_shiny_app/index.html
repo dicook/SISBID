@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Theme a shiny app</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Di Cook (dicook@monash.edu)   Heike Hofmann (hhhofmann4@unl.edu)   Susan Vanderplas (susan.vanderplas@unl.edu)" />
+    <script src="index_files/header-attrs-2.29/header-attrs.js"></script>
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/countdown-0.5.0/countdown.css" rel="stylesheet" />
+    <script src="index_files/countdown-0.5.0/countdown.js"></script>
+    <link rel="stylesheet" href="myremark.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Theme a shiny app
+]
+.subtitle[
+## SISBID 2025 <br> <a href="https://github.com/dicook/SISBID" class="uri">https://github.com/dicook/SISBID</a>
+]
+.author[
+### Di Cook (<a href="mailto:dicook@monash.edu" class="email">dicook@monash.edu</a>) <br> Heike Hofmann (<a href="mailto:hhhofmann4@unl.edu" class="email">hhhofmann4@unl.edu</a>) <br> Susan Vanderplas (<a href="mailto:susan.vanderplas@unl.edu" class="email">susan.vanderplas@unl.edu</a>)
+]
+.date[
+### 07/23-25/2025
+]
+
+---
+
+
+
+
+# Theming your Shiny App
+
+- `bslib` has many options available for theming and customizing your app &lt;br/&gt;&lt;br/&gt;
+- We'll cover the easily available options here&lt;br/&gt;&lt;br/&gt;
+    - Exponentially more powerful with CSS and a bit of tinkering
+
+---
+# Preset Themes
+.pull-left[
+- Bootswatch provides preset themes
+- `bs_themer()` lets you choose interactively
+
+.center.large[`bs_themer.R`]
+].pull-right[
+.panelset.sideways[
+.panel[.panel-name[default]
+![](bs_themer.png)
+]
+.panel[.panel-name[flatly]
+![](bs_themer_flatly.png)
+]
+.panel[.panel-name[darkly]
+![](bs_themer_darkly.png)
+]
+]
+]
+
+---
+class: inverse middle
+# Your Turn
+
+Run the code in `bs_themer.R` and pick a theme you like. 
+
+Get the console output corresponding to that theme and modify `bs_themed.R` to use your theme code.
+
+Hint: Use the `theme = ...` argument in one of the `page_xxx` functions.
+
+
+<div class="countdown" id="timer_5b252290" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+# Customizing Your Navbar
+
+- You may want to add a logo to your title area
+- pictures should be placed in the `www/` folder
+
+.pull-left[
+
+``` r
+title = div(
+  img(src = "wave.gif", width = "40px"),
+  img(src = "globe.png", width = "40px"),
+  "Hello World", style = "display: inline;"),
+```
+].pull-right[
+
+![](title_image.png)
+
+]
+
+---
+# Adding Icons
+
+- You can add icons to your `nav_panels()` with the `icon` argument
+    - [Bootstrap Icons](https://icons.getbootstrap.com/) 
+    - Match the version of Bootstrap your app uses
+    
+
+.pull-left[
+
+``` r
+nav_panel(
+  title = "Dashboard", body, 
+  icon = bs_icon("bar-chart", a11y = "deco") 
+  # marks icon as decorative for screen readers
+),
+```
+].pull-right[
+![](navbar-icon.png)
+]
+
+---
+class: inverse middle
+# Your Turn
+
+Customize the title and icons on the `nav_panels` in `title_customization.R`.
+
+Choose appropriate icons and decide if they are decorative or semantic. 
+
+<div class="countdown" id="timer_903b934c" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+# Change the width of the sidebar
+
+
+``` r
+side &lt;- sidebar(
+  width = "20%",
+  h2("Inputs"),
+  sliderInput(
+    "mpg", label = "MPG range",
+    min = min(floor(mtcars$mpg), na.rm = T),
+    max = max(ceiling(mtcars$mpg), na.rm = T),
+    step = 1, value = range(mtcars$mpg))
+)
+```
+
+.panelset.sideways[
+.panel[.panel-name[10%]
+![](sidebar-10.png)
+]
+.panel[.panel-name[20%]
+![](sidebar-20.png)
+]
+.panel[.panel-name[100px]
+![](sidebar-100px.png)
+]
+.panel[.panel-name[100px (small window)]
+![](sidebar-100px-2.png)
+]
+]
+
+
+
+---
+# Share and share alike
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "ratio": "16:9",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 ---
 title: "Touring multivariate data"
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ---
 
 ```{r echo = FALSE}
@@ -69,6 +70,50 @@ ggplot(penguins,
 ```
 :::
 :::
+=======
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
+author: "Di Cook (dicook@monash.edu) <br> Heike Hofmann (hhofmann4@unl.edu) <br> Susan Vanderplas (susan.vanderplas@unl.edu) "
+date: "07/23-25/2025"
+output:
+  xaringan::moon_reader:
+    css: ["default", "myremark.css"]
+    self_contained: false
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
+```
+
+# Pairwise plots
+
+.pull-left[
+
+
+
+```{r scatterplot matrix, echo=FALSE, eval=TRUE, fig.width=6, fig.height=6}
+# Make a simple scatterplot matrix of the new penguins data
+ggpairs(penguins_std, columns=c(2:5), 
+        ggplot2::aes(colour=species)) +
+  scale_color_discrete_divergingx(palette = "Zissou 1") +
+  scale_fill_discrete_divergingx(palette = "Zissou 1")
+```
+
+
+]
+
+.pull-right[
+
+<br><br><br>
+What don't you see? Unless you have tours, you'll never know 🫣
+
+]
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 
 
 ## Our first tour
@@ -82,6 +127,7 @@ ggplot(penguins,
 ::: columns
 ::: column
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ```{r}
 # Pre-process the data
 penguins_std <- penguins %>%
@@ -98,10 +144,12 @@ clrs <- scales::pal_hue()(3)
 col <- clrs[as.numeric(penguins_std$species)]
 ```
 
+=======
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```{r echo=TRUE, eval=FALSE}
 # Run the tour
 animate_xy(penguins_std[,2:5], 
-           col=col, 
+           col=penguins_std$species, 
            axes="off", 
            fps=15)
 ```
@@ -113,8 +161,13 @@ animate_xy(penguins_std[,2:5],
 # This code was used to make the animated gif
 set.seed(20200622)
 render_gif(penguins_std[,2:5], grand_tour(), 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
            display_xy(col=col, axes="bottomleft"), 
            "images/penguins2d.gif", frames=100, width=400, height=400)
+=======
+           display_xy(col=penguins_std$species, axes="bottomleft"), 
+           "penguins2d.gif", frames=100, width=300, height=300)
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ![](images/penguins2d.gif) 
@@ -138,7 +191,11 @@ render_gif(penguins_std[,2:5], grand_tour(),
 :::
 ::: column
 ```{r echo=FALSE, out.width="100%", fig.width=6, fig.height=6, fig.retina=5}
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ggscatmat(penguins[,c(1,3:6)], columns = 2:5, color="species") + 
+=======
+ggscatmat(penguins_std, columns = 2:5, color="species") +   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
   theme(legend.position="bottom")
 ```
 :::
@@ -201,11 +258,6 @@ Length and direction of axes relative to the  pattern of interest
 library(plotly)
 library(htmltools)
 
-# Standardise data
-scale2 <- function(x) {(x-mean(x))/sd(x)}
-penguins_s <- penguins %>% 
-  mutate_if(is.numeric, scale2)
-
 # Generate sequence of bases
 # set.seed(3)
 set.seed(4)
@@ -220,7 +272,7 @@ d <- dim(tour_path)
 # Make really big data of all projections
 penguins_d <- NULL; penguins_axes <- NULL
 for (i in 1:d[3]) {
-  fp <- as.matrix(penguins_s[,3:6]) %*% 
+  fp <- as.matrix(penguins_std[,2:5]) %*% 
     matrix(tour_path[,,i], ncol=d[2])
   fp <- tourr::center(fp)
   colnames(fp) <- c("d1", "d2")
@@ -234,11 +286,11 @@ for (i in 1:d[3]) {
 colnames(penguins_d)[3] <- "indx"
 colnames(penguins_axes)[5] <- "indx"
 
-df <- as_tibble(penguins_d) %>% 
-  mutate(species = rep(penguins_s$species, d[3]))
-dfaxes <- as_tibble(penguins_axes) %>%
-  mutate(labels=rep(colnames(penguins_s[,3:6]), d[3]))
-dfaxes_mat <- dfaxes %>%
+df <- as_tibble(penguins_d) |> 
+  mutate(species = rep(penguins_std$species, d[3]))
+dfaxes <- as_tibble(penguins_axes) |>
+  mutate(labels=rep(colnames(penguins_std[,2:5]), d[3]))
+dfaxes_mat <- dfaxes |>
   mutate(xloc = rep(max(df$d1)+1, d[3]*d[1]), 
          yloc=rep(seq(-1.2, 1.2, 0.8), d[3]), 
          coef=paste(round(dfaxes$d1, 2), ", ", 
@@ -252,12 +304,16 @@ p <- ggplot() +
                                   frame = indx), colour="grey70") +
        geom_point(data = df, aes(x = d1, y = d2, colour=species, 
                                  frame = indx), size=1) +
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
+=======
+         scale_colour_discrete_divergingx(palette = "Zissou 1") + 
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
        geom_text(data=dfaxes_mat, aes(x=xloc, y=yloc, 
                                   label=coef, frame = indx)) + 
        theme_void() +
        coord_fixed() +
   theme(legend.position="none")
-pg <- ggplotly(p, width=700, height=400) %>%
+pg <- ggplotly(p, width=700, height=400) |>
   animation_opts(200, redraw = FALSE, 
                  easing = "linear", transition=0)
 save_html(pg, file="html/penguins.html")
@@ -267,16 +323,28 @@ save_html(pg, file="html/penguins.html")
 
 ##
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ::: columns
 ::: column
 ```{r runthis1, fig.width=4, fig.height=4, out.width="90%"}
 ggplot(penguins, 
    aes(x=flipper_length_mm, 
        y=bill_depth_mm,
+=======
+.pull-left[
+```{r runthis13, fig.width=4, fig.height=4, out.width="90%"}
+ggplot(penguins_std, 
+   aes(x=fl, 
+       y=bd,
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
        colour=species,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
+=======
+    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
   theme(aspect.ratio=1,
   legend.position="bottom")
 ```
@@ -285,14 +353,25 @@ Gentoo from others in contrast of fl, bd
 :::
 ::: column
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ```{r runthis2, fig.width=4, fig.height=4, out.width="90%"}
 ggplot(penguins, 
    aes(x=bill_length_mm, 
        y=body_mass_g,
+=======
+```{r runthis14, fig.width=4, fig.height=4, out.width="90%"}
+ggplot(penguins_std, 
+   aes(x=bl, 
+       y=bm,
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
        colour=species,
        shape=species)) +
   geom_point(alpha=0.7, 
              size=2) +
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
+=======
+    scale_colour_discrete_divergingx(palette = "Zissou 1") + 
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
   theme(aspect.ratio=1,
   legend.position="bottom")
 ```
@@ -310,6 +389,7 @@ The tour can help to discover these, too. `r emo::ji("joy")`
 
 ## Other tour types
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 -[guided]{.orange}: follows the optimisation path for a projection pursuit index.
 -[little]{.orange}: interpolates between all variables. 
 -[local]{.orange}: rocks back and forth from a given projection, so shows all possible projections within a radius.
@@ -319,6 +399,16 @@ The tour can help to discover these, too. `r emo::ji("joy")`
 -[slice]{.orange}: use a section instead of a projection.
 -[sage]{.orange}: transform a 2D projection, to avoid data  piling.
 ## Guided tour 
+=======
+- .orange[guided]: follows the optimisation path for a projection pursuit index.
+- .orange[little]: interpolates between all variables. 
+- .orange[local]: rocks back and forth from a given projection, so shows all possible projections within a radius.
+- .orange[dependence]: two independent 1D tours
+- .orange[frozen]: fixes some variable coefficients, others vary freely. 
+- .orange[manual]: control coefficient of one variable, to examine the sensitivity of structure this variable. 
+- .orange[slice]: use a section instead of a projection.
+- .orange[sage]: transform a 2D projection, to avoid data  piling.
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 
 New target bases are chosen using a projection pursuit index function
 
@@ -330,6 +420,7 @@ F \text{ being orthonormal}$$
 - `LDA`/`PDA`: An index based on the linear discriminant dimension reduction (and penalised), optimised by projections where the named classes are most separated.
 
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ##
 
 ```{r eval=FALSE}
@@ -338,16 +429,35 @@ render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins_std$species)),
            display_xy(col=col, axes="bottomleft"), 
            "images/penguins2d_guided.gif", 
            frames=100, width=400, height=400, loop=FALSE)
+=======
+```{r eval=FALSE, echo=FALSE}
+set.seed(20200622)
+render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins_std$species)), 
+           display_xy(col=penguins_std$species, 
+                      axes="bottomleft"), 
+           "penguins2d_guided.gif", 
+           frames=45, width=300, height=300, loop=FALSE)
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ```{r runthis3, eval=FALSE}
 animate_xy(penguins_std[,2:5], grand_tour(),
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
            axes = "bottomleft", col=col)
 set.seed(2022)
 pp <- animate_xy(penguins_std[,2:5],
            guided_tour(lda_pp(penguins_std$species)),
            axes = "bottomleft", col=col)
 best_proj <- pp$basis[length(pp$basis)][[1]] # Save the final projection
+=======
+           axes = "bottomleft", col=penguins_std$species)
+animate_xy(penguins_std[,2:5], 
+           guided_tour(lda_pp(penguins_std$species)),
+           axes = "bottomleft", col=penguins_std$species)
+best_proj <- matrix(c(0.940, 0.058, -0.253, 0.767, 
+                      -0.083, -0.393, -0.211, -0.504), ncol=2,
+                    byrow=TRUE)
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ::: {.columns}
@@ -411,6 +521,20 @@ render_gif(data=penguins_std[,2:5],
            frames = 100, 
            width = 300, height = 300)
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
+=======
+```{r eval=FALSE, echo=FALSE}
+render_gif(penguins_std[,2:5], 
+           radial_tour(best_proj, mvar=3),
+           display_xy(col=penguins_std$species, axes="bottomleft"),
+           "penguins_manual_fl.gif", 
+           frames=200, width=300, height=300)
+render_gif(penguins_std[,2:5], 
+           radial_tour(best_proj, mvar=1),
+           display_xy(col=penguins_std$species, axes="bottomleft"),
+           "penguins_manual_bl.gif", 
+           frames=200, width=300, height=300)
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ```{r runthis4, eval=FALSE}
@@ -458,6 +582,7 @@ animate_xy(penguins_std[,2:5],
 
 ![](images/penguins_rt_bl.gif){width="90%"}
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 :::
 :::
 
@@ -473,6 +598,20 @@ render_gif(penguins_std[,2:5], local_tour(start=best_proj, 0.9),
 ```{r runthis5, eval=FALSE}
 animate_xy(penguins_std[,2:5], local_tour(start=best_proj, 0.9),
            axes = "bottomleft", col=col)
+=======
+```{r eval=FALSE, echo=FALSE}
+render_gif(penguins_std[,2:5], 
+           local_tour(start=best_proj, 0.9), 
+           display_xy(col=penguins_std$species, axes="bottomleft"), 
+           "penguins2d_local.gif", 
+           frames=200, width=300, height=300)
+```
+
+```{r runthis16, eval=FALSE, echo=FALSE}
+animate_xy(penguins_std[,2:5], 
+           local_tour(start=best_proj, 0.9),
+           axes = "bottomleft", col=penguins_std$species)
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ::: {.columns}
@@ -484,6 +623,7 @@ Rocks from and to a given projection, in order to observe the neighbourhood
 
 ::: {.column width="50%"}
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ![](images/penguins2d_local.gif){width="90%"}
 
 :::
@@ -500,6 +640,15 @@ library(geozoo)
 sphere2 <- sphere.solid.random(p=4)$points %>% as_tibble()
 animate_slice(sphere2, axes="bottomleft")
 ```
+=======
+]
+
+---
+class: inverse middle
+# Your turn
+
+Using the sample code from the tour package, check how many clusters in the example data.
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 
 ```{r eval=FALSE}
 render_gif(sphere2, grand_tour(), 
@@ -668,12 +817,16 @@ Using the sample code from the tour package, check how many clusters are in the 
 library(tourr)
 data(flea)
 ?animate_xy
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 # On a Mac, start quartz window with:  quartz()
 # On windows, start X11 window with:   X11()
 
 animate_xy(flea[, 2:7])
 # RStudio graphics windows: may want to reduce frame rate
 animate_xy(flea[, 2:7], fps=10)
+=======
+animate_xy(flea[, 1:6])
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ```{r echo=FALSE}
@@ -693,7 +846,7 @@ col <- clrs[as.numeric(penguins_std$species)]
 render_gif(    
   penguins_std[,2:5], 
   grand_tour(), 
-  display_xy(col=col, 
+  display_xy(col=penguins_std$species, 
              axes="bottomleft"), 
   gif_file="images/penguins2d.gif", 
   frames=100, 
@@ -708,6 +861,7 @@ render_gif(
 
 ## Saving and sharing: Animation
 
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ::: columns
 ::: column
 
@@ -793,6 +947,10 @@ htmlwidgets::saveWidget(penguins_tour,
 :::
 
 ## Saving and sharing: Single frame
+=======
+---
+# Saving and sharing: Single frame
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 
 
 ::: columns
@@ -809,7 +967,7 @@ p27 <- render_proj(penguins_std[,2:5],
 Draw it with ggplot, and possibly pass to plotly.
 
 ```{r echo=FALSE}
-p27$data_prj <- p27$data_prj %>%
+p27$data_prj <- p27$data_prj |>
   mutate(species = penguins_std$species)
 pg27 <- ggplot() +
   geom_path(data=p27$circle, aes(x=c1, y=c2)) +
@@ -819,6 +977,10 @@ pg27 <- ggplot() +
              aes(x=P1, y=P2,
                  colour=species,
                  label=obs_labels)) +
+<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
+=======
+  scale_colour_discrete_divergingx(palette = "Zissou 1") +
+>>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
   xlim(-1,1) + ylim(-1, 1) +
   ggtitle("Frame 27") +
   theme_bw() +
@@ -842,7 +1004,7 @@ ggplotly(pg27, width=450, height=450)
 
 ## Resources {.smaller}
 
-- [GGobi web site](http://www.ggobi.org), [ggobi book](http://www.ggobi.org/book)
+- [Cook and Laa (2025)](https://dicook.github.io/mulgar_book/)
 - Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
 - [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
 - Wickham et al (2011) [tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf) and the R package [tourr](https://cran.r-project.org/web/packages/tourr/index.html)

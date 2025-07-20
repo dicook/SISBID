@@ -10,7 +10,7 @@
 library(shiny)
 library(tidyverse)
 library(plotly)
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
+tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) %>%
     select(country, iso3, year, g_whoregion, new_sp_m04:new_sp_fu) %>%
     gather(stuff, count, new_sp_m04:new_sp_fu) %>%
     separate(stuff, c("stuff1", "stuff2", "sexage")) %>%

@@ -7,39 +7,9 @@ title-slide-attributes:
 ---
 
 
-```{r echo=FALSE}
-knitr::opts_chunk$set(
-  echo=FALSE,
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE, 
-  collapse = TRUE,
-  comment = "",
-  fig.height = 6,
-  fig.width = 10,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
-)
-```
-
-```{r load libraries, echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(stringr)
-library(RColorBrewer)
-library(gridExtra)
-library(dichromat)
-library(here)
-
-# just to make sure that we use the dplyr filter and select function when in doubt
-library(conflicted)
-
-conflict_prefer("select", "dplyr")
-conflict_prefer("filter", "dplyr")
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
 ```
 
 ## Game: Which plot wears it better? {.smaller}
@@ -48,25 +18,25 @@ conflict_prefer("filter", "dplyr")
 ::: column
 
 ```{r read TB data and wrangle and subset to USA}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
-  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
+tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
+  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
+  mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
   mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
+         age=substr(sexage, 2, length(sexage))) |>
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb %>% 
-  filter(country == "United States of America") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
+tb_us <- tb |> 
+  filter(country == "United States of America") |>
+  filter(!(age %in% c("04", "014", "514", "u"))) |>
   filter(year > 1996, year < 2013)
 ```
 
 Coming up: **2 different plots** of 2012 TB incidence in the USA, based on variables:
 
 ```{r}
-tb_us %>% filter(year == 2012) %>% dplyr::select(sex, age, count)
+tb_us |> filter(year == 2012) |> dplyr::select(sex, age, count)
 ```
 :::
 
@@ -86,7 +56,7 @@ Which plot makes this question easier to answer?
 
 ::: {layout-ncol=2}
 ```{r focus on one year gender side-by-side bars of males/females, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -95,7 +65,7 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 ```{r focus on one year age side-by-side bars of age group, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -116,10 +86,10 @@ What do we learn from each? What's the focus? What's easy? What's harder?
 
 `r anicon::nia("Write out a question that would be easier to answer from arrangement B.", animate="float")` 
 
-Go to www.menti.com and use the code 2821 2021.
+Go to www.menti.com and use the code 2979 2396. 
 :::
 ::: column
-<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/c7464477c3f1274f23886cf21c41ec89/ad3e75b80c75' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
 :::
 :::
@@ -144,7 +114,7 @@ Go to www.menti.com and use the code 2821 2021.
 On the next slide we have **two different plots** of TB incidence in the USA, based on three variables:
 
 ```{r}
-tb_us %>% select(year, sex, age, count) %>% head(10)
+tb_us |> select(year, sex, age, count) |> head(10)
 ```
 :::
 ::: column
@@ -222,8 +192,8 @@ countdown::countdown(1, 5)
 ```
 ::: {layout-ncol=2}
 ```{r use a line plot for proportions, fig.height=3}
-tb_us %>% group_by(year, age) %>% 
-  summarise(p = count[sex=="m"]/sum(count)) %>%
+tb_us |> group_by(year, age) |> 
+  summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="white", size=2) +
   geom_line() + geom_point() +
@@ -393,8 +363,6 @@ countdown::countdown(0, 50, right=50, bottom=0)
 ## Color blind-proofing
 
 ```{r using the dichromat package to check color blind appearance, echo=TRUE, fig.show='hide'}
-library(scales)
-library(dichromat)
 clrs <- hue_pal()(9)
 d + theme(legend.position = "none")
 clrs <- dichromat(hue_pal()(9))
@@ -488,7 +456,7 @@ Same proximity is used, but different geoms.
 :::
 ::: column
 ```{r side-by-side bars of males/females, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -497,7 +465,7 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 ```{r piecharts of males/females, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
@@ -518,7 +486,7 @@ Which is better to determine the relative ratios of ages by sex?
 :::
 ::: column
 ```{r side-by-side bars of age, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -527,7 +495,7 @@ tb_us %>% filter(year == 2012) %>%
 ```
 
 ```{r piecharts of age, fig.height=3}
-tb_us %>% filter(year == 2012) %>%
+tb_us |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~sex, ncol=6) +
