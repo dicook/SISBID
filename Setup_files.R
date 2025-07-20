@@ -9,8 +9,8 @@ slides <- list.files("slides", "*.qmd", full.names = T, recursive = T)
 code_files <- str_replace_all(slides, "slides/", "code/") |>
   str_replace_all("\\.qmd$", ".R")
 
-unlink(list.files("code", "^\\d-*.R", full.names = T))
-purrr::map2(slides, code_files, qmd_to_r_script)
+unlink(code_files)
+purrr::walk2(slides, code_files, qmd_to_r_script)
 
 common_to_all <- c(
   list.files("data/", full.names = T),
@@ -18,6 +18,8 @@ common_to_all <- c(
   list.files("slides/css", full.names = T),
   "slides/_metadata.yml"
 )
+
+big_data_file <- "data/TCGA-PANCAN-HiSeq-801x20531/data.csv.gz"
 
 
 # Create zip files

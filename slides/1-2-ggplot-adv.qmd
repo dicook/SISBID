@@ -53,8 +53,8 @@ galah_call() |>
 monotremes <- galah_call() |>
   galah_identify(c("Ornithorhynchus", "Tachyglossidae")) |>
   galah_filter(year == 2024) |>   
-  select(scientificName, eventDate, basisOfRecord, 
-         decimalLongitude, decimalLatitude) |>
+  galah_select(scientificName, eventDate, basisOfRecord, 
+               decimalLongitude, decimalLatitude) |>
   atlas_occurrences()
 
 monotremes <- monotremes |> 
@@ -76,13 +76,7 @@ monotremes <- monotremes |>
 save(monotremes, file="data/monotremes.rda")
 ```
 
-```{r load the platypus obervation data, echo=TRUE}
-load(here::here("data/platypus.rda"))
-platydata <- platypus
-ggplot(data=platydata) + geom_point(aes(x=longitude, y=latitude))
-```
-
-## Platypus in Australia
+## Monotremes in Australia
 
 ```{r Add some transparency to see density of locations, echo=TRUE, fig.width = 8, fig.height = 4, out.width = "80%"}
 load(here::here("data/monotremes.rda"))
@@ -96,14 +90,14 @@ ggplot(data=monotremes) +
 We can make the data look a bit more realistic with `coord_map`.
 
 ::: notes
-If you are good at recognising the shape of Australia, you might realise that the sightings are all along the east coast and Tasmania. There is a strange location, that looks like someone saw one in Antarctica! We might need to filter this observation out later, because its extremely unlikely to have been found that far south.
+If you are good at recognising the shape of Australia, you might realise that the sightings are primarily along the east coast and Tasmania, with fewer sightings in western Australia.
 :::
 
 ## Monotremes in Australia
 
 ::: columns
 ::: {.column width="25%"}
-```{r making a map projection, echo=F, fig.width = 3, fig.height = 6, out.width="100%"}
+```{r making a map projection, echo=F, fig.width = 5, fig.height = 4, out.width="100%"}
 ggplot(data=monotremes) + 
   geom_point(aes(x=longitude, 
                  y=latitude, 
@@ -114,7 +108,7 @@ ggplot(data=monotremes) +
 ```
 :::
 ::: {.column width="75%"}
-```{r making a map projection, echo=T, eval = F,fig.show=F, fig.height=10, out.width="100%"}
+```{r making a map projection, echo=T, eval = F,fig.show=F, out.width="100%"}
 ```
 
 - Adding a map layer would help!
@@ -142,8 +136,8 @@ ggmap(oz) +
              aes(x=longitude, 
                  y=latitude, 
                  colour=common_name), 
-              alpha=0.1) +
-  scale_colour_brewer("", palette = "Dark2")
+              alpha=0.2) +
+  scale_color_manual(values = c("#e66100", "#5d3a9b"))
 ```
 
 ## Leaflet Monotreme Maps
@@ -191,46 +185,6 @@ monotremes |>
   ggplot(aes(x=day, y=n)) +
     geom_point() +
     facet_wrap(~common_name)
-```
-
-
-There are some records dating back before 1800. There were only records from 1770! And these first records are in the database!
-
-##  Temporal trend
-
-There are a LOT more sightings in more recent years than in the 18th and 19th century, but this database has an amazing history!
-
-```{r show jittered sightings over time, echo=TRUE, fig.height = 2, fig.width = 8, out.width="100%"}
-ggplot(data=platydata) +
-  geom_jitter(aes(x=eventDate, y=1), alpha = .2)
-```
-
-
-## Temporal trend
-
-Let's focus on records since 1900, and count the sightings/year.
-
-::: columns
-::: column
-```{r focus on records since 1900 and count the number for each year, echo=F, out.width="100%"}
-platydata1900 <- platydata %>% 
-  filter(year>1900) %>%
-  count(year) 
-ggplot(data=platydata1900) +
-  geom_point(aes(x=year, y=n))
-```
-:::
-::: column
-```{r focus on records since 1900 and count the number for each year, echo=TRUE, eval=F}
-```
-:::
-:::
-
-```{r solution code for filtering on location and time, eval=FALSE}
-# Check odd cases
-platydata %>% filter(latitude < (-50)) 
-# These just have the lat/long wrong
-platydata %>% filter(eventDate < ymd("1850-01-01")) 
 ```
 
 ## Temporal trend
