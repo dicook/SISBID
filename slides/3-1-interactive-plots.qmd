@@ -2,11 +2,6 @@
 title: "Interactive graphics"
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
-source(here::here("knitr-setup.R"))
-source(here::here("libraries.R"))
-```
-
 ```{r echo=FALSE}
 #library(tidyverse)
 library(tidyr)
@@ -16,6 +11,15 @@ library(readr)
 library(plotly)
 library(gganimate)
 library(datasauRus)
+library(palmerpenguins)
+library(lubridate)
+library(ggthemes)
+library(gapminder)
+# Pre-process the data
+data(penguins)
+# "Better" formatted penguins data
+penguins_std <- penguins |>
+  filter(!is.na(bill_length_mm)) 
 ```
 
 # Choices of packages for interactive graphics
@@ -72,13 +76,13 @@ The `plotly` package in R has two interfaces:
 Plotly creates interactive plots with javascript.
 
 ```{r plotly}
-plot_ly(data = penguins_std, x = ~fl, y = ~bl, 
+plot_ly(data = penguins_std, x = ~flipper_length_mm, y = ~bill_length_mm, 
   color = ~species, size = 3, width=420, height=300)
 ```
 
 ## Or using ggplot2
 ```{r}
-gg <- ggplot(data=penguins_std, aes(x = fl, y = bl, colour = species)) +  
+gg <- ggplot(data=penguins_std, aes(x = flipper_length_mm, y = bill_length_mm, colour = species)) +  
   geom_point(alpha=0.5) + geom_smooth(method = "lm", se=F)
 ggplotly(gg, width=390, height=300)
 ```

@@ -81,7 +81,7 @@ Examples:
 
 Long form:
   
-```{r spread it back into wide form}
+```{r original form}
 knitr::kable(head(ff_long, 3))
 ```
 

@@ -54,14 +54,3 @@ conflicts_prefer(dplyr::select)
 conflicts_prefer(dplyr::slice)
 conflicts_prefer(dplyr::rename)
 conflicts_prefer(palmerpenguins::penguins)
-
-# Better formatted penguins data
-stdd <- function(x) (x-mean(x))/sd(x)
-penguins_std <- penguins |>
-  filter(!is.na(bill_len)) |>
-  rename(bl = bill_len,
-         bd = bill_dep,
-         fl = flipper_len,
-         bm = body_mass) |>
-  mutate_at(vars(bl:bm), stdd) |>
-  select(species, bl:bm)

@@ -3,8 +3,21 @@ title: "Advanced plots and inference"
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
-source(here::here("knitr-setup.R"))
-source(here::here("libraries.R"))
+# source(here("knitr-setup.R"))
+# source(here("libraries.R"))
+
+library(ggplot2)
+library(vinference)
+library(nullabor)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(forecast)
+library(stringr)
+library(here)
+library(readxl)
+library(purrr)
+library(fiftystater)
 ```
 
 ## Tidy data and random variables
@@ -118,6 +131,7 @@ When you run the example yourself, you get a `decrypt` code line, that you run a
 # Make a lineup of the mtcars data, 20 plots, one is the data, 
 # and the others are null plots. Which one is different?
 set.seed(20190709)
+library(ggplot2)
 ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
   geom_point() +
   facet_wrap(~ .sample)
@@ -136,7 +150,6 @@ ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
 Embed the data plot in a field of null plots
 
 ```{r embed the data plot in a field of null plots, eval=FALSE}
-library(nullabor)
 pos <- sample(1:20, 1)
 df_null <- lineup(null_permute('v1'), df, pos=pos)
 ggplot(df_null, aes(x=v2, y=v1, fill=v2)) + 
@@ -144,7 +157,7 @@ ggplot(df_null, aes(x=v2, y=v1, fill=v2)) +
   facet_wrap(~.sample, ncol=5) + coord_flip()
 ```
 
-Ask: Which plot is the most different?
+Which plot is the most different?
 ::: 
 ::: column
 ### Null-generating mechanisms
@@ -221,13 +234,13 @@ ggplot(l, aes(x=date, y=rate)) + geom_line() +
 ## Let's talk TB
 
 ```{r lets talk TB, echo=FALSE}
-tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
-  dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
+tb <- read_csv(here("data/TB_notifications_2020-07-01.csv")) |> 
+  select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
   mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
   mutate(sex=substr(sexage, 1, 1), 
          age=substr(sexage, 2, length(sexage))) |>
-  dplyr::select(-sexage)
+  select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
 tb_us <- tb |> 
@@ -266,7 +279,7 @@ The plot is constructed by plotting count against year, separately by age group,
 # matching the counts of aggregated data.
 # sex needs to be converted to 0, 1 to 
 # match binomial simulations
-tb_us_long <- expandRows(tb_us, "count")
+tb_us_long <- uncount(tb_us, count)
 tb_us_long <- tb_us_long |>
   mutate(sex01 = ifelse(sex=="m", 0, 1)) |>
   select(-sex)
@@ -280,7 +293,7 @@ l <- lineup(null_dist(var="sex01", dist="binom",
             true=tb_us_long, n=3, pos=pos)
 l <- l |>
   group_by(.sample, year, age) |>
-  dplyr::count(sex01)
+  count(sex01)
 ```
 ##
 
@@ -309,7 +322,7 @@ l <- lineup(null_dist(var="sex01", dist="binom",
             true=tb_us_long, n=3, pos=pos)
 l <- l |>
   group_by(.sample, year, age) |>
-  dplyr::count(sex01)
+  count(sex01)
 
 ```
 
@@ -339,7 +352,7 @@ Cancer incidence across the US 2010-2014, all cancer types, per 100k. Data from 
 ```{r make a map lineup, fig.height=6, fig.width=10}
 # Read xlsx spreadsheet on cancer incidence in USA, for a more
 # complex lneup example, a lineup of maps
-incd <- read_xlsx(here::here("data/IncRate.xlsx"), skip=6, sheet=2) |>
+incd <- read_xlsx(here("data/IncRate.xlsx"), skip=6, sheet=2) |>
   filter(!(State %in% c("All U.S. combined", "Kansas"))) |>
   select(State, `Melanoma of the skin / Both sexes combined`) |>
   rename(Incidence=`Melanoma of the skin / Both sexes combined`) |>

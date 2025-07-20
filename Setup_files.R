@@ -18,8 +18,11 @@ common_to_all <- c(
   list.files("slides/css", full.names = T),
   "slides/_metadata.yml"
 )
+# Exclude genetics files -- too big
+common_to_all <- common_to_all[!str_detect(common_to_all, "PANCAN")]
 
-big_data_file <- "data/TCGA-PANCAN-HiSeq-801x20531/data.csv.gz"
+# Clear out the old files
+unlink(list.files(here(), ".zip"))
 
 
 # Create zip files

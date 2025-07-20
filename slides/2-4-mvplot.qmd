@@ -4,6 +4,19 @@ title: "Multivariate data plots"
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
 source(here::here("libraries.R"))
+
+# Better formatted penguins data
+data(penguins, package="palmerpenguins")
+stdd <- function(x) (x-mean(x))/sd(x)
+penguins_std <- penguins |>
+  filter(!is.na(bill_length_mm)) |>
+  rename(bl = bill_length_mm,
+         bd = bill_depth_mm,
+         fl = flipper_length_mm,
+         bm = body_mass_g) |>
+  mutate_at(vars(bl:bm), stdd) |>
+  select(species, bl:bm)
+
 ```
 
 ## Your turn {.inverse}
@@ -101,31 +114,22 @@ ggcorr(adelie)
 
 ## Corrgrams
 
-:::: columns
-::: column
-<!-- A **corrgram** is another way to show correlation.  -->
-
 - can be dangerous
 - useful for a broad overview IF correlation is a good summary
 
-```{r corrgram, echo=TRUE, fig.show='hide'}
+```{r corrgram, echo=TRUE}
+#| output-location: "column"
 corrgram(adelie, 
   lower.panel=
     corrgram::panel.ellipse)
 ```
 
 The `corrgram` package has numerous scatterplot matrix capabilities.
-:::
 
-::: column
-```{r ref.label="corrgram", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"}
-```
-:::
-::::
 
 ## Large sample size
 
-```{r hexbin scatterplot, fig.width=6, fig.height=6}
+```{r hexbin scatterplot, fig.width=6, fig.height=6, echo =T}
 #| output-location: "column"
 # Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
 # This chunk takes some time to run, so evaluated off-line
@@ -158,10 +162,8 @@ ggpairs(tcga_t_pc, columns=c(1:4),
 
 The pairs plot can also incorporate non-numerical variables, and different types of two variable plots.
 
-:::: columns
-::: column
-
-```{r generalised pairs plot, fig.show='hide'}
+```{r generalised pairs plot, fig.show='hide', error=F, message = F, warning = F, echo = T}
+#| output-location: "column"
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
 australia_PISA2012 <- australia_PISA2012 %>%
@@ -170,13 +172,6 @@ australia_PISA2012 %>%
   filter(!is.na(dishwasher)) %>% 
   ggpairs(columns=c(3, 15, 16, 21, 26))
 ```
-:::
-
-::: column
-```{r ref.label='generalised pairs plot', echo=FALSE, fig.width=6, fig.height=6, out.width="90%"}
-```
-:::
-::::
 
 ## Generalized Pairs Plots
 
@@ -192,7 +187,9 @@ australia_PISA2012 %>%
 
 ## Customized Generalized Pairs Plots
 
-```{r design own plot function}
+```{r generalised pairs plot enhance more, echo=TRUE, fig.show='hide'}
+#| output-location: "column"
+
 # Make a special style of plot to put in the matrix
 my_fn <- function(data, mapping, method="loess", ...){
       p <- ggplot(data = data, mapping = mapping) + 
@@ -200,9 +197,6 @@ my_fn <- function(data, mapping, method="loess", ...){
       geom_smooth(method="lm", ...)
       p
 }
-```
-
-```{r generalised pairs plot enhance more, echo=TRUE, fig.show='hide'}
 australia_PISA2012 |> 
   filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
@@ -295,7 +289,7 @@ Axes are parallel, observations are connecting lines.
 
 ## PCP: large sample size
 
-```{r organise data pcp, eval=FALSE, echo=FALSE}
+```{r organise data pcp, eval=T, echo=FALSE}
 tcga_t_pc_pcp <- tcga_t_pc |>
   as_tibble() |>
   pcp_select(PC1:PC10) |>
@@ -303,8 +297,7 @@ tcga_t_pc_pcp <- tcga_t_pc |>
   pcp_arrange() 
 probs <- c(0.025, 0.25, 0.75, 0.975)
 
-dframe <-
-  tcga_t_pc_pcp |>
+dframe <- tcga_t_pc_pcp |>
   summarise(
     value = quantile(pcp_y, prob = probs),
     quantile = probs,

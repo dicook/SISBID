@@ -44,15 +44,17 @@ source(here::here("libraries.R"))
 
 ```{r}
 # Pre-process the data
-penguins_std <- penguins %>%
+data(penguins)
+# "Better" formatted penguins data
+stdd <- function(x) (x-mean(x))/sd(x)
+penguins_std <- penguins |>
+  filter(!is.na(bill_length_mm)) |>
   rename(bl = bill_length_mm,
-         bd = bill_depth_mm, 
-         fl = flipper_length_mm, 
-         bm = body_mass_g) %>%
-  select(species, bl:bm) %>%
-  na.omit() %>%
-  mutate_if(is.numeric, function(x) (x-mean(x))/sd(x))
-
+         bd = bill_depth_mm,
+         fl = flipper_length_mm,
+         bm = body_mass_g) |>
+  mutate_at(vars(bl:bm), stdd) |>
+  select(species, bl:bm)
 
 clrs <- divergingx_hcl(3, palette = "Zissou1")
 col <- clrs[as.numeric(penguins_std$species)]
