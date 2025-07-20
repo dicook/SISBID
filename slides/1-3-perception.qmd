@@ -17,7 +17,7 @@ source(here::here("libraries.R"))
 ::: columns
 ::: column
 
-```{r read TB data and wrangle and subset to USA}
+```{r read TB data and wrangle and subset to USA, echo = FALSE}
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
@@ -55,7 +55,7 @@ Which plot makes this question easier to answer?
 ## TWO MINUTE CHALLENGE `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` {.inverse}
 
 ::: {layout-ncol=2}
-```{r focus on one year gender side-by-side bars of males/females, fig.height=3}
+```{r focus on one year gender side-by-side bars of males/females, fig.height=3, echo=FALSE}
 tb_us |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -64,7 +64,7 @@ tb_us |> filter(year == 2012) |>
   ggtitle("Arrangement A")
 ```
 
-```{r focus on one year age side-by-side bars of age group, fig.height=3}
+```{r focus on one year age side-by-side bars of age group, fig.height=3, echo=FALSE}
 tb_us |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
