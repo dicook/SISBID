@@ -22,6 +22,8 @@ Write down as many types of data plots that you can think of.
 :::
 :::
 
+##
+
 <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/aljjh6s6sxadt9kzy8uqz2824d3ezhuo/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
 ## What is a data plot? {.smaller}
@@ -137,12 +139,16 @@ Go to menti.com and enter code 2979 2396
 
 ## Fix the plot
 
+```{r just to show the changes, echo=FALSE}
+library(flair)
+```
+
 ```{r colour and axes fixes, echo=TRUE, fig.height=3}
+#| code-line-numbers: true
 # This uses a color blind friendly scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_grid(~age_group) + #<<
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) #<<
+  facet_grid(~age_group)  #<<
 ```
 
 [[Color deficiency friendly color schemes](https://davidmathlogic.com/colorblind/#%23005AB5-%23DC3220)]{.bottom}
