@@ -10,6 +10,10 @@ project:
     navigate: true
 
 
+execute:
+  # cache: true
+  freeze: auto  # re-render only when source changes
+
 website:
   title: "SISBID Data Visualization"
   navbar:
