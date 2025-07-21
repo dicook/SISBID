@@ -3,12 +3,20 @@ title: "Making a mess again - with the data"
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
-source(here::here("knitr-setup.R"))
-source(here::here("libraries.R"))
+# source(here::here("knitr-setup.R"))
+# source(here::here("libraries.R"))
+
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(knitr)
+library(here)
+theme_set(theme_bw())
 ```
 
 ```{r example 6 what are the factors measurements and experimental units, echo = FALSE}
-load(here::here("data/french_fries.rda"))
+load(here("data/french_fries.rda"))
 ```
 
 ## Warmup {.inverse .middle}
@@ -21,11 +29,11 @@ head(french_fries)
 
 `r countdown::countdown(5)`
 
-## What would we like to find out about the french fries data set? {.middle .center .inverse}
+## What would you like to find out about the french fries data set? {.inverse}
 
 Go to menti.com at 2979 2396 and let us know!
 
-<img src="images/mentimeter_qr_code.png" width = 200>
+![](images/mentimeter_qr_code.png){width="30%"}
 
 
 
@@ -82,8 +90,12 @@ Examples:
 Long form:
   
 ```{r original form}
-knitr::kable(head(ff_long, 3))
+knitr::kable(head(ff_long, 4))
 ```
+
+## Pivot to wide form {.smaller}
+
+`tidyr`'s **pivot_wider** function creates variables with comparable values
 
 Wide form: 
 ```{r spread it back into wide form}
@@ -92,42 +104,54 @@ french_fries_weeks <- ff_long |>
 ```
 
 ```{r}
-knitr::kable(head(french_fries_weeks,3))
+kable(head(french_fries_weeks,3))
 ```
 
 
-## Pivot to wide form
-
+## Pivot to wide form {.smaller}
+::: columns
+::: {.column width="80%"}
 ```{r spread}
 head(french_fries_weeks)
 ```
+::: 
+::: {.column width="20%"}
+![[Tidyr cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf)](images/tidyr-cheatsheet.png)
+:::
+:::
 
-`pivot_wider` introduces one new variable for each level of the variable in `names_from`
+`pivot_wider`:
 
-and fills values in from the variable in `values_from`
-
-
-Posit cheatsheet: https://tidyr.tidyverse.org
-
-
-## Comparing ratings from different weeks
-
-Plot Week 1 against Week 9 in a scatterplot:
+- creates a new column for each value of the variable in `names_from`
+- fills values in using the variable in `values_from`
 
 
-```{r week 1 vs week 9, fig.width=5, fig.height = 5}
-french_fries_weeks |>
-  ggplot(aes(x = `1`, y = `9`)) + geom_point()
-```
+## Comparing ratings: different weeks
 
 Note the use of the backtick for variable names with special characters or numbers.
 
+::: columns
+::: {.column width="60%"}
+```{r week 1 vs week 9, fig.width=5, fig.height = 5, message = F, warning = F, eval=F}
+french_fries_weeks |>
+  ggplot(aes(x = `1`, y = `9`)) +
+  geom_point()
+```
+:::
+::: {.column width="40%"}
 
-## Your turn: Do the replicates look like each other? {.inverse .middle}
+```{r week 1 vs week 9, fig.width=5, fig.height = 5, message = F, warning = F, echo=F}
+```
+:::
+:::
 
-Tackle this by plotting the replicates against each other using a scatterplot. 
 
-You will need to first convert the data into long form, and then get the replicates spread into separate columns by replicate. 
+
+## Your turn: Are the replicates similar? {.inverse}
+
+- Plot the replicates against each other using a scatterplot. 
+- First, convert the data into long form
+- Get the replicates spread into separate columns by replicate. 
 
 `r countdown::countdown(5)`
 
@@ -143,28 +167,25 @@ ggplot(data=ff.s, aes(x=`1`, y=`2`)) + geom_point() +
 
 ## Are ratings similar on different scales?
   
-- Are ratings similar on the different scales: potato'y, buttery, grassy, rancid and painty?
-- We need to pivot the data into long form, and make plots facetted by the scale. 
-
---
+- Scales: potato-y, buttery, grassy, rancid and painty?
+- Pivot into long form, plot with `facet_...(~scale)`. 
 
 ```{r ratings on the different scales}
 ff.m <- french_fries |> 
 pivot_longer(-(time:rep), names_to="type", values_to="rating")
+```
+```{r, echo = F, include = T}
 head(ff.m)
 ```
 
 
 
-```{r ratings on the different scales too}
-ff.m <- french_fries |> 
-pivot_longer(-(time:rep), names_to="type", values_to="rating")
-head(ff.m)
-```
-
+## Are ratings similar on different scales?
+  
 ```{r, fig.height=2, fig.width=8}
-ggplot(data=ff.m, aes(x=rating)) + geom_histogram(binwidth=2) + 
-facet_wrap(~type, ncol=5) 
+ggplot(data=ff.m, aes(x=rating)) + 
+  geom_histogram(binwidth=2) + 
+  facet_wrap(~type, ncol=5) 
 ```
 
 
@@ -172,17 +193,18 @@ facet_wrap(~type, ncol=5)
 
 ```{r side-by-Side boxplots, fig.width=8, fig.height=5}
 ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) + 
-geom_boxplot()
+  geom_boxplot()
 ```
 
 
-## Your turn: What is the correlation between scales? {.inverse .middle}
+## Your turn: What is the correlation between scales? {.inverse}
 
-Tackle this problem by creating a wide form of the data by type of scale. 
+- Create a wide form of the data by type of scale. 
 
-`cor` allows you to create a correlation matrix. Look into the help `?cor` to get rid of `NA` values in the result. 
+- `cor` allows you to create a correlation matrix.    
+Run `?cor` to look up how to get rid of `NA` values in the result. 
 
-Draw a scatterplot of two scales with the highest (positive or negative) correlation value.
+- Draw a scatterplot of two scales with the highest (positive or negative) correlation value.
 
 `r countdown::countdown(7)`
 
@@ -198,33 +220,29 @@ ggplot(data=ff.scales, aes(x=potato, y=buttery)) + geom_point() +
 
 
 ## Ratings by week
+Use the long form of the data and plot:
 
-How do ratings change over the weeks?
-Again, we use the long form of the data and plot:
-
-```{r ratings by week, fig.width=8, fig.height=5}
+```{r ratings by week, fig.width=8, fig.height=3, message = F, warning = F}
 ff.m$time <- as.numeric(ff.m$time)
 ggplot(data=ff.m, aes(x=time, y=rating, colour=type)) + 
 geom_point(size=.75) +
 geom_smooth() +
-facet_wrap(~type)
+facet_wrap(~type, ncol = 5)
 ```
 
 
-## Your turn: Modeling ratings over time & different scales? {.inverse .middle}
+## Your turn: Modeling ratings over time & scales? {.inverse .middle}
 
-Find a linear model describing the average rating depending on the week (time) and type of scale as shown below.
+- Find a linear model describing the average rating depending on the week (time) and type of scale as shown below.
+- Which form of the dataset should we use?
+- Challenge: can you plot the fitted lines from the model?
 
-Which form of the dataset should we use?
-
-Challenge: can you plot the fitted lines from the model?
-
-```{r ratings by week again, echo=FALSE, fig.width=8, fig.height=5}
+```{r ratings by week again, echo=FALSE, fig.width=8, fig.height=3, message = F, warning = F}
 ff.m$time <- as.numeric(ff.m$time)
 ggplot(data=ff.m, aes(x=time, y=rating, colour=type)) + 
 geom_point(size=.75) +
 geom_smooth() +
-facet_wrap(~type)
+facet_wrap(~type, ncol = 5)
 ```
 
 `r countdown::countdown(7)`

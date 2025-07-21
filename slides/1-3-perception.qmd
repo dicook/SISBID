@@ -550,7 +550,7 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 :::
 :::
 
-## Core principles {.smaller}
+## Core principles 
 
 - Make a plot of your **data**! 
     - The hierarchy matters if the structure is weak or differences b/w groups are small. 
@@ -558,6 +558,10 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
 - Use of colour: don't over use 
     - Too many colours
     - Mapping cts variable to colour to add another dimension
+    
+
+## Core principles 
+
 - Show the data! 
     - Statistics are good if there's too much data
     - Always plot the data for yourself to see the variability
