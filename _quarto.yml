@@ -8,7 +8,7 @@ project:
   output-dir: docs
   preview:
     port: 4200
-    navigate: true
+    navigate: false
 
 
 execute:
