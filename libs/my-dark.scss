@@ -7,7 +7,7 @@ h1:before {
   color: #FFBA08!important;
 }
 
-ul li:before {
+li::marker {
   color: #FFBA08!important;
 }
 .red { color: #FF3D3D!important; }
@@ -19,4 +19,7 @@ a, a > code {
 code {
   color: #52AEFA!important;
   background-color: #404040!important;
+}
+.inverse {
+  background-color: #404040;
 }

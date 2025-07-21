@@ -22,32 +22,36 @@ h1:before {
 //li { line-height: 1.85em; }
 //li p { line-height: 1.25em; }
 
-#TOC > ul {
-  li::before {
-    content: "\f080";
-    font-family: "FontAwesome";
-  }
+.panel-tabset ul li::marker {
+  content: none!important;
+}
+
+.toc-actions ul li::marker {
+  content: none!important;
+}
+
+#TOC ul {
+  margin-left: 20px;
+}
+
+
+ul {
+  list-style-position: inside;
   li {
-    margin-left: 20px;
-    a {
-      padding-left: 5px;
-      display: inline;
-    }
-    li::before {
-      content: "\f1fe";
+    li::marker {
+      content: "\f1fe  ";
       font-family: "FontAwesome";
     }
     li {
-      margin-left: 20px;
-      a {
-        padding-left: 5px;
-        display: inline;
-      }
-      li::before {
-        content: "\f201";
+      li::marker {
+        content: "\f201  ";
         font-family: "FontAwesome";
       }
     }
+  }
+  li::marker {
+    content: "\f080  ";
+    font-family: "FontAwesome";
   }
 }
 

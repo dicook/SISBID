@@ -14,6 +14,7 @@ project:
 execute:
   cache: true
   freeze: auto  # re-render only when source changes
+  error: true
 
 website:
   title: "SISBID Data Visualization"
@@ -67,8 +68,8 @@ website:
 format:
   html:
     theme:
-      light: ['my-light.scss', 'custom.scss', flatly]
-      dark: ['my-dark.scss', 'custom.scss', darkly]
+      light: ['libs/my-light.scss', 'libs/custom.scss', flatly]
+      dark: ['libs/my-dark.scss', 'libs/custom.scss', darkly]
     respect-user-color-scheme: true
     toc: true
 
