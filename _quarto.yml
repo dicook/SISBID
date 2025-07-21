@@ -3,52 +3,56 @@ project:
   render:
     - "!code/*"
     - slides/
-    - index.qmd
+    - index.rjs.html
   output-dir: docs
+  preview:
+    port: 4200
+    navigate: true
+
 
 website:
   title: "SISBID Data Visualization"
   navbar:
     left:
-      - href: index.qmd
+      - href: index.rjs.html
         text: Home
       - text: Day 1
         menu:
-          - href: slides/0-preamble.qmd
+          - href: slides/0-preamble.rjs.html
             text: Preamble
-          - href: slides/1-1-ggplot.qmd
+          - href: slides/1-1-ggplot.rjs.html
             text: 1.1 ggplot
-          - href: slides/1-2-ggplot-adv.qmd
+          - href: slides/1-2-ggplot-adv.rjs.html
             text: 1.2 Advancing ggplot
-          - href: slides/1-3-perception.qmd
+          - href: slides/1-3-perception.rjs.html
             text: 1.3 Perception
       - text: Day 2
         menu:
-          - href: slides/2-1-tidyr.qmd
+          - href: slides/2-1-tidyr.rjs.html
             text: 2.1 tidyr
-          - href: slides/2-2-messy-it-up.qmd
+          - href: slides/2-2-messy-it-up.rjs.html
             text: 2.2 Messy data
-          - href: slides/2-3-wrangling.qmd
+          - href: slides/2-3-wrangling.rjs.html
             text: 2.3 Wrangling
-          - href: slides/2-4-mvplot.qmd
+          - href: slides/2-4-mvplot.rjs.html
             text: 2.4 Multivariate Plots
-          - href: slides/2-5-mvplot-tour.qmd
+          - href: slides/2-5-mvplot-tour.rjs.html
             text: 2.5 Tours
-          - href: slides/2-6-adv-graphics.qmd
+          - href: slides/2-6-adv-graphics.rjs.html
             text: 2.6 Advanced Graphics
       - text: Day 3
         menu:
-          - href: slides/3-1-interactive-plots.qmd
+          - href: slides/3-1-interactive-plots.rjs.html
             text: 3.1 Interactive plots
-          - href: slides/3-2-shiny-apps.qmd
+          - href: slides/3-2-shiny-apps.rjs.html
             text: 3.2 Shiny apps
-          - href: slides/3-3-shiny-reactivity.qmd
+          - href: slides/3-3-shiny-reactivity.rjs.html
             text: 3.3 Shiny reactivity
-          - href: slides/3-4-theme-shiny.qmd
+          - href: slides/3-4-theme-shiny.rjs.html
             text: 3.4 Theming Shiny
-          - href: slides/3-5-build-shiny-app.qmd
+          - href: slides/3-5-build-shiny-app.rjs.html
             text: 3.5 Build a Shiny App
-          # - href: slides/3-6-interactive-document.qmd
+          # - href: slides/3-6-interactive-document.rjs.html
           #   text: 3.6 Interactive Documents
 
 format:
@@ -56,7 +60,7 @@ format:
     theme:
       - cosmo
       - brand
-    css: styles.css
+    css: ["myremark.css", "midnight-styles.css"]
     toc: true
 
 

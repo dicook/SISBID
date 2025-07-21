@@ -55,6 +55,11 @@ a, a > code {
 code {
   border-radius: 5px;
 }
+
+a:visited,a:hover,a:active {
+  color: #fedbc0;
+}
+
 .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; font-size: 80%; }
 .remark-code-line-highlighted     { background-color: #373832; }
 .pull-left {
