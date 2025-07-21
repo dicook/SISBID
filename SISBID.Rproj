@@ -14,6 +14,3 @@ LaTeX: pdfLaTeX
 
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
-
-BuildType: Makefile
-MakefilePath: _source

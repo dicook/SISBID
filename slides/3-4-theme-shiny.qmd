@@ -1,0 +1,119 @@
+---
+title: "Theme a shiny app"
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
+source(here::here("libraries.R"))
+```
+
+## Theming your Shiny App
+
+- `bslib` has many options available for theming and customizing your app <br/><br/>
+- We'll cover the easily available options here<br/><br/>
+    - Exponentially more powerful with CSS and a bit of tinkering
+
+## Preset Themes
+
+::: columns
+::: column
+- Bootswatch provides preset themes
+- `bs_themer()` lets you choose interactively
+
+[`bs_themer.R`]{.center .large}
+:::
+::: column
+[
+[[default]{.panel-name} ![](images/bs_themer.png)        ]{.panel}
+[[flatly]{.panel-name}  ![](images/bs_themer_flatly.png) ]{.panel}
+[[darkly]{.panel-name}  ![](images/bs_themer_darkly.png) ]{.panel}
+]{.panelset .sideways}
+:::
+:::
+
+## Your Turn {.inverse}
+
+Run the code in `bs_themer.R` and pick a theme you like. 
+
+Get the console output corresponding to that theme and modify `bs_themed.R` to use your theme code.
+
+Hint: Use the `theme = ...` argument in one of the `page_xxx` functions.
+
+
+`r countdown::countdown(5)`
+
+## Customizing Your Navbar
+
+- You may want to add a logo to your title area
+- pictures should be placed in the `www/` folder
+
+::: columns
+::: column
+```{r, eval = F}
+title = div(
+  img(src = "wave.gif", width = "40px"),
+  img(src = "globe.png", width = "40px"),
+  "Hello World", style = "display: inline;"),
+```
+:::
+::: column
+![](images/title_image.png)
+:::
+:::
+
+## Adding Icons
+
+- You can add icons to your `nav_panels()` with the `icon` argument
+    - [Bootstrap Icons](https://icons.getbootstrap.com/) 
+    - Match the version of Bootstrap your app uses
+    
+::: columns
+::: column
+```{r, eval = F}
+nav_panel(
+  title = "Dashboard", body, 
+  icon = bs_icon("bar-chart", a11y = "deco") 
+  # marks icon as decorative for screen readers
+),
+```
+:::
+::: column
+![](images/navbar-icon.png)
+:::
+:::
+
+## Your Turn {.inverse}
+
+Customize the title and icons on the `nav_panels` in `title_customization.R`.
+
+Choose appropriate icons and decide if they are decorative or semantic. 
+
+`r countdown::countdown(5)`
+
+## Change the width of the sidebar
+
+```{r eval = F}
+side <- sidebar(
+  width = "20%",
+  h2("Inputs"),
+  sliderInput(
+    "mpg", label = "MPG range",
+    min = min(floor(mtcars$mpg), na.rm = T),
+    max = max(ceiling(mtcars$mpg), na.rm = T),
+    step = 1, value = range(mtcars$mpg))
+)
+```
+
+[
+[[10%]{.panel-name}                  ![](images/sidebar-10.png)      ]{.panel}
+[[20%]{.panel-name}                  ![](images/sidebar-20.png)      ]{.panel}
+[[100px]{.panel-name}                ![](images/sidebar-100px.png)   ]{.panel}
+[[100px (small window)]{.panel-name} ![](images/sidebar-100px-2.png) ]{.panel}
+]{.panelset .sideways}
+
+
+
+
+::: bottom
+<span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span>
+:::

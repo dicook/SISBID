@@ -1,5 +1,6 @@
 #library(tidyverse)
-library(rmarkdown) # to be able to knit a document
+# library(rmarkdown) # to be able to knit a document
+library(quarto)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
@@ -46,12 +47,6 @@ library(fiftystater)
 # remotes::install_github("heike/vinference")
 library(vinference)
 
-# For slides
-library(xaringan)
-library(xaringanExtra)
-xaringanExtra::use_xaringan_extra(
-  include = c("panelset")
-)
 
 library(conflicted)
 conflicts_prefer(dplyr::filter)
@@ -59,14 +54,3 @@ conflicts_prefer(dplyr::select)
 conflicts_prefer(dplyr::slice)
 conflicts_prefer(dplyr::rename)
 conflicts_prefer(palmerpenguins::penguins)
-
-# Better formatted penguins data
-stdd <- function(x) (x-mean(x))/sd(x)
-penguins_std <- penguins |>
-  filter(!is.na(bill_len)) |>
-  rename(bl = bill_len,
-         bd = bill_dep,
-         fl = flipper_len,
-         bm = body_mass) |>
-  mutate_at(vars(bl:bm), stdd) |>
-  select(species, bl:bm)

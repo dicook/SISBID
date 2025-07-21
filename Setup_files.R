@@ -1,71 +1,50 @@
-library(rmarkdown)
+# library(rmarkdown)
 library(tidyverse)
-
+library(quarto) # Requires dev version at least as recent as 07-2025
+library(stringr)
 
 # List all slides
-slides <- list.files("slides", "*.Rmd", full.names = T, recursive = T)
+slides <- list.files("slides", "*.qmd", full.names = T, recursive = T)
 
-# First, remove all index_files in slides
-index_files_list <- list.files("slides", "index_files", recursive = T, include.dirs = T, full.names = T)
-unlink(index_files_list, force = T)
+code_files <- str_replace_all(slides, "slides/", "code/") |>
+  str_replace_all("\\.qmd$", ".R")
 
-default_yaml <- yaml::read_yaml(
-  text = '    css: ["default", "myremark.css"]
-    self_contained: false
-    nature:
-      ratio: "16:9"
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false')
+unlink(code_files)
+purrr::walk2(slides, code_files, qmd_to_r_script)
 
-xaringanfn <- function(., ...)
-  rmarkdown::render(., xaringan::moon_reader(css = default_yaml$css,
-                                             self_contained = FALSE,
-                                             nature = default_yaml$nature), ...)
-safe_xaringan <- safely(xaringanfn)
+common_to_all <- c(
+  list.files("data/", full.names = T),
+  list.files("slides/images", full.names = T),
+  list.files("slides/css", full.names = T),
+  "slides/_metadata.yml"
+)
+# Exclude genetics files -- too big
+common_to_all <- common_to_all[!str_detect(common_to_all, "PANCAN")]
 
-# Render to html
-res <- purrr::map(slides, ~safe_xaringan(.))
+# Clear out the old files
+unlink(list.files(here(), ".zip"))
 
-stopifnot(is.null(purrr::map(res, "error") %>% unlist()))
-
-
-# Purl to code folder
-purrr::walk(slides, function(i) {
-  knitr::purl(i)
-  code_file <- str_replace(i, "slides/(.*)/index.Rmd", "code/\\1.r")
-  file.copy("index.R", to = code_file, overwrite = T)
-  file.remove("index.R")
-})
-
-
-# Remove old zip files to prevent file accumulation
-file.remove(list.files(".", "*.zip"))
 
 # Create zip files
 # Day 1
-code <- list.files("code/", pattern = "^[01]", full.names = T)
-data <- list.files("data/", ".*", full.names = T)
-slides <- list.files("slides/", recursive = T, full.names = T)
-slides <- slides[str_detect(slides, "slides//[01]")]
-slides <- slides[!str_detect(slides, "index_cache")]
-zip("SISBID_day1.zip", files = c(code, data, slides, "SISBID.Rproj"))
+# Common files don't need to be re-downloaded each day, so just include
+# them in Day 1 to save bandwidth and git storage
+code <- list.files("code/", pattern = "^[01]-", full.names = T)
+slides <- list.files("slides", recursive = F, full.names = T)
+slides <- slides[str_detect(slides, "slides/[01]-")]
+zip("SISBID_day1.zip", files = c(common_to_all, code, slides, "SISBID.Rproj"))
 
 # Day 2
-code <- list.files("code/", pattern = "^[2]", full.names = T)
-data <- list.files("data/", ".*", full.names = T)
-slides <- list.files("slides/", recursive = T, full.names = T)
-slides <- slides[str_detect(slides, "slides//2")]
-slides <- slides[!str_detect(slides, "index_cache")]
-zip("SISBID_day2.zip", files = c(code, data, slides, "SISBID.Rproj"))
+code <- list.files("code/", pattern = "^[2]-", full.names = T)
+slides <- list.files("slides", recursive = T, full.names = T)
+slides <- slides[str_detect(slides, "slides/2-")|str_detect(slides, "slides/html/")]
+zip("SISBID_day2.zip", files = c(code, slides, "SISBID.Rproj"))
 
 # Day 3
-code <- list.files("code/", pattern = "^[3]", full.names = T, recursive = T)
+code <- list.files("code/", pattern = "^[3]-", full.names = T, recursive = T)
 code <- c(code, list.files("code/3.3-apps/", full.names = T, recursive = T))
 code <- c(code, list.files("code/3.4-theme/", full.names = T, recursive = T))
-data <- list.files("data/", ".*", full.names = T)
-slides <- list.files("slides/", recursive = T, full.names = T)
-slides <- slides[str_detect(slides, "slides//3")]
-slides <- slides[!str_detect(slides, "index_cache")]
+slides <- list.files("slides", recursive = T, full.names = T)
+slides <- slides[str_detect(slides, "slides/3")]
 slides <- c(slides, list.files("example_apps/", full.names = T, recursive = T))
-zip("SISBID_day3.zip", files = c(code, data, slides, "SISBID.Rproj"))
+zip("SISBID_day3.zip", files = c(code, slides, "SISBID.Rproj"))

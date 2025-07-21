@@ -1,0 +1,10 @@
+format:
+  revealjs:
+    theme: default
+    css: ["css/myremark.css"]
+    self_contained: false
+search: false
+
+subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
+
+lightbox: true
