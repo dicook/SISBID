@@ -96,7 +96,7 @@ If you are good at recognising the shape of Australia, you might realise that th
 ## Monotremes in Australia
 
 ::: columns
-::: {.column width="25%"}
+::: {.column width="35%"}
 ```{r making a map projection, echo=F, fig.width = 5, fig.height = 4, out.width="100%"}
 ggplot(data=monotremes) + 
   geom_point(aes(x=longitude, 
@@ -107,7 +107,7 @@ ggplot(data=monotremes) +
   coord_map()
 ```
 :::
-::: {.column width="75%"}
+::: {.column width="65%"}
 ```{r making a map projection, echo=T, eval = F,fig.show=F, out.width="100%"}
 ```
 
@@ -130,6 +130,7 @@ save(oz, file="data/oz.rda")
 ```
 
 ```{r load the saved map data, echo=TRUE}
+#| output-location: "column"
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
   geom_point(data=monotremes, 
@@ -195,7 +196,7 @@ Add a trend line.
 ::: columns
 ::: column
 
-```{r add a trend line, echo=TRUE,out.width="100%"}
+```{r add a trend line, echo=F,out.width="100%"}
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -213,7 +214,7 @@ monotremes |>
 :::
 
 ## Interactivity!
-```{r make it interactive to investigate some observations, echo=TRUE, fig.width = 8, fig.height = 4, out.width = "100%"}
+```{r make it interactive to investigate some observations, echo=TRUE, out.width = "80%"}
 library(plotly)
 ggplotly()
 ```
