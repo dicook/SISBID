@@ -12,7 +12,6 @@ project:
 
 
 execute:
-  cache: true
   freeze: auto  # re-render only when source changes
   error: true
 
