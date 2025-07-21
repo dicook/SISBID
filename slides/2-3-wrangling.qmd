@@ -214,7 +214,6 @@ To check this we want to tabulate the number of records for each subject, time a
 
 How many values do we have for each subject? Check the help for function `?n`
 
-<<<<<<< HEAD:slides/2-3-wrangling.qmd
 `r countdown::countdown(5)`
 
 ## French Fries - completeness
