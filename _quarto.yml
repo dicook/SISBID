@@ -3,7 +3,8 @@ project:
   render:
     - "!code/*"
     - slides/
-    - index.rjs.html
+    - index.qmd
+    - README.qmd
   output-dir: docs
   preview:
     port: 4200
@@ -11,14 +12,18 @@ project:
 
 
 execute:
-  # cache: true
+  cache: true
   freeze: auto  # re-render only when source changes
 
 website:
   title: "SISBID Data Visualization"
+
+  repo-url: https://github.com/dicook/sisbid
+  repo-actions: [issue]
+
   navbar:
     left:
-      - href: index.rjs.html
+      - href: index.html
         text: Home
       - text: Day 1
         menu:
@@ -62,9 +67,9 @@ website:
 format:
   html:
     theme:
-      - cosmo
-      - brand
-    css: ["myremark.css", "midnight-styles.css"]
+      light: ['my-light.scss', 'custom.scss', flatly]
+      dark: ['my-dark.scss', 'custom.scss', darkly]
+    respect-user-color-scheme: true
     toc: true
 
 

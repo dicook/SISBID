@@ -1,0 +1,22 @@
+/*-- scss:defaults --*/
+
+h1, h2, h3 {
+  color: #2AF5B8!important;
+}
+h1:before {
+  color: #FFBA08!important;
+}
+
+ul li:before {
+  color: #FFBA08!important;
+}
+.red { color: #FF3D3D!important; }
+.orange { color: #FF6F00!important; }
+.blue { color: #52AEFA!important; }
+a, a > code {
+  color: #FFBA08!important;
+}
+code {
+  color: #52AEFA!important;
+  background-color: #404040!important;
+}
