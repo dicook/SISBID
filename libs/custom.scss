@@ -25,32 +25,32 @@ h1:before {
 .panel-tabset ul li::marker {
   content: none!important;
 }
-
+#navbarCollapse ul li::marker {
+  content: none!important;
+}
 .toc-actions ul li::marker {
   content: none!important;
 }
 
-#TOC ul {
-  margin-left: 20px;
-}
-
 
 ul {
-  list-style-position: inside;
+  list-style-position: outside;
   li {
+    margin-left: 10px;
+    padding-left: 10px;
     li::marker {
-      content: "\f1fe  ";
+      content: "\f1fe ";
       font-family: "FontAwesome";
     }
     li {
       li::marker {
-        content: "\f201  ";
+        content: "\f201 ";
         font-family: "FontAwesome";
       }
     }
   }
   li::marker {
-    content: "\f080  ";
+    content: "\f080 ";
     font-family: "FontAwesome";
   }
 }
