@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.7.31" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
 
 <title>SISBID Data Visualization</title>
@@ -57,30 +59,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-07594fff8b4a7a0f6d84850161fd3e30.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b813553478f04c414a2aea454f4d8e38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-07594fff8b4a7a0f6d84850161fd3e30.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<!-- htmldependencies:E3FAD763 -->
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,7 +91,128 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="/index.html">
+    <span class="navbar-title">SISBID Data Visualization</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
+  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-1" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+ <span class="menu-text">Day 1</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-1">    
+        <li>
+    <a class="dropdown-item" href="/slides/0-preamble.rjs.html">
+ <span class="dropdown-text">Preamble</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/1-1-ggplot.rjs.html">
+ <span class="dropdown-text">1.1 ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/1-2-ggplot-adv.rjs.html">
+ <span class="dropdown-text">1.2 Advancing ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/1-3-perception.rjs.html">
+ <span class="dropdown-text">1.3 Perception</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-2" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+ <span class="menu-text">Day 2</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-2">    
+        <li>
+    <a class="dropdown-item" href="/slides/2-1-tidyr.rjs.html">
+ <span class="dropdown-text">2.1 tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/2-2-messy-it-up.rjs.html">
+ <span class="dropdown-text">2.2 Messy data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/2-3-wrangling.rjs.html">
+ <span class="dropdown-text">2.3 Wrangling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/2-4-mvplot.rjs.html">
+ <span class="dropdown-text">2.4 Multivariate Plots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/2-5-mvplot-tour.rjs.html">
+ <span class="dropdown-text">2.5 Tours</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/2-6-adv-graphics.rjs.html">
+ <span class="dropdown-text">2.6 Advanced Graphics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-3" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
+ <span class="menu-text">Day 3</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-3">    
+        <li>
+    <a class="dropdown-item" href="/slides/3-1-interactive-plots.rjs.html">
+ <span class="dropdown-text">3.1 Interactive plots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/3-2-shiny-apps.rjs.html">
+ <span class="dropdown-text">3.2 Shiny apps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/3-3-shiny-reactivity.rjs.html">
+ <span class="dropdown-text">3.3 Shiny reactivity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/3-4-theme-shiny.rjs.html">
+ <span class="dropdown-text">3.4 Theming Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/slides/3-5-build-shiny-app.rjs.html">
+ <span class="dropdown-text">3.5 Build a Shiny App</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<script id = "quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -285,153 +385,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   </script>
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">SISBID Data Visualization</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Day 1</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-1">    
-        <li>
-    <a class="dropdown-item" href="./slides/0-preamble.rjs.html">
- <span class="dropdown-text">Preamble</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/1-1-ggplot.rjs.html">
- <span class="dropdown-text">1.1 ggplot</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/1-2-ggplot-adv.rjs.html">
- <span class="dropdown-text">1.2 Advancing ggplot</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/1-3-perception.rjs.html">
- <span class="dropdown-text">1.3 Perception</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-2" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Day 2</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-2">    
-        <li>
-    <a class="dropdown-item" href="./slides/2-1-tidyr.rjs.html">
- <span class="dropdown-text">2.1 tidyr</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/2-2-messy-it-up.rjs.html">
- <span class="dropdown-text">2.2 Messy data</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/2-3-wrangling.rjs.html">
- <span class="dropdown-text">2.3 Wrangling</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/2-4-mvplot.rjs.html">
- <span class="dropdown-text">2.4 Multivariate Plots</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/2-5-mvplot-tour.rjs.html">
- <span class="dropdown-text">2.5 Tours</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/2-6-adv-graphics.rjs.html">
- <span class="dropdown-text">2.6 Advanced Graphics</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-3" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Day 3</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-3">    
-        <li>
-    <a class="dropdown-item" href="./slides/3-1-interactive-plots.rjs.html">
- <span class="dropdown-text">3.1 Interactive plots</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/3-2-shiny-apps.rjs.html">
- <span class="dropdown-text">3.2 Shiny apps</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/3-3-shiny-reactivity.rjs.html">
- <span class="dropdown-text">3.3 Shiny reactivity</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/3-4-theme-shiny.rjs.html">
- <span class="dropdown-text">3.4 Theming Shiny</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./slides/3-5-build-shiny-app.rjs.html">
- <span class="dropdown-text">3.5 Build a Shiny App</span></a>
-  </li>  
-    </ul>
-  </li>
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+
+
+<nav id="TOC" role="doc-toc">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sisbid-2025-module-2-data-visualization" id="toc-sisbid-2025-module-2-data-visualization" class="nav-link active" data-scroll-target="#sisbid-2025-module-2-data-visualization">SISBID 2025 Module 2: Data Visualization</a>
-  <ul class="collapse">
-  <li><a href="#module-description" id="toc-module-description" class="nav-link" data-scroll-target="#module-description">Module description</a></li>
-  <li><a href="#course-logistics" id="toc-course-logistics" class="nav-link" data-scroll-target="#course-logistics">Course Logistics</a></li>
-  <li><a href="#course-schedule" id="toc-course-schedule" class="nav-link" data-scroll-target="#course-schedule">Course Schedule</a></li>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link" data-scroll-target="#course-outline">Course outline</a>
-  <ul class="collapse">
-  <li><a href="#slack" id="toc-slack" class="nav-link" data-scroll-target="#slack">Slack</a></li>
-  <li><a href="#wednesday-afternoon" id="toc-wednesday-afternoon" class="nav-link" data-scroll-target="#wednesday-afternoon">Wednesday afternoon</a></li>
-  <li><a href="#thursday-1" id="toc-thursday-1" class="nav-link" data-scroll-target="#thursday-1">Thursday</a></li>
-  <li><a href="#friday-1" id="toc-friday-1" class="nav-link" data-scroll-target="#friday-1">Friday</a></li>
+  <li><a href="#sisbid-2025-module-2-data-visualization" id="toc-sisbid-2025-module-2-data-visualization">SISBID 2025 Module 2: Data Visualization</a>
+  <ul>
+  <li><a href="#module-description" id="toc-module-description">Module description</a></li>
+  <li><a href="#course-logistics" id="toc-course-logistics">Course Logistics</a></li>
+  <li><a href="#course-schedule" id="toc-course-schedule">Course Schedule</a></li>
+  <li><a href="#course-outline" id="toc-course-outline">Course outline</a>
+  <ul>
+  <li><a href="#slack" id="toc-slack">Slack</a></li>
+  <li><a href="#wednesday-afternoon" id="toc-wednesday-afternoon">Wednesday afternoon</a></li>
+  <li><a href="#thursday-1" id="toc-thursday-1">Thursday</a></li>
+  <li><a href="#friday-1" id="toc-friday-1">Friday</a></li>
   </ul></li>
-  <li><a href="#software-list" id="toc-software-list" class="nav-link" data-scroll-target="#software-list">Software list</a></li>
+  <li><a href="#software-list" id="toc-software-list">Software list</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
-    </div>
-<!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
-
-
-
-
-
+</nav>
 <section id="sisbid-2025-module-2-data-visualization" class="level1">
 <h1>SISBID 2025 Module 2: Data Visualization</h1>
 <p>Instructors: Di Cook, Heike Hofmann and Susan Vanderplas</p>
 <p>Website: <a href="https://dicook.github.io/SISBID/" class="uri">https://dicook.github.io/SISBID/</a></p>
 <section id="module-description" class="level2">
-<h2 class="anchored" data-anchor-id="module-description">Module description</h2>
+<h2>Module description</h2>
 <p>We will present general-purpose techniques for visualizing a variety of data, as well as specific techniques for visualizing common types of biological data sets. Some strategies for working with large data will be provided. Understanding data involves an iterative cycle of visualization and modeling. We will illustrate this with several examples during the workshop.</p>
 <p>The first segment of this module will focus on structured development of graphics using static graphics. This will use the ggplot2 package in R. It enables building plots using grammatically defined elements, and producing templates for use with multiple data sets. We will include some these principles for working with biological and genomic data.</p>
 <p>The second segment will focus on interactive graphics for rapid exploration. We will also demonstrate interactive techniques for high-performance local display, and for easily creating interactive web graphics. In addition, we will explain how to create simple web GUIs for managing interactive analysis tools for data using shiny.</p>
@@ -444,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="course-logistics" class="level2">
-<h2 class="anchored" data-anchor-id="course-logistics">Course Logistics</h2>
+<h2>Course Logistics</h2>
 <p>We use zoom for lectures. All sessions will be recorded and made available.</p>
 <p>Communication with the instructors should be in Zoom or on the slack channel.</p>
 <p>Zoom etiquette:</p>
@@ -454,12 +435,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="course-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="course-schedule">Course Schedule</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
+<h2>Course Schedule</h2>
+<div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Wednesday</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Thursday</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Friday</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<table class="caption-top table">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th>Wednesday</th>
@@ -517,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<table class="caption-top table">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th>Thursday</th>
@@ -605,7 +586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<table class="caption-top table">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th>Friday</th>
@@ -696,13 +677,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="course-outline" class="level2">
-<h2 class="anchored" data-anchor-id="course-outline">Course outline</h2>
+<h2>Course outline</h2>
 <section id="slack" class="level3">
-<h3 class="anchored" data-anchor-id="slack">Slack</h3>
+<h3>Slack</h3>
 <p>Find us on slack: <a href="SISBID.slack.com">SISBID.slack.com</a>. The channel is <code>data-visualization-2025</code> which contains zoom and video links.</p>
 </section>
 <section id="wednesday-afternoon" class="level3">
-<h3 class="anchored" data-anchor-id="wednesday-afternoon">Wednesday afternoon</h3>
+<h3>Wednesday afternoon</h3>
 <p><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> zip file <a href="https://github.com/downloads/dicook/SISBID/SISBID_day1.zip">download</a></p>
 <ol type="1">
 <li>Setting things up · <a href="slides/0-preamble.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/0-preamble.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a></li>
@@ -712,11 +693,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 <section id="thursday-1" class="level3">
-<h3 class="anchored" data-anchor-id="thursday-1">Thursday</h3>
-<p><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> zip file <a href="SISBID_day2.zip">download</a><br>
+<h3>Thursday</h3>
+<p><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> zip file <a href="SISBID_day2.zip">download</a><br />
 Note: this zip file assumes you will extract to the same folder as yesterday – data files have not been included twice.</p>
 <section id="morning" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="morning">Morning</h4>
+<h4 class="unnumbered">Morning</h4>
 <ol type="1">
 <li>Tidy data and tidying your messy data with tidyr · <a href="slides/2-1-tidyr.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/2-1-tidyr.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Heike)</li>
 <li>Making Data Messy again · <a href="slides/2-2-messy-it-up.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/2-2-messy-it-up.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Susan)</li>
@@ -724,7 +705,7 @@ Note: this zip file assumes you will extract to the same folder as yesterday –
 </ol>
 </section>
 <section id="afternoon" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="afternoon">Afternoon</h4>
+<h4 class="unnumbered">Afternoon</h4>
 <ol start="4" type="1">
 <li>Multivariate plots using ggplot2, GGally · <a href="slides/2-4-mvplot.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/2-4-mvplot.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Di)</li>
 <li>Touring on multivariate data · <a href="slides/2-5-mvplot-tour.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/2-5-mvplot-tour.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Di)</li>
@@ -733,11 +714,11 @@ Note: this zip file assumes you will extract to the same folder as yesterday –
 </section>
 </section>
 <section id="friday-1" class="level3">
-<h3 class="anchored" data-anchor-id="friday-1">Friday</h3>
-<p><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> zip file · <a href="SISBID_day3.zip">download</a><br>
+<h3>Friday</h3>
+<p><i class="fa-solid fa-file-zipper" aria-label="file-zipper"></i> zip file · <a href="SISBID_day3.zip">download</a><br />
 Note: this zip file assumes you will extract to the same folder as Wednesday – data files have not been included twice.</p>
 <section id="morning-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="morning-1">Morning</h4>
+<h4 class="unnumbered">Morning</h4>
 <ol type="1">
 <li>Advanced graphics and statistical inference · <a href="slides/2-6-adv-graphics.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/2-6-adv-graphics.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Susan).</li>
 <li>Interactive and animated graphics using plotly and gganimate · <a href="slides/3-1-interactive-plots.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/3-1-interactive-plots.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Heike).</li>
@@ -745,7 +726,7 @@ Note: this zip file assumes you will extract to the same folder as Wednesday –
 </ol>
 </section>
 <section id="afternoon-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="afternoon-1">Afternoon</h4>
+<h4 class="unnumbered">Afternoon</h4>
 <ol start="4" type="1">
 <li>Reactive elements in shiny · <a href="slides/3-3-shiny-reactivity.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/3-3-shiny-reactivity.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Heike).</li>
 <li>Theme a shiny app · <a href="slides/3-4-theme-shiny.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a> · <a href="slides/3-4-theme-shiny.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> Single page</a> (Susan).</li>
@@ -756,49 +737,53 @@ Note: this zip file assumes you will extract to the same folder as Wednesday –
 </section>
 </section>
 <section id="software-list" class="level2">
-<h2 class="anchored" data-anchor-id="software-list">Software list</h2>
+<h2>Software list</h2>
 <p>Download <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>, and <a href="https://cran.r-project.org">latest R version</a>.</p>
 <p>Open RStudio, and run the code below to install these packages and their dependencies:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CRAN packages</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CRAN packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"here"</span>, <span class="st">"readr"</span>, <span class="st">"readxl"</span>, <span class="st">"splitstackshape"</span>, <span class="st">"tidyr"</span>, <span class="st">"dplyr"</span>, <span class="st">"lubridate"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"stringr"</span>, <span class="st">"purrr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggthemes"</span>, <span class="st">"RColorBrewer"</span>, <span class="st">"scales"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dichromat"</span>, <span class="st">"colorspace"</span>, <span class="st">"viridis"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"ggmap"</span>, <span class="st">"gridExtra"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GGally"</span>, <span class="st">"ggpcp"</span>, <span class="st">"corrgram"</span>, <span class="st">"tourr"</span>, <span class="st">"gganimate"</span>, <span class="st">"maps"</span>,<span class="st">"datasauRus"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gapminder"</span>, <span class="st">"cranlogs"</span>, <span class="st">"shiny"</span>, <span class="st">"bslib"</span>, <span class="st">"DT"</span>, <span class="st">"leaflet"</span>, <span class="st">"plotly"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"htmltools"</span>, <span class="st">"broom"</span>, <span class="st">"broom.mixed"</span>, <span class="st">"lme4"</span>, <span class="st">"MASS"</span>, <span class="st">"forecast"</span>, <span class="st">"nullabor"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;here&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;readxl&quot;</span>, <span class="st">&quot;splitstackshape&quot;</span>, <span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;lubridate&quot;</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;purrr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;ggthemes&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;scales&quot;</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;dichromat&quot;</span>, <span class="st">&quot;colorspace&quot;</span>, <span class="st">&quot;viridis&quot;</span>, <span class="st">&quot;ggbeeswarm&quot;</span>, <span class="st">&quot;ggmap&quot;</span>, <span class="st">&quot;gridExtra&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;GGally&quot;</span>, <span class="st">&quot;ggpcp&quot;</span>, <span class="st">&quot;corrgram&quot;</span>, <span class="st">&quot;tourr&quot;</span>, <span class="st">&quot;gganimate&quot;</span>, <span class="st">&quot;maps&quot;</span>,<span class="st">&quot;datasauRus&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;gapminder&quot;</span>, <span class="st">&quot;cranlogs&quot;</span>, <span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;bslib&quot;</span>, <span class="st">&quot;DT&quot;</span>, <span class="st">&quot;leaflet&quot;</span>, <span class="st">&quot;plotly&quot;</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;htmltools&quot;</span>, <span class="st">&quot;broom&quot;</span>, <span class="st">&quot;broom.mixed&quot;</span>, <span class="st">&quot;lme4&quot;</span>, <span class="st">&quot;MASS&quot;</span>, <span class="st">&quot;forecast&quot;</span>, <span class="st">&quot;nullabor&quot;</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages and their dependencies</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(packages, <span class="at">dep=</span><span class="cn">TRUE</span>, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org/"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(packages, <span class="at">dep=</span><span class="cn">TRUE</span>, <span class="at">repos =</span> <span class="st">&quot;https://cloud.r-project.org/&quot;</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Install some packages from GitHub</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"wmurphyrd/fiftystater"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"heike/vinference"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;wmurphyrd/fiftystater&quot;</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;heike/vinference&quot;</span>)</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># For sharing web apps,</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># but you need adminstrator rights to your computer:</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rsconnect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rsconnect&quot;</span>)</span></code></pre></div>
 </div>
 <p><strong>Note:</strong> You can install all of the <code>tidyverse</code> of packages - <code>tidyr</code>, <code>dplyr</code>, <code>readr</code>, <code>ggplot2</code>, <code>tibble</code>, <code>purrr</code>, <code>forcats</code>, <code>stringr</code> - with <code>install.packages("tidyverse")</code>. But some operating systems seem to run into difficulties doing this, so installing just a subset is easier.</p>
 <p>If you want to compile the slides - you really don’t want to do this, but if you do - you will need these additional packages:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"hadley/emo"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"mitchelloharawild/icons"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"emitanaka/anicon"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"dicook/gretchenalbrecht"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"r-for-educators/flair"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"gadenbuie/countdown"</span>, <span class="at">subdir =</span> <span class="st">"r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;hadley/emo&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;mitchelloharawild/icons&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;emitanaka/anicon&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;dicook/gretchenalbrecht&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;r-for-educators/flair&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;gadenbuie/countdown&quot;</span>, <span class="at">subdir =</span> <span class="st">&quot;r&quot;</span>)</span></code></pre></div>
 </div>
-
-
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl">SISBID Data Visualization</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU=">SISBID Data Visualization</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SG9tZQ==">Home</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L2luZGV4Lmh0bWw=">/index.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6RGF5IDE=">Day 1</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6UHJlYW1ibGU=">Preamble</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8wLXByZWFtYmxlLnJqcy5odG1s">/slides/0-preamble.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6MS4xIGdncGxvdA==">1.1 ggplot</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8xLTEtZ2dwbG90LnJqcy5odG1s">/slides/1-1-ggplot.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6MS4yIEFkdmFuY2luZyBnZ3Bsb3Q=">1.2 Advancing ggplot</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8xLTItZ2dwbG90LWFkdi5yanMuaHRtbA==">/slides/1-2-ggplot-adv.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6MS4zIFBlcmNlcHRpb24=">1.3 Perception</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8xLTMtcGVyY2VwdGlvbi5yanMuaHRtbA==">/slides/1-3-perception.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6RGF5IDI=">Day 2</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6Mi4xIHRpZHly">2.1 tidyr</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8yLTEtdGlkeXIucmpzLmh0bWw=">/slides/2-1-tidyr.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6Mi4yIE1lc3N5IGRhdGE=">2.2 Messy data</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8yLTItbWVzc3ktaXQtdXAucmpzLmh0bWw=">/slides/2-2-messy-it-up.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6Mi4zIFdyYW5nbGluZw==">2.3 Wrangling</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8yLTMtd3JhbmdsaW5nLnJqcy5odG1s">/slides/2-3-wrangling.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6Mi40IE11bHRpdmFyaWF0ZSBQbG90cw==">2.4 Multivariate Plots</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8yLTQtbXZwbG90LnJqcy5odG1s">/slides/2-4-mvplot.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6Mi41IFRvdXJz">2.5 Tours</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8yLTUtbXZwbG90LXRvdXIucmpzLmh0bWw=">/slides/2-5-mvplot-tour.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6Mi42IEFkdmFuY2VkIEdyYXBoaWNz">2.6 Advanced Graphics</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8yLTYtYWR2LWdyYXBoaWNzLnJqcy5odG1s">/slides/2-6-adv-graphics.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6RGF5IDM=">Day 3</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6My4xIEludGVyYWN0aXZlIHBsb3Rz">3.1 Interactive plots</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8zLTEtaW50ZXJhY3RpdmUtcGxvdHMucmpzLmh0bWw=">/slides/3-1-interactive-plots.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6My4yIFNoaW55IGFwcHM=">3.2 Shiny apps</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8zLTItc2hpbnktYXBwcy5yanMuaHRtbA==">/slides/3-2-shiny-apps.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6My4zIFNoaW55IHJlYWN0aXZpdHk=">3.3 Shiny reactivity</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8zLTMtc2hpbnktcmVhY3Rpdml0eS5yanMuaHRtbA==">/slides/3-3-shiny-reactivity.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6My40IFRoZW1pbmcgU2hpbnk=">3.4 Theming Shiny</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8zLTQtdGhlbWUtc2hpbnkucmpzLmh0bWw=">/slides/3-4-theme-shiny.rjs.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6My41IEJ1aWxkIGEgU2hpbnkgQXBw">3.5 Build a Shiny App</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3NsaWRlcy8zLTUtYnVpbGQtc2hpbnktYXBwLnJqcy5odG1s">/slides/3-5-build-shiny-app.rjs.html</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGF0aXRsZQ==">SISBID Data Visualization</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=">SISBID Data Visualization</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZHRpdGxl">SISBID Data Visualization</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGFzaXRlbmFtZQ==">SISBID Data Visualization</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw=="></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZGRkZXNj"></span></p>
+</div>
 </section>
 </section>
 
 </main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+<script id = "quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1212,7 +1197,6 @@ Note: this zip file assumes you will extract to the same folder as Wednesday –
   </script>
 </div> <!-- /content -->
 
+</body>
 
-
-
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</html>

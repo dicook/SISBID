@@ -208,7 +208,8 @@
 <section id="warmup" class="slide level2 inverse middle">
 <h2>Warmup</h2>
 <p>Turn the <code>french_fries</code> data from wide format into a long format with variables <code>type</code> and <code>rating</code>.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 9
   time  treatment subject   rep potato buttery grassy rancid painty
   &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -219,13 +220,14 @@
 5 1     1         15          1    1.2     0.1    0      1.1    5.1
 6 1     1         15          2    8.8     3      3.6    1.5    2.3</code></pre>
 </div>
-<p></p><div class="countdown" id="timer_5858c23e" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+</div>
+<p></p><div class="countdown" id="timer_965852dd" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
-<section id="what-would-we-like-to-find-out-about-the-french-fries-data-set" class="slide level2 middle center inverse">
-<h2>What would we like to find out about the french fries data set?</h2>
+<section id="what-would-you-like-to-find-out-about-the-french-fries-data-set" class="slide level2 inverse">
+<h2>What would you like to find out about the french fries data set?</h2>
 <p>Go to menti.com at 2979 2396 and let us know!</p>
-
-<img src="images/mentimeter_qr_code.png" width="200" class="r-stretch"></section>
+<p><a href="images/mentimeter_qr_code.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/mentimeter_qr_code.png" style="width:30.0%"></a></p>
+</section>
 <section id="what-would-we-like-to-know" class="slide level2">
 <h2>What would we like to know?</h2>
 <ul>
@@ -239,28 +241,30 @@
 </section>
 <section id="pivot-french-fries-to-long" class="slide level2">
 <h2>Pivot french fries to long</h2>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>ff_long <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a></a>  <span class="fu">pivot_longer</span>(potato<span class="sc">:</span>painty, <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"rating"</span>)</span>
 <span id="cb2-3"><a></a></span>
 <span id="cb2-4"><a></a></span>
-<span id="cb2-5"><a></a><span class="fu">head</span>(ff_long)</span>
-<span id="cb2-6"><a></a><span class="co"># A tibble: 6 × 6</span></span>
-<span id="cb2-7"><a></a>  time  treatment subject   rep type    rating</span>
-<span id="cb2-8"><a></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span> <span class="er">&lt;</span>fct<span class="sc">&gt;</span>     <span class="er">&lt;</span>fct<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb2-9"><a></a><span class="dv">1</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> potato     <span class="fl">2.9</span></span>
-<span id="cb2-10"><a></a><span class="dv">2</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> buttery    <span class="dv">0</span>  </span>
-<span id="cb2-11"><a></a><span class="dv">3</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> grassy     <span class="dv">0</span>  </span>
-<span id="cb2-12"><a></a><span class="dv">4</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> rancid     <span class="dv">0</span>  </span>
-<span id="cb2-13"><a></a><span class="dv">5</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> painty     <span class="fl">5.5</span></span>
-<span id="cb2-14"><a></a><span class="dv">6</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">2</span> potato    <span class="dv">14</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a></a><span class="fu">head</span>(ff_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  time  treatment subject   rep type    rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+1 1     1         3           1 potato     2.9
+2 1     1         3           1 buttery    0  
+3 1     1         3           1 grassy     0  
+4 1     1         3           1 rancid     0  
+5 1     1         3           1 painty     5.5
+6 1     1         3           2 potato    14  </code></pre>
+</div>
 </div>
 </section>
 <section id="pivot-long-to-wide" class="slide level2 smaller">
 <h2>Pivot long to wide</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<p><a href="images/tidyr-pivoting.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/tidyr-pivoting.gif" style="width:100.0%"></a></p>
+<p><a href="images/tidyr-pivoting.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/tidyr-pivoting.gif" style="width:100.0%"></a></p>
 </div><div class="column" style="width:70%;">
 <p>Examples:</p>
 <ul>
@@ -287,8 +291,8 @@
 <h2>Pivot to wide form</h2>
 <p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
 <p>Long form:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(ff_long, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(ff_long, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top">
 <thead>
@@ -326,17 +330,29 @@
 <td style="text-align: left;">grassy</td>
 <td style="text-align: right;">0.0</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">rancid</td>
+<td style="text-align: right;">0.0</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
+</section>
+<section id="pivot-to-wide-form-1" class="slide level2 smaller">
+<h2>Pivot to wide form</h2>
+<p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
 <p>Wide form:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>french_fries_weeks <span class="ot">&lt;-</span> ff_long <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"time"</span>, <span class="at">values_from =</span> <span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>french_fries_weeks <span class="ot">&lt;-</span> ff_long <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"time"</span>, <span class="at">values_from =</span> <span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(french_fries_weeks,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">kable</span>(<span class="fu">head</span>(french_fries_weeks,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top">
 <colgroup>
@@ -427,89 +443,104 @@
 </div>
 </div>
 </section>
-<section id="pivot-to-wide-form-1" class="slide level2">
+<section id="pivot-to-wide-form-2" class="slide level2 smaller">
 <h2>Pivot to wide form</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">head</span>(french_fries_weeks)</span>
-<span id="cb6-2"><a></a><span class="co"># A tibble: 6 × 14</span></span>
-<span id="cb6-3"><a></a>  treatment subject   rep type     <span class="st">`</span><span class="at">1</span><span class="st">`</span>   <span class="st">`</span><span class="at">2</span><span class="st">`</span>   <span class="st">`</span><span class="at">3</span><span class="st">`</span>   <span class="st">`</span><span class="at">4</span><span class="st">`</span>   <span class="st">`</span><span class="at">5</span><span class="st">`</span>   <span class="st">`</span><span class="at">6</span><span class="st">`</span>   <span class="st">`</span><span class="at">7</span><span class="st">`</span>   <span class="st">`</span><span class="at">8</span><span class="st">`</span></span>
-<span id="cb6-4"><a></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span>     <span class="er">&lt;</span>fct<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb6-5"><a></a><span class="dv">1</span> <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> potato   <span class="fl">2.9</span>   <span class="dv">9</span>    <span class="fl">11.8</span>  <span class="fl">13.6</span>  <span class="dv">14</span>     <span class="fl">0.4</span>   <span class="fl">2.9</span>   <span class="fl">3.5</span></span>
-<span id="cb6-6"><a></a><span class="dv">2</span> <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> butte…   <span class="dv">0</span>     <span class="fl">0.3</span>   <span class="fl">0.2</span>   <span class="fl">0.1</span>   <span class="fl">0.3</span>   <span class="fl">1.2</span>   <span class="dv">0</span>     <span class="fl">0.5</span></span>
-<span id="cb6-7"><a></a><span class="dv">3</span> <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> grassy   <span class="dv">0</span>     <span class="fl">0.1</span>   <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="fl">1.3</span></span>
-<span id="cb6-8"><a></a><span class="dv">4</span> <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> rancid   <span class="dv">0</span>     <span class="fl">5.8</span>   <span class="dv">6</span>     <span class="fl">1.7</span>   <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>  </span>
-<span id="cb6-9"><a></a><span class="dv">5</span> <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> painty   <span class="fl">5.5</span>   <span class="fl">0.3</span>   <span class="dv">0</span>     <span class="dv">0</span>     <span class="fl">1.7</span>   <span class="fl">9.5</span>   <span class="fl">5.5</span>   <span class="fl">3.8</span></span>
-<span id="cb6-10"><a></a><span class="dv">6</span> <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">2</span> potato  <span class="dv">14</span>     <span class="fl">5.5</span>   <span class="fl">7.8</span>   <span class="fl">5.3</span>  <span class="fl">12.9</span>   <span class="fl">3.3</span>   <span class="fl">0.8</span>   <span class="fl">0.6</span></span>
-<span id="cb6-11"><a></a><span class="co"># ℹ 2 more variables: `9` &lt;dbl&gt;, `10` &lt;dbl&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">head</span>(french_fries_weeks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+  treatment subject   rep type     `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`
+  &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 1         3           1 potato   2.9   9    11.8  13.6  14     0.4   2.9   3.5
+2 1         3           1 butte…   0     0.3   0.2   0.1   0.3   1.2   0     0.5
+3 1         3           1 grassy   0     0.1   0     0     0     0     0     1.3
+4 1         3           1 rancid   0     5.8   6     1.7   0     0     0     0  
+5 1         3           1 painty   5.5   0.3   0     0     1.7   9.5   5.5   3.8
+6 1         3           2 potato  14     5.5   7.8   5.3  12.9   3.3   0.8   0.6
+# ℹ 2 more variables: `9` &lt;dbl&gt;, `10` &lt;dbl&gt;</code></pre>
 </div>
-<p><code>pivot_wider</code> introduces one new variable for each level of the variable in <code>names_from</code></p>
-<p>and fills values in from the variable in <code>values_from</code></p>
-<p>Posit cheatsheet: https://tidyr.tidyverse.org</p>
-</section>
-<section id="comparing-ratings-from-different-weeks" class="slide level2">
-<h2>Comparing ratings from different weeks</h2>
-<p>Plot Week 1 against Week 9 in a scatterplot:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>french_fries_weeks <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">9</span><span class="st">`</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</div>
+</div><div class="column" style="width:20%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="2-2-messy-it-up_files/figure-revealjs/week 1 vs week 9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="2-2-messy-it-up_files/figure-revealjs/week 1 vs week 9-1.png" class="quarto-figure quarto-figure-center" width="480"></a></p>
+<p><a href="images/tidyr-cheatsheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Tidyr cheatsheet"><img data-src="images/tidyr-cheatsheet.png" alt="Tidyr cheatsheet"></a></p>
+<figcaption><a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">Tidyr cheatsheet</a></figcaption>
+</figure>
+</div>
+</div></div>
+<p><code>pivot_wider</code>:</p>
+<ul>
+<li>creates a new column for each value of the variable in <code>names_from</code></li>
+<li>fills values in using the variable in <code>values_from</code></li>
+</ul>
+</section>
+<section id="comparing-ratings-different-weeks" class="slide level2">
+<h2>Comparing ratings: different weeks</h2>
+<p>Note the use of the backtick for variable names with special characters or numbers.</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>french_fries_weeks <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">9</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb9-3"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="2-2-messy-it-up_files/figure-html/week 1 vs week 9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="2-2-messy-it-up_files/figure-html/week 1 vs week 9-1.png" width="480"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Note the use of the backtick for variable names with special characters or numbers.</p>
+</div></div>
 </section>
-<section id="your-turn-do-the-replicates-look-like-each-other" class="slide level2 inverse middle">
-<h2>Your turn: Do the replicates look like each other?</h2>
-<p>Tackle this by plotting the replicates against each other using a scatterplot.</p>
-<p>You will need to first convert the data into long form, and then get the replicates spread into separate columns by replicate.</p>
-<p></p><div class="countdown" id="timer_a32202dd" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<section id="your-turn-are-the-replicates-similar" class="slide level2 inverse">
+<h2>Your turn: Are the replicates similar?</h2>
+<ul>
+<li>Plot the replicates against each other using a scatterplot.</li>
+<li>First, convert the data into long form</li>
+<li>Get the replicates spread into separate columns by replicate.</li>
+</ul>
+<p></p><div class="countdown" id="timer_cf938dc5" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="are-ratings-similar-on-different-scales" class="slide level2">
 <h2>Are ratings similar on different scales?</h2>
 <ul>
-<li>Are ratings similar on the different scales: potato’y, buttery, grassy, rancid and painty?</li>
-<li>We need to pivot the data into long form, and make plots facetted by the scale.</li>
+<li>Scales: potato-y, buttery, grassy, rancid and painty?</li>
+<li>Pivot into long form, plot with <code>facet_...(~scale)</code>.</li>
 </ul>
-<p>–</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>ff.m <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
-<span id="cb8-2"><a></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>(time<span class="sc">:</span>rep), <span class="at">names_to=</span><span class="st">"type"</span>, <span class="at">values_to=</span><span class="st">"rating"</span>)</span>
-<span id="cb8-3"><a></a><span class="fu">head</span>(ff.m)</span>
-<span id="cb8-4"><a></a><span class="co"># A tibble: 6 × 6</span></span>
-<span id="cb8-5"><a></a>  time  treatment subject   rep type    rating</span>
-<span id="cb8-6"><a></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span> <span class="er">&lt;</span>fct<span class="sc">&gt;</span>     <span class="er">&lt;</span>fct<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb8-7"><a></a><span class="dv">1</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> potato     <span class="fl">2.9</span></span>
-<span id="cb8-8"><a></a><span class="dv">2</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> buttery    <span class="dv">0</span>  </span>
-<span id="cb8-9"><a></a><span class="dv">3</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> grassy     <span class="dv">0</span>  </span>
-<span id="cb8-10"><a></a><span class="dv">4</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> rancid     <span class="dv">0</span>  </span>
-<span id="cb8-11"><a></a><span class="dv">5</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> painty     <span class="fl">5.5</span></span>
-<span id="cb8-12"><a></a><span class="dv">6</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">2</span> potato    <span class="dv">14</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>ff.m <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>(time<span class="sc">:</span>rep), <span class="at">names_to=</span><span class="st">"type"</span>, <span class="at">values_to=</span><span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>ff.m <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>(time<span class="sc">:</span>rep), <span class="at">names_to=</span><span class="st">"type"</span>, <span class="at">values_to=</span><span class="st">"rating"</span>)</span>
-<span id="cb9-3"><a></a><span class="fu">head</span>(ff.m)</span>
-<span id="cb9-4"><a></a><span class="co"># A tibble: 6 × 6</span></span>
-<span id="cb9-5"><a></a>  time  treatment subject   rep type    rating</span>
-<span id="cb9-6"><a></a>  <span class="sc">&lt;</span>fct<span class="sc">&gt;</span> <span class="er">&lt;</span>fct<span class="sc">&gt;</span>     <span class="er">&lt;</span>fct<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb9-7"><a></a><span class="dv">1</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> potato     <span class="fl">2.9</span></span>
-<span id="cb9-8"><a></a><span class="dv">2</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> buttery    <span class="dv">0</span>  </span>
-<span id="cb9-9"><a></a><span class="dv">3</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> grassy     <span class="dv">0</span>  </span>
-<span id="cb9-10"><a></a><span class="dv">4</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> rancid     <span class="dv">0</span>  </span>
-<span id="cb9-11"><a></a><span class="dv">5</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">1</span> painty     <span class="fl">5.5</span></span>
-<span id="cb9-12"><a></a><span class="dv">6</span> <span class="dv">1</span>     <span class="dv">1</span>         <span class="dv">3</span>           <span class="dv">2</span> potato    <span class="dv">14</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  time  treatment subject   rep type    rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+1 1     1         3           1 potato     2.9
+2 1     1         3           1 buttery    0  
+3 1     1         3           1 grassy     0  
+4 1     1         3           1 rancid     0  
+5 1     1         3           1 painty     5.5
+6 1     1         3           2 potato    14  </code></pre>
 </div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>rating)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb10-2"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol=</span><span class="dv">5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="are-ratings-similar-across-different-scales" class="slide level2">
+<h2>Are ratings similar across different scales?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>rating)) <span class="sc">+</span> </span>
+<span id="cb12-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb12-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol=</span><span class="dv">5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><a href="2-2-messy-it-up_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="2-2-messy-it-up_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="2-2-messy-it-up_files/figure-html/unnamed-chunk-4-1.png" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -517,58 +548,63 @@
 </section>
 <section id="side-by-side-boxplots" class="slide level2">
 <h2>Side-by-side boxplots</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>type, <span class="at">y=</span>rating, <span class="at">fill=</span>type)) <span class="sc">+</span> </span>
-<span id="cb11-2"><a></a><span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>type, <span class="at">y=</span>rating, <span class="at">fill=</span>type)) <span class="sc">+</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><a href="2-2-messy-it-up_files/figure-revealjs/side-by-Side boxplots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="2-2-messy-it-up_files/figure-revealjs/side-by-Side boxplots-1.png" class="quarto-figure quarto-figure-center" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-html/side-by-Side boxplots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="2-2-messy-it-up_files/figure-html/side-by-Side boxplots-1.png" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-what-is-the-correlation-between-scales" class="slide level2 inverse middle">
-<h2>Your turn: What is the correlation between scales?</h2>
-<p>Tackle this problem by creating a wide form of the data by type of scale.</p>
-<p><code>cor</code> allows you to create a correlation matrix. Look into the help <code>?cor</code> to get rid of <code>NA</code> values in the result.</p>
-<p>Draw a scatterplot of two scales with the highest (positive or negative) correlation value.</p>
-<p></p><div class="countdown" id="timer_53d7b1ca" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<section id="your-turn-correlation-bw-scales" class="slide level2 inverse">
+<h2>Your turn: Correlation b/w scales?</h2>
+<ul>
+<li><p>Create a wide form of the data by type of scale.</p></li>
+<li><p><code>cor</code> allows you to create a correlation matrix.<br>
+Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the result.</p></li>
+<li><p>Draw a scatterplot of two scales with the highest (positive or negative) correlation value.</p></li>
+</ul>
+<p></p><div class="countdown" id="timer_8ef16502" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="ratings-by-week" class="slide level2">
 <h2>Ratings by week</h2>
-<p>How do ratings change over the weeks? Again, we use the long form of the data and plot:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>ff.m<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ff.m<span class="sc">$</span>time)</span>
-<span id="cb12-2"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>rating, <span class="at">colour=</span>type)) <span class="sc">+</span> </span>
-<span id="cb12-3"><a></a><span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
-<span id="cb12-4"><a></a><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb12-5"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use the long form of the data and plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>ff.m<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ff.m<span class="sc">$</span>time)</span>
+<span id="cb14-2"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>rating, <span class="at">colour=</span>type)) <span class="sc">+</span> </span>
+<span id="cb14-3"><a></a><span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a></a><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb14-5"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><a href="2-2-messy-it-up_files/figure-revealjs/ratings by week-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="2-2-messy-it-up_files/figure-revealjs/ratings by week-1.png" class="quarto-figure quarto-figure-center" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-html/ratings by week-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="2-2-messy-it-up_files/figure-html/ratings by week-1.png" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="your-turn-modeling-ratings-over-time-different-scales" class="slide level2 inverse middle">
-<h2>Your turn: Modeling ratings over time &amp; different scales?</h2>
-<p>Find a linear model describing the average rating depending on the week (time) and type of scale as shown below.</p>
-<p>Which form of the dataset should we use?</p>
-<p>Challenge: can you plot the fitted lines from the model?</p>
-<div class="cell" data-layout-align="center">
+<section id="your-turn-ratings-by-time-scale" class="slide level2 inverse middle">
+<h2>Your turn: Ratings by time &amp; scale?</h2>
+<ul>
+<li>Find a linear model describing the average rating depending on the week (time) and type of scale as shown below.</li>
+<li>Which form of the dataset should we use?</li>
+<li>Challenge: can you plot the fitted lines from the model?</li>
+</ul>
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><a href="2-2-messy-it-up_files/figure-revealjs/ratings by week again-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="2-2-messy-it-up_files/figure-revealjs/ratings by week again-1.png" class="quarto-figure quarto-figure-center" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-html/ratings by week again-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="2-2-messy-it-up_files/figure-html/ratings by week again-1.png" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p></p><div class="countdown" id="timer_69234697" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p></p><div class="countdown" id="timer_daa64904" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
@@ -799,44 +835,6 @@
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

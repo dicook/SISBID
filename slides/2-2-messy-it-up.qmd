@@ -1,5 +1,7 @@
 ---
 title: "Making a mess again - with the data"
+message: false
+warning: false
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
@@ -180,7 +182,7 @@ head(ff.m)
 
 
 
-## Are ratings similar on different scales?
+## Are ratings similar across different scales?
   
 ```{r, fig.height=2, fig.width=8}
 ggplot(data=ff.m, aes(x=rating)) + 
@@ -197,7 +199,7 @@ ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) +
 ```
 
 
-## Your turn: What is the correlation between scales? {.inverse}
+## Your turn: Correlation b/w scales? {.inverse}
 
 - Create a wide form of the data by type of scale. 
 
@@ -231,13 +233,13 @@ facet_wrap(~type, ncol = 5)
 ```
 
 
-## Your turn: Modeling ratings over time & scales? {.inverse .middle}
+## Your turn: Ratings by time & scale? {.inverse .middle}
 
-- Find a linear model describing the average rating depending on the week (time) and type of scale as shown below.
+- Find a linear model describing the average rating by week (time) and type of scale as shown below.
 - Which form of the dataset should we use?
 - Challenge: can you plot the fitted lines from the model?
 
-```{r ratings by week again, echo=FALSE, fig.width=8, fig.height=3, message = F, warning = F}
+```{r ratings by week again, echo=FALSE, fig.width=8, fig.height=2.5, message = F, warning = F}
 ff.m$time <- as.numeric(ff.m$time)
 ggplot(data=ff.m, aes(x=time, y=rating, colour=type)) + 
 geom_point(size=.75) +
