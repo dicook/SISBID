@@ -1,8 +1,11 @@
 format:
   revealjs:
+    output-ext: rjs.html
     theme: default
     css: ["css/myremark.css"]
     self_contained: false
+  html:
+    output-ext: onepage.html
 search: false
 
 subtitle: "SISBID 2025 <br> https://github.com/dicook/SISBID"
