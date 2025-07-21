@@ -1,5 +1,5 @@
 ---
-title: "Advancing the Grammar of Graphics"
+title: "Advancing the Grammar of Graphics: `gg` packages, maps, interactivity"
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
@@ -7,6 +7,7 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
+<!--
 # to do
 
 - new platypus, maybe add a new creature for an exercise
@@ -24,15 +25,26 @@ pelican |>
 ```
 
 - talk about the ggverse, ggdist, https://exts.ggplot2.tidyverse.org
+-->
 <!-- - HH: bug that I don't know how to fix: label in first leaflet map is not showing up at the right place (probably because of the pull-right) -->
 
 ## Example 2: Monotremes in Australia
 
 Where can you find the strange platypus and echidna live in Australia?
 
-![[Image Source](https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg)](https://upload.wikimedia.org/wikipedia/commons/7/7e/Platypus-sketch.jpg){width="45%"}
+:::: {.columns}
+::: {.column}
 
-![[Image Source](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/EchidnainCanberra.JPG/500px-EchidnainCanberra.JPG)](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/EchidnainCanberra.JPG/500px-EchidnainCanberra.JPG){width="45%"}
+![[Image Source](https://en.wikipedia.org/wiki/File:Platypus-sketch.jpg)](https://upload.wikimedia.org/wikipedia/commons/7/7e/Platypus-sketch.jpg){width="300"}
+
+:::
+
+::: {.column}
+
+![[Image Source](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/EchidnainCanberra.JPG/500px-EchidnainCanberra.JPG)](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/EchidnainCanberra.JPG/500px-EchidnainCanberra.JPG){width="300"}
+
+:::
+::::
 
 ```{r not to run this code, eval=FALSE, echo = FALSE}
 # Data extracted from ALA with this code
@@ -178,7 +190,7 @@ SOME STUFF HERE |>
 then we can simply plot occurrence over time.
 :::
 
-```{r show sightings over time, echo=TRUE, out.width="60%"}
+```{r show sightings over time, echo=TRUE, out.width="60%",fig.height=4,fig.width=8}
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -196,7 +208,7 @@ Add a trend line.
 ::: columns
 ::: column
 
-```{r add a trend line, echo=F,out.width="100%"}
+```{r add a trend line, echo=F,out.width="100%",fig.height=4,fig.width=8}
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -214,7 +226,7 @@ monotremes |>
 :::
 
 ## Interactivity!
-```{r make it interactive to investigate some observations, echo=TRUE, out.width = "80%"}
+```{r make it interactive to investigate some observations, echo=TRUE, out.width = "80%",fig.height=4,fig.width=8}
 library(plotly)
 ggplotly()
 ```
@@ -223,11 +235,11 @@ ggplotly()
 
 `r countdown::countdown(10)`
 
-Make sure you can make all the plots shown in this session, and then tackle the next set of tasks: 
+Make sure you can make all the plots shown in this session, and then tackle these tasks: 
 
-- Change the dotplot into a density plot, to focus on the locations of frequent sightings.
-- Try facetting by creatures
-- Do you learn anything different than from the scatterplot?
+- Change the dotplot into a density plot. This changes the focus to be on the locations of the most frequent sightings.
+- Facetting by creatures might 
+- How would the interpretation change using the density plot instead of the scatterplot?
 
 
 ```{r solution code to density plot on map, eval=FALSE, echo=FALSE}
@@ -245,7 +257,7 @@ Previously it looked like echidnas are found all over Australia. The density plo
 
 ## Your turn {.inverse .middle}
 
-Have a go at making a side-by-side boxplot of the occurrences over month. How does this change the focus for the temporal trend. 
+Explore the temporal trend differently by making a side-by-side boxplot of the occurrences over month. Note that you still need to summarise by day for this to be meangingful. Does this change the focus for the temporal trend? 
 
 ```{r solution code to boxplot task, eval=FALSE, echo=FALSE}
 monotremes |>
@@ -256,6 +268,7 @@ monotremes |>
     geom_boxplot() +
     facet_wrap(~common_name, ncol=2) 
 ```
+
 ::: notes
 The focus now is median, and IQR over the year.
 :::
