@@ -70,6 +70,26 @@ ul li {
 }
 
 
+/* Safari 11+ */
+@media not all and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    ul li {
+      list-style-type: none;
+    }
+    ul li:before {
+      content: "\f080";
+      font-family: "FontAwesome";
+      margin-right: 10px;
+      color: #D95F02;
+    }
+    ul li li:before {
+      content: "\f1fe";
+      font-family: "FontAwesome";
+      margin-right: 10px;
+    }
+  }
+}
+
 .slides section ul {
   li {
     li::marker {
@@ -226,4 +246,13 @@ code {
 /* Hide a slide number */
 .hide-count .remark-slide-number {
   display: none;
+}
+
+
+/* Change highlighting approach */
+code.has-line-highlights > span:not(.highlight-line) {
+  opacity: 1!important;
+}
+code.has-line-highlights > span.highlight-line {
+  background-color: yellow!important;
 }

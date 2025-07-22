@@ -73,7 +73,7 @@ ul li {
 /* Safari 11+ */
 @media not all and (min-resolution:.001dpcm) {
   @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-    li {
+    ul li {
       list-style-type: none;
     }
     ul li:before {
@@ -89,44 +89,6 @@ ul li {
     }
   }
 }
-/* Test website on real Safari 11+ */
-
-/* Safari 10.1 */
-@media not all and (min-resolution:.001dpcm){
-  @supports (-webkit-appearance:none) and (not (stroke-color:transparent)) {
-    li {
-      list-style-type: none;
-    }
-    ul li:before {
-      content: "\f080";
-      font-family: "FontAwesome";
-      margin-right: 10px;
-    }
-    ul li li:before {
-      content: "\f1fe";
-      font-family: "FontAwesome";
-      margin-right: 10px;
-    }
-  }
-}
-
-/* Safari 6.1-10.0 (but not 10.1) */
-@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0){
-  li {
-    list-style-type: none;
-  }
-  ul li:before {
-    content: "\f080";
-    font-family: "FontAwesome";
-    margin-right: 10px;
-  }
-  ul li li:before {
-    content: "\f1fe";
-    font-family: "FontAwesome";
-    margin-right: 10px;
-  }
-}
-
 
 .slides section ul {
   li {
@@ -284,4 +246,13 @@ code {
 /* Hide a slide number */
 .hide-count .remark-slide-number {
   display: none;
+}
+
+
+/* Change highlighting approach */
+code.has-line-highlights > span:not(.highlight-line) {
+  opacity: 1!important;
+}
+code.has-line-highlights > span.highlight-line {
+  background-color: yellow!important;
 }
