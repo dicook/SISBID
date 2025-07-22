@@ -226,9 +226,9 @@ monotremes |>
 :::
 
 ## Interactivity!
-```{r make it interactive to investigate some observations, echo=TRUE, out.width = "100%"}
+```{r make it interactive to investigate some observations, echo=TRUE, out.width = "60%", fig.width=10, fig.height=5}
 library(plotly)
-ggplotly(width=800, height=400)
+ggplotly(width=800, height=500)
 ```
 
 ## Your turn {.inverse .middle}
