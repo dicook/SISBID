@@ -4,6 +4,8 @@ title-slide-attributes:
   data-background-image: images/who_wore_it_better.jpg
   data-background-size: 20%
   data-background-position: 99% 50%
+message: false
+warning: false
 ---
 
 
@@ -19,6 +21,7 @@ library(ggplot2)
 library(dichromat)
 library(scales)
 library(RColorBrewer)
+theme_set(theme_bw())
 ```
 
 ## Game: Which plot wears it better? {.smaller}
@@ -39,13 +42,18 @@ tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |>
 tb_kn <- tb |> 
   filter(country == "Kenya") |>
   filter(!(age %in% c("04", "014", "514", "u"))) |>
-  filter(!is.na(count))
+  filter(!is.na(count)) |>
+  mutate(age = str_replace(age, "(\\d{2})(\\d{2})", "\\1-\\2") |>
+           str_replace("65", "65+"))
 ```
 
 Coming up: **2 different plots** of 2012 TB incidence (e.g. newly diagnosed cases) in Kenya, based on variables:
 
 ```{r}
-tb_kn |> filter(year == 2012) |> dplyr::select(sex, age, count)
+tb_kn |> 
+  filter(year == 2012) |> 
+  dplyr::select(sex, age, count) |>
+  head()
 ```
 :::
 
@@ -74,7 +82,7 @@ tb_kn |> filter(year == 2012) |>
 ```
 
 ```{r focus on one year age side-by-side bars of age group, fig.height=3, echo=FALSE}
-tb_cn |> filter(year == 2012) |>
+tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -170,10 +178,11 @@ Which type of plot makes it easier to answer
 > [Is the trend for females generally decreasing over time?]{.orange}
 
 
+::: {.content-visible when-format="revealjs"}
 ```{r}
 countdown::countdown(1,50)
 ```
-
+:::
 
 
 ## TWO MINUTE CHALLENGE `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` {.inverse}
@@ -190,9 +199,11 @@ What are the pros and cons of each way of displaying the same information? Shoul
 ```
 :::
 
+::: {.content-visible when-format="revealjs"}
 ```{r}
 countdown::countdown(0, 30)
 ```
+:::
 
 ## TWO MINUTE CHALLENGE `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` {.inverse}
 
@@ -200,9 +211,12 @@ Plot A shows the proportion as a line plot. Plot B uses a 100% chart of stacked 
 
 > [Is there an age effect in the proportion of incidence by gender? Is there a temporal trend in the proportions?]{.orange}
 
+::: {.content-visible when-format="revealjs"}
 ```{r}
 countdown::countdown(1, 5)
 ```
+:::
+
 ::: {layout-ncol=2}
 ```{r use a line plot for proportions, fig.height=3}
 tb_kn |> group_by(year, age) |> 
@@ -281,10 +295,11 @@ Come up with a plot type for each of the mappings.
 :::
 :::
 
-
+::: {.content-visible when-format="revealjs"}
 ```{r}
 countdown::countdown(1, 40, top=100, right=100)
 ```
+:::
 
 ::: notes
 1. scatterplot, barchart
@@ -369,9 +384,11 @@ It's possible to have too many colours to perceive differences.
 
 Of the previous three colour schemes on the same data, which would be the most appropriate? Why?
 
+::: {.content-visible when-format="revealjs"}
 ```{r}
 countdown::countdown(0, 50, right=50, bottom=0)
 ```
+:::
 
 ## Color blind-proofing
 
@@ -574,9 +591,11 @@ This builds on the exercise from the previous session.
 - Using your choice of country, for example, Australia, make a set of plots to explore the TB incidence among males relative to females over different age groups for 2012.
 - Choose your best plot to answer this question: [Is there a higher prevalence of TB among younger women in 2012?]{.orange}
 
+::: {.content-visible when-format="revealjs"}
 ```{r}
 countdown::countdown(7, 0)
 ```
+:::
 
 ## Resources {.smaller .tightlist}
 

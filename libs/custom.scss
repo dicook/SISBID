@@ -22,6 +22,9 @@ h1:before {
 //li { line-height: 1.85em; }
 //li p { line-height: 1.25em; }
 
+.quarto-alternate-formats ul li::marker {
+  content: none!important;
+}
 .panel-tabset ul li::marker {
   content: none!important;
 }
@@ -90,4 +93,8 @@ code.has-line-highlights > span:not(.highlight-line) {
 }
 code.has-line-highlights > span.highlight-line {
   background-color: yellow!important;
+}
+
+.notes {
+  display: none;
 }
