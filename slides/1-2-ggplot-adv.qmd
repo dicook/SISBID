@@ -7,6 +7,24 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
+## `gg` extensions
+
+- There are more than 150 extensions to `ggplot2`
+- Many adhere to the grammar, to define new types of displays, like 
+    - `ggdist`: including representation of uncertainty and error
+    - `gganimate`: specifies animations as layers
+- Others are supporting packages, such as 
+    - `patchwork` for laying out multiple displays
+    - `ggthemes` for styling plots
+
+[https://exts.ggplot2.tidyverse.org/gallery/](https://exts.ggplot2.tidyverse.org/gallery/)
+
+## `ggdist`
+
+<img src="https://mjskay.github.io/ggdist/logo.svg" width="20%">
+
+
+
 <!--
 # to do
 
@@ -28,7 +46,7 @@ pelican |>
 -->
 <!-- - HH: bug that I don't know how to fix: label in first leaflet map is not showing up at the right place (probably because of the pull-right) -->
 
-## Example 2: Monotremes in Australia
+## Example: Monotremes in Australia
 
 Where can you find the strange platypus and echidna live in Australia?
 
