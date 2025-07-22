@@ -9,6 +9,7 @@ source(here::here("libraries.R"))
 
 ## `gg` extensions
 
+::: {.smaller}
 - There are more than 150 extensions to `ggplot2`
 - Many adhere to the grammar, to define new types of displays, like 
     - `ggdist`: including representation of uncertainty and error
@@ -16,14 +17,68 @@ source(here::here("libraries.R"))
 - Others are supporting packages, such as 
     - `patchwork` for laying out multiple displays
     - `ggthemes` for styling plots
+    
+:::
 
 [https://exts.ggplot2.tidyverse.org/gallery/](https://exts.ggplot2.tidyverse.org/gallery/)
 
 ## `ggdist`
 
-<img src="https://mjskay.github.io/ggdist/logo.svg" width="20%">
 
+:::: {.columns}
+::: {.column width="10%"}
 
+<img src="https://mjskay.github.io/ggdist/logo.svg" width="80%">
+
+:::
+
+::: {.column width="45%"}
+
+::: { .smaller}
+
+```{r}
+#| label: tb-comparisons1
+#| fig-width: 5
+#| fig-height: 4
+tb_inc_100k <- read_csv(here::here("data/TB_burden_countries_2025-07-22.csv")) |>
+  filter(iso3 %in% c("USA", "AUS"))
+ggplot(tb_inc_100k, aes(y = iso3, 
+                        x = e_inc_100k)) +
+  stat_gradientinterval(fill = "darkorange") +
+  ylab("") +
+  xlab("Inc per 100k") +
+  theme_ggdist()
+```
+:::
+:::
+
+::: {.column width="45%"}
+
+::: {.smaller}
+ 
+```{r}
+#| label: tb-comparisons2
+#| fig-width: 5
+#| fig-height: 4
+ggplot(tb_inc_100k, aes(y = iso3, 
+                        x = e_inc_100k)) +
+  stat_halfeye(side = "right") +
+  geom_dots(side="left", 
+                    fill = "darkorange", color = "darkorange") +
+  ylab("") +
+  xlab("Inc per 100k") +
+  theme_ggdist()
+```
+
+:::
+:::
+::::
+
+## Your turn {.inverse .middle}
+
+`r countdown::countdown(5)`
+
+Explore other possibilities in `ggdist`, for example, how `stat_interval()` would change a previous chart.
 
 <!--
 # to do
@@ -192,8 +247,7 @@ monotremes |>
 
 ## Temporal trend
 
-Plot sightings over time (`eventDate`). 
-`eventDate` was converted into two variables during pre-processing: `day` which is a date variable, and `hour`.
+Our goal is to examine how sightings change over time. The orginal variable `eventDate` was renamed to be `datetime` and converted into two variables during pre-processing: `day` which is a date variable, and `hour`.
 
 ```{r eval=FALSE}
 SOME STUFF HERE |>

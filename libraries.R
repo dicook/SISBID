@@ -40,6 +40,7 @@ library(cranlogs)
 library(shiny)
 library(bslib)
 library(DT)
+library(ggdist)
 
 library(remotes)
 # remotes::install_github("wmurphyrd/fiftystater")
