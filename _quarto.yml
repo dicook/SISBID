@@ -25,7 +25,9 @@ website:
     left:
       - href: index.html
         text: Home
+        aria-label: Home
       - text: Day 1
+        aria-label: Day 1 content
         menu:
           - href: slides/0-preamble.rjs.html
             text: Preamble
@@ -36,6 +38,7 @@ website:
           - href: slides/1-3-perception.rjs.html
             text: 1.3 Perception
       - text: Day 2
+        aria-label: Day 2 content
         menu:
           - href: slides/2-1-tidyr.rjs.html
             text: 2.1 tidyr
@@ -50,6 +53,7 @@ website:
           - href: slides/2-6-adv-graphics.rjs.html
             text: 2.6 Advanced Graphics
       - text: Day 3
+        aria-label: Day 3 content
         menu:
           - href: slides/3-1-interactive-plots.rjs.html
             text: 3.1 Interactive plots
