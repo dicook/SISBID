@@ -27,7 +27,7 @@ library(RColorBrewer)
 ::: column
 
 ```{r read TB data and wrangle and subset to USA, echo = FALSE}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |> 
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
   mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
@@ -36,16 +36,16 @@ tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) |>
   dplyr::select(-sexage)
 
 # Filter years between 1997 and 2012 due to missings
-tb_us <- tb |> 
-  filter(country == "United States of America") |>
+tb_kn <- tb |> 
+  filter(country == "Kenya") |>
   filter(!(age %in% c("04", "014", "514", "u"))) |>
-  filter(year > 1996, year < 2013)
+  filter(!is.na(count))
 ```
 
-Coming up: **2 different plots** of 2012 TB incidence in the USA, based on variables:
+Coming up: **2 different plots** of 2012 TB incidence (e.g. newly diagnosed cases) in Kenya, based on variables:
 
 ```{r}
-tb_us |> filter(year == 2012) |> dplyr::select(sex, age, count)
+tb_kn |> filter(year == 2012) |> dplyr::select(sex, age, count)
 ```
 :::
 
@@ -65,7 +65,7 @@ Which plot makes this question easier to answer?
 
 ::: {layout-ncol=2}
 ```{r focus on one year gender side-by-side bars of males/females, fig.height=3, echo=FALSE}
-tb_us |> filter(year == 2012) |>
+tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -74,7 +74,7 @@ tb_us |> filter(year == 2012) |>
 ```
 
 ```{r focus on one year age side-by-side bars of age group, fig.height=3, echo=FALSE}
-tb_us |> filter(year == 2012) |>
+tb_cn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -106,8 +106,8 @@ Go to www.menti.com and use the code 2979 2396.
 :::
 ::: notes
 
-- Arrangement A makes it easier to directly compare male and female counts, separately for each age group. Generally, male counts are higher than female counts. There is a big difference between counts in the 45-54 age group, and over 65 counts are almost the same.
-- Arrangement B makes it easier to directly compare counts by age group, separately for females and males. For females, incidence drops in the middle years. For males, it is pretty consistently high across age groups. 
+- Arrangement A makes it easier to directly compare male and female counts, separately for each age group. Generally, male counts are higher than female counts. There is a big difference between counts in the 25-34 age group, and over 65 counts are almost the same.
+- Arrangement B makes it easier to directly compare counts by age group, separately for females and males. For females, incidence drops in the middle years much more strongly than it does for males. 
 :::
 
 ::: {layout-ncol=2}
@@ -124,10 +124,10 @@ Go to www.menti.com and use the code 2979 2396.
 
 ::: columns
 ::: column
-Next, we have **two different plots** of TB incidence in the USA, based on three variables:
+Next, we have **two different plots** of TB incidence in Kenya, based on three variables:
 
 ```{r}
-tb_us |> select(year, sex, age, count) |> head(10)
+tb_kn |> select(year, sex, age, count) |> head(10)
 ```
 :::
 ::: column
@@ -147,7 +147,7 @@ tb_us |> select(year, sex, age, count) |> head(10)
 
 ::: {layout-ncol=2}
 ```{r use a line plot instead of bar, fig.height=3}
-ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
   scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
@@ -155,8 +155,8 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
 ```
 
 ```{r colour and axes fixes, fig.height=3}
-# This uses a color blind proof scale
-ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+# This uses a color blind friendly scale
+ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
@@ -205,7 +205,7 @@ countdown::countdown(1, 5)
 ```
 ::: {layout-ncol=2}
 ```{r use a line plot for proportions, fig.height=3}
-tb_us |> group_by(year, age) |> 
+tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
   geom_hline(yintercept = 0.50, colour="white", size=2) +
@@ -217,7 +217,7 @@ tb_us |> group_by(year, age) |>
 
 ```{r compare proportions of males/females, fig.height=4}
 # Fill the bars, note the small change to the code
-ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
+ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + ylab("proportion") +
@@ -441,19 +441,17 @@ If there are multiple comparisons to make, you need to decide which one is most 
 
 ::: {layout-ncol=2}
 ```{r a line plot on sex, fig.height=3, fig.width = 8}
-ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
+ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
-  ylim(c(0,1150)) +
   scale_color_manual("Sex", values = c("#DC3220", "#005AB5"))  +
   ggtitle("Arrangement A")
 ```
 
 ```{r a line plot on age, fig.height=3, fig.width=8}
-ggplot(tb_us, aes(x=year, y=count, colour=age)) +
+ggplot(tb_kn, aes(x=year, y=count, colour=age)) +
   geom_line() + geom_point() +
   facet_wrap(~sex, ncol=6) +
-  ylim(c(0,1150)) +
   scale_colour_brewer("", palette="Dark2") +
   ggtitle("Arrangement B")
 ```
@@ -469,7 +467,7 @@ Same proximity is used, but different geoms.
 :::
 ::: column
 ```{r side-by-side bars of males/females, fig.height=3}
-tb_us |> filter(year == 2012) |>
+tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
@@ -478,7 +476,7 @@ tb_us |> filter(year == 2012) |>
 ```
 
 ```{r piecharts of males/females, fig.height=3}
-tb_us |> filter(year == 2012) |>
+tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
@@ -499,7 +497,7 @@ Which is better to determine the relative ratios of ages by sex?
 :::
 ::: column
 ```{r side-by-side bars of age, fig.height=3}
-tb_us |> filter(year == 2012) |>
+tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
@@ -508,7 +506,7 @@ tb_us |> filter(year == 2012) |>
 ```
 
 ```{r piecharts of age, fig.height=3}
-tb_us |> filter(year == 2012) |>
+tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~sex, ncol=6) +
