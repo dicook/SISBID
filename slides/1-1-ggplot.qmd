@@ -247,7 +247,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_grid(sex~age_group) + 
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  coord_polar() +
+  coord_polar() + ##<
   theme_bw()
 ```
 
@@ -263,7 +263,7 @@ This isn't a pie, it's a [rose plot](https://datavizcatalogue.com/methods/nighti
 #| code-line-numbers: "3"
 # Step 1 to make the pie
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat="identity", position="fill") + 
+  geom_bar(stat="identity", position="fill") + #<<
   facet_grid(sex~age_group) +
   scale_fill_viridis_d("", option="inferno") 
 ```
@@ -278,11 +278,11 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 #| code-line-numbers: "7"
 # Now we have a pie, note the mapping of variables
 # and the modification to the coord_polar
-ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat="identity", position="fill") + 
+ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) + #<<
+  geom_bar(stat="identity", position="fill") + #<<
   facet_grid(sex~age_group) +
   scale_fill_viridis_d("", option="inferno") +
-  coord_polar(theta = "y")
+  coord_polar(theta = "y") #<<
 ```
 
 ## `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE** {.inverse}
