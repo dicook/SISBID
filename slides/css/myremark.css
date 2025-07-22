@@ -247,3 +247,12 @@ code {
 .hide-count .remark-slide-number {
   display: none;
 }
+
+
+/* Change highlighting approach */
+code.has-line-highlights > span:not(.highlight-line) {
+  opacity: 1!important;
+}
+code.has-line-highlights > span.highlight-line {
+  background-color: yellow!important;
+}

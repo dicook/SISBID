@@ -1,5 +1,8 @@
 ---
 title: "A Grammar of Graphics"
+filters:
+  - quarto
+  - line-highlight
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
