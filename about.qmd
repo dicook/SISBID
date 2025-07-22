@@ -90,7 +90,7 @@ The channel is `data-visualization-2025` which contains zoom and video links.
 
 ### Wednesday afternoon 
 
-{{< fa file-zipper >}} zip file [download](https://github.com/downloads/dicook/SISBID/SISBID_day1.zip)
+{{< fa file-zipper >}} zip file [download](SISBID_day1.zip)
 
 1.  Setting things up  · [{{< fa person-chalkboard >}} Slides](slides/0-preamble.rjs.html) · [{{< fa file >}} Single page](slides/0-preamble.onepage.html)
 2.  The grammar of graphics and ggplot2  · [{{< fa person-chalkboard >}} Slides](slides/1-1-ggplot.rjs.html) · [{{< fa file >}} Single page](slides/1-1-ggplot.onepage.html) (Heike)

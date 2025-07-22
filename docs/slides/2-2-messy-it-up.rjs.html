@@ -7,14 +7,12 @@
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.31">
 
-  <title>SISBID Data Visualization – Theme a shiny app</title>
+  <title>SISBID Data Visualization – Making a mess again - with the data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -200,175 +198,421 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Theme a shiny app</h1>
+  <h1 class="title">Making a mess again - with the data</h1>
   <p class="subtitle">SISBID 2025 <br> https://github.com/dicook/SISBID</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="theming-your-shiny-app" class="slide level2">
-<h2>Theming your Shiny App</h2>
+<section id="warmup" class="slide level2 inverse middle">
+<h2>Warmup</h2>
+<p>Turn the <code>french_fries</code> data from wide format into a long format with variables <code>type</code> and <code>rating</code>.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  time  treatment subject   rep potato buttery grassy rancid painty
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 1     1         3           1    2.9     0      0      0      5.5
+2 1     1         3           2   14       0      0      1.1    0  
+3 1     1         10          1   11       6.4    0      0      0  
+4 1     1         10          2    9.9     5.9    2.9    2.2    0  
+5 1     1         15          1    1.2     0.1    0      1.1    5.1
+6 1     1         15          2    8.8     3      3.6    1.5    2.3</code></pre>
+</div>
+</div>
+<p></p><div class="countdown" id="timer_3abe7d91" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+</section>
+<section id="what-would-you-like-to-find-out-about-the-french-fries-data-set" class="slide level2 inverse">
+<h2>What would you like to find out about the french fries data set?</h2>
+<p>Go to menti.com at 2979 2396 and let us know!</p>
+<p><a href="images/mentimeter_qr_code.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/mentimeter_qr_code.png" style="width:30.0%"></a></p>
+</section>
+<section id="what-would-we-like-to-know" class="slide level2">
+<h2>What would we like to know?</h2>
 <ul>
-<li><code>bslib</code> has many options available for theming and customizing your app <br><br></li>
-<li>We’ll cover the easily available options here<br><br>
+<li>Is the design complete?</li>
+<li>Are replicates like each other?</li>
+<li>How do the ratings on the different scales differ?</li>
+<li>Are raters giving different scores on average?</li>
+<li>Do ratings change over the weeks?</li>
+</ul>
+<p>Each of these questions involves different summaries of the data.</p>
+</section>
+<section id="pivot-french-fries-to-long" class="slide level2">
+<h2>Pivot french fries to long</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>ff_long <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a></a>  <span class="fu">pivot_longer</span>(potato<span class="sc">:</span>painty, <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"rating"</span>)</span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a></span>
+<span id="cb2-5"><a></a><span class="fu">head</span>(ff_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  time  treatment subject   rep type    rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+1 1     1         3           1 potato     2.9
+2 1     1         3           1 buttery    0  
+3 1     1         3           1 grassy     0  
+4 1     1         3           1 rancid     0  
+5 1     1         3           1 painty     5.5
+6 1     1         3           2 potato    14  </code></pre>
+</div>
+</div>
+</section>
+<section id="pivot-long-to-wide" class="slide level2 smaller">
+<h2>Pivot long to wide</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><a href="images/tidyr-pivoting.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/tidyr-pivoting.gif" style="width:100.0%"></a></p>
+</div><div class="column" style="width:70%;">
+<p>Examples:</p>
 <ul>
-<li>Exponentially more powerful with CSS and a bit of tinkering</li>
+<li>Are replicates like each other?
+<ul>
+<li>compare rep 1 to rep 2 values</li>
+</ul></li>
+<li>How do the ratings on the different scales differ?
+<ul>
+<li>compare ratings across scales</li>
+</ul></li>
+<li>Are raters giving different scores on average?
+<ul>
+<li>compare ratings across raters</li>
+</ul></li>
+<li>Do ratings change over the weeks?
+<ul>
+<li>compare ratings week-by-week</li>
 </ul></li>
 </ul>
-</section>
-<section id="preset-themes" class="slide level2">
-<h2>Preset Themes</h2>
-<ul>
-<li>Bootswatch provides preset themes</li>
-<li><code>bs_themer()</code> lets you choose interactively</li>
-</ul>
-<p>Try it out in <code>code/3.4-theme/bs_themer.R</code></p>
-<div class="quarto-layout-panel" data-layout-ncol="3">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="images/bs_themer.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="default"><img data-src="images/bs_themer.png" alt="default"></a></p>
-<figcaption>default</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="images/bs_themer_flatly.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="flatly"><img data-src="images/bs_themer_flatly.png" alt="flatly"></a></p>
-<figcaption>flatly</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="images/bs_themer_darkly.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="darkly"><img data-src="images/bs_themer_darkly.png" alt="darkly"></a></p>
-<figcaption>darkly</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="your-turn" class="slide level2 inverse smaller">
-<h2>Your Turn</h2>
-<ul>
-<li>Run the code in <code>code/3.4-theme/bs_themer.R</code></li>
-<li>Pick a theme you like.</li>
-<li>Get the console output corresponding to that theme</li>
-<li>modify <code>bs_themed.R</code> to use your theme code</li>
-</ul>
-<p>Hint: Use the <code>theme = ...</code> argument in one of the <code>page_xxx</code> functions.</p>
-<p></p><div class="countdown" id="timer_a263c29b" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
-</section>
-<section id="customizing-your-navbar" class="slide level2">
-<h2>Customizing Your Navbar</h2>
-<ul>
-<li>You may want to add a logo to your title area</li>
-<li>pictures should be placed in the <code>www/</code> folder</li>
-</ul>
-<div class="columns">
-<div class="column">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>title <span class="ot">=</span> <span class="fu">div</span>(</span>
-<span id="cb1-2"><a></a>  <span class="fu">img</span>(<span class="at">src =</span> <span class="st">"wave.gif"</span>, </span>
-<span id="cb1-3"><a></a>      <span class="at">width =</span> <span class="st">"40px"</span>),</span>
-<span id="cb1-4"><a></a>  <span class="fu">img</span>(<span class="at">src =</span> <span class="st">"globe.png"</span>, </span>
-<span id="cb1-5"><a></a>      <span class="at">width =</span> <span class="st">"40px"</span>),</span>
-<span id="cb1-6"><a></a>  <span class="st">"Hello World"</span>, </span>
-<span id="cb1-7"><a></a>  <span class="at">style =</span> <span class="st">"display: inline;"</span>),</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-<p><a href="images/title_image.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="images/title_image.png"></a></p>
 </div></div>
 </section>
-<section id="adding-icons" class="slide level2">
-<h2>Adding Icons</h2>
-<ul>
-<li>You can add icons to your <code>nav_panels()</code> with the <code>icon</code> argument
-<ul>
-<li><a href="https://icons.getbootstrap.com/">Bootstrap Icons</a></li>
-<li>Match the version of Bootstrap your app uses</li>
-</ul></li>
-</ul>
-<div class="columns">
-<div class="column">
+<section id="pivot-to-wide-form" class="slide level2 smaller">
+<h2>Pivot to wide form</h2>
+<p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
+<p>Long form:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">nav_panel</span>(</span>
-<span id="cb2-2"><a></a>  <span class="at">title =</span> <span class="st">"Dashboard"</span>, body, </span>
-<span id="cb2-3"><a></a>  <span class="at">icon =</span> <span class="fu">bs_icon</span>(<span class="st">"bar-chart"</span>, </span>
-<span id="cb2-4"><a></a>                 <span class="at">a11y =</span> <span class="st">"deco"</span>) </span>
-<span id="cb2-5"><a></a>  <span class="co"># marks icon as decorative </span></span>
-<span id="cb2-6"><a></a>  <span class="co"># for screen readers</span></span>
-<span id="cb2-7"><a></a>),</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(ff_long, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">time</th>
+<th style="text-align: left;">treatment</th>
+<th style="text-align: left;">subject</th>
+<th style="text-align: right;">rep</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: right;">rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">potato</td>
+<td style="text-align: right;">2.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">buttery</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">grassy</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">rancid</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+</tbody>
+</table>
 </div>
-</div><div class="column">
-<p><a href="images/navbar-icon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="images/navbar-icon.png"></a></p>
+</div>
+</section>
+<section id="pivot-to-wide-form-1" class="slide level2 smaller">
+<h2>Pivot to wide form</h2>
+<p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
+<p>Wide form:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>french_fries_weeks <span class="ot">&lt;-</span> ff_long <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"time"</span>, <span class="at">values_from =</span> <span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">kable</span>(<span class="fu">head</span>(french_fries_weeks,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 5%">
+<col style="width: 11%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">treatment</th>
+<th style="text-align: left;">subject</th>
+<th style="text-align: right;">rep</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+<th style="text-align: right;">9</th>
+<th style="text-align: right;">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">potato</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">11.8</td>
+<td style="text-align: right;">13.6</td>
+<td style="text-align: right;">14.0</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">buttery</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">grassy</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.3</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="pivot-to-wide-form-2" class="slide level2 smaller">
+<h2>Pivot to wide form</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">head</span>(french_fries_weeks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+  treatment subject   rep type     `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`
+  &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 1         3           1 potato   2.9   9    11.8  13.6  14     0.4   2.9   3.5
+2 1         3           1 butte…   0     0.3   0.2   0.1   0.3   1.2   0     0.5
+3 1         3           1 grassy   0     0.1   0     0     0     0     0     1.3
+4 1         3           1 rancid   0     5.8   6     1.7   0     0     0     0  
+5 1         3           1 painty   5.5   0.3   0     0     1.7   9.5   5.5   3.8
+6 1         3           2 potato  14     5.5   7.8   5.3  12.9   3.3   0.8   0.6
+# ℹ 2 more variables: `9` &lt;dbl&gt;, `10` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/tidyr-cheatsheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Tidyr cheatsheet"><img data-src="images/tidyr-cheatsheet.png" alt="Tidyr cheatsheet"></a></p>
+<figcaption><a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">Tidyr cheatsheet</a></figcaption>
+</figure>
+</div>
+</div></div>
+<p><code>pivot_wider</code>:</p>
+<ul>
+<li>creates a new column for each value of the variable in <code>names_from</code></li>
+<li>fills values in using the variable in <code>values_from</code></li>
+</ul>
+</section>
+<section id="comparing-ratings-different-weeks" class="slide level2">
+<h2>Comparing ratings: different weeks</h2>
+<p>Note the use of the backtick for variable names with special characters or numbers.</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>french_fries_weeks <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">9</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb9-3"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="2-2-messy-it-up_files/figure-html/week 1 vs week 9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="2-2-messy-it-up_files/figure-html/week 1 vs week 9-1.png" width="480"></a></p>
+</figure>
+</div>
+</div>
+</div>
 </div></div>
 </section>
-<section id="your-turn-1" class="slide level2 inverse">
-<h2>Your Turn</h2>
-<p>Customize the title and icons on the <code>nav_panels</code> in <code>title_customization.R</code>.</p>
-<p>Choose appropriate icons and decide if they are decorative or semantic.</p>
-<p></p><div class="countdown" id="timer_47b32626" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<section id="your-turn-are-the-replicates-similar" class="slide level2 inverse">
+<h2>Your turn: Are the replicates similar?</h2>
+<ul>
+<li>Plot the replicates against each other using a scatterplot.</li>
+<li>First, convert the data into long form</li>
+<li>Get the replicates spread into separate columns by replicate.</li>
+</ul>
+<p></p><div class="countdown" id="timer_37370dba" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
-<section id="change-the-width-of-the-sidebar" class="slide level2">
-<h2>Change the width of the sidebar</h2>
+<section id="are-ratings-similar-on-different-scales" class="slide level2">
+<h2>Are ratings similar on different scales?</h2>
+<ul>
+<li>Scales: potato-y, buttery, grassy, rancid and painty?</li>
+<li>Pivot into long form, plot with <code>facet_...(~scale)</code>.</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="2"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>side <span class="ot">&lt;-</span> <span class="fu">sidebar</span>(</span>
-<span id="cb3-2"><a></a>  <span class="at">width =</span> <span class="st">"20%"</span>, <span class="fu">h2</span>(<span class="st">"Inputs"</span>), <span class="co">#&lt;&lt;</span></span>
-<span id="cb3-3"><a></a>  <span class="fu">sliderInput</span>(</span>
-<span id="cb3-4"><a></a>    <span class="st">"mpg"</span>, <span class="at">label =</span> <span class="st">"MPG range"</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="fu">range</span>(mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb3-5"><a></a>    <span class="at">min =</span> <span class="fu">min</span>(<span class="fu">floor</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T), <span class="at">max =</span> <span class="fu">max</span>(<span class="fu">ceiling</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T),</span>
-<span id="cb3-6"><a></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>ff.m <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>(time<span class="sc">:</span>rep), <span class="at">names_to=</span><span class="st">"type"</span>, <span class="at">values_to=</span><span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="4">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  time  treatment subject   rep type    rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+1 1     1         3           1 potato     2.9
+2 1     1         3           1 buttery    0  
+3 1     1         3           1 grassy     0  
+4 1     1         3           1 rancid     0  
+5 1     1         3           1 painty     5.5
+6 1     1         3           2 potato    14  </code></pre>
+</div>
+</div>
+</section>
+<section id="are-ratings-similar-across-different-scales" class="slide level2">
+<h2>Are ratings similar across different scales?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>rating)) <span class="sc">+</span> </span>
+<span id="cb12-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb12-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol=</span><span class="dv">5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
 <figure>
-<p><a href="images/sidebar-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="10%"><img data-src="images/sidebar-10.png" alt="10%"></a></p>
-<figcaption>10%</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="images/sidebar-20.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="20%"><img data-src="images/sidebar-20.png" alt="20%"></a></p>
-<figcaption>20%</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="images/sidebar-100px.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="100px"><img data-src="images/sidebar-100px.png" alt="100px"></a></p>
-<figcaption>100px</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="images/sidebar-100px-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="100px ( mode)"><img data-src="images/sidebar-100px-2.png" alt="100px ( mode)"></a></p>
-<figcaption>100px (<i class="fa-solid fa-mobile-screen" aria-label="mobile-screen"></i> mode)</figcaption>
+<p><a href="2-2-messy-it-up_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="2-2-messy-it-up_files/figure-html/unnamed-chunk-4-1.png" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="side-by-side-boxplots" class="slide level2">
+<h2>Side-by-side boxplots</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>type, <span class="at">y=</span>rating, <span class="at">fill=</span>type)) <span class="sc">+</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="2-2-messy-it-up_files/figure-html/side-by-Side boxplots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="2-2-messy-it-up_files/figure-html/side-by-Side boxplots-1.png" width="768"></a></p>
+</figure>
 </div>
+</div>
+</div>
+</section>
+<section id="your-turn-correlation-bw-scales" class="slide level2 inverse">
+<h2>Your turn: Correlation b/w scales?</h2>
+<ul>
+<li><p>Create a wide form of the data by type of scale.</p></li>
+<li><p><code>cor</code> allows you to create a correlation matrix.<br>
+Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the result.</p></li>
+<li><p>Draw a scatterplot of two scales with the highest (positive or negative) correlation value.</p></li>
+</ul>
+<p></p><div class="countdown" id="timer_6449dde8" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+</section>
+<section id="ratings-by-week" class="slide level2">
+<h2>Ratings by week</h2>
+<p>Use the long form of the data and plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>ff.m<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ff.m<span class="sc">$</span>time)</span>
+<span id="cb14-2"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>rating, <span class="at">colour=</span>type)) <span class="sc">+</span> </span>
+<span id="cb14-3"><a></a><span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a></a><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb14-5"><a></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="2-2-messy-it-up_files/figure-html/ratings by week-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="2-2-messy-it-up_files/figure-html/ratings by week-1.png" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="your-turn-ratings-by-time-scale" class="slide level2 inverse middle">
+<h2>Your turn: Ratings by time &amp; scale?</h2>
+<ul>
+<li>Find a linear model describing the average rating by week (time) and type of scale as shown below.</li>
+<li>Which form of the dataset should we use?</li>
+<li>Challenge: can you plot the fitted lines from the model?</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><a href="2-2-messy-it-up_files/figure-html/ratings by week again-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="2-2-messy-it-up_files/figure-html/ratings by week again-1.png" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><div class="countdown" id="timer_74334035" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
 <ul>
-<li><a href="https://shiny.posit.co/r/getstarted/build-an-app/customizing-ui/theming.html">Theming</a> Shiny documentation</li>
-<li><a href="https://ploomber.io/blog/shiny-bslib/">Shiny Apps with bslib</a></li>
-<li><a href="https://rstudio.github.io/bslib/articles/brand-yml/index.html">Unified Theming with brand.yml</a></li>
-<li><a href="https://www.datanovia.com/learn/tools/shiny-apps/ui-design/index.html">Professional Interface Development</a></li>
+<li><a href="https://posit.co/resources/cheatsheets/">posit cheatsheets</a></li>
+<li><a href="https://www.jstatsoft.org/article/view/v021i12">Wickham (2007) Reshaping data</a></li>
+<li><a href="https://r4ds.had.co.nz/wrangle-intro.html">R for Data Science (Wickham &amp; Grolemund), chapter 9</a></li>
+<li><a href="https://tellingstorieswithdata.com/09-clean_and_prepare.html">Telling Stories with Data (Alexander), chapters 9 &amp; 10</a></li>
 </ul>
 <div class="bottom">
 <p><span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span></p>
