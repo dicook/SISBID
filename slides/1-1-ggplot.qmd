@@ -41,11 +41,11 @@ Write down as many types of data plots that you can think of.
 
 ## Why?
 
-With the grammar, a data plot becomes a **statistic**.     
+- With the grammar, a data plot becomes a **statistic**.     
     
-It is a functional mapping from variable to graphical element. Then we can do statistics on charts!    
+- It is a functional mapping from variable to graphical element. Then we can do statistics on charts!    
     
-With a grammar, we don't have individual animals in the zoo, we have the genetic code that says how one plot is related to another plot.
+- With a grammar, we don't have individual animals in the zoo, we have the genetic code that says how one plot is related to another plot.
 
 ## Elements of the grammar
 
@@ -83,7 +83,7 @@ ggplot(data = <DATA>) +
 ## Example: Tuberculosis data
 
 (Current) TB case notifications data from [WHO](http://www.who.int/tb/country/data/download/en/).    
-Also available via R package [`getTBinR`](https://github.com/seabbs/getTBinR).
+Also available via R package [`getTBinR`](https://github.com/seabbs/getTBinR). 
 
 ```{r}
 #| label: read-and-wrangle-TB-data
@@ -97,11 +97,10 @@ tb <- readr::read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |>
          age=substr(sexage, 2, length(sexage))) |>
   dplyr::select(-sexage)
 
-# Filter years between 1997 and 2012 due to missings
+# Filter data to get the US
 tb_us <- tb |> 
-  filter(country == "United States of America") |>
+  filter(iso3 == "USA") |>
   filter(!(age %in% c("04", "014", "514", "u"))) |>
-  #filter(year > 1996, year < 2013) |>
   mutate(
     age_group = factor(age, labels = c("15-24", "25-34", "35-44", "45-54", "55-64", "65+"))
   )
@@ -127,7 +126,7 @@ Go to menti.com and enter code 2979 2396
 
 
 
-- What do you learn about tuberculosis incidence in the USA from this plot?
+- What do you learn about tuberculosis incidences in the USA from this plot?
 - Give three changes to the plot that would improve it. 
 
 ## Results `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")`
@@ -151,19 +150,19 @@ Go to menti.com and enter code 2979 2396
 
 ## Fix the plot
 
-```{r just to show the changes, echo=FALSE}
-library(flair)
-```
+Manually selected fill colors; theme with white background for better contrast
 
 ```{r}
 #| label: colour-and-axes-fixes
 #| echo: true
 #| fig-height: 3
-#| code-line-numbers: "2,3"
+#| code-line-numbers: "5,6"
 # This uses a color blind friendly scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
-  facet_grid(~age_group)  
+  facet_grid(~age_group)  + 
+  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + #<<
+  theme_bw() #<<
 ```
 
 [[Color deficiency friendly color schemes](https://davidmathlogic.com/colorblind/#%23005AB5-%23DC3220)]{.bottom}
@@ -174,12 +173,12 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 #| label: compare-proportions-of-males-females
 #| out-width: 80%
 #| fig-height: 3
+#| code-line-numbers: "3,4"
 #| echo: true
-#| code-line-numbers: "2,3"
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +  
-  geom_bar(stat="identity", position="fill") + 
-  ylab("proportion") + 
-  facet_grid(~age_group) + 
+  geom_bar(stat="identity", position="fill") + #<<
+  ylab("proportion") + #<<
+  facet_grid(~age_group) +  
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 ```
 
@@ -197,17 +196,18 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 
 ## Separate plots
 
-```{r}
-#| label: side-by-side-bars-of-males-females
-#| fig-height: 3
-#| echo: false
-#| include: false
-ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
- geom_bar(stat="identity", position="dodge") +
- facet_wrap(~age, ncol=6) +
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + 
- scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10"))
-```
+<!-- ```{r} -->
+<!-- #| label: side-by-side-bars-of-males-females -->
+<!-- #| fig-height: 3 -->
+<!-- #| echo: false -->
+<!-- #| include: false -->
+<!-- ggplot(tb_us, aes(x=year, y=count, fill=sex)) + -->
+<!--  geom_bar(stat="identity", position="dodge") + #<< -->
+<!--  facet_wrap(~age, ncol=6) + -->
+<!--   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +  -->
+<!--  scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10")) -->
+<!-- ``` -->
+
 
 ```{r}
 #| label: compare-counts-of-males-females
@@ -219,13 +219,14 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + 
-  facet_grid(sex~age_group)  
+  facet_grid(sex~age_group) + #<<
+  theme_bw()
 ```
 
-## `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE** {.inverse}
+<!-- ## `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE** {.inverse} -->
 
-- What do we learn about the data that is different from the previous plot?
-- What is easier, what is harder or impossible to learn from this arrangement?
+<!-- - What do we learn about the data that is different from the previous plot? -->
+<!-- - What is easier, what is harder or impossible to learn from this arrangement? -->
 
 ::: notes
 - Counts are generally higher for males than females 
@@ -246,7 +247,8 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_grid(sex~age_group) + 
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  coord_polar() 
+  coord_polar() + ##<
+  theme_bw()
 ```
 
 This isn't a pie, it's a [rose plot](https://datavizcatalogue.com/methods/nightingale_rose_chart.html)!
@@ -261,7 +263,7 @@ This isn't a pie, it's a [rose plot](https://datavizcatalogue.com/methods/nighti
 #| code-line-numbers: "3"
 # Step 1 to make the pie
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat="identity", position="fill") + 
+  geom_bar(stat="identity", position="fill") + #<<
   facet_grid(sex~age_group) +
   scale_fill_viridis_d("", option="inferno") 
 ```
@@ -276,11 +278,11 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 #| code-line-numbers: "7"
 # Now we have a pie, note the mapping of variables
 # and the modification to the coord_polar
-ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
-  geom_bar(stat="identity", position="fill") + 
+ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) + #<<
+  geom_bar(stat="identity", position="fill") + #<<
   facet_grid(sex~age_group) +
   scale_fill_viridis_d("", option="inferno") +
-  coord_polar(theta = "y")
+  coord_polar(theta = "y") #<<
 ```
 
 ## `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE** {.inverse}
@@ -316,7 +318,8 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
   scale_colour_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  ylim(c(0,NA))
+  ylim(c(0,NA)) +
+  theme_bw()
 ```
 :::
 
@@ -338,7 +341,8 @@ tb_us |> group_by(year, age_group) |>
   geom_hline(yintercept = 0.50, colour="grey50", linewidth=2) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
-  ylab("Proportion of Males") 
+  ylab("Proportion of Males") +
+  theme_bw()
 ```
 :::
 
