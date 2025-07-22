@@ -17,7 +17,7 @@ library(gganimate)
 
 ## Data dashboard {.inverse}
 
-A dashboard is a `quarto` format `shiny` app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
+A dashboard is a `rmarkdown` format `shiny` app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
 
 ## Data dashboard 
 
