@@ -19,11 +19,12 @@ library(gganimate)
 
 A dashboard is a `rmarkdown` format `shiny` app. It adds more control over plot elements and is more focused on the data analysis than on a study or instructional materials. 
 
-## Data dashboard 
+## Data dashboard {.smaller}
 
 ::: columns
 ::: column
 A dashboard 
+
 - allows you to create an interactive interface to a data set
 - communicates a lot of information visually and numerically
 - provides flexibility for the user to explore their own choice of aspects of the data.
@@ -46,7 +47,7 @@ Create a "New Quarto" document -> "Interactive"
 - Check that the document compiles, by clicking `Knit`
 - Modify the title and author 
 
-```{md}
+````
 ---
 title: "TB incidence around the globe"
 author: "by Di Cook"
@@ -55,23 +56,24 @@ output:
     orientation: columns
     vertical_layout: fill
 ---
-```
+````
 
 ## Components
 
 This creates a box or a pane for a plot or results
 
-```{md}
+````{md}
 ### Chart 1
-```
+````
 
 This sets up columns
 
-```{md}
+````{md}
 Column {data-width=600}
 -------------------------------------
-```
-## Your turn! {.inverse}
+````
+
+## Your turn! {.inverse .smaller}
 
 - Change the default layout in your flexdashboard to have two plots in the left column.
 - Make each column equal width
@@ -84,10 +86,10 @@ Column {data-width=600}
 
 A new page (tab) can be added using
 
-```
+````
 Page 1
 ===================================== 
-```
+````
 
 Add a second page to your flexdashboard that focuses on one country and has
 
@@ -102,10 +104,10 @@ Add a second page to your flexdashboard that focuses on one country and has
 
 A set of notes with interactive plots, quizzes, and coding exercises.
 
-## `learnr` interactive tutorial
+## `learnr` interactive tutorial {.smaller}
 
 ::: columns
-::: column
+::: {.column width="75%"}
 - Simple way to build plots into an online document
 - Features:
     - interactive multiple choice quizzes, 
@@ -120,7 +122,7 @@ install.packages("learnr")
 
 `r emo::ji("white_check_mark")` Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
 :::
-::: column
+::: {.column width="25%"}
 ![](images/learnr.png){width="100%"}
 :::
 :::
@@ -156,11 +158,12 @@ the case notifications table. The data looks like this:
 
 - `r emo::ji("white_check_mark")` Create a `data` directory in your tutorial folder, and add the `TB_notifications_2019-07-01.csv` data into this. 
 
-## Basic Tutorial
+## Basic Tutorial {.smaller}
 
-`r emo::ji("white_check_mark")` Next, add a block of R code to read the data, and display the data in the page. This is the same code we have used earlier for working with the TB data, with the exception of using the `DT` package to display the data in the output html. 
+`r emo::ji("white_check_mark")` Next, add a block of R code to read the data, and display the data in the page.    
+Here, we use the `DT` package to display the data in the output html. 
 
-```{r eval=F}
+```{r eval=F, echo = T}
 library(tidyverse)
 library(DT)
 tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
@@ -183,7 +186,7 @@ datatable(tb)
 
 - `r emo::ji("white_check_mark")` Make a separate section titled "Incidence", and add the code to make a plot, like the following
 
-```{r}
+```{r, eval=F}
 ggplot(tb, aes(x=year)) +
   geom_bar(aes(weight = count)) 
 ```
@@ -221,7 +224,7 @@ knitr::opts_chunk$set(
 
 - `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-## Building quizzes
+## Building quizzes {.smaller}
 
 An example quiz is provided in the template. Note that the format of the R code is 
 
@@ -244,9 +247,9 @@ quiz(
 
 `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-## Exercises in coding
+## Exercises in coding {.smaller}
 
-Adding `exercise = TRUE` on a code chunk provides an R console window where readers can type R code, and check for correctness. The template provides several example exercises.
+Adding `exercise = TRUE` on a code chunk provides an R console window where readers can type R code, and check for correctness. 
 
 1. Move these into a second section of the document. 
 2. Add a coding challenge that asks the reader to make a filter for the data to select just a single year. Click the "Run document" to make sure it works
@@ -257,9 +260,10 @@ Adding `exercise = TRUE` on a code chunk provides an R console window where read
 
 ## Adding a shiny element
 
-Because this is an html document, interactive graphics can be incorporated. We'll add a section to use interactive plots to examine the temporal trend in TB incidence. 
+Because this is an html document, interactive graphics can be incorporated.     
+We'll add a section to use interactive plots to examine the temporal trend in TB incidence. 
 
-```
+```{r, eval=F}
 library(plotly)
 p <- tb %>% 
   group_by(year, age) %>%
@@ -275,13 +279,13 @@ ggplotly(p)
 
 Use your emoji and anicon skills to add some friendly elements to the notes. 
 
-```
+```{r, eval=F}
 set.seed(20190709)
 emo::ji("fantasy")
 emo::ji("clock")
 ```
 
-```
+```{r, eval=F}
 anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")
 anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
   position=c(0,0,0,200))
