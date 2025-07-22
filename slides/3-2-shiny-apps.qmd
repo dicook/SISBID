@@ -1,10 +1,18 @@
 ---
 title: "Building a shiny app"
+filters:
+  - quarto
+  - line-highlight
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
 # source(here::here("knitr-setup.R"))
-source(here::here("libraries.R"))
+# source(here::here("libraries.R"))
+library(shiny)
+library(bsicons)
+library(showtext)
+library(ragg)
+library(thematic)
 ```
 
 # Shiny Apps in R
@@ -51,16 +59,36 @@ library(readr)
 - In RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
 - The easiest start is the `Single file`, which will put both server and ui functions in the same file, `app.R`
 
+![](images/shiny-app-start.gif){width="50%" fig-alt="A gif showing how to create a new Shiny web app, using the instructions above" .lightbox}
+
 ## Two main parts
 
-- What we see and interact with: <br/><br/>
-  - user interface: layout with user input and (plot) output <br/><br/>
-- What is going on underneath: <br/><br/>
+::: columns
+::: column
+- What we see and interact with: 
+  - user interface: layout with user input and (plot) output
+```{r, eval = F}
+ui <- fluidPage(
+)
+```
+
+:::
+
+::: column
+- What is going on underneath: 
   - the server: glue between user input and output
-  
+
+```{r}
+server <- function(input, output, session) {
+}
+```
+
+:::
+:::
+
 ## A Minimal Example
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = T}
 library(shiny)
 
 ui <- fluidPage(
@@ -75,13 +103,11 @@ shinyApp(ui, server)
 
 ## A bit more fancy
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = T}
 library(shiny)
-sidebar <-  sidebarPanel(width = 3, 
-                         "Fun inputs")
+sidebar <-  sidebarPanel(width = 3, "Fun inputs")
 
-main_col <- column(width = 9, 
-                   "Some results")
+main_col <- column(width = 9, "Some results")
 
 ui <- fluidPage(
   title = "App Title",
@@ -94,17 +120,16 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
+
 ## A bit more fancy
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = T}
 library(shiny)
-
 sidebar <-  sidebarPanel(
   width = 3, 
-  textInput("name", "Enter your name:", value = "Heike"))
+  textInput("name", "Enter your name:", value = "Susan"))
 
-main_col <- column(width = 9, 
-                   "Some results")
+main_col <- column(width = 9, "Some results")
 
 ui <- fluidPage(
   title = "App Title",
@@ -118,7 +143,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-## Shiny Inputs
+## Shiny Inputs {.smaller}
 
 Shiny has many different input options, see the [widget gallery](https://shiny.rstudio.com/gallery/widget-gallery.html):
 
@@ -135,14 +160,14 @@ Shiny has many different input options, see the [widget gallery](https://shiny.r
 
 ## Your Turn {.inverse}
 
-In the shiny app below add a list of your favorite countries to the sidebar panel:
+Add a list of your favorite countries to the sidebar panel:
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo = T}
 library(shiny)
 
 sidebar <-  sidebarPanel(
   width = 3, 
-  textInput("name", "Enter your name:", value = "Heike"))
+  textInput("name", "Enter your name:", value = "Susan"))
 
 main_col <- column(width = 9, 
                    "Some results")
@@ -158,14 +183,14 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-```{r echo=FALSE, eval=FALSE}
+```{r your-turn-solution, echo=FALSE, eval=FALSE}
 
 library(shiny)
 
 sidebar <-  sidebarPanel(
   width = 3, 
   selectInput("country", "Pick your favorite country:", 
-              choices = c("Australia", "United States", "Germany")))
+              choices = c("Australia", "France", "Sweden", "Germany")))
 main_col <- column(width = 9, 
                    "Some results")
 
@@ -181,7 +206,9 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
+:::
 
 ## Adding Output
 
@@ -190,16 +217,14 @@ shinyApp(ui, server)
   - in the `server` function, we need to create the output.
 
 
-1. `ui` functionality for output has typically the form
-  `xxxOutput (outputID)`
+1. `ui` components are usually `xxxOutput (outputID)`    
 Output can be in form of tables, plots, text, ...
 
-2. `server` funtionality has typically the form
-  `renderXXX`, where `xxx` is a table, plot, text, etc.
+2. `server` components are `renderXXX`, where `xxx` is a table, plot, text, etc.
 
 
 
-## Shiny Outputs
+## Shiny Outputs {.smaller}
 
 Shiny also has a variety of different output options:
 
@@ -212,9 +237,11 @@ Shiny also has a variety of different output options:
 - `renderUI()` - output a custom part of the user interface
 - `renderImage()` - print an image to the page
 
-## Adding a plot 
+## Adding a plot {.smaller}
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo = T}
+#| code-line-numbers: "8-11,18-22"
+#| class-source: "numberLines"
 library(shiny)
 
 sidebar <-  sidebarPanel(
@@ -222,10 +249,10 @@ sidebar <-  sidebarPanel(
   selectInput("country", "Pick your favorite country:", 
               choices = c("Australia", "United States", "Germany"))
 )
-main_col <- column(        #<<
-  width = 9,               #<<
-  plotOutput("scatter")    #<<
-)                          #<<
+main_col <- column(                               #<<
+  width = 9,                                      #<<
+  plotOutput("scatter")                           #<<
+)                                                 #<<
 
 ui <- fluidPage(
   title = "App Title", sidebar, main_col)
@@ -236,7 +263,7 @@ server <- function(input, output, session) {
     mtcars %>% ggplot(aes(x = disp, y = mpg)) +   #<<
       geom_point() +                              #<<
       ggtitle(input$country)                      #<<
-  })
+  })                                              #<<
 }
 
 shinyApp(ui, server)
@@ -247,9 +274,12 @@ shinyApp(ui, server)
 - Add an interactive plot of the TB data into your app.
 - Change the select box, so that the user can choose any country. Think of `unique(tb$country)` for defining the choices
 
-`r countdown::countdown(7)`
 
-```{r echo=FALSE, eval=FALSE}
+::: {.content-visible when-format="revealjs"}
+`r countdown::countdown(7)`
+:::
+
+```{r your-turn-solutions-2, echo=FALSE, eval=FALSE}
 library(shiny)
 library(ggplot2)
 library(dplyr)
