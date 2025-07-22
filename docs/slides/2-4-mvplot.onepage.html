@@ -455,15 +455,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Better formatted penguins data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data(penguins, package="palmerpenguins")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use default penguins</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>stdd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins_std <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bill_len)) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">bl =</span> bill_len,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">bd =</span> bill_dep,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">fl =</span> flipper_len,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">bm =</span> body_mass) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(bl<span class="sc">:</span>bm), stdd) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, bl<span class="sc">:</span>bm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="your-turn" class="level2 inverse">
 <h2 class="inverse anchored" data-anchor-id="your-turn">Your turn</h2>
 <ul>
 <li>What is multivariate data?</li>
 <li>What makes multivariate analysis different from univariate analysis?</li>
 </ul>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="countdown" id="timer_65765456" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_543e15a3" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -491,8 +505,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="column">
 <p>The basic plot plot for multivariate data is a scatterplot matrix.</p>
 <p>Use the GGally package function <code>ggpairs</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>What do we learn?</em></p>
 <ul>
@@ -500,11 +514,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>linear dependence</li>
 </ul>
 </div><div class="column">
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
@@ -516,23 +530,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="smaller anchored" data-anchor-id="scatterplot-matrix">Scatterplot matrix</h2>
 <div class="columns">
 <div class="column">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-make mapping colour to species (class)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>), </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-make mapping colour to species (class)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>), </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>What do we learn?</em></p>
 <ul>
 <li>clustering is due to the class variable</li>
 </ul>
 </div><div class="column">
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
@@ -546,19 +560,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="column">
 <p>Only show correlation. <span class=" faa-float animated " style=" display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">This is dangerous!</span></p>
 <p>Only appropriate if correlation is a good summary of the association.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at one species only</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>adelie <span class="ot">&lt;-</span> penguins_std <span class="sc">|&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bl<span class="sc">:</span>bm)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(adelie)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at one species only</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>adelie <span class="ot">&lt;-</span> penguins_std <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bl<span class="sc">:</span>bm)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(adelie)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:90.0%"></a></p>
+<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -572,14 +586,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>can be dangerous</li>
 <li>useful for a broad overview IF correlation is a good summary</li>
 </ul>
-<div class="cell" data-output-location="column">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrgram</span>(adelie, </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower.panel=</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    corrgram<span class="sc">::</span>panel.ellipse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrgram</span>(adelie, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower.panel=</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    corrgram<span class="sc">::</span>panel.ellipse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/corrgram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="2-4-mvplot_files/figure-html/corrgram-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="2-4-mvplot_files/figure-html/corrgram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="2-4-mvplot_files/figure-html/corrgram-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
@@ -588,73 +602,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="large-sample-size" class="level2">
 <h2 class="anchored" data-anchor-id="large-sample-size">Large sample size</h2>
-<div class="cell" data-output-location="column">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This chunk takes some time to run, so evaluated off-line</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531"</span>, <span class="st">"data.csv"</span>))) {</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://archive.ics.uci.edu/static/public/401/gene+expression+cancer+rna+seq.zip"</span>, </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">destfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531.zip"</span>), <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531.zip"</span>), </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">exdir =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TCGA-PANCAN-HiSeq-801x20531/"</span>))</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Untar into folder</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">untar</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TCGA-PANCAN-HiSeq-801x20531/TCGA-PANCAN-HiSeq-801x20531.tar.gz"</span>), </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">exdir =</span> <span class="fu">here</span>(<span class="st">"data"</span>))</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>tcga <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531"</span>, <span class="st">"data.csv"</span>)))</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>tcga_t <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">as.matrix</span>(tcga[,<span class="dv">2</span><span class="sc">:</span><span class="dv">20532</span>]))</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tcga_t) <span class="ot">&lt;-</span> tcga<span class="sc">$</span>X</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>tcga_t_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(tcga_t, <span class="at">scale =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>x</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ggally_hexbin <span class="ot">&lt;-</span> <span class="cf">function</span> (data, mapping, ...)  {</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> mapping) <span class="sc">+</span> <span class="fu">geom_hex</span>(<span class="at">binwidth=</span><span class="dv">20</span>, ...)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    p</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(tcga_t_pc, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"hexbin"</span>)) <span class="sc">+</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">trans=</span><span class="st">"log"</span>, </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">low=</span><span class="st">"#E24C80"</span>, <span class="at">high=</span><span class="st">"#FDF6B5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/hexbin scatterplot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="2-4-mvplot_files/figure-html/hexbin scatterplot-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
+<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This chunk takes some time to run, so evaluated off-line</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531"</span>, <span class="st">"data.csv"</span>))) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://archive.ics.uci.edu/static/public/401/gene+expression+cancer+rna+seq.zip"</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">destfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531.zip"</span>), <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531.zip"</span>), </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">exdir =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TCGA-PANCAN-HiSeq-801x20531/"</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Untar into folder</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">untar</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TCGA-PANCAN-HiSeq-801x20531/TCGA-PANCAN-HiSeq-801x20531.tar.gz"</span>), </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">exdir =</span> <span class="fu">here</span>(<span class="st">"data"</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>tcga <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531"</span>, <span class="st">"data.csv"</span>)))</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>tcga_t <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">as.matrix</span>(tcga[,<span class="dv">2</span><span class="sc">:</span><span class="dv">20532</span>]))</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tcga_t) <span class="ot">&lt;-</span> tcga<span class="sc">$</span>X</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>tcga_t_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(tcga_t, <span class="at">scale =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>x</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>ggally_hexbin <span class="ot">&lt;-</span> <span class="cf">function</span> (data, mapping, ...)  {</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> mapping) <span class="sc">+</span> <span class="fu">geom_hex</span>(<span class="at">binwidth=</span><span class="dv">20</span>, ...)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    p</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(tcga_t_pc, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"hexbin"</span>)) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">trans=</span><span class="st">"log"</span>, </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">low=</span><span class="st">"#E24C80"</span>, <span class="at">high=</span><span class="st">"#FDF6B5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generalized-pairs-plot" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="generalized-pairs-plot">Generalized pairs plot</h2>
 <p>The pairs plot can also incorporate non-numerical variables, and different types of two variable plots.</p>
-<div class="cell" data-output-location="column">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix plot when variables are not numeric</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(australia_PISA2012)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="ot">&lt;-</span> australia_PISA2012 <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(desk<span class="sc">:</span>dishwasher, factor))</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">%&gt;%</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix plot when variables are not numeric</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(australia_PISA2012)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="ot">&lt;-</span> australia_PISA2012 <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(desk<span class="sc">:</span>dishwasher, factor))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generalized-pairs-plots" class="level2">
 <h2 class="anchored" data-anchor-id="generalized-pairs-plots">Generalized Pairs Plots</h2>
-<div class="cell" data-output-location="column">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify the defaults, set the transparency of points since there is a lot of data</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>), </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha=</span><span class="fl">0.05</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-</div>
+<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify the defaults, set the transparency of points since there is a lot of data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>), </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha=</span><span class="fl">0.05</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/generalised pairs plot enhance plots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="2-4-mvplot_files/figure-html/generalised pairs plot enhance plots-1.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="2-4-mvplot_files/figure-html/generalised pairs plot enhance plots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="2-4-mvplot_files/figure-html/generalised pairs plot enhance plots-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
@@ -662,7 +663,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="customized-generalized-pairs-plots" class="level2">
 <h2 class="anchored" data-anchor-id="customized-generalized-pairs-plots">Customized Generalized Pairs Plots</h2>
-<div class="cell" data-output-location="column">
+<div class="cell" data-layout-align="center" data-output-location="column">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a special style of plot to put in the matrix</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>my_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(data, mapping, <span class="at">method=</span><span class="st">"loess"</span>, ...){</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>      p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> mapping) <span class="sc">+</span> </span>
@@ -674,18 +675,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>), </span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> my_fn))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`geom_smooth()` using formula = 'y ~ x'
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 </div>
 </section>
 <section id="customized-generalized-pairs-plots-1" class="level2">
@@ -700,23 +689,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>very little but slight increase in scores with a dishwasher in household</li>
 </ul>
 </div><div class="column">
-<div class="cell" data-outwidth="90%">
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`geom_smooth()` using formula = 'y ~ x'
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`geom_smooth()` using formula = 'y ~ x'
-`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
+<div class="cell" data-layout-align="center" data-outwidth="90%">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="576"></a></p>
+<p><a href="2-4-mvplot_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="2-4-mvplot_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
@@ -731,9 +708,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>side-by-side boxplots on the lower triangle, for the combo variables,</li>
 <li>and the density plots in the upper triangle.</li>
 </ul>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="countdown" id="timer_3ac33555" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_3fe7e26a" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -743,35 +720,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="regression-setting" class="level2">
 <h2 class="anchored" data-anchor-id="regression-setting">Regression setting</h2>
 <!-- An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables. -->
-<div class="cell" data-output-location="column">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>housing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/housing.csv"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">dmy</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bedroom2), <span class="sc">!</span><span class="fu">is.na</span>(price)) <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bedroom2 <span class="sc">&lt;</span> <span class="dv">7</span>, bathroom <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bedroom2 =</span> <span class="fu">factor</span>(bedroom2), </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">bathroom =</span> <span class="fu">factor</span>(bathroom)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 34857 Columns: 20
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (7): suburb, type, method, seller_g, date, council_area, region_name
-dbl (13): rooms, price, distance, postcode, bedroom2, bathroom, car, landsiz...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggduo</span>(housing[, <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">11</span>)], </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">columnsX =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">columnsY =</span> <span class="dv">1</span>, </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">colour=</span>type, <span class="at">fill=</span>type), </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">types =</span> <span class="fu">list</span>(<span class="at">continuous =</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">wrap</span>(<span class="st">"smooth"</span>, </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> <span class="fl">0.10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>housing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/housing.csv"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">dmy</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bedroom2), <span class="sc">!</span><span class="fu">is.na</span>(price)) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bedroom2 <span class="sc">&lt;</span> <span class="dv">7</span>, bathroom <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bedroom2 =</span> <span class="fu">factor</span>(bedroom2), </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">bathroom =</span> <span class="fu">factor</span>(bathroom)) </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggduo</span>(housing[, <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">11</span>)], </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">columnsX =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">columnsY =</span> <span class="dv">1</span>, </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">colour=</span>type, <span class="at">fill=</span>type), </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">types =</span> <span class="fu">list</span>(<span class="at">continuous =</span> </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">wrap</span>(<span class="st">"smooth"</span>, </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> <span class="fl">0.10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/wrangle housing data and make a regression style pairs plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="2-4-mvplot_files/figure-html/wrangle housing data and make a regression style pairs plot-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="2-4-mvplot_files/figure-html/wrangle housing data and make a regression style pairs plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="2-4-mvplot_files/figure-html/wrangle housing data and make a regression style pairs plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -779,62 +746,35 @@ dbl (13): rooms, price, distance, postcode, bedroom2, bathroom, car, landsiz...
 </section>
 <section id="big-biological-data" class="level2">
 <h2 class="anchored" data-anchor-id="big-biological-data">Big biological data</h2>
-<div class="cell" data-output-location="column">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpcp)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>penguins_std <span class="sc">|&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_select</span>(species, bl<span class="sc">:</span>bm) <span class="sc">|&gt;</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_arrange</span>() <span class="sc">|&gt;</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>() <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_labels</span>() <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_colour_discrete_divergingx</span>(<span class="at">palette =</span> <span class="st">"Zissou 1"</span>) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>() <span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/generalised pcp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="2-4-mvplot_files/figure-html/generalised pcp-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
+<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpcp)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>penguins_std <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_select</span>(species, bl<span class="sc">:</span>bm) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_arrange</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>() <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_labels</span>() <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_colour_discrete_divergingx</span>(<span class="at">palette =</span> <span class="st">"Zissou 1"</span>) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>() <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Axes are parallel, observations are connecting lines.</p>
 </section>
 <section id="pcp-large-sample-size" class="level2">
 <h2 class="anchored" data-anchor-id="pcp-large-sample-size">PCP: large sample size</h2>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-dplyr 1.1.0.
-ℹ Please use `reframe()` instead.
-ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-  always returns an ungrouped data frame and adjust accordingly.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'pcp_x'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-</div>
-<div class="cell" data-output-location="column">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="at">data =</span> dframe, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x=</span>pcp_x, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">group =</span> level), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_axes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>(), <span class="at">boxwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>(), <span class="at">colour=</span><span class="st">"orange"</span>) <span class="sc">+</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="2-4-mvplot_files/figure-html/ribbon pcp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="2-4-mvplot_files/figure-html/ribbon pcp-1.png" class="img-fluid figure-img" width="672"></a></p>
-</figure>
-</div>
-</div>
+<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="at">data =</span> dframe, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x=</span>pcp_x, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">group =</span> level), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_axes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>(), <span class="at">boxwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>(), <span class="at">colour=</span><span class="st">"orange"</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With large data, aggregate to get an overview, and select some observations to show.</p>
 </section>
@@ -845,7 +785,7 @@ dplyr 1.1.0.
 <p>The Bioconductor package <code>bigPint</code> has tools for working with larger amounts of data, as seen in RNA-Seq experiments.</p>
 <p>More info at <a href="https://lindsayrutter.github.io/bigPint/">https://lindsayrutter.github.io/bigPint/</a></p>
 </div><div class="column" style="width:10%;">
-<p><a href="images/bigpint.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="images/bigpint.png" class="img-fluid"></a></p>
+<p><a href="images/bigpint.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="images/bigpint.png" class="img-fluid"></a></p>
 </div>
 </div>
 </section>
@@ -854,45 +794,20 @@ dplyr 1.1.0.
 <div class="columns">
 <div class="column">
 <p>Soybean experiment (two trts, three reps) <!-- Here's the scatterplot of the first replicate.  --></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!require("BiocManager", quietly = TRUE))</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    install.packages("BiocManager")</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("bigPint")</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bigPint) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(package, pos = pos, lib.loc = lib.loc, character.only = TRUE, : there is no package called 'bigPint'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(soybean_ir_sub)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in data(soybean_ir_sub): data set 'soybean_ir_sub' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>soybean_ir_sub[,<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">log</span>(soybean_ir_sub[,<span class="sc">-</span><span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'soybean_ir_sub' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(soybean_ir_sub, </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>N<span class="fl">.1</span>, <span class="at">y=</span>P<span class="fl">.1</span>)) <span class="sc">+</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'soybean_ir_sub' not found</code></pre>
-</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!require("BiocManager", quietly = TRUE))</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    install.packages("BiocManager")</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("bigPint")</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bigPint) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(soybean_ir_sub)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>soybean_ir_sub[,<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">log</span>(soybean_ir_sub[,<span class="sc">-</span><span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(soybean_ir_sub, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>N<span class="fl">.1</span>, <span class="at">y=</span>P<span class="fl">.1</span>)) <span class="sc">+</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(package, pos = pos, lib.loc = lib.loc, character.only = TRUE, : there is no package called 'bigPint'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in data(soybean_ir_sub): data set 'soybean_ir_sub' not found</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'soybean_ir_sub' not found</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'soybean_ir_sub' not found</code></pre>
-</div>
-</div>
+
 </div>
 </div>
 </section>
@@ -903,41 +818,16 @@ dplyr 1.1.0.
 <p><code>litre</code> plot: combines replicates to look at the treatments</p>
 <p>Uses hexbins to summarize large data.</p>
 <p>Individual gene data can be overlaid.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>geneList <span class="ot">=</span> soybean_ir_sub_metrics[[<span class="st">"N_P"</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]<span class="sc">$</span>ID</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'soybean_ir_sub_metrics' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotLitre</span>(<span class="at">data =</span> soybean_ir_sub, </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">geneList =</span> geneList, </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pointColor =</span> <span class="st">"deeppink"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plotLitre(data = soybean_ir_sub, geneList = geneList, pointColor = "deeppink"): could not find function "plotLitre"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ret[[<span class="st">"N_P_Glyma.19G168700.Wm82.a2.v1"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>geneList <span class="ot">=</span> soybean_ir_sub_metrics[[<span class="st">"N_P"</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]<span class="sc">$</span>ID</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotLitre</span>(<span class="at">data =</span> soybean_ir_sub, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">geneList =</span> geneList, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pointColor =</span> <span class="st">"deeppink"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ret)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ret[[<span class="st">"N_P_Glyma.19G168700.Wm82.a2.v1"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'soybean_ir_sub_metrics' not found</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plotLitre(data = soybean_ir_sub, geneList = geneList, pointColor = "deeppink"): could not find function "plotLitre"</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
-</div>
+
 </div>
 </div>
 </section>
@@ -946,30 +836,17 @@ dplyr 1.1.0.
 <div class="columns">
 <div class="column">
 <p>This can be extended into a scatterplot matrix</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotSM</span>(soybean_cn_sub, </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>              soybean_cn_sub_metrics, </span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">option =</span> <span class="st">"hexagon"</span>, </span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">xbins =</span> <span class="dv">5</span>, </span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">pointSize =</span> <span class="fl">0.1</span>, </span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">saveFile =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plotSM(soybean_cn_sub, soybean_cn_sub_metrics, option = "hexagon", : could not find function "plotSM"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ret[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotSM</span>(soybean_cn_sub, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>              soybean_cn_sub_metrics, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">option =</span> <span class="st">"hexagon"</span>, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">xbins =</span> <span class="dv">5</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">pointSize =</span> <span class="fl">0.1</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">saveFile =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ret[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in plotSM(soybean_cn_sub, soybean_cn_sub_metrics, option = "hexagon", : could not find function "plotSM"</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
-</div>
+
 </div>
 </div>
 </section>
@@ -981,28 +858,15 @@ dplyr 1.1.0.
 <li>Overlay the profiles of different genes to see patterns across samples<br>
 (This can be called a parallel coordinate plot.)</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotPCP</span>(<span class="at">data =</span> soybean_ir_sub, </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">geneList =</span> geneList, </span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">lineSize =</span> <span class="fl">0.3</span>, </span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">saveFile =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plotPCP(data = soybean_ir_sub, geneList = geneList, lineSize = 0.3, : could not find function "plotPCP"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>ret[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotPCP</span>(<span class="at">data =</span> soybean_ir_sub, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">geneList =</span> geneList, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">lineSize =</span> <span class="fl">0.3</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">saveFile =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ret[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in plotPCP(data = soybean_ir_sub, geneList = geneList, lineSize = 0.3, : could not find function "plotPCP"</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: object 'ret' not found</code></pre>
-</div>
-</div>
+
 </div>
 </div>
 </section>
