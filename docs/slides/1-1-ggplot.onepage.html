@@ -76,9 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c5fb3c816d7cace0cd64d83e75743d1b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-048ffc5d168e1a81ddcfdea6588cc8cf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-c5fb3c816d7cace0cd64d83e75743d1b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-251db2b6c2216354e88fa1b6691734c9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a5040da9ae9a9c46bcd8fa1197826d5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-251db2b6c2216354e88fa1b6691734c9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/line-highlight-1.0.0/line-highlight.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -497,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img src="images/ggplot2.png" width="20%"></p>
-<pre><code>ggplot(data = &lt;DATA&gt;) + 
+<pre data-code-line-numbers=""><code>ggplot(data = &lt;DATA&gt;) + 
   &lt;GEOM_FUNCTION&gt;(
      mapping = aes(&lt;MAPPINGS&gt;),
      stat = &lt;STAT&gt;, 
@@ -524,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>(Current) TB case notifications data from <a href="http://www.who.int/tb/country/data/download/en/">WHO</a>.<br>
 Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>getTBinR</code></a>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<div class="sourceCode cell-code" id="cb2" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> count, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
@@ -568,7 +569,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="fix-the-plot" class="level2">
 <h2 class="anchored" data-anchor-id="fix-the-plot">Fix the plot</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># This uses a color blind friendly scale</span></span>
+<div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># This uses a color blind friendly scale</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -585,7 +586,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="compare-males-and-females" class="level2">
 <h2 class="anchored" data-anchor-id="compare-males-and-females">Compare males and females</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span>  </span>
+<div class="sourceCode cell-code" id="cb4" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span>  </span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">ylab</span>(<span class="st">"proportion"</span>) <span class="sc">+</span> </span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span> </span>
@@ -616,7 +617,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="separate-plots" class="level2">
 <h2 class="anchored" data-anchor-id="separate-plots">Separate plots</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Make separate plots for males and females, focus on counts by category</span></span>
+<div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Make separate plots for males and females, focus on counts by category</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> </span>
@@ -647,7 +648,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="make-a-pie" class="level2">
 <h2 class="anchored" data-anchor-id="make-a-pie">Make a pie</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># How to make a pie instead of a barchart - not straight forward</span></span>
+<div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># How to make a pie instead of a barchart - not straight forward</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
 <span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span> </span>
@@ -666,7 +667,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="stacked-bar" class="level2">
 <h2 class="anchored" data-anchor-id="stacked-bar">Stacked bar</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Step 1 to make the pie</span></span>
+<div class="sourceCode cell-code" id="cb7" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Step 1 to make the pie</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> count, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span></span>
@@ -683,7 +684,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="pie-chart" class="level2">
 <h2 class="anchored" data-anchor-id="pie-chart">Pie chart</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Now we have a pie, note the mapping of variables</span></span>
+<div class="sourceCode cell-code" id="cb8" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Now we have a pie, note the mapping of variables</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="co"># and the modification to the coord_polar</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> count, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
@@ -711,7 +712,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <h2 class="anchored" data-anchor-id="line-plot-vs-barchart">Line plot vs barchart</h2>
 <div class="smaller">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb9" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
@@ -737,7 +738,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <h2 class="anchored" data-anchor-id="line-plot-vs-barchart-1">Line plot vs barchart</h2>
 <div class="smaller">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tb_us <span class="sc">|&gt;</span> <span class="fu">group_by</span>(year, age_group) <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb10" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tb_us <span class="sc">|&gt;</span> <span class="fu">group_by</span>(year, age_group) <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> count[sex<span class="sc">==</span><span class="st">"m"</span>]<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">|&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>p)) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">colour=</span><span class="st">"grey50"</span>, <span class="at">linewidth=</span><span class="dv">2</span>) <span class="sc">+</span></span>
@@ -770,7 +771,7 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <li>Facet by gender, and make line plots of counts of age.</li>
 <li>Show the points only, and overlay a linear model fit.</li>
 </ul>
-<p></p><div class="countdown" id="timer_8c11de67" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p></p><div class="countdown" id="timer_d02e0279" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="resources" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="resources">Resources</h2>
@@ -1278,4 +1279,5 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 
 
 
+<script src="../site_libs/quarto-contrib/line-highlight-1.0.0/line-highlight.js" defer="true"></script>
 </body></html>
