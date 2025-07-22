@@ -156,7 +156,7 @@ Manually selected fill colors; theme with white background for better contrast
 #| label: colour-and-axes-fixes
 #| echo: true
 #| fig-height: 3
-#| code-line-numbers: "4,5"
+#| code-line-numbers: "5,6"
 # This uses a color blind friendly scale
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
@@ -173,11 +173,12 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 #| label: compare-proportions-of-males-females
 #| out-width: 80%
 #| fig-height: 3
+#| code-line-numbers: "3,4"
 #| echo: true
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +  
-  geom_bar(stat="identity", position="fill") + 
+  geom_bar(stat="identity", position="fill") + #<<
   ylab("proportion") + #<<
-  facet_grid(~age_group) + #<<
+  facet_grid(~age_group) +  
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 ```
 
@@ -195,17 +196,18 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 
 ## Separate plots
 
-```{r}
-#| label: side-by-side-bars-of-males-females
-#| fig-height: 3
-#| echo: false
-#| include: false
-ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
- geom_bar(stat="identity", position="dodge") +
- facet_wrap(~age, ncol=6) +
-  scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + 
- scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10"))
-```
+<!-- ```{r} -->
+<!-- #| label: side-by-side-bars-of-males-females -->
+<!-- #| fig-height: 3 -->
+<!-- #| echo: false -->
+<!-- #| include: false -->
+<!-- ggplot(tb_us, aes(x=year, y=count, fill=sex)) + -->
+<!--  geom_bar(stat="identity", position="dodge") + #<< -->
+<!--  facet_wrap(~age, ncol=6) + -->
+<!--   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +  -->
+<!--  scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10")) -->
+<!-- ``` -->
+
 
 ```{r}
 #| label: compare-counts-of-males-females
@@ -217,13 +219,14 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
 ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + 
-  facet_grid(sex~age_group)  
+  facet_grid(sex~age_group) + #<<
+  theme_bw()
 ```
 
-## `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE** {.inverse}
+<!-- ## `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE** {.inverse} -->
 
-- What do we learn about the data that is different from the previous plot?
-- What is easier, what is harder or impossible to learn from this arrangement?
+<!-- - What do we learn about the data that is different from the previous plot? -->
+<!-- - What is easier, what is harder or impossible to learn from this arrangement? -->
 
 ::: notes
 - Counts are generally higher for males than females 
@@ -244,7 +247,8 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_grid(sex~age_group) + 
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  coord_polar() 
+  coord_polar() +
+  theme_bw()
 ```
 
 This isn't a pie, it's a [rose plot](https://datavizcatalogue.com/methods/nightingale_rose_chart.html)!
@@ -314,7 +318,8 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
   scale_colour_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  ylim(c(0,NA))
+  ylim(c(0,NA)) +
+  theme_bw()
 ```
 :::
 
@@ -336,7 +341,8 @@ tb_us |> group_by(year, age_group) |>
   geom_hline(yintercept = 0.50, colour="grey50", linewidth=2) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
-  ylab("Proportion of Males") 
+  ylab("Proportion of Males") +
+  theme_bw()
 ```
 :::
 
