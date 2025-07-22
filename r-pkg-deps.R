@@ -5,7 +5,8 @@ packages <- c(
   "dichromat", "colorspace", "viridis", "ggbeeswarm", "ggmap", "gridExtra",
   "GGally", "ggpcp", "corrgram", "tourr", "gganimate", "maps","datasauRus",
   "gapminder", "cranlogs", "shiny", "bslib", "DT", "leaflet", "plotly",
-  "htmltools", "broom", "broom.mixed", "lme4", "MASS", "forecast", "nullabor")
+  "htmltools", "broom", "broom.mixed", "lme4", "MASS", "forecast", "nullabor",
+  "ggdist")
 
 # Install packages and their dependencies
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")

@@ -2,62 +2,24 @@
 title: "Touring multivariate data"
 ---
 
-```{r echo = FALSE}
-knitr::opts_chunk$set(
-  echo=TRUE, 
-  message = FALSE,
-  warning = FALSE,
-  error = FALSE,
-  collapse = TRUE,
-  comment = "",
-  fig.height = 4,
-  fig.width = 8,
-  fig.align = "center",
-  fig.retina = 3,
-  cache = FALSE
- )
-source("../code/utils.R")
-```
-
-```{r echo=FALSE}
-#library(tidyverse)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(lubridate)
-library(GGally)
-library(tourr)
-library(plotly)
-library(palmerpenguins)
-library(viridis)
-library(wesanderson)
-library(colorspace)
-
-theme_set(theme_bw())
-```
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
-# source(here::here("knitr-setup.R"))
+source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
 ```{r}
-# Pre-process the data
-data(penguins)
-# "Better" formatted penguins data
+# Better formatted penguins data
+# data(penguins, package="palmerpenguins")
+# Use default penguins
 stdd <- function(x) (x-mean(x))/sd(x)
 penguins_std <- penguins |>
-  filter(!is.na(bill_length_mm)) |>
-  rename(bl = bill_length_mm,
-         bd = bill_depth_mm,
-         fl = flipper_length_mm,
-         bm = body_mass_g) |>
+  filter(!is.na(bill_len)) |>
+  rename(bl = bill_len,
+         bd = bill_dep,
+         fl = flipper_len,
+         bm = body_mass) |>
   mutate_at(vars(bl:bm), stdd) |>
   select(species, bl:bm)
-
-clrs <- divergingx_hcl(3, palette = "Zissou1")
-col <- clrs[as.numeric(penguins_std$species)]
 ```
 
 Penguins data: See https://allisonhorst.github.io/palmerpenguins/ for more details.
@@ -410,7 +372,7 @@ Moves to the best separation
 
 ## Manual tour
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=FALSE}
 render_gif(data=penguins_std[,2:5],
            tour_path = radial_tour(as.matrix(best_proj), mvar = 2),
            display = display_xy(col = col),
@@ -443,9 +405,6 @@ render_gif(data=penguins_std[,2:5],
            frames = 100, 
            width = 400, height = 400)
 
-<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
-=======
-```{r eval=FALSE, echo=FALSE}
 render_gif(penguins_std[,2:5], 
            radial_tour(best_proj, mvar=3),
            display_xy(col=penguins_std$species, axes="bottomleft"),
@@ -456,7 +415,6 @@ render_gif(penguins_std[,2:5],
            display_xy(col=penguins_std$species, axes="bottomleft"),
            "penguins_manual_bl.gif", 
            frames=200, width=400, height=400)
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ```{r runthis4, eval=FALSE}
@@ -504,23 +462,7 @@ animate_xy(penguins_std[,2:5],
 
 ![](images/penguins_rt_bl.gif){width="90%"}
 
-<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
-:::
-:::
 
-## Local tour
-
-```{r eval=FALSE}
-render_gif(penguins_std[,2:5], local_tour(start=best_proj, 0.9), 
-           display_xy(col=col, axes="bottomleft"), 
-           "images/penguins2d_local.gif", 
-           frames=200, width=400, height=400)
-```
-
-```{r runthis5, eval=FALSE}
-animate_xy(penguins_std[,2:5], local_tour(start=best_proj, 0.9),
-           axes = "bottomleft", col=col)
-=======
 ```{r eval=FALSE, echo=FALSE}
 render_gif(penguins_std[,2:5], 
            local_tour(start=best_proj, 0.9), 
@@ -533,7 +475,6 @@ render_gif(penguins_std[,2:5],
 animate_xy(penguins_std[,2:5], 
            local_tour(start=best_proj, 0.9),
            axes = "bottomleft", col=penguins_std$species)
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ::: {.columns}
@@ -545,7 +486,6 @@ Rocks from and to a given projection, in order to observe the neighbourhood
 
 ::: {.column width="50%"}
 
-<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 ![](images/penguins2d_local.gif){width="90%"}
 
 :::
@@ -562,15 +502,6 @@ library(geozoo)
 sphere2 <- sphere.solid.random(p=4)$points %>% as_tibble()
 animate_slice(sphere2, axes="bottomleft")
 ```
-=======
-]
-
----
-class: inverse middle
-# Your turn
-
-Using the sample code from the tour package, check how many clusters in the example data.
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 
 ```{r eval=FALSE}
 render_gif(sphere2, grand_tour(), 
@@ -739,16 +670,12 @@ Using the sample code from the tour package, check how many clusters are in the 
 library(tourr)
 data(flea)
 ?animate_xy
-<<<<<<< HEAD:slides/2-5-mvplot-tour.qmd
 # On a Mac, start quartz window with:  quartz()
 # On windows, start X11 window with:   X11()
 
 animate_xy(flea[, 2:7])
 # RStudio graphics windows: may want to reduce frame rate
 animate_xy(flea[, 2:7], fps=10)
-=======
-animate_xy(flea[, 1:6])
->>>>>>> 4878b57bfe0f02cf286f5e601203113922ee28c5:slides/2.5-mvplot-tour/index.Rmd
 ```
 
 ```{r echo=FALSE}
@@ -763,8 +690,6 @@ countdown::countdown(2,0)
 
 
 ```{r eval=FALSE}
-clrs <- scales::pal_hue()(3)
-col <- clrs[as.numeric(penguins_std$species)]
 render_gif(    
   penguins_std[,2:5], 
   grand_tour(), 

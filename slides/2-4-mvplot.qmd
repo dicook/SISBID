@@ -3,17 +3,21 @@ title: "Multivariate data plots"
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
+```
 
+```{r}
 # Better formatted penguins data
-data(penguins, package="palmerpenguins")
+# data(penguins, package="palmerpenguins")
+# Use default penguins
 stdd <- function(x) (x-mean(x))/sd(x)
 penguins_std <- penguins |>
-  filter(!is.na(bill_length_mm)) |>
-  rename(bl = bill_length_mm,
-         bd = bill_depth_mm,
-         fl = flipper_length_mm,
-         bm = body_mass_g) |>
+  filter(!is.na(bill_len)) |>
+  rename(bl = bill_len,
+         bd = bill_dep,
+         fl = flipper_len,
+         bm = body_mass) |>
   mutate_at(vars(bl:bm), stdd) |>
   select(species, bl:bm)
 
@@ -130,6 +134,7 @@ The `corrgram` package has numerous scatterplot matrix capabilities.
 ## Large sample size
 
 ```{r hexbin scatterplot, fig.width=6, fig.height=6, echo =T}
+#| eval: false
 #| output-location: "column"
 # Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
 # This chunk takes some time to run, so evaluated off-line
@@ -269,7 +274,7 @@ ggduo(housing[, c(4,3,8,10,11)],
 
 ## Big biological data
 
-```{r generalised pcp, fig.width=6, fig.height=6}
+```{r generalised pcp, fig.width=6, fig.height=6, eval=FALSE}
 #| output-location: "column"
 
 library(ggpcp)
@@ -289,7 +294,7 @@ Axes are parallel, observations are connecting lines.
 
 ## PCP: large sample size
 
-```{r organise data pcp, eval=T, echo=FALSE}
+```{r organise data pcp, eval=T, echo=FALSE, eval=FALSE}
 tcga_t_pc_pcp <- tcga_t_pc |>
   as_tibble() |>
   pcp_select(PC1:PC10) |>
@@ -317,7 +322,7 @@ tcga_t_pc_pcp_sub <- tcga_t_pc_pcp |>
   slice_head(n=5)
 ```
 
-```{r ribbon pcp, eval=T}
+```{r ribbon pcp, eval=FALSE}
 #| output-location: "column"
 
 ggplot() +
@@ -363,7 +368,7 @@ BiocManager::install("bigPint")
 Soybean experiment (two trts, three reps)
 <!-- Here's the scatterplot of the first replicate.  -->
 
-```{r soybean_scat, fig.show='hide'}
+```{r soybean_scat, fig.show='hide', eval=FALSE}
 # if (!require("BiocManager", quietly = TRUE))
 #    install.packages("BiocManager")
 # BiocManager::install("bigPint")
@@ -378,7 +383,7 @@ ggplot(soybean_ir_sub,
 :::
 
 ::: column
-```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE}
+```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE, eval=FALSE}
 ```
 :::
 ::::
@@ -394,7 +399,7 @@ Uses hexbins to summarize large data.
 
 Individual gene data can be overlaid.
 
-```{r soybean_litre, fig.show='hide'}
+```{r soybean_litre, fig.show='hide', eval=FALSE}
 geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
 ret <- plotLitre(data = soybean_ir_sub, 
                  geneList = geneList, 
@@ -405,7 +410,7 @@ ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
 :::
 
 ::: column
-```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
+```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide', eval=FALSE}
 ```
 :::
 ::::
@@ -415,7 +420,7 @@ ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
 ::: column
 This can be extended into a scatterplot matrix
 
-```{r soybean_litre_sm, fig.show='hide'}
+```{r soybean_litre_sm, fig.show='hide',eval=FALSE}
 ret <- plotSM(soybean_cn_sub, 
               soybean_cn_sub_metrics, 
               option = "hexagon", 
@@ -427,7 +432,7 @@ ret[[2]]
 :::
 
 ::: column
-```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide'}
+```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide', eval=FALSE}
 ```
 :::
 ::::
@@ -438,7 +443,7 @@ ret[[2]]
 - Overlay the profiles of different genes to see patterns across samples    
 (This can be called a parallel coordinate plot.)
 
-```{r soybean_pcp, fig.show='hide'}
+```{r soybean_pcp, fig.show='hide',eval=FALSE}
 ret <- plotPCP(data = soybean_ir_sub, 
                geneList = geneList, 
                lineSize = 0.3, 
@@ -448,7 +453,7 @@ ret[[1]]
 :::
 
 ::: column
-```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide'}
+```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide',eval=FALSE}
 ```
 :::
 ::::
