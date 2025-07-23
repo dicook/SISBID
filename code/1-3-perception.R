@@ -131,9 +131,9 @@ display.brewer.all()
 dsamp <- diamonds |>
   sample_n(1000)
 (d <- ggplot(
-  dsamp, 
-  aes(carat, price)) +
-  geom_point(aes(colour = clarity)))
+  dsamp, aes(carat, price)) +
+  geom_point(aes(
+    colour = clarity)))
 
 
 d + scale_colour_brewer(direction = -1)

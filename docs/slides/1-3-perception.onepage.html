@@ -938,9 +938,9 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dsamp <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>(d <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  dsamp, </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> clarity)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  dsamp, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> clarity)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1028,7 +1028,13 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </section>
 <section id="two-minute-challenge-6" class="level2 inverse">
 <h2 class="inverse anchored" data-anchor-id="two-minute-challenge-6">TWO MINUTE CHALLENGE 🔮 👽 👼</h2>
-<p>Of the previous three colour schemes on the same data, which would be the most appropriate? Why?</p>
+<p>Of the previous four colour schemes on the same data, which would be the most appropriate? Why?</p>
+<ul>
+<li><code>viridis</code></li>
+<li><code>ColorBrewer</code> sequential <code>Blues</code></li>
+<li><code>ColorBrewer</code> Diverging <code>PRGn</code></li>
+<li><code>ColorBrewer</code> Categorical <code>Set1</code></li>
+</ul>
 </section>
 <section id="color-blind-proofing" class="level2">
 <h2 class="anchored" data-anchor-id="color-blind-proofing">Color blind-proofing</h2>

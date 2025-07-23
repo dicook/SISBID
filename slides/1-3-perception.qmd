@@ -477,9 +477,9 @@ Colorbrewer helpfully divides their palettes into different types:
 dsamp <- diamonds |>
   sample_n(1000)
 (d <- ggplot(
-  dsamp, 
-  aes(carat, price)) +
-  geom_point(aes(colour = clarity)))
+  dsamp, aes(carat, price)) +
+  geom_point(aes(
+    colour = clarity)))
 ```
 :::
 
@@ -556,7 +556,12 @@ It can be helpful to have an "other" category that you group smaller values into
 
 ## TWO MINUTE CHALLENGE `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")`  {.inverse}
 
-Of the previous three colour schemes on the same data, which would be the most appropriate? Why?
+Of the previous four colour schemes on the same data, which would be the most appropriate? Why?
+
+- `viridis`
+- `ColorBrewer` sequential `Blues`
+- `ColorBrewer` Diverging `PRGn`
+- `ColorBrewer` Categorical `Set1`
 
 ::: {.content-visible when-format="revealjs"}
 ```{r}
