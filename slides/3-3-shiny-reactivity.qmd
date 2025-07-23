@@ -96,7 +96,10 @@ Answers are in `03b_submission.R`
 ::: column
 ![Screenshot of completed app](your-turn-screenshot-days.png)
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
+:::
+
 :::
 :::
 
@@ -282,7 +285,9 @@ Modify the code in `05_tabsets.R` to use a `page_navbar()`.
 - What modifications do you have to make?
 - Can you add a sidebar using the `sidebar()` function?
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
+:::
 
 ## Resources
 

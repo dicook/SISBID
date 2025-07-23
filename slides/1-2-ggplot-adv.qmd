@@ -305,7 +305,9 @@ ggplotly(width=800, height=500)
 
 ## Your turn {.inverse .middle}
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(10)`
+:::
 
 Make sure you can make all the plots shown in this session, and then tackle these tasks: 
 

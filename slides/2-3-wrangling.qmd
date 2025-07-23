@@ -117,7 +117,9 @@ The `broom.mixed` package provides similar functionality to mixed effects models
 - Plot the residuals from the random effects model
 - Plot fitted values against observed values
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
+:::
 
 ```{r solution to french fries modeling, eval=FALSE, echo=FALSE}
 ## the model is pretty bad:
@@ -220,7 +222,9 @@ to answer these french fry experiment questions:
 
 How many values do we have for each subject? Check the help for function `?n`
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(2)`
+:::
 
 ## French Fries - completeness
 
@@ -279,7 +283,9 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   geom_line(data=ff_av, aes(group=treatment))
 ```
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5, 0)`
+:::
 
 ## References 
 

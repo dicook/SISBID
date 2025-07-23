@@ -89,7 +89,9 @@ What don't you see? Unless you have tours, you'll never know 🫣
 
 `r anicon::nia("What patterns do you see?", animate="rotate")` 
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(1,30)`
+:::
 
 ::: columns
 ::: column
@@ -705,9 +707,11 @@ animate_xy(flea[, 2:7])
 animate_xy(flea[, 2:7], fps=10)
 ```
 
+::: {.content-visible when-format="revealjs"}
 ```{r echo=FALSE}
 countdown::countdown(2,0)
 ```
+:::
 
 ## Saving and sharing: Animated gif
 

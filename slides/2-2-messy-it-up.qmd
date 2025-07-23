@@ -29,7 +29,9 @@ Turn the `french_fries` data from wide format into a long format with variables 
 head(french_fries)
 ```
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
+:::
 
 ## What would you like to find out about the french fries data set? {.inverse}
 
@@ -155,7 +157,9 @@ french_fries_weeks |>
 - First, convert the data into long form
 - Get the replicates spread into separate columns by replicate. 
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
+:::
 
 ```{r solution to do the replicates look like each other, echo=FALSE, eval=FALSE}
 ff.s <- ff_long |> pivot_wider(names_from=rep, values_from=rating)
@@ -208,7 +212,9 @@ Run `?cor` to look up how to get rid of `NA` values in the result.
 
 - Draw a scatterplot of two scales with the highest (positive or negative) correlation value.
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(7)`
+:::
 
 ```{r solution to whether scales look like each other, echo=FALSE, eval=FALSE}
 ff.scales <- ff_long |> pivot_wider(names_from=type, values_from=rating)
@@ -247,7 +253,9 @@ geom_smooth() +
 facet_wrap(~type, ncol = 5)
 ```
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(7)`
+:::
 
 ```{r solution to model, echo=FALSE, eval=FALSE}
 # long model is fine to use for a single model:

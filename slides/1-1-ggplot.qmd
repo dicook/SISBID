@@ -363,8 +363,9 @@ Make sure you can make all the TB plots just shown. If you have extra time, try 
 - Facet by gender, and make line plots of counts of age. 
 - Show the points only, and overlay a linear model fit. 
 
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(7)`
-
+:::
 
 ## Resources {.smaller}
 

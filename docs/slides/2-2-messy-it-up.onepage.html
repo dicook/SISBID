@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -465,7 +430,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6 1     1         15          2    8.8     3      3.6    1.5    2.3</code></pre>
 </div>
 </div>
-<p></p><div class="countdown" id="timer_3abe7d91" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="what-would-you-like-to-find-out-about-the-french-fries-data-set" class="level2 inverse">
 <h2 class="inverse anchored" data-anchor-id="what-would-you-like-to-find-out-about-the-french-fries-data-set">What would you like to find out about the french fries data set?</h2>
@@ -486,11 +450,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="pivot-french-fries-to-long" class="level2">
 <h2 class="anchored" data-anchor-id="pivot-french-fries-to-long">Pivot french fries to long</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ff_long <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(potato<span class="sc">:</span>painty, <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"rating"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ff_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
   time  treatment subject   rep type    rating
@@ -537,7 +496,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
 <p>Long form:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(ff_long, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -593,11 +551,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
 <p>Wide form:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>french_fries_weeks <span class="ot">&lt;-</span> ff_long <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"time"</span>, <span class="at">values_from =</span> <span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(french_fries_weeks,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
@@ -693,7 +646,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="columns">
 <div class="column" style="width:80%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(french_fries_weeks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 14
   treatment subject   rep type     `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`
@@ -727,17 +679,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Note the use of the backtick for variable names with special characters or numbers.</p>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>french_fries_weeks <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">9</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+
 </div><div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="2-2-messy-it-up_files/figure-html/week 1 vs week 9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="2-2-messy-it-up_files/figure-html/week 1 vs week 9-1.png" class="img-fluid figure-img" width="480"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-revealjs/week 1 vs week 9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="2-2-messy-it-up_files/figure-revealjs/week 1 vs week 9-1.png" class="img-fluid figure-img" width="480"></a></p>
 </figure>
 </div>
 </div>
@@ -752,7 +700,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>First, convert the data into long form</li>
 <li>Get the replicates spread into separate columns by replicate.</li>
 </ul>
-<p></p><div class="countdown" id="timer_37370dba" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="are-ratings-similar-on-different-scales" class="level2">
 <h2 class="anchored" data-anchor-id="are-ratings-similar-on-different-scales">Are ratings similar on different scales?</h2>
@@ -760,10 +707,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Scales: potato-y, buttery, grassy, rancid and painty?</li>
 <li>Pivot into long form, plot with <code>facet_...(~scale)</code>.</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ff.m <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>(time<span class="sc">:</span>rep), <span class="at">names_to=</span><span class="st">"type"</span>, <span class="at">values_to=</span><span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
@@ -781,13 +724,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="are-ratings-similar-across-different-scales" class="level2">
 <h2 class="anchored" data-anchor-id="are-ratings-similar-across-different-scales">Are ratings similar across different scales?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>rating)) <span class="sc">+</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol=</span><span class="dv">5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="2-2-messy-it-up_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="2-2-messy-it-up_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="2-2-messy-it-up_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -796,12 +736,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="side-by-side-boxplots" class="level2">
 <h2 class="anchored" data-anchor-id="side-by-side-boxplots">Side-by-side boxplots</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>type, <span class="at">y=</span>rating, <span class="at">fill=</span>type)) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="2-2-messy-it-up_files/figure-html/side-by-Side boxplots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="2-2-messy-it-up_files/figure-html/side-by-Side boxplots-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-revealjs/side-by-Side boxplots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="2-2-messy-it-up_files/figure-revealjs/side-by-Side boxplots-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -815,21 +753,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the result.</p></li>
 <li><p>Draw a scatterplot of two scales with the highest (positive or negative) correlation value.</p></li>
 </ul>
-<p></p><div class="countdown" id="timer_6449dde8" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="ratings-by-week" class="level2">
 <h2 class="anchored" data-anchor-id="ratings-by-week">Ratings by week</h2>
 <p>Use the long form of the data and plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ff.m<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ff.m<span class="sc">$</span>time)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>rating, <span class="at">colour=</span>type)) <span class="sc">+</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="2-2-messy-it-up_files/figure-html/ratings by week-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="2-2-messy-it-up_files/figure-html/ratings by week-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-revealjs/ratings by week-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="2-2-messy-it-up_files/figure-revealjs/ratings by week-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -846,12 +778,11 @@ Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="2-2-messy-it-up_files/figure-html/ratings by week again-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="2-2-messy-it-up_files/figure-html/ratings by week again-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="2-2-messy-it-up_files/figure-revealjs/ratings by week again-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="2-2-messy-it-up_files/figure-revealjs/ratings by week again-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p></p><div class="countdown" id="timer_74334035" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>
@@ -869,6 +800,44 @@ Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the
 </section>
 
 </main> <!-- /main -->
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script>
+
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

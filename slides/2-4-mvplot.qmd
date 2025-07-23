@@ -29,9 +29,11 @@ penguins_std <- penguins |>
 - What makes multivariate analysis different from univariate analysis?
 
 
+::: {.content-visible when-format="revealjs"}
 ```{r echo=FALSE}
 countdown::countdown(1,0)
 ```
+:::
 
 ::: notes
 - data is multivariate if we have more information than a single aspect for each entity/person/experimental unit.
@@ -238,9 +240,11 @@ Re-make the plot with
 - side-by-side boxplots on the lower triangle, for the combo variables, 
 - and the density plots in the upper triangle.
 
+::: {.content-visible when-format="revealjs"}
 ```{r echo=FALSE}
 countdown::countdown(8,0)
 ```
+:::
 
 ```{r echo=FALSE, eval=FALSE}
 australia_PISA2012 |> 
