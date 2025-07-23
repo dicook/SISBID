@@ -247,7 +247,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_grid(sex~age_group) + 
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  coord_polar() + ##<
+  coord_polar() + 
   theme_bw()
 ```
 
@@ -275,7 +275,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 #| out-width: 60%
 #| echo: true
 #| fig-height: 5
-#| code-line-numbers: "1,2,7"
+#| code-line-numbers: "3,4,7"
 # Now we have a pie, note the mapping of variables
 # and the modification to the coord_polar
 ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) + 
@@ -313,7 +313,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(age_group))) +
 
 ::: {.smaller}
 
-```{r use a line plot instead of bar, fig.height=3}
+```{r use a line plot instead of bar, fig.height=3, out.width="80%"}
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
