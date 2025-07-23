@@ -78,7 +78,7 @@ if(any(file.mtime(day1files) > file.mtime(day1zip)) | zip_build_old[1]) {
 day2code <- list.files("code", pattern = "^[2]-", full.names = T)
 day2slides <- slides[str_detect(slides, "slides/2-") |
                        str_detect(slides, "slides/html")]
-day2files <- c(day2code, day2slides, "SISBID.Rproj")
+day2files <- c(common_to_all, day2code, day2slides, "SISBID.Rproj")
 day2zip <- "SISBID_day2.zip"
 if(any(file.mtime(day2files) > file.mtime(day2zip)) | zip_build_old[2]) {
   unlink(day2zip)
@@ -91,7 +91,7 @@ day3code <- c(day3code, list.files("code/3.3-apps", full.names = T, recursive = 
 day3code <- c(day3code, list.files("code/3.4-theme", full.names = T, recursive = T))
 day3slides <- slides[str_detect(slides, "slides/3")]
 day3slides <- c(day3slides, list.files("example_apps", full.names = T, recursive = T))
-day3files <- c(day3code, day3slides, "SISBID.Rproj")
+day3files <- c(common_to_all, day3code, day3slides, "SISBID.Rproj")
 day3zip <- "SISBID_day3.zip"
 if(any(file.mtime(day3files) > file.mtime(day3zip)) | zip_build_old[3]) {
   unlink(day3zip)

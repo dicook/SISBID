@@ -17,6 +17,7 @@ project:
 execute:
   freeze: auto  # re-render only when source changes
   error: true
+  cache: false
 
 website:
   title: "SISBID Data Visualization"
