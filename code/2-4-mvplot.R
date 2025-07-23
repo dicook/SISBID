@@ -4,7 +4,23 @@
 #' 
 
 
+source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
+
+
+# Better formatted penguins data
+# data(penguins, package="palmerpenguins")
+# Use default penguins
+stdd <- function(x) (x-mean(x))/sd(x)
+penguins_std <- penguins |>
+  filter(!is.na(bill_len)) |>
+  rename(bl = bill_len,
+         bd = bill_dep,
+         fl = flipper_len,
+         bm = body_mass) |>
+  mutate_at(vars(bl:bm), stdd) |>
+  select(species, bl:bm)
+
 
 
 countdown::countdown(1,0)
@@ -32,20 +48,27 @@ ggcorr(adelie)
 
 
 
-
+#| output-location: column
 corrgram(adelie, 
   lower.panel=
     corrgram::panel.ellipse)
 
-
-
 #| output-location: column
+#| eval: false
 # Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
 # This chunk takes some time to run, so evaluated off-line
-download.file("https://archive.ics.uci.edu/static/public/401/gene+expression+cancer+rna+seq.zip", here::here("data/TCGA-PANCAN-HiSeq-801x20531.tar.gz"), mode = "wb")
-# Untar into folder
+if (!file.exists(here("data", "TCGA-PANCAN-HiSeq-801x20531", "data.csv"))) {
+  download.file(url = "https://archive.ics.uci.edu/static/public/401/gene+expression+cancer+rna+seq.zip", 
+                destfile = here::here("data", "TCGA-PANCAN-HiSeq-801x20531.zip"), mode = "wb")
+  unzip(here::here("data", "TCGA-PANCAN-HiSeq-801x20531.zip"), 
+        exdir = here::here("data/TCGA-PANCAN-HiSeq-801x20531/"))
+  # Untar into folder
+  untar(here::here("data/TCGA-PANCAN-HiSeq-801x20531/TCGA-PANCAN-HiSeq-801x20531.tar.gz"), 
+        exdir = here("data"))
+}
 
-tcga <- tibble(read.csv(here("data/TCGA-PANCAN-HiSeq-801x20531/data.csv")))
+tcga <- tibble(read.csv(here("data", "TCGA-PANCAN-HiSeq-801x20531", "data.csv")))
+
 tcga_t <- t(as.matrix(tcga[,2:20532]))
 colnames(tcga_t) <- tcga$X
 tcga_t_pc <- prcomp(tcga_t, scale = FALSE)$x
@@ -58,7 +81,7 @@ ggpairs(tcga_t_pc, columns=c(1:4),
   scale_fill_gradient(trans="log", 
     low="#E24C80", high="#FDF6B5")
 
-
+#| output-location: column
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
 australia_PISA2012 <- australia_PISA2012 %>%
@@ -66,8 +89,6 @@ australia_PISA2012 <- australia_PISA2012 %>%
 australia_PISA2012 %>% 
   filter(!is.na(dishwasher)) %>% 
   ggpairs(columns=c(3, 15, 16, 21, 26))
-
-
 
 #| output-location: column
 # Modify the defaults, set the transparency of points since there is a lot of data
@@ -77,6 +98,7 @@ australia_PISA2012 %>%
     columns=c(3, 15, 16, 21, 26), 
     lower = list(continuous = wrap("points", alpha=0.05)))
 
+#| output-location: column
 
 # Make a special style of plot to put in the matrix
 my_fn <- function(data, mapping, method="loess", ...){
@@ -85,8 +107,6 @@ my_fn <- function(data, mapping, method="loess", ...){
       geom_smooth(method="lm", ...)
       p
 }
-
-
 australia_PISA2012 |> 
   filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
@@ -148,8 +168,7 @@ tcga_t_pc_pcp <- tcga_t_pc |>
   pcp_arrange() 
 probs <- c(0.025, 0.25, 0.75, 0.975)
 
-dframe <-
-  tcga_t_pc_pcp |>
+dframe <- tcga_t_pc_pcp |>
   summarise(
     value = quantile(pcp_y, prob = probs),
     quantile = probs,

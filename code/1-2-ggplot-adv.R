@@ -1,11 +1,35 @@
 #' ---
-#' title: Advancing the Grammar of Graphics
+#' title: 'Advancing the Grammar of Graphics: `gg` packages, maps, interactivity'
 #' ---
 #' 
 
 
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
+
+#| label: tb-comparisons1
+#| fig-width: 5
+#| fig-height: 4
+tb_inc_100k <- read_csv(here::here("data/TB_burden_countries_2025-07-22.csv")) |>
+  filter(iso3 %in% c("USA", "AUS"))
+ggplot(tb_inc_100k, aes(y = iso3, 
+                        x = e_inc_100k)) +
+  stat_gradientinterval(fill = "darkorange") +
+  ylab("") +
+  xlab("Inc per 100k") +
+  theme_ggdist()
+
+#| label: tb-comparisons2
+#| fig-width: 5
+#| fig-height: 4
+ggplot(tb_inc_100k, aes(y = iso3, 
+                        x = e_inc_100k)) +
+  stat_halfeye(side = "right") +
+  geom_dots(side="left", 
+                    fill = "darkorange", color = "darkorange") +
+  ylab("") +
+  xlab("Inc per 100k") +
+  theme_ggdist()
 
 
 # Data extracted from ALA with this code
@@ -77,7 +101,7 @@ oz_bbox <- c(112.9, # min long
 oz_map <- get_map(location = oz_bbox, source = "osm") 
 save(oz, file="data/oz.rda")
 
-
+#| output-location: column
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
   geom_point(data=monotremes, 
@@ -132,7 +156,7 @@ monotremes |>
 
 
 library(plotly)
-ggplotly()
+ggplotly(width=800, height=500)
 
 
 ggmap(oz) + 

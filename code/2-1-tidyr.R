@@ -8,9 +8,19 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
+tb   %>%                                # first we get the tb data
+  filter(year == 2023) %>%              # then we focus on the most recent year
+  group_by(country) %>%                 # then we group by country
+  summarize(
+    cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
+    ) %>%
+  arrange(desc(cases))                  # then we sort countries to show highest number of new cases first
+
+
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
 tb |>                                  # first we get the tb data
-  filter(year == 2016) |>              # then we focus on just the year 2016
+  filter(year == 2023) |>              # then we focus on the most recent year
   group_by(country) |>                 # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
@@ -18,14 +28,14 @@ tb |>                                  # first we get the tb data
   arrange(desc(cases))                  # then we sort countries to show highest number new cases first
 
 
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
 tb |>                                  # first we get the tb data
-  filter(year == 2016) |>              # then we focus on just the year 2016
+  filter(year == 2023) |>              # then we focus on the most recent year
   group_by(country) |>                 # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
     ) |> 
-  arrange(desc(cases))                  # then we sort countries to show highest number new cases first
+  arrange(desc(cases))                  # then we sort countries to show highest number of new cases first
 
 
 grad <- read_csv(here::here("data/graduate-programs.csv"))
@@ -69,13 +79,13 @@ dframe
 dframe |> pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 
 
-read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
+read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   na.omit() |>
   head()
 
 
-tb1 <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
+tb1 <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   pivot_longer(starts_with("new_sp_")) 
 
@@ -83,12 +93,14 @@ tb1 |> na.omit() |> head()
 
 
 tb2 <- tb1 |>
-  separate_wider_delim(name, delim = "_", names=c("foo_new", "foo_sp", "sexage")) 
+  separate_wider_delim(
+    name, delim = "_", 
+    names=c("toss_new", "toss_sp", "sexage")) 
 
 tb2 |> na.omit() |> head()
 
 
-tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) |> # remove the `foo` variables
+tb3 <- tb2 %>% dplyr::select(-starts_with("toss")) |> # remove the `toss` variables
   separate_wider_position(
     sexage,
     widths = c(sex = 1, age = 4),

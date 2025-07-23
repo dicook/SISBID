@@ -3,8 +3,7 @@
 .RData
 .Ruserdata
 2023_Recordings
-
 /.quarto/
-
 # used in the app - just ignore, or there are terrible merge conflicts
 code/3.3-apps/03_submission/favorite-days.csv
+_freeze
