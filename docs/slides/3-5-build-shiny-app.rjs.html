@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
 
   <title>SISBID Data Visualization – Polish and share your own shiny app</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -200,14 +200,6 @@
 </div>
 
 </section>
-<section class="slide level2">
-
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(ggdist): there is no package called 'ggdist'</code></pre>
-</div>
-</div>
-</section>
 <section id="your-turn" class="slide level2 inverse">
 <h2>Your turn</h2>
 <ul>
@@ -250,11 +242,11 @@
 <h2>Make it yours</h2>
 <p>Change the plot to use <code>ggplot</code>, this involves changing the server function to be this:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb2-2"><a></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb2-3"><a></a>        <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
-<span id="cb2-4"><a></a>    })</span>
-<span id="cb2-5"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb1-2"><a></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb1-3"><a></a>        <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
+<span id="cb1-4"><a></a>    })</span>
+<span id="cb1-5"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You will also need to add <code>library(ggplot2)</code> at the top of the file, just after <code>library(shiny)</code>.</p>
 <p>🛑 Click the <code>Run App</code> button on the RStudio window. (Fix any errors)</p>
@@ -270,22 +262,22 @@
 <div id="tabset-1-1">
 <p>Change the server function to look like this. Note <code>renderPlotly</code></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
-<span id="cb3-4"><a></a>        p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span></span>
-<span id="cb3-5"><a></a>            <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
-<span id="cb3-6"><a></a>        <span class="fu">print</span>(<span class="fu">ggplotly</span>(p))</span>
-<span id="cb3-7"><a></a>    })</span>
-<span id="cb3-8"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb2-2"><a></a></span>
+<span id="cb2-3"><a></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
+<span id="cb2-4"><a></a>        p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span></span>
+<span id="cb2-5"><a></a>            <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
+<span id="cb2-6"><a></a>        <span class="fu">print</span>(<span class="fu">ggplotly</span>(p))</span>
+<span id="cb2-7"><a></a>    })</span>
+<span id="cb2-8"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2">
 <p>Change the <code>ui</code> function to render plotly output</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">mainPanel</span>(</span>
-<span id="cb4-2"><a></a>  <span class="fu">plotlyOutput</span>(<span class="st">"distPlot"</span>)</span>
-<span id="cb4-3"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">mainPanel</span>(</span>
+<span id="cb3-2"><a></a>  <span class="fu">plotlyOutput</span>(<span class="st">"distPlot"</span>)</span>
+<span id="cb3-3"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-3">
@@ -299,10 +291,10 @@
 <h2>Change the UI</h2>
 <p>Convert the slide into a numeric input, by changing the <code>ui</code> function to be:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">sidebarLayout</span>(</span>
-<span id="cb5-2"><a></a>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb5-3"><a></a>    <span class="fu">numericInput</span>(<span class="st">"bins"</span>, <span class="st">"nbins"</span>, <span class="dv">30</span>)</span>
-<span id="cb5-4"><a></a>  ),</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">sidebarLayout</span>(</span>
+<span id="cb4-2"><a></a>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb4-3"><a></a>    <span class="fu">numericInput</span>(<span class="st">"bins"</span>, <span class="st">"nbins"</span>, <span class="dv">30</span>)</span>
+<span id="cb4-4"><a></a>  ),</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(The <code>numericInput</code> replaces the <code>sliderInput</code> code)</p>
 <p>🛑 Click the <code>Run App</code> button on the RStudio window. (Fix any errors)</p>

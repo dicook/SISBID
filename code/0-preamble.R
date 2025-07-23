@@ -1,9 +1,4 @@
-#' ---
-#' title: Preamble
-#' ---
-#' 
-
-
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -18,24 +13,28 @@ knitr::opts_chunk$set(
 )
 
 
-# THIS CODE IS NOT TO BE RUN
-# These packages are only used to make the slides prettier
-install.packages("remotes")
-remotes::install_github("hadley/emo")
-remotes::install_github("mitchelloharawild/icons")
-remotes::install_github("emitanaka/anicon")
-remotes::install_github("dicook/gretchenalbrecht")
-remotes::install_github("gadenbuie/countdown")
+## ----eval=FALSE, echo=FALSE--------------------------------------------
+# # THIS CODE IS NOT TO BE RUN
+# # These packages are only used to make the slides prettier
+# install.packages("remotes")
+# remotes::install_github("hadley/emo")
+# remotes::install_github("mitchelloharawild/icons")
+# remotes::install_github("emitanaka/anicon")
+# remotes::install_github("dicook/gretchenalbrecht")
+# remotes::install_github("gadenbuie/countdown")
 
 
-install.packages("nullabor")
+## ----eval=FALSE--------------------------------------------------------
+# install.packages("nullabor")
 
 
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+## ----eval=FALSE--------------------------------------------------------
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# 
+# BiocManager::install("bigPint")
 
-BiocManager::install("bigPint")
 
-
-remotes::install_github("wmurphyrd/fiftystater")
+## ----eval=FALSE--------------------------------------------------------
+# remotes::install_github("wmurphyrd/fiftystater")
 

@@ -17,6 +17,7 @@ library(lubridate)
 library(ggthemes)
 library(gapminder)
 # Pre-process the data
+rm(penguins)
 data(penguins)
 penguins <- penguins |> filter(!is.na(bill_length_mm))
 
@@ -78,7 +79,6 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
   theme_map()
 
 
-#viz
 ggplotly(viz)
 
 
@@ -119,6 +119,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
 #| code-line-numbers: '1'
 ggplot(economics) #<<
 
+
 #| output-location: column
 #| code-line-numbers: '2'
 ggplot(economics) +
@@ -140,6 +141,7 @@ ggplot(economics) +
 #| output-location: column
 #| code-line-numbers: '1'
 ggplot(datasaurus_dozen)#<<
+
 
 #| output-location: column
 #| code-line-numbers: '2'
