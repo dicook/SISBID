@@ -30,6 +30,8 @@ common_to_all <- c(
 )
 # Exclude genetics files -- too big
 common_to_all <- common_to_all[!str_detect(common_to_all, "PANCAN")]
+# Exclude video files
+common_to_all <- common_to_all[!str_detect(common_to_all, "shiny-app-start-2025")]
 
 # Create zip files
 # Day 1
