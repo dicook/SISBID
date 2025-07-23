@@ -85,6 +85,7 @@ plot_ly(data = penguins, x = ~flipper_length_mm, y = ~bill_length_mm,
 plot_ly(data = penguins, x = ~flipper_length_mm, y = ~bill_length_mm, 
   color = ~species, size = 3, width=650, height=490, type="scatter", mode="markers")
 ```
+
 ## ggplot2 and plotly
 
 ```{r message = FALSE}
@@ -200,6 +201,7 @@ Countries are colored manually by `country_colors` (hue shows continent, saturat
 
 ```{r plot1, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "1"
 ggplot(economics) #<<
 ```
 
@@ -213,6 +215,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 ```{r plot2, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "2"
 ggplot(economics) +
   aes(date, unemploy) #<<
 ```
@@ -227,6 +230,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 ```{r plot3, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "3"
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() #<<
@@ -244,6 +248,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 ```{r plot5-anim, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "4"
 ggplot(economics) +
   aes(date, unemploy) +
   geom_line() +
@@ -260,6 +265,7 @@ Again, we first pass in the dataset to ggplot
 
 ```{r plot5, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "1"
 ggplot(datasaurus_dozen)#<<
 ```
 
@@ -268,6 +274,7 @@ For each dataset we have x and y values, in addition we can map dataset to color
 
 ```{r plot6, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "2"
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) #<<
 ```
@@ -278,6 +285,7 @@ Trying a simple scatter plot first, but there is too much information
 
 ```{r plot7, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "3"
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() #<<
@@ -289,6 +297,7 @@ We can use facets to split up by dataset, revealing the different distributions
 
 ```{r plot8, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "4"
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() +
@@ -300,10 +309,11 @@ We can just as easily turn it into an animation, transitioning between dataset s
 
 ```{r plot9, eval=T, echo=T}
 #| output-location: column
+#| code-line-numbers: "4,5"
 ggplot(datasaurus_dozen) +
   aes(x, y) +
   geom_point() +
-  transition_states(dataset, 3, 1) + #<<
+  transition_states(dataset, 2, 3) + #<<
   labs(title = "Dataset: {closest_state}") #<<
 
 ```
@@ -313,7 +323,7 @@ ggplot(datasaurus_dozen) +
 The `datasaurus_dozen` data set is part of the R package `datasauRus`. 
 
 - Load the gganimate package and get the animation from the previous page to run in your R session (might take a moment)
-- The function `transition_states` drives the animation. It has values 1 and 3. What do these values mean? 
+- The function `transition_states` drives the animation. It has values 2 and 3. What do these values mean? 
 Read up on their meaning and change them.
 
 ## Controlling an animation {.incremental}
@@ -337,11 +347,12 @@ What other animation are helpful? What views do you want to set? Maybe a shadow 
 ```{r fig.show='hide'}
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
-  scale_colour_manual(values = country_colors, guide=FALSE) +
+  scale_colour_manual(values = country_colors) +
   scale_size("Population size", range = c(2, 12), breaks=c(1*10^8, 2*10^8, 5*10^8, 10^9, 2*20^9)) +
   scale_x_log10() +
   facet_wrap(~continent) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  guides(colour = "none") 
 ```
 
 ## Resources
