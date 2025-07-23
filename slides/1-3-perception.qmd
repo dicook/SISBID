@@ -200,15 +200,17 @@ You'll have about two minutes.
 
 ::: {layout-ncol=2}
 
-```{r use a line plot instead of bar, fig.height=3, echo = T}
+```{r use a line plot instead of bar, fig.height=3, echo = F}
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
-  scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  scale_color_manual(
+    "Sex", 
+    values = c("#DC3220", "#005AB5")) +
   ggtitle("Type A")
 ```
 
-```{r colour and axes fixes, fig.height=3, echo = T}
+```{r colour and axes fixes, fig.height=3, echo = F}
 # This uses a color blind friendly scale
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 

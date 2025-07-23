@@ -77,7 +77,9 @@ tb_kn |> select(year, sex, age, count) |> head(10)
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
-  scale_color_manual("Sex", values = c("#DC3220", "#005AB5")) +
+  scale_color_manual(
+    "Sex", 
+    values = c("#DC3220", "#005AB5")) +
   ggtitle("Type A")
 
 

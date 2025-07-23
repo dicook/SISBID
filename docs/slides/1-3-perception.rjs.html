@@ -410,17 +410,6 @@
 </section>
 <section id="two-minute-challenge-2" class="slide level2 inverse smaller">
 <h2>TWO MINUTE CHALLENGE 🔮 👽 👼</h2>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
-<span id="cb5-2"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a></a>  <span class="fu">scale_color_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
-<span id="cb5-5"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Type A"</span>)</span>
-<span id="cb5-6"><a></a><span class="co"># This uses a color blind friendly scale</span></span>
-<span id="cb5-7"><a></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
-<span id="cb5-8"><a></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
-<span id="cb5-9"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb5-10"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
-<span id="cb5-11"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Type B"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -449,7 +438,7 @@
 </blockquote>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_f55f42ac" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_ed4490ad" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">50</span></code>
 </div>
@@ -508,7 +497,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_e412fd18" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_706a7576" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
@@ -547,26 +536,26 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </blockquote>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_b8c38ab2" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_a422c53b" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">05</span></code>
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">group_by</span>(year, age) <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a></a>  <span class="fu">summarise</span>(<span class="at">p =</span> count[sex<span class="sc">==</span><span class="st">"m"</span>]<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>p)) <span class="sc">+</span></span>
-<span id="cb6-4"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">colour=</span><span class="st">"grey70"</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb6-5"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb6-6"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a></a>  <span class="fu">ylab</span>(<span class="st">"proportion of males"</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Type A"</span>)</span>
-<span id="cb6-9"><a></a><span class="co"># Fill the bars, note the small change to the code</span></span>
-<span id="cb6-10"><a></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
-<span id="cb6-11"><a></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
-<span id="cb6-12"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb6-13"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"proportion"</span>) <span class="sc">+</span></span>
-<span id="cb6-14"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Type B"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">group_by</span>(year, age) <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a></a>  <span class="fu">summarise</span>(<span class="at">p =</span> count[sex<span class="sc">==</span><span class="st">"m"</span>]<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>p)) <span class="sc">+</span></span>
+<span id="cb5-4"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">colour=</span><span class="st">"grey70"</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-6"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a></a>  <span class="fu">ylab</span>(<span class="st">"proportion of males"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Type A"</span>)</span>
+<span id="cb5-9"><a></a><span class="co"># Fill the bars, note the small change to the code</span></span>
+<span id="cb5-10"><a></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb5-11"><a></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb5-12"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"proportion"</span>) <span class="sc">+</span></span>
+<span id="cb5-14"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Type B"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
@@ -707,7 +696,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_597589b6" data-update-every="1" tabindex="0" style="top:100;right:100;">
+<div class="countdown" id="timer_96610dde" data-update-every="1" tabindex="0" style="top:100;right:100;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">40</span></code>
 </div>
@@ -740,7 +729,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Sequential,</li>
@@ -750,7 +739,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <p><a href="http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">Color Brewer</a> annotates palettes with attributes.</p>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -786,12 +775,12 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>dsamp <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
-<span id="cb9-3"><a></a>(d <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb9-4"><a></a>  dsamp, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb9-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(</span>
-<span id="cb9-6"><a></a>    <span class="at">colour =</span> clarity)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>dsamp <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb8-3"><a></a>(d <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb8-4"><a></a>  dsamp, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb8-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(</span>
+<span id="cb8-6"><a></a>    <span class="at">colour =</span> clarity)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -828,7 +817,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="sequential-1" class="slide level2">
 <h2>Sequential</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -859,7 +848,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="diverging" class="slide level2">
 <h2>Diverging</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"PRGn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"PRGn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -890,7 +879,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="qualitative" class="slide level2">
 <h2>Qualitative</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -927,7 +916,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_04c7cd78" data-update-every="1" tabindex="0" style="right:50;bottom:0;">
+<div class="countdown" id="timer_45a980f1" data-update-every="1" tabindex="0" style="right:50;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">50</span></code>
 </div>
@@ -937,13 +926,13 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="color-blind-proofing" class="slide level2">
 <h2>Color blind-proofing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">9</span>)</span>
-<span id="cb13-2"><a></a>d <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb13-3"><a></a></span>
-<span id="cb13-4"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">dichromat</span>(<span class="fu">hue_pal</span>()(<span class="dv">9</span>))</span>
-<span id="cb13-5"><a></a>d <span class="sc">+</span> </span>
-<span id="cb13-6"><a></a>  <span class="fu">scale_colour_manual</span>(<span class="st">""</span>, <span class="at">values=</span>clrs) <span class="sc">+</span> </span>
-<span id="cb13-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">9</span>)</span>
+<span id="cb12-2"><a></a>d <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb12-3"><a></a></span>
+<span id="cb12-4"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">dichromat</span>(<span class="fu">hue_pal</span>()(<span class="dv">9</span>))</span>
+<span id="cb12-5"><a></a>d <span class="sc">+</span> </span>
+<span id="cb12-6"><a></a>  <span class="fu">scale_colour_manual</span>(<span class="st">""</span>, <span class="at">values=</span>clrs) <span class="sc">+</span> </span>
+<span id="cb12-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Online checking tool <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">coblis</a>: upload an image and it will re-map the colors for different colour perception issues.</li>
@@ -1182,11 +1171,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="change-blindness" class="slide level2">
 <h2>Change blindness</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
-<span id="cb14-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb14-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb14-4"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) <span class="sc">+</span></span>
-<span id="cb14-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity, <span class="at">ncol=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
+<span id="cb13-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity, <span class="at">ncol=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1220,11 +1209,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <p>It may result in not noticing differences.</p>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, </span>
-<span id="cb15-2"><a></a>                  <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb15-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb15-5"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, </span>
+<span id="cb14-2"><a></a>                  <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1289,7 +1278,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_00c20417" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_689a8952" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
