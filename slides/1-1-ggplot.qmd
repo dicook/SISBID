@@ -99,7 +99,7 @@ tb <- readr::read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |>
 
 # Filter data to get the US
 tb_us <- tb |> 
-  filter(iso3 == "USA") |>
+  filter(iso3 == "IND") |>
   filter(!(age %in% c("04", "014", "514", "u"))) |>
   mutate(
     age_group = factor(age, labels = c("15-24", "25-34", "35-44", "45-54", "55-64", "65+"))
