@@ -24,43 +24,48 @@ source(here::here("libraries.R"))
 :::
 
 ## The pipe operator `%>%` or `|>`
+
 ::: columns
-::: column
+::: {.column width="70%"}
 - read as `then` 
 - `x %>% f(y)` and `x |> f(y)` is the same as `f(x, y)`
-- `%>%` is part of the `dplyr` package (or more precisely, the `magrittr` package), 
+- `%>%` is part of the `dplyr` package (really, `magrittr`), 
 `|>` is part of base R 
-- pipes allow the code to be *read* like a sequence of operations
-
-- `%>%` is part of `dplyr` package (or more precisely, the `magrittr` package)
-- R 4.1 introduced the `|>` base pipe (no package necessary)
-- An explanation of the differences in the pipes can be found [here](https://towardsdatascience.com/understanding-the-native-r-pipe-98dea6d8b61b)
+- pipes structure code as *sequence of operations* -- as opposed to function order `g(f(x))`
 :::
-::: column
+
+::: {.column width="30%"}
 ![](images/pipe.gif)
 :::
 :::
+
+## The pipe operator `%>%` or `|>`
+
+- `%>%` is part of `dplyr` package (or more precisely, the `magrittr` package)
+- R 4.1 introduced the `|>` base pipe (no package necessary)
+- An explanation of the (subtle) differences between the pipes can be found [here](https://towardsdatascience.com/understanding-the-native-r-pipe-98dea6d8b61b)
 
 ## Pipe Example
 
 ::: panel-tabset
 ### Using `%>%` {-}
+
 ```{r read TB incidence data and check, results='hide'}
-tb <- read_csv(here::here("data/TB_notifications_2020-07-01.csv"))
-tb |>                                  # first we get the tb data
-  filter(year == 2016) |>              # then we focus on just the year 2016
-  group_by(country) |>                 # then we group by country
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
+tb   %>%                                # first we get the tb data
+  filter(year == 2023) %>%              # then we focus on the most recent year
+  group_by(country) %>%                 # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
-    ) |> 
-  arrange(desc(cases))                  # then we sort countries to show highest number new cases first
+    ) %>%
+  arrange(desc(cases))                  # then we sort countries to show highest number of new cases first
 ```
 
 ### Using `|>` {-}
 ```{r read TB incidence data and check base pipe, results='hide'}
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
 tb |>                                  # first we get the tb data
-  filter(year == 2016) |>              # then we focus on just the year 2016
+  filter(year == 2023) |>              # then we focus on the most recent year
   group_by(country) |>                 # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
@@ -70,22 +75,47 @@ tb |>                                  # first we get the tb data
 
 :::
 
-## Tidy Data
 
-::: columns
-::: column
-![Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by [Julia Lowndes and Allison Horst](https://allisonhorst.com/other-r-fun)](images/tidy-quote.jpg){width="100%"}
-:::
-::: column
+```{r show-results, echo=FALSE}
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
+tb |>                                  # first we get the tb data
+  filter(year == 2023) |>              # then we focus on the most recent year
+  group_by(country) |>                 # then we group by country
+  summarize(
+    cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
+    ) |> 
+  arrange(desc(cases))                  # then we sort countries to show highest number of new cases first
+```
+
+
 ## What is tidy data? 
 
+::: columns
+
+::: {.column width="30%"}
+![Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by [Julia Lowndes and Allison Horst](https://allisonhorst.com/other-r-fun)](images/tidy-quote.jpg){width="100%"}
+:::
+
+::: {.column width="70%"}
+
 - What do we expect tidy data to look like?
-- Couple of exercises to look closer at what we find in practice 
-
-:::
+- maybe easier: what are sources of messiness?
 :::
 
-## Your turn {.inverse}
+:::
+
+##  `r set.seed(20190709); emo::ji("fantasy")` `r set.seed(20190712); emo::ji("fantasy")` `r set.seed(20190711); emo::ji("fantasy")` **TWO MINUTE CHALLENGE** {.inverse}
+
+- What are aspects of messiness in data that you have encountered?
+
+Go to menti.com and enter code 2979 2396
+
+
+## Varying degree of messiness
+
+::: panel-tabset
+### Cryptic Names
+
 
 What are the variables? Where are they located?
 
@@ -98,7 +128,7 @@ head(grad[c(2,3,4,6)])
 in the columns, subject, Inst, AvNumPubs, ...
 :::
 
-## Your turn {.inverse}
+### More cryptic
 
 What's in the column names of this data? What are the experimental units? What are the measured variables?
 
@@ -112,7 +142,7 @@ the experimental design is coded into the variable names, genotype:WI/WM, time:6
 :::
 
 
-## Your turn {.inverse}
+### Most
 
 What are the variables? What are the records?
 
@@ -128,7 +158,7 @@ variables are TMAX, TMIN, PRCP, year, month, day, stationid.
 Each row contains the values for one month!
 :::
 
-## Your turn {.inverse}
+### Too_much_info
 
 What are the variables? What are the experimental units?
 
@@ -138,7 +168,7 @@ tail(tb)
 #colnames(tb)
 ```
 
-## Your turn {.inverse}
+### Tables
 
 What are the variables? What are the observations?
 
@@ -153,7 +183,7 @@ pew[1:5, 1:5]
 ```
 
 
-## Your turn {.inverse}
+### Gross on repeat
 
 10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice. 
 
@@ -166,6 +196,8 @@ head(french_fries, 4)
 
 What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?
 
+:::
+
 ## Messy data patterns
 
 There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:
@@ -175,50 +207,51 @@ There are various features of messy data that one can observe in practice. Here 
 - One type of experimental unit stored in multiple tables
 - Dates in many different formats
 
-## What is tidy data?
+## Tidy Data Conventions
 
-- Each observation forms a row
-- Each variable forms a column
-- Data is contained in a single table
-
-- *Long form* makes it easier to reshape in many different ways
-- *Wider forms* are common for analysis
-
-Long form: **one** measured value per row. All other variables are descriptors (key variables)
-
-Widest form: **all** measured values for an entity are in a single row.
+1. Data is contained in a single table
+2. Each observation forms a row (no data info in column names)
+3. Each variable forms a column (no mashup of multiple pieces of information)
 
 
-## {background-image="images/lego.png" background-size="100%" background-position= "50% 5%"}
+## Long and Wide
+
+- Long form: **one** measured value per row. All other variables are descriptors (key variables) - good for modelling, terrible for most other analyses, e.g. correlation matrix
+
+- Widest form: **all** measured values for an entity are in a single row. 
+
+- Wide form: measurements are arranged by *some of the descriptors* in columns (for direct comparisons)
 
 
 ##
+
 ![Illustrations from the Openscapes blog: Tidy Data for reproducibility, efficiency, and collaboration by [Julia Lowndes and Allison Horst](https://allisonhorst.com/other-r-fun)](images/tidy-workflow-assembly.jpg)
 
 
 
 ## Tidy verbs
 
-- `pivot_longer`: specify the **keys** (identifiers) and the **values** (measures) to make long form (used to be called melting or gathering)
-- `pivot_wider`: variables in columns (used to be called casting or spreading)
+- `pivot_longer`: get information out of names into columns 
+- `pivot_wider`: make columns of observed data for levels of design variables (for comparisons)
 - `separate`/`unite`: split and combine columns
-- `nest`/`unnest`: working with list variables
+- `nest`/`unnest`: make/unmake variables into sub-data frames of a list variable
 
 ## Pivot to long form
 
 ::: columns
-::: column
+::: {.column width=80%}
 
-`pivot_longer(data, cols, names_to = "name", values_to = "value", ...)`
-
-`data |> pivot_longer(cols, names_to = "name", values_to = "value", ...)`
+```
+data |> pivot_longer(cols, names_to = "name", values_to = "value", ...)
+```
 
 - `pivot_longer` turns a wide format into a long format
-- two new variables are introduced (in key-value format): **name** and **value**
-- `col` defines which variables should be combined
 
+- two new variables are introduced (in key-value format): **name** and **value**
+
+- `col` defines which variables should be combined
 :::
-::: column
+::: {.column width=20%}
 
 [tidyr cheat sheet](https://rstudio.github.io/cheatsheets/tidyr.pdf)
 
@@ -226,6 +259,9 @@ Widest form: **all** measured values for an entity are in a single row.
 :::
 :::
   
+
+
+
 ## Pivoting: an example
 
 ```{r setup a simple example, echo = FALSE}
@@ -243,19 +279,19 @@ dframe |> pivot_longer(trtA:trtB, names_to="treatment", values_to="outcome")
 
 ## Variable Selectors
 
-`data |> pivot_longer(cols, names_to = "key", values_to = "value", ...)`
+- `data |> pivot_longer(cols, names_to = "key", values_to = "value", ...)`
 
-`cols` argument identifies variables that should be combined.
+- `cols` argument identifies variables that should be combined.
 
-**Selectors** can be used to identify variables by **name**, **position**, a range (using `:`), a pattern, or a combination of all.
+- **Pattern Selectors** can be used to identify variables by **name**, **position**, a range (using `:`), a pattern, or a combination of all.
 
-Pattern selectors:
+## Examples of pattern selectors
 
-`starts_with(match, ignore.case = TRUE, vars = NULL)`
+  - `starts_with(match, ignore.case = TRUE, vars = NULL)`
 
-other select functions: `ends_with`, `contains`, `matches`.
+  - other select functions: `ends_with`, `contains`, `matches`.
 
-For more details, see `?tidyselect::language`
+  - For more details, see `?tidyselect::language`
 
 
 
@@ -264,7 +300,7 @@ For more details, see `?tidyselect::language`
 New notifications of TB have the form `new_sp_<sex><age group>`:
   
 ```{r read in and process the TB data}
-read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
+read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   na.omit() |>
   head()
@@ -272,13 +308,13 @@ read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |>
 
 ## Pivot Longer: TB notifications
   
-create two new variables: 
+create two new variables: `name` and `value`
 
-- variable `name` (contains all variable names starting with `new_sp_`) and 
-- variable `value` with the values of the selected variables
+- `name` contains all variable names starting with "new_sp_" 
+- `value` contains all values of the selected variables
   
 ```{r turn TB data into long form}
-tb1 <- read_csv(here::here("data/TB_notifications_2020-07-01.csv")) |> 
+tb1 <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   pivot_longer(starts_with("new_sp_")) 
 
@@ -287,9 +323,9 @@ tb1 |> na.omit() |> head()
 
 ## Separate columns
   
-`separate_wider_delim (data, col, delim, names, ...)`
-
-`data |> separate_wider_delim (col, delim, names, ...)`
+```
+data |> separate_wider_delim (col, delim, names, ...)
+```
 
 - split column `col` from data frame `frame` into a set of columns as specified in `names`
 - `delim` is the delimiter at which we split into columns, splitting separator. 
@@ -301,19 +337,18 @@ Work on `name`:
   
 ```{r extract variable names from original column names}
 tb2 <- tb1 |>
-  separate_wider_delim(name, delim = "_", names=c("foo_new", "foo_sp", "sexage")) 
+  separate_wider_delim(
+    name, delim = "_", 
+    names=c("toss_new", "toss_sp", "sexage")) 
 
 tb2 |> na.omit() |> head()
 ```
 
 ## Separate columns
   
-`separate_wider_position (data, col, widths, ...)`
+`data %>%  separate_wider_position(col, widths, ...)`
 
-`data %>% separate_wider_position(col, widths, ...)`
-
-
-- split column `col` from data frame `frame` into a set of columns as specified in `widths`
+- split column `col` from `frame` into a set of columns specified in `widths`
 - `widths` is named numeric vector where the names become column names; unnamed components will be matched but not included. 
 
 ## Separate TB notifications again
@@ -322,7 +357,7 @@ Now split `sexage` into first character (m/f) and rest.
 
   
 ```{r continue extracting variable names}
-tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) |> # remove the `foo` variables
+tb3 <- tb2 %>% dplyr::select(-starts_with("toss")) |> # remove the `toss` variables
   separate_wider_position(
     sexage,
     widths = c(sex = 1, age = 4),
@@ -331,6 +366,8 @@ tb3 <- tb2 %>% dplyr::select(-starts_with("foo")) |> # remove the `foo` variable
 
 tb3 |> na.omit() |> head()
 ```
+
+
 
 
 
@@ -359,8 +396,8 @@ mutate(rep = sub("R", "", rep))
 head(gtidy)
 ```
 
-Break into zoom rooms, clock is ticking `r emo::ji("smile")`
-`r countdown::countdown(10)`
+<!-- Break into zoom rooms, clock is ticking `r emo::ji("smile")` -->
+<!-- `r countdown::countdown(10)` -->
 
 ## Plot the genes data overlaid with group means
 
