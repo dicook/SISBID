@@ -49,6 +49,8 @@ common_to_all <- c(
   common_to_all,
   list.files("slides/css", full.names = T),
   misc_code,
+  "knitr-setup.R",
+  "libraries.R",
   "slides/_metadata.yml",
   "SISBID.Rproj"
 )
