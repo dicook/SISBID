@@ -60,8 +60,9 @@ Find out:
 3. What type of data are you often working with?
 4. Is there some analysis task that you have found really hard?
 
-
+::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)` [You've got 5 minutes - timer is running!]{.yellow}
+:::
 
 ## Datavis module logistics {.smaller}
 
@@ -125,7 +126,7 @@ Github
 remotes::install_github("wmurphyrd/fiftystater")
 ```
 
-List of packages is available on course website. 
+[Code to install all packages required for the course](../r-pkg-deps.R) is available on course website. 
 
 ## Resources
 

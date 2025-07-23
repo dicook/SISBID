@@ -1,0 +1,37 @@
+/*-- scss:defaults --*/
+
+h1, h2, h3 {
+  color: #106149!important;
+}
+.navbar {
+  h1, h2, h3 {
+    color: #2AF5B8!important;
+  }
+  h1:before {
+    color: #FFBA08!important;
+  }
+  li::marker {
+    color: #FFBA08!important;
+  }
+  a, a > code {
+    color: #2AF5B8!important;
+  }
+}
+
+li::marker {
+  color: #924103!important;
+}
+.red { color: #840101!important; }
+.orange { color: #896200!important; }
+.blue { color: #28587F!important; }
+a, a > code {
+  color: #924103!important;
+}
+code {
+  color: #28587F!important;
+}
+.inverse {
+  background-color: #dfdfdf!important;
+  border: 1px #28587f!important;
+}
+

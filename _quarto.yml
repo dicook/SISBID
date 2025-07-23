@@ -3,13 +3,16 @@ project:
   render:
     - "!code/*"
     - slides/
+    - about.qmd
     - index.qmd
     - README.qmd
   output-dir: docs
   preview:
     port: 4200
     navigate: false
-
+  post-render:
+    - after-render.R
+    - build-course-files.R
 
 execute:
   freeze: auto  # re-render only when source changes
@@ -71,8 +74,8 @@ website:
 format:
   html:
     theme:
-      light: ['libs/my-light.scss', 'libs/custom.scss', flatly]
-      dark: ['libs/my-dark.scss', 'libs/custom.scss', darkly]
+      light: ['css/my-light.scss', 'css/custom.scss', flatly]
+      dark: ['css/my-dark.scss', 'css/custom.scss', darkly]
     respect-user-color-scheme: true
     toc: true
 
