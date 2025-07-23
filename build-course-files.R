@@ -13,9 +13,12 @@ code_files <- str_replace_all(slides, "slides/", "code/") |>
   str_replace_all("\\.qmd$", ".R")
 
 update <- file.mtime(slides) > file.mtime(code_files)
+update <- na.omit(update)
+if (length(update)>0) {
 if (any(update)) {
   unlink(code_files[update])
   purrr::walk2(slides[update], code_files[update], qmd_to_r_script)
+}
 }
 
 misc_code <- setdiff(list.files("code", ".[Rr]", full.names = T, recursive=F),
