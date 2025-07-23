@@ -3,6 +3,16 @@
 h1, h2, h3 {
   color: #2AF5B8!important;
 }
+.navbar {
+  h1, h2, h3 {
+    a{
+      color: #2AF5B8!important;
+    }
+  }
+  h1:before {
+    color: #FFBA08!important;
+  }
+}
 h1:before {
   color: #FFBA08!important;
 }
@@ -21,5 +31,5 @@ code {
   background-color: #404040!important;
 }
 .inverse {
-  background-color: #404040;
+  background-color: #404040!important;
 }
