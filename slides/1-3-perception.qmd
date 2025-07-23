@@ -290,7 +290,7 @@ countdown::countdown(1, 5)
 
 ::: {layout-ncol=2}
 
-```{r use a line plot for proportions, fig.height=3}
+```{r use a line plot for proportions, fig.height=3, echo = F}
 tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
@@ -301,7 +301,7 @@ tb_kn |> group_by(year, age) |>
   ggtitle("Type A")
 ```
 
-```{r compare proportions of males females, fig.height=4}
+```{r compare proportions of males females, fig.height=4, echo = F}
 # Fill the bars, note the small change to the code
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
