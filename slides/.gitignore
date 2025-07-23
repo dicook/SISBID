@@ -1,1 +1,4 @@
 *_files
+*_cache
+*.html
+*.md
