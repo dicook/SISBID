@@ -126,7 +126,7 @@ Github
 remotes::install_github("wmurphyrd/fiftystater")
 ```
 
-List of packages is available on course website. 
+[Code to install all packages required for the course](../r-pkg-deps.R) is available on course website. 
 
 ## Resources
 
