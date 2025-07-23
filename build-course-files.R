@@ -51,6 +51,8 @@ common_to_all <- c(
   misc_code,
   "knitr-setup.R",
   "libraries.R",
+  "r-pkg-deps.R",
+  "slide-style-setup.R",
   "slides/_metadata.yml",
   "SISBID.Rproj"
 )
