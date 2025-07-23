@@ -2,6 +2,7 @@
 library(tidyverse)
 library(quarto) # Requires dev version at least as recent as 07-2025
 library(stringr)
+library(here)
 
 # List all slides
 slides <- list.files("slides", "*.qmd", full.names = T, recursive = T)

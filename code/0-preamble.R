@@ -34,34 +34,8 @@ install.packages("nullabor")
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("ggbio")
+BiocManager::install("bigPint")
 
 
-remotes::install_github("lindsayrutter/bigPint")
-
-
-# CRAN packages
-packages <- c("tidyr", "dplyr", "readr", "ggplot2", "stringr", "here", "leaflet", "lubridate", 
-              "plotly", "RColorBrewer", "gridExtra", "dichromat", "conflicted", "scales", "broom", 
-              "broom.mixed", "lme4", "GGally", "palmerpenguins", "corrgram", "tourr", "htmltools", 
-              "ggthemes", "maps", "viridis", "nullabor", "splitstackshape", "forecast", "readxl", 
-              "MASS", "datasauRus", "cranlogs", "gapminder", "shiny", "shinydashboard", "learnr", 
-              "ggmosaic", "gganimate", "remotes", "mapproj")
-
-install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
-
-# Bioconductor packages
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-remotes::install_github("lindsayrutter/bigPint")
-
-# github packages
 remotes::install_github("wmurphyrd/fiftystater")
-remotes::install_github("heike/vinference")
-remotes::install_github("hollylkirk/ochRe")
-
-# For sharing web apps, 
-# but you need adminstrator rights to your computer:
-
-install.packages("rsconnect")
 

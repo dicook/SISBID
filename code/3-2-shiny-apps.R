@@ -1,11 +1,19 @@
 #' ---
 #' title: Building a shiny app
+#' filters:
+#' - quarto
+#' - line-highlight
 #' ---
 #' 
 
 
 # source(here::here("knitr-setup.R"))
-source(here::here("libraries.R"))
+# source(here::here("libraries.R"))
+library(shiny)
+library(bsicons)
+library(showtext)
+library(ragg)
+library(thematic)
 
 
 # Additional packages for Shiny
@@ -30,6 +38,14 @@ library(ggplot2)
 library(readr)
 
 
+ui <- fluidPage(
+)
+
+
+server <- function(input, output, session) {
+}
+
+
 library(shiny)
 
 ui <- fluidPage(
@@ -42,11 +58,9 @@ shinyApp(ui, server)
 
 
 library(shiny)
-sidebar <-  sidebarPanel(width = 3, 
-                         "Fun inputs")
+sidebar <-  sidebarPanel(width = 3, "Fun inputs")
 
-main_col <- column(width = 9, 
-                   "Some results")
+main_col <- column(width = 9, "Some results")
 
 ui <- fluidPage(
   title = "App Title",
@@ -61,13 +75,11 @@ shinyApp(ui, server)
 
 
 library(shiny)
-
 sidebar <-  sidebarPanel(
   width = 3, 
-  textInput("name", "Enter your name:", value = "Heike"))
+  textInput("name", "Enter your name:", value = "Susan"))
 
-main_col <- column(width = 9, 
-                   "Some results")
+main_col <- column(width = 9, "Some results")
 
 ui <- fluidPage(
   title = "App Title",
@@ -85,7 +97,7 @@ library(shiny)
 
 sidebar <-  sidebarPanel(
   width = 3, 
-  textInput("name", "Enter your name:", value = "Heike"))
+  textInput("name", "Enter your name:", value = "Susan"))
 
 main_col <- column(width = 9, 
                    "Some results")
@@ -107,7 +119,7 @@ library(shiny)
 sidebar <-  sidebarPanel(
   width = 3, 
   selectInput("country", "Pick your favorite country:", 
-              choices = c("Australia", "United States", "Germany")))
+              choices = c("Australia", "France", "Sweden", "Germany")))
 main_col <- column(width = 9, 
                    "Some results")
 
@@ -122,7 +134,8 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 
-
+#| code-line-numbers: 8-11,18-22
+#| class-source: numberLines
 library(shiny)
 
 sidebar <-  sidebarPanel(
@@ -130,10 +143,10 @@ sidebar <-  sidebarPanel(
   selectInput("country", "Pick your favorite country:", 
               choices = c("Australia", "United States", "Germany"))
 )
-main_col <- column(        #<<
-  width = 9,               #<<
-  plotOutput("scatter")    #<<
-)                          #<<
+main_col <- column(                               #<<
+  width = 9,                                      #<<
+  plotOutput("scatter")                           #<<
+)                                                 #<<
 
 ui <- fluidPage(
   title = "App Title", sidebar, main_col)
@@ -144,7 +157,7 @@ server <- function(input, output, session) {
     mtcars %>% ggplot(aes(x = disp, y = mpg)) +   #<<
       geom_point() +                              #<<
       ggtitle(input$country)                      #<<
-  })
+  })                                              #<<
 }
 
 shinyApp(ui, server)

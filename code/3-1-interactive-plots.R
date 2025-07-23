@@ -4,10 +4,6 @@
 #' 
 
 
-source(here::here("knitr-setup.R"))
-source(here::here("libraries.R"))
-
-
 #library(tidyverse)
 library(tidyr)
 library(dplyr)
@@ -16,6 +12,15 @@ library(readr)
 library(plotly)
 library(gganimate)
 library(datasauRus)
+library(palmerpenguins)
+library(lubridate)
+library(ggthemes)
+library(gapminder)
+# Pre-process the data
+data(penguins)
+# "Better" formatted penguins data
+penguins_std <- penguins |>
+  filter(!is.na(bill_length_mm)) 
 
 
 cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
@@ -47,11 +52,11 @@ cran_summary %>%
   scale_y_log10()
 
 
-plot_ly(data = penguins_std, x = ~fl, y = ~bl, 
+plot_ly(data = penguins_std, x = ~flipper_length_mm, y = ~bill_length_mm, 
   color = ~species, size = 3, width=420, height=300)
 
 
-gg <- ggplot(data=penguins_std, aes(x = fl, y = bl, colour = species)) +  
+gg <- ggplot(data=penguins_std, aes(x = flipper_length_mm, y = bill_length_mm, colour = species)) +  
   geom_point(alpha=0.5) + geom_smooth(method = "lm", se=F)
 ggplotly(gg, width=390, height=300)
 
