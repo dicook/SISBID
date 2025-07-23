@@ -91,7 +91,7 @@ plot_ly(data = penguins, x = ~flipper_length_mm, y = ~bill_length_mm,
 
 ## ggplot2 and plotly
 
-```{r message = FALSE}
+```{r message = FALSE, echo = TRUE}
 gg <- ggplot(data=penguins, aes(x = flipper_length_mm, y = bill_length_mm, colour = species)) +  
   geom_point(alpha=0.5) + geom_smooth(method = "lm", se=F)
 ggplotly(gg, width=600, height=490)
@@ -110,7 +110,7 @@ ggplotly(p, width=600, height=490)
 
 ::: columns
 ::: column
-```{r warning = FALSE}
+```{r warning = FALSE, echo=TRUE}
 data(canada.cities, package = "maps")
 viz <- ggplot(canada.cities, aes(long, lat)) +
   borders(regions = "canada") +
@@ -121,8 +121,7 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
 ```
 :::
 ::: column
-```{r out.width="80%"}
-#viz
+```{r out.width="80%", echo=TRUE}
 ggplotly(viz)
 ```
 :::
@@ -137,7 +136,7 @@ Not all `ggplot2` geoms are supported in plotly, but when they are, they just wo
 `plotly` uses elements of `crosstalk` to provide additional interactivity, such as linked highlighting
 
 
-```{r eval=TRUE, warning = FALSE, message = FALSE}
+```{r eval=TRUE, warning = FALSE, message = FALSE, echo=TRUE}
 txh_shared <- highlight_key(txhousing, ~year)
 
 p <- ggplot(txh_shared, aes(month, median)) +
@@ -157,7 +156,7 @@ gg <- ggplotly(p, height = 800, width = 1000) %>%
 
 ##
 
-```{r echo=FALSE, fig.height=10, fig.width=12, warning=FALSE, message=FALSE}
+```{r echo=FALSE, fig.height=10, fig.width=12, warning=FALSE, message=FALSE, echo=TRUE}
 highlight(gg)
 ```
 
@@ -176,7 +175,7 @@ highlight(gg)
 
 ## An example animation
 
-```{r, echo=FALSE, fig.width = 8, fig.height = 6}
+```{r, echo=FALSE, fig.width = 8, fig.height = 6, echo=FALSE}
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors) +
@@ -204,10 +203,11 @@ Countries are colored manually by `country_colors` (hue shows continent, saturat
 
 1. Start by passing the data to ggplot
 
-```{r plot1, eval=T, echo=T}
+```{r plot1, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "1"
 ggplot(economics) #<<
+
 ```
 
 ::: bottom
@@ -218,7 +218,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 2. add the mapping
 
-```{r plot2, eval=T, echo=T}
+```{r plot2, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "2"
 ggplot(economics) +
@@ -233,7 +233,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 3. Add a graphical primitive, let's do a line 
 
-```{r plot3, eval=T, echo=T}
+```{r plot3, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "3"
 ggplot(economics) +
@@ -251,7 +251,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 
 4. Just one extra line turns this into an animation!
 
-```{r plot5-anim, eval=T, echo=T}
+```{r plot5-anim, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "4"
 ggplot(economics) +
@@ -268,16 +268,17 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 ## A not-so-simple example, the datasaurus dozen
 Again, we first pass in the dataset to ggplot
 
-```{r plot5, eval=T, echo=T}
+```{r plot5, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "1"
 ggplot(datasaurus_dozen)#<<
+
 ```
 
 ## A not-so-simple example, the datasaurus dozen
 For each dataset we have x and y values, in addition we can map dataset to color
 
-```{r plot6, eval=T, echo=T}
+```{r plot6, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "2"
 ggplot(datasaurus_dozen) +
@@ -288,7 +289,7 @@ ggplot(datasaurus_dozen) +
 Trying a simple scatter plot first, but there is too much information
 
 
-```{r plot7, eval=T, echo=T}
+```{r plot7, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "3"
 ggplot(datasaurus_dozen) +
@@ -300,7 +301,7 @@ ggplot(datasaurus_dozen) +
 
 We can use facets to split up by dataset, revealing the different distributions
 
-```{r plot8, eval=T, echo=T}
+```{r plot8, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "4"
 ggplot(datasaurus_dozen) +
@@ -312,7 +313,7 @@ ggplot(datasaurus_dozen) +
 ## A not-so-simple example, the datasaurus dozen
 We can just as easily turn it into an animation, transitioning between dataset states! 
 
-```{r plot9, eval=T, echo=T}
+```{r plot9, eval=TRUE, echo=TRUE}
 #| output-location: column
 #| code-line-numbers: "4,5"
 ggplot(datasaurus_dozen) +
@@ -349,7 +350,7 @@ Add animation parts! adding `transition_time(year)` results in the visualisation
 
 What other animation are helpful? What views do you want to set? Maybe a shadow looks interesting?
 
-```{r fig.show='hide'}
+```{r fig.show='hide', echo=TRUE}
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors) +

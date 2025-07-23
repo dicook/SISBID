@@ -12,7 +12,10 @@ slides <- list.files("slides", "*.qmd", full.names = T, recursive = T)
 code_files <- str_replace_all(slides, "slides/", "code/") |>
   str_replace_all("\\.qmd$", ".R")
 
-update <- file.mtime(slides) > file.mtime(code_files)
+#update <- file.mtime(slides) > file.mtime(code_files)
+# HH: update all - when the build process failed, it would need a touch to change the time
+# and it does not take that long
+update <- rep(TRUE, length(code_files))
 update <- na.omit(update)
 if (length(update)>0) {
 if (any(update)) {
