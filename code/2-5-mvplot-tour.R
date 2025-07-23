@@ -120,31 +120,27 @@ p <- ggplot() +
        theme_void() +
        coord_fixed() +
   theme(legend.position="none")
-pg <- ggplotly(p, width=700, height=400) |>
+pg <- ggplotly(p, width=1000, height=700) |>
   animation_opts(200, redraw = FALSE, 
                  easing = "linear", transition=0)
-save_html(pg, file="html/penguins.html")
+save_html(pg, file="html/penguins.html", libdir="lib")
 
 
 ggplot(penguins_std, 
-   aes(x=fl, 
-       y=bd,
+   aes(x=fl, y=bd,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
-             size=2) +
+  geom_point(alpha=0.7, size=2) +
   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom") 
 
 
 ggplot(penguins_std, 
-   aes(x=bl, 
-       y=bm,
+   aes(x=bl, y=bm,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
-             size=2) +
+  geom_point(alpha=0.7, size=2) +
   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
@@ -212,7 +208,8 @@ render_gif(penguins_std[,2:5],
            frames=200, width=400, height=400)
 
 
-# Check contribution of bl, change mvar to switch variables
+# Check contribution of bl, 
+# change mvar to switch variables
 animate_xy(penguins_std[,2:5], 
            radial_tour(as.matrix(best_proj), mvar = 2),
            col = col)
@@ -235,19 +232,22 @@ sphere2 <- sphere.solid.random(p=4)$points %>% as_tibble()
 animate_slice(sphere2, axes="bottomleft")
 
 
-render_gif(sphere2, grand_tour(), 
-           display_slice(axes="bottomleft"), 
-           "images/sphere4d_solid_slice.gif", frames=100, width=400, height=400)
-
+render_gif(
+  sphere2, grand_tour(), 
+  display_slice(axes="bottomleft"), 
+  "images/sphere4d_solid_slice.gif",
+  frames=100, width=400, height=400)
 
 
 sphere1 <- sphere.hollow(p=4)$points %>% as_tibble()
 animate_slice(sphere1, axes="bottomleft", half_range=0.6)
 
 
-render_gif(sphere1, grand_tour(), 
-           display_slice(axes="bottomleft", half_range=0.6), 
-           "images/sphere4d_slice.gif", frames=100, width=400, height=400)
+render_gif(
+  sphere1, grand_tour(), 
+  display_slice(axes="bottomleft", half_range=0.6), 
+  "images/sphere4d_slice.gif", 
+  frames=100, width=400, height=400)
 
 
 torus <- torus(p = 4, n = 5000, radius=c(8, 4, 1))$points %>% as_tibble()
@@ -278,11 +278,12 @@ penguins_scores <- penguins_pca$x[, 1:3]
 animate_pca(penguins_scores, pc_coefs = penguins_coefs, col=col)
 
 
-render_gif(penguins_scores, grand_tour(), 
-           display_pca(pc_coefs = penguins_coefs, 
-                       col=col, axes="bottomleft"), 
-           "images/penguins2d_pca.gif", 
-           frames=100, width=400, height=400)
+render_gif(
+  penguins_scores, grand_tour(), 
+  display_pca(pc_coefs = penguins_coefs, 
+              col=col, axes="bottomleft"), 
+  "images/penguins2d_pca.gif", 
+  frames=100, width=400, height=400)
 
 
 
@@ -302,8 +303,13 @@ render_gif(penguins_std[,2:5],
            width=400, height=400)
 
 
-animate_dist_cl(penguins_std[,2:5], half_range=1.3)
-animate_density2d(penguins_std[,2:5], col=col, axes="bottomleft")
+animate_dist_cl(penguins_std[,2:5], 
+                half_range=1.3)
+
+
+animate_density2d(
+  penguins_std[,2:5], 
+  col=col, axes="bottomleft")
 
 
 library(tourr)
@@ -323,80 +329,62 @@ countdown::countdown(2,0)
 render_gif(    
   penguins_std[,2:5], 
   grand_tour(), 
-  display_xy(col=penguins_std$species, 
-             axes="bottomleft"), 
+  display_xy(
+    col=penguins_std$species, 
+    axes="bottomleft"), 
   gif_file="images/penguins2d.gif", 
   frames=100, 
   width=400, 
-  height=400)
+  height=400
+)
 
 
 set.seed(209)
 b <- basis_random(4, 2)
-penguins_pct <- tourr::save_history(penguins_std[,2:5], 
-                    tour_path = grand_tour(),
-                    start = b,
-                    max_bases = 5)
-save(penguins_pct,
-     file="../data/p_tour_path.rda")
-penguins_pcti <- interpolate(penguins_pct, 0.2)
-penguins_anim <- render_anim(penguins_std,
-      vars = 2:5,
-      frames=penguins_pcti,
-      obs_labels=penguins_std$species)
+penguins_pct <- tourr::save_history(
+  penguins_std[,2:5], tour_path = grand_tour(), 
+  start = b, max_bases = 5)
+save(penguins_pct, file="../data/p_tour_path.rda")
 
+penguins_pcti <- interpolate(penguins_pct, 0.2)
+penguins_anim <- render_anim(penguins_std, vars = 2:5,
+                             frames=penguins_pcti, 
+                             obs_labels=penguins_std$species)
 
 penguins_gp <- ggplot() +
-     geom_path(data=penguins_anim$circle, 
-               aes(x=c1, y=c2,
-                   frame=frame), linewidth=0.1) +
-     geom_segment(data=penguins_anim$axes, 
-                  aes(x=x1, y=y1, 
-                      xend=x2, yend=y2, 
-                      frame=frame), 
-                  linewidth=0.1) +
-     geom_text(data=penguins_anim$axes, 
-               aes(x=x2, y=y2, 
-                   frame=frame, 
-                   label=axis_labels), 
-               size=5) +
-     geom_point(data=penguins_anim$frames, 
-                aes(x=P1, y=P2, colour=species,
-                    frame=frame, 
-                    label=obs_labels), 
-                alpha=0.8) +
+  geom_path(data=penguins_anim$circle, aes(x=c1, y=c2, frame=frame), linewidth=0.1) +
+  geom_segment(data=penguins_anim$axes, aes(x=x1, y=y1, xend=x2, yend=y2, frame=frame), linewidth=0.1) +
+  geom_text(data=penguins_anim$axes, aes(x=x2, y=y2, frame=frame, label=axis_labels), size=5) +
+  geom_point(data=penguins_anim$frames, 
+             aes(x=P1, y=P2, colour=species, frame=frame, label=obs_labels), alpha=0.8) +
+  xlim(-1,1) + 
+  ylim(-1,1) +
+  coord_equal() + theme_bw() +
+  theme(legend.position = "none",
+    axis.text=element_blank(), axis.title=element_blank(),
+    axis.ticks=element_blank(), panel.grid=element_blank())
 
+penguins_tour <- ggplotly(penguins_gp, width=500, height=550) %>%
+  animation_button(label="Go") %>%
+  animation_slider(len=0.8, x=0.5, xanchor="center") %>%
+  animation_opts(easing="linear", transition = 0)
 
-     xlim(-1,1) + ylim(-1,1) +
-     coord_equal() +
-     theme_bw() +
-     theme(legend.position = "none",
-           axis.text=element_blank(),
-         axis.title=element_blank(),
-         axis.ticks=element_blank(),
-         panel.grid=element_blank())
-penguins_tour <- ggplotly(penguins_gp,
-                        width=500,
-                        height=550) %>%
-       animation_button(label="Go") %>%
-       animation_slider(len=0.8, x=0.5,
-                        xanchor="center") %>%
-       animation_opts(
-         easing="linear", 
-         transition = 0)
 penguins_tour
 
-htmlwidgets::saveWidget(penguins_tour,
-          file="html/penguins.html",
-          selfcontained = TRUE)
+htmlwidgets::saveWidget(penguins_tour, file="html/penguins.html", selfcontained = TRUE)
 
 
 load(here::here("data/p_tour_path.rda"))
-penguins_pcti <- interpolate(penguins_pct, 0.2)
-f27 <- matrix(penguins_pcti[,,27], ncol=2)
-p27 <- render_proj(penguins_std[,2:5],
-          f27,
-          obs_labels=penguins_std$species)
+penguins_pcti <- interpolate(
+  penguins_pct, 0.2)
+f27 <- matrix(
+  penguins_pcti[,,27], 
+  ncol=2)
+p27 <- render_proj(
+  penguins_std[,2:5],
+  f27,
+  obs_labels=
+    penguins_std$species)
 
 
 p27$data_prj <- p27$data_prj |>

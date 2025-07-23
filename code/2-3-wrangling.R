@@ -14,8 +14,9 @@ library(ggplot2)
 library(readr)
 library(lubridate)
 library(broom)
-library(broom.mixed)
+library(broom.mixed) # includes tidying functions for glmmTMB
 library(lme4)
+library(glmmTMB)
 
 
 load(here::here("data/french_fries.rda"))
@@ -34,7 +35,7 @@ glance(ff_lm)
 
 
 ff_lm_tidy <- tidy(ff_lm)
-glimpse(ff_lm_tidy)
+head(ff_lm_tidy)
 
 
 ff_lm_all <- augment(ff_lm)
@@ -60,22 +61,22 @@ ggplot(ff_lmer_all, aes(x=.fitted, y=.resid)) + geom_point() +
 ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
   coord_equal() 
 
-
+#| code-line-numbers: '3'
 load(here::here("data/french_fries.rda"))
 french_fries |>
     filter(subject == 3, time == 1) #<<
 
-
+#| code-line-numbers: '2'
 french_fries |>
     arrange(desc(rancid)) |> #<<
     head()
 
-
+#| code-line-numbers: '2'
 french_fries |>
     select(time, treatment, subject, rep, potato) |> #<<
     head()
 
-
+#| code-line-numbers: '2,5'
 french_fries |>
     summarise( #<<
       mean_rancid = mean(rancid, na.rm=TRUE), 
