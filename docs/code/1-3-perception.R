@@ -150,8 +150,11 @@ countdown::countdown(0, 50, right=50, bottom=0)
 
 clrs <- hue_pal()(9)
 d + theme(legend.position = "none")
+
 clrs <- dichromat(hue_pal()(9))
-d + scale_colour_manual("", values=clrs) + theme(legend.position = "none")
+d + 
+  scale_colour_manual("", values=clrs) + 
+  theme(legend.position = "none")
 
 
 clrs <- hue_pal()(9)
