@@ -670,7 +670,7 @@ If there are multiple comparisons to make, you need to decide which one is most 
 
 ::: {layout-ncol=2}
 
-```{r a line plot on sex, fig.height=3, fig.width = 8}
+```{r a line plot on sex, fig.height=3, fig.width = 8, echo = F}
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
@@ -678,7 +678,7 @@ ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   ggtitle("Arrangement A")
 ```
 
-```{r a line plot on age, fig.height=3, fig.width=8}
+```{r a line plot on age, fig.height=3, fig.width=8, echo = F}
 ggplot(tb_kn, aes(x=year, y=count, colour=age)) +
   geom_line() + geom_point() +
   facet_wrap(~sex, ncol=6) +
@@ -703,7 +703,7 @@ Same proximity is used, but different geoms.
 - Which is better to determine the relative ratios of males to females by age?
 :::
 ::: column
-```{r side-by-side bars of males females, fig.height=3}
+```{r side-by-side bars of males females, fig.height=3, echo = F}
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -712,7 +712,7 @@ tb_kn |> filter(year == 2012) |>
   ggtitle("Position - common scale ")
 ```
 
-```{r piecharts of males females, fig.height=3}
+```{r piecharts of males females, fig.height=3, echo = F}
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
@@ -741,7 +741,7 @@ Which is better to determine the relative ratios of ages by sex?
 :::
 
 ::: column
-```{r side-by-side bars of age, fig.height=3}
+```{r side-by-side bars of age, fig.height=3, echo = F}
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -750,7 +750,7 @@ tb_kn |> filter(year == 2012) |>
   ggtitle("Position - common scale ")
 ```
 
-```{r piecharts of age, fig.height=3}
+```{r piecharts of age, fig.height=3, echo = F}
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
@@ -760,7 +760,7 @@ tb_kn |> filter(year == 2012) |>
   coord_polar(theta = "y")
 ```
 
-```{r stacked bars of age, fig.height=3}
+```{r stacked bars of age, fig.height=3, echo = F}
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
