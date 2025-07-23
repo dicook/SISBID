@@ -23,6 +23,10 @@ library(scales)
 library(RColorBrewer)
 theme_set(theme_bw())
 
+data(diamonds, package="ggplot2")
+diamonds <- diamonds |>
+  mutate(clarity = factor(clarity, levels = c("I1", "SI2", "SI1", "VS2", "VS1", "VVS2", "VVS1", "IF"), ordered = T))
+
 
 tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
@@ -101,7 +105,7 @@ countdown::countdown(1, 5)
 tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
-  geom_hline(yintercept = 0.50, colour="white", size=2) +
+  geom_hline(yintercept = 0.50, colour="grey70", size=2) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
   ylab("proportion of males") +
@@ -132,7 +136,7 @@ dsamp <- diamonds |>
   geom_point(aes(colour = clarity)))
 
 
-d + scale_colour_brewer()
+d + scale_colour_brewer(direction = -1)
 
 
 d + scale_colour_brewer(palette="PRGn")
@@ -221,6 +225,14 @@ tb_kn |> filter(year == 2012) |>
   scale_fill_brewer("", palette="Dark2") +
   ggtitle("Angle") + xlab("") + ylab("") +
   coord_polar(theta = "y")
+
+
+tb_kn |> filter(year == 2012) |>
+  ggplot(aes(x=1, y=count, fill=age)) +
+  geom_bar(stat="identity", position="fill") + 
+  facet_wrap(~sex, ncol=6) +
+  scale_fill_brewer("", palette="Dark2") +
+  ggtitle("Position - nonaligned") + xlab("") + ylab("")
 
 
 ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
