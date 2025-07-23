@@ -71,8 +71,8 @@ website:
 format:
   html:
     theme:
-      light: ['libs/my-light.scss', 'libs/custom.scss', flatly]
-      dark: ['libs/my-dark.scss', 'libs/custom.scss', darkly]
+      light: ['css/my-light.scss', 'css/custom.scss', flatly]
+      dark: ['css/my-dark.scss', 'css/custom.scss', darkly]
     respect-user-color-scheme: true
     toc: true
 
