@@ -242,7 +242,8 @@ ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   facet_wrap(~clarity, ncol=4)
 
 
-ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
+ggplot(dsamp, aes(x=carat, y=price, 
+                  colour = clarity)) +
   geom_point() +
   geom_smooth(se=FALSE) +
   scale_color_brewer(palette="Set1") 
