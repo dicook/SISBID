@@ -20,7 +20,7 @@ update <- na.omit(update)
 if (length(update)>0) {
 if (any(update)) {
   unlink(code_files[update])
-  purrr::walk2(slides[update], code_files[update], qmd_to_r_script)
+  purrr::walk2(slides[update], code_files[update], knitr::purl)
 }
 }
 

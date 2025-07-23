@@ -1,65 +1,68 @@
-#' ---
-#' title: Reactivity
-#' ---
-#' 
-
-
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-rval <- reactive({
-  ...
-})
+## ----eval = F----------------------------------------------------------
+# rval <- reactive({
+#   ...
+# })
 
 
-rval <- eventReactive(actionbutton, {
-  ...
-})
+## ----eval = F----------------------------------------------------------
+# rval <- eventReactive(actionbutton, {
+#   ...
+# })
 
 
-runApp("code/3.3-apps/03_submission/", 
-       display.mode = "showcase")
+## ----eval = F----------------------------------------------------------
+# runApp("code/3.3-apps/03_submission/",
+#        display.mode = "showcase")
 
 
-card1 <- card(
-  card_header("Hi, I'm a card"),
-  class = "bg-primary",
-  "I contain some information - ",
-  "text, plot, image, input area...",  
-  "your choice!")
+## ----eval = F----------------------------------------------------------
+# card1 <- card(
+#   card_header("Hi, I'm a card"),
+#   class = "bg-primary",
+#   "I contain some information - ",
+#   "text, plot, image, input area...",
+#   "your choice!")
 
 
-body <- page_fillable(
-  layout_columns(
-    col_widths = c(2, 4, 4, 2), # 12 cols per row
-    row_heights = "600px",
-    card1,
-    layout_columns(card2, card3, card5,
-                   col_widths = c(12, 12, 12),
-                   row_heights = "auto"),
-    card4, card6)
-)
+## ----eval = F----------------------------------------------------------
+# body <- page_fillable(
+#   layout_columns(
+#     col_widths = c(2, 4, 4, 2), # 12 cols per row
+#     row_heights = "600px",
+#     card1,
+#     layout_columns(card2, card3, card5,
+#                    col_widths = c(12, 12, 12),
+#                    row_heights = "auto"),
+#     card4, card6)
+# )
 
 
-body <- page_fillable(
-  layout_columns(
-    col_widths = c(2, 4, 4, 2), # 12 cols per row
-    row_heights = "600px",
-    card1,
-    layout_columns(card2, card3, card5,
-                   col_widths = c(12, 12, 12),
-                   row_heights = "auto"),
-    card4, card6)
-)
+## ----eval = F----------------------------------------------------------
+# body <- page_fillable(
+#   layout_columns(
+#     col_widths = c(2, 4, 4, 2), # 12 cols per row
+#     row_heights = "600px",
+#     card1,
+#     layout_columns(card2, card3, card5,
+#                    col_widths = c(12, 12, 12),
+#                    row_heights = "auto"),
+#     card4, card6)
+# )
 
 
-layout_column_wrap(
-  width = NULL, height = 300, fill = FALSE,
-  style = css(grid_template_columns = "2fr 1fr 2fr"),
-  card1, card2, card3
-)
+## ----eval = F----------------------------------------------------------
+# layout_column_wrap(
+#   width = NULL, height = 300, fill = FALSE,
+#   style = css(grid_template_columns = "2fr 1fr 2fr"),
+#   card1, card2, card3
+# )
 
 
+## ----xaringan-panelset, echo=FALSE-------------------------------------
 xaringanExtra::use_panelset()
 

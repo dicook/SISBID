@@ -226,7 +226,7 @@ Which type of plot makes it easier to answer
 
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F}
+```{r, echo=F, purl=F}
 countdown::countdown(1,50)
 ```
 :::
@@ -260,7 +260,7 @@ What are the pros and cons of each way of displaying the same information? Shoul
 
 ::: {.content-visible when-format="revealjs"}
 
-```{r, echo=F}
+```{r, echo=F, purl=F}
 countdown::countdown(0, 30)
 ```
 :::
@@ -283,7 +283,7 @@ Plot B shows stacked bars scaled to 100% for females and males.
 > [Is there an age effect in the proportion of incidence by gender? Is there a temporal trend in the proportions?]{.orange}
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F}
+```{r, echo=F, purl=F}
 countdown::countdown(1, 5)
 ```
 :::
@@ -414,7 +414,7 @@ Come up with a plot type for each of the mappings.
 ::::
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F}
+```{r, echo=F, purl=F}
 countdown::countdown(1, 40, top=100, right=100)
 ```
 :::
@@ -566,7 +566,7 @@ Of the previous four colour schemes on the same data, which would be the most ap
 - `ColorBrewer` Categorical `Set1`
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F}
+```{r, echo=F, purl=F}
 countdown::countdown(0, 50, right=50, bottom=0)
 ```
 :::
@@ -857,7 +857,7 @@ This builds on the exercise from the previous session.
 - Choose your best plot to answer this question: [Is there a higher prevalence of TB among younger women in 2012?]{.orange}
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F}
+```{r, echo=F, purl=F}
 countdown::countdown(7, 0)
 ```
 :::
