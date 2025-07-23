@@ -159,7 +159,7 @@ d. violin plot of x1 with different colors
 
 ![](images/nullabor_hex.png){.absolute top=30 right=30 width="50px"}
 
-```{r lineup 1, fig.height=6, fig.width=6}
+```{r lineup 1, fig.height=6, fig.width=6, echo=T}
 #| output-location: "column"
 # Make a lineup of mtcars data
 # 20 plots, one data, 19 nulls
@@ -333,7 +333,7 @@ l <- lineup(null_ts("rate", auto.arima), aud)
 
 ## Assessing temporal dependence
 
-```{r}
+```{r, echo=T}
 #| output-location: "column"
 ggplot(l, aes(x=date, y=rate)) + 
   geom_line() +

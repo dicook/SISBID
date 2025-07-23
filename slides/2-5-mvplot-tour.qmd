@@ -7,6 +7,10 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
+## Penguins {.smaller}
+
+::: columns
+::: column
 ```{r}
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
@@ -21,20 +25,22 @@ penguins_std <- penguins |>
   mutate_at(vars(bl:bm), stdd) |>
   select(species, bl:bm)
 ```
+:::
+::: column
+See [https://allisonhorst.github.io/palmerpenguins/](https://allisonhorst.github.io/palmerpenguins/) for more details.
+:::
+:::
 
-Penguins data: See https://allisonhorst.github.io/palmerpenguins/ for more details.
+::: {layout-ncol=3 layout-valign="bottom"}
+![Adélie [Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Adélie_Penguin.jpg/320px-Adélie_Penguin.jpg)](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Adélie_Penguin.jpg/320px-Adélie_Penguin.jpg){fig-alt="Adelie penguin" height="300px"}
 
-<br>
-<br>
+![Gentoo [Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg/273px-Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg)](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg/273px-Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg){fig-alt="Gentoo penguin"  height="300px"}
 
-<table>
-<tr> <td width="40%"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Adélie_Penguin.jpg/320px-Adélie_Penguin.jpg" width="100%" /> </td> <td width="30%"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg/273px-Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg" width="100%" /> </td> <td width="30%"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg/201px-A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg" width="90%" /> </td> </tr>
-<tr> <td> Adélie .footnote[[Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Adélie_Penguin.jpg/320px-Adélie_Penguin.jpg)]  </td> <td> Gentoo .footnote[[Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg/273px-Pygoscelis_papua_-Jougla_Point%2C_Wiencke_Island%2C_Palmer_Archipelago_-adults_and_chicks-8.jpg)] </td> 
-<td> Chinstrap .footnote[[Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg/201px-A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg)]</td> </tr>
-</table>
+![Chinstrap [Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg/201px-A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg)](https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg/201px-A_chinstrap_penguin_%28Pygoscelis_antarcticus%29_on_Deception_Island_in_Antarctica.jpg){fig-alt="Chinstrap penguin"  height="300px"}
 
+:::
 
-##
+## Penguins Data
 
 ::: columns
 ::: column
@@ -60,7 +66,7 @@ ggplot(penguins_std,
 :::
 :::
 
-# Pairwise plots
+## Pairwise plots
 
 :::: columns
 ::: column
@@ -84,8 +90,6 @@ What don't you see? Unless you have tours, you'll never know 🫣
 `r anicon::nia("What patterns do you see?", animate="rotate")` 
 
 `r countdown::countdown(1,30)`
-
-##
 
 ::: columns
 ::: column
@@ -114,13 +118,16 @@ render_gif(penguins_std[,2:5], grand_tour(),
 :::
 
 
-## What did you see? {.inverse .incremental}
+## What did you see? {.inverse}
+
+::: incremental
 
 - clusters `r emo::ji("white_check_mark")` 
 - outliers `r emo::ji("white_check_mark")`
 - linear dependence `r emo::ji("white_check_mark")`
 - elliptical clusters with slightly different shapes `r emo::ji("white_check_mark")`
 - separated elliptical clusters with slightly different shapes `r emo::ji("white_check_mark")`
+:::
 
 ## Which shows better separation?
 
@@ -138,19 +145,25 @@ ggscatmat(penguins_std, columns = 2:5, color="species") +
 :::
 
 
-## What is a tour?
+## What is a tour? {.smaller}
 
 ::: columns
 ::: column
 
-A grand tour is by definition a movie of low-dimensional projections constructed in such a way that it comes arbitrarily close to showing all possible low-dimensional projections; in other words, a grand tour is a space-filling curve in the manifold of low-dimensional projections of high-dimensional data spaces.
+- a movie of low-dim projections
+- constructed to come close to showing all possible low-dim projections
+- a grand tour is a space-filling curve in the manifold of low-dim projections of high-dim data spaces.
 
-![](images/hands.png){width="80%"} 
+![](images/hands.png){width="80%"}
 :::
-::: column
+::: {.column width="5%"}
+:::
+::: {.column width="45%"}
 ${\mathbf x}_i \in \mathcal{R}^p$, $i^{th}$ data vector
 
-$F$ is a $p\times d$ orthonormal basis, $F'F=I_d$, where $d$ is the projection dimension.
+$F$ is a $p\times d$ orthonormal basis
+
+$F'F=I_d$, where $d$ is the projection dimension.
 
 The projection of ${\mathbf x_i}$ onto $F$ is ${\mathbf y}_i=F'{\mathbf x}_i$.
 
@@ -161,7 +174,7 @@ The animation of the projected data is given by a path ${\mathbf y}_i(t)=F'(t){\
 :::
 :::
 
-## Geodesic interpolation between planes
+## Geodesic interpolation b/w planes
 
 ::: columns
 ::: column
@@ -177,17 +190,21 @@ The animation of the projected data is given by a path ${\mathbf y}_i(t)=F'(t){\
 :::
 :::
 
-## Reading axes - interpretation {.inverse}
+## Reading axes - interpretation 
 
 Length and direction of axes relative to the  pattern of interest
 
-## Reading axes - interpretation
 ![](images/reading_axes.001.png){width="100%"} 
 
-## Reading axes - interpretation
+## Reading axes - interpretation 
+
+Length and direction of axes relative to the  pattern of interest
+
 ![](images/reading_axes.002.png){width="100%"} 
 
-## Reading axes - interpretation
+## Penguins Tour
+
+<iframe width="100%" height="600" src="html/penguins.html" title="Animation of AFLW four PCs with interactive labelling."></iframe>
 
 ```{r reading axes, eval=FALSE, echo=FALSE}
 # Generate a plotly animation to demonstrate
@@ -246,26 +263,22 @@ p <- ggplot() +
        theme_void() +
        coord_fixed() +
   theme(legend.position="none")
-pg <- ggplotly(p, width=700, height=400) |>
+pg <- ggplotly(p, width=1000, height=700) |>
   animation_opts(200, redraw = FALSE, 
                  easing = "linear", transition=0)
-save_html(pg, file="html/penguins.html")
+save_html(pg, file="html/penguins.html", libdir="lib")
 ```
 
-<iframe src="html/penguins.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"> </iframe>
-
-##
+## Penguins Tour {.smaller}
 
 ::: columns
 ::: column
 ```{r runthis1, fig.width=4, fig.height=4, out.width="90%"}
 ggplot(penguins_std, 
-   aes(x=fl, 
-       y=bd,
+   aes(x=fl, y=bd,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
-             size=2) +
+  geom_point(alpha=0.7, size=2) +
   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom") 
@@ -277,12 +290,10 @@ Gentoo from others in contrast of fl, bd
 
 ```{r runthis2, fig.width=4, fig.height=4, out.width="90%"}
 ggplot(penguins_std, 
-   aes(x=bl, 
-       y=bm,
+   aes(x=bl, y=bm,
        colour=species,
        shape=species)) +
-  geom_point(alpha=0.7, 
-             size=2) +
+  geom_point(alpha=0.7, size=2) +
   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom")
@@ -293,24 +304,24 @@ Chinstrap from others in contrast of bl, bm
 :::
 :::
 
-## {.inverse}
+---
 
 There may be multiple and different combinations of variables that reveal similar structure. `r emo::ji("frowning_face")` 
 
 The tour can help to discover these, too. `r emo::ji("joy")` 
 
-## Other tour types
+## Other tour types {.smaller}
 
--[guided]{.orange}: follows the optimisation path for a projection pursuit index.
--[little]{.orange}: interpolates between all variables. 
--[local]{.orange}: rocks back and forth from a given projection, so shows all possible projections within a radius.
--[dependence]{.orange}: two independent 1D tours
--[frozen]{.orange}: fixes some variable coefficients, others vary freely. 
--[manual]{.orange}: control coefficient of one variable, to examine the sensitivity of structure this variable. (In the[spinifex]{.orange} package)
--[slice]{.orange}: use a section instead of a projection.
--[sage]{.orange}: transform a 2D projection, to avoid data  piling.
+- [guided]{.orange}: follows the optimisation path for a projection pursuit index.
+- [little]{.orange}: interpolates between all variables. 
+- [local]{.orange}: rocks back and forth from a given projection, so shows all possible projections within a radius.
+- [dependence]{.orange}: two independent 1D tours
+- [frozen]{.orange}: fixes some variable coefficients, others vary freely. 
+- [manual]{.orange}: control coefficient of one variable, to examine the sensitivity of structure this variable. (In the [`spinifex`]{.orange} package)
+- [slice]{.orange}: use a section instead of a projection.
+- [sage]{.orange}: transform a 2D projection, to avoid data  piling.
 
-## Guided tour 
+## Guided tour {.smaller}
 
 New target bases are chosen using a projection pursuit index function
 
@@ -322,7 +333,7 @@ F \text{ being orthonormal}$$
 - `LDA`/`PDA`: An index based on the linear discriminant dimension reduction (and penalised), optimised by projections where the named classes are most separated.
 
 
-##
+---
 
 ```{r eval=FALSE, echo=FALSE}
 set.seed(20694727)
@@ -370,7 +381,7 @@ Moves to the best separation
 :::
 
 
-## Manual tour
+## Manual tour {.smaller}
 
 ```{r eval=FALSE, echo=FALSE}
 render_gif(data=penguins_std[,2:5],
@@ -417,13 +428,6 @@ render_gif(penguins_std[,2:5],
            frames=200, width=400, height=400)
 ```
 
-```{r runthis4, eval=FALSE}
-# Check contribution of bl, change mvar to switch variables
-animate_xy(penguins_std[,2:5], 
-           radial_tour(as.matrix(best_proj), mvar = 2),
-           col = col)
-```
-
 ::: {.columns}
 ::: {.column width="50%"}
 
@@ -432,6 +436,14 @@ animate_xy(penguins_std[,2:5],
 - `bd` contribution controlled
 - if `bd` is removed from projection, Gentoo separation disappears
 - `bd` is important for distinguishing Gentoo
+
+```{r runthis4, eval=FALSE}
+# Check contribution of bl, 
+# change mvar to switch variables
+animate_xy(penguins_std[,2:5], 
+           radial_tour(as.matrix(best_proj), mvar = 2),
+           col = col)
+```
 
 :::
 
@@ -444,7 +456,7 @@ animate_xy(penguins_std[,2:5],
 :::
 :::
 
-## Manual tour
+## Manual tour {.smaller}
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -455,12 +467,10 @@ animate_xy(penguins_std[,2:5],
 - `bl` is important for distinguishing Adelie from Chinstrap
 
 :::
-
-
 ::: {.column width="50%"}
-
-
 ![](images/penguins_rt_bl.gif){width="90%"}
+:::
+:::
 
 
 ```{r eval=FALSE, echo=FALSE}
@@ -477,6 +487,8 @@ animate_xy(penguins_std[,2:5],
            axes = "bottomleft", col=penguins_std$species)
 ```
 
+## Local Tour
+
 ::: {.columns}
 ::: {.column width="50%"}
 
@@ -491,8 +503,9 @@ Rocks from and to a given projection, in order to observe the neighbourhood
 :::
 :::
 
-## Slice tour
+## Geometric shapes with slice tour
 
+::: columns
 ::: {.column width="45%"}
 
 Solid 4D sphere
@@ -503,14 +516,15 @@ sphere2 <- sphere.solid.random(p=4)$points %>% as_tibble()
 animate_slice(sphere2, axes="bottomleft")
 ```
 
-```{r eval=FALSE}
-render_gif(sphere2, grand_tour(), 
-           display_slice(axes="bottomleft"), 
-           "images/sphere4d_solid_slice.gif", frames=100, width=400, height=400)
-
+```{r eval=FALSE, echo=F}
+render_gif(
+  sphere2, grand_tour(), 
+  display_slice(axes="bottomleft"), 
+  "images/sphere4d_solid_slice.gif",
+  frames=100, width=400, height=400)
 ```
 
-![](sphere4d_solid_slice.gif){width="70%"}
+![](images/sphere4d_solid_slice.gif){width="70%"}
 
 :::
 
@@ -519,40 +533,44 @@ render_gif(sphere2, grand_tour(),
 
 ::: {.column width="45%"}
 
+Hollow  4D sphere
+
 
 ```{r runthis7, eval=FALSE}
 sphere1 <- sphere.hollow(p=4)$points %>% as_tibble()
 animate_slice(sphere1, axes="bottomleft", half_range=0.6)
 ```
 
-```{r eval=FALSE}
-render_gif(sphere1, grand_tour(), 
-           display_slice(axes="bottomleft", half_range=0.6), 
-           "images/sphere4d_slice.gif", frames=100, width=400, height=400)
+```{r eval=FALSE, echo=F}
+render_gif(
+  sphere1, grand_tour(), 
+  display_slice(axes="bottomleft", half_range=0.6), 
+  "images/sphere4d_slice.gif", 
+  frames=100, width=400, height=400)
 ```
 
 
-Hollow  4D sphere
-
 ![](images/sphere4d_slice.gif){width="70%"}
+:::
 :::
 
 ## Geometric shapes with slice tour
 
+::: columns
 ::: {.column width="45%"}
+
+4D Torus
 
 ```{r runthis8, eval=FALSE}
 torus <- torus(p = 4, n = 5000, radius=c(8, 4, 1))$points %>% as_tibble()
 animate_slice(torus, axes="bottomleft", half_range=0.8)
 ```
 
-```{r eval=FALSE}
+```{r, eval=FALSE, echo=F}
 render_gif(torus, grand_tour(), 
            display_slice(axes="bottomleft", half_range=0.8), 
            "images/torus4d_slice.gif", frames=100, width=400, height=400)
 ```
-
-4D Torus
 
 ![](images/torus4d_slice.gif){width="70%"}
 
@@ -565,6 +583,8 @@ render_gif(torus, grand_tour(),
 ::: {.column width="45%"}
 
 
+4D Hollow Cube
+
 ```{r runthis9, eval=FALSE}
 cube1 <- cube.face(p=4)$points %>% as_tibble()
 # Slicing needs data to be on a standard scale
@@ -573,21 +593,22 @@ cube1_std <- cube1 %>%
 animate_slice(cube1_std, axes="bottomleft")
 ```
 
-```{r eval=FALSE}
+```{r, eval=FALSE, echo=F}
 render_gif(cube1_std, grand_tour(), 
            display_slice(axes="bottomleft"), 
            "images/cube4d_slice.gif", frames=100, width=400, height=400)
 ```
 
 
-4D Hollow Cube
 
 ![](images/cube4d_slice.gif){width="70%"}
 
 :::
+:::
 
 ## PCA tour
 
+::: columns
 ::: {.column width="45%"}
 
 Compute PCA, reduce dimension, show original variable axes in the reduced space.
@@ -601,11 +622,12 @@ animate_pca(penguins_scores, pc_coefs = penguins_coefs, col=col)
 ```
 
 ```{r eval=FALSE}
-render_gif(penguins_scores, grand_tour(), 
-           display_pca(pc_coefs = penguins_coefs, 
-                       col=col, axes="bottomleft"), 
-           "images/penguins2d_pca.gif", 
-           frames=100, width=400, height=400)
+render_gif(
+  penguins_scores, grand_tour(), 
+  display_pca(pc_coefs = penguins_coefs, 
+              col=col, axes="bottomleft"), 
+  "images/penguins2d_pca.gif", 
+  frames=100, width=400, height=400)
 ```
 :::
 
@@ -616,12 +638,12 @@ render_gif(penguins_scores, grand_tour(),
 
 ![](images/penguins2d_pca.gif){width="100%"}
 :::
+:::
 
 
+## Projection dimension and displays {.smaller}
 
-## Projection dimension and displays
-
-```{r eval=FALSE}
+```{r eval=FALSE,echo=F}
 
 render_gif(data=penguins_std[,2:5],
            tour_path = grand_tour(1),
@@ -639,18 +661,18 @@ render_gif(penguins_std[,2:5],
            width=400, height=400)
 ```
 
-```{r runthis11, eval=FALSE}
-animate_dist_cl(penguins_std[,2:5], half_range=1.3)
-animate_density2d(penguins_std[,2:5], col=col, axes="bottomleft")
-```
 
 ::: {.columns}
 ::: {.column width="50%"}
 
 1D projections displayed as a density
 
-![](images/penguins1d.gif){width="90%"}
+![](images/penguins1d.gif){width="80%"}
 
+```{r runthis11, eval=FALSE}
+animate_dist_cl(penguins_std[,2:5], 
+                half_range=1.3)
+```
 :::
 
 ::: {.column width="50%"}
@@ -659,6 +681,11 @@ Density contours overlaid on a scatterplot
 
 ![](images/penguins2d_dens.gif){width="80%"}
 
+```{r runthis12, eval=F}
+animate_density2d(
+  penguins_std[,2:5], 
+  col=col, axes="bottomleft")
+```
 :::
 :::
 
@@ -693,119 +720,86 @@ countdown::countdown(2,0)
 render_gif(    
   penguins_std[,2:5], 
   grand_tour(), 
-  display_xy(col=penguins_std$species, 
-             axes="bottomleft"), 
+  display_xy(
+    col=penguins_std$species, 
+    axes="bottomleft"), 
   gif_file="images/penguins2d.gif", 
   frames=100, 
   width=400, 
-  height=400)
+  height=400
+)
 ```
 :::
 ::: column
-![](images/penguins2d.gif){width="80%"}
+![](images/penguins2d.gif){width="100%"}
 :::
 :::
 
 ## Saving and sharing: Animation
 
-::: columns
-::: column
+<iframe width="100%" height="600" src="html/penguins.html" title="Animation of AFLW four PCs with interactive labelling."></iframe>
 
+## Saving and sharing: Animation {.scrollable .smaller}
+
+Code to draw this plot is complicated.
 
 ```{r eval=FALSE}
 set.seed(209)
 b <- basis_random(4, 2)
-penguins_pct <- tourr::save_history(penguins_std[,2:5], 
-                    tour_path = grand_tour(),
-                    start = b,
-                    max_bases = 5)
-save(penguins_pct,
-     file="../data/p_tour_path.rda")
+penguins_pct <- tourr::save_history(
+  penguins_std[,2:5], tour_path = grand_tour(), 
+  start = b, max_bases = 5)
+save(penguins_pct, file="../data/p_tour_path.rda")
+
 penguins_pcti <- interpolate(penguins_pct, 0.2)
-penguins_anim <- render_anim(penguins_std,
-      vars = 2:5,
-      frames=penguins_pcti,
-      obs_labels=penguins_std$species)
-```
+penguins_anim <- render_anim(penguins_std, vars = 2:5,
+                             frames=penguins_pcti, 
+                             obs_labels=penguins_std$species)
 
-:::
-::: column
-
-<iframe width="550" height="600" src="html/penguins.html" title="Animation of AFLW four PCs with interactive labelling."></iframe>
-
-:::
-:::
-
-##
-
-Code to draw this plot is complicated.
-
-::: columns
-::: column
-```{r eval=FALSE}
 penguins_gp <- ggplot() +
-     geom_path(data=penguins_anim$circle, 
-               aes(x=c1, y=c2,
-                   frame=frame), linewidth=0.1) +
-     geom_segment(data=penguins_anim$axes, 
-                  aes(x=x1, y=y1, 
-                      xend=x2, yend=y2, 
-                      frame=frame), 
-                  linewidth=0.1) +
-     geom_text(data=penguins_anim$axes, 
-               aes(x=x2, y=y2, 
-                   frame=frame, 
-                   label=axis_labels), 
-               size=5) +
-     geom_point(data=penguins_anim$frames, 
-                aes(x=P1, y=P2, colour=species,
-                    frame=frame, 
-                    label=obs_labels), 
-                alpha=0.8) +
-```
-:::
-::: column
-```{r eval=FALSE}
-     xlim(-1,1) + ylim(-1,1) +
-     coord_equal() +
-     theme_bw() +
-     theme(legend.position = "none",
-           axis.text=element_blank(),
-         axis.title=element_blank(),
-         axis.ticks=element_blank(),
-         panel.grid=element_blank())
-penguins_tour <- ggplotly(penguins_gp,
-                        width=500,
-                        height=550) %>%
-       animation_button(label="Go") %>%
-       animation_slider(len=0.8, x=0.5,
-                        xanchor="center") %>%
-       animation_opts(
-         easing="linear", 
-         transition = 0)
+  geom_path(data=penguins_anim$circle, aes(x=c1, y=c2, frame=frame), linewidth=0.1) +
+  geom_segment(data=penguins_anim$axes, aes(x=x1, y=y1, xend=x2, yend=y2, frame=frame), linewidth=0.1) +
+  geom_text(data=penguins_anim$axes, aes(x=x2, y=y2, frame=frame, label=axis_labels), size=5) +
+  geom_point(data=penguins_anim$frames, 
+             aes(x=P1, y=P2, colour=species, frame=frame, label=obs_labels), alpha=0.8) +
+  xlim(-1,1) + 
+  ylim(-1,1) +
+  coord_equal() + theme_bw() +
+  theme(legend.position = "none",
+    axis.text=element_blank(), axis.title=element_blank(),
+    axis.ticks=element_blank(), panel.grid=element_blank())
+
+penguins_tour <- ggplotly(penguins_gp, width=500, height=550) %>%
+  animation_button(label="Go") %>%
+  animation_slider(len=0.8, x=0.5, xanchor="center") %>%
+  animation_opts(easing="linear", transition = 0)
+
 penguins_tour
 
-htmlwidgets::saveWidget(penguins_tour,
-          file="html/penguins.html",
-          selfcontained = TRUE)
+htmlwidgets::saveWidget(penguins_tour, file="html/penguins.html", selfcontained = TRUE)
 ```
-:::
-:::
 
 ## Saving and sharing: Single frame
 
 ::: columns
 ::: column
-```{r}
-load(here::here("data/p_tour_path.rda"))
-penguins_pcti <- interpolate(penguins_pct, 0.2)
-f27 <- matrix(penguins_pcti[,,27], ncol=2)
-p27 <- render_proj(penguins_std[,2:5],
-          f27,
-          obs_labels=penguins_std$species)
-```
 
 Draw it with ggplot, and possibly pass to plotly.
+
+```{r}
+load(here::here("data/p_tour_path.rda"))
+penguins_pcti <- interpolate(
+  penguins_pct, 0.2)
+f27 <- matrix(
+  penguins_pcti[,,27], 
+  ncol=2)
+p27 <- render_proj(
+  penguins_std[,2:5],
+  f27,
+  obs_labels=
+    penguins_std$species)
+```
+
 
 ```{r echo=FALSE}
 p27$data_prj <- p27$data_prj |>
@@ -843,13 +837,12 @@ ggplotly(pg27, width=450, height=450)
 ## Resources {.smaller}
 
 - [Cook and Laa (2025)](https://dicook.github.io/mulgar_book/)
-- Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
-- [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
-- Wickham et al (2011) [tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf) and the R package [tourr](https://cran.r-project.org/web/packages/tourr/index.html)
-- Schloerke et al (2016) [Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and the R package [geozoo](https://cran.r-project.org/web/packages/geozoo/index.html)
-- Spyrison and  Cook (2020). spinifex: Manual Tours, Manual
-  Control of Dynamic Projections of Numeric Multivariate Data. https://CRAN.R-project.org/package=spinifex
-- Stuart Lee [liminal](https://github.com/sa-lee/liminal) New tools to do linked brushing between tours and PCA/tSNE/PDS views
+- [Emerson et al (2013) The Generalized Pairs Plot, JCGS, 22:1, 79-91](https://doi.org/10.1080/10618600.2012.694762)
+- [Natalia da Silva](http://natydasilva.com/): [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
+- [Wickham et al (2011) tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf), [tourr R package](https://cran.r-project.org/web/packages/tourr/index.html)
+- [Schloerke et al (2016) Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and [geozoo R package](https://cran.r-project.org/web/packages/geozoo/index.html)
+- [Spyrison and  Cook (2020). spinifex: Manual Tours, Manual Control of Dynamic Projections of Numeric Multivariate Data.](https://cran.r-project.org/web/packages/spinifex/index.html) 
+- Stuart Lee [liminal](https://github.com/sa-lee/liminal): tools to do linked brushing between tours and PCA/tSNE/PDS views
 
 
 ::: bottom

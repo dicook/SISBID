@@ -102,8 +102,7 @@ Find us on slack: [SISBID.slack.com](SISBID.slack.com). The channel is
 
 ### Wednesday afternoon
 
-zip file
-[download](https://github.com/downloads/dicook/SISBID/SISBID_day1.zip)
+zip file [download](SISBID_day1.zip)
 
 1.  Setting things up · [ Slides](slides/0-preamble.rjs.html) · [ Single
     page](slides/0-preamble.onepage.html)
@@ -193,7 +192,8 @@ packages <- c(
   "dichromat", "colorspace", "viridis", "ggbeeswarm", "ggmap", "gridExtra",
   "GGally", "ggpcp", "corrgram", "tourr", "gganimate", "maps","datasauRus",
   "gapminder", "cranlogs", "shiny", "bslib", "DT", "leaflet", "plotly",
-  "htmltools", "broom", "broom.mixed", "lme4", "MASS", "forecast", "nullabor")
+  "htmltools", "broom", "broom.mixed", "lme4", "MASS", "forecast", "nullabor",
+  "ggdist", "bsicons", "ragg", "showtext", "thematic")
 
 # Install packages and their dependencies
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
@@ -201,6 +201,7 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 # Install some packages from GitHub
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
+remotes::install_github("rstudio/bslib")
 
 # For sharing web apps,
 # but you need adminstrator rights to your computer:
@@ -222,6 +223,5 @@ remotes::install_github("hadley/emo")
 remotes::install_github("mitchelloharawild/icons")
 remotes::install_github("emitanaka/anicon")
 remotes::install_github("dicook/gretchenalbrecht")
-remotes::install_github("r-for-educators/flair")
 remotes::install_github("gadenbuie/countdown", subdir = "r")
 ```
