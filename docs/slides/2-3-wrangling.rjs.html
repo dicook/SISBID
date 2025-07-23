@@ -214,13 +214,13 @@
 <li><code>dplyr</code>: motivation, functions, chaining</li>
 </ul>
 </div><div class="column" style="width:10%;">
-<p><a href="images/broom.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/broom.png" style="width:10.0%"></a></p>
-<p><a href="images/dplyr.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/dplyr.png" style="width:10.0%"></a></p>
+<p><a href="images/broom.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/broom.png"></a></p>
+<p><a href="images/dplyr.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/dplyr.png"></a></p>
 </div></div>
 </section>
 <section id="models-and-model-output" class="slide level2">
 <h2>Models and model output</h2>
-<p>Functions such as <code>lm</code>, <code>glm</code>, <code>lmer</code>, … allow us to fit models</p>
+<p>Functions such as <code>lm</code>, <code>glm</code>, <code>lmer</code>, <code>glmmTMB</code> … allow us to fit models</p>
 <p>e.g.&nbsp;fit french fry rating with respect to all designed main effects:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a></span>
@@ -282,12 +282,11 @@
 </section>
 <section id="tidying-model-output" class="slide level2">
 <h2>Tidying model output</h2>
-<p>The package <code>broom</code> gets model results into a tidy format at different levels</p>
-<p>One value for each:</p>
+<p>The package <code>broom</code> (<code>broom.mixed</code> for <code>glmmTMB</code>) gets model results into a tidy format at different levels</p>
 <ul>
-<li>model: <code>broom::glance</code></li>
-<li>coefficient in the model: <code>broom::tidy</code></li>
-<li>value in the dataset: <code>broom::augment</code></li>
+<li>model level: <code>broom::glance</code> (values such as AIC, BIC, model fit, …)</li>
+<li>coefficients in the model: <code>broom::tidy</code> (estimate, confidence interval, significance level, …)</li>
+<li>observation level: <code>broom::augment</code> (fitted values, residuals, predictions, influence, …)</li>
 </ul>
 </section>
 <section id="goodness-of-fit-statistics-glance" class="slide level2">
@@ -305,14 +304,16 @@
 <h2>Model estimates: <code>tidy</code></h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>ff_lm_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ff_lm)</span>
-<span id="cb4-2"><a></a><span class="fu">glimpse</span>(ff_lm_tidy)</span>
-<span id="cb4-3"><a></a>Rows<span class="sc">:</span> <span class="dv">27</span></span>
-<span id="cb4-4"><a></a>Columns<span class="sc">:</span> <span class="dv">5</span></span>
-<span id="cb4-5"><a></a><span class="sc">$</span> term      <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"(Intercept)"</span>, <span class="st">"typegrassy"</span>, <span class="st">"typepainty"</span>, <span class="st">"typepotato"</span>, <span class="st">"ty…</span></span>
-<span id="cb4-6"><a></a><span class="st">$ estimate  &lt;dbl&gt; 1.19851228, -1.15513007, 0.70054547, 5.13321525, 2.03292748,…</span></span>
-<span id="cb4-7"><a></a><span class="st">$ std.error &lt;dbl&gt; 0.2579150, 0.1557200, 0.1557749, 0.1557200, 0.1557200, 0.120…</span></span>
-<span id="cb4-8"><a></a><span class="st">$ statistic &lt;dbl&gt; 4.64692727, -7.41799461, 4.49716394, 32.96439433, 13.0550191…</span></span>
-<span id="cb4-9"><a></a><span class="st">$ p.value   &lt;dbl&gt; 3.495385e-06, 1.489614e-13, 7.113736e-06, 2.275767e-207, 4.6…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a></a><span class="fu">head</span>(ff_lm_tidy)</span>
+<span id="cb4-3"><a></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb4-4"><a></a>  term        estimate std.error statistic   p.value</span>
+<span id="cb4-5"><a></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>          <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb4-6"><a></a><span class="dv">1</span> (Intercept)   <span class="fl">1.20</span>       <span class="fl">0.258</span>     <span class="fl">4.65</span>  <span class="fl">3.50</span>e<span class="sc">-</span>  <span class="dv">6</span></span>
+<span id="cb4-7"><a></a><span class="dv">2</span> typegrassy   <span class="sc">-</span><span class="fl">1.16</span>       <span class="fl">0.156</span>    <span class="sc">-</span><span class="fl">7.42</span>  <span class="fl">1.49</span>e<span class="sc">-</span> <span class="dv">13</span></span>
+<span id="cb4-8"><a></a><span class="dv">3</span> typepainty    <span class="fl">0.701</span>      <span class="fl">0.156</span>     <span class="fl">4.50</span>  <span class="fl">7.11</span>e<span class="sc">-</span>  <span class="dv">6</span></span>
+<span id="cb4-9"><a></a><span class="dv">4</span> typepotato    <span class="fl">5.13</span>       <span class="fl">0.156</span>    <span class="fl">33.0</span>   <span class="fl">2.28e-207</span></span>
+<span id="cb4-10"><a></a><span class="dv">5</span> typerancid    <span class="fl">2.03</span>       <span class="fl">0.156</span>    <span class="fl">13.1</span>   <span class="fl">4.69</span>e<span class="sc">-</span> <span class="dv">38</span></span>
+<span id="cb4-11"><a></a><span class="dv">6</span> treatment2   <span class="sc">-</span><span class="fl">0.0513</span>     <span class="fl">0.121</span>    <span class="sc">-</span><span class="fl">0.426</span> <span class="fl">6.70</span>e<span class="sc">-</span>  <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="model-diagnostics-augment" class="slide level2">
@@ -359,6 +360,9 @@
 </section>
 <section id="your-turn" class="slide level2 inverse">
 <h2>Your turn</h2>
+<ul>
+<li>Run the code of the examples so far</li>
+</ul>
 <p>The <code>broom.mixed</code> package provides similar functionality to mixed effects models as <code>broom</code> does for fixed effects models</p>
 <ul>
 <li>Try out the functionality of <code>broom.mixed</code> on each level: model, parameters, and data</li>
@@ -366,16 +370,16 @@
 <li>Plot the residuals from the random effects model</li>
 <li>Plot fitted values against observed values</li>
 </ul>
-<p></p><div class="countdown" id="timer_783079a7" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p></p><div class="countdown" id="timer_22cf9046" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="dplyr-verbs" class="slide level2">
 <h2>dplyr verbs</h2>
 <p>There are five primary dplyr <strong>verbs</strong>, representing distinct data analysis tasks:</p>
 <ul>
-<li><code>filter</code>: Remove the rows of a data frame, producing subsets</li>
+<li><code>filter</code>: Extract specified rows of a data frame</li>
 <li><code>arrange</code>: Reorder the rows of a data frame</li>
-<li><code>select</code>: Select particular columns of a data frame</li>
-<li><code>mutate</code>: Add new columns that are functions of existing columns</li>
+<li><code>select</code>: Select specified columns of a data frame</li>
+<li><code>mutate</code>: Add new or transform a column of a data frame</li>
 <li><code>summarise</code>: Create collapsed summaries of a data frame</li>
 <li>(<code>group_by</code>: Introduce structure to a data frame)</li>
 </ul>
@@ -384,7 +388,7 @@
 <h2>Filter</h2>
 <p>select a subset of the observations (horizontal selection)</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/french_fries.rda"</span>))</span>
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/french_fries.rda"</span>))</span>
 <span id="cb8-2"><a></a>french_fries <span class="sc">|&gt;</span></span>
 <span id="cb8-3"><a></a>    <span class="fu">filter</span>(subject <span class="sc">==</span> <span class="dv">3</span>, time <span class="sc">==</span> <span class="dv">1</span>) <span class="co">#&lt;&lt;</span></span>
 <span id="cb8-4"><a></a><span class="co"># A tibble: 6 × 9</span></span>
@@ -402,7 +406,7 @@
 <h2>Arrange</h2>
 <p>order the observations (hierarchically)</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>french_fries <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>french_fries <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(rancid)) <span class="sc">|&gt;</span> <span class="co">#&lt;&lt;</span></span>
 <span id="cb9-3"><a></a>    <span class="fu">head</span>()</span>
 <span id="cb9-4"><a></a><span class="co"># A tibble: 6 × 9</span></span>
@@ -420,7 +424,7 @@
 <h2>Select</h2>
 <p>select a subset of the variables (vertical selection)</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>french_fries <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>french_fries <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a></a>    <span class="fu">select</span>(time, treatment, subject, rep, potato) <span class="sc">|&gt;</span> <span class="co">#&lt;&lt;</span></span>
 <span id="cb10-3"><a></a>    <span class="fu">head</span>()</span>
 <span id="cb10-4"><a></a><span class="co"># A tibble: 6 × 5</span></span>
@@ -438,7 +442,7 @@
 <h2>Summarise</h2>
 <p>summarize observations into a (set of) one-number statistic(s):</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>french_fries <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="2,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>french_fries <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a></a>    <span class="fu">summarise</span>( <span class="co">#&lt;&lt;</span></span>
 <span id="cb11-3"><a></a>      <span class="at">mean_rancid =</span> <span class="fu">mean</span>(rancid, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
 <span id="cb11-4"><a></a>      <span class="at">sd_rancid =</span> <span class="fu">sd</span>(rancid, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
@@ -485,11 +489,15 @@
 </section>
 <section id="completeness" class="slide level2">
 <h2>Completeness</h2>
-<p>If the data is complete it should be 12 x 10 x 3 x 2, that is, 6 records for each person. (Assuming that each person rated on all scales.)</p>
-<p>To check this we want to tabulate the number of records for each subject, time and treatment. This means select appropriate columns, tabulate, count and spread it out to give a nice table.</p>
-<p>##Your turn {.inverse}</p>
+<ul>
+<li><p>If the data is complete it should be 12 x 10 x 3 x 2, that is, 6 records for each person in each week.</p></li>
+<li><p>To check: tabulate number of records for each subject, time and treatment.</p></li>
+</ul>
+</section>
+<section id="your-turn-1" class="slide level2 inverse">
+<h2>Your turn</h2>
 <p>How many values do we have for each subject? Check the help for function <code>?n</code></p>
-<p></p><div class="countdown" id="timer_b97786f3" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p></p><div class="countdown" id="timer_3e73712e" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="french-fries---completeness" class="slide level2">
 <h2>French Fries - completeness</h2>
@@ -573,7 +581,7 @@
 </div>
 </div>
 </section>
-<section id="your-turn-1" class="slide level2 inverse">
+<section id="your-turn-2" class="slide level2 inverse">
 <h2>Your Turn</h2>
 <p>Get summary of ratings over replicates and connect the dots for a picture as below:</p>
 <div class="cell" data-layout-align="center">
@@ -585,7 +593,7 @@
 </div>
 </div>
 </div>
-<p></p><div class="countdown" id="timer_99c19f6c" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p></p><div class="countdown" id="timer_0e907823" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>

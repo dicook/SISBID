@@ -9,6 +9,10 @@ project:
   preview:
     port: 4200
     navigate: false
+  post-render:
+    - after-render.R
+    - build-course-files.R
+
 
 
 execute:
