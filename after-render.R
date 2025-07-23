@@ -16,5 +16,5 @@ if(dir.exists(html_lib)) {
     here("docs", "slides", "html", "lib"),
     html_lib_files, fixed=T)
     dir_created <- sapply(unique(dirname(html_lib_new)), dir.create, recursive = T)
-    file.copy(html_lib_files, html_lib_new, overwrite=T, recursive = T)
+    file.copy(html_lib_files, html_lib_new, overwrite=T)
 }
