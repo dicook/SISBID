@@ -15,8 +15,9 @@ library(ggplot2)
 library(readr)
 library(lubridate)
 library(broom)
-library(broom.mixed)
+library(broom.mixed) # includes tidying functions for glmmTMB
 library(lme4)
+library(glmmTMB)
 ```
 
 ## Outline
@@ -27,9 +28,9 @@ library(lme4)
 - `dplyr`:  motivation, functions, chaining
 :::
 ::: {.column width="10%"}
-![](images/broom.png){width="10%"}
+![](images/broom.png)
 
-![](images/dplyr.png){width="10%"} 
+![](images/dplyr.png)
 :::
 :::
 
@@ -38,7 +39,7 @@ load(here::here("data/french_fries.rda"))
 ```
 ## Models and model output
 
-Functions such as `lm`, `glm`, `lmer`, ... allow us to fit models
+Functions such as `lm`, `glm`, `lmer`, `glmmTMB` ... allow us to fit models
 
 e.g. fit french fry rating with respect to all designed main effects:
 
@@ -61,13 +62,11 @@ summary(ff_lm)
 
 ## Tidying model output
 
-The package `broom` gets model results into a tidy format at different levels
+The package `broom` (`broom.mixed` for `glmmTMB`) gets model results into a tidy format at different levels
 
-One value for each:
-
-- model: `broom::glance`
-- coefficient in the model: `broom::tidy`
-- value in the dataset: `broom::augment`
+- model level: `broom::glance` (values such as AIC, BIC, model fit, ...)
+- coefficients in the model: `broom::tidy` (estimate, confidence interval, significance level, ...)
+- observation level: `broom::augment` (fitted values, residuals, predictions, influence, ...)
 
 
 
@@ -81,7 +80,7 @@ glance(ff_lm)
 
 ```{r model estimates}
 ff_lm_tidy <- tidy(ff_lm)
-glimpse(ff_lm_tidy)
+head(ff_lm_tidy)
 ```
 
 ## Model diagnostics: `augment`
@@ -109,6 +108,8 @@ data = ff_long)
 
 ## Your turn {.inverse}
 
+- Run the code of the examples so far
+
 The `broom.mixed` package provides similar functionality to mixed effects models as `broom` does for fixed effects models
 
 - Try out the functionality of `broom.mixed` on each level: model, parameters, and data
@@ -116,7 +117,7 @@ The `broom.mixed` package provides similar functionality to mixed effects models
 - Plot the residuals from the random effects model
 - Plot fitted values against observed values
 
-`r countdown::countdown(7)`
+`r countdown::countdown(5)`
 
 ```{r solution to french fries modeling, eval=FALSE, echo=FALSE}
 ## the model is pretty bad:
@@ -137,10 +138,10 @@ ggplot(ff_lmer_all, aes(x=.fitted, y=rating)) + geom_point() +
 
 There are five primary dplyr **verbs**, representing distinct data analysis tasks:
 
-- `filter`: Remove the rows of a data frame, producing subsets
+- `filter`: Extract specified rows of a data frame
 - `arrange`: Reorder the rows of a data frame
-- `select`: Select particular columns of a data frame
-- `mutate`: Add new columns that are functions of existing columns
+- `select`: Select specified columns of a data frame
+- `mutate`: Add new or transform a column of a data frame
 - `summarise`: Create collapsed summaries of a data frame
 - (`group_by`: Introduce structure to a data frame)
  
@@ -150,6 +151,7 @@ There are five primary dplyr **verbs**, representing distinct data analysis task
 select a subset of the observations (horizontal selection)
 
 ```{r select_a_subset_of_the_observations}
+#| code-line-numbers: "3"
 load(here::here("data/french_fries.rda"))
 french_fries |>
     filter(subject == 3, time == 1) #<<
@@ -160,6 +162,7 @@ french_fries |>
 order the observations (hierarchically)
 
 ```{r order the observations}
+#| code-line-numbers: "2"
 french_fries |>
     arrange(desc(rancid)) |> #<<
     head()
@@ -169,6 +172,7 @@ french_fries |>
 
 select a subset of the variables (vertical selection)
 ```{r select a subset of the variables}
+#| code-line-numbers: "2"
 french_fries |>
     select(time, treatment, subject, rep, potato) |> #<<
     head()
@@ -178,6 +182,7 @@ french_fries |>
 
 summarize observations into a (set of) one-number statistic(s):
 ```{r summarize observations into one-number statistic}
+#| code-line-numbers: "2,5"
 french_fries |>
     summarise( #<<
       mean_rancid = mean(rancid, na.rm=TRUE), 
@@ -206,15 +211,16 @@ to answer these french fry experiment questions:
 - Do ratings change over the weeks?
 
 ## Completeness 
-If the data is complete it should be 12 x 10 x 3 x 2, that is, 6 records for each person. (Assuming that each person rated on all scales.) 
 
-To check this we want to tabulate the number of records for each subject, time and treatment. This means select appropriate columns, tabulate, count and spread it out to give a nice table.
+- If the data is complete it should be 12 x 10 x 3 x 2, that is, 6 records for each person in each week. 
 
-##Your turn {.inverse}
+- To check: tabulate  number of records for each subject, time and treatment. 
+
+## Your turn {.inverse}
 
 How many values do we have for each subject? Check the help for function `?n`
 
-`r countdown::countdown(5)`
+`r countdown::countdown(2)`
 
 ## French Fries - completeness
 
@@ -273,7 +279,7 @@ ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
   geom_line(data=ff_av, aes(group=treatment))
 ```
 
-`r countdown::countdown(7, 0)`
+`r countdown::countdown(5, 0)`
 
 ## References 
 
