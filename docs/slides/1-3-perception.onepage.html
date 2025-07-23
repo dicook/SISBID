@@ -498,6 +498,10 @@ window.Quarto = {
 <div class="column">
 <p>Coming up: <strong>2 different plots</strong> of 2012 TB incidence (e.g.&nbsp;newly diagnosed cases) in Kenya, based on variables:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sex, age, count) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   sex   age   count
@@ -538,7 +542,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/focus on one year gender side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="1-3-perception_files/figure-revealjs/focus on one year gender side-by-side bars of males females-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/focus on one year gender side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="1-3-perception_files/figure-html/focus on one year gender side-by-side bars of males females-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -547,7 +551,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/focus on one year age side-by-side bars of age group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="1-3-perception_files/figure-revealjs/focus on one year age side-by-side bars of age group-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/focus on one year age side-by-side bars of age group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="1-3-perception_files/figure-html/focus on one year age side-by-side bars of age group-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -590,7 +594,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="1-3-perception_files/figure-revealjs/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="1-3-perception_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -599,7 +603,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="1-3-perception_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="1-3-perception_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -616,6 +620,7 @@ window.Quarto = {
 <div class="column">
 <p>Next, we have <strong>two different plots</strong> of TB incidence in Kenya, based on three variables:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">select</span>(year, sex, age, count) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
     year sex   age   count
@@ -653,24 +658,24 @@ window.Quarto = {
 </section>
 <section id="two-minute-challenge-2" class="level2 inverse smaller">
 <h2 class="inverse smaller anchored" data-anchor-id="two-minute-challenge-2">TWO MINUTE CHALLENGE 🔮 👽 👼</h2>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Type A"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This uses a color blind friendly scale</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Type B"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Type A"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This uses a color blind friendly scale</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Type B"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/use a line plot instead of bar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="1-3-perception_files/figure-revealjs/use a line plot instead of bar-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/use a line plot instead of bar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="1-3-perception_files/figure-html/use a line plot instead of bar-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -679,7 +684,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/colour and axes fixes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="1-3-perception_files/figure-revealjs/colour and axes fixes-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/colour and axes fixes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="1-3-perception_files/figure-html/colour and axes fixes-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -715,7 +720,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="1-3-perception_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="1-3-perception_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -724,7 +729,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="1-3-perception_files/figure-revealjs/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="1-3-perception_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -752,13 +757,27 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <blockquote class="blockquote">
 <p><span class="orange">Is there an age effect in the proportion of incidence by gender? Is there a temporal trend in the proportions?</span></p>
 </blockquote>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">group_by</span>(year, age) <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> count[sex<span class="sc">==</span><span class="st">"m"</span>]<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>p)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">colour=</span><span class="st">"grey70"</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"proportion of males"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Type A"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill the bars, note the small change to the code</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"proportion"</span>) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Type B"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/use a line plot for proportions-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="1-3-perception_files/figure-revealjs/use a line plot for proportions-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/use a line plot for proportions-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="1-3-perception_files/figure-html/use a line plot for proportions-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -767,7 +786,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/compare proportions of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="1-3-perception_files/figure-revealjs/compare proportions of males females-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/compare proportions of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="1-3-perception_files/figure-html/compare proportions of males females-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -879,7 +898,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Sequential,</li>
@@ -889,10 +908,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <p><a href="http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">Color Brewer</a> annotates palettes with attributes.</p>
 </div><div class="column">
 <div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">display.brewer.all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="1-3-perception_files/figure-revealjs/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1152"></a></p>
+<p><a href="1-3-perception_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="1-3-perception_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
@@ -915,44 +935,52 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dsamp <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(d <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  dsamp, </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> clarity)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dsamp <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>(d <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  dsamp, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> clarity)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/mapping numbers to rainbow sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="1-3-perception_files/figure-revealjs/mapping numbers to rainbow sequential scale-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="1-3-perception_files/figure-html/mapping numbers to rainbow sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="1-3-perception_files/figure-html/mapping numbers to rainbow sequential scale-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div><div class="column">
-<p>Map quantitative variable to color schemes that emphasize one end (high or low)</p>
-<p>Rainbow scheme with viridis palette gives true grey scale in B&amp;W.</p>
-<p>In this case, we have an ordered categorical variable mapped to color – clarity. The categories are ordered according to the clarity of the stone, with I1 being worst and IF being best.</p>
+<ul>
+<li><p>Emphasize one side of the spectrum</p></li>
+<li><p><code>viridis</code> package palette</p>
+<ul>
+<li>maps to uniform grey scale</li>
+</ul></li>
+</ul>
 </div>
 </div>
 <div class="notes">
 <p>Quantitative values should be mapped to a directional scale indicating high or low – which direction will depend on what is important for your data.</p>
 <p>If you want to use a quantitative scheme that is multi-hued, you can use the <code>viridis</code> palette to do so: the schemes in that package will reduce to greyscale in black and white – as a result, they also happen to be much more safe for colorblind people.</p>
+<p>In this case, we have an ordered categorical variable mapped to color – clarity. The categories are ordered according to the clarity of the stone, with I1 being worst and IF being best.</p>
 </div>
 </section>
 <section id="sequential-1" class="level2">
 <h2 class="anchored" data-anchor-id="sequential-1">Sequential</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/mapping numbers to sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="1-3-perception_files/figure-revealjs/mapping numbers to sequential scale-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="1-3-perception_files/figure-html/mapping numbers to sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="1-3-perception_files/figure-html/mapping numbers to sequential scale-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Default brewer sequential scale, blues. Focus is on the dark blue.</p>
+<ul>
+<li><p>Default brewer sequential scale, blues.</p></li>
+<li><p>Focus is on the dark blue.</p></li>
+</ul>
 <div class="notes">
 <p>Quantitative values should be mapped to a directional scale indicating high or low – which direction will depend on what is important for your data.</p>
 <p>Here, I’ve mapped the dark blue to the lower clarity, with the idea that clear and white are similar. This does put the focus on the lower-clarity diamonds, though.</p>
@@ -961,16 +989,19 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="diverging" class="level2">
 <h2 class="anchored" data-anchor-id="diverging">Diverging</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"PRGn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"PRGn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/mapping numbers to diverging scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="1-3-perception_files/figure-revealjs/mapping numbers to diverging scale-1.png" class="img-fluid figure-img" style="width:60.0%"></a></p>
+<p><a href="1-3-perception_files/figure-html/mapping numbers to diverging scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="1-3-perception_files/figure-html/mapping numbers to diverging scale-1.png" class="img-fluid figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Map quantitative variables to color schemes that emphasize both ends, high AND low, de-emphasizing middle.</p>
+<ul>
+<li>Emphasize both ends, high AND low</li>
+<li>De-emphasize middle</li>
+</ul>
 <div class="notes">
 <p>If we want to put the focus on both ends of the spectrum, we can use a diverging scale, like this purple-green scale.</p>
 <p>When you use a diverging scale, the safest is actually purple to orange through a very light color like white – this is accessible to all major types of colorblindness.</p>
@@ -979,11 +1010,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="qualitative" class="level2">
 <h2 class="anchored" data-anchor-id="qualitative">Qualitative</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/mapping numbers to qualitative palette-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="1-3-perception_files/figure-revealjs/mapping numbers to qualitative palette-1.png" class="img-fluid figure-img" style="width:60.0%"></a></p>
+<p><a href="1-3-perception_files/figure-html/mapping numbers to qualitative palette-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="1-3-perception_files/figure-html/mapping numbers to qualitative palette-1.png" class="img-fluid figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1002,10 +1033,10 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="color-blind-proofing" class="level2">
 <h2 class="anchored" data-anchor-id="color-blind-proofing">Color blind-proofing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>clrs <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">9</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>clrs <span class="ot">&lt;-</span> <span class="fu">dichromat</span>(<span class="fu">hue_pal</span>()(<span class="dv">9</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="st">""</span>, <span class="at">values=</span>clrs) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>clrs <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">9</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>clrs <span class="ot">&lt;-</span> <span class="fu">dichromat</span>(<span class="fu">hue_pal</span>()(<span class="dv">9</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>d <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="st">""</span>, <span class="at">values=</span>clrs) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Online checking tool <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">coblis</a>: upload an image and it will re-map the colors for different colour perception issues.</li>
@@ -1027,7 +1058,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/show the default colour scheme-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="1-3-perception_files/figure-revealjs/show the default colour scheme-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="1-3-perception_files/figure-html/show the default colour scheme-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="1-3-perception_files/figure-html/show the default colour scheme-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1038,7 +1069,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/show the dichromat adjusted colors-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="1-3-perception_files/figure-revealjs/show the dichromat adjusted colors-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="1-3-perception_files/figure-html/show the dichromat adjusted colors-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="1-3-perception_files/figure-html/show the dichromat adjusted colors-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1056,7 +1087,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/is shape preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="1-3-perception_files/figure-revealjs/is shape preattentive-1.png" class="img-fluid figure-img" width="384"></a></p>
+<p><a href="1-3-perception_files/figure-html/is shape preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="1-3-perception_files/figure-html/is shape preattentive-1.png" class="img-fluid figure-img" width="384"></a></p>
 </figure>
 </div>
 </div>
@@ -1069,7 +1100,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/is color preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="1-3-perception_files/figure-revealjs/is color preattentive-1.png" class="img-fluid figure-img" width="384"></a></p>
+<p><a href="1-3-perception_files/figure-html/is color preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="1-3-perception_files/figure-html/is color preattentive-1.png" class="img-fluid figure-img" width="384"></a></p>
 </figure>
 </div>
 </div>
@@ -1083,13 +1114,23 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="proximity" class="level2">
 <h2 class="anchored" data-anchor-id="proximity">Proximity</h2>
 <p>Place elements that you want to compare close to each other. If there are multiple comparisons to make, you need to decide which one is most important.</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>))  <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Arrangement A"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_kn, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>age)) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="st">""</span>, <span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Arrangement B"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/a line plot on sex-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="1-3-perception_files/figure-revealjs/a line plot on sex-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="1-3-perception_files/figure-html/a line plot on sex-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="1-3-perception_files/figure-html/a line plot on sex-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1098,7 +1139,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/a line plot on age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="1-3-perception_files/figure-revealjs/a line plot on age-1.png" class="img-fluid figure-img" width="768"></a></p>
+<p><a href="1-3-perception_files/figure-html/a line plot on age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="1-3-perception_files/figure-html/a line plot on age-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1120,19 +1161,32 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </ul>
 </div><div class="column">
 <div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>sex, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>))  <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Position - common scale "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="1-3-perception_files/figure-revealjs/side-by-side bars of males females-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="1-3-perception_files/figure-html/side-by-side bars of males females-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Angle"</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/piecharts of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="1-3-perception_files/figure-revealjs/piecharts of males females-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/piecharts of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="1-3-perception_files/figure-html/piecharts of males females-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1152,28 +1206,47 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <p>Which is better to determine the relative ratios of ages by sex?</p>
 </div><div class="column">
 <div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>count, <span class="at">fill=</span>age)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">""</span>, <span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Position - common scale "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/side-by-side bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="1-3-perception_files/figure-revealjs/side-by-side bars of age-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/side-by-side bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="1-3-perception_files/figure-html/side-by-side bars of age-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span>count, <span class="at">fill=</span>age)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">""</span>, <span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Angle"</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/piecharts of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27"><img src="1-3-perception_files/figure-revealjs/piecharts of age-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/piecharts of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27"><img src="1-3-perception_files/figure-html/piecharts of age-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span>count, <span class="at">fill=</span>age)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sex, <span class="at">ncol=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">""</span>, <span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Position - nonaligned"</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/stacked bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img src="1-3-perception_files/figure-revealjs/stacked bars of age-1.png" class="img-fluid figure-img" width="960"></a></p>
+<p><a href="1-3-perception_files/figure-html/stacked bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img src="1-3-perception_files/figure-html/stacked bars of age-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1187,15 +1260,15 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="change-blindness" class="level2">
 <h2 class="anchored" data-anchor-id="change-blindness">Change blindness</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity, <span class="at">ncol=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity, <span class="at">ncol=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/facetting plots can result in change blindness-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img src="1-3-perception_files/figure-revealjs/facetting plots can result in change blindness-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
+<p><a href="1-3-perception_files/figure-html/facetting plots can result in change blindness-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img src="1-3-perception_files/figure-html/facetting plots can result in change blindness-1.png" class="img-fluid figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1215,15 +1288,15 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <p>It may result in not noticing differences.</p>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="1-3-perception_files/figure-revealjs/averlaying makes comparisons easier-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img src="1-3-perception_files/figure-revealjs/averlaying makes comparisons easier-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
+<p><a href="1-3-perception_files/figure-html/averlaying makes comparisons easier-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img src="1-3-perception_files/figure-html/averlaying makes comparisons easier-1.png" class="img-fluid figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1296,44 +1369,6 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </section>
 
 </main> <!-- /main -->
-
-<script>
-  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-  // slide changes (different for each slide format).
-  (function () {
-    // dispatch for htmlwidgets
-    function fireSlideEnter() {
-      const event = window.document.createEvent("Event");
-      event.initEvent("slideenter", true, true);
-      window.document.dispatchEvent(event);
-    }
-
-    function fireSlideChanged(previousSlide, currentSlide) {
-      fireSlideEnter();
-
-      // dispatch for shiny
-      if (window.jQuery) {
-        if (previousSlide) {
-          window.jQuery(previousSlide).trigger("hidden");
-        }
-        if (currentSlide) {
-          window.jQuery(currentSlide).trigger("shown");
-        }
-      }
-    }
-
-    // hookup for slidy
-    if (window.w3c_slidy) {
-      window.w3c_slidy.add_observer(function (slide_num) {
-        // slide_num starts at position 1
-        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-      });
-    }
-
-  })();
-</script>
-
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

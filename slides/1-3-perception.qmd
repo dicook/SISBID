@@ -468,7 +468,7 @@ Colorbrewer helpfully divides their palettes into different types:
 
 :::
 
-## Sequential
+## Sequential 
 
 :::: columns
 ::: column
@@ -485,11 +485,11 @@ dsamp <- diamonds |>
 
 ::: column
 
-Map quantitative variable to color schemes that emphasize one end (high or low)
+- Emphasize one side of the spectrum
 
-Rainbow scheme with viridis palette gives true grey scale in B&W. 
+- `viridis` package palette
+    - maps to uniform grey scale
 
-In this case, we have an ordered categorical variable mapped to color -- clarity. The categories are ordered according to the clarity of the stone, with I1 being worst and IF being best.
 :::
 ::::
 
@@ -499,6 +499,8 @@ Quantitative values should be mapped to a directional scale indicating high or l
 
 If you want to use a quantitative scheme that is multi-hued, you can use the `viridis` palette to do so: the schemes in that package will reduce to greyscale in black and white -- as a result, they also happen to be much more safe for colorblind people.
 
+In this case, we have an ordered categorical variable mapped to color -- clarity. The categories are ordered according to the clarity of the stone, with I1 being worst and IF being best.
+
 :::
 
 ## Sequential
@@ -507,7 +509,9 @@ If you want to use a quantitative scheme that is multi-hued, you can use the `vi
 d + scale_colour_brewer(direction = -1)
 ```
 
-Default brewer sequential scale, blues. Focus is on the dark blue.
+- Default brewer sequential scale, blues. 
+
+- Focus is on the dark blue. 
 
 ::: notes
 
@@ -522,7 +526,8 @@ Here, I've mapped the dark blue to the lower clarity, with the idea that clear a
 d + scale_colour_brewer(palette="PRGn")
 ```
 
-Map quantitative variables to color schemes that emphasize both ends, high AND low, de-emphasizing middle.
+- Emphasize both ends, high AND low
+- De-emphasize middle
 
 ::: notes
 If we want to put the focus on both ends of the spectrum, we can use a diverging scale, like this purple-green scale. 
