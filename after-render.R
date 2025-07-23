@@ -18,3 +18,17 @@ if(dir.exists(html_lib)) {
     dir_created <- sapply(unique(dirname(html_lib_new)), dir.create, recursive = T)
     file.copy(html_lib_files, html_lib_new, overwrite=T)
 }
+
+# Make sure r-pkg-deps.R is available
+file.copy("r-pkg-deps.R", "docs/", overwrite = T)
+
+missed_dirs <- list.dirs("slides", recursive = F)
+missed_dirs <- missed_dirs[grepl("files", missed_dirs)]
+
+file.copy(missed_dirs, to = "docs/slides", recursive = T, overwrite = T)
+
+missed_html_files <- list.files("slides", ".html", full.names = T)
+file.copy(missed_html_files, "docs", overwrite = T)
+
+unlink(missed_dirs, recursive = T)
+unlink(missed_html_files)

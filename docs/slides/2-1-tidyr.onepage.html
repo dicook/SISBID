@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Tidying your data – SISBID Data Visualization</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a011e490eacd81f521350cfd2acec409.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0dfe272ec7bd57f1d2b930428b8c440a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a011e490eacd81f521350cfd2acec409.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../site_libs/countdown-0.5.0/countdown.css" rel="stylesheet">
+<script src="../site_libs/countdown-0.5.0/countdown.js"></script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SISBID Data Visualization</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Day 1</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-1">    
+        <li>
+    <a class="dropdown-item" href="../slides/0-preamble.rjs.html">
+ <span class="dropdown-text">Preamble</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/1-1-ggplot.rjs.html">
+ <span class="dropdown-text">1.1 ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/1-2-ggplot-adv.rjs.html">
+ <span class="dropdown-text">1.2 Advancing ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/1-3-perception.rjs.html">
+ <span class="dropdown-text">1.3 Perception</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-2" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Day 2</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-2">    
+        <li>
+    <a class="dropdown-item" href="../slides/2-1-tidyr.rjs.html">
+ <span class="dropdown-text">2.1 tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-2-messy-it-up.rjs.html">
+ <span class="dropdown-text">2.2 Messy data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-3-wrangling.rjs.html">
+ <span class="dropdown-text">2.3 Wrangling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-4-mvplot.rjs.html">
+ <span class="dropdown-text">2.4 Multivariate Plots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-5-mvplot-tour.rjs.html">
+ <span class="dropdown-text">2.5 Tours</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-6-adv-graphics.rjs.html">
+ <span class="dropdown-text">2.6 Advanced Graphics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-3" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Day 3</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-3">    
+        <li>
+    <a class="dropdown-item" href="../slides/3-1-interactive-plots.rjs.html">
+ <span class="dropdown-text">3.1 Interactive plots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-2-shiny-apps.rjs.html">
+ <span class="dropdown-text">3.2 Shiny apps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-3-shiny-reactivity.rjs.html">
+ <span class="dropdown-text">3.3 Shiny reactivity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-4-theme-shiny.rjs.html">
+ <span class="dropdown-text">3.4 Theming Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-5-build-shiny-app.rjs.html">
+ <span class="dropdown-text">3.5 Build a Shiny App</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#using-tidyr-dplyr" id="toc-using-tidyr-dplyr" class="nav-link active" data-scroll-target="#using-tidyr-dplyr">Using <code>tidyr</code>, <code>dplyr</code></a>
+  <ul class="collapse">
+  <li><a href="#the-pipe-operator-or" id="toc-the-pipe-operator-or" class="nav-link" data-scroll-target="#the-pipe-operator-or">The pipe operator <code>%&gt;%</code> or <code>|&gt;</code></a></li>
+  <li><a href="#the-pipe-operator-or-1" id="toc-the-pipe-operator-or-1" class="nav-link" data-scroll-target="#the-pipe-operator-or-1">The pipe operator <code>%&gt;%</code> or <code>|&gt;</code></a></li>
+  <li><a href="#pipe-example" id="toc-pipe-example" class="nav-link" data-scroll-target="#pipe-example">Pipe Example</a></li>
+  <li><a href="#what-is-tidy-data" id="toc-what-is-tidy-data" class="nav-link" data-scroll-target="#what-is-tidy-data">What is tidy data?</a></li>
+  <li><a href="#two-minute-challenge" id="toc-two-minute-challenge" class="nav-link" data-scroll-target="#two-minute-challenge">🔮 👽 👼 <strong>TWO MINUTE CHALLENGE</strong></a></li>
+  <li><a href="#varying-degree-of-messiness" id="toc-varying-degree-of-messiness" class="nav-link" data-scroll-target="#varying-degree-of-messiness">Varying degree of messiness</a></li>
+  <li><a href="#messy-data-patterns" id="toc-messy-data-patterns" class="nav-link" data-scroll-target="#messy-data-patterns">Messy data patterns</a></li>
+  <li><a href="#tidy-data-conventions" id="toc-tidy-data-conventions" class="nav-link" data-scroll-target="#tidy-data-conventions">Tidy Data Conventions</a></li>
+  <li><a href="#long-and-wide" id="toc-long-and-wide" class="nav-link" data-scroll-target="#long-and-wide">Long and Wide</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#tidy-verbs" id="toc-tidy-verbs" class="nav-link" data-scroll-target="#tidy-verbs">Tidy verbs</a></li>
+  <li><a href="#pivot-to-long-form" id="toc-pivot-to-long-form" class="nav-link" data-scroll-target="#pivot-to-long-form">Pivot to long form</a></li>
+  <li><a href="#pivoting-an-example" id="toc-pivoting-an-example" class="nav-link" data-scroll-target="#pivoting-an-example">Pivoting: an example</a></li>
+  <li><a href="#variable-selectors" id="toc-variable-selectors" class="nav-link" data-scroll-target="#variable-selectors">Variable Selectors</a></li>
+  <li><a href="#examples-of-pattern-selectors" id="toc-examples-of-pattern-selectors" class="nav-link" data-scroll-target="#examples-of-pattern-selectors">Examples of pattern selectors</a></li>
+  <li><a href="#tb-notifications" id="toc-tb-notifications" class="nav-link" data-scroll-target="#tb-notifications">TB notifications</a></li>
+  <li><a href="#pivot-longer-tb-notifications" id="toc-pivot-longer-tb-notifications" class="nav-link" data-scroll-target="#pivot-longer-tb-notifications">Pivot Longer: TB notifications</a></li>
+  <li><a href="#separate-columns" id="toc-separate-columns" class="nav-link" data-scroll-target="#separate-columns">Separate columns</a></li>
+  <li><a href="#separate-tb-notifications" id="toc-separate-tb-notifications" class="nav-link" data-scroll-target="#separate-tb-notifications">Separate TB notifications</a></li>
+  <li><a href="#separate-columns-1" id="toc-separate-columns-1" class="nav-link" data-scroll-target="#separate-columns-1">Separate columns</a></li>
+  <li><a href="#separate-tb-notifications-again" id="toc-separate-tb-notifications-again" class="nav-link" data-scroll-target="#separate-tb-notifications-again">Separate TB notifications again</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a></li>
+  <li><a href="#plot-the-genes-data-overlaid-with-group-means" id="toc-plot-the-genes-data-overlaid-with-group-means" class="nav-link" data-scroll-target="#plot-the-genes-data-overlaid-with-group-means">Plot the genes data overlaid with group means</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2-1-tidyr.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tidying your data</h1>
+<p class="subtitle lead">SISBID 2025 <br> https://github.com/dicook/SISBID</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="using-tidyr-dplyr" class="level1">
+<h1>Using <code>tidyr</code>, <code>dplyr</code></h1>
+<div class="columns">
+<div class="column" style="width:90%;">
+<ul>
+<li>Writing readable code using <strong>pipes</strong></li>
+<li>What is <strong>tidy data</strong>? Why do you want tidy data? Getting your data into tidy form using tidyr.</li>
+<li>Reading different <strong>data formats</strong></li>
+<li>String operations, working with <strong>text</strong></li>
+</ul>
+</div><div class="column" style="width:10%;">
+<p><img src="images/tidyr.png" class="img-fluid"> <img src="images/dplyr.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="the-pipe-operator-or" class="level2">
+<h2 class="anchored" data-anchor-id="the-pipe-operator-or">The pipe operator <code>%&gt;%</code> or <code>|&gt;</code></h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<ul>
+<li>read as <code>then</code></li>
+<li><code>x %&gt;% f(y)</code> and <code>x |&gt; f(y)</code> is the same as <code>f(x, y)</code></li>
+<li><code>%&gt;%</code> is part of the <code>dplyr</code> package (really, <code>magrittr</code>), <code>|&gt;</code> is part of base R</li>
+<li>pipes structure code as <em>sequence of operations</em> – as opposed to function order <code>g(f(x))</code></li>
+</ul>
+</div><div class="column" style="width:30%;">
+<p><a href="images/pipe.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/pipe.gif" class="img-fluid"></a></p>
+</div>
+</div>
+</section>
+<section id="the-pipe-operator-or-1" class="level2">
+<h2 class="anchored" data-anchor-id="the-pipe-operator-or-1">The pipe operator <code>%&gt;%</code> or <code>|&gt;</code></h2>
+<ul>
+<li><code>%&gt;%</code> is part of <code>dplyr</code> package (or more precisely, the <code>magrittr</code> package)</li>
+<li>R 4.1 introduced the <code>|&gt;</code> base pipe (no package necessary)</li>
+<li>An explanation of the (subtle) differences between the pipes can be found <a href="https://towardsdatascience.com/understanding-the-native-r-pipe-98dea6d8b61b">here</a></li>
+</ul>
+</section>
+<section id="pipe-example" class="level2">
+<h2 class="anchored" data-anchor-id="pipe-example">Pipe Example</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Using <code>%&gt;%</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Using <code>|&gt;</code></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tb   <span class="sc">%&gt;%</span>                                <span class="co"># first we get the tb data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">%&gt;%</span>              <span class="co"># then we focus on the most recent year</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span>                 <span class="co"># then we group by country</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">sum</span>(c_newinc, <span class="at">na.rm=</span><span class="cn">TRUE</span>)   <span class="co"># to create a summary of all new cases</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(cases))                  <span class="co"># then we sort countries to show highest number of new cases first</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tb <span class="sc">|&gt;</span>                                  <span class="co"># first we get the tb data</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span>              <span class="co"># then we focus on the most recent year</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span>                 <span class="co"># then we group by country</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">sum</span>(c_newinc, <span class="at">na.rm=</span><span class="cn">TRUE</span>)   <span class="co"># to create a summary of all new cases</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(cases))                  <span class="co"># then we sort countries to show highest number new cases first</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<pre><code># A tibble: 215 × 2
+   country                            cases
+   &lt;chr&gt;                              &lt;dbl&gt;
+ 1 India                            2382714
+ 2 Indonesia                         804836
+ 3 Philippines                       575770
+ 4 China                             564918
+ 5 Pakistan                          475761
+ 6 Nigeria                           367250
+ 7 Bangladesh                        302813
+ 8 Democratic Republic of the Congo  258069
+ 9 South Africa                      211810
+10 Ethiopia                          134873
+# ℹ 205 more rows</code></pre>
+</div>
+</section>
+<section id="what-is-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-tidy-data">What is tidy data?</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/tidy-quote.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"><img src="images/tidy-quote.jpg" class="img-fluid figure-img" style="width:100.0%" alt="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"></a></p>
+<figcaption>Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by <a href="https://allisonhorst.com/other-r-fun">Julia Lowndes and Allison Horst</a></figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:70%;">
+<ul>
+<li>What do we expect tidy data to look like?</li>
+<li>maybe easier: what are sources of messiness?</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="two-minute-challenge" class="level2 inverse">
+<h2 class="inverse anchored" data-anchor-id="two-minute-challenge">🔮 👽 👼 <strong>TWO MINUTE CHALLENGE</strong></h2>
+<ul>
+<li>What are aspects of messiness in data that you have encountered?</li>
+</ul>
+<p>Go to menti.com and enter code 2979 2396</p>
+</section>
+<section id="varying-degree-of-messiness" class="level2">
+<h2 class="anchored" data-anchor-id="varying-degree-of-messiness">Varying degree of messiness</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Cryptic Names</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">More cryptic</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Most</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Too_much_info</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false">Tables</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-6" role="tab" aria-controls="tabset-2-6" aria-selected="false">Gross on repeat</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>What are the variables? Where are they located?</p>
+<div class="cell" data-layout-align="center">
+<pre><code># A tibble: 6 × 4
+  Inst                     AvNumPubs AvNumCits PctCompletion
+  &lt;chr&gt;                        &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 ARIZONA STATE UNIVERSITY      0.9       1.57          31.7
+2 AUBURN UNIVERSITY             0.79      0.64          44.4
+3 BOSTON COLLEGE                0.51      1.03          46.8
+4 BOSTON UNIVERSITY             0.49      2.66          34.2
+5 BRANDEIS UNIVERSITY           0.3       3.03          48.7
+6 BROWN UNIVERSITY              0.84      2.31          54.6</code></pre>
+</div>
+<div class="notes">
+<p>in the columns, subject, Inst, AvNumPubs, …</p>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>What’s in the column names of this data? What are the experimental units? What are the measured variables?</p>
+<div class="cell" data-layout-align="center">
+<pre><code># A tibble: 3 × 12
+  id     `WI-6.R1` `WI-6.R2` `WI-6.R4` `WM-6.R1` `WM-6.R2` `WI-12.R1` `WI-12.R2`
+  &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 Gene 1      2.18     2.20       4.20     2.63       5.06       4.54       5.53
+2 Gene 2      1.46     0.585      1.86     0.515      2.88       1.36       2.96
+3 Gene 3      2.03     0.870      3.28     0.533      4.63       2.18       5.56
+# ℹ 4 more variables: `WI-12.R4` &lt;dbl&gt;, `WM-12.R1` &lt;dbl&gt;, `WM-12.R2` &lt;dbl&gt;,
+#   `WM-12.R4` &lt;dbl&gt;</code></pre>
+</div>
+<div class="notes">
+<p>the experimental design is coded into the variable names, genotype:WI/WM, time:6/12, rep:1/2/4</p>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>What are the variables? What are the records?</p>
+<div class="cell" data-layout-align="center">
+<pre><code>           V1   V2 V3   V4  V5  V9 V13 V17 V21 V25 V29 V33 V37 V41 V45 V49 V53
+1 ASN00086282 1970  7 TMAX 141 124 113 123 148 149 139 153 123 108 119 112 126
+2 ASN00086282 1970  7 TMIN  80  63  36  57  69  47  84  78  49  42  48  56  51
+3 ASN00086282 1970  7 PRCP   3  30   0   0  36   3   0   0  10  23   3   0   5
+4 ASN00086282 1970  8 TMAX 145 128 150 122 109 112 116 142 166 127 117 127 159
+5 ASN00086282 1970  8 TMIN  50  61  75  67  41  51  48  -7  56  62  47  33  67
+6 ASN00086282 1970  8 PRCP   0  66   0  53  13   3   8   0   0   0   3   5   0
+  V57 V61 V65 V69 V73 V77 V81 V85 V89 V93 V97
+1 112 115 133 134 126 104 143 141 134 117 142
+2  36  44  39  40  58  15  33  51  74  39  66
+3   0   0   0   0   0   8   0  18   0   0   0
+4 143 114  65 113 125 129 147 161 168 178 161
+5  84  11  41  18  50  22  28  74  94  73  88
+6   0  64   3  99  36   8   0   0   0   8  36</code></pre>
+</div>
+<div class="notes">
+<p>variables are TMAX, TMIN, PRCP, year, month, day, stationid.</p>
+<p>Each row contains the values for one month!</p>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<p>What are the variables? What are the experimental units?</p>
+<div class="cell" data-layout-align="center">
+<pre><code># A tibble: 6 × 22
+  iso2   year  m_04 m_514 m_014 m_1524 m_2534 m_3544 m_4554 m_5564  m_65   m_u
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 ZW     2003    NA    NA   133    874   3048   2228    981    367   205    NA
+2 ZW     2004    NA    NA   187    833   2908   2298   1056    366   198    NA
+3 ZW     2005    NA    NA   210    837   2264   1855    762    295   656    NA
+4 ZW     2006    NA    NA   215    736   2391   1939    896    348   199    NA
+5 ZW     2007     6   132   138    500   3693      0    716    292   153    NA
+6 ZW     2008    NA    NA   127    614      0   3316    704    263   185     0
+# ℹ 10 more variables: f_04 &lt;dbl&gt;, f_514 &lt;dbl&gt;, f_014 &lt;dbl&gt;, f_1524 &lt;dbl&gt;,
+#   f_2534 &lt;dbl&gt;, f_3544 &lt;dbl&gt;, f_4554 &lt;dbl&gt;, f_5564 &lt;dbl&gt;, f_65 &lt;dbl&gt;,
+#   f_u &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
+<p>What are the variables? What are the observations?</p>
+<div class="cell" data-layout-align="center">
+<pre><code>            religion &lt;$10k $10-20k $20-30k $30-40k
+1           Agnostic    27      34      60      81
+2            Atheist    12      27      37      52
+3           Buddhist    27      21      30      34
+4           Catholic   418     617     732     670
+5 Don’t know/refused    15      14      15      11</code></pre>
+</div>
+</div>
+<div id="tabset-2-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-6-tab">
+<p>10 week sensory experiment, 12 individuals assessed taste of french fries on several scales (how potato-y, buttery, grassy, rancid, paint-y do they taste?), fried in one of 3 different oils, replicated twice.</p>
+<p>First few rows:</p>
+<div class="cell" data-layout-align="center">
+<pre><code># A tibble: 4 × 9
+  time  treatment subject   rep potato buttery grassy rancid painty
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 1     1         3           1    2.9     0      0      0      5.5
+2 1     1         3           2   14       0      0      1.1    0  
+3 1     1         10          1   11       6.4    0      0      0  
+4 1     1         10          2    9.9     5.9    2.9    2.2    0  </code></pre>
+</div>
+<p>What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="messy-data-patterns" class="level2">
+<h2 class="anchored" data-anchor-id="messy-data-patterns">Messy data patterns</h2>
+<p>There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:</p>
+<ul>
+<li>Column headers are not just variable names, but also contain values</li>
+<li>Variables are stored in both rows and columns, contingency table format</li>
+<li>One type of experimental unit stored in multiple tables</li>
+<li>Dates in many different formats</li>
+</ul>
+</section>
+<section id="tidy-data-conventions" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-data-conventions">Tidy Data Conventions</h2>
+<ol type="1">
+<li>Data is contained in a single table</li>
+<li>Each observation forms a row (no data info in column names)</li>
+<li>Each variable forms a column (no mashup of multiple pieces of information)</li>
+</ol>
+</section>
+<section id="long-and-wide" class="level2">
+<h2 class="anchored" data-anchor-id="long-and-wide">Long and Wide</h2>
+<ul>
+<li><p>Long form: <strong>one</strong> measured value per row. All other variables are descriptors (key variables) - good for modelling, terrible for most other analyses, e.g.&nbsp;correlation matrix</p></li>
+<li><p>Widest form: <strong>all</strong> measured values for an entity are in a single row.</p></li>
+<li><p>Wide form: measurements are arranged by <em>some of the descriptors</em> in columns (for direct comparisons)</p></li>
+</ul>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/tidy-workflow-assembly.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Illustrations from the Openscapes blog: Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"><img src="images/tidy-workflow-assembly.jpg" class="img-fluid figure-img" alt="Illustrations from the Openscapes blog: Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"></a></p>
+<figcaption>Illustrations from the Openscapes blog: Tidy Data for reproducibility, efficiency, and collaboration by <a href="https://allisonhorst.com/other-r-fun">Julia Lowndes and Allison Horst</a></figcaption>
+</figure>
+</div>
+</section>
+<section id="tidy-verbs" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-verbs">Tidy verbs</h2>
+<ul>
+<li><code>pivot_longer</code>: get information out of names into columns</li>
+<li><code>pivot_wider</code>: make columns of observed data for levels of design variables (for comparisons)</li>
+<li><code>separate</code>/<code>unite</code>: split and combine columns</li>
+<li><code>nest</code>/<code>unnest</code>: make/unmake variables into sub-data frames of a list variable</li>
+</ul>
+</section>
+<section id="pivot-to-long-form" class="level2">
+<h2 class="anchored" data-anchor-id="pivot-to-long-form">Pivot to long form</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<pre><code>data |&gt; pivot_longer(cols, names_to = "name", values_to = "value", ...)</code></pre>
+<ul>
+<li><p><code>pivot_longer</code> turns a wide format into a long format</p></li>
+<li><p>two new variables are introduced (in key-value format): <strong>name</strong> and <strong>value</strong></p></li>
+<li><p><code>col</code> defines which variables should be combined</p></li>
+</ul>
+</div><div class="column" style="width:20%;">
+<p><a href="https://rstudio.github.io/cheatsheets/tidyr.pdf">tidyr cheat sheet</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://github.com/gadenbuie/tidyexplain/raw/main/images/tidyr-pivoting.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Image source"><img src="https://github.com/gadenbuie/tidyexplain/raw/main/images/tidyr-pivoting.gif" class="img-fluid figure-img" alt="Image source"></a></p>
+<figcaption><a href="https://github.com/gadenbuie/tidyexplain/">Image source</a></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pivoting-an-example" class="level2">
+<h2 class="anchored" data-anchor-id="pivoting-an-example">Pivoting: an example</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wide format</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dframe</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  id trtA trtB</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">1</span>  <span class="fl">2.5</span>   <span class="dv">45</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2</span>  <span class="fl">4.6</span>   <span class="dv">35</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># long format</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>dframe <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(trtA<span class="sc">:</span>trtB, <span class="at">names_to=</span><span class="st">"treatment"</span>, <span class="at">values_to=</span><span class="st">"outcome"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 4 × 3</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>     id treatment outcome</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span> trtA          <span class="fl">2.5</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">1</span> trtB         <span class="dv">45</span>  </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">2</span> trtA          <span class="fl">4.6</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">2</span> trtB         <span class="dv">35</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="variable-selectors" class="level2">
+<h2 class="anchored" data-anchor-id="variable-selectors">Variable Selectors</h2>
+<ul>
+<li><p><code>data |&gt; pivot_longer(cols, names_to = "key", values_to = "value", ...)</code></p></li>
+<li><p><code>cols</code> argument identifies variables that should be combined.</p></li>
+<li><p><strong>Pattern Selectors</strong> can be used to identify variables by <strong>name</strong>, <strong>position</strong>, a range (using <code>:</code>), a pattern, or a combination of all.</p></li>
+</ul>
+</section>
+<section id="examples-of-pattern-selectors" class="level2">
+<h2 class="anchored" data-anchor-id="examples-of-pattern-selectors">Examples of pattern selectors</h2>
+<ul>
+<li><p><code>starts_with(match, ignore.case = TRUE, vars = NULL)</code></p></li>
+<li><p>other select functions: <code>ends_with</code>, <code>contains</code>, <code>matches</code>.</p></li>
+<li><p>For more details, see <code>?tidyselect::language</code></p></li>
+</ul>
+</section>
+<section id="tb-notifications" class="level2">
+<h2 class="anchored" data-anchor-id="tb-notifications">TB notifications</h2>
+<p>New notifications of TB have the form <code>new_sp_&lt;sex&gt;&lt;age group&gt;</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, iso3, year, <span class="fu">starts_with</span>(<span class="st">"new_sp_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 × 23</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  country     iso3   year new_sp_m04 new_sp_m514 new_sp_m014 new_sp_m1524</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>       <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>       <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>        <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Afghanistan AFG    <span class="dv">2010</span>          <span class="dv">4</span>         <span class="dv">193</span>         <span class="dv">197</span>          <span class="dv">986</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Afghanistan AFG    <span class="dv">2012</span>          <span class="dv">0</span>         <span class="dv">188</span>         <span class="dv">188</span>         <span class="dv">1116</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Albania     ALB    <span class="dv">2005</span>          <span class="dv">0</span>           <span class="dv">0</span>           <span class="dv">0</span>           <span class="dv">26</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Albania     ALB    <span class="dv">2006</span>          <span class="dv">1</span>           <span class="dv">4</span>           <span class="dv">5</span>           <span class="dv">24</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Albania     ALB    <span class="dv">2007</span>          <span class="dv">0</span>           <span class="dv">0</span>           <span class="dv">0</span>           <span class="dv">19</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Albania     ALB    <span class="dv">2009</span>          <span class="dv">0</span>           <span class="dv">0</span>           <span class="dv">0</span>           <span class="dv">22</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ℹ 16 more variables: new_sp_m2534 &lt;dbl&gt;, new_sp_m3544 &lt;dbl&gt;,</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   new_sp_m4554 &lt;dbl&gt;, new_sp_m5564 &lt;dbl&gt;, new_sp_m65 &lt;dbl&gt;, new_sp_mu &lt;dbl&gt;,</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   new_sp_f04 &lt;dbl&gt;, new_sp_f514 &lt;dbl&gt;, new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;,</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   new_sp_f2534 &lt;dbl&gt;, new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;,</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   new_sp_f5564 &lt;dbl&gt;, new_sp_f65 &lt;dbl&gt;, new_sp_fu &lt;dbl&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pivot-longer-tb-notifications" class="level2">
+<h2 class="anchored" data-anchor-id="pivot-longer-tb-notifications">Pivot Longer: TB notifications</h2>
+<p>create two new variables: <code>name</code> and <code>value</code></p>
+<ul>
+<li><code>name</code> contains all variable names starting with “new_sp_”</li>
+<li><code>value</code> contains all values of the selected variables</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tb1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, iso3, year, <span class="fu">starts_with</span>(<span class="st">"new_sp_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"new_sp_"</span>)) </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>tb1 <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  country     iso3   year name         value</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>        <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Afghanistan AFG    <span class="dv">1997</span> new_sp_m014      <span class="dv">0</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Afghanistan AFG    <span class="dv">1997</span> new_sp_m1524    <span class="dv">10</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Afghanistan AFG    <span class="dv">1997</span> new_sp_m2534     <span class="dv">6</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Afghanistan AFG    <span class="dv">1997</span> new_sp_m3544     <span class="dv">3</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Afghanistan AFG    <span class="dv">1997</span> new_sp_m4554     <span class="dv">5</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Afghanistan AFG    <span class="dv">1997</span> new_sp_m5564     <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="separate-columns" class="level2">
+<h2 class="anchored" data-anchor-id="separate-columns">Separate columns</h2>
+<pre><code>data |&gt; separate_wider_delim (col, delim, names, ...)</code></pre>
+<ul>
+<li>split column <code>col</code> from data frame <code>frame</code> into a set of columns as specified in <code>names</code></li>
+<li><code>delim</code> is the delimiter at which we split into columns, splitting separator.</li>
+</ul>
+</section>
+<section id="separate-tb-notifications" class="level2">
+<h2 class="anchored" data-anchor-id="separate-tb-notifications">Separate TB notifications</h2>
+<p>Work on <code>name</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tb2 <span class="ot">&lt;-</span> tb1 <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    name, <span class="at">delim =</span> <span class="st">"_"</span>, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names=</span><span class="fu">c</span>(<span class="st">"toss_new"</span>, <span class="st">"toss_sp"</span>, <span class="st">"sexage"</span>)) </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>tb2 <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 × 7</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  country     iso3   year toss_new toss_sp sexage value</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Afghanistan AFG    <span class="dv">1997</span> new      sp      m014       <span class="dv">0</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Afghanistan AFG    <span class="dv">1997</span> new      sp      m1524     <span class="dv">10</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Afghanistan AFG    <span class="dv">1997</span> new      sp      m2534      <span class="dv">6</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Afghanistan AFG    <span class="dv">1997</span> new      sp      m3544      <span class="dv">3</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Afghanistan AFG    <span class="dv">1997</span> new      sp      m4554      <span class="dv">5</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Afghanistan AFG    <span class="dv">1997</span> new      sp      m5564      <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="separate-columns-1" class="level2">
+<h2 class="anchored" data-anchor-id="separate-columns-1">Separate columns</h2>
+<p><code>data %&gt;%  separate_wider_position(col, widths, ...)</code></p>
+<ul>
+<li>split column <code>col</code> from <code>frame</code> into a set of columns specified in <code>widths</code></li>
+<li><code>widths</code> is named numeric vector where the names become column names; unnamed components will be matched but not included.</li>
+</ul>
+</section>
+<section id="separate-tb-notifications-again" class="level2">
+<h2 class="anchored" data-anchor-id="separate-tb-notifications-again">Separate TB notifications again</h2>
+<p>Now split <code>sexage</code> into first character (m/f) and rest.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tb3 <span class="ot">&lt;-</span> tb2 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"toss"</span>)) <span class="sc">|&gt;</span> <span class="co"># remove the `toss` variables</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_position</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    sexage,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">widths =</span> <span class="fu">c</span>(<span class="at">sex =</span> <span class="dv">1</span>, <span class="at">age =</span> <span class="dv">4</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">too_few =</span> <span class="st">"align_start"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>tb3 <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 × 6</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  country     iso3   year sex   age   value</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Afghanistan AFG    <span class="dv">1997</span> m     <span class="dv">014</span>       <span class="dv">0</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Afghanistan AFG    <span class="dv">1997</span> m     <span class="dv">1524</span>     <span class="dv">10</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Afghanistan AFG    <span class="dv">1997</span> m     <span class="dv">2534</span>      <span class="dv">6</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Afghanistan AFG    <span class="dv">1997</span> m     <span class="dv">3544</span>      <span class="dv">3</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Afghanistan AFG    <span class="dv">1997</span> m     <span class="dv">4554</span>      <span class="dv">5</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Afghanistan AFG    <span class="dv">1997</span> m     <span class="dv">5564</span>      <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="your-turn" class="level2 inverse">
+<h2 class="inverse anchored" data-anchor-id="your-turn">Your turn</h2>
+<p>Read the genes data from folder <code>data</code>. Column names contain data and are kind of messy.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/genes.csv"</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(genes)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">"id"</span>       <span class="st">"WI-6.R1"</span>  <span class="st">"WI-6.R2"</span>  <span class="st">"WI-6.R4"</span>  <span class="st">"WM-6.R1"</span>  <span class="st">"WM-6.R2"</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">"WI-12.R1"</span> <span class="st">"WI-12.R2"</span> <span class="st">"WI-12.R4"</span> <span class="st">"WM-12.R1"</span> <span class="st">"WM-12.R2"</span> <span class="st">"WM-12.R4"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Produce the data frame called <code>gtidy</code> as shown below:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gtidy)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  id     trt   time  rep    expr</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Gene <span class="dv">1</span> I     <span class="dv">6</span>     <span class="dv">1</span>      <span class="fl">2.18</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Gene <span class="dv">1</span> I     <span class="dv">6</span>     <span class="dv">2</span>      <span class="fl">2.20</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Gene <span class="dv">1</span> I     <span class="dv">6</span>     <span class="dv">4</span>      <span class="fl">4.20</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Gene <span class="dv">1</span> M     <span class="dv">6</span>     <span class="dv">1</span>      <span class="fl">2.63</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Gene <span class="dv">1</span> M     <span class="dv">6</span>     <span class="dv">2</span>      <span class="fl">5.06</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Gene <span class="dv">1</span> I     <span class="dv">12</span>    <span class="dv">1</span>      <span class="fl">4.54</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!-- Break into zoom rooms, clock is ticking 😄 -->
+<!-- `<div class="countdown" id="timer_dee6b5d1" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>`{=html} -->
+</section>
+<section id="plot-the-genes-data-overlaid-with-group-means" class="level2">
+<h2 class="anchored" data-anchor-id="plot-the-genes-data-overlaid-with-group-means">Plot the genes data overlaid with group means</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gmean <span class="ot">&lt;-</span> gtidy <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, trt, time) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">expr =</span> <span class="fu">mean</span>(expr))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>gtidy <span class="sc">|&gt;</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trt, <span class="at">y =</span> expr, <span class="at">colour=</span>time)) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> gmean, <span class="fu">aes</span>(<span class="at">group =</span> time)) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>id) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="st">""</span>, <span class="at">palette=</span><span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="2-1-tidyr_files/figure-html/plot the genes data overlais with group means-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="2-1-tidyr_files/figure-html/plot the genes data overlais with group means-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html">The tidy tools manifesto</a></li>
+<li><a href="https://posit.co/resources/cheatsheets/">Posit cheatsheets</a></li>
+<li><a href="https://www.jstatsoft.org/article/view/v021i12">Wickham (2007) Reshaping data</a></li>
+<li><a href="https://cran.r-project.org/web/packages/broom/vignettes/broom.html">broom vignettes, David Robinson</a></li>
+</ul>
+<div class="bottom">
+<p><span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span></p>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

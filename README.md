@@ -97,54 +97,85 @@ Zoom etiquette:
 
 ### Slack
 
-Find us on slack: [SISBID.slack.com](SISBID.slack.com). The channel
-`data-visualization-2025` will contain zoom and (later) video links for
-the sessions.
+Find us on slack: [SISBID.slack.com](SISBID.slack.com). The channel is
+`data-visualization-2025` which contains zoom and video links.
 
 ### Wednesday afternoon
 
-[ Day 1 zip file](SISBID_day1.zip)
+zip file
+[download](https://github.com/downloads/dicook/SISBID/SISBID_day1.zip)
 
-| Title | Slides | 1pg Slides | Code | Instructor |
-|----|----|----|----|----|
-| 0\. Setting things up | [ Slides](slides/0-preamble.rjs.html) | [ 1pg](slides/0-preamble.onepage.html) | [ Code](code/0-preamble.R) | All |
-| 1.1 The grammar of graphics and ggplot2 | [ Slides](slides/1-1-ggplot.rjs.html) | [ 1pg](slides/1-1-ggplot.onepage.html) | [ Code](code/1-1-ggplot.R) | Heike |
-| 1.2 Advancing the grammar to maps, time and interactivity | [ Slides](slides/1-2-ggplot-adv.rjs.html) | [ 1pg](slides/1-2-ggplot-adv.onepage.html) | [ Code](code/1-2-ggplot-adv.R) | Di |
-| 1.3 Visual perception and effective plot construction | [ Slides](slides/1-3-perception.rjs.html) | [ 1pg](slides/1-3-perception.onepage.html) | [ Code](code/1-3-perception.R) | Susan |
+1.  Setting things up · [ Slides](slides/0-preamble.rjs.html) · [ Single
+    page](slides/0-preamble.onepage.html)
+2.  The grammar of graphics and ggplot2 · [
+    Slides](slides/1-1-ggplot.rjs.html) · [ Single
+    page](slides/1-1-ggplot.onepage.html) (Heike)
+3.  Advancing the grammar to maps, time and interactivity · [
+    Slides](slides/1-2-ggplot-adv.rjs.html) · [ Single
+    page](slides/1-2-ggplot-adv.onepage.html) (Di)
+4.  Visual perception and effective plot construction · [
+    Slides](slides/1-3-perception.rjs.html) · [ Single
+    page](slides/1-3-perception.onepage.html) (Susan)
 
 ### Thursday
 
-[ Day 2 zip file](SISBID_day2.zip)  
+zip file [download](SISBID_day2.zip)  
 Note: this zip file assumes you will extract to the same folder as
 yesterday – data files have not been included twice.
 
-| Title | Slides | 1pg Slides | Code | Instructor |
-|----|----|----|----|----|
-| 2.1 Tidy data and tidying your messy data with tidyr | [ Slides](slides/2.1-tidyr.rjs.html) | [ 1pg](slides/2.1-tidyr.onepage.html) | [ Code](code/2.1-tidyr.R) | Heike |
-| 2.2 Making Data Messy again | [ Slides](slides/2-2-messy-it-up.rjs.html) | [ 1pg](slides/2-2-messy-it-up.onepage.html) | [ Code](code/2-2-messy-it-up.R) | Susan |
-| 2.3 Wrangling data and models | [ Slides](slides/2-3-wrangling.rjs.html) | [ 1pg](slides/2-3-wrangling.onepage.html) | [ Code](code/2-3-wrangling.R) | Heike |
-| Break |  |  |  |  |
-| 2.4 Multivariate plots using ggplot2, GGally | [ Slides](slides/2-4-mvplot.rjs.html) | [ 1pg](slides/2-4-mvplot.onepage.html) | [ Code](code/2-4-mvplot.R) | Di |
-| 2.5 Touring on multivariate data | [ Slides](slides/2-5-mvplot-tour.rjs.html) | [ 1pg](slides/2-5-mvplot-tour.onepage.html) | [ Code](code/2-5-mvplot-tour.R) | Di |
-| 2.6 Advanced graphics and statistical inference | [ Slides](slides/2-6-adv-graphics.rjs.html) | [ 1pg](slides/2-6-adv-graphics.onepage.html) | [ Code](code/2-6-adv-graphics.R) | Susan |
+#### Morning
+
+1.  Tidy data and tidying your messy data with tidyr · [
+    Slides](slides/2-1-tidyr.rjs.html) · [ Single
+    page](slides/2-1-tidyr.onepage.html) (Heike)
+2.  Making Data Messy again · [ Slides](slides/2-2-messy-it-up.rjs.html)
+    · [ Single page](slides/2-2-messy-it-up.onepage.html) (Susan)
+3.  Wrangling data and models · [ Slides](slides/2-3-wrangling.rjs.html)
+    · [ Single page](slides/2-3-wrangling.onepage.html) (Heike)
+
+#### Afternoon
+
+4.  Multivariate plots using ggplot2, GGally · [
+    Slides](slides/2-4-mvplot.rjs.html) · [ Single
+    page](slides/2-4-mvplot.onepage.html) (Di)
+5.  Touring on multivariate data · [
+    Slides](slides/2-5-mvplot-tour.rjs.html) · [ Single
+    page](slides/2-5-mvplot-tour.onepage.html) (Di)
+6.  Advanced graphics, and statistical inference · [
+    Slides](slides/2-6-adv-graphics.rjs.html) · [ Single
+    page](slides/2-6-adv-graphics.onepage.html) (Susan)
 
 ### Friday
 
-[ Day 3 zip file](SISBID_day3.zip)  
+zip file · [download](SISBID_day3.zip)  
 Note: this zip file assumes you will extract to the same folder as
 Wednesday – data files have not been included twice.
 
-| Title | Slides | 1pg Slides | Code | Instructor |
-|----|----|----|----|----|
-| 2.6 Advanced graphics and statistical inference | [ Slides](slides/2-6-adv-graphics.rjs.html) | [ 1pg](slides/2-6-adv-graphics.onepage.html) | [ Code](code/2-6-adv-graphics.R) | Susan |
-| 3.1 Interactive and animated graphics using plotly and gganimate | [ Slides](slides/3-1-interactive-plots.rjs.html) | [ 1pg](slides/3-1-interactive-plots.onepage.html) | [ Code](code/3-1-interactive-plots.R) | Heike |
-| 3.2 How to build a shiny app | [ Slides](slides/3-2-shiny-apps.rjs.html) | [ 1pg](slides/3-2-shiny-apps.onepage.html) | [ Code](code/3-2-shiny-apps.R) | Susan |
-| Break |  |  |  |  |
-| 3.3 Reactive elements in shiny | [ Slides](slides/3-3-shiny-reactivity.rjs.html) | [ 1pg](slides/3-3-shiny-reactivity.onepage.html) | [ Code](code/3-3-shiny-reactivity.R) | Heike |
-| 3.4 Theme a shiny app | [ Slides](slides/3-4-theme-shiny.html) | [ 1pg](slides/3-4-theme-shiny.onepage.html) | [ Code](code/3-4-theme-shiny.R) | Susan |
-| 3.5 Build your own Shiny app | [ Slides](slides/3-5-build-shiny-app.rjs.html) | [ 1pg](slides/3-5-build-shiny-app.onepage.html) | [ Code](code/3-5-build-shiny-app.R) | Heike |
-| Show us What You’ve Made |  |  |  | All |
-| 3.6 Interactive Documents | [ Slides](slides/3-6-interactive-documents.rjs.html) | [ 1pg](slides/3-6-interactive-documents.onepage.html) | [ Code](code/3-6-interactive-documents.R) | Di |
+#### Morning
+
+1.  Advanced graphics and statistical inference · [
+    Slides](slides/2-6-adv-graphics.rjs.html) · [ Single
+    page](slides/2-6-adv-graphics.onepage.html) (Susan).
+2.  Interactive and animated graphics using plotly and gganimate · [
+    Slides](slides/3-1-interactive-plots.rjs.html) · [ Single
+    page](slides/3-1-interactive-plots.onepage.html) (Heike).
+3.  How to build a shiny app · [ Slides](slides/3-2-shiny-apps.rjs.html)
+    · [ Single page](slides/3-2-shiny-apps.onepage.html) (Susan).
+
+#### Afternoon
+
+4.  Reactive elements in shiny · [
+    Slides](slides/3-3-shiny-reactivity.rjs.html) · [ Single
+    page](slides/3-3-shiny-reactivity.onepage.html) (Heike).
+5.  Theme a shiny app · [ Slides](slides/3-4-theme-shiny.rjs.html) · [
+    Single page](slides/3-4-theme-shiny.onepage.html) (Susan).
+6.  Build your own Shiny app · [
+    Slides](slides/3-5-build-shiny-app.rjs.html) · [ Single
+    page](slides/3-5-build-shiny-app.onepage.html) (Heike).
+7.  Show us what you’ve made and interactive quarto documents · [
+    Slides](slides/3-6-interactive-documents.rjs.html) · [ Single
+    page](slides/3-6-interactive-documents.onepage.html) (Di, Susan &
+    Heike)
 
 ## Software list
 
@@ -163,7 +194,7 @@ packages <- c(
   "GGally", "ggpcp", "corrgram", "tourr", "gganimate", "maps","datasauRus",
   "gapminder", "cranlogs", "shiny", "bslib", "DT", "leaflet", "plotly",
   "htmltools", "broom", "broom.mixed", "lme4", "MASS", "forecast", "nullabor",
-  "ggdist", "bsicons", "ragg", "showtext", "thematic")
+  "ggdist")
 
 # Install packages and their dependencies
 install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
@@ -171,7 +202,6 @@ install.packages(packages, dep=TRUE, repos = "https://cloud.r-project.org/")
 # Install some packages from GitHub
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
-remotes::install_github("rstudio/bslib")
 
 # For sharing web apps,
 # but you need adminstrator rights to your computer:
@@ -193,5 +223,6 @@ remotes::install_github("hadley/emo")
 remotes::install_github("mitchelloharawild/icons")
 remotes::install_github("emitanaka/anicon")
 remotes::install_github("dicook/gretchenalbrecht")
+remotes::install_github("r-for-educators/flair")
 remotes::install_github("gadenbuie/countdown", subdir = "r")
 ```

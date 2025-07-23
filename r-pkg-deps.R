@@ -6,7 +6,7 @@ packages <- c(
   "GGally", "ggpcp", "corrgram", "tourr", "gganimate", "maps","datasauRus",
   "gapminder", "cranlogs", "shiny", "bslib", "DT", "leaflet", "plotly",
   "htmltools", "broom", "broom.mixed", "lme4", "MASS", "forecast", "nullabor",
-  "ggdist", "bsicons", "ragg", "showtext", "thematic")
+  "ggdist", "bsicons", "ragg", "showtext", "thematic", "remotes", "quarto")
 
 # Install packages and their dependencies
 to_install <- setdiff(packages, installed.packages())

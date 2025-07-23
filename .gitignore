@@ -7,5 +7,4 @@
 # used in the app - just ignore, or there are terrible merge conflicts
 code/3.3-apps/03_submission/favorite-days.csv
 _freeze
-*_files
-*.html
+about.html
