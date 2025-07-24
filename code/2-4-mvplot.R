@@ -1,9 +1,10 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| echo: false
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
 # Use default penguins
@@ -19,18 +20,18 @@ penguins_std <- penguins |>
 
 
 
-## ----echo=FALSE--------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 countdown::countdown(1,0)
 
 
-## ----scatterplot matrix, echo=TRUE, eval=FALSE-------------------------
+## ----scatterplot-matrix, echo=TRUE, eval=FALSE--------------------------------
 # ggpairs(penguins_std, columns=c(2:5))
 
 
-## ----ref.label="scatterplot matrix", echo=FALSE, fig.width=6, fig.height=6----
+## ----ref.label="scatterplot-matrix", echo=FALSE, fig.width=6, fig.height=6----
 
 
-## ----scatterplot matrix with colour, echo=TRUE, fig.show='hide'--------
+## ----scatterplot-matrix-with-colour, echo=TRUE, fig.show='hide'---------------
 # Re-make mapping colour to species (class)
 ggpairs(penguins_std, columns=c(2:5), 
         ggplot2::aes(colour=species)) +
@@ -38,10 +39,21 @@ ggpairs(penguins_std, columns=c(2:5),
   scale_fill_viridis_d(option = "plasma", begin=0.2, end=0.8)
 
 
-## ----ref.label="scatterplot matrix with colour", echo=FALSE, fig.width=6, fig.height=6----
+## ----ref.label="scatterplot-matrix-with-colour", echo=FALSE, fig.width=6, fig.height=6----
 
 
-## ----correlation heatmap, echo=TRUE, fig.show='hide'-------------------
+## ----p-heatmap, echo=TRUE, fig.show='hide'------------------------------------
+# install.packages("superheat")
+library(superheat)
+superheat(penguins_std[,2:5], 
+          pretty.order.rows = T,
+          pretty.order.cols = T)
+
+
+## ----ref.label="p-heatmap", eval=TRUE, echo=FALSE, fig.width=3, fig.height=7, out.width="50%"----
+
+
+## ----correlation-heatmap, echo=TRUE, fig.show='hide'--------------------------
 # Look at one species only
 adelie <- penguins_std |> 
   filter(species == "Adelie") |>
@@ -49,19 +61,17 @@ adelie <- penguins_std |>
 ggcorr(adelie)
 
 
-## ----ref.label="correlation heatmap", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"----
+## ----ref.label="correlation-heatmap", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"----
 
 
-## ----corrgram, echo=TRUE-----------------------------------------------
+## ----corrgram, echo=TRUE------------------------------------------------------
 #| output-location: "column"
 corrgram(adelie, 
   lower.panel=
     corrgram::panel.ellipse)
 
 
-## ----hexbin scatterplot, fig.width=6, fig.height=6, echo =T------------
-#| eval: false
-#| output-location: "column"
+## ----hexbin scatterplot, fig.width=6, fig.height=6, echo =TRUE, eval=FALSE----
 # # Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
 # # This chunk takes some time to run, so evaluated off-line
 # if (!file.exists(here("data", "TCGA-PANCAN-HiSeq-801x20531", "data.csv"))) {
@@ -89,30 +99,30 @@ corrgram(adelie,
 #     low="#E24C80", high="#FDF6B5")
 
 
-## ----generalised pairs plot, fig.show='hide', error=F, message = F, warning = F, echo = T----
+## ----generalised-pairs-plot, error=FALSE, message = FALSE, warning = FALSE, echo = TRUE, fig.width=6, fig.height=6----
 #| output-location: "column"
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
-australia_PISA2012 <- australia_PISA2012 %>%
+australia_PISA2012 <- australia_PISA2012 |>
   mutate(across(desk:dishwasher, factor))
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26))
 
 
-## ----generalised pairs plot enhance plots, echo=TRUE, fig.width=6, fig.height=6----
+## ----generalised-pairs-plot-enhance-plots, echo=TRUE, fig.width=6, fig.height=6----
 #| output-location: 'column'
 # Modify the defaults, set the transparency of points since there is a lot of data
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(
     columns=c(3, 15, 16, 21, 26), 
-    lower = list(continuous = wrap("points", alpha=0.05)))
+    lower = list(
+      continuous = wrap("points", 
+                        alpha=0.05)))
 
 
-## ----generalised pairs plot enhance more, echo=TRUE, fig.show='hide'----
-#| output-location: "column"
-
+## ----echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"--------------------
 # Make a special style of plot to put in the matrix
 my_fn <- function(data, mapping, method="loess", ...){
       p <- ggplot(data = data, mapping = mapping) + 
@@ -120,6 +130,7 @@ my_fn <- function(data, mapping, method="loess", ...){
       geom_smooth(method="lm", ...)
       p
 }
+
 australia_PISA2012 |> 
   filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
@@ -127,19 +138,11 @@ australia_PISA2012 |>
 
 
 
-## ----ref.label='generalised pairs plot enhance more', echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"----
-australia_PISA2012 |> 
-  filter(!is.na(dishwasher)) |> 
-  ggpairs(columns=c(3, 15, 16, 21, 26), 
-          lower = list(continuous = my_fn))
+## ----echo=FALSE---------------------------------------------------------------
+countdown::countdown(5,0)
 
 
-
-## ----echo=FALSE--------------------------------------------------------
-countdown::countdown(8,0)
-
-
-## ----echo=FALSE, eval=FALSE--------------------------------------------
+## ----echo=FALSE, eval=FALSE---------------------------------------------------
 # australia_PISA2012 |>
 #   filter(!is.na(dishwasher)) |>
 #   ggpairs(columns=c(3, 15, 16, 21, 26),
@@ -147,8 +150,7 @@ countdown::countdown(8,0)
 #           upper = list(continuous = "density"))
 
 
-## ----wrangle housing data and make a regression style pairs plot, out.width="100%", fig.width=8, fig.height=3----
-#| output-location: 'column'
+## ----wrangle-housing-data-and-make-a-regression-style-pairs-plot, out.width="80%", fig.width=8, fig.height=3----
 housing <- read_csv(here::here("data/housing.csv")) |>
   mutate(date = dmy(date)) |>
   mutate(year = year(date)) |>
@@ -165,23 +167,24 @@ ggduo(housing[, c(4,3,8,10,11)],
                        alpha = 0.10)))
 
 
-## ----generalised pcp, fig.width=6, fig.height=6, eval=FALSE------------
+## ----generalised-pcp, fig.width=6, fig.height=6-------------------------------
 #| output-location: "column"
+# install.packages("ggpcp")
+library(ggpcp)
+penguins_std |>
+  pcp_select(species, bl:bm) |>
+  pcp_arrange() |>
+  ggplot(aes_pcp()) +
+    geom_pcp(aes(colour=species)) +
+    geom_pcp_boxes() +
+    geom_pcp_labels() +
+    scale_colour_discrete_divergingx(
+      palette = "Zissou 1") +
+    theme_pcp() +
+    theme(legend.position = "none")
 
-# library(ggpcp)
-# penguins_std |>
-#   pcp_select(species, bl:bm) |>
-#   pcp_arrange() |>
-#   ggplot(aes_pcp()) +
-#     geom_pcp(aes(colour=species)) +
-#     geom_pcp_boxes() +
-#     geom_pcp_labels() +
-#     scale_colour_discrete_divergingx(palette = "Zissou 1") +
-#     theme_pcp() +
-#     theme(legend.position = "none")
 
-
-## ----organise data pcp, eval=T, echo=FALSE, eval=FALSE-----------------
+## ----organise data pcp, eval=T, echo=FALSE, eval=FALSE------------------------
 # tcga_t_pc_pcp <- tcga_t_pc |>
 #   as_tibble() |>
 #   pcp_select(PC1:PC10) |>
@@ -209,80 +212,17 @@ ggduo(housing[, c(4,3,8,10,11)],
 #   slice_head(n=5)
 
 
-## ----ribbon pcp, eval=FALSE--------------------------------------------
-#| output-location: "column"
-
+## ----ribbon-pcp, eval=FALSE---------------------------------------------------
 # ggplot() +
-#     geom_ribbon(data = dframe,
-#               aes(x=pcp_x, ymin = lower, ymax = upper,
-#               group = level), alpha=0.5) +
-#     geom_pcp_axes(data=tcga_t_pc_pcp_sub,
-#              aes_pcp()) +
-#     geom_pcp_boxes(data=tcga_t_pc_pcp_sub,
-#              aes_pcp(), boxwidth = 0.1) +
-#     geom_pcp(data=tcga_t_pc_pcp_sub,
-#              aes_pcp(), colour="orange") +
+#     geom_ribbon(data = dframe, aes(x=pcp_x, ymin = lower, ymax = upper, group = level), alpha=0.5) +
+#     geom_pcp_axes(data=tcga_t_pc_pcp_sub, aes_pcp()) +
+#     geom_pcp_boxes(data=tcga_t_pc_pcp_sub, aes_pcp(), boxwidth = 0.1) +
+#     geom_pcp(data=tcga_t_pc_pcp_sub, aes_pcp(), colour="orange") +
 #     theme_pcp()
 
 
-## ----eval=FALSE, echo=FALSE--------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------
 # if (!requireNamespace("BiocManager", quietly = TRUE))
 #     install.packages("BiocManager")
 # BiocManager::install("bigPint")
-
-
-## ----soybean_scat, fig.show='hide', eval=FALSE-------------------------
-# # if (!require("BiocManager", quietly = TRUE))
-# #    install.packages("BiocManager")
-# # BiocManager::install("bigPint")
-# library(bigPint)
-# data(soybean_ir_sub)
-# soybean_ir_sub[,-1] <- log(soybean_ir_sub[,-1]+1)
-# ggplot(soybean_ir_sub,
-#        aes(x=N.1, y=P.1)) +
-#   geom_point() +
-#   theme(aspect.ratio=1)
-
-
-## ----ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE, eval=FALSE----
-# NA
-
-
-## ----soybean_litre, fig.show='hide', eval=FALSE------------------------
-# geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
-# ret <- plotLitre(data = soybean_ir_sub,
-#                  geneList = geneList,
-#                  pointColor = "deeppink")
-# names(ret)
-# ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
-
-
-## ----ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide', eval=FALSE----
-# NA
-
-
-## ----soybean_litre_sm, fig.show='hide',eval=FALSE----------------------
-# ret <- plotSM(soybean_cn_sub,
-#               soybean_cn_sub_metrics,
-#               option = "hexagon",
-#               xbins = 5,
-#               pointSize = 0.1,
-#               saveFile = FALSE)
-# ret[[2]]
-
-
-## ----ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide', eval=FALSE----
-# NA
-
-
-## ----soybean_pcp, fig.show='hide',eval=FALSE---------------------------
-# ret <- plotPCP(data = soybean_ir_sub,
-#                geneList = geneList,
-#                lineSize = 0.3,
-#                saveFile = FALSE)
-# ret[[1]]
-
-
-## ----ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide',eval=FALSE----
-# NA
 

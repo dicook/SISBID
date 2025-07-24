@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,14 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9878521a91b678208a643d309e3478c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-37efadb2146060d5f641047caff99c73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9878521a91b678208a643d309e3478c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a011e490eacd81f521350cfd2acec409.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0dfe272ec7bd57f1d2b930428b8c440a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a011e490eacd81f521350cfd2acec409.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -109,8 +109,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<link href="../site_libs/countdown-0.4.0/countdown.css" rel="stylesheet">
-<script src="../site_libs/countdown-0.4.0/countdown.js"></script>
+<link href="../site_libs/countdown-0.5.0/countdown.css" rel="stylesheet">
+<script src="../site_libs/countdown-0.5.0/countdown.js"></script>
 <link href="../site_libs/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet">
 <script src="../site_libs/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
 
@@ -411,22 +411,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#main-types-of-plots" id="toc-main-types-of-plots" class="nav-link" data-scroll-target="#main-types-of-plots">Main types of plots</a></li>
   <li><a href="#scatterplot-matrix-ggally" id="toc-scatterplot-matrix-ggally" class="nav-link" data-scroll-target="#scatterplot-matrix-ggally">Scatterplot matrix: GGally</a></li>
   <li><a href="#scatterplot-matrix" id="toc-scatterplot-matrix" class="nav-link" data-scroll-target="#scatterplot-matrix">Scatterplot matrix</a></li>
-  <li><a href="#scatterplot-matrices" id="toc-scatterplot-matrices" class="nav-link" data-scroll-target="#scatterplot-matrices">Scatterplot Matrices</a></li>
+  <li><a href="#heatmaps" id="toc-heatmaps" class="nav-link" data-scroll-target="#heatmaps">Heatmaps ⚠️</a></li>
+  <li><a href="#heatmaps-of-correlation" id="toc-heatmaps-of-correlation" class="nav-link" data-scroll-target="#heatmaps-of-correlation">Heatmaps of correlation</a></li>
   <li><a href="#corrgrams" id="toc-corrgrams" class="nav-link" data-scroll-target="#corrgrams">Corrgrams</a></li>
   <li><a href="#large-sample-size" id="toc-large-sample-size" class="nav-link" data-scroll-target="#large-sample-size">Large sample size</a></li>
   <li><a href="#generalized-pairs-plot" id="toc-generalized-pairs-plot" class="nav-link" data-scroll-target="#generalized-pairs-plot">Generalized pairs plot</a></li>
   <li><a href="#generalized-pairs-plots" id="toc-generalized-pairs-plots" class="nav-link" data-scroll-target="#generalized-pairs-plots">Generalized Pairs Plots</a></li>
   <li><a href="#customized-generalized-pairs-plots" id="toc-customized-generalized-pairs-plots" class="nav-link" data-scroll-target="#customized-generalized-pairs-plots">Customized Generalized Pairs Plots</a></li>
-  <li><a href="#customized-generalized-pairs-plots-1" id="toc-customized-generalized-pairs-plots-1" class="nav-link" data-scroll-target="#customized-generalized-pairs-plots-1">Customized Generalized Pairs Plots</a></li>
   <li><a href="#your-turn-1" id="toc-your-turn-1" class="nav-link" data-scroll-target="#your-turn-1">Your turn</a></li>
   <li><a href="#regression-setting" id="toc-regression-setting" class="nav-link" data-scroll-target="#regression-setting">Regression setting</a></li>
-  <li><a href="#big-biological-data" id="toc-big-biological-data" class="nav-link" data-scroll-target="#big-biological-data">Big biological data</a></li>
+  <li><a href="#parallel-coordinate-plots" id="toc-parallel-coordinate-plots" class="nav-link" data-scroll-target="#parallel-coordinate-plots">Parallel coordinate plots</a></li>
   <li><a href="#pcp-large-sample-size" id="toc-pcp-large-sample-size" class="nav-link" data-scroll-target="#pcp-large-sample-size">PCP: large sample size</a></li>
-  <li><a href="#big-biological-data-1" id="toc-big-biological-data-1" class="nav-link" data-scroll-target="#big-biological-data-1">Big biological data</a></li>
-  <li><a href="#big-biological-data-2" id="toc-big-biological-data-2" class="nav-link" data-scroll-target="#big-biological-data-2">Big biological data</a></li>
-  <li><a href="#bigpint" id="toc-bigpint" class="nav-link" data-scroll-target="#bigpint"><code>bigPint</code></a></li>
-  <li><a href="#bigpint-scatterplot-matrices" id="toc-bigpint-scatterplot-matrices" class="nav-link" data-scroll-target="#bigpint-scatterplot-matrices">Bigpint Scatterplot Matrices</a></li>
-  <li><a href="#rna-seq-side-by-side-boxplots" id="toc-rna-seq-side-by-side-boxplots" class="nav-link" data-scroll-target="#rna-seq-side-by-side-boxplots">RNA-Seq: Side-by-Side Boxplots</a></li>
+  <li><a href="#big-biological-data" id="toc-big-biological-data" class="nav-link" data-scroll-target="#big-biological-data">Big biological data</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2-4-mvplot.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -455,20 +451,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Better formatted penguins data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data(penguins, package="palmerpenguins")</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use default penguins</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>stdd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins_std <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bill_len)) <span class="sc">|&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">bl =</span> bill_len,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">bd =</span> bill_dep,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">fl =</span> flipper_len,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">bm =</span> body_mass) <span class="sc">|&gt;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(bl<span class="sc">:</span>bm), stdd) <span class="sc">|&gt;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, bl<span class="sc">:</span>bm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <section id="your-turn" class="level2 inverse">
 <h2 class="inverse anchored" data-anchor-id="your-turn">Your turn</h2>
 <ul>
@@ -498,12 +480,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The basic plot plot for multivariate data is a scatterplot matrix.</p>
 <p>Use the GGally package function <code>ggpairs</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>What do we learn?</em></p>
 <ul>
 <li>clustering</li>
 <li>linear dependence</li>
+<li>outlier(s)</li>
 </ul>
 </div><div class="column">
 <div class="cell" data-layout-align="center">
@@ -523,11 +506,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-make mapping colour to species (class)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>), </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-make mapping colour to species (class)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>), </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>What do we learn?</em></p>
 <ul>
@@ -546,8 +529,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="scatterplot-matrices" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="scatterplot-matrices">Scatterplot Matrices</h2>
+<section id="heatmaps" class="level2">
+<h2 class="anchored" data-anchor-id="heatmaps">Heatmaps ⚠️</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("superheat")</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(superheat)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">superheat</span>(penguins_std[,<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>], </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">pretty.order.rows =</span> T,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">pretty.order.cols =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How many clusters do you see?</p>
+<div class="fragment smaller">
+<p>Mapping numeric values to color is <em>sub-optimal</em>, as we know from the hierarchy.</p>
+<p>It is possible to <em>NOT see</em> clusters, and also <em>imagine</em> clusters that don’t exist when using heatmaps of multivariate data.</p>
+</div>
+</div><div class="column">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="2-4-mvplot_files/figure-revealjs/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="2-4-mvplot_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="heatmaps-of-correlation" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="heatmaps-of-correlation">Heatmaps of correlation</h2>
 <div class="columns">
 <div class="column">
 <p>Only show correlation. <span class=" faa-float animated " style=" display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">This is dangerous!</span></p>
@@ -564,7 +576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-revealjs/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="2-4-mvplot_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></a></p>
+<p><a href="2-4-mvplot_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="2-4-mvplot_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -572,10 +584,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="corrgrams" class="level2">
-<h2 class="anchored" data-anchor-id="corrgrams">Corrgrams</h2>
+<section id="corrgrams" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="corrgrams">Corrgrams</h2>
 <ul>
-<li>can be dangerous</li>
+<li>can be dangerous ⚠️</li>
 <li>useful for a broad overview IF correlation is a good summary</li>
 </ul>
 <div class="cell" data-layout-align="center" data-output-location="column">
@@ -585,16 +597,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-revealjs/corrgram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="2-4-mvplot_files/figure-revealjs/corrgram-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
+<p><a href="2-4-mvplot_files/figure-revealjs/corrgram-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="2-4-mvplot_files/figure-revealjs/corrgram-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The <code>corrgram</code> package has numerous scatterplot matrix capabilities.</p>
+<p>The <code>corrgram</code> package has numerous correlation display capabilities.</p>
 </section>
-<section id="large-sample-size" class="level2">
-<h2 class="anchored" data-anchor-id="large-sample-size">Large sample size</h2>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<section id="large-sample-size" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="large-sample-size">Large sample size</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This chunk takes some time to run, so evaluated off-line</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531"</span>, <span class="st">"data.csv"</span>))) {</span>
@@ -621,6 +635,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">trans=</span><span class="st">"log"</span>, </span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">low=</span><span class="st">"#E24C80"</span>, <span class="at">high=</span><span class="st">"#FDF6B5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div><div class="column">
+<p><a href="images/tcga-sm-hexbin.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/tcga-sm-hexbin.png" class="img-fluid" width="500"></a></p>
+</div>
+</div>
 </section>
 <section id="generalized-pairs-plot" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="generalized-pairs-plot">Generalized pairs plot</h2>
@@ -628,49 +646,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-layout-align="center" data-output-location="column">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix plot when variables are not numeric</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(australia_PISA2012)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="ot">&lt;-</span> australia_PISA2012 <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="ot">&lt;-</span> australia_PISA2012 <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(desk<span class="sc">:</span>dishwasher, factor))</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">|&gt;</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">|&gt;</span> </span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="generalized-pairs-plots" class="level2">
-<h2 class="anchored" data-anchor-id="generalized-pairs-plots">Generalized Pairs Plots</h2>
-<div class="cell" data-layout-align="center" data-output-location="column">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify the defaults, set the transparency of points since there is a lot of data</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>), </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">alpha=</span><span class="fl">0.05</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-revealjs/generalised pairs plot enhance plots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="2-4-mvplot_files/figure-revealjs/generalised pairs plot enhance plots-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
+<p><a href="2-4-mvplot_files/figure-revealjs/generalised-pairs-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="2-4-mvplot_files/figure-revealjs/generalised-pairs-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="customized-generalized-pairs-plots" class="level2">
-<h2 class="anchored" data-anchor-id="customized-generalized-pairs-plots">Customized Generalized Pairs Plots</h2>
+<section id="generalized-pairs-plots" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="generalized-pairs-plots">Generalized Pairs Plots</h2>
 <div class="cell" data-layout-align="center" data-output-location="column">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a special style of plot to put in the matrix</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>my_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(data, mapping, <span class="at">method=</span><span class="st">"loess"</span>, ...){</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>      p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> mapping) <span class="sc">+</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, ...)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      p</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">|&gt;</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>), </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> my_fn))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify the defaults, set the transparency of points since there is a lot of data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>australia_PISA2012 <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>), </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">list</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">alpha=</span><span class="fl">0.05</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="2-4-mvplot_files/figure-revealjs/generalised-pairs-plot-enhance-plots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="2-4-mvplot_files/figure-revealjs/generalised-pairs-plot-enhance-plots-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
-<section id="customized-generalized-pairs-plots-1" class="level2">
-<h2 class="anchored" data-anchor-id="customized-generalized-pairs-plots-1">Customized Generalized Pairs Plots</h2>
+<section id="customized-generalized-pairs-plots" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="customized-generalized-pairs-plots">Customized Generalized Pairs Plots</h2>
 <div class="columns">
 <div class="column">
 <p><em>What do we learn?</em></p>
@@ -685,7 +696,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="2-4-mvplot_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
+<p><a href="2-4-mvplot_files/figure-revealjs/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="2-4-mvplot_files/figure-revealjs/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
@@ -701,170 +712,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>and the density plots in the upper triangle.</li>
 </ul>
 </section>
-<section id="regression-setting" class="level2">
-<h2 class="anchored" data-anchor-id="regression-setting">Regression setting</h2>
+<section id="regression-setting" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="regression-setting">Regression setting</h2>
 <!-- An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables. -->
-<div class="cell" data-layout-align="center" data-output-location="column">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>housing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/housing.csv"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">dmy</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bedroom2), <span class="sc">!</span><span class="fu">is.na</span>(price)) <span class="sc">|&gt;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bedroom2 <span class="sc">&lt;</span> <span class="dv">7</span>, bathroom <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bedroom2 =</span> <span class="fu">factor</span>(bedroom2), </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">bathroom =</span> <span class="fu">factor</span>(bathroom)) </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggduo</span>(housing[, <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">11</span>)], </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">columnsX =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">columnsY =</span> <span class="dv">1</span>, </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">colour=</span>type, <span class="at">fill=</span>type), </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">types =</span> <span class="fu">list</span>(<span class="at">continuous =</span> </span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">wrap</span>(<span class="st">"smooth"</span>, </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> <span class="fl">0.10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>housing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/housing.csv"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">dmy</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bedroom2), <span class="sc">!</span><span class="fu">is.na</span>(price)) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bedroom2 <span class="sc">&lt;</span> <span class="dv">7</span>, bathroom <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bedroom2 =</span> <span class="fu">factor</span>(bedroom2), </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">bathroom =</span> <span class="fu">factor</span>(bathroom)) </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggduo</span>(housing[, <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">11</span>)], </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">columnsX =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">columnsY =</span> <span class="dv">1</span>, </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">colour=</span>type, <span class="at">fill=</span>type), </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">types =</span> <span class="fu">list</span>(<span class="at">continuous =</span> </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">wrap</span>(<span class="st">"smooth"</span>, </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha =</span> <span class="fl">0.10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="2-4-mvplot_files/figure-revealjs/wrangle housing data and make a regression style pairs plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="2-4-mvplot_files/figure-revealjs/wrangle housing data and make a regression style pairs plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<p><a href="2-4-mvplot_files/figure-revealjs/wrangle-housing-data-and-make-a-regression-style-pairs-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="2-4-mvplot_files/figure-revealjs/wrangle-housing-data-and-make-a-regression-style-pairs-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="big-biological-data" class="level2">
-<h2 class="anchored" data-anchor-id="big-biological-data">Big biological data</h2>
+<section id="parallel-coordinate-plots" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="parallel-coordinate-plots">Parallel coordinate plots</h2>
 <div class="cell" data-layout-align="center" data-output-location="column">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpcp)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>penguins_std <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_select</span>(species, bl<span class="sc">:</span>bm) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_arrange</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>() <span class="sc">+</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_labels</span>() <span class="sc">+</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_colour_discrete_divergingx</span>(<span class="at">palette =</span> <span class="st">"Zissou 1"</span>) <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>() <span class="sc">+</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggpcp")</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpcp)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>penguins_std <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_select</span>(species, bl<span class="sc">:</span>bm) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pcp_arrange</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>() <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_labels</span>() <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_colour_discrete_divergingx</span>(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">palette =</span> <span class="st">"Zissou 1"</span>) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>() <span class="sc">+</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="2-4-mvplot_files/figure-revealjs/generalised-pcp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="2-4-mvplot_files/figure-revealjs/generalised-pcp-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Axes are parallel, observations are connecting lines.</p>
 </section>
-<section id="pcp-large-sample-size" class="level2">
-<h2 class="anchored" data-anchor-id="pcp-large-sample-size">PCP: large sample size</h2>
-<div class="cell" data-layout-align="center" data-output-location="column">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="at">data =</span> dframe, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x=</span>pcp_x, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">group =</span> level), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_axes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>(), <span class="at">boxwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, </span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes_pcp</span>(), <span class="at">colour=</span><span class="st">"orange"</span>) <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="pcp-large-sample-size" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="pcp-large-sample-size">PCP: large sample size</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="at">data =</span> dframe, <span class="fu">aes</span>(<span class="at">x=</span>pcp_x, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">group =</span> level), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_axes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, <span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp_boxes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, <span class="fu">aes_pcp</span>(), <span class="at">boxwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_pcp</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, <span class="fu">aes_pcp</span>(), <span class="at">colour=</span><span class="st">"orange"</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pcp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><a href="images/tcga-pcp.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="images/tcga-pcp.png" class="img-fluid" width="500"></a></p>
 <p>With large data, aggregate to get an overview, and select some observations to show.</p>
 </section>
-<section id="big-biological-data-1" class="level2">
-<h2 class="anchored" data-anchor-id="big-biological-data-1">Big biological data</h2>
+<section id="big-biological-data" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="big-biological-data">Big biological data</h2>
 <div class="columns">
 <div class="column" style="width:90%;">
-<p>The Bioconductor package <code>bigPint</code> has tools for working with larger amounts of data, as seen in RNA-Seq experiments.</p>
+<p>The Bioconductor package <code>bigPint</code> has tools for working with larger amounts of data, as seen in RNA-Seq experiments. It has variations of scatterplot matrices, parallel coordinate plots and interactivity with these displays.</p>
 <p>More info at <a href="https://lindsayrutter.github.io/bigPint/">https://lindsayrutter.github.io/bigPint/</a></p>
+<p><a href="https://lindsayrutter.github.io/bigPint/articles/static_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="https://lindsayrutter.github.io/bigPint/articles/static_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="400"></a></p>
 </div><div class="column" style="width:10%;">
-<p><a href="images/bigpint.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="images/bigpint.png" class="img-fluid"></a></p>
-</div>
-</div>
-</section>
-<section id="big-biological-data-2" class="level2">
-<h2 class="anchored" data-anchor-id="big-biological-data-2">Big biological data</h2>
-<div class="columns">
-<div class="column">
-<p>Soybean experiment (two trts, three reps) <!-- Here's the scatterplot of the first replicate.  --></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!require("BiocManager", quietly = TRUE))</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    install.packages("BiocManager")</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("bigPint")</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bigPint) </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(soybean_ir_sub)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>soybean_ir_sub[,<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">log</span>(soybean_ir_sub[,<span class="sc">-</span><span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(soybean_ir_sub, </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>N<span class="fl">.1</span>, <span class="at">y=</span>P<span class="fl">.1</span>)) <span class="sc">+</span> </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-
-</div>
-</div>
-</section>
-<section id="bigpint" class="level2">
-<h2 class="anchored" data-anchor-id="bigpint"><code>bigPint</code></h2>
-<div class="columns">
-<div class="column">
-<p><code>litre</code> plot: combines replicates to look at the treatments</p>
-<p>Uses hexbins to summarize large data.</p>
-<p>Individual gene data can be overlaid.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>geneList <span class="ot">=</span> soybean_ir_sub_metrics[[<span class="st">"N_P"</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]<span class="sc">$</span>ID</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotLitre</span>(<span class="at">data =</span> soybean_ir_sub, </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">geneList =</span> geneList, </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pointColor =</span> <span class="st">"deeppink"</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ret)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ret[[<span class="st">"N_P_Glyma.19G168700.Wm82.a2.v1"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-
-</div>
-</div>
-</section>
-<section id="bigpint-scatterplot-matrices" class="level2">
-<h2 class="anchored" data-anchor-id="bigpint-scatterplot-matrices">Bigpint Scatterplot Matrices</h2>
-<div class="columns">
-<div class="column">
-<p>This can be extended into a scatterplot matrix</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotSM</span>(soybean_cn_sub, </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>              soybean_cn_sub_metrics, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">option =</span> <span class="st">"hexagon"</span>, </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">xbins =</span> <span class="dv">5</span>, </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">pointSize =</span> <span class="fl">0.1</span>, </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">saveFile =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ret[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-
-</div>
-</div>
-</section>
-<section id="rna-seq-side-by-side-boxplots" class="level2">
-<h2 class="anchored" data-anchor-id="rna-seq-side-by-side-boxplots">RNA-Seq: Side-by-Side Boxplots</h2>
-<div class="columns">
-<div class="column">
-<ul>
-<li>Overlay the profiles of different genes to see patterns across samples<br>
-(This can be called a parallel coordinate plot.)</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">plotPCP</span>(<span class="at">data =</span> soybean_ir_sub, </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">geneList =</span> geneList, </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">lineSize =</span> <span class="fl">0.3</span>, </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">saveFile =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ret[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-
+<p><a href="images/bigpint.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="images/bigpint.png" class="img-fluid"></a></p>
 </div>
 </div>
 </section>
 <section id="resources" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="resources">Resources</h2>
 <ul>
-<li><a href="https://dicook.github.io/mulgar_book/">Cook and Laa (2024)</a></li>
+<li><a href="https://dicook.github.io/mulgar_book/">Cook and Laa (2025)</a></li>
 <li>Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91</li>
 <li><a href="http://natydasilva.com/">Natalia da Silva</a> <a href="https://cran.r-project.org/web/packages/PPforest/index.html">PPForest</a> and <a href="https://natydasilva.shinyapps.io/shinyV03/">shiny app</a>.</li>
 <li>Eunkyung Lee <a href="https://www.jstatsoft.org/article/view/v083i08">PPtreeViz</a></li>
 <li>Wickham, Cook, Hofmann (2015) <a href="http://dicook.org/publication/blindfold_2015/">Visualising Statistical Models: Removing the blindfold</a></li>
 <li>Cook and Swayne (2007) <a href="http://ggobi.org/book/">Interactive and Dynamic Graphics for Data Analysis</a></li>
 <li>Wickham et al (2011) <a href="https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf">tourr: An R Package for Exploring Multivariate Data with Projections</a> and the R package <a href="https://cran.r-project.org/web/packages/tourr/index.html">tourr</a></li>
-<li>Schloerke et al (2016) <a href="https://journal.r-project.org/archive/2016/RJ-2016-044/index.html">Escape from Boxland</a>, <a href="http://schloerke.com/geozoo/">the web site zoo</a> and the R package <a href="https://cran.r-project.org/web/packages/geozoo/index.html">geozoo</a></li>
+<li>Schloerke et al (2016) <a href="https://journal.r-project.org/archive/2016/RJ-2016-044/index.html">Escape from Boxland</a>, <a href="http://schloerke.com/geozoo/">the web site zoo</a> and <a href="https://cran.r-project.org/web/packages/geozoo/index.html">geozoo</a></li>
 </ul>
 <div class="bottom">
 <p><span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span></p>

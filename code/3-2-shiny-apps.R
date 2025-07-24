@@ -1,4 +1,4 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 library(shiny)
@@ -8,13 +8,13 @@ library(ragg)
 library(thematic)
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # # Additional packages for Shiny
 # install.packages(c("bsicons", "showtext", "ragg", "thematic"))
 # remotes::install_github("rstudio/bslib") # Get the latest version
 
 
-## ----echo = FALSE, warning = FALSE, message = FALSE--------------------
+## ----echo = FALSE, warning = FALSE, message = FALSE---------------------------
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -32,17 +32,17 @@ library(ggplot2)
 library(readr)
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # ui <- fluidPage(
 # )
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 server <- function(input, output, session) {
 }
 
 
-## ----eval = FALSE, echo = T--------------------------------------------
+## ----eval = FALSE, echo = T---------------------------------------------------
 # library(shiny)
 # 
 # ui <- fluidPage(
@@ -54,7 +54,7 @@ server <- function(input, output, session) {
 # shinyApp(ui, server)
 
 
-## ----eval = FALSE, echo = T--------------------------------------------
+## ----eval = FALSE, echo = T---------------------------------------------------
 # library(shiny)
 # sidebar <-  sidebarPanel(width = 3, "Fun inputs")
 # 
@@ -72,7 +72,7 @@ server <- function(input, output, session) {
 # shinyApp(ui, server)
 
 
-## ----eval = FALSE, echo = T--------------------------------------------
+## ----eval = FALSE, echo = T---------------------------------------------------
 # library(shiny)
 # sidebar <-  sidebarPanel(
 #   width = 3,
@@ -92,7 +92,7 @@ server <- function(input, output, session) {
 # shinyApp(ui, server)
 
 
-## ----eval=FALSE, echo = T----------------------------------------------
+## ----eval=FALSE, echo = T-----------------------------------------------------
 # library(shiny)
 # 
 # sidebar <-  sidebarPanel(
@@ -113,7 +113,7 @@ server <- function(input, output, session) {
 # shinyApp(ui, server)
 
 
-## ----your-turn-solution, echo=FALSE, eval=FALSE------------------------
+## ----your-turn-solution, echo=FALSE, eval=FALSE-------------------------------
 # 
 # library(shiny)
 # 
@@ -136,7 +136,7 @@ server <- function(input, output, session) {
 # shinyApp(ui, server)
 
 
-## ----eval=FALSE, echo = T----------------------------------------------
+## ----eval=FALSE, echo = T-----------------------------------------------------
 #| code-line-numbers: "8-11,18-22"
 #| class-source: "numberLines"
 # library(shiny)
@@ -166,7 +166,7 @@ server <- function(input, output, session) {
 # shinyApp(ui, server)
 
 
-## ----your-turn-solutions-2, echo=FALSE, eval=FALSE---------------------
+## ----your-turn-solutions-2, echo=FALSE, eval=FALSE----------------------------
 # library(shiny)
 # library(ggplot2)
 # library(dplyr)

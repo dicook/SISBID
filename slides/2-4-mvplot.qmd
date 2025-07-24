@@ -8,6 +8,7 @@ source(here::here("libraries.R"))
 ```
 
 ```{r}
+#| echo: false
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
 # Use default penguins
@@ -55,7 +56,7 @@ The basic plot plot for multivariate data is a scatterplot matrix.
 
 Use the GGally package function `ggpairs`.
 
-```{r scatterplot matrix, echo=TRUE, eval=FALSE}
+```{r scatterplot-matrix, echo=TRUE, eval=FALSE}
 ggpairs(penguins_std, columns=c(2:5)) 
 ```
 
@@ -63,11 +64,12 @@ ggpairs(penguins_std, columns=c(2:5))
 
 - clustering
 - linear dependence
+- outlier(s)
 :::
 
 ::: column
 
-```{r ref.label="scatterplot matrix", echo=FALSE, fig.width=6, fig.height=6}
+```{r ref.label="scatterplot-matrix", echo=FALSE, fig.width=6, fig.height=6}
 ```
 :::
 ::::
@@ -77,7 +79,7 @@ ggpairs(penguins_std, columns=c(2:5))
 :::: columns
 ::: column
 
-```{r scatterplot matrix with colour, echo=TRUE, fig.show='hide'}
+```{r scatterplot-matrix-with-colour, echo=TRUE, fig.show='hide'}
 # Re-make mapping colour to species (class)
 ggpairs(penguins_std, columns=c(2:5), 
         ggplot2::aes(colour=species)) +
@@ -91,19 +93,52 @@ ggpairs(penguins_std, columns=c(2:5),
 :::
 
 ::: column
-```{r ref.label="scatterplot matrix with colour", echo=FALSE, fig.width=6, fig.height=6}
+```{r ref.label="scatterplot-matrix-with-colour", echo=FALSE, fig.width=6, fig.height=6}
 ```
 :::
 ::::
 
-## Scatterplot Matrices {.smaller}
+## Heatmaps ⚠️
+
+:::: {.columns}
+::: {.column}
+
+```{r p-heatmap, echo=TRUE, fig.show='hide'}
+# install.packages("superheat")
+library(superheat)
+superheat(penguins_std[,2:5], 
+          pretty.order.rows = T,
+          pretty.order.cols = T)
+```
+
+How many clusters do you see?
+
+::: {.fragment .smaller}
+
+Mapping numeric values to color is *sub-optimal*, as we know from the hierarchy. 
+
+It is possible to *NOT see* clusters, and also *imagine* clusters that don't exist when using heatmaps of multivariate data.
+
+:::
+
+:::
+::: {.column}
+
+```{r ref.label="p-heatmap", eval=TRUE, echo=FALSE, fig.width=3, fig.height=7, out.width="50%"}
+```
+
+:::
+::::
+
+## Heatmaps of correlation {.smaller}
+
 :::: columns
 ::: column
 Only show correlation. `r anicon::nia("This is dangerous!", animate="float")`
 
 Only appropriate if correlation is a good summary of the association.
 
-```{r correlation heatmap, echo=TRUE, fig.show='hide'}
+```{r correlation-heatmap, echo=TRUE, fig.show='hide'}
 # Look at one species only
 adelie <- penguins_std |> 
   filter(species == "Adelie") |>
@@ -113,14 +148,14 @@ ggcorr(adelie)
 :::
 
 ::: column
-```{r ref.label="correlation heatmap", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"}
+```{r ref.label="correlation-heatmap", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"}
 ```
 :::
 ::::
 
-## Corrgrams
+## Corrgrams {.smaller}
 
-- can be dangerous
+- can be dangerous ⚠️
 - useful for a broad overview IF correlation is a good summary
 
 ```{r corrgram, echo=TRUE}
@@ -130,14 +165,15 @@ corrgram(adelie,
     corrgram::panel.ellipse)
 ```
 
-The `corrgram` package has numerous scatterplot matrix capabilities.
+The `corrgram` package has numerous correlation display capabilities.
 
 
-## Large sample size
+## Large sample size {.smaller}
 
-```{r hexbin scatterplot, fig.width=6, fig.height=6, echo =T}
-#| eval: false
-#| output-location: "column"
+:::: {.columns}
+::: {.column}
+
+```{r hexbin scatterplot, fig.width=6, fig.height=6, echo =TRUE, eval=FALSE}
 # Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
 # This chunk takes some time to run, so evaluated off-line
 if (!file.exists(here("data", "TCGA-PANCAN-HiSeq-801x20531", "data.csv"))) {
@@ -164,54 +200,44 @@ ggpairs(tcga_t_pc, columns=c(1:4),
   scale_fill_gradient(trans="log", 
     low="#E24C80", high="#FDF6B5")
 ```
+:::
+::: {.column}
+
+![](images/tcga-sm-hexbin.png){width=500}
+:::
+::::
 
 ## Generalized pairs plot {.smaller}
 
 The pairs plot can also incorporate non-numerical variables, and different types of two variable plots.
 
-```{r generalised pairs plot, fig.show='hide', error=F, message = F, warning = F, echo = T}
+```{r generalised-pairs-plot, error=FALSE, message = FALSE, warning = FALSE, echo = TRUE, fig.width=6, fig.height=6}
 #| output-location: "column"
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
-australia_PISA2012 <- australia_PISA2012 %>%
+australia_PISA2012 <- australia_PISA2012 |>
   mutate(across(desk:dishwasher, factor))
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
+australia_PISA2012 |> 
+  filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26))
 ```
 
-## Generalized Pairs Plots
+## Generalized Pairs Plots {.smaller}
 
-```{r generalised pairs plot enhance plots, echo=TRUE, fig.width=6, fig.height=6}
+```{r generalised-pairs-plot-enhance-plots, echo=TRUE, fig.width=6, fig.height=6}
 #| output-location: 'column'
 # Modify the defaults, set the transparency of points since there is a lot of data
-australia_PISA2012 %>% 
-  filter(!is.na(dishwasher)) %>% 
-  ggpairs(
-    columns=c(3, 15, 16, 21, 26), 
-    lower = list(continuous = wrap("points", alpha=0.05)))
-```
-
-## Customized Generalized Pairs Plots
-
-```{r generalised pairs plot enhance more, echo=TRUE, fig.show='hide'}
-#| output-location: "column"
-
-# Make a special style of plot to put in the matrix
-my_fn <- function(data, mapping, method="loess", ...){
-      p <- ggplot(data = data, mapping = mapping) + 
-      geom_point(alpha=0.2, size=1) + 
-      geom_smooth(method="lm", ...)
-      p
-}
 australia_PISA2012 |> 
   filter(!is.na(dishwasher)) |> 
-  ggpairs(columns=c(3, 15, 16, 21, 26), 
-          lower = list(continuous = my_fn))
-
+  ggpairs(
+    columns=c(3, 15, 16, 21, 26), 
+    lower = list(
+      continuous = wrap("points", 
+                        alpha=0.05)))
 ```
 
-## Customized Generalized Pairs Plots
+## Customized Generalized Pairs Plots {.smaller}
+
 :::: columns
 ::: column
 *What do we learn?*
@@ -223,7 +249,15 @@ australia_PISA2012 |>
 :::
 
 ::: column
-```{r ref.label='generalised pairs plot enhance more', echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"}
+```{r echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"}
+# Make a special style of plot to put in the matrix
+my_fn <- function(data, mapping, method="loess", ...){
+      p <- ggplot(data = data, mapping = mapping) + 
+      geom_point(alpha=0.2, size=1) + 
+      geom_smooth(method="lm", ...)
+      p
+}
+
 australia_PISA2012 |> 
   filter(!is.na(dishwasher)) |> 
   ggpairs(columns=c(3, 15, 16, 21, 26), 
@@ -242,7 +276,7 @@ Re-make the plot with
 
 ::: {.content-visible when-format="revealjs"}
 ```{r echo=FALSE}
-countdown::countdown(8,0)
+countdown::countdown(5,0)
 ```
 :::
 
@@ -254,12 +288,11 @@ australia_PISA2012 |>
           upper = list(continuous = "density"))
 ```
 
-## Regression setting
+## Regression setting {.smaller}
 
 <!-- An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables. -->
 
-```{r wrangle housing data and make a regression style pairs plot, out.width="100%", fig.width=8, fig.height=3}
-#| output-location: 'column'
+```{r wrangle-housing-data-and-make-a-regression-style-pairs-plot, out.width="80%", fig.width=8, fig.height=3}
 housing <- read_csv(here::here("data/housing.csv")) |>
   mutate(date = dmy(date)) |>
   mutate(year = year(date)) |>
@@ -276,11 +309,11 @@ ggduo(housing[, c(4,3,8,10,11)],
                        alpha = 0.10)))
 ```
 
-## Big biological data
+## Parallel coordinate plots {.smaller}
 
-```{r generalised pcp, fig.width=6, fig.height=6, eval=FALSE}
+```{r generalised-pcp, fig.width=6, fig.height=6}
 #| output-location: "column"
-
+# install.packages("ggpcp")
 library(ggpcp)
 penguins_std |>
   pcp_select(species, bl:bm) |>
@@ -289,14 +322,15 @@ penguins_std |>
     geom_pcp(aes(colour=species)) +
     geom_pcp_boxes() +
     geom_pcp_labels() +
-    scale_colour_discrete_divergingx(palette = "Zissou 1") +
+    scale_colour_discrete_divergingx(
+      palette = "Zissou 1") +
     theme_pcp() +
     theme(legend.position = "none")
 ```
 
 Axes are parallel, observations are connecting lines.
 
-## PCP: large sample size
+## PCP: large sample size {.smaller}
 
 ```{r organise data pcp, eval=T, echo=FALSE, eval=FALSE}
 tcga_t_pc_pcp <- tcga_t_pc |>
@@ -326,29 +360,24 @@ tcga_t_pc_pcp_sub <- tcga_t_pc_pcp |>
   slice_head(n=5)
 ```
 
-```{r ribbon pcp, eval=FALSE}
-#| output-location: "column"
-
+```{r ribbon-pcp, eval=FALSE}
 ggplot() +
-    geom_ribbon(data = dframe, 
-              aes(x=pcp_x, ymin = lower, ymax = upper,
-              group = level), alpha=0.5) +
-    geom_pcp_axes(data=tcga_t_pc_pcp_sub, 
-             aes_pcp()) +
-    geom_pcp_boxes(data=tcga_t_pc_pcp_sub, 
-             aes_pcp(), boxwidth = 0.1) +
-    geom_pcp(data=tcga_t_pc_pcp_sub, 
-             aes_pcp(), colour="orange") +
+    geom_ribbon(data = dframe, aes(x=pcp_x, ymin = lower, ymax = upper, group = level), alpha=0.5) +
+    geom_pcp_axes(data=tcga_t_pc_pcp_sub, aes_pcp()) +
+    geom_pcp_boxes(data=tcga_t_pc_pcp_sub, aes_pcp(), boxwidth = 0.1) +
+    geom_pcp(data=tcga_t_pc_pcp_sub, aes_pcp(), colour="orange") +
     theme_pcp()
 ```
 
+![](images/tcga-pcp.png){width=500}
+
 With large data, aggregate to get an overview, and select some observations to show.
 
-## Big biological data
+## Big biological data {.smaller}
 
 ::: columns
 ::: {.column width="90%"}
-The Bioconductor package `bigPint` has tools for working with larger amounts of data, as seen in RNA-Seq experiments. 
+The Bioconductor package `bigPint` has tools for working with larger amounts of data, as seen in RNA-Seq experiments. It has variations of scatterplot matrices, parallel coordinate plots and interactivity with these displays.
 
 More info at [https://lindsayrutter.github.io/bigPint/](https://lindsayrutter.github.io/bigPint/)
 
@@ -357,121 +386,25 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("bigPint")
 ```
+
+![](https://lindsayrutter.github.io/bigPint/articles/static_files/figure-html/unnamed-chunk-12-1.png){width=400}
+
 :::
 ::: {.column width="10%"}
 ![](images/bigpint.png)
 :::
 :::
 
-
-## Big biological data
-
-:::: columns
-::: column
-
-Soybean experiment (two trts, three reps)
-<!-- Here's the scatterplot of the first replicate.  -->
-
-```{r soybean_scat, fig.show='hide', eval=FALSE}
-# if (!require("BiocManager", quietly = TRUE))
-#    install.packages("BiocManager")
-# BiocManager::install("bigPint")
-library(bigPint) 
-data(soybean_ir_sub)
-soybean_ir_sub[,-1] <- log(soybean_ir_sub[,-1]+1)
-ggplot(soybean_ir_sub, 
-       aes(x=N.1, y=P.1)) + 
-  geom_point() + 
-  theme(aspect.ratio=1)
-```
-:::
-
-::: column
-```{r ref.label='soybean_scat', fig.width=4, fig.height=4, out.width="90%", echo=FALSE, eval=FALSE}
-```
-:::
-::::
-
-## `bigPint`
-
-:::: columns
-::: column
-
-`litre` plot:  combines replicates to look at the treatments
-
-Uses hexbins to summarize large data.
-
-Individual gene data can be overlaid.
-
-```{r soybean_litre, fig.show='hide', eval=FALSE}
-geneList = soybean_ir_sub_metrics[["N_P"]][1:5,]$ID
-ret <- plotLitre(data = soybean_ir_sub, 
-                 geneList = geneList, 
-                 pointColor = "deeppink")
-names(ret)
-ret[["N_P_Glyma.19G168700.Wm82.a2.v1"]]
-```
-:::
-
-::: column
-```{r ref.label='soybean_litre', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide', eval=FALSE}
-```
-:::
-::::
-
-## Bigpint Scatterplot Matrices
-:::: columns
-::: column
-This can be extended into a scatterplot matrix
-
-```{r soybean_litre_sm, fig.show='hide',eval=FALSE}
-ret <- plotSM(soybean_cn_sub, 
-              soybean_cn_sub_metrics, 
-              option = "hexagon", 
-              xbins = 5, 
-              pointSize = 0.1, 
-              saveFile = FALSE)
-ret[[2]]
-```
-:::
-
-::: column
-```{r ref.label='soybean_litre_sm', fig.width=6, fig.height=6, out.width="110%", echo=FALSE, results='hide', eval=FALSE}
-```
-:::
-::::
-
-## RNA-Seq: Side-by-Side Boxplots
-:::: columns
-::: column
-- Overlay the profiles of different genes to see patterns across samples    
-(This can be called a parallel coordinate plot.)
-
-```{r soybean_pcp, fig.show='hide',eval=FALSE}
-ret <- plotPCP(data = soybean_ir_sub, 
-               geneList = geneList, 
-               lineSize = 0.3, 
-               saveFile = FALSE)
-ret[[1]]
-```
-:::
-
-::: column
-```{r ref.label='soybean_pcp', fig.width=6, fig.height=6, out.width="90%", echo=FALSE, results='hide',eval=FALSE}
-```
-:::
-::::
-
 ## Resources {.smaller}
 
-- [Cook and Laa (2024)](https://dicook.github.io/mulgar_book/)
+- [Cook and Laa (2025)](https://dicook.github.io/mulgar_book/)
 - Emerson et al (2013) The Generalized Pairs Plot, Journal of Computational and Graphical Statistics, 22:1, 79-91
 - [Natalia da Silva](http://natydasilva.com/) [PPForest](https://cran.r-project.org/web/packages/PPforest/index.html) and [shiny app](https://natydasilva.shinyapps.io/shinyV03/).
 - Eunkyung Lee [PPtreeViz](https://www.jstatsoft.org/article/view/v083i08)
 - Wickham, Cook, Hofmann (2015) [Visualising Statistical Models: Removing the blindfold](http://dicook.org/publication/blindfold_2015/)
 - Cook and Swayne (2007) [Interactive and Dynamic Graphics for Data Analysis](http://ggobi.org/book/)
 - Wickham et al (2011) [tourr: An R Package for Exploring Multivariate Data with Projections](https://www.jstatsoft.org/article/view/v040i02/v40i02.pdf) and the R package [tourr](https://cran.r-project.org/web/packages/tourr/index.html)
-- Schloerke et al (2016) [Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and the R package [geozoo](https://cran.r-project.org/web/packages/geozoo/index.html)
+- Schloerke et al (2016) [Escape from Boxland](https://journal.r-project.org/archive/2016/RJ-2016-044/index.html), [the web site zoo](http://schloerke.com/geozoo/) and  [geozoo](https://cran.r-project.org/web/packages/geozoo/index.html)
 
 
 ::: bottom

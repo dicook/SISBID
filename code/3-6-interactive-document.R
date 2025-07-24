@@ -1,9 +1,9 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## ----load packages, echo=FALSE-----------------------------------------
+## ----load packages, echo=FALSE------------------------------------------------
 #library(tidyverse)
 library(ggplot2)
 library(ggmap)
@@ -11,7 +11,7 @@ library(plotly)
 library(gganimate)
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # install.packages("flexdashboard")
 
 
@@ -32,7 +32,7 @@ library(gganimate)
 ## This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/),
 ## the case notifications table. The data looks like this:
 
-## ----eval=F, echo = T--------------------------------------------------
+## ----eval=F, echo = T---------------------------------------------------------
 # library(tidyverse)
 # library(DT)
 # tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>%
@@ -49,12 +49,12 @@ library(gganimate)
 # datatable(tb)
 
 
-## ----eval=F------------------------------------------------------------
+## ----eval=F-------------------------------------------------------------------
 # ggplot(tb, aes(x=year)) +
 #   geom_bar(aes(weight = count))
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # library(learnr)
 # knitr::opts_chunk$set(
 #   echo = FALSE,
@@ -63,7 +63,7 @@ library(gganimate)
 #   error = FALSE)
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # quiz(
 #   question("Which package contains functions for installing other R packages?",
 #     answer("base"),
@@ -74,7 +74,7 @@ library(gganimate)
 # )
 
 
-## ----eval=F------------------------------------------------------------
+## ----eval=F-------------------------------------------------------------------
 # library(plotly)
 # p <- tb %>%
 #   group_by(year, age) %>%
@@ -84,13 +84,13 @@ library(gganimate)
 # ggplotly(p)
 
 
-## ----eval=F------------------------------------------------------------
+## ----eval=F-------------------------------------------------------------------
 # set.seed(20190709)
 # emo::ji("fantasy")
 # emo::ji("clock")
 
 
-## ----eval=F------------------------------------------------------------
+## ----eval=F-------------------------------------------------------------------
 # anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")
 # anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
 #   position=c(0,0,0,200))

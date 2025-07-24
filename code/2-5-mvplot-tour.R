@@ -1,9 +1,9 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
 # Use default penguins
@@ -36,7 +36,7 @@ penguins_std <- penguins |>
 ## ----ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"----
 
 
-## ----scatterplot matrix, echo=FALSE, eval=TRUE, fig.width=6, fig.height=6----
+## ----scatterplot matrix, echo=FALSE, eval=TRUE, fig.width=6, fig.height=6-----
 # Make a simple scatterplot matrix of the new penguins data
 ggpairs(penguins_std, columns=c(2:5), 
         ggplot2::aes(colour=species)) +
@@ -44,7 +44,7 @@ ggpairs(penguins_std, columns=c(2:5),
   scale_fill_discrete_divergingx(palette = "Zissou 1")
 
 
-## ----echo=TRUE, eval=FALSE---------------------------------------------
+## ----echo=TRUE, eval=FALSE----------------------------------------------------
 # # Run the tour
 # animate_xy(penguins_std[,2:5],
 #            col=penguins_std$species,
@@ -52,7 +52,7 @@ ggpairs(penguins_std, columns=c(2:5),
 #            fps=15)
 
 
-## ----eval=FALSE, echo=FALSE--------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------
 # # This code was used to make the animated gif
 # set.seed(20200622)
 # render_gif(penguins_std[,2:5], grand_tour(),
@@ -66,7 +66,7 @@ ggscatmat(penguins_std, columns = 2:5, color="species") +
   theme(legend.position="bottom")
 
 
-## ----reading axes, eval=FALSE, echo=FALSE------------------------------
+## ----reading axes, eval=FALSE, echo=FALSE-------------------------------------
 # # Generate a plotly animation to demonstrate
 # library(plotly)
 # library(htmltools)
@@ -129,7 +129,7 @@ ggscatmat(penguins_std, columns = 2:5, color="species") +
 # save_html(pg, file="html/penguins.html", libdir="lib")
 
 
-## ----runthis1, fig.width=4, fig.height=4, out.width="90%"--------------
+## ----runthis1, fig.width=4, fig.height=4, out.width="90%"---------------------
 ggplot(penguins_std, 
    aes(x=fl, y=bd,
        colour=species,
@@ -140,7 +140,7 @@ ggplot(penguins_std,
   legend.position="bottom") 
 
 
-## ----runthis2, fig.width=4, fig.height=4, out.width="90%"--------------
+## ----runthis2, fig.width=4, fig.height=4, out.width="90%"---------------------
 ggplot(penguins_std, 
    aes(x=bl, y=bm,
        colour=species,
@@ -151,7 +151,7 @@ ggplot(penguins_std,
   legend.position="bottom")
 
 
-## ----eval=FALSE, echo=FALSE--------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------
 # set.seed(20694727)
 # render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins_std$species)),
 #            display_xy(col=penguins_std$species,
@@ -160,7 +160,7 @@ ggplot(penguins_std,
 #            frames=34, width=400, height=400, loop=FALSE)
 
 
-## ----runthis3, eval=FALSE, echo=FALSE----------------------------------
+## ----runthis3, eval=FALSE, echo=FALSE-----------------------------------------
 # animate_xy(penguins_std[,2:5], grand_tour(),
 #            axes = "bottomleft", col=penguins_std$species)
 # animate_xy(penguins_std[,2:5],
@@ -171,7 +171,7 @@ ggplot(penguins_std,
 #                     byrow=TRUE)
 
 
-## ----eval=FALSE, echo=FALSE--------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 2),
 #            display = display_xy(col = col),
@@ -216,7 +216,7 @@ ggplot(penguins_std,
 #            frames=200, width=400, height=400)
 
 
-## ----runthis4, eval=FALSE----------------------------------------------
+## ----runthis4, eval=FALSE-----------------------------------------------------
 # # Check contribution of bl,
 # # change mvar to switch variables
 # animate_xy(penguins_std[,2:5],
@@ -224,7 +224,7 @@ ggplot(penguins_std,
 #            col = col)
 
 
-## ----eval=FALSE, echo=FALSE--------------------------------------------
+## ----eval=FALSE, echo=FALSE---------------------------------------------------
 # render_gif(penguins_std[,2:5],
 #            local_tour(start=best_proj, 0.9),
 #            display_xy(col=penguins_std$species, axes="bottomleft"),
@@ -232,19 +232,19 @@ ggplot(penguins_std,
 #            frames=200, width=400, height=400)
 
 
-## ----runthis16, eval=FALSE, echo=FALSE---------------------------------
+## ----runthis16, eval=FALSE, echo=FALSE----------------------------------------
 # animate_xy(penguins_std[,2:5],
 #            local_tour(start=best_proj, 0.9),
 #            axes = "bottomleft", col=penguins_std$species)
 
 
-## ----runthis6, eval=FALSE----------------------------------------------
+## ----runthis6, eval=FALSE-----------------------------------------------------
 # library(geozoo)
 # sphere2 <- sphere.solid.random(p=4)$points %>% as_tibble()
 # animate_slice(sphere2, axes="bottomleft")
 
 
-## ----eval=FALSE, echo=F------------------------------------------------
+## ----eval=FALSE, echo=F-------------------------------------------------------
 # render_gif(
 #   sphere2, grand_tour(),
 #   display_slice(axes="bottomleft"),
@@ -252,12 +252,12 @@ ggplot(penguins_std,
 #   frames=100, width=400, height=400)
 
 
-## ----runthis7, eval=FALSE----------------------------------------------
+## ----runthis7, eval=FALSE-----------------------------------------------------
 # sphere1 <- sphere.hollow(p=4)$points %>% as_tibble()
 # animate_slice(sphere1, axes="bottomleft", half_range=0.6)
 
 
-## ----eval=FALSE, echo=F------------------------------------------------
+## ----eval=FALSE, echo=F-------------------------------------------------------
 # render_gif(
 #   sphere1, grand_tour(),
 #   display_slice(axes="bottomleft", half_range=0.6),
@@ -265,18 +265,18 @@ ggplot(penguins_std,
 #   frames=100, width=400, height=400)
 
 
-## ----runthis8, eval=FALSE----------------------------------------------
+## ----runthis8, eval=FALSE-----------------------------------------------------
 # torus <- torus(p = 4, n = 5000, radius=c(8, 4, 1))$points %>% as_tibble()
 # animate_slice(torus, axes="bottomleft", half_range=0.8)
 
 
-## ----eval=FALSE, echo=F------------------------------------------------
+## ----eval=FALSE, echo=F-------------------------------------------------------
 # render_gif(torus, grand_tour(),
 #            display_slice(axes="bottomleft", half_range=0.8),
 #            "images/torus4d_slice.gif", frames=100, width=400, height=400)
 
 
-## ----runthis9, eval=FALSE----------------------------------------------
+## ----runthis9, eval=FALSE-----------------------------------------------------
 # cube1 <- cube.face(p=4)$points %>% as_tibble()
 # # Slicing needs data to be on a standard scale
 # cube1_std <- cube1 %>%
@@ -284,13 +284,13 @@ ggplot(penguins_std,
 # animate_slice(cube1_std, axes="bottomleft")
 
 
-## ----eval=FALSE, echo=F------------------------------------------------
+## ----eval=FALSE, echo=F-------------------------------------------------------
 # render_gif(cube1_std, grand_tour(),
 #            display_slice(axes="bottomleft"),
 #            "images/cube4d_slice.gif", frames=100, width=400, height=400)
 
 
-## ----runthis10, eval=FALSE, echo=TRUE----------------------------------
+## ----runthis10, eval=FALSE, echo=TRUE-----------------------------------------
 # penguins_pca <- prcomp(penguins_std[,2:5], center = FALSE)
 # penguins_coefs <- penguins_pca$rotation[, 1:3]
 # penguins_scores <- penguins_pca$x[, 1:3]
@@ -298,7 +298,7 @@ ggplot(penguins_std,
 # animate_pca(penguins_scores, pc_coefs = penguins_coefs, col=col)
 
 
-## ----eval=FALSE--------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 # render_gif(
 #   penguins_scores, grand_tour(),
 #   display_pca(pc_coefs = penguins_coefs,
@@ -307,7 +307,7 @@ ggplot(penguins_std,
 #   frames=100, width=400, height=400)
 
 
-## ----eval=FALSE,echo=F-------------------------------------------------
+## ----eval=FALSE,echo=F--------------------------------------------------------
 # 
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = grand_tour(1),
@@ -325,18 +325,18 @@ ggplot(penguins_std,
 #            width=400, height=400)
 
 
-## ----runthis11, eval=FALSE---------------------------------------------
+## ----runthis11, eval=FALSE----------------------------------------------------
 # animate_dist_cl(penguins_std[,2:5],
 #                 half_range=1.3)
 
 
-## ----runthis12, eval=F-------------------------------------------------
+## ----runthis12, eval=F--------------------------------------------------------
 # animate_density2d(
 #   penguins_std[,2:5],
 #   col=col, axes="bottomleft")
 
 
-## ----eval=FALSE--------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 # library(tourr)
 # data(flea)
 # ?animate_xy
@@ -348,11 +348,11 @@ ggplot(penguins_std,
 # animate_xy(flea[, 2:7], fps=10)
 
 
-## ----echo=FALSE--------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 countdown::countdown(2,0)
 
 
-## ----eval=FALSE--------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 # render_gif(
 #   penguins_std[,2:5],
 #   grand_tour(),
@@ -366,7 +366,7 @@ countdown::countdown(2,0)
 # )
 
 
-## ----eval=FALSE--------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 # set.seed(209)
 # b <- basis_random(4, 2)
 # penguins_pct <- tourr::save_history(
@@ -402,7 +402,7 @@ countdown::countdown(2,0)
 # htmlwidgets::saveWidget(penguins_tour, file="html/penguins.html", selfcontained = TRUE)
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 load(here::here("data/p_tour_path.rda"))
 penguins_pcti <- interpolate(
   penguins_pct, 0.2)
@@ -416,7 +416,7 @@ p27 <- render_proj(
     penguins_std$species)
 
 
-## ----echo=FALSE--------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 p27$data_prj <- p27$data_prj |>
   mutate(species = penguins_std$species)
 pg27 <- ggplot() +
@@ -439,7 +439,7 @@ pg27 <- ggplot() +
     panel.grid=element_blank())
 
 
-## ----echo=FALSE, out.width="80%", fig.width=7, fig.height=6------------
+## ----echo=FALSE, out.width="80%", fig.width=7, fig.height=6-------------------
 # pg27
 ggplotly(pg27, width=450, height=450)
 

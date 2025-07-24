@@ -1,9 +1,9 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: tb-comparisons1
 #| fig-width: 5
 #| fig-height: 4
@@ -17,7 +17,7 @@ ggplot(tb_inc_100k, aes(y = iso3,
   theme_ggdist()
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: tb-comparisons2
 #| fig-width: 5
 #| fig-height: 4
@@ -31,7 +31,7 @@ ggplot(tb_inc_100k, aes(y = iso3,
   theme_ggdist()
 
 
-## ----not to run this code, eval=FALSE, echo = FALSE--------------------
+## ----not to run this code, eval=FALSE, echo = FALSE---------------------------
 # # Data extracted from ALA with this code
 # # Note that package ALA4Ris being replaced by package galah
 # # install.packages("galah")
@@ -102,7 +102,7 @@ ggplot(data=monotremes) +
 #   coord_map()
 
 
-## ----you need a developer API to run this code, echo=FALSE, eval=FALSE----
+## ----you need a developer API to run this code, echo=FALSE, eval=FALSE--------
 # library(ggmap)
 # library(osmdata)
 # oz_bbox <- c(112.9, # min long
@@ -113,7 +113,7 @@ ggplot(data=monotremes) +
 # save(oz, file="data/oz.rda")
 
 
-## ----load the saved map data, echo=TRUE--------------------------------
+## ----load the saved map data, echo=TRUE---------------------------------------
 #| output-location: "column"
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
@@ -125,7 +125,7 @@ ggmap(oz) +
   scale_color_manual(values = c("#e66100", "#5d3a9b"))
 
 
-## ----leaflet map, echo=TRUE, fig.width = 8, fig.height = 4-------------
+## ----leaflet map, echo=TRUE, fig.width = 8, fig.height = 4--------------------
 #| output-location: "column"
 library(leaflet)
 monotremes |>
@@ -142,7 +142,7 @@ monotremes |>
     lat = ~latitude, lng = ~longitude) 
 
 
-## ----eval=FALSE--------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 # SOME STUFF HERE |>
 #   mutate(
 #     day = ymd(str_sub(datetime, 1, 10),
@@ -160,7 +160,7 @@ monotremes |>
     facet_wrap(~common_name)
 
 
-## ----add a trend line, echo=F,out.width="100%",fig.height=4,fig.width=8----
+## ----add a trend line, echo=F,out.width="100%",fig.height=4,fig.width=8-------
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -171,7 +171,7 @@ monotremes |>
     facet_wrap(~common_name) 
 
 
-## ----add a trend line, echo=TRUE, eval=F-------------------------------
+## ----add a trend line, echo=TRUE, eval=F--------------------------------------
 # monotremes |>
 #   group_by(day, common_name) |>
 #   summarise(n = n()) |>
@@ -187,7 +187,7 @@ library(plotly)
 ggplotly(width=800, height=500)
 
 
-## ----solution code to density plot on map, eval=FALSE, echo=FALSE------
+## ----solution code to density plot on map, eval=FALSE, echo=FALSE-------------
 # ggmap(oz) +
 #   geom_density2d(data=monotremes,
 #                  aes(x=longitude, y=latitude),
@@ -195,7 +195,7 @@ ggplotly(width=800, height=500)
 #   facet_wrap(~common_name, ncol=2)
 
 
-## ----solution code to boxplot task, eval=FALSE, echo=FALSE-------------
+## ----solution code to boxplot task, eval=FALSE, echo=FALSE--------------------
 # monotremes |>
 #   group_by(day, common_name) |>
 #   summarise(n = n(), .groups = "drop") |>

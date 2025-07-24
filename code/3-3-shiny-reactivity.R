@@ -1,26 +1,26 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # rval <- reactive({
 #   ...
 # })
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # rval <- eventReactive(actionbutton, {
 #   ...
 # })
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # runApp("code/3.3-apps/03_submission/",
 #        display.mode = "showcase")
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # card1 <- card(
 #   card_header("Hi, I'm a card"),
 #   class = "bg-primary",
@@ -29,7 +29,7 @@ source(here::here("libraries.R"))
 #   "your choice!")
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # body <- page_fillable(
 #   layout_columns(
 #     col_widths = c(2, 4, 4, 2), # 12 cols per row
@@ -42,7 +42,7 @@ source(here::here("libraries.R"))
 # )
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # body <- page_fillable(
 #   layout_columns(
 #     col_widths = c(2, 4, 4, 2), # 12 cols per row
@@ -55,7 +55,7 @@ source(here::here("libraries.R"))
 # )
 
 
-## ----eval = F----------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------
 # layout_column_wrap(
 #   width = NULL, height = 300, fill = FALSE,
 #   style = css(grid_template_columns = "2fr 1fr 2fr"),
@@ -63,6 +63,6 @@ source(here::here("libraries.R"))
 # )
 
 
-## ----xaringan-panelset, echo=FALSE-------------------------------------
+## ----xaringan-panelset, echo=FALSE--------------------------------------------
 xaringanExtra::use_panelset()
 

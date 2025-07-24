@@ -1,4 +1,4 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 
@@ -15,11 +15,11 @@ theme_set(theme_bw())
 load(here("data/french_fries.rda"))
 
 
-## ----your turn to work on the french fries data, echo=FALSE------------
+## ----your turn to work on the french fries data, echo=FALSE-------------------
 head(french_fries)
 
 
-## ----put french fries in long form-------------------------------------
+## ----put french fries in long form--------------------------------------------
 ff_long <- french_fries |> 
   pivot_longer(potato:painty, names_to = "type", values_to = "rating")
 
@@ -27,20 +27,20 @@ ff_long <- french_fries |>
 head(ff_long)
 
 
-## ----original form-----------------------------------------------------
+## ----original form------------------------------------------------------------
 knitr::kable(head(ff_long, 4))
 
 
-## ----spread it back into wide form-------------------------------------
+## ----spread it back into wide form--------------------------------------------
 french_fries_weeks <- ff_long |> 
   pivot_wider(names_from = "time", values_from = "rating")
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 kable(head(french_fries_weeks,3))
 
 
-## ----spread------------------------------------------------------------
+## ----spread-------------------------------------------------------------------
 head(french_fries_weeks)
 
 
@@ -65,21 +65,21 @@ french_fries_weeks |>
 #   xlab("Rep 1") + ylab("Rep 2") + facet_wrap(~type, ncol=5)
 
 
-## ----ratings on the different scales-----------------------------------
+## ----ratings on the different scales------------------------------------------
 ff.m <- french_fries |> 
 pivot_longer(-(time:rep), names_to="type", values_to="rating")
 
-## ----echo = F, include = T---------------------------------------------
+## ----echo = F, include = T----------------------------------------------------
 head(ff.m)
 
 
-## ----fig.height=2, fig.width=8-----------------------------------------
+## ----fig.height=2, fig.width=8------------------------------------------------
 ggplot(data=ff.m, aes(x=rating)) + 
   geom_histogram(binwidth=2) + 
   facet_wrap(~type, ncol=5) 
 
 
-## ----side-by-Side boxplots, fig.width=8, fig.height=5------------------
+## ----side-by-Side boxplots, fig.width=8, fig.height=5-------------------------
 ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) + 
   geom_boxplot()
 
@@ -93,7 +93,7 @@ ggplot(data=ff.m, aes(x=type, y=rating, fill=type)) +
 #   theme(aspect.ratio=1)
 
 
-## ----ratings by week, fig.width=8, fig.height=3, message = F, warning = F----
+## ----ratings by week, fig.width=8, fig.height=3, message = F, warning = F-----
 ff.m$time <- as.numeric(ff.m$time)
 ggplot(data=ff.m, aes(x=time, y=rating, colour=type)) + 
 geom_point(size=.75) +
@@ -109,7 +109,7 @@ geom_smooth() +
 facet_wrap(~type, ncol = 5)
 
 
-## ----solution to model, echo=FALSE, eval=FALSE-------------------------
+## ----solution to model, echo=FALSE, eval=FALSE--------------------------------
 # # long model is fine to use for a single model:
 # 
 # model <- lm(rating ~ type*time-1, data = ff_long)

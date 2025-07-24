@@ -1,9 +1,9 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: read-and-wrangle-TB-data
 #| echo: false
 tb <- readr::read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |>
@@ -24,7 +24,7 @@ tb_us <- tb |>
   )
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: make-a-barchart-of-US-TB-incidence
 #| echo: true
 #| out-width: 80%
@@ -37,7 +37,7 @@ ggplot(tb_us, aes(x = year,
   facet_grid(~ age) 
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: colour-and-axes-fixes
 #| echo: true
 #| fig-height: 3
@@ -50,7 +50,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   theme_bw() 
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: compare-proportions-of-males-females
 #| out-width: 80%
 #| fig-height: 3
@@ -63,7 +63,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) 
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: compare-counts-of-males-females
 #| out-width: 100%
 #| echo: true
@@ -77,7 +77,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   theme_bw()
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: rose-plot-of-males-females
 #| echo: true
 #| fig-height: 5
@@ -91,7 +91,7 @@ ggplot(tb_us, aes(x=year, y=count, fill=sex)) +
   theme_bw()
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: stacked-barchart-of-males-females
 #| echo: true
 #| fig-height: 5
@@ -103,7 +103,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
   scale_fill_viridis_d("", option="inferno") 
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| label: pie-chart-of-males-females
 #| out-width: 60%
 #| echo: true
@@ -118,7 +118,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
   coord_polar(theta = "y") 
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #| eval: false
 #| out-width: 60%
 #| echo: false
@@ -133,7 +133,7 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(year))) +
 #   theme(legend.position="bottom")
 
 
-## ----use a line plot instead of bar, fig.height=3, out.width="80%"-----
+## ----use a line plot instead of bar, fig.height=3, out.width="80%"------------
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
@@ -142,7 +142,7 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   theme_bw()
 
 
-## ----use a line plot of proportions, fig.height=3, out.width="70%"-----
+## ----use a line plot of proportions, fig.height=3, out.width="70%"------------
 tb_us |> group_by(year, age_group) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +

@@ -1,4 +1,4 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----
+## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 library(readr)
@@ -17,7 +17,7 @@ diamonds <- diamonds |>
   mutate(clarity = factor(clarity, levels = c("I1", "SI2", "SI1", "VS2", "VS1", "VVS2", "VVS1", "IF"), ordered = T))
 
 
-## ----read TB data and wrangle and subset to USA, echo = FALSE----------
+## ----read TB data and wrangle and subset to USA, echo = FALSE-----------------
 tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
@@ -35,7 +35,7 @@ tb_kn <- tb |>
            str_replace("65", "65+"))
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 tb_kn |> 
   filter(year == 2012) |> 
   dplyr::select(sex, age, count) |>
@@ -66,11 +66,11 @@ tb_kn |> filter(year == 2012) |>
 ## ----ref.label='focus on one year age side-by-side bars of age group', fig.height=3, echo=F----
 
 
-## ----------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 tb_kn |> select(year, sex, age, count) |> head(10)
 
 
-## ----use a line plot instead of bar, fig.height=3, echo = F------------
+## ----use a line plot instead of bar, fig.height=3, echo = F-------------------
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
@@ -80,7 +80,7 @@ ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   ggtitle("Type A")
 
 
-## ----colour and axes fixes, fig.height=3, echo = F---------------------
+## ----colour and axes fixes, fig.height=3, echo = F----------------------------
 # This uses a color blind friendly scale
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
@@ -91,17 +91,17 @@ ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
 
 
 
-## ----ref.label='use a line plot instead of bar', fig.height=3, echo = F----
+## ----ref.label='use a line plot instead of bar', fig.height=3, echo = F-------
 
 
-## ----ref.label='colour and axes fixes', fig.height=3, echo = F---------
-
-
-
+## ----ref.label='colour and axes fixes', fig.height=3, echo = F----------------
 
 
 
-## ----use a line plot for proportions, fig.height=3, echo = F-----------
+
+
+
+## ----use a line plot for proportions, fig.height=3, echo = F------------------
 tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
@@ -112,7 +112,7 @@ tb_kn |> group_by(year, age) |>
   ggtitle("Type A")
 
 
-## ----compare proportions of males females, fig.height=4, echo = F------
+## ----compare proportions of males females, fig.height=4, echo = F-------------
 # Fill the bars, note the small change to the code
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
@@ -176,7 +176,7 @@ p2 <- d + scale_color_manual("", values=clrs) + theme(legend.position = "none")
 p2
 
 
-## ----is shape preattentive, echo=FALSE, fig.width=4, fig.height=4------
+## ----is shape preattentive, echo=FALSE, fig.width=4, fig.height=4-------------
 set.seed(20190715)
 df <- data.frame(x=runif(100), y=runif(100), cl=sample(c(rep("A", 1), rep("B", 99))))
 ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() + 
@@ -184,7 +184,7 @@ ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() +
   theme(legend.position="None", aspect.ratio=1, axis.text = element_blank(), axis.ticks=element_blank(), axis.title = element_blank()) 
 
 
-## ----is color preattentive, echo=FALSE, fig.width=4, fig.height=4------
+## ----is color preattentive, echo=FALSE, fig.width=4, fig.height=4-------------
 ggplot(data=df, aes(x, y, colour=cl)) + 
   geom_point(size=3) +
   theme_bw() + 
@@ -192,7 +192,7 @@ ggplot(data=df, aes(x, y, colour=cl)) +
   theme(legend.position="None", aspect.ratio=1, axis.text = element_blank(), axis.ticks=element_blank(), axis.title = element_blank()) 
 
 
-## ----a line plot on sex, fig.height=3, fig.width = 8, echo = F---------
+## ----a line plot on sex, fig.height=3, fig.width = 8, echo = F----------------
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
@@ -200,7 +200,7 @@ ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   ggtitle("Arrangement A")
 
 
-## ----a line plot on age, fig.height=3, fig.width=8, echo = F-----------
+## ----a line plot on age, fig.height=3, fig.width=8, echo = F------------------
 ggplot(tb_kn, aes(x=year, y=count, colour=age)) +
   geom_line() + geom_point() +
   facet_wrap(~sex, ncol=6) +
@@ -208,7 +208,7 @@ ggplot(tb_kn, aes(x=year, y=count, colour=age)) +
   ggtitle("Arrangement B")
 
 
-## ----side-by-side bars of males females, fig.height=3, echo = F--------
+## ----side-by-side bars of males females, fig.height=3, echo = F---------------
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -217,7 +217,7 @@ tb_kn |> filter(year == 2012) |>
   ggtitle("Position - common scale ")
 
 
-## ----piecharts of males females, fig.height=3, echo = F----------------
+## ----piecharts of males females, fig.height=3, echo = F-----------------------
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
@@ -227,7 +227,7 @@ tb_kn |> filter(year == 2012) |>
   coord_polar(theta = "y")
 
 
-## ----side-by-side bars of age, fig.height=3, echo = F------------------
+## ----side-by-side bars of age, fig.height=3, echo = F-------------------------
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -236,7 +236,7 @@ tb_kn |> filter(year == 2012) |>
   ggtitle("Position - common scale ")
 
 
-## ----piecharts of age, fig.height=3, echo = F--------------------------
+## ----piecharts of age, fig.height=3, echo = F---------------------------------
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
@@ -246,7 +246,7 @@ tb_kn |> filter(year == 2012) |>
   coord_polar(theta = "y")
 
 
-## ----stacked bars of age, fig.height=3, echo = F-----------------------
+## ----stacked bars of age, fig.height=3, echo = F------------------------------
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
