@@ -142,7 +142,7 @@ ggplot(penguins_std,
 # render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins_std$species)),
 #            display_xy(col=penguins_std$species,
 #                       axes="bottomleft"),
-#            "images/penguins2d_guided.gif",
+#            "slides/images/penguins2d_guided.gif",
 #            frames=34, width=400, height=400, loop=FALSE)
 
 
@@ -161,7 +161,7 @@ ggplot(penguins_std,
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 2),
 #            display = display_xy(col = penguins_std$species),
-#            gif_file = "images/penguins_rt_bd.gif",
+#            gif_file = "slides/images/penguins_rt_bd.gif",
 #            apf = 1/20,
 #            frames = 100,
 #            width = 400, height = 400)
@@ -169,7 +169,7 @@ ggplot(penguins_std,
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 1),
 #            display = display_xy(col = penguins_std$species),
-#            gif_file = "images/penguins_rt_bl.gif",
+#            gif_file = "slides/images/penguins_rt_bl.gif",
 #            apf = 1/20,
 #            frames = 100,
 #            width = 400, height = 400)
@@ -177,7 +177,7 @@ ggplot(penguins_std,
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 3),
 #            display = display_xy(col = penguins_std$species),
-#            gif_file = "images/penguins_rt_fl.gif",
+#            gif_file = "slides/images/penguins_rt_fl.gif",
 #            apf = 1/20,
 #            frames = 100,
 #            width = 400, height = 400)
@@ -185,7 +185,7 @@ ggplot(penguins_std,
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 4),
 #            display = display_xy(col = penguins_std$species),
-#            gif_file = "images/penguins_rt_bm.gif",
+#            gif_file = "slides/images/penguins_rt_bm.gif",
 #            apf = 1/20,
 #            frames = 100,
 #            width = 400, height = 400)
@@ -193,12 +193,12 @@ ggplot(penguins_std,
 # render_gif(penguins_std[,2:5],
 #            radial_tour(best_proj, mvar=3),
 #            display_xy(col=penguins_std$species, axes="bottomleft"),
-#            "penguins_manual_fl.gif",
+#            "slides/images/penguins_manual_fl.gif",
 #            frames=200, width=400, height=400)
 # render_gif(penguins_std[,2:5],
 #            radial_tour(best_proj, mvar=1),
 #            display_xy(col=penguins_std$species, axes="bottomleft"),
-#            "penguins_manual_bl.gif",
+#            "slides/images/penguins_manual_bl.gif",
 #            frames=200, width=400, height=400)
 
 
@@ -214,7 +214,7 @@ ggplot(penguins_std,
 # render_gif(penguins_std[,2:5],
 #            local_tour(start=best_proj, 0.9),
 #            display_xy(col=penguins_std$species, axes="bottomleft"),
-#            "penguins2d_local.gif",
+#            "slides/images/penguins2d_local.gif",
 #            frames=200, width=400, height=400)
 
 
@@ -234,7 +234,7 @@ ggplot(penguins_std,
 # render_gif(
 #   sphere2, grand_tour(),
 #   display_slice(axes="bottomleft"),
-#   "images/sphere4d_solid_slice.gif",
+#   "slides/images/sphere4d_solid_slice.gif",
 #   frames=100, width=400, height=400)
 
 
@@ -247,7 +247,7 @@ ggplot(penguins_std,
 # render_gif(
 #   sphere1, grand_tour(),
 #   display_slice(axes="bottomleft", half_range=0.6),
-#   "images/sphere4d_slice.gif",
+#   "slides/images/sphere4d_slice.gif",
 #   frames=100, width=400, height=400)
 
 
@@ -259,7 +259,7 @@ ggplot(penguins_std,
 ## ----eval=FALSE, echo=F-------------------------------------------------------
 # render_gif(torus, grand_tour(),
 #            display_slice(axes="bottomleft", half_range=0.8),
-#            "images/torus4d_slice.gif", frames=100, width=400, height=400)
+#            "slides/images/torus4d_slice.gif", frames=100, width=400, height=400)
 
 
 ## ----runthis9, eval=FALSE-----------------------------------------------------
@@ -273,23 +273,25 @@ ggplot(penguins_std,
 ## ----eval=FALSE, echo=F-------------------------------------------------------
 # render_gif(cube1_std, grand_tour(),
 #            display_slice(axes="bottomleft"),
-#            "images/cube4d_slice.gif", frames=100, width=400, height=400)
+#            "slides/images/cube4d_slice.gif", frames=100, width=400, height=400)
 
 
 ## ----runthis10, eval=FALSE, echo=TRUE-----------------------------------------
-# penguins_pca <- prcomp(penguins_std[,2:5], center = FALSE)
+# penguins_pca <- prcomp(penguins_std[,2:5],
+#                        center = FALSE)
 # penguins_coefs <- penguins_pca$rotation[, 1:3]
 # penguins_scores <- penguins_pca$x[, 1:3]
 # 
-# animate_pca(penguins_scores, pc_coefs = penguins_coefs, col=col)
+# animate_pca(penguins_scores, pc_coefs = penguins_coefs, col=penguins_std$species)
 
 
 ## ----eval=FALSE---------------------------------------------------------------
 # render_gif(
 #   penguins_scores, grand_tour(),
 #   display_pca(pc_coefs = penguins_coefs,
-#               col=col, axes="bottomleft"),
-#   "images/penguins2d_pca.gif",
+#               col=penguins_std$species,
+#               axes="bottomleft"),
+#   "slides/images/penguins2d_pca.gif",
 #   frames=100, width=400, height=400)
 
 
@@ -298,14 +300,14 @@ ggplot(penguins_std,
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = grand_tour(1),
 #            display = display_dist(half_range = 1.3),
-#            gif_file = "images/penguins1d.gif",
+#            gif_file = "slides/images/penguins1d.gif",
 #            apf = 1/20,
 #            frames = 100,
 #            width = 400, height = 400)
 # render_gif(penguins_std[,2:5],
 #            tour_path = grand_tour(d=2),
-#            display = display_density2d(col=col, axes="bottomleft"),
-#            gif_file = "images/penguins2d_dens.gif",
+#            display = display_density2d(col=penguins_std$species, axes="bottomleft"),
+#            gif_file = "slides/images/penguins2d_dens.gif",
 #            apf = 1/20,
 #            frames=100,
 #            width=400, height=400)
@@ -319,7 +321,7 @@ ggplot(penguins_std,
 ## ----runthis12, eval=F--------------------------------------------------------
 # animate_density2d(
 #   penguins_std[,2:5],
-#   col=col, axes="bottomleft")
+#   col=penguins_std$species, axes="bottomleft")
 
 
 ## ----eval=FALSE---------------------------------------------------------------
@@ -345,7 +347,7 @@ countdown::countdown(2,0)
 #   display_xy(
 #     col=penguins_std$species,
 #     axes="bottomleft"),
-#   gif_file="images/penguins2d.gif",
+#   gif_file="slides/images/penguins2d.gif",
 #   frames=100,
 #   width=400,
 #   height=400

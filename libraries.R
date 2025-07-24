@@ -44,10 +44,9 @@ library(ggdist)
 
 library(remotes)
 # remotes::install_github("wmurphyrd/fiftystater")
-library(fiftystater)
+try(library(fiftystater))
 # remotes::install_github("heike/vinference")
-library(vinference)
-
+try(library(vinference))
 
 library(conflicted)
 conflicts_prefer(dplyr::filter)
