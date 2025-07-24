@@ -35,9 +35,7 @@ head(french_fries)
 
 ## What would you like to find out about the french fries data set? {.inverse}
 
-Go to menti.com at 2979 2396 and let us know!
-
-![](images/mentimeter_qr_code.png){width="30%"}
+Put your questions in the chat!
 
 
 
