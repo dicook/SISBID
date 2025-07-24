@@ -763,9 +763,9 @@ Note: this zip file assumes you will extract to the same folder as yesterday –
 <tbody>
 <tr class="odd">
 <td>2.1 Tidy data and tidying your messy data with tidyr</td>
-<td><a href="slides/2.1-tidyr.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a></td>
-<td><a href="slides/2.1-tidyr.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> 1pg</a></td>
-<td><a href="code/2.1-tidyr.R"><i class="fa-solid fa-code" aria-label="code"></i> Code</a></td>
+<td><a href="slides/2-1-tidyr.rjs.html"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i> Slides</a></td>
+<td><a href="slides/2-1-tidyr.onepage.html"><i class="fa-solid fa-file" aria-label="file"></i> 1pg</a></td>
+<td><a href="code/2-1-tidyr.R"><i class="fa-solid fa-code" aria-label="code"></i> Code</a></td>
 <td>Heike</td>
 </tr>
 <tr class="even">
@@ -908,20 +908,23 @@ Note: this zip file assumes you will extract to the same folder as Wednesday –
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GGally"</span>, <span class="st">"ggpcp"</span>, <span class="st">"corrgram"</span>, <span class="st">"tourr"</span>, <span class="st">"gganimate"</span>, <span class="st">"maps"</span>,<span class="st">"datasauRus"</span>,</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gapminder"</span>, <span class="st">"cranlogs"</span>, <span class="st">"shiny"</span>, <span class="st">"bslib"</span>, <span class="st">"DT"</span>, <span class="st">"leaflet"</span>, <span class="st">"plotly"</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"htmltools"</span>, <span class="st">"broom"</span>, <span class="st">"broom.mixed"</span>, <span class="st">"lme4"</span>, <span class="st">"MASS"</span>, <span class="st">"forecast"</span>, <span class="st">"nullabor"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggdist"</span>, <span class="st">"bsicons"</span>, <span class="st">"ragg"</span>, <span class="st">"showtext"</span>, <span class="st">"thematic"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages and their dependencies</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(packages, <span class="at">dep=</span><span class="cn">TRUE</span>, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org/"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Install some packages from GitHub</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"wmurphyrd/fiftystater"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"heike/vinference"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio/bslib"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># For sharing web apps,</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># but you need adminstrator rights to your computer:</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rsconnect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggdist"</span>, <span class="st">"bsicons"</span>, <span class="st">"ragg"</span>, <span class="st">"showtext"</span>, <span class="st">"thematic"</span>, <span class="st">"remotes"</span>, <span class="st">"quarto"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"superheat"</span>, <span class="st">"bslib"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages and their dependencies</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>to_install <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(packages, <span class="fu">installed.packages</span>())</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(to_install, <span class="at">dep=</span><span class="cn">TRUE</span>, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org/"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Install some packages from GitHub</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># If you can't install these,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># it won't affect your ability to participate</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"wmurphyrd/fiftystater"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"heike/vinference"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio/bslib"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># For sharing web apps,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># but you need administrator rights to your computer:</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rsconnect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Note:</strong> You can install all of the <code>tidyverse</code> of packages - <code>tidyr</code>, <code>dplyr</code>, <code>readr</code>, <code>ggplot2</code>, <code>tibble</code>, <code>purrr</code>, <code>forcats</code>, <code>stringr</code> - with <code>install.packages("tidyverse")</code>. But some operating systems seem to run into difficulties doing this, so installing just a subset is easier.</p>
 <p>If you want to compile the slides - you really don’t want to do this, but if you do - you will need these additional packages:</p>

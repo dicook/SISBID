@@ -106,7 +106,7 @@ Note: this zip file assumes you will extract to the same folder as yesterday -- 
 
 | Title | Slides | 1pg Slides | Code | Instructor |
 | ------------ | --- | --------- | --- | ------ |
-| 2.1  Tidy data and tidying your messy data with tidyr | [{{< fa person-chalkboard >}} Slides](slides/2.1-tidyr.rjs.html) | [{{< fa file >}} 1pg](slides/2.1-tidyr.onepage.html) | [{{< fa code >}} Code](code/2.1-tidyr.R) | Heike |
+| 2.1  Tidy data and tidying your messy data with tidyr | [{{< fa person-chalkboard >}} Slides](slides/2-1-tidyr.rjs.html) | [{{< fa file >}} 1pg](slides/2-1-tidyr.onepage.html) | [{{< fa code >}} Code](code/2-1-tidyr.R) | Heike |
 | 2.2 Making Data Messy again | [{{< fa person-chalkboard >}} Slides](slides/2-2-messy-it-up.rjs.html) | [{{< fa file >}} 1pg](slides/2-2-messy-it-up.onepage.html) | [{{< fa code >}} Code](code/2-2-messy-it-up.R) | Susan |
 | 2.3 Wrangling data and models | [{{< fa person-chalkboard >}} Slides](slides/2-3-wrangling.rjs.html) | [{{< fa file >}} 1pg](slides/2-3-wrangling.onepage.html) | [{{< fa code >}} Code](code/2-3-wrangling.R) | Heike |
 | Break | | | | |
