@@ -131,7 +131,7 @@ Note: this zip file assumes you will extract to the same folder as Wednesday -- 
 | 3.4 Theme a shiny app | [{{< fa person-chalkboard >}} Slides](slides/3-4-theme-shiny.rjs.html) | [{{< fa file >}} 1pg](slides/3-4-theme-shiny.onepage.html) | [{{< fa code >}} Code](code/3-4-theme-shiny.R) | Susan |
 | 3.5 Build your own Shiny app | [{{< fa person-chalkboard >}} Slides](slides/3-5-build-shiny-app.rjs.html) | [{{< fa file >}} 1pg](slides/3-5-build-shiny-app.onepage.html) | [{{< fa code >}} Code](code/3-5-build-shiny-app.R) | Heike |
 | Show us What You've Made | | | | All  |
-| 3.6 Interactive Documents | [{{< fa person-chalkboard >}} Slides](slides/3-6-interactive-documents.rjs.html) | [{{< fa file >}} 1pg](slides/3-6-interactive-documents.onepage.html) | [{{< fa code >}} Code](code/3-6-interactive-documents.R) | Di |
+| 3.6 Interactive Documents | [{{< fa person-chalkboard >}} Slides](slides/3-6-interactive-document.rjs.html) | [{{< fa file >}} 1pg](slides/3-6-interactive-document.onepage.html) | [{{< fa code >}} Code](code/3-6-interactive-document.R) | Di |
 
 
 
