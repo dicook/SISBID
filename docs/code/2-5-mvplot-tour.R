@@ -3,7 +3,7 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## -----------------------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
 # Use default penguins
@@ -16,24 +16,6 @@ penguins_std <- penguins |>
          bm = body_mass) |>
   mutate_at(vars(bl:bm), stdd) |>
   select(species, bl:bm)
-
-
-## ----penguins, echo=TRUE, eval=FALSE, fig.show='hide',out.extra='.smaller'----
-# ggplot(penguins_std,
-#    aes(x=fl,
-#        y=bm,
-#        colour=species,
-#        shape=species)) +
-#   xlab("Flipper Length (mm)") +
-#   ylab("Body Mass (g)") +
-#   geom_point(alpha=0.7,
-#              size=2) +
-#   scale_color_discrete_divergingx(palette = "Zissou 1")+
-#   theme(aspect.ratio=1,
-#   legend.position="bottom")
-
-
-## ----ref.label='penguins', echo=FALSE, fig.width=5, fig.height=5, out.width="100%"----
 
 
 ## ----scatterplot matrix, echo=FALSE, eval=TRUE, fig.width=6, fig.height=6-----
@@ -49,15 +31,21 @@ ggpairs(penguins_std, columns=c(2:5),
 # animate_xy(penguins_std[,2:5],
 #            col=penguins_std$species,
 #            axes="off",
-#            fps=15)
+#            fps=10)
 
 
 ## ----eval=FALSE, echo=FALSE---------------------------------------------------
 # # This code was used to make the animated gif
 # set.seed(20200622)
-# render_gif(penguins_std[,2:5], grand_tour(),
-#            display_xy(col=col, axes="bottomleft"),
-#            "images/penguins2d.gif", frames=100, width=400, height=400)
+# render_gif(penguins_std[,2:5],
+#            grand_tour(),
+#            display_xy(col=penguins_std$species,
+#                       axes="bottomleft"),
+#            gif_file = "slides/images/penguins2d.gif",
+#            apf = 1/20,
+#            frames=100,
+#            width=400,
+#            height=400)
 
 
 ## ----echo=FALSE, out.width="100%", fig.width=6, fig.height=6, fig.retina=5----
@@ -66,7 +54,7 @@ ggscatmat(penguins_std, columns = 2:5, color="species") +
   theme(legend.position="bottom")
 
 
-## ----reading axes, eval=FALSE, echo=FALSE-------------------------------------
+## ----reading-axes, eval=FALSE, echo=FALSE-------------------------------------
 # # Generate a plotly animation to demonstrate
 # library(plotly)
 # library(htmltools)
@@ -123,28 +111,26 @@ ggscatmat(penguins_std, columns = 2:5, color="species") +
 #        theme_void() +
 #        coord_fixed() +
 #   theme(legend.position="none")
-# pg <- ggplotly(p, width=1000, height=700) |>
+# pg <- ggplotly(p, width=1100, height=700) |>
 #   animation_opts(200, redraw = FALSE,
 #                  easing = "linear", transition=0)
 # save_html(pg, file="html/penguins.html", libdir="lib")
 
 
-## ----runthis1, fig.width=4, fig.height=4, out.width="90%"---------------------
+## ----runthis1, fig.width=4, fig.height=4, out.width="80%"---------------------
 ggplot(penguins_std, 
    aes(x=fl, y=bd,
-       colour=species,
-       shape=species)) +
+       colour=species)) +
   geom_point(alpha=0.7, size=2) +
   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
   legend.position="bottom") 
 
 
-## ----runthis2, fig.width=4, fig.height=4, out.width="90%"---------------------
+## ----runthis2, fig.width=4, fig.height=4, out.width="80%"---------------------
 ggplot(penguins_std, 
    aes(x=bl, y=bm,
-       colour=species,
-       shape=species)) +
+       colour=species)) +
   geom_point(alpha=0.7, size=2) +
   scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(aspect.ratio=1,
@@ -174,7 +160,7 @@ ggplot(penguins_std,
 ## ----eval=FALSE, echo=FALSE---------------------------------------------------
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 2),
-#            display = display_xy(col = col),
+#            display = display_xy(col = penguins_std$species),
 #            gif_file = "images/penguins_rt_bd.gif",
 #            apf = 1/20,
 #            frames = 100,
@@ -182,7 +168,7 @@ ggplot(penguins_std,
 # 
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 1),
-#            display = display_xy(col = col),
+#            display = display_xy(col = penguins_std$species),
 #            gif_file = "images/penguins_rt_bl.gif",
 #            apf = 1/20,
 #            frames = 100,
@@ -190,7 +176,7 @@ ggplot(penguins_std,
 # 
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 3),
-#            display = display_xy(col = col),
+#            display = display_xy(col = penguins_std$species),
 #            gif_file = "images/penguins_rt_fl.gif",
 #            apf = 1/20,
 #            frames = 100,
@@ -198,7 +184,7 @@ ggplot(penguins_std,
 # 
 # render_gif(data=penguins_std[,2:5],
 #            tour_path = radial_tour(as.matrix(best_proj), mvar = 4),
-#            display = display_xy(col = col),
+#            display = display_xy(col = penguins_std$species),
 #            gif_file = "images/penguins_rt_bm.gif",
 #            apf = 1/20,
 #            frames = 100,
@@ -221,7 +207,7 @@ ggplot(penguins_std,
 # # change mvar to switch variables
 # animate_xy(penguins_std[,2:5],
 #            radial_tour(as.matrix(best_proj), mvar = 2),
-#            col = col)
+#            col = penguins_std$species)
 
 
 ## ----eval=FALSE, echo=FALSE---------------------------------------------------
@@ -366,42 +352,6 @@ countdown::countdown(2,0)
 # )
 
 
-## ----eval=FALSE---------------------------------------------------------------
-# set.seed(209)
-# b <- basis_random(4, 2)
-# penguins_pct <- tourr::save_history(
-#   penguins_std[,2:5], tour_path = grand_tour(),
-#   start = b, max_bases = 5)
-# save(penguins_pct, file="../data/p_tour_path.rda")
-# 
-# penguins_pcti <- interpolate(penguins_pct, 0.2)
-# penguins_anim <- render_anim(penguins_std, vars = 2:5,
-#                              frames=penguins_pcti,
-#                              obs_labels=penguins_std$species)
-# 
-# penguins_gp <- ggplot() +
-#   geom_path(data=penguins_anim$circle, aes(x=c1, y=c2, frame=frame), linewidth=0.1) +
-#   geom_segment(data=penguins_anim$axes, aes(x=x1, y=y1, xend=x2, yend=y2, frame=frame), linewidth=0.1) +
-#   geom_text(data=penguins_anim$axes, aes(x=x2, y=y2, frame=frame, label=axis_labels), size=5) +
-#   geom_point(data=penguins_anim$frames,
-#              aes(x=P1, y=P2, colour=species, frame=frame, label=obs_labels), alpha=0.8) +
-#   xlim(-1,1) +
-#   ylim(-1,1) +
-#   coord_equal() + theme_bw() +
-#   theme(legend.position = "none",
-#     axis.text=element_blank(), axis.title=element_blank(),
-#     axis.ticks=element_blank(), panel.grid=element_blank())
-# 
-# penguins_tour <- ggplotly(penguins_gp, width=500, height=550) %>%
-#   animation_button(label="Go") %>%
-#   animation_slider(len=0.8, x=0.5, xanchor="center") %>%
-#   animation_opts(easing="linear", transition = 0)
-# 
-# penguins_tour
-# 
-# htmlwidgets::saveWidget(penguins_tour, file="html/penguins.html", selfcontained = TRUE)
-
-
 ## -----------------------------------------------------------------------------
 load(here::here("data/p_tour_path.rda"))
 penguins_pcti <- interpolate(
@@ -441,5 +391,5 @@ pg27 <- ggplot() +
 
 ## ----echo=FALSE, out.width="80%", fig.width=7, fig.height=6-------------------
 # pg27
-ggplotly(pg27, width=450, height=450)
+ggplotly(pg27, width=550, height=550)
 
