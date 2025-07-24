@@ -27,8 +27,6 @@ ff_long <- french_fries |>
 head(ff_long)
 
 
-## ----original form------------------------------------------------------------
-knitr::kable(head(ff_long, 4))
 
 
 ## ----spread it back into wide form--------------------------------------------
@@ -36,8 +34,6 @@ french_fries_weeks <- ff_long |>
   pivot_wider(names_from = "time", values_from = "rating")
 
 
-## -----------------------------------------------------------------------------
-kable(head(french_fries_weeks,3))
 
 
 ## ----spread-------------------------------------------------------------------

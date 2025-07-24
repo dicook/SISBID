@@ -76,9 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9878521a91b678208a643d309e3478c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1c0263d4eb88692309215375529303ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-37efadb2146060d5f641047caff99c73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9878521a91b678208a643d309e3478c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1c0263d4eb88692309215375529303ea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -415,8 +415,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pivot-to-wide-form-2" id="toc-pivot-to-wide-form-2" class="nav-link" data-scroll-target="#pivot-to-wide-form-2">Pivot to wide form</a></li>
   <li><a href="#comparing-ratings-different-weeks" id="toc-comparing-ratings-different-weeks" class="nav-link" data-scroll-target="#comparing-ratings-different-weeks">Comparing ratings: different weeks</a></li>
   <li><a href="#your-turn-are-the-replicates-similar" id="toc-your-turn-are-the-replicates-similar" class="nav-link" data-scroll-target="#your-turn-are-the-replicates-similar">Your turn: Are the replicates similar?</a></li>
-  <li><a href="#are-ratings-similar-on-different-scales" id="toc-are-ratings-similar-on-different-scales" class="nav-link" data-scroll-target="#are-ratings-similar-on-different-scales">Are ratings similar on different scales?</a></li>
-  <li><a href="#are-ratings-similar-across-different-scales" id="toc-are-ratings-similar-across-different-scales" class="nav-link" data-scroll-target="#are-ratings-similar-across-different-scales">Are ratings similar across different scales?</a></li>
+  <li><a href="#are-ratings-similar-across-scales" id="toc-are-ratings-similar-across-scales" class="nav-link" data-scroll-target="#are-ratings-similar-across-scales">Are ratings similar across scales?</a></li>
+  <li><a href="#are-ratings-similar-across-scales-1" id="toc-are-ratings-similar-across-scales-1" class="nav-link" data-scroll-target="#are-ratings-similar-across-scales-1">Are ratings similar across scales?</a></li>
   <li><a href="#side-by-side-boxplots" id="toc-side-by-side-boxplots" class="nav-link" data-scroll-target="#side-by-side-boxplots">Side-by-side boxplots</a></li>
   <li><a href="#your-turn-correlation-bw-scales" id="toc-your-turn-correlation-bw-scales" class="nav-link" data-scroll-target="#your-turn-correlation-bw-scales">Your turn: Correlation b/w scales?</a></li>
   <li><a href="#ratings-by-week" id="toc-ratings-by-week" class="nav-link" data-scroll-target="#ratings-by-week">Ratings by week</a></li>
@@ -479,7 +479,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Are raters giving different scores on average?</li>
 <li>Do ratings change over the weeks?</li>
 </ul>
-<p>Each of these questions involves different summaries of the data.</p>
+<p>Each of these questions requires a different summary of the data.</p>
+<div class="notes">
+<p>When we get a new dataset, we have to check to see whether it’s complete, whether it matches our expectations, and then we start thinking about how to approach modeling and visualization of the results.</p>
+<p>These questions are just a few that we might ask!</p>
+</div>
 </section>
 <section id="pivot-french-fries-to-long" class="level2">
 <h2 class="anchored" data-anchor-id="pivot-french-fries-to-long">Pivot french fries to long</h2>
@@ -500,6 +504,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5 1     1         3           1 painty     5.5
 6 1     1         3           2 potato    14  </code></pre>
 </div>
+</div>
+<div class="notes">
+<p>The data comes in a form that’s easier to record – which makes sense. But our first step has to be rearranging it so that it’s easier to work with and visualize. We would need 5 different geom_line statements to plot the results for each time/treatment/subject/scale – one for each scale – in the original format. But, if we move to long form, we can plot the data with much less effort, leading to much more readable code.</p>
 </div>
 </section>
 <section id="pivot-long-to-wide" class="level2 r-fit-text smaller">
@@ -529,13 +536,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 </div>
+<div class="notes">
+<p>Long form data gives us the ability to use dplyr mutate/summarize commands to answer a bunch of different questions, like the ones shown here.</p>
+<p>Moreover, we can move from long form to a different wide form to answer these questions, which can be useful if we need to present summary data in a table.</p>
+</div>
 </section>
 <section id="pivot-to-wide-form" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="pivot-to-wide-form">Pivot to wide form</h2>
 <p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
 <p>Long form:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(ff_long, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -591,11 +601,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
 <p>Wide form:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>french_fries_weeks <span class="ot">&lt;-</span> ff_long <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"time"</span>, <span class="at">values_from =</span> <span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>french_fries_weeks <span class="ot">&lt;-</span> ff_long <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"time"</span>, <span class="at">values_from =</span> <span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(french_fries_weeks,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
@@ -685,13 +694,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
+<div class="notes">
+<p>Here, we pivot to a different wide form – we’ll have columns indicating time points instead of rating characteristics.</p>
+</div>
 </section>
 <section id="pivot-to-wide-form-2" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="pivot-to-wide-form-2">Pivot to wide form</h2>
 <div class="columns">
 <div class="column" style="width:80%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(french_fries_weeks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(french_fries_weeks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 14
   treatment subject   rep type     `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`
@@ -719,6 +731,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>creates a new column for each value of the variable in <code>names_from</code></li>
 <li>fills values in using the variable in <code>values_from</code></li>
 </ul>
+<div class="notes">
+<p>The posit cheatsheets are amazing for helping you get from concept to muscle memory. I used them every day for years until I no longer needed them as often, and even now, when they update the syntax a bit, I will still keep the cheat sheets handy to remind myself about the new options.</p>
+</div>
 </section>
 <section id="comparing-ratings-different-weeks" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-ratings-different-weeks">Comparing ratings: different weeks</h2>
@@ -726,9 +741,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>french_fries_weeks <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">9</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>french_fries_weeks <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">9</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
@@ -742,24 +757,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<div class="notes">
+<p>Here, you can see how easy it is for us to create a scatterplot of the week 1 vs.&nbsp;9 ratings. We’ll learn later how to do this for all 10 weeks, comparing each week to all other weeks, but for now let’s just examine a single scatterplot.</p>
+</div>
 </section>
 <section id="your-turn-are-the-replicates-similar" class="level2 inverse">
 <h2 class="inverse anchored" data-anchor-id="your-turn-are-the-replicates-similar">Your turn: Are the replicates similar?</h2>
-<ul>
-<li>Plot the replicates against each other using a scatterplot.</li>
-<li>First, convert the data into long form</li>
+<p>Goal: Plot the replicates against each other using a scatterplot.</p>
+<ol type="1">
+<li>Convert the data into long form</li>
 <li>Get the replicates spread into separate columns by replicate.</li>
-</ul>
+<li>Make the plot.</li>
+</ol>
 </section>
-<section id="are-ratings-similar-on-different-scales" class="level2">
-<h2 class="anchored" data-anchor-id="are-ratings-similar-on-different-scales">Are ratings similar on different scales?</h2>
+<section id="are-ratings-similar-across-scales" class="level2">
+<h2 class="anchored" data-anchor-id="are-ratings-similar-across-scales">Are ratings similar across scales?</h2>
 <ul>
 <li>Scales: potato-y, buttery, grassy, rancid and painty?</li>
 <li>Pivot into long form, plot with <code>facet_...(~scale)</code>.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ff.m <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>(time<span class="sc">:</span>rep), <span class="at">names_to=</span><span class="st">"type"</span>, <span class="at">values_to=</span><span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ff.m <span class="ot">&lt;-</span> french_fries <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="sc">-</span>(time<span class="sc">:</span>rep), <span class="at">names_to=</span><span class="st">"type"</span>, <span class="at">values_to=</span><span class="st">"rating"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -774,13 +793,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6 1     1         3           2 potato    14  </code></pre>
 </div>
 </div>
+<div class="notes">
+<p>Many times when multiple scales are used, we want to ensure the values are comparable across scales – we might standardize by subtracting the mean and then divide by the SD for each scale.</p>
+<p>To know whether that’s necessary, though, we need to get into a form where we can plot the data… which is typically long form.</p>
+</div>
 </section>
-<section id="are-ratings-similar-across-different-scales" class="level2">
-<h2 class="anchored" data-anchor-id="are-ratings-similar-across-different-scales">Are ratings similar across different scales?</h2>
+<section id="are-ratings-similar-across-scales-1" class="level2">
+<h2 class="anchored" data-anchor-id="are-ratings-similar-across-scales-1">Are ratings similar across scales?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>rating)) <span class="sc">+</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol=</span><span class="dv">5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>rating)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol=</span><span class="dv">5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -789,12 +812,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<div class="notes">
+<p>We can see here that people tend to give much lower values for grassy and buttery than for potato and rancid. Painty has the same 0-inflation issue seen in the first two scales, but has a wider spread.</p>
+<p>What if we use a boxplot instead?</p>
+</div>
 </section>
 <section id="side-by-side-boxplots" class="level2">
 <h2 class="anchored" data-anchor-id="side-by-side-boxplots">Side-by-side boxplots</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>type, <span class="at">y=</span>rating, <span class="at">fill=</span>type)) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>type, <span class="at">y=</span>rating, <span class="at">fill=</span>type)) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -802,6 +829,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
+</div>
+<div class="notes">
+<p>You can see many of the same features in a boxplot - the 0-inflation is clear when the median is still 0, as in grassy. Potato is clearly different from the other scales in terms of how it’s used by participants, and even rancid seems to be used fairly differently than the others.</p>
 </div>
 </section>
 <section id="your-turn-correlation-bw-scales" class="level2 inverse">
@@ -812,16 +842,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the result.</p></li>
 <li><p>Draw a scatterplot of two scales with the highest (positive or negative) correlation value.</p></li>
 </ul>
+<div class="notes">
+<p>Let’s see if you can create a correlation matrix for the different scales. You’ll want to move to wide form, then use the <code>cor</code> function. Cor doesn’t handle NAs that well, so you’ll want to remove them. Take a few minutes to do this and paste your plot into the chat when you’re done!</p>
+</div>
 </section>
 <section id="ratings-by-week" class="level2">
 <h2 class="anchored" data-anchor-id="ratings-by-week">Ratings by week</h2>
 <p>Use the long form of the data and plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ff.m<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ff.m<span class="sc">$</span>time)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>rating, <span class="at">colour=</span>type)) <span class="sc">+</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ff.m<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ff.m<span class="sc">$</span>time)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff.m, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>rating, <span class="at">colour=</span>type)) <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -829,6 +862,9 @@ Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the
 </figure>
 </div>
 </div>
+</div>
+<div class="notes">
+<p>When we looked at the distribution of ratins, I started wondering about the effect of time – luckily, it’s pretty easy to look into that using long form. I’ve made the plot, but perhaps you can fit a model?</p>
 </div>
 </section>
 <section id="your-turn-ratings-by-time-scale" class="level2 inverse middle">
@@ -846,6 +882,11 @@ Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the
 </figure>
 </div>
 </div>
+</div>
+<div class="notes">
+<p>Long form is typically also used when fitting models! See if you can get the data into the correct form to fit a linear model of rating by time and scale type.</p>
+<p>As a challenge, see if you can get the predicted values back out to show the fitted lines!</p>
+<p>Paste your plots in the chat to show off when you’re done.</p>
 </div>
 </section>
 <section id="resources" class="level2">
