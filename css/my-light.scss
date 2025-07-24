@@ -16,11 +16,10 @@ h1, h2, h3 {
   a, a > code {
     color: #2AF5B8!important;
   }
+  .dropdown-menu li a{
+    color: #106149!important;
+  }
 }
-.dropdown-menu li{
-  color: #106149!important;
-}
-
 li::marker {
   color: #924103!important;
 }
