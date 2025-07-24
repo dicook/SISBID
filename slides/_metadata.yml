@@ -5,7 +5,9 @@ format:
     css: ["css/myremark.css"]
     self_contained: false
     progress: true
-    menu: true
+    menu: false
+    footer: "[SISBID Visualization](https://dicook.github.io/SISBID/)"
+    show-slide-number: all
   html:
     output-ext: onepage.html
 search: false

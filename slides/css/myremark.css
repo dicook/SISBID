@@ -243,10 +243,6 @@ code {
   font-style: italic;
   font-size: 70%;
 }
-/* Hide a slide number */
-.hide-count .remark-slide-number {
-  display: none;
-}
 
 
 /* Change highlighting approach */
