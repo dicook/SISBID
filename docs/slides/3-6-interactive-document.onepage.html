@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Building interactive documents with Rmarkdown tools, learnr, flexdashboard – SISBID Data Visualization</title>
+<title>Building interactive documents with learnr, flexdashboard – SISBID Data Visualization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,14 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2ee3804a2a16920756f25aa2c75825ef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-37efadb2146060d5f641047caff99c73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-2ee3804a2a16920756f25aa2c75825ef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-8dfd42e27c2f58adbb26eea193a330e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0dfe272ec7bd57f1d2b930428b8c440a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8dfd42e27c2f58adbb26eea193a330e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -439,7 +439,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Building interactive documents with Rmarkdown tools, learnr, flexdashboard</h1>
+<h1 class="title">Building interactive documents with learnr, flexdashboard</h1>
 <p class="subtitle lead">SISBID 2025 <br> https://github.com/dicook/SISBID</p>
 </div>
 
@@ -476,13 +476,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"flexdashboard"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<p>Create a “New Quarto” document -&gt; “Interactive”</p>
+<p>Create a “New R Markdown” document -&gt; “Interactive”</p>
 <p><a href="images/flexdashboard.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/flexdashboard.png" class="img-fluid" style="width:80.0%"></a></p>
 </div>
 </div>
 </section>
-<section id="basic-dashboard" class="level2">
-<h2 class="anchored" data-anchor-id="basic-dashboard">Basic dashboard</h2>
+<section id="basic-dashboard" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="basic-dashboard">Basic dashboard</h2>
 <ul>
 <li>Check that the document compiles, by clicking <code>Knit</code></li>
 <li>Modify the title and author</li>
@@ -496,8 +496,8 @@ output:
     vertical_layout: fill
 ---</code></pre>
 </section>
-<section id="components" class="level2">
-<h2 class="anchored" data-anchor-id="components">Components</h2>
+<section id="components" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="components">Components</h2>
 <p>This creates a box or a pane for a plot or results</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">### Chart 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -513,13 +513,13 @@ output:
 <ul>
 <li>Change the default layout in your flexdashboard to have two plots in the left column.</li>
 <li>Make each column equal width</li>
-<li>Pick four countries and create the interactive chart of temporal trend. (We used India in the learnr tutorial. You can copy this code, and choose another three.)</li>
+<li>Pick four countries and create the interactive chart of temporal trend.</li>
 <li>Change the tab titles to reflect what country is displayed.</li>
 <li>Add several sentences on each pane about the data, and some things they should learn about TB incidence in that country.</li>
 </ul>
 </section>
-<section id="adding-pages-and-tabs" class="level2">
-<h2 class="anchored" data-anchor-id="adding-pages-and-tabs">Adding pages and tabs</h2>
+<section id="adding-pages-and-tabs" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="adding-pages-and-tabs">Adding pages and tabs</h2>
 <p>A new page (tab) can be added using</p>
 <pre><code>Page 1
 ===================================== </code></pre>
@@ -551,18 +551,16 @@ output:
 </ul>
 <p>🛑 To get started, make sure you have the <code>learnr</code> package installed on your computer.</p>
 <pre><code>install.packages("learnr")</code></pre>
-<p>✅ Then create a “New R Markdown” document, “From Template”, “Interactive Tutorial”.</p>
+<p>✅ Then create a new “R Markdown” document, “From Template”, “Interactive Tutorial”.</p>
 </div><div class="column" style="width:25%;">
 <p><a href="images/learnr.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="images/learnr.png" class="img-fluid" style="width:100.0%"></a></p>
 </div>
 </div>
 </section>
-<section id="basic-tutorial" class="level2">
-<h2 class="anchored" data-anchor-id="basic-tutorial">Basic tutorial</h2>
-<ul>
-<li>🛑 Check that the document compiles, by clicking <code>Run Document</code></li>
-<li>✅ Modify the title and author</li>
-</ul>
+<section id="basic-tutorial" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="basic-tutorial">Basic tutorial</h2>
+<p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
+<p>✅ Modify the title and author</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "TB Incidence Around the Globe"</span></span>
@@ -571,25 +569,19 @@ output:
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="an">runtime:</span><span class="co"> shiny_prerendered</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>🛑 Check that the document compiles, by clicking <code>Run Document</code></li>
-</ul>
+<p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
-<section id="write-the-first-section" class="level2">
-<h2 class="anchored" data-anchor-id="write-the-first-section">Write the first section</h2>
-<ul>
-<li>✅ Set the first section to be a description of the data</li>
-</ul>
+<section id="write-the-first-section" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="write-the-first-section">Write the first section</h2>
+<p>✅ Set the first section to be a description of the data</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data description</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>This is current tuberculosis data taken from <span class="co">[</span><span class="ot">WHO</span><span class="co">](http://www.who.int/tb/country/data/download/en/)</span>, </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>the case notifications table. The data looks like this:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li><p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p></li>
-<li><p>✅ Create a <code>data</code> directory in your tutorial folder, and add the <code>TB_notifications_2019-07-01.csv</code> data into this.</p></li>
-</ul>
+<p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
+<p>✅ Create a <code>data</code> directory in your tutorial folder, and add the <code>TB_burden_countries_2025-07-22.csv</code> data into this.</p>
 </section>
 <section id="basic-tutorial-1" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="basic-tutorial-1">Basic Tutorial</h2>
@@ -598,38 +590,26 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2019-07-01.csv"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, iso3, year, new_sp_m04<span class="sc">:</span>new_sp_fu) <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span>new_sp_m04<span class="sc">:</span>new_sp_fu, <span class="at">names_to=</span><span class="st">"sexage"</span>, <span class="at">values_to=</span><span class="st">"count"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexage =</span> <span class="fu">str_replace</span>(sexage, <span class="st">"new_sp_"</span>, <span class="st">""</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex=</span><span class="fu">substr</span>(sexage, <span class="dv">1</span>, <span class="dv">1</span>), </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">age=</span><span class="fu">substr</span>(sexage, <span class="dv">2</span>, <span class="fu">length</span>(sexage))) <span class="sc">%&gt;%</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>sexage)  <span class="sc">%&gt;%</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"United States of America"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"04"</span>, <span class="st">"014"</span>, <span class="st">"514"</span>, <span class="st">"u"</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1996</span>, year <span class="sc">&lt;</span> <span class="dv">2013</span>) </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(tb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_burden_countries_2025-07-22.csv"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, iso3, year, e_inc_100k) </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(tb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>🛑 Check that the document compiles, by clicking <code>Run Document</code></li>
-</ul>
+<p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
-<section id="add-a-plot" class="level2">
-<h2 class="anchored" data-anchor-id="add-a-plot">Add a plot</h2>
-<ul>
-<li>✅ Make a separate section titled “Incidence”, and add the code to make a plot, like the following</li>
-</ul>
+<section id="add-a-plot" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="add-a-plot">Add a plot</h2>
+<p>✅ Make a separate section titled “Incidence”, and add the code to make a plot, like the following</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb, <span class="fu">aes</span>(<span class="at">x=</span>year)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">weight =</span> count)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">weight =</span> e_inc_100k)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"TB incidence per 100k"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>🛑 Check that the document compiles, by clicking <code>Run Document</code></li>
-</ul>
+<p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
-<section id="polishing-the-data-description" class="level2">
-<h2 class="anchored" data-anchor-id="polishing-the-data-description">Polishing the data description</h2>
+<section id="polishing-the-data-description" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="polishing-the-data-description">Polishing the data description</h2>
 <p>Loading the libraries generates some messages and warnings on the page.</p>
 <p>This is good interactively, but distracting in the finished page.</p>
 <pre><code>## ── Attaching packages ──────────────────────────────────────────── tidyverse 1.2.1 ──
@@ -641,8 +621,8 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 ## Warning: Removed 619 rows containing missing values (geom_point).</code></pre>
 <p>We need to change the setup chunk options to turn these off:</p>
 </section>
-<section id="polishing-the-data-description-1" class="level2">
-<h2 class="anchored" data-anchor-id="polishing-the-data-description-1">Polishing the data description</h2>
+<section id="polishing-the-data-description-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="polishing-the-data-description-1">Polishing the data description</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(learnr)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
@@ -651,18 +631,19 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">error =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>🛑 Check that the document compiles, by clicking <code>Run Document</code></li>
-</ul>
+<p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
 <section id="building-quizzes" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="building-quizzes">Building quizzes</h2>
+<div class="columns">
+<div class="column">
 <p>An example quiz is provided in the template. Note that the format of the R code is</p>
 <ul>
 <li><code>quiz()</code> wraps a set of questions.</li>
 <li><code>question()</code> contains the text of the question, and is coupled with multiple <code>answer()</code> elements with possible choices.</li>
 <li>At least one of the answers needs to be noted as correct with <code>, correct = TRUE</code>. There can be more than one correct answer.</li>
 </ul>
+</div><div class="column">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quiz</span>(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">question</span>(<span class="st">"Which package contains functions for installing other R packages?"</span>,</span>
@@ -675,6 +656,8 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 </div>
 <p><span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Try making a question about the TB data on the Incidence tab.</span></p>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
+</div>
+</div>
 </section>
 <section id="exercises-in-coding" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="exercises-in-coding">Exercises in coding</h2>
@@ -687,23 +670,23 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 </ol>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
-<section id="adding-a-shiny-element" class="level2">
-<h2 class="anchored" data-anchor-id="adding-a-shiny-element">Adding a shiny element</h2>
+<section id="adding-a-shiny-element" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="adding-a-shiny-element">Adding a shiny element</h2>
 <p>Because this is an html document, interactive graphics can be incorporated.<br>
 We’ll add a section to use interactive plots to examine the temporal trend in TB incidence.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> tb <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, age) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p_males =</span> count[sex<span class="sc">==</span><span class="st">"m"</span>]<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> tb <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(iso3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AUS"</span>, <span class="st">"USA"</span>, <span class="st">"CAN"</span>, <span class="st">"KEN"</span>, <span class="st">"IND"</span>, <span class="st">"COL"</span>, <span class="st">"ASM"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>p_males, <span class="at">frame=</span>year))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>iso3, <span class="at">y=</span>e_inc_100k, <span class="at">frame=</span>year))</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
-<section id="styling-and-cuteness" class="level2">
-<h2 class="anchored" data-anchor-id="styling-and-cuteness">Styling and cuteness</h2>
+<section id="styling-and-cuteness" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="styling-and-cuteness">Styling and cuteness</h2>
 <p>Use your emoji and anicon skills to add some friendly elements to the notes.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20190709</span>)</span>
@@ -720,8 +703,8 @@ We’ll add a section to use interactive plots to examine the temporal trend in 
 <section id="upload-your-tutorial-to-your-shiny.apps.io-account" class="level2 inverse middle center">
 <h2 class="inverse middle center anchored" data-anchor-id="upload-your-tutorial-to-your-shiny.apps.io-account">Upload your tutorial to your shiny.apps.io account</h2>
 </section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<section id="resources" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="resources">Resources</h2>
 <ul>
 <li><a href="https://blog.rstudio.com/2017/07/11/introducing-learnr/">Introducing learnr, Garret Grolemund</a></li>
 <li><a href="https://rmarkdown.rstudio.com/flexdashboard/">flexdashboard: Easy interactive dashboards for R</a></li>
@@ -736,6 +719,44 @@ We’ll add a section to use interactive plots to examine the temporal trend in 
 </section>
 
 </main> <!-- /main -->
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script>
+
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

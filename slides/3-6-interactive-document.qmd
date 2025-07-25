@@ -1,5 +1,5 @@
 ---
-title: "Building interactive documents with Rmarkdown tools, learnr, flexdashboard"
+title: "Building interactive documents with learnr, flexdashboard"
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
@@ -36,13 +36,13 @@ install.packages("flexdashboard")
 ```
 :::
 ::: column
-Create a "New Quarto" document -> "Interactive"
+Create a "New R Markdown" document -> "Interactive"
 
 ![](images/flexdashboard.png){width="80%"}
 :::
 :::
 
-## Basic dashboard
+## Basic dashboard {.smaller}
 
 - Check that the document compiles, by clicking `Knit`
 - Modify the title and author 
@@ -58,7 +58,7 @@ output:
 ---
 ````
 
-## Components
+## Components  {.smaller}
 
 This creates a box or a pane for a plot or results
 
@@ -77,12 +77,12 @@ Column {data-width=600}
 
 - Change the default layout in your flexdashboard to have two plots in the left column.
 - Make each column equal width
-- Pick four countries and create the interactive chart of temporal trend. (We used India in the learnr tutorial. You can copy this code, and choose another three.)
+- Pick four countries and create the interactive chart of temporal trend. 
 - Change the tab titles to reflect what country is displayed.
 - Add several sentences on each pane about the data, and some things they should learn about TB incidence in that country.
 
 
-## Adding pages and tabs
+## Adding pages and tabs  {.smaller}
 
 A new page (tab) can be added using
 
@@ -120,17 +120,18 @@ A set of notes with interactive plots, quizzes, and coding exercises.
 install.packages("learnr")
 ```
 
-`r emo::ji("white_check_mark")` Then create a "New R Markdown" document, "From Template", "Interactive Tutorial". 
+`r emo::ji("white_check_mark")` Then create a new "R Markdown" document, "From Template", "Interactive Tutorial". 
 :::
 ::: {.column width="25%"}
 ![](images/learnr.png){width="100%"}
 :::
 :::
 
-## Basic tutorial
+## Basic tutorial  {.smaller}
 
-- `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
-- `r emo::ji("white_check_mark")` Modify the title and author 
+`r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
+
+`r emo::ji("white_check_mark")` Modify the title and author 
 
 ```{md}
 ---
@@ -141,11 +142,11 @@ runtime: shiny_prerendered
 ---
 ```
 
-- `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
+`r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-## Write the first section
+## Write the first section  {.smaller}
 
-- `r emo::ji("white_check_mark")` Set the first section to be a description of the data
+`r emo::ji("white_check_mark")` Set the first section to be a description of the data
 
 ```{md}
 ## Data description
@@ -154,9 +155,9 @@ This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country
 the case notifications table. The data looks like this:
 ```
 
-- `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
+`r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-- `r emo::ji("white_check_mark")` Create a `data` directory in your tutorial folder, and add the `TB_notifications_2019-07-01.csv` data into this. 
+`r emo::ji("white_check_mark")` Create a `data` directory in your tutorial folder, and add the `TB_burden_countries_2025-07-22.csv` data into this. 
 
 ## Basic Tutorial {.smaller}
 
@@ -166,34 +167,28 @@ Here, we use the `DT` package to display the data in the output html.
 ```{r eval=F, echo = T}
 library(tidyverse)
 library(DT)
-tb <- read_csv(here::here("data/TB_notifications_2019-07-01.csv")) %>% 
-  select(country, iso3, year, new_sp_m04:new_sp_fu) %>%
-  pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") %>%
-  mutate(sexage = str_replace(sexage, "new_sp_", "")) %>%
-  mutate(sex=substr(sexage, 1, 1), 
-         age=substr(sexage, 2, length(sexage))) %>%
-  select(-sexage)  %>%
-  filter(country == "United States of America") %>%
-  filter(!(age %in% c("04", "014", "514", "u"))) %>%
-  filter(year > 1996, year < 2013) 
+tb <- read_csv(here::here("data/TB_burden_countries_2025-07-22.csv")) |> 
+  select(country, iso3, year, e_inc_100k) 
 
 datatable(tb)
 ```
 
-- `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
+`r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-## Add a plot
+## Add a plot  {.smaller}
 
-- `r emo::ji("white_check_mark")` Make a separate section titled "Incidence", and add the code to make a plot, like the following
+`r emo::ji("white_check_mark")` Make a separate section titled "Incidence", and add the code to make a plot, like the following
 
 ```{r, eval=F}
 ggplot(tb, aes(x=year)) +
-  geom_bar(aes(weight = count)) 
+  geom_bar(aes(weight = e_inc_100k)) +
+  xlab("") +
+  ylab("TB incidence per 100k")
 ```
 
-- `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
+`r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-## Polishing the data description
+## Polishing the data description  {.smaller}
 
 Loading the libraries generates some messages and warnings on the page.
 
@@ -211,7 +206,7 @@ This is good interactively, but distracting in the finished page.
 
 We need to change the setup chunk options to turn these off:
 
-## Polishing the data description
+## Polishing the data description  {.smaller}
 
 ```{r, eval = F}
 library(learnr)
@@ -222,16 +217,20 @@ knitr::opts_chunk$set(
   error = FALSE)
 ```
 
-- `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
+`r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
 ## Building quizzes {.smaller}
+
+:::: {.columns}
+::: {.column}
 
 An example quiz is provided in the template. Note that the format of the R code is 
 
 - `quiz()` wraps a set of questions.
 - `question()` contains the text of the question, and is coupled with multiple `answer()` elements with possible choices. 
 - At least one of the answers needs to be noted as correct with `, correct = TRUE`. There can be more than one correct answer. 
-
+:::
+::: {.column}
 ```{r, eval = F}
 quiz(
   question("Which package contains functions for installing other R packages?",
@@ -246,6 +245,8 @@ quiz(
 `r anicon::nia("Try making a question about the TB data on the Incidence tab.", colour="#FA700A", anitype="hover")`
 
 `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
+:::
+::::
 
 ## Exercises in coding {.smaller}
 
@@ -258,24 +259,24 @@ Adding `exercise = TRUE` on a code chunk provides an R console window where read
 
 `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-## Adding a shiny element
+## Adding a shiny element  {.smaller}
 
 Because this is an html document, interactive graphics can be incorporated.     
 We'll add a section to use interactive plots to examine the temporal trend in TB incidence. 
 
 ```{r, eval=F}
 library(plotly)
-p <- tb %>% 
-  group_by(year, age) %>%
-  summarise(p_males = count[sex=="m"]/sum(count)) %>%
+library(plotly)
+p <- tb |> 
+  filter(iso3 %in% c("AUS", "USA", "CAN", "KEN", "IND", "COL", "ASM")) |>
   ggplot() +
-    geom_point(aes(x=age, y=p_males, frame=year))
+    geom_point(aes(x=iso3, y=e_inc_100k, frame=year))
 ggplotly(p)
 ```
 
 `r emo::ji("stop_sign")`  Check that the document compiles, by clicking `Run Document`
 
-## Styling and cuteness
+## Styling and cuteness  {.smaller}
 
 Use your emoji and anicon skills to add some friendly elements to the notes. 
 
@@ -295,7 +296,7 @@ anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
 
 ## Upload your tutorial to your shiny.apps.io account {.inverse .middle .center}
 
-## Resources
+## Resources  {.smaller}
 
 - [Introducing learnr, Garret Grolemund](https://blog.rstudio.com/2017/07/11/introducing-learnr/)
 - [flexdashboard: Easy interactive dashboards for R](https://rmarkdown.rstudio.com/flexdashboard/)

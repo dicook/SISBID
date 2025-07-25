@@ -242,24 +242,31 @@ ggplot(datasaurus_dozen) +
 #| code-line-numbers: "3"
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
-  geom_point() #<<
+  geom_point() + #<<
+  xlim(c(0,100)) + ylim(c(0,100)) +
+  coord_equal() 
 
 
-## ----plot8, eval=TRUE, echo=TRUE----------------------------------------------
+## ----plot8, eval=TRUE, echo=TRUE, fig.width=8, fig.height=9, out.width="100%"----
 #| output-location: column
 #| code-line-numbers: "4"
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) +
   geom_point() +
-  facet_wrap(~dataset) #<<
+  facet_wrap(~dataset) + #<<
+  xlim(c(0,100)) + ylim(c(0,100)) +
+  coord_equal() +
+  theme(legend.position = "none")
 
 
 ## ----plot9, eval=TRUE, echo=TRUE----------------------------------------------
 #| output-location: column
-#| code-line-numbers: "4,5"
+#| code-line-numbers: "6,7"
 ggplot(datasaurus_dozen) +
   aes(x, y) +
   geom_point() +
+  xlim(c(0,100)) + ylim(c(0,100)) +
+  coord_equal() +
   transition_states(dataset, 2, 3) + #<<
   labs(title = "Dataset: {closest_state}") #<<
 

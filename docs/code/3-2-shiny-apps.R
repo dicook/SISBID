@@ -44,31 +44,31 @@ server <- function(input, output, session) {
 
 ## ----eval = FALSE, echo = T---------------------------------------------------
 # library(shiny)
-#
+# 
 # ui <- fluidPage(
 # )
-#
+# 
 # server <- function(input, output, session) {
 # }
-#
+# 
 # shinyApp(ui, server)
 
 
 ## ----eval = FALSE, echo = T---------------------------------------------------
 # library(shiny)
 # sidebar <-  sidebarPanel(width = 3, "Fun inputs")
-#
+# 
 # main_col <- column(width = 9, "Some results")
-#
+# 
 # ui <- fluidPage(
 #   title = "App Title",
 #   sidebar,
-#   main_col)
+#   main_col
 # )
-#
+# 
 # server <- function(input, output, session) {
 # }
-#
+# 
 # shinyApp(ui, server)
 
 
@@ -78,65 +78,65 @@ server <- function(input, output, session) {
 #   width = 3,
 #   textInput("name", "Enter your name:", value = "Susan")
 # )
-#
+# 
 # main_col <- column(width = 9, "Some results")
-#
+# 
 # ui <- fluidPage(
 #   title = "App Title",
 #   sidebar,
 #   main_col
 # )
-#
+# 
 # server <- function(input, output, session) {
 # }
-#
+# 
 # shinyApp(ui, server)
 
 
 ## ----eval=FALSE, echo = T-----------------------------------------------------
-library(shiny)
-
-sidebar <-  sidebarPanel(
-  width = 3,
-  textInput("name", "Enter your name:", value = "Susan")
-)
-
-main_col <- column(width = 9, "Some results")
-
-ui <- fluidPage(
-  title = "App Title",
-  sidebar,
-  main_col
-)
-
-server <- function(input, output, session) {
-}
-
-shinyApp(ui, server)
+# library(shiny)
+# 
+# sidebar <-  sidebarPanel(
+#   width = 3,
+#   textInput("name", "Enter your name:", value = "Susan")
+# )
+# 
+# main_col <- column(width = 9, "Some results")
+# 
+# ui <- fluidPage(
+#   title = "App Title",
+#   sidebar,
+#   main_col
+# )
+# 
+# server <- function(input, output, session) {
+# }
+# 
+# shinyApp(ui, server)
 
 
 ## ----your-turn-solution, echo=FALSE, eval=FALSE-------------------------------
-#
+# 
 # library(shiny)
-#
+# 
 # sidebar <-  sidebarPanel(
 #   width = 3,
 #   selectInput(
 #     "country", "Pick your favorite country:",
 #     choices = c("Australia", "Brazil", "China"))
 # )
-#
+# 
 # main_col <- column(width = 9, "Some results")
-#
+# 
 # ui <- fluidPage(
 #   title = "App Title",
 #   sidebar,
 #   main_col
 # )
-#
+# 
 # server <- function(input, output, session) {
 # }
-#
+# 
 # shinyApp(ui, server)
 
 
@@ -146,7 +146,7 @@ shinyApp(ui, server)
 # library(shiny)
 # library(ggplot2)
 # library(dplyr)
-#
+# 
 # sidebar <-  sidebarPanel(
 #   width = 3,
 #   selectInput(
@@ -154,16 +154,16 @@ shinyApp(ui, server)
 #               choices = c("Australia", "Brazil", "China")
 #   )
 # )
-#
+# 
 # main_col <- column(                               #<<
 #   width = 9,                                      #<<
 #   plotOutput("scatter")                           #<<
 # )                                                 #<<
-#
+# 
 # ui <- fluidPage(
-#   title = "App Title", sidebar, main_col)
+#   title = "App Title", sidebar, main_col
 # )
-#
+# 
 # server <- function(input, output, session) {
 #   output$scatter <- renderPlot({                  #<<
 #     mtcars %>% ggplot(aes(x = disp, y = mpg)) +   #<<
@@ -171,7 +171,7 @@ shinyApp(ui, server)
 #       ggtitle(input$country)                      #<<
 #   })                                              #<<
 # }
-#
+# 
 # shinyApp(ui, server)
 
 
@@ -185,7 +185,7 @@ shinyApp(ui, server)
 #     "data/TB_notifications_2025-07-22.csv"
 #   )
 # )
-#
+# 
 # sidebar <-  sidebarPanel(
 #   width = 3,
 #   selectInput(
@@ -194,17 +194,17 @@ shinyApp(ui, server)
 #     multiple = TRUE,
 #     selected = "United States of America")
 # )
-#
+# 
 # main_col <- column(
 #   width = 9,
 #   plotOutput("scatter", height = "600px")
 # )
-#
+# 
 # ui <- fluidPage(
 #   title = "App Title",
 #   sidebar, main_col
 # )
-#
+# 
 # server <- function(input, output, session) {
 #   output$scatter <- renderPlot({
 #     tb %>%
@@ -217,6 +217,6 @@ shinyApp(ui, server)
 #       facet_grid(country~.)
 #   })
 # }
-#
+# 
 # shinyApp(ui, server)
 
