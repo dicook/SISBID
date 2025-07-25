@@ -13,9 +13,9 @@ source(here::here("libraries.R"))
 ::: column
 
 - Sources
-    - Any input widget is a source<br/>
+    - Any input widget is a source 
 - Conductors
-    - Use input and pass values to another component<br/>
+    - Use input and pass values to another component 
 - Observers
     - Any output is an observer
     
@@ -27,12 +27,12 @@ source(here::here("libraries.R"))
 
 ## Two Conductors
 
-- Reactive expressions and reactive events are two types of conductors<br/>
-- Reactive expressions are the archetypical conductor: <br/>
+- Reactive expressions and reactive events are two types of conductors 
+- Reactive expressions are the archetypical conductor:  
     - envelope functionality used in multiple places of an app
     - run evaluations only once
     - store current values
-    - update when inputs change<br/>
+    - update when inputs change 
 - Reactive events are only triggered by specific events (e.g. click on an action button)
 
 ## Reactive Expressions
@@ -45,8 +45,8 @@ rval <- reactive({
 
 Called like a function as `rval()`
 
-- Reactive expressions are executed **lazily** and values are **cached**<br/><br/>
-- **Lazy**: Evaluated on demand as requested by a reactive endpoint<br/><br/>
+- Reactive expressions are executed **lazily** and values are **cached**  
+- **Lazy**: Evaluated on demand as requested by a reactive endpoint  
 - **Cached**: (re-)evaluated only when the value of a dependency changed
 
 
@@ -60,16 +60,16 @@ rval <- eventReactive(actionbutton, {
 
 Called like a function as `rval()`
 
-- reactive events are executed even more **lazily**<br/><br/>
-    - only on demand<br/><br/>
+- reactive events are executed even more **lazily**  
+    - only on demand  
     - requested by an actionButton (usually)
     
 ## Example: Submission Form
 
 ::: columns
 ::: column
-- In RStudio open file `app.R` in `03_submission`<br/><br/>
-- Run the app (a couple of times) <br/><br/>
+- In RStudio open file `app.R` in `03_submission`  
+- Run the app (a couple of times)   
 - Turn on showcase mode:    
 ```{r eval = F}
 runApp("code/3.3-apps/03_submission/", 
@@ -111,9 +111,9 @@ Answers are in `03b_submission.R`
 ![Screenshot of the inputs with a conditional panel](with-conditional-panel.png)
 :::
 ::: column
-- Showing a color picker before it is needed could confuse app users <br/><br/>
-- `conditionalPanel(condition, ...)` allows us to encapsulate elements of the UI and only show them when `condition` is fulfilled<br/><br/>
-- Here, a condition of `condition = 'input.submit > 0'` is true when the submit button was pressed at least once.<br/><br/>
+- Showing a color picker before it is needed could confuse app users   
+- `conditionalPanel(condition, ...)` allows us to encapsulate elements of the UI and only show them when `condition` is fulfilled  
+- Here, a condition of `condition = 'input.submit > 0'` is true when the submit button was pressed at least once.  
 - This is implemented in `03c_submission.R`
 :::
 :::
@@ -291,8 +291,8 @@ Modify the code in `05_tabsets.R` to use a `page_navbar()`.
 
 ## Resources
 
-- RStudio Tutorial: https://shiny.rstudio.com/articles/reactivity-overview.html<br/><br/>
-- Shiny Cheat Sheet: https://raw.githubusercontent.com/rstudio/cheatsheets/master/shiny.pdf<br/><br/>
+- RStudio Tutorial: https://shiny.rstudio.com/articles/reactivity-overview.html  
+- Shiny Cheat Sheet: https://raw.githubusercontent.com/rstudio/cheatsheets/master/shiny.pdf  
 - Gallery of Shiny Apps: https://shiny.rstudio.com/gallery/
 - bslib documentation: https://rstudio.github.io/bslib/
 
