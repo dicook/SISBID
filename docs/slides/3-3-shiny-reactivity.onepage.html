@@ -463,11 +463,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Sources
 <ul>
-<li>Any input widget is a source<br></li>
+<li>Any input widget is a source</li>
 </ul></li>
 <li>Conductors
 <ul>
-<li>Use input and pass values to another component<br></li>
+<li>Use input and pass values to another component</li>
 </ul></li>
 <li>Observers
 <ul>
@@ -481,13 +481,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="two-conductors" class="level2">
 <h2 class="anchored" data-anchor-id="two-conductors">Two Conductors</h2>
 <ul>
-<li>Reactive expressions and reactive events are two types of conductors<br></li>
-<li>Reactive expressions are the archetypical conductor: <br>
+<li>Reactive expressions and reactive events are two types of conductors</li>
+<li>Reactive expressions are the archetypical conductor:
 <ul>
 <li>envelope functionality used in multiple places of an app</li>
 <li>run evaluations only once</li>
 <li>store current values</li>
-<li>update when inputs change<br></li>
+<li>update when inputs change</li>
 </ul></li>
 <li>Reactive events are only triggered by specific events (e.g.&nbsp;click on an action button)</li>
 </ul>
@@ -501,8 +501,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Called like a function as <code>rval()</code></p>
 <ul>
-<li>Reactive expressions are executed <strong>lazily</strong> and values are <strong>cached</strong><br><br></li>
-<li><strong>Lazy</strong>: Evaluated on demand as requested by a reactive endpoint<br><br></li>
+<li>Reactive expressions are executed <strong>lazily</strong> and values are <strong>cached</strong><br>
+</li>
+<li><strong>Lazy</strong>: Evaluated on demand as requested by a reactive endpoint<br>
+</li>
 <li><strong>Cached</strong>: (re-)evaluated only when the value of a dependency changed</li>
 </ul>
 </section>
@@ -515,9 +517,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Called like a function as <code>rval()</code></p>
 <ul>
-<li>reactive events are executed even more <strong>lazily</strong><br><br>
+<li>reactive events are executed even more <strong>lazily</strong>
 <ul>
-<li>only on demand<br><br></li>
+<li>only on demand<br>
+</li>
 <li>requested by an actionButton (usually)</li>
 </ul></li>
 </ul>
@@ -527,8 +530,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="columns">
 <div class="column">
 <ul>
-<li>In RStudio open file <code>app.R</code> in <code>03_submission</code><br><br></li>
-<li>Run the app (a couple of times) <br><br></li>
+<li>In RStudio open file <code>app.R</code> in <code>03_submission</code><br>
+</li>
+<li>Run the app (a couple of times)<br>
+</li>
 <li>Turn on showcase mode:</li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -573,9 +578,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="without-conditional-panel.png" class="img-fluid" alt="Screenshot of the inputs without a conditional panel"> <img src="with-conditional-panel.png" class="img-fluid" alt="Screenshot of the inputs with a conditional panel"></p>
 </div><div class="column">
 <ul>
-<li>Showing a color picker before it is needed could confuse app users <br><br></li>
-<li><code>conditionalPanel(condition, ...)</code> allows us to encapsulate elements of the UI and only show them when <code>condition</code> is fulfilled<br><br></li>
-<li>Here, a condition of <code>condition = 'input.submit &gt; 0'</code> is true when the submit button was pressed at least once.<br><br></li>
+<li>Showing a color picker before it is needed could confuse app users<br>
+</li>
+<li><code>conditionalPanel(condition, ...)</code> allows us to encapsulate elements of the UI and only show them when <code>condition</code> is fulfilled<br>
+</li>
+<li>Here, a condition of <code>condition = 'input.submit &gt; 0'</code> is true when the submit button was pressed at least once.<br>
+</li>
 <li>This is implemented in <code>03c_submission.R</code></li>
 </ul>
 </div>
@@ -739,8 +747,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <ul>
-<li>RStudio Tutorial: https://shiny.rstudio.com/articles/reactivity-overview.html<br><br></li>
-<li>Shiny Cheat Sheet: https://raw.githubusercontent.com/rstudio/cheatsheets/master/shiny.pdf<br><br></li>
+<li>RStudio Tutorial: https://shiny.rstudio.com/articles/reactivity-overview.html<br>
+</li>
+<li>Shiny Cheat Sheet: https://raw.githubusercontent.com/rstudio/cheatsheets/master/shiny.pdf<br>
+</li>
 <li>Gallery of Shiny Apps: https://shiny.rstudio.com/gallery/</li>
 <li>bslib documentation: https://rstudio.github.io/bslib/</li>
 </ul>
