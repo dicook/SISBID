@@ -216,7 +216,7 @@
 <p>😱 If you are not confident going alone, work through the steps in the next few slides instead, to make an app.</p>
 <p>Out of ideas? <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-05-26/readme.md">Try the TidyTuesday Cocktail Data</a> and <a href="https://unl-statistics.github.io/stat850/homework/12.html">this prompt</a></p>
 </section>
-<section id="rstudio-connect-and-shinyapps" class="slide level2">
+<section id="rstudio-connect-and-shinyapps" class="slide level2 smaller">
 <h2>RStudio Connect and ShinyApps</h2>
 <ul>
 <li>Sign up for an account on https://www.shinyapps.io/<br><br></li>
@@ -225,7 +225,7 @@
 <li>Follow the instructions on ShinyApps.io to authenticate and upload your first app!</li>
 </ul>
 </section>
-<section id="initiate" class="slide level2">
+<section id="initiate" class="slide level2 smaller">
 <h2>Initiate</h2>
 <p>✅ Using the RStudio <code>File</code> menu,</p>
 <ul>
@@ -238,7 +238,7 @@
 <p>✅ Click <code>Publish</code> to upload your app to the shinyapps.io server.</p>
 <p>㊗️ You’ve just published your first app</p>
 </section>
-<section id="make-it-yours" class="slide level2">
+<section id="make-it-yours" class="slide level2 smaller">
 <h2>Make it yours</h2>
 <p>Change the plot to use <code>ggplot</code>, this involves changing the server function to be this:</p>
 <div class="cell" data-layout-align="center">
@@ -253,7 +253,7 @@
 <p>✅ Click <code>Publish</code> to re-upload your app to the shinyapps.io server.</p>
 <p>㊗️ You’ve just published your first modifed app</p>
 </section>
-<section id="make-the-plot-interactive" class="slide level2">
+<section id="make-the-plot-interactive" class="slide level2 smaller">
 <h2>Make the plot interactive</h2>
 <p>Change from a static ggplot plot, to an interactive plotly plot, by</p>
 <div class="panel-tabset">
@@ -287,7 +287,7 @@
 </div>
 <p>🛑 Click the <code>Run App</code> button on the RStudio window. (Fix any errors)</p>
 </section>
-<section id="change-the-ui" class="slide level2">
+<section id="change-the-ui" class="slide level2 smaller">
 <h2>Change the UI</h2>
 <p>Convert the slide into a numeric input, by changing the <code>ui</code> function to be:</p>
 <div class="cell" data-layout-align="center">
@@ -521,6 +521,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
