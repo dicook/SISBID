@@ -72,13 +72,13 @@ Zoom etiquette:
 
 | Friday | US Pacific | US Central | US Eastern | Accra | London | Korea | Melbourne |
 |---------|---------|---------|---------|---------|---------|---------|---------|
-| [Lecture 1](slides/2-6-adv-graphics.rjs.html) | 8:00 - 8:45 am | 10:00 - 10:45 am | 11:00 - 11:45 am | 3:00 - 3:45 pm | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
-| [Lecture 2](slides/3.1-interactive-plots.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
-| [Lecture 3](slides/3.2-shiny-apps.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
+| [Lecture 1](slides/3.1-interactive-plots.rjs.html) | 8:00 - 8:45 am | 10:00 - 10:45 am | 11:00 - 11:45 am | 3:00 - 3:45 pm | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
+| [Lecture 2](slides/3.2-shiny-apps.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
+| [Lecture 3](slides/3.3-shiny-reactivity.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
 | Break |  |  |  |  |  |  |  |
-| [Lecture 4](slides/3.3-shiny-reactivity.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
-| [Lecture 5](slides/3.4-theme_a_shiny_app.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
-| [Lecture 6](slides/3.5-build_a_shiny_app.rjs.html) & [Lecture 7](slides/3.6-make_your_own_interactive_document.rjs.html) | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
+| [Lecture 4](slides/3.4-theme_a_shiny_app.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
+| [Lecture 5](slides/3.5-build_a_shiny_app.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
+| [Lecture 6](slides/3.6-make_your_own_interactive_document.rjs.html) / Show and Tell | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
 :::
 
 ## Course outline
@@ -123,11 +123,10 @@ Note: this zip file assumes you will extract to the same folder as Wednesday -- 
 
 | Title | Slides | 1pg Slides | Code | Instructor |
 | ------------ | --- | --------- | --- | ------ |
-| 2.6 Advanced graphics and statistical inference | [{{< fa person-chalkboard >}} Slides](slides/2-6-adv-graphics.rjs.html) | [{{< fa file >}} 1pg](slides/2-6-adv-graphics.onepage.html) | [{{< fa code >}} Code](code/2-6-adv-graphics.R) | Susan |
 | 3.1  Interactive and animated graphics using plotly and gganimate | [{{< fa person-chalkboard >}} Slides](slides/3-1-interactive-plots.rjs.html) | [{{< fa file >}} 1pg](slides/3-1-interactive-plots.onepage.html) | [{{< fa code >}} Code](code/3-1-interactive-plots.R) | Heike |
 | 3.2 How to build a shiny app | [{{< fa person-chalkboard >}} Slides](slides/3-2-shiny-apps.rjs.html) | [{{< fa file >}} 1pg](slides/3-2-shiny-apps.onepage.html) | [{{< fa code >}} Code](code/3-2-shiny-apps.R) | Susan |
-| Break | | | | |
 | 3.3 Reactive elements in shiny | [{{< fa person-chalkboard >}} Slides](slides/3-3-shiny-reactivity.rjs.html) | [{{< fa file >}} 1pg](slides/3-3-shiny-reactivity.onepage.html) | [{{< fa code >}} Code](code/3-3-shiny-reactivity.R) | Heike |
+| Break | | | | |
 | 3.4 Theme a shiny app | [{{< fa person-chalkboard >}} Slides](slides/3-4-theme-shiny.rjs.html) | [{{< fa file >}} 1pg](slides/3-4-theme-shiny.onepage.html) | [{{< fa code >}} Code](code/3-4-theme-shiny.R) | Susan |
 | 3.5 Build your own Shiny app | [{{< fa person-chalkboard >}} Slides](slides/3-5-build-shiny-app.rjs.html) | [{{< fa file >}} 1pg](slides/3-5-build-shiny-app.onepage.html) | [{{< fa code >}} Code](code/3-5-build-shiny-app.R) | Heike |
 | Show us What You've Made | | | | All  |
