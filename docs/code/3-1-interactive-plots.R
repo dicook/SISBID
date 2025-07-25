@@ -103,11 +103,11 @@ gg <- ggplotly(p, height = 800, width = 1000) %>%
    plotly::layout(title = "Click on a line to highlight a year")
 
 
-## ----echo=FALSE, fig.height=10, fig.width=12, warning=FALSE, message=FALSE, echo=TRUE----
+## ----echo=FALSE, fig.height=10, fig.width=12, out.width="60%", warning=FALSE, message=FALSE, echo=TRUE----
 highlight(gg)
 
 
-## ----echo=FALSE, fig.width = 8, fig.height = 6, echo=FALSE--------------------
+## ----echo=FALSE, fig.width = 8, fig.height = 6, out.width="80%", echo=FALSE----
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors) +

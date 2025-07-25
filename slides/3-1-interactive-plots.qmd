@@ -21,7 +21,7 @@ data(penguins)
 penguins <- penguins |> filter(!is.na(bill_length_mm))
 ```
 
-## Some interactive graphics packages
+## Some interactive graphics packages {.smaller}
 
 - `crosstalk`: that's what shiny is based on - we will look into shiny later
 - `plotly`: interactive javascript graphics (maintained Carson Sievert)
@@ -97,7 +97,7 @@ gg <- ggplot(data=penguins, aes(x = flipper_length_mm, y = bill_length_mm, colou
 ggplotly(gg, width=600, height=490)
 ```
 
-## Scatterplot(ly) matrix 
+## Scatterplot(ly) matrix {.smaller}
 
 ```{r scatterplotly, eval=TRUE, echo=TRUE, warning=FALSE, message = FALSE}
 library(GGally)
@@ -106,7 +106,7 @@ ggplotly(p, width=600, height=490)
 ```
 
 
-## Maps
+## Maps {.smaller}
 
 ::: columns
 ::: column
@@ -131,7 +131,7 @@ Not all `ggplot2` geoms are supported in plotly, but when they are, they just wo
 
 
 
-## Modifying plotly 
+## Modifying plotly {.smaller}
 
 `plotly` uses elements of `crosstalk` to provide additional interactivity, such as linked highlighting
 
@@ -150,13 +150,13 @@ p <- ggplot(txh_shared, aes(month, median)) +
                       labels = seq(0,3,1)) +
    facet_wrap(~ city)
 
-gg <- ggplotly(p, height = 800, width = 1000) %>%
+gg <- ggplotly(p, height = 750, width = 900) %>%
    plotly::layout(title = "Click on a line to highlight a year")
 ```
 
-##
+## {.smaller}
 
-```{r echo=FALSE, fig.height=10, fig.width=12, warning=FALSE, message=FALSE, echo=TRUE}
+```{r echo=FALSE, fig.height=10, fig.width=12, out.width="50%", warning=FALSE, message=FALSE, echo=TRUE}
 highlight(gg)
 ```
 
@@ -166,16 +166,16 @@ highlight(gg)
 - the function `highlight` allows to make modifications in how highlighted values are presented in plotly. Read through the parameter details in `?highlight`. 
 - the parameter `dynamic` is set to `FALSE` by default. Turn it to `TRUE`. What is the effect? 
 
-## Animations
+## Animations {.smaller}
 
 - `gganimate` (Lin-Pederson) allows to make and save animations: [gganimate cheat sheet](https://rstudio.github.io/cheatsheets/gganimate.pdf)
 - Animations are different from interactive graphics in that the viewer does not have any control
 - useful for different important stages of a visualization (e.g. time) and to keep track of how different visualizations are related 
 - [can also be used in talks ]{.fragment}
 
-## An example animation
+## An example animation {.smaller}
 
-```{r, echo=FALSE, fig.width = 8, fig.height = 6, echo=FALSE}
+```{r, echo=FALSE, fig.width = 8, fig.height = 6, out.width="80%", echo=FALSE}
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors) +
@@ -199,7 +199,7 @@ Countries are colored manually by `country_colors` (hue shows continent, saturat
 3. Add formatting specifications
 4. Add animation specifications
 
-## A simple example
+## A simple example {.smaller}
 
 1. Start by passing the data to ggplot
 
@@ -214,7 +214,7 @@ ggplot(economics) #<<
 Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 :::
 
-## A simple example
+## A simple example {.smaller}
 
 2. add the mapping
 
@@ -229,7 +229,7 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 :::
 
 
-## A simple example
+## A simple example {.smaller}
 
 3. Add a graphical primitive, let's do a line 
 
@@ -246,7 +246,7 @@ ggplot(economics) +
 Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganimate-workshop)
 :::
 
-## A simple example
+## A simple example {.smaller}
 
 
 4. Just one extra line turns this into an animation!
@@ -265,8 +265,9 @@ Thanks to Mitch O'Hara Wild for the [example](https://github.com/numbats/gganima
 :::
 
 
-## A not-so-simple example, the datasaurus dozen
-Again, we first pass in the dataset to ggplot
+## A not-so-simple example {.smaller}
+
+Using the the datasaurus dozen, again, we first pass in the dataset to ggplot
 
 ```{r plot5, eval=TRUE, echo=TRUE}
 #| output-location: column
@@ -275,7 +276,8 @@ ggplot(datasaurus_dozen)#<<
 
 ```
 
-## A not-so-simple example, the datasaurus dozen
+## A not-so-simple example {.smaller}
+
 For each dataset we have x and y values, in addition we can map dataset to color
 
 ```{r plot6, eval=TRUE, echo=TRUE}
@@ -285,7 +287,8 @@ ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) #<<
 ```
 
-## A not-so-simple example, the datasaurus dozen
+## A not-so-simple example {.smaller}
+
 Trying a simple scatter plot first, but there is too much information
 
 
@@ -297,7 +300,7 @@ ggplot(datasaurus_dozen) +
   geom_point() #<<
 ```
 
-## A not-so-simple example, the datasaurus dozen
+## A not-so-simple example {.smaller}
 
 We can use facets to split up by dataset, revealing the different distributions
 
@@ -310,7 +313,8 @@ ggplot(datasaurus_dozen) +
   facet_wrap(~dataset) #<<
 ```
 
-## A not-so-simple example, the datasaurus dozen
+## A not-so-simple example {.smaller}
+
 We can just as easily turn it into an animation, transitioning between dataset states! 
 
 ```{r plot9, eval=TRUE, echo=TRUE}
@@ -332,7 +336,7 @@ The `datasaurus_dozen` data set is part of the R package `datasauRus`.
 - The function `transition_states` drives the animation. It has values 2 and 3. What do these values mean? 
 Read up on their meaning and change them.
 
-## Controlling an animation {.incremental}
+## Controlling an animation {.incremental .smaller}
 
 We control plot movement with (a grammar of animation):
 
