@@ -673,9 +673,13 @@ data(flea)
 # On a Mac, start quartz window with:  quartz()
 # On windows, start X11 window with:   X11()
 
-animate_xy(flea[, 2:7])
+animate_xy(flea[, 1:6])
 # RStudio graphics windows: may want to reduce frame rate
-animate_xy(flea[, 2:7], fps=10)
+animate_xy(flea[, 1:6], fps=10)
+
+# Also
+animate_xy(flea[, -7], col = flea$species)
+animate_xy(flea[, 1:6], tour_path = guided_tour(lda_pp(flea$species)), col=flea$species)
 ```
 
 ::: {.content-visible when-format="revealjs"}
