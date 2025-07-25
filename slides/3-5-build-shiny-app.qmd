@@ -62,7 +62,7 @@ You will also need to add `library(ggplot2)` at the top of the file, just after 
 
 `r emo::ji("white_check_mark")` Click `Publish` to re-upload your app to the shinyapps.io server. 
 
-`r emo::ji("congratulations")` You've just published your first modifed app
+`r emo::ji("congratulations")` You've just published your first modified app
 
 ## Make the plot interactive {.smaller}
 
@@ -118,7 +118,7 @@ sidebarLayout(
 
 `r emo::ji("white_check_mark")` Click `Publish` to re-upload your app to the shinyapps.io server. 
 
-`r emo::ji("congratulations")` You've just published your second modifed app
+`r emo::ji("congratulations")` You've just published your second modified app
 
 
 ::: bottom
