@@ -112,7 +112,7 @@ main_col <- column(width = 9, "Some results")
 ui <- fluidPage(
   title = "App Title",
   sidebar, 
-  main_col)
+  main_col
 )
 
 server <- function(input, output, session) {
@@ -264,7 +264,7 @@ main_col <- column(                               #<<
 )                                                 #<<
 
 ui <- fluidPage(
-  title = "App Title", sidebar, main_col)
+  title = "App Title", sidebar, main_col
 )
 
 server <- function(input, output, session) {
