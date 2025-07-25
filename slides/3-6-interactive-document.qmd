@@ -266,7 +266,6 @@ We'll add a section to use interactive plots to examine the temporal trend in TB
 
 ```{r, eval=F}
 library(plotly)
-library(plotly)
 p <- tb |> 
   filter(iso3 %in% c("AUS", "USA", "CAN", "KEN", "IND", "COL", "ASM")) |>
   ggplot() +
