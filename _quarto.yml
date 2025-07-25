@@ -69,8 +69,8 @@ website:
             text: 3.4 Theming Shiny
           - href: slides/3-5-build-shiny-app.rjs.html
             text: 3.5 Build a Shiny App
-          # - href: slides/3-6-interactive-document.rjs.html
-          #   text: 3.6 Interactive Documents
+          - href: slides/3-6-interactive-document.rjs.html
+            text: 3.6 Interactive Documents
 
 format:
   html:
