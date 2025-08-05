@@ -5,7 +5,11 @@ filters:
   - line-highlight
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
@@ -313,7 +317,10 @@ ggplot(tb_us, aes(x = 1, y = count, fill = factor(age_group))) +
 
 ::: {.smaller}
 
-```{r use a line plot instead of bar, fig.height=3, out.width="80%"}
+```{r}
+#| label: use a line plot instead of bar
+#| fig-height: 3
+#| out-width: 80%
 ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_grid(~age_group) +
@@ -334,7 +341,10 @@ ggplot(tb_us, aes(x=year, y=count, colour=sex)) +
 ## Line plot vs barchart
 
 ::: {.smaller}
-```{r use a line plot of proportions, fig.height=3, out.width="70%"}
+```{r}
+#| label: use a line plot of proportions
+#| fig-height: 3
+#| out-width: 70%
 tb_us |> group_by(year, age_group) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +

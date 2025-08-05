@@ -2,7 +2,11 @@
 title: "Preamble"
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| warning: false
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -17,7 +21,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r eval=FALSE, echo=FALSE}
+```{r}
+#| eval: false
+#| echo: false
 # THIS CODE IS NOT TO BE RUN
 # These packages are only used to make the slides prettier
 install.packages("remotes")
@@ -107,13 +113,15 @@ All materials at <https://github.com/dicook/SISBID>
 
 CRAN
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 install.packages("nullabor")
 ```
 
 Bioconductor
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
@@ -122,7 +130,8 @@ BiocManager::install("bigPint")
 
 Github
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 remotes::install_github("wmurphyrd/fiftystater")
 ```
 

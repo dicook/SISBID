@@ -5,7 +5,11 @@ filters:
   - line-highlight
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| warning: false
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 library(shiny)
@@ -22,7 +26,8 @@ library(thematic)
     - [Gallery](https://shiny.rstudio.com/gallery/) of great examples,
     - [Tutorials](https://shiny.rstudio.com/tutorial/) at different levels
 
-```{r, eval = F}
+```{r}
+#| eval: !expr F
 # Additional packages for Shiny
 install.packages(c("bsicons", "showtext", "ragg", "thematic"))
 remotes::install_github("rstudio/bslib") # Get the latest version
@@ -30,7 +35,10 @@ remotes::install_github("rstudio/bslib") # Get the latest version
 
 
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -67,7 +75,8 @@ library(readr)
 ::: column
 - What we see and interact with: 
   - user interface: layout with user input and (plot) output
-```{r, eval = F}
+```{r}
+#| eval: !expr F
 ui <- fluidPage(
 )
 ```
@@ -88,7 +97,9 @@ server <- function(input, output, session) {
 
 ## A Minimal Example
 
-```{r eval = FALSE, echo = T}
+```{r}
+#| eval: false
+#| echo: !expr T
 library(shiny)
 
 ui <- fluidPage(
@@ -103,7 +114,9 @@ shinyApp(ui, server)
 
 ## A bit more fancy
 
-```{r eval = FALSE, echo = T}
+```{r}
+#| eval: false
+#| echo: !expr T
 library(shiny)
 sidebar <-  sidebarPanel(width = 3, "Fun inputs")
 
@@ -123,7 +136,9 @@ shinyApp(ui, server)
 
 ## A bit more fancy
 
-```{r eval = FALSE, echo = T}
+```{r}
+#| eval: false
+#| echo: !expr T
 library(shiny)
 sidebar <-  sidebarPanel(
   width = 3, 
@@ -163,7 +178,9 @@ Shiny has many different input options, see the [widget gallery](https://shiny.r
 
 Add a list of your favorite countries to the sidebar panel:
 
-```{r eval=FALSE, echo = T}
+```{r}
+#| eval: false
+#| echo: !expr T
 library(shiny)
 
 sidebar <-  sidebarPanel(
@@ -185,7 +202,10 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-```{r your-turn-solution, echo=FALSE, eval=FALSE}
+```{r}
+#| label: your-turn-solution
+#| echo: false
+#| eval: false
 
 library(shiny)
 
@@ -243,7 +263,9 @@ Shiny also has a variety of different output options:
 
 ## Adding a plot {.smaller}
 
-```{r eval=FALSE, echo = T}
+```{r}
+#| eval: false
+#| echo: !expr T
 #| code-line-numbers: "13-16,23-27"
 #| class-source: "numberLines"
 library(shiny)
@@ -288,7 +310,10 @@ shinyApp(ui, server)
 `r countdown::countdown(7)`
 :::
 
-```{r your-turn-solutions-2, echo=FALSE, eval=FALSE}
+```{r}
+#| label: your-turn-solutions-2
+#| echo: false
+#| eval: false
 library(shiny)
 library(ggplot2)
 library(dplyr)

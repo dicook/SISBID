@@ -9,7 +9,11 @@ warning: false
 ---
 
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| warning: false
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 library(readr)
@@ -33,7 +37,9 @@ diamonds <- diamonds |>
 :::: columns
 ::: column
 
-```{r read TB data and wrangle and subset to USA, echo = FALSE}
+```{r}
+#| label: read TB data and wrangle and subset to USA
+#| echo: false
 tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
@@ -93,7 +99,10 @@ Ready?
 
 ::: {layout-ncol=2}
 
-```{r focus on one year gender side-by-side bars of males females, fig.height=3, echo=FALSE}
+```{r}
+#| label: focus on one year gender side-by-side bars of males females
+#| echo: false
+#| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -102,7 +111,10 @@ tb_kn |> filter(year == 2012) |>
   ggtitle("Arrangement A")
 ```
 
-```{r focus on one year age side-by-side bars of age group, fig.height=3, echo=FALSE}
+```{r}
+#| label: focus on one year age side-by-side bars of age group
+#| echo: false
+#| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -148,10 +160,16 @@ Go to www.menti.com and use the code 2979 2396.
 
 ::: {layout-ncol=2}
 
-```{r ref.label='focus on one year gender side-by-side bars of males females', fig.height=3, echo=F}
+```{r}
+#| echo: !expr F
+#| ref-label: focus on one year gender side-by-side bars of males females
+#| fig-height: 3
 ```
 
-```{r ref.label='focus on one year age side-by-side bars of age group', fig.height=3, echo=F}
+```{r}
+#| echo: !expr F
+#| ref-label: focus on one year age side-by-side bars of age group
+#| fig-height: 3
 ```
 
 :::
@@ -200,7 +218,10 @@ You'll have about two minutes.
 
 ::: {layout-ncol=2}
 
-```{r use a line plot instead of bar, fig.height=3, echo = F}
+```{r}
+#| label: use a line plot instead of bar
+#| echo: !expr F
+#| fig-height: 3
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
@@ -210,7 +231,10 @@ ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   ggtitle("Type A")
 ```
 
-```{r colour and axes fixes, fig.height=3, echo = F}
+```{r}
+#| label: colour and axes fixes
+#| echo: !expr F
+#| fig-height: 3
 # This uses a color blind friendly scale
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
@@ -226,7 +250,9 @@ Which type of plot makes it easier to answer
 
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F, purl=F}
+```{r}
+#| echo: !expr F
+#| purl: !expr F
 countdown::countdown(1,50)
 ```
 :::
@@ -251,16 +277,24 @@ What are the pros and cons of each way of displaying the same information? Shoul
 
 ::: {layout-ncol=2}
 
-```{r ref.label='use a line plot instead of bar', fig.height=3, echo = F}
+```{r}
+#| echo: !expr F
+#| ref-label: use a line plot instead of bar
+#| fig-height: 3
 ```
 
-```{r ref.label='colour and axes fixes', fig.height=3, echo = F}
+```{r}
+#| echo: !expr F
+#| ref-label: colour and axes fixes
+#| fig-height: 3
 ```
 :::
 
 ::: {.content-visible when-format="revealjs"}
 
-```{r, echo=F, purl=F}
+```{r}
+#| echo: !expr F
+#| purl: !expr F
 countdown::countdown(0, 30)
 ```
 :::
@@ -283,14 +317,19 @@ Plot B shows stacked bars scaled to 100% for females and males.
 > [Is there an age effect in the proportion of incidence by gender? Is there a temporal trend in the proportions?]{.orange}
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F, purl=F}
+```{r}
+#| echo: !expr F
+#| purl: !expr F
 countdown::countdown(1, 5)
 ```
 :::
 
 ::: {layout-ncol=2}
 
-```{r use a line plot for proportions, fig.height=3, echo = F}
+```{r}
+#| label: use a line plot for proportions
+#| echo: !expr F
+#| fig-height: 3
 tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
@@ -301,7 +340,10 @@ tb_kn |> group_by(year, age) |>
   ggtitle("Type A")
 ```
 
-```{r compare proportions of males females, fig.height=4, echo = F}
+```{r}
+#| label: compare proportions of males females
+#| echo: !expr F
+#| fig-height: 4
 # Fill the bars, note the small change to the code
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
@@ -414,7 +456,9 @@ Come up with a plot type for each of the mappings.
 ::::
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F, purl=F}
+```{r}
+#| echo: !expr F
+#| purl: !expr F
 countdown::countdown(1, 40, top=100, right=100)
 ```
 :::
@@ -437,7 +481,12 @@ Take a couple of minutes and come up with a chart that uses each type of mapping
 
 :::: columns
 ::: column
-```{r show different types of color palettes, fig.height=7, fig.width=12, echo=TRUE, fig.show='hide'}
+```{r}
+#| label: show different types of color palettes
+#| echo: true
+#| fig-height: 7
+#| fig-width: 12
+#| fig-show: hide
 display.brewer.all()
 ```
 
@@ -449,7 +498,10 @@ display.brewer.all()
 
 :::
 ::: column
-```{r ref.label='show different types of color palettes', fig.height=7, fig.width=12}
+```{r}
+#| ref-label: show different types of color palettes
+#| fig-height: 7
+#| fig-width: 12
 ```
 
 :::
@@ -475,7 +527,11 @@ Colorbrewer helpfully divides their palettes into different types:
 :::: columns
 ::: column
 
-```{r mapping numbers to rainbow sequential scale, echo=TRUE, fig.width=7, fig.height=4}
+```{r}
+#| label: mapping numbers to rainbow sequential scale
+#| echo: true
+#| fig-width: 7
+#| fig-height: 4
 dsamp <- diamonds |>
   sample_n(1000)
 (d <- ggplot(
@@ -507,7 +563,11 @@ In this case, we have an ordered categorical variable mapped to color -- clarity
 
 ## Sequential
 
-```{r mapping numbers to sequential scale, echo=TRUE, fig.width=7, fig.height=4}
+```{r}
+#| label: mapping numbers to sequential scale
+#| echo: true
+#| fig-width: 7
+#| fig-height: 4
 d + scale_colour_brewer(direction = -1)
 ```
 
@@ -524,7 +584,12 @@ Here, I've mapped the dark blue to the lower clarity, with the idea that clear a
 
 ## Diverging
 
-```{r mapping numbers to diverging scale, echo=TRUE, fig.width=7, fig.height=4, out.width="60%"}
+```{r}
+#| label: mapping numbers to diverging scale
+#| echo: true
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: 60%
 d + scale_colour_brewer(palette="PRGn")
 ```
 
@@ -539,7 +604,12 @@ When you use a diverging scale, the safest is actually purple to orange through 
 
 ## Qualitative
 
-```{r mapping numbers to qualitative palette, echo=TRUE, , fig.width=7, fig.height=4, out.width="60%"}
+```{r}
+#| label: mapping numbers to qualitative palette
+#| echo: true
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: 60%
 d + scale_colour_brewer(palette="Set1")
 ```
 
@@ -566,14 +636,19 @@ Of the previous four colour schemes on the same data, which would be the most ap
 - `ColorBrewer` Categorical `Set1`
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F, purl=F}
+```{r}
+#| echo: !expr F
+#| purl: !expr F
 countdown::countdown(0, 50, right=50, bottom=0)
 ```
 :::
 
 ## Color blind-proofing
 
-```{r using the dichromat package to check color blind appearance, echo=TRUE, eval = F}
+```{r}
+#| label: using the dichromat package to check color blind appearance
+#| echo: true
+#| eval: !expr F
 clrs <- hue_pal()(9)
 d + theme(legend.position = "none")
 
@@ -606,7 +681,12 @@ This also helps with publishing and not having to pay for color figures, as well
 ::: column
 Original colours
 
-```{r show the default colour scheme, echo=FALSE, fig.width=4, fig.height=4, out.width="100%"}
+```{r}
+#| label: show the default colour scheme
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+#| out-width: 100%
 clrs <- hue_pal()(9)
 p1 <- d + theme(legend.position = "none") + scale_color_discrete()
 p1
@@ -615,7 +695,12 @@ p1
 ::: column
 Color blind view
 
-```{r show the dichromat adjusted colors, echo=FALSE, fig.width=4, fig.height=4, out.width="100%"}
+```{r}
+#| label: show the dichromat adjusted colors
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+#| out-width: 100%
 clrs <- dichromat(hue_pal()(9))
 p2 <- d + scale_color_manual("", values=clrs) + theme(legend.position = "none")
 
@@ -635,7 +720,11 @@ This is what the default discrete color scale in ggplot2 apparently looks like i
 
 Can you find the odd one out?
 
-```{r is shape preattentive, echo=FALSE, fig.width=4, fig.height=4}
+```{r}
+#| label: is shape preattentive
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
 set.seed(20190715)
 df <- data.frame(x=runif(100), y=runif(100), cl=sample(c(rep("A", 1), rep("B", 99))))
 ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() + 
@@ -647,7 +736,11 @@ ggplot(data=df, aes(x, y, shape=cl)) + theme_bw() +
 
 Is it easier now?
 
-```{r is color preattentive, echo=FALSE, fig.width=4, fig.height=4}
+```{r}
+#| label: is color preattentive
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
 ggplot(data=df, aes(x, y, colour=cl)) + 
   geom_point(size=3) +
   theme_bw() + 
@@ -672,7 +765,11 @@ If there are multiple comparisons to make, you need to decide which one is most 
 
 ::: {layout-ncol=2}
 
-```{r a line plot on sex, fig.height=3, fig.width = 8, echo = F}
+```{r}
+#| label: a line plot on sex
+#| echo: !expr F
+#| fig-height: 3
+#| fig-width: 8
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
@@ -680,7 +777,11 @@ ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   ggtitle("Arrangement A")
 ```
 
-```{r a line plot on age, fig.height=3, fig.width=8, echo = F}
+```{r}
+#| label: a line plot on age
+#| echo: !expr F
+#| fig-height: 3
+#| fig-width: 8
 ggplot(tb_kn, aes(x=year, y=count, colour=age)) +
   geom_line() + geom_point() +
   facet_wrap(~sex, ncol=6) +
@@ -705,7 +806,10 @@ Same proximity is used, but different geoms.
 - Which is better to determine the relative ratios of males to females by age?
 :::
 ::: column
-```{r side-by-side bars of males females, fig.height=3, echo = F}
+```{r}
+#| label: side-by-side bars of males females
+#| echo: !expr F
+#| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -714,7 +818,10 @@ tb_kn |> filter(year == 2012) |>
   ggtitle("Position - common scale ")
 ```
 
-```{r piecharts of males females, fig.height=3, echo = F}
+```{r}
+#| label: piecharts of males females
+#| echo: !expr F
+#| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
@@ -743,7 +850,10 @@ Which is better to determine the relative ratios of ages by sex?
 :::
 
 ::: column
-```{r side-by-side bars of age, fig.height=3, echo = F}
+```{r}
+#| label: side-by-side bars of age
+#| echo: !expr F
+#| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
   geom_bar(stat="identity", position="dodge") + 
@@ -752,7 +862,10 @@ tb_kn |> filter(year == 2012) |>
   ggtitle("Position - common scale ")
 ```
 
-```{r piecharts of age, fig.height=3, echo = F}
+```{r}
+#| label: piecharts of age
+#| echo: !expr F
+#| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
@@ -762,7 +875,10 @@ tb_kn |> filter(year == 2012) |>
   coord_polar(theta = "y")
 ```
 
-```{r stacked bars of age, fig.height=3, echo = F}
+```{r}
+#| label: stacked bars of age
+#| echo: !expr F
+#| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
   geom_bar(stat="identity", position="fill") + 
@@ -781,7 +897,12 @@ Once you need to compare more than 3 categories, a stacked (or not stacked) bar 
 
 ## Change blindness
 
-```{r facetting plots can result in change blindness, echo=TRUE, out.width="50%", fig.width=6.5, fig.height=3.5}
+```{r}
+#| label: facetting plots can result in change blindness
+#| echo: true
+#| out-width: 50%
+#| fig-width: 6.5
+#| fig-height: 3.5
 ggplot(dsamp, aes(x=carat, y=price, colour = clarity)) +
   geom_point() +
   geom_smooth(se=FALSE) +
@@ -813,7 +934,12 @@ It may result in not noticing differences.
 
 ::: column
 
-```{r averlaying makes comparisons easier, echo=TRUE, out.width="100%", fig.width=7, fig.height=4}
+```{r}
+#| label: averlaying makes comparisons easier
+#| echo: true
+#| out-width: 100%
+#| fig-width: 7
+#| fig-height: 4
 ggplot(dsamp, aes(x=carat, y=price, 
                   colour = clarity)) +
   geom_point() +
@@ -857,7 +983,9 @@ This builds on the exercise from the previous session.
 - Choose your best plot to answer this question: [Is there a higher prevalence of TB among younger women in 2012?]{.orange}
 
 ::: {.content-visible when-format="revealjs"}
-```{r, echo=F, purl=F}
+```{r}
+#| echo: !expr F
+#| purl: !expr F
 countdown::countdown(7, 0)
 ```
 :::

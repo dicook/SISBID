@@ -2,12 +2,18 @@
 title: "Building interactive documents with learnr, flexdashboard"
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
-```{r load packages, echo=FALSE}
+```{r}
+#| label: load packages
+#| echo: false
 #library(tidyverse)
 library(ggplot2)
 library(ggmap)
@@ -31,7 +37,8 @@ A dashboard
 
 Make sure you have the `flexdashboard` package installed on your computer.
 
-```{r, eval = F}
+```{r}
+#| eval: !expr F
 install.packages("flexdashboard")
 ```
 :::
@@ -164,7 +171,9 @@ the case notifications table. The data looks like this:
 `r emo::ji("white_check_mark")` Next, add a block of R code to read the data, and display the data in the page.    
 Here, we use the `DT` package to display the data in the output html. 
 
-```{r eval=F, echo = T}
+```{r}
+#| eval: !expr F
+#| echo: !expr T
 library(tidyverse)
 library(DT)
 tb <- read_csv(here::here("data/TB_burden_countries_2025-07-22.csv")) |> 
@@ -179,7 +188,8 @@ datatable(tb)
 
 `r emo::ji("white_check_mark")` Make a separate section titled "Incidence", and add the code to make a plot, like the following
 
-```{r, eval=F}
+```{r}
+#| eval: !expr F
 ggplot(tb, aes(x=year)) +
   geom_bar(aes(weight = e_inc_100k)) +
   xlab("") +
@@ -208,7 +218,8 @@ We need to change the setup chunk options to turn these off:
 
 ## Polishing the data description  {.smaller}
 
-```{r, eval = F}
+```{r}
+#| eval: !expr F
 library(learnr)
 knitr::opts_chunk$set(
   echo = FALSE,
@@ -231,7 +242,8 @@ An example quiz is provided in the template. Note that the format of the R code 
 - At least one of the answers needs to be noted as correct with `, correct = TRUE`. There can be more than one correct answer. 
 :::
 ::: {.column}
-```{r, eval = F}
+```{r}
+#| eval: !expr F
 quiz(
   question("Which package contains functions for installing other R packages?",
     answer("base"),
@@ -264,7 +276,8 @@ Adding `exercise = TRUE` on a code chunk provides an R console window where read
 Because this is an html document, interactive graphics can be incorporated.     
 We'll add a section to use interactive plots to examine the temporal trend in TB incidence. 
 
-```{r, eval=F}
+```{r}
+#| eval: !expr F
 library(plotly)
 p <- tb |> 
   filter(iso3 %in% c("AUS", "USA", "CAN", "KEN", "IND", "COL", "ASM")) |>
@@ -279,13 +292,15 @@ ggplotly(p)
 
 Use your emoji and anicon skills to add some friendly elements to the notes. 
 
-```{r, eval=F}
+```{r}
+#| eval: !expr F
 set.seed(20190709)
 emo::ji("fantasy")
 emo::ji("clock")
 ```
 
-```{r, eval=F}
+```{r}
+#| eval: !expr F
 anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")
 anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
   position=c(0,0,0,200))

@@ -2,12 +2,17 @@
 title: "Touring multivariate data"
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
-```{r echo=FALSE}
+```{r}
+#| echo: false
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
 # Use default penguins
@@ -27,7 +32,12 @@ penguins_std <- penguins |>
 :::: columns
 ::: column
 
-```{r scatterplot matrix, echo=FALSE, eval=TRUE, fig.width=6, fig.height=6}
+```{r}
+#| label: scatterplot matrix
+#| echo: false
+#| eval: true
+#| fig-width: 6
+#| fig-height: 6
 # Make a simple scatterplot matrix of the new penguins data
 ggpairs(penguins_std, columns=c(2:5), 
         ggplot2::aes(colour=species)) +
@@ -56,7 +66,9 @@ Unless you have tours, you'll never know 🫣
 ::: columns
 ::: column
 
-```{r echo=TRUE, eval=FALSE}
+```{r}
+#| echo: true
+#| eval: false
 # Run the tour
 animate_xy(penguins_std[,2:5], 
            col=penguins_std$species, 
@@ -73,7 +85,9 @@ What new things do we learn?
 ::: column
 
 
-```{r eval=FALSE, echo=FALSE}
+```{r}
+#| eval: false
+#| echo: false
 # This code was used to make the animated gif
 set.seed(20200622)
 render_gif(penguins_std[,2:5], 
@@ -110,7 +124,12 @@ render_gif(penguins_std[,2:5],
 ![](images/penguins2d.gif) 
 :::
 ::: column
-```{r echo=FALSE, out.width="100%", fig.width=6, fig.height=6, fig.retina=5}
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-width: 6
+#| fig-height: 6
+#| fig-retina: 5
 ggscatmat(penguins_std, columns = 2:5, color="species") +  
     scale_colour_discrete_divergingx(palette = "Zissou 1") + 
   theme(legend.position="bottom")
@@ -180,7 +199,10 @@ Length and direction of axes relative to the  pattern of interest
 
 <iframe width="1200" height="800" src="html/penguins.html" title="Animation of AFLW four PCs with interactive labelling."></iframe>
 
-```{r reading-axes, eval=FALSE, echo=FALSE}
+```{r}
+#| label: reading-axes
+#| eval: false
+#| echo: false
 # Generate a plotly animation to demonstrate
 library(plotly)
 library(htmltools)
@@ -247,7 +269,11 @@ save_html(pg, file="html/penguins.html", libdir="lib")
 
 ::: columns
 ::: column
-```{r runthis1, fig.width=4, fig.height=4, out.width="80%"}
+```{r}
+#| label: runthis1
+#| fig-width: 4
+#| fig-height: 4
+#| out-width: 80%
 ggplot(penguins_std, 
    aes(x=fl, y=bd,
        colour=species)) +
@@ -261,7 +287,11 @@ Gentoo from others in contrast of fl, bd
 :::
 ::: column
 
-```{r runthis2, fig.width=4, fig.height=4, out.width="80%"}
+```{r}
+#| label: runthis2
+#| fig-width: 4
+#| fig-height: 4
+#| out-width: 80%
 ggplot(penguins_std, 
    aes(x=bl, y=bm,
        colour=species)) +
@@ -306,7 +336,9 @@ F \text{ being orthonormal}$$
 
 ## 
 
-```{r eval=FALSE, echo=FALSE}
+```{r}
+#| eval: false
+#| echo: false
 set.seed(20694727)
 render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins_std$species)), 
            display_xy(col=penguins_std$species, 
@@ -315,7 +347,10 @@ render_gif(penguins_std[,2:5], guided_tour(lda_pp(penguins_std$species)),
            frames=34, width=400, height=400, loop=FALSE)
 ```
 
-```{r runthis3, eval=FALSE, echo=FALSE}
+```{r}
+#| label: runthis3
+#| eval: false
+#| echo: false
 animate_xy(penguins_std[,2:5], grand_tour(),
            axes = "bottomleft", col=penguins_std$species)
 animate_xy(penguins_std[,2:5], 
@@ -354,7 +389,9 @@ Moves to the best separation
 
 ## Manual tour {.smaller}
 
-```{r eval=FALSE, echo=FALSE}
+```{r}
+#| eval: false
+#| echo: false
 render_gif(data=penguins_std[,2:5],
            tour_path = radial_tour(as.matrix(best_proj), mvar = 2),
            display = display_xy(col = penguins_std$species),
@@ -408,7 +445,9 @@ render_gif(penguins_std[,2:5],
 - if `bd` is removed from projection, Gentoo separation disappears
 - `bd` is important for distinguishing Gentoo
 
-```{r runthis4, eval=FALSE}
+```{r}
+#| label: runthis4
+#| eval: false
 # Check contribution of bl, 
 # change mvar to switch variables
 animate_xy(penguins_std[,2:5], 
@@ -444,7 +483,9 @@ animate_xy(penguins_std[,2:5],
 :::
 
 
-```{r eval=FALSE, echo=FALSE}
+```{r}
+#| eval: false
+#| echo: false
 render_gif(penguins_std[,2:5], 
            local_tour(start=best_proj, 0.9), 
            display_xy(col=penguins_std$species, axes="bottomleft"), 
@@ -452,7 +493,10 @@ render_gif(penguins_std[,2:5],
            frames=200, width=400, height=400)
 ```
 
-```{r runthis16, eval=FALSE, echo=FALSE}
+```{r}
+#| label: runthis16
+#| eval: false
+#| echo: false
 animate_xy(penguins_std[,2:5], 
            local_tour(start=best_proj, 0.9),
            axes = "bottomleft", col=penguins_std$species)
@@ -481,13 +525,17 @@ Rocks from and to a given projection, in order to observe the neighbourhood
 
 Solid 4D sphere
 
-```{r runthis6, eval=FALSE}
+```{r}
+#| label: runthis6
+#| eval: false
 library(geozoo)
 sphere2 <- sphere.solid.random(p=4)$points %>% as_tibble()
 animate_slice(sphere2, axes="bottomleft")
 ```
 
-```{r eval=FALSE, echo=F}
+```{r}
+#| eval: false
+#| echo: !expr F
 render_gif(
   sphere2, grand_tour(), 
   display_slice(axes="bottomleft"), 
@@ -507,12 +555,16 @@ render_gif(
 Hollow  4D sphere
 
 
-```{r runthis7, eval=FALSE}
+```{r}
+#| label: runthis7
+#| eval: false
 sphere1 <- sphere.hollow(p=4)$points %>% as_tibble()
 animate_slice(sphere1, axes="bottomleft", half_range=0.6)
 ```
 
-```{r eval=FALSE, echo=F}
+```{r}
+#| eval: false
+#| echo: !expr F
 render_gif(
   sphere1, grand_tour(), 
   display_slice(axes="bottomleft", half_range=0.6), 
@@ -532,12 +584,16 @@ render_gif(
 
 4D Torus
 
-```{r runthis8, eval=FALSE}
+```{r}
+#| label: runthis8
+#| eval: false
 torus <- torus(p = 4, n = 5000, radius=c(8, 4, 1))$points %>% as_tibble()
 animate_slice(torus, axes="bottomleft", half_range=0.8)
 ```
 
-```{r, eval=FALSE, echo=F}
+```{r}
+#| eval: false
+#| echo: !expr F
 render_gif(torus, grand_tour(), 
            display_slice(axes="bottomleft", half_range=0.8), 
            "slides/images/torus4d_slice.gif", frames=100, width=400, height=400)
@@ -556,7 +612,9 @@ render_gif(torus, grand_tour(),
 
 4D Hollow Cube
 
-```{r runthis9, eval=FALSE}
+```{r}
+#| label: runthis9
+#| eval: false
 cube1 <- cube.face(p=4)$points %>% as_tibble()
 # Slicing needs data to be on a standard scale
 cube1_std <- cube1 %>% 
@@ -564,7 +622,9 @@ cube1_std <- cube1 %>%
 animate_slice(cube1_std, axes="bottomleft")
 ```
 
-```{r, eval=FALSE, echo=F}
+```{r}
+#| eval: false
+#| echo: !expr F
 render_gif(cube1_std, grand_tour(), 
            display_slice(axes="bottomleft"), 
            "slides/images/cube4d_slice.gif", frames=100, width=400, height=400)
@@ -584,7 +644,10 @@ render_gif(cube1_std, grand_tour(),
 
 Compute PCA, reduce dimension, show original variable axes in the reduced space.
 
-```{r runthis10, eval=FALSE, echo=TRUE}
+```{r}
+#| label: runthis10
+#| eval: false
+#| echo: true
 penguins_pca <- prcomp(penguins_std[,2:5], 
                        center = FALSE)
 penguins_coefs <- penguins_pca$rotation[, 1:3]
@@ -593,7 +656,8 @@ penguins_scores <- penguins_pca$x[, 1:3]
 animate_pca(penguins_scores, pc_coefs = penguins_coefs, col=penguins_std$species)
 ```
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 render_gif(
   penguins_scores, grand_tour(), 
   display_pca(pc_coefs = penguins_coefs, 
@@ -616,7 +680,9 @@ render_gif(
 
 ## Projection dimension and displays {.smaller}
 
-```{r eval=FALSE,echo=F}
+```{r}
+#| eval: false
+#| echo: !expr F
 
 render_gif(data=penguins_std[,2:5],
            tour_path = grand_tour(1),
@@ -642,7 +708,9 @@ render_gif(penguins_std[,2:5],
 
 ![](images/penguins1d.gif){width="80%"}
 
-```{r runthis11, eval=FALSE}
+```{r}
+#| label: runthis11
+#| eval: false
 animate_dist_cl(penguins_std[,2:5], 
                 half_range=1.3)
 ```
@@ -654,7 +722,9 @@ Density contours overlaid on a scatterplot
 
 ![](images/penguins2d_dens.gif){width="80%"}
 
-```{r runthis12, eval=F}
+```{r}
+#| label: runthis12
+#| eval: !expr F
 animate_density2d(
   penguins_std[,2:5], 
   col=penguins_std$species, axes="bottomleft")
@@ -666,7 +736,8 @@ animate_density2d(
 
 Using the sample code from the tour package, check how many clusters are in the example data.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 library(tourr)
 data(flea)
 ?animate_xy
@@ -683,7 +754,8 @@ animate_xy(flea[, 1:6], tour_path = guided_tour(lda_pp(flea$species)), col=flea$
 ```
 
 ::: {.content-visible when-format="revealjs"}
-```{r echo=FALSE}
+```{r}
+#| echo: false
 countdown::countdown(2,0)
 ```
 :::
@@ -695,7 +767,8 @@ countdown::countdown(2,0)
 
 
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 render_gif(    
   penguins_std[,2:5], 
   grand_tour(), 
@@ -736,7 +809,8 @@ p27 <- render_proj(
 ```
 
 
-```{r echo=FALSE}
+```{r}
+#| echo: false
 p27$data_prj <- p27$data_prj |>
   mutate(species = penguins_std$species)
 pg27 <- ggplot() +
@@ -762,7 +836,11 @@ pg27 <- ggplot() +
 :::
 ::: column
 
-```{r echo=FALSE, out.width="80%", fig.width=7, fig.height=6}
+```{r}
+#| echo: false
+#| out-width: 80%
+#| fig-width: 7
+#| fig-height: 6
 # pg27
 ggplotly(pg27, width=550, height=550)
 ```

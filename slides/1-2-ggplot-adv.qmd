@@ -2,7 +2,11 @@
 title: "Advancing the Grammar of Graphics: `gg` packages, maps, interactivity"
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
@@ -119,7 +123,10 @@ Where can you find the strange platypus and echidna live in Australia?
 :::
 ::::
 
-```{r not to run this code, eval=FALSE, echo = FALSE}
+```{r}
+#| label: not to run this code
+#| eval: false
+#| echo: false
 # Data extracted from ALA with this code
 # Note that package ALA4Ris being replaced by package galah
 # install.packages("galah")
@@ -163,7 +170,12 @@ save(monotremes, file="data/monotremes.rda")
 
 ## Monotremes in Australia
 
-```{r Add some transparency to see density of locations, echo=TRUE, fig.width = 8, fig.height = 4, out.width = "80%"}
+```{r}
+#| label: Add some transparency to see density of locations
+#| echo: true
+#| fig-width: 8
+#| fig-height: 4
+#| out-width: 80%
 load(here::here("data/monotremes.rda"))
 ggplot(data=monotremes) + 
   geom_point(aes(x = longitude, 
@@ -182,7 +194,12 @@ If you are good at recognising the shape of Australia, you might realise that th
 
 ::: columns
 ::: {.column width="35%"}
-```{r making a map projection, echo=F, fig.width = 5, fig.height = 4, out.width="100%"}
+```{r}
+#| label: making a map projection
+#| echo: !expr F
+#| fig-width: 5
+#| fig-height: 4
+#| out-width: 100%
 ggplot(data=monotremes) + 
   geom_point(aes(x=longitude, 
                  y=latitude, 
@@ -193,7 +210,12 @@ ggplot(data=monotremes) +
 ```
 :::
 ::: {.column width="65%"}
-```{r making a map projection, echo=T, eval = F,fig.show=F, out.width="100%"}
+```{r}
+#| label: making a map projection
+#| echo: !expr T
+#| eval: !expr F
+#| fig-show: !expr F
+#| out-width: 100%
 ```
 
 - Adding a map layer would help!
@@ -203,7 +225,10 @@ ggplot(data=monotremes) +
 
 ## Monotremes in Australia
 
-```{r you need a developer API to run this code, echo=FALSE, eval=FALSE}
+```{r}
+#| label: you need a developer API to run this code
+#| echo: false
+#| eval: false
 library(ggmap)
 library(osmdata)
 oz_bbox <- c(112.9, # min long
@@ -214,7 +239,9 @@ oz_map <- get_map(location = oz_bbox, source = "osm")
 save(oz, file="data/oz.rda")
 ```
 
-```{r load the saved map data, echo=TRUE}
+```{r}
+#| label: load the saved map data
+#| echo: true
 #| output-location: "column"
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
@@ -228,7 +255,11 @@ ggmap(oz) +
 
 ## Leaflet Monotreme Maps
 
-```{r leaflet map, echo=TRUE, fig.width = 8, fig.height = 4}
+```{r}
+#| label: leaflet map
+#| echo: true
+#| fig-width: 8
+#| fig-height: 4
 #| output-location: "column"
 library(leaflet)
 monotremes |>
@@ -249,7 +280,8 @@ monotremes |>
 
 Our goal is to examine how sightings change over time. The orginal variable `eventDate` was renamed to be `datetime` and converted into two variables during pre-processing: `day` which is a date variable, and `hour`.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 SOME STUFF HERE |>
   mutate(
     day = ymd(str_sub(datetime, 1, 10),
@@ -262,7 +294,12 @@ SOME STUFF HERE |>
 then we can simply plot occurrence over time.
 :::
 
-```{r show sightings over time, echo=TRUE, out.width="60%",fig.height=4,fig.width=8}
+```{r}
+#| label: show sightings over time
+#| echo: true
+#| out-width: 60%
+#| fig-height: 4
+#| fig-width: 8
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -280,7 +317,12 @@ Add a trend line.
 ::: columns
 ::: column
 
-```{r add a trend line, echo=F,out.width="100%",fig.height=4,fig.width=8}
+```{r}
+#| label: add a trend line
+#| echo: !expr F
+#| out-width: 100%
+#| fig-height: 4
+#| fig-width: 8
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -292,13 +334,21 @@ monotremes |>
 ```
 :::
 ::: column
-```{r add a trend line, echo=TRUE, eval=F}
+```{r}
+#| label: add a trend line
+#| echo: true
+#| eval: !expr F
 ```
 :::
 :::
 
 ## Interactivity!
-```{r make it interactive to investigate some observations, echo=TRUE, out.width = "60%", fig.width=10, fig.height=5}
+```{r}
+#| label: make it interactive to investigate some observations
+#| echo: true
+#| out-width: 60%
+#| fig-width: 10
+#| fig-height: 5
 library(plotly)
 ggplotly(width=800, height=500)
 ```
@@ -316,7 +366,10 @@ Make sure you can make all the plots shown in this session, and then tackle thes
 - How would the interpretation change using the density plot instead of the scatterplot?
 
 
-```{r solution code to density plot on map, eval=FALSE, echo=FALSE}
+```{r}
+#| label: solution code to density plot on map
+#| eval: false
+#| echo: false
 ggmap(oz) + 
   geom_density2d(data=monotremes, 
                  aes(x=longitude, y=latitude), 
@@ -333,7 +386,10 @@ Previously it looked like echidnas are found all over Australia. The density plo
 
 Explore the temporal trend differently by making a side-by-side boxplot of the occurrences over month. Note that you still need to summarise by day for this to be meangingful. Does this change the focus for the temporal trend? 
 
-```{r solution code to boxplot task, eval=FALSE, echo=FALSE}
+```{r}
+#| label: solution code to boxplot task
+#| eval: false
+#| echo: false
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n(), .groups = "drop") |>

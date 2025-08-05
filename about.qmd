@@ -140,7 +140,8 @@ Download [RStudio](https://www.rstudio.com/products/rstudio/download/), and [lat
 
 Open RStudio, and run the code below to install these packages and their dependencies:
 
-```{r eval = F}
+```{r}
+#| eval: !expr F
 #| file: r-pkg-deps.R
 ```
 
@@ -149,6 +150,7 @@ But some operating systems seem to run into difficulties doing this, so installi
 
 If you want to compile the slides - you really don't want to do this, but if you do - you will need these additional packages:
 
-```{r eval = F}
+```{r}
+#| eval: !expr F
 #| file: slide-style-setup.R
 ```
