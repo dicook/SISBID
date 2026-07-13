@@ -6,13 +6,13 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>SISBID Data Visualization – Theme a shiny app</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,6 +21,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -99,7 +102,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link rel="stylesheet" href="css/myremark.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -192,8 +195,8 @@
       margin-right: 0; 
     }
   </style>
-  <link href="../site_libs/countdown-0.5.0/countdown.css" rel="stylesheet">
-  <script src="../site_libs/countdown-0.5.0/countdown.js"></script>
+  <link href="../site_libs/countdown-0.6.0/countdown.css" rel="stylesheet">
+  <script src="../site_libs/countdown-0.6.0/countdown.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -262,7 +265,7 @@
 <li>modify <code>bs_themed.R</code> to use your theme code</li>
 </ul>
 <p>Hint: Use the <code>theme = ...</code> argument in one of the <code>page_xxx</code> functions.</p>
-<p></p><div class="countdown" id="timer_ee3666c3" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p><countdown-timer class="countdown" id="timer_169c06e4" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="customizing-your-navbar" class="slide level2">
 <h2>Customizing Your Navbar</h2>
@@ -297,17 +300,17 @@
 <h2>Your Turn</h2>
 <p>Customize the title and icons on the <code>nav_panels</code> in <code>title_customization.R</code>.</p>
 <p>Choose appropriate icons and decide if they are decorative or semantic.</p>
-<p></p><div class="countdown" id="timer_0c048766" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p><countdown-timer class="countdown" id="timer_069d255f" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="change-the-width-of-the-sidebar" class="slide level2">
 <h2>Change the width of the sidebar</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="2"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>side <span class="ot">&lt;-</span> <span class="fu">sidebar</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-code-line-numbers="2"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>side <span class="ot">&lt;-</span> <span class="fu">sidebar</span>(</span>
 <span id="cb1-2"><a></a>  <span class="at">width =</span> <span class="st">"20%"</span>, <span class="fu">h2</span>(<span class="st">"Inputs"</span>), <span class="co">#&lt;&lt;</span></span>
 <span id="cb1-3"><a></a>  <span class="fu">sliderInput</span>(</span>
 <span id="cb1-4"><a></a>    <span class="st">"mpg"</span>, <span class="at">label =</span> <span class="st">"MPG range"</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="fu">range</span>(mtcars<span class="sc">$</span>mpg)</span>
 <span id="cb1-5"><a></a>    <span class="at">min =</span> <span class="fu">min</span>(<span class="fu">floor</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T), <span class="at">max =</span> <span class="fu">max</span>(<span class="fu">ceiling</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T),</span>
-<span id="cb1-6"><a></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="quarto-layout-panel" data-layout-ncol="4">
 <div class="quarto-layout-row">
@@ -549,7 +552,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -661,13 +664,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

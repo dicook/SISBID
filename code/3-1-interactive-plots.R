@@ -1,4 +1,6 @@
-## ----echo=FALSE, include = F--------------------------------------------------
+## -----------------------------------------------------------------------------
+#| echo: false
+#| include: false
 #library(tidyverse)
 library(tidyr)
 library(dplyr)
@@ -22,13 +24,21 @@ penguins_std <- penguins |>
   select(species, bl:bm)
 
 
-## ----include=F, eval=FALSE, echo = FALSE--------------------------------------
+## -----------------------------------------------------------------------------
+#| include: false
+#| eval: false
+#| echo: false
 # cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"),
 #                            from = "2018-01-01", to = "2025-07-22")
 # write_csv(cran_dls, file = here("data/package-info-Jul-2025.csv"))
 
 
-## ----echo=FALSE, fig.width=9, fig.height = 6, message = FALSE, warning=FALSE----
+## -----------------------------------------------------------------------------
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 9
+#| fig-height: 6
 cran_dls <- read_csv(here::here("data/package-info-Jul-2025.csv"))
 cran_summary <- cran_dls %>%
   mutate(date = ymd(date) %>% floor_date("week")) %>%
@@ -54,7 +64,12 @@ cran_summary %>%
   scale_y_log10()
 
 
-## ----plotly, warning = FALSE, message = FALSE, eval=FALSE, echo=TRUE----------
+## -----------------------------------------------------------------------------
+#| label: plotly
+#| warning: false
+#| message: false
+#| eval: false
+#| echo: true
 # plot_ly(data = penguins_std,
 #         x = ~fl,
 #         y = ~bl,
@@ -63,7 +78,11 @@ cran_summary %>%
 #         width=420, height=300)
 
 
-## ----plotly-show, warning = FALSE, message = FALSE, echo=FALSE----------------
+## -----------------------------------------------------------------------------
+#| label: plotly-show
+#| warning: false
+#| message: false
+#| echo: false
 plot_ly(data = penguins_std, 
         x = ~fl, 
         y = ~bl, 
@@ -74,7 +93,9 @@ plot_ly(data = penguins_std,
         mode="markers")
 
 
-## ----message = FALSE, echo = TRUE---------------------------------------------
+## -----------------------------------------------------------------------------
+#| message: false
+#| echo: true
 gg <- ggplot(data=penguins_std, aes(x = fl, 
                                     y = bl, 
                                     colour = species)) +  
@@ -83,7 +104,12 @@ gg <- ggplot(data=penguins_std, aes(x = fl,
 ggplotly(gg, width=600, height=490)
 
 
-## ----scatterplotly, eval=TRUE, echo=TRUE, warning=FALSE, message = FALSE------
+## -----------------------------------------------------------------------------
+#| label: scatterplotly
+#| eval: true
+#| echo: true
+#| warning: false
+#| message: false
 library(GGally)
 p <- ggpairs(penguins_std, columns=2:5, 
              mapping = ggplot2::aes(color = species, 
@@ -91,7 +117,9 @@ p <- ggpairs(penguins_std, columns=2:5,
 ggplotly(p, width=600, height=490)
 
 
-## ----warning = FALSE, echo=TRUE-----------------------------------------------
+## -----------------------------------------------------------------------------
+#| warning: false
+#| echo: true
 data(canada.cities, package = "maps")
 viz <- ggplot(canada.cities, aes(long, lat)) +
   borders(regions = "canada") +
@@ -101,11 +129,17 @@ viz <- ggplot(canada.cities, aes(long, lat)) +
   theme_map()
 
 
-## ----out.width="80%", echo=TRUE-----------------------------------------------
+## -----------------------------------------------------------------------------
+#| echo: true
+#| out-width: 80%
 ggplotly(viz)
 
 
-## ----eval=TRUE, warning = FALSE, message = FALSE, echo=TRUE-------------------
+## -----------------------------------------------------------------------------
+#| eval: true
+#| warning: false
+#| message: false
+#| echo: true
 txh_shared <- highlight_key(txhousing, ~year)
 
 p <- ggplot(txh_shared, aes(month, median)) +
@@ -123,7 +157,13 @@ gg <- ggplotly(p, height = 750, width = 900) %>%
    plotly::layout(title = "Click on a line to highlight a year")
 
 
-## ----echo=FALSE, fig.height=10, fig.width=12, out.width="50%", warning=FALSE, message=FALSE, echo=TRUE----
+## -----------------------------------------------------------------------------
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-height: 10
+#| fig-width: 12
+#| out-width: 50%
 highlight(gg)
 
 
@@ -177,7 +217,11 @@ subplot(
   highlight(dynamic = FALSE)
 
 
-## ----echo=FALSE, fig.width = 8, fig.height = 6, out.width="80%", echo=FALSE----
+## -----------------------------------------------------------------------------
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: 80%
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors) +
@@ -192,21 +236,30 @@ ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   gganimate::ease_aes('linear')
 
 
-## ----plot1, eval=TRUE, echo=TRUE----------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot1
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "1"
 ggplot(economics) #<<
 
 
 
-## ----plot2, eval=TRUE, echo=TRUE----------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot2
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "2"
 ggplot(economics) +
   aes(date, unemploy) #<<
 
 
-## ----plot3, eval=TRUE, echo=TRUE----------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot3
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "3"
 ggplot(economics) +
@@ -214,7 +267,10 @@ ggplot(economics) +
   geom_line() #<<
 
 
-## ----plot5-anim, eval=TRUE, echo=TRUE-----------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot5-anim
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "4"
 ggplot(economics) +
@@ -223,21 +279,30 @@ ggplot(economics) +
   transition_reveal(date) #<<
 
 
-## ----plot5, eval=TRUE, echo=TRUE----------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot5
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "1"
 ggplot(datasaurus_dozen)#<<
 
 
 
-## ----plot6, eval=TRUE, echo=TRUE----------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot6
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "2"
 ggplot(datasaurus_dozen) +
   aes(x, y, color=dataset) #<<
 
 
-## ----plot7, eval=TRUE, echo=TRUE----------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot7
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "3"
 ggplot(datasaurus_dozen) +
@@ -247,7 +312,13 @@ ggplot(datasaurus_dozen) +
   coord_equal() 
 
 
-## ----plot8, eval=TRUE, echo=TRUE, fig.width=8, fig.height=9, out.width="100%"----
+## -----------------------------------------------------------------------------
+#| label: plot8
+#| eval: true
+#| echo: true
+#| fig-width: 8
+#| fig-height: 9
+#| out-width: 100%
 #| output-location: column
 #| code-line-numbers: "4"
 ggplot(datasaurus_dozen) +
@@ -259,7 +330,10 @@ ggplot(datasaurus_dozen) +
   theme(legend.position = "none")
 
 
-## ----plot9, eval=TRUE, echo=TRUE----------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: plot9
+#| eval: true
+#| echo: true
 #| output-location: column
 #| code-line-numbers: "6,7"
 ggplot(datasaurus_dozen) +
@@ -272,7 +346,9 @@ ggplot(datasaurus_dozen) +
 
 
 
-## ----fig.show='hide', echo=TRUE-----------------------------------------------
+## -----------------------------------------------------------------------------
+#| echo: true
+#| fig-show: hide
 ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
   geom_point(alpha = 0.7) +
   scale_colour_manual(values = country_colors) +

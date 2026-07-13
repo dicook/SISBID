@@ -1,4 +1,7 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
+## -----------------------------------------------------------------------------
+#| echo: false
+#| message: false
+#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
@@ -31,7 +34,10 @@ ggplot(tb_inc_100k, aes(y = iso3,
   theme_ggdist()
 
 
-## ----not to run this code, eval=FALSE, echo = FALSE---------------------------
+## -----------------------------------------------------------------------------
+#| label: not to run this code
+#| eval: false
+#| echo: false
 # # Data extracted from ALA with this code
 # # Note that package ALA4Ris being replaced by package galah
 # # install.packages("galah")
@@ -73,7 +79,12 @@ ggplot(tb_inc_100k, aes(y = iso3,
 # save(monotremes, file="data/monotremes.rda")
 
 
-## ----Add some transparency to see density of locations, echo=TRUE, fig.width = 8, fig.height = 4, out.width = "80%"----
+## -----------------------------------------------------------------------------
+#| label: Add some transparency to see density of locations
+#| echo: true
+#| fig-width: 8
+#| fig-height: 4
+#| out-width: 80%
 load(here::here("data/monotremes.rda"))
 ggplot(data=monotremes) + 
   geom_point(aes(x = longitude, 
@@ -82,7 +93,12 @@ ggplot(data=monotremes) +
              alpha=0.5)
 
 
-## ----making a map projection, echo=F, fig.width = 5, fig.height = 4, out.width="100%"----
+## -----------------------------------------------------------------------------
+#| label: making a map projection
+#| echo: false
+#| fig-width: 5
+#| fig-height: 4
+#| out-width: 100%
 ggplot(data=monotremes) + 
   geom_point(aes(x=longitude, 
                  y=latitude, 
@@ -92,7 +108,12 @@ ggplot(data=monotremes) +
   coord_map()
 
 
-## ----making a map projection, echo=T, eval = F,fig.show=F, out.width="100%"----
+## -----------------------------------------------------------------------------
+#| label: making a map projection
+#| echo: true
+#| eval: false
+#| fig-show: hold
+#| out-width: 100%
 # ggplot(data=monotremes) +
 #   geom_point(aes(x=longitude,
 #                  y=latitude,
@@ -102,7 +123,10 @@ ggplot(data=monotremes) +
 #   coord_map()
 
 
-## ----you need a developer API to run this code, echo=FALSE, eval=FALSE--------
+## -----------------------------------------------------------------------------
+#| label: you need a developer API to run this code
+#| echo: false
+#| eval: false
 # library(ggmap)
 # library(osmdata)
 # oz_bbox <- c(112.9, # min long
@@ -113,7 +137,9 @@ ggplot(data=monotremes) +
 # save(oz, file="data/oz.rda")
 
 
-## ----load the saved map data, echo=TRUE---------------------------------------
+## -----------------------------------------------------------------------------
+#| label: load the saved map data
+#| echo: true
 #| output-location: "column"
 load(here::here("data/oz.rda"))
 ggmap(oz) + 
@@ -125,7 +151,11 @@ ggmap(oz) +
   scale_color_manual(values = c("#e66100", "#5d3a9b"))
 
 
-## ----leaflet map, echo=TRUE, fig.width = 8, fig.height = 4--------------------
+## -----------------------------------------------------------------------------
+#| label: leaflet map
+#| echo: true
+#| fig-width: 8
+#| fig-height: 4
 #| output-location: "column"
 library(leaflet)
 monotremes |>
@@ -142,7 +172,8 @@ monotremes |>
     lat = ~latitude, lng = ~longitude) 
 
 
-## ----eval=FALSE---------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
 # SOME STUFF HERE |>
 #   mutate(
 #     day = ymd(str_sub(datetime, 1, 10),
@@ -150,7 +181,12 @@ monotremes |>
 #     hour = as.numeric(str_sub(datetime, 15, 16)))
 
 
-## ----show sightings over time, echo=TRUE, out.width="60%",fig.height=4,fig.width=8----
+## -----------------------------------------------------------------------------
+#| label: show sightings over time
+#| echo: true
+#| out-width: 60%
+#| fig-height: 4
+#| fig-width: 8
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -160,7 +196,12 @@ monotremes |>
     facet_wrap(~common_name)
 
 
-## ----add a trend line, echo=F,out.width="100%",fig.height=4,fig.width=8-------
+## -----------------------------------------------------------------------------
+#| label: add a trend line
+#| echo: false
+#| out-width: 100%
+#| fig-height: 4
+#| fig-width: 8
 monotremes |>
   group_by(day, common_name) |>
   summarise(n = n()) |>
@@ -171,7 +212,10 @@ monotremes |>
     facet_wrap(~common_name) 
 
 
-## ----add a trend line, echo=TRUE, eval=F--------------------------------------
+## -----------------------------------------------------------------------------
+#| label: add a trend line
+#| echo: true
+#| eval: false
 # monotremes |>
 #   group_by(day, common_name) |>
 #   summarise(n = n()) |>
@@ -182,12 +226,20 @@ monotremes |>
 #     facet_wrap(~common_name)
 
 
-## ----make it interactive to investigate some observations, echo=TRUE, out.width = "60%", fig.width=10, fig.height=5----
+## -----------------------------------------------------------------------------
+#| label: make it interactive to investigate some observations
+#| echo: true
+#| out-width: 60%
+#| fig-width: 10
+#| fig-height: 5
 library(plotly)
 ggplotly(width=800, height=500)
 
 
-## ----solution code to density plot on map, eval=FALSE, echo=FALSE-------------
+## -----------------------------------------------------------------------------
+#| label: solution code to density plot on map
+#| eval: false
+#| echo: false
 # ggmap(oz) +
 #   geom_density2d(data=monotremes,
 #                  aes(x=longitude, y=latitude),
@@ -195,7 +247,10 @@ ggplotly(width=800, height=500)
 #   facet_wrap(~common_name, ncol=2)
 
 
-## ----solution code to boxplot task, eval=FALSE, echo=FALSE--------------------
+## -----------------------------------------------------------------------------
+#| label: solution code to boxplot task
+#| eval: false
+#| echo: false
 # monotremes |>
 #   group_by(day, common_name) |>
 #   summarise(n = n(), .groups = "drop") |>

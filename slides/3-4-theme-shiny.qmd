@@ -9,7 +9,6 @@ filters:
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 ```
@@ -59,7 +58,7 @@ Hint: Use the `theme = ...` argument in one of the `page_xxx` functions.
 ::: columns
 ::: column
 ```{r}
-#| eval: !expr F
+#| eval: false
 title = div(
   img(src = "wave.gif", 
       width = "40px"),
@@ -83,7 +82,7 @@ title = div(
 ::: columns
 ::: column
 ```{r}
-#| eval: !expr F
+#| eval: false
 nav_panel(
   title = "Dashboard", body, 
   icon = bs_icon("bar-chart", 
@@ -111,8 +110,8 @@ Choose appropriate icons and decide if they are decorative or semantic.
 ## Change the width of the sidebar
 
 ```{r}
-#| eval: !expr F
-#| echo: !expr T
+#| eval: false
+#| echo: true
 #| code-line-numbers: "2"
 #| class-source: "numberLines"
 side <- sidebar(

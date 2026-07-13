@@ -6,7 +6,6 @@ title: "Reactivity"
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
@@ -42,7 +41,7 @@ source(here::here("libraries.R"))
 ## Reactive Expressions
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 rval <- reactive({
   ...
 })
@@ -58,7 +57,7 @@ Called like a function as `rval()`
 ## Reactive Events
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 rval <- eventReactive(actionbutton, {
   ...
 })
@@ -78,7 +77,7 @@ Called like a function as `rval()`
 - Run the app (a couple of times)   
 - Turn on showcase mode:    
 ```{r}
-#| eval: !expr F
+#| eval: false
 runApp("code/3.3-apps/03_submission/", 
        display.mode = "showcase")
 ```
@@ -136,7 +135,7 @@ Answers are in `03b_submission.R`
 - Structure is introduced by cards
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 card1 <- card(
   card_header("Hi, I'm a card"),
   class = "bg-primary",
@@ -181,7 +180,7 @@ card1 <- card(
 - Additional rows can be created by nesting `layout_columns()` functions
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 body <- page_fillable(
   layout_columns(
     col_widths = c(2, 4, 4, 2), # 12 cols per row
@@ -209,7 +208,7 @@ body <- page_fillable(
 - Additional rows can be created by nesting `layout_columns()` functions
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 body <- page_fillable(
   layout_columns(
     col_widths = c(2, 4, 4, 2), # 12 cols per row
@@ -235,7 +234,7 @@ body <- page_fillable(
     - `sidebar()` allows for common inputs across all tabs
 - `layout_column_wrap()` can accomplish some [very neat tricks](https://rstudio.github.io/bslib/articles/column-layout.html)    
 ```{r}
-#| eval: !expr F
+#| eval: false
 layout_column_wrap(
   width = NULL, height = 300, fill = FALSE,
   style = css(grid_template_columns = "2fr 1fr 2fr"),

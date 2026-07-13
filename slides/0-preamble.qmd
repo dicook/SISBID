@@ -6,7 +6,6 @@ title: "Preamble"
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,

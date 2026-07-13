@@ -6,13 +6,13 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>SISBID Data Visualization – Advanced plots and inference</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,6 +21,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -99,7 +102,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link rel="stylesheet" href="css/myremark.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -192,8 +195,8 @@
       margin-right: 0; 
     }
   </style>
-  <link href="../site_libs/countdown-0.5.0/countdown.css" rel="stylesheet">
-  <script src="../site_libs/countdown-0.5.0/countdown.js"></script>
+  <link href="../site_libs/countdown-0.6.0/countdown.css" rel="stylesheet">
+  <script src="../site_libs/countdown-0.6.0/countdown.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -354,7 +357,7 @@ What type of plot would you use to test each?</p>
 <p><a href="images/nullabor_hex.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/nullabor_hex.png" class="absolute" style="top: 30px; right: 30px; width: 50px; "></a></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Make a lineup of mtcars data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Make a lineup of mtcars data</span></span>
 <span id="cb1-2"><a></a><span class="co"># 20 plots, one data, 19 nulls</span></span>
 <span id="cb1-3"><a></a><span class="co"># Which one is different?</span></span>
 <span id="cb1-4"><a></a><span class="fu">set.seed</span>(<span class="dv">20190709</span>)</span>
@@ -366,7 +369,7 @@ What type of plot would you use to test each?</p>
 <span id="cb1-10"><a></a>  <span class="fu">aes</span>(mpg, wt)</span>
 <span id="cb1-11"><a></a>) <span class="sc">+</span></span>
 <span id="cb1-12"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb1-13"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .sample)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -506,13 +509,13 @@ into a field of null plots</p>
 <h2>Assessing temporal dependence</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(l, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>rate)) <span class="sc">+</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(l, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>rate)) <span class="sc">+</span> </span>
 <span id="cb4-2"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb4-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>.sample, </span>
 <span id="cb4-4"><a></a>             <span class="at">scales=</span><span class="st">"free_y"</span>) <span class="sc">+</span></span>
 <span id="cb4-5"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> </span>
 <span id="cb4-6"><a></a>          <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb4-7"><a></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -554,7 +557,7 @@ into a field of null plots</p>
 <section id="tb-lineup" class="slide level2">
 <h2>TB Lineup</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Make expanded rows of categorical variables matching the </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Make expanded rows of categorical variables matching the </span></span>
 <span id="cb5-2"><a></a><span class="co"># counts of aggregated data. Sex needs to be converted to 0, 1</span></span>
 <span id="cb5-3"><a></a><span class="co"># to match binomial output.</span></span>
 <span id="cb5-4"><a></a>tb_us_long <span class="ot">&lt;-</span> <span class="fu">uncount</span>(tb_us, count)</span>
@@ -570,17 +573,17 @@ into a field of null plots</p>
 <span id="cb5-14"><a></a>            <span class="at">true=</span>tb_us_long, <span class="at">n=</span><span class="dv">3</span>, <span class="at">pos=</span>pos)</span>
 <span id="cb5-15"><a></a>l <span class="ot">&lt;-</span> l <span class="sc">|&gt;</span></span>
 <span id="cb5-16"><a></a>  <span class="fu">group_by</span>(.sample, year, age) <span class="sc">|&gt;</span></span>
-<span id="cb5-17"><a></a>  <span class="fu">count</span>(sex01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-17"><a></a>  <span class="fu">count</span>(sex01)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="tb-lineup-1" class="slide level2">
 <h2>TB Lineup</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(l, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">fill =</span> <span class="fu">factor</span>(sex01))) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(l, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">fill =</span> <span class="fu">factor</span>(sex01))) <span class="sc">+</span></span>
 <span id="cb6-2"><a></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
 <span id="cb6-3"><a></a>  <span class="fu">facet_grid</span>(.sample <span class="sc">~</span> age) <span class="sc">+</span></span>
 <span id="cb6-4"><a></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span> </span>
-<span id="cb6-5"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="tb-lineup-2" class="slide level2">
@@ -600,7 +603,7 @@ into a field of null plots</p>
 <p><span class="math inline">\(H_0\)</span>: Rates are the same across sex, regardless of age and year.<br>
 <span class="math inline">\(H_A\)</span>: They aren’t.</p>
 <div class="cell" data-code_copy="false">
-<div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1"></a>tbl <span class="ot">&lt;-</span> tb_us <span class="sc">|&gt;</span> <span class="fu">group_by</span>(sex) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">sum</span>(count))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1"></a>tbl <span class="ot">&lt;-</span> tb_us <span class="sc">|&gt;</span> <span class="fu">group_by</span>(sex) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">sum</span>(count))</span>
 <span id="annotated-cell-5-2"><a href="#annotated-cell-5-2"></a>tbl</span>
 <span id="annotated-cell-5-3"><a href="#annotated-cell-5-3"></a>p <span class="ot">&lt;-</span> tbl<span class="sc">$</span>count[<span class="dv">1</span>]<span class="sc">/</span><span class="fu">sum</span>(tbl<span class="sc">$</span>count)</span>
 <span id="annotated-cell-5-4"><a href="#annotated-cell-5-4"></a></span>
@@ -610,7 +613,7 @@ into a field of null plots</p>
 <span id="annotated-cell-5-8"><a href="#annotated-cell-5-8"></a>            <span class="at">true=</span>tb_us_long, <span class="at">n=</span><span class="dv">3</span>, <span class="at">pos=</span>pos)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-9" class="code-annotation-target"><a href="#annotated-cell-5-9"></a>l <span class="ot">&lt;-</span> l <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-5-10"><a href="#annotated-cell-5-10"></a>  <span class="fu">group_by</span>(.sample, year, age) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11"></a>  <span class="fu">count</span>(sex01)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11"></a>  <span class="fu">count</span>(sex01)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
@@ -639,11 +642,11 @@ into a field of null plots</p>
 <section id="tb-lineup-3" class="slide level2">
 <h2>TB Lineup</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(l, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">fill =</span> <span class="fu">factor</span>(sex01))) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(l, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n, <span class="at">fill =</span> <span class="fu">factor</span>(sex01))) <span class="sc">+</span></span>
 <span id="cb8-2"><a></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
 <span id="cb8-3"><a></a>  <span class="fu">facet_grid</span>(.sample <span class="sc">~</span> age) <span class="sc">+</span></span>
 <span id="cb8-4"><a></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span> </span>
-<span id="cb8-5"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="tb-lineup-4" class="slide level2">
@@ -694,10 +697,10 @@ into a field of null plots</p>
 <li>use the <code>pvisual</code> function to compute the p-value, <code>K=</code> group size, <code>m=18</code></li>
 <li>Try different <span class="math inline">\(\alpha\)</span> values with <code>pVis</code> - how much difference does it make?</li>
 </ol>
-<p></p><div class="countdown" id="timer_b8458853" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p><countdown-timer class="countdown" id="timer_509a3c29" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">data</span>(wasps)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">data</span>(wasps)</span>
 <span id="cb9-2"><a></a>lda_pred <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb9-3"><a></a>  d <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lda</span>(Group<span class="sc">~</span>., </span>
 <span id="cb9-4"><a></a>                   <span class="at">data=</span>x[,<span class="sc">-</span><span class="dv">43</span>]))<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">|&gt;</span></span>
@@ -717,7 +720,7 @@ into a field of null plots</p>
 <span id="cb9-18"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb9-19"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>.sample, <span class="at">ncol=</span><span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb9-20"><a></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb9-21"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-21"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 <p><span class="orange">Enter the p-value in the chat!</span></p>
@@ -925,7 +928,7 @@ into a field of null plots</p>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1037,13 +1040,14 @@ into a field of null plots</p>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

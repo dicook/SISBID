@@ -9,7 +9,6 @@ filters:
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 library(shiny)
@@ -27,7 +26,7 @@ library(thematic)
     - [Tutorials](https://shiny.rstudio.com/tutorial/) at different levels
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 # Additional packages for Shiny
 install.packages(c("bsicons", "showtext", "ragg", "thematic"))
 remotes::install_github("rstudio/bslib") # Get the latest version
@@ -76,7 +75,7 @@ library(readr)
 - What we see and interact with: 
   - user interface: layout with user input and (plot) output
 ```{r}
-#| eval: !expr F
+#| eval: false
 ui <- fluidPage(
 )
 ```
@@ -99,7 +98,7 @@ server <- function(input, output, session) {
 
 ```{r}
 #| eval: false
-#| echo: !expr T
+#| echo: true
 library(shiny)
 
 ui <- fluidPage(
@@ -116,7 +115,7 @@ shinyApp(ui, server)
 
 ```{r}
 #| eval: false
-#| echo: !expr T
+#| echo: true
 library(shiny)
 sidebar <-  sidebarPanel(width = 3, "Fun inputs")
 
@@ -138,7 +137,7 @@ shinyApp(ui, server)
 
 ```{r}
 #| eval: false
-#| echo: !expr T
+#| echo: true
 library(shiny)
 sidebar <-  sidebarPanel(
   width = 3, 
@@ -180,7 +179,7 @@ Add a list of your favorite countries to the sidebar panel:
 
 ```{r}
 #| eval: false
-#| echo: !expr T
+#| echo: true
 library(shiny)
 
 sidebar <-  sidebarPanel(
@@ -265,7 +264,7 @@ Shiny also has a variety of different output options:
 
 ```{r}
 #| eval: false
-#| echo: !expr T
+#| echo: true
 #| code-line-numbers: "13-16,23-27"
 #| class-source: "numberLines"
 library(shiny)

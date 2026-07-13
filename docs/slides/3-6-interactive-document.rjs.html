@@ -6,11 +6,11 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>SISBID Data Visualization – Building interactive documents with learnr, flexdashboard</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link rel="stylesheet" href="css/myremark.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -221,7 +224,7 @@
 </ul>
 <p>Make sure you have the <code>flexdashboard</code> package installed on your computer.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"flexdashboard"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"flexdashboard"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <p>Create a “New R Markdown” document -&gt; “Interactive”</p>
@@ -247,12 +250,12 @@ output:
 <h2>Components</h2>
 <p>This creates a box or a pane for a plot or results</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a></a><span class="fu">### Chart 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a></a><span class="fu">### Chart 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This sets up columns</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a></a>Column {data-width=600}</span>
-<span id="cb4-2"><a></a>-------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a></a>Column {data-width=600}</span>
+<span id="cb4-2"><a></a>-------------------------------------</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="your-turn" class="slide level2 inverse smaller">
@@ -308,12 +311,12 @@ output:
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 <p>✅ Modify the title and author</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a></a><span class="co">---</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a></a><span class="co">---</span></span>
 <span id="cb7-2"><a></a><span class="an">title:</span><span class="co"> "TB Incidence Around the Globe"</span></span>
 <span id="cb7-3"><a></a><span class="an">author:</span><span class="co"> "Di Cook"</span></span>
 <span id="cb7-4"><a></a><span class="an">output:</span><span class="co"> learnr::tutorial</span></span>
 <span id="cb7-5"><a></a><span class="an">runtime:</span><span class="co"> shiny_prerendered</span></span>
-<span id="cb7-6"><a></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-6"><a></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
@@ -321,10 +324,10 @@ output:
 <h2>Write the first section</h2>
 <p>✅ Set the first section to be a description of the data</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a></a><span class="fu">## Data description</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a></a><span class="fu">## Data description</span></span>
 <span id="cb8-2"><a></a></span>
 <span id="cb8-3"><a></a>This is current tuberculosis data taken from <span class="co">[</span><span class="ot">WHO</span><span class="co">](http://www.who.int/tb/country/data/download/en/)</span>, </span>
-<span id="cb8-4"><a></a>the case notifications table. The data looks like this:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a></a>the case notifications table. The data looks like this:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 <p>✅ Create a <code>data</code> directory in your tutorial folder, and add the <code>TB_burden_countries_2025-07-22.csv</code> data into this.</p>
@@ -334,12 +337,12 @@ output:
 <p>✅ Next, add a block of R code to read the data, and display the data in the page.<br>
 Here, we use the <code>DT</code> package to display the data in the output html.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb9-2"><a></a><span class="fu">library</span>(DT)</span>
 <span id="cb9-3"><a></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_burden_countries_2025-07-22.csv"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-4"><a></a>  <span class="fu">select</span>(country, iso3, year, e_inc_100k) </span>
 <span id="cb9-5"><a></a></span>
-<span id="cb9-6"><a></a><span class="fu">datatable</span>(tb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-6"><a></a><span class="fu">datatable</span>(tb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
@@ -347,10 +350,10 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 <h2>Add a plot</h2>
 <p>✅ Make a separate section titled “Incidence”, and add the code to make a plot, like the following</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(tb, <span class="fu">aes</span>(<span class="at">x=</span>year)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(tb, <span class="fu">aes</span>(<span class="at">x=</span>year)) <span class="sc">+</span></span>
 <span id="cb10-2"><a></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">weight =</span> e_inc_100k)) <span class="sc">+</span></span>
 <span id="cb10-3"><a></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a></a>  <span class="fu">ylab</span>(<span class="st">"TB incidence per 100k"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a></a>  <span class="fu">ylab</span>(<span class="st">"TB incidence per 100k"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
@@ -370,12 +373,12 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 <section id="polishing-the-data-description-1" class="slide level2 smaller">
 <h2>Polishing the data description</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">library</span>(learnr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">library</span>(learnr)</span>
 <span id="cb12-2"><a></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
 <span id="cb12-3"><a></a>  <span class="at">echo =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb12-4"><a></a>  <span class="at">message =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb12-5"><a></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb12-6"><a></a>  <span class="at">error =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-6"><a></a>  <span class="at">error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
@@ -391,14 +394,14 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 </ul>
 </div><div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">quiz</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">quiz</span>(</span>
 <span id="cb13-2"><a></a>  <span class="fu">question</span>(<span class="st">"Which package contains functions for installing other R packages?"</span>,</span>
 <span id="cb13-3"><a></a>    <span class="fu">answer</span>(<span class="st">"base"</span>),</span>
 <span id="cb13-4"><a></a>    <span class="fu">answer</span>(<span class="st">"tools"</span>),</span>
 <span id="cb13-5"><a></a>    <span class="fu">answer</span>(<span class="st">"utils"</span>, <span class="at">correct =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb13-6"><a></a>    <span class="fu">answer</span>(<span class="st">"codetools"</span>)</span>
 <span id="cb13-7"><a></a>  )</span>
-<span id="cb13-8"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><span class=" faa-flash animated-hover " style=" color:#FA700A; display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">Try making a question about the TB data on the Incidence tab.</span></p>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
@@ -420,13 +423,12 @@ Here, we use the <code>DT</code> package to display the data in the output html.
 <p>Because this is an html document, interactive graphics can be incorporated.<br>
 We’ll add a section to use interactive plots to examine the temporal trend in TB incidence.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">library</span>(plotly)</span>
-<span id="cb14-2"><a></a><span class="fu">library</span>(plotly)</span>
-<span id="cb14-3"><a></a>p <span class="ot">&lt;-</span> tb <span class="sc">|&gt;</span> </span>
-<span id="cb14-4"><a></a>  <span class="fu">filter</span>(iso3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AUS"</span>, <span class="st">"USA"</span>, <span class="st">"CAN"</span>, <span class="st">"KEN"</span>, <span class="st">"IND"</span>, <span class="st">"COL"</span>, <span class="st">"ASM"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb14-5"><a></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb14-6"><a></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>iso3, <span class="at">y=</span>e_inc_100k, <span class="at">frame=</span>year))</span>
-<span id="cb14-7"><a></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">library</span>(plotly)</span>
+<span id="cb14-2"><a></a>p <span class="ot">&lt;-</span> tb <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a></a>  <span class="fu">filter</span>(iso3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"AUS"</span>, <span class="st">"USA"</span>, <span class="st">"CAN"</span>, <span class="st">"KEN"</span>, <span class="st">"IND"</span>, <span class="st">"COL"</span>, <span class="st">"ASM"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-5"><a></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>iso3, <span class="at">y=</span>e_inc_100k, <span class="at">frame=</span>year))</span>
+<span id="cb14-6"><a></a><span class="fu">ggplotly</span>(p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
@@ -434,14 +436,14 @@ We’ll add a section to use interactive plots to examine the temporal trend in 
 <h2>Styling and cuteness</h2>
 <p>Use your emoji and anicon skills to add some friendly elements to the notes.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">set.seed</span>(<span class="dv">20190709</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">set.seed</span>(<span class="dv">20190709</span>)</span>
 <span id="cb15-2"><a></a>emo<span class="sc">::</span><span class="fu">ji</span>(<span class="st">"fantasy"</span>)</span>
-<span id="cb15-3"><a></a>emo<span class="sc">::</span><span class="fu">ji</span>(<span class="st">"clock"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a></a>emo<span class="sc">::</span><span class="fu">ji</span>(<span class="st">"clock"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>anicon<span class="sc">::</span><span class="fu">nia</span>(<span class="st">"You've got 30 seconds!"</span>, <span class="at">colour=</span><span class="st">"#FA700A"</span>, <span class="at">anitype=</span><span class="st">"hover"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>anicon<span class="sc">::</span><span class="fu">nia</span>(<span class="st">"You've got 30 seconds!"</span>, <span class="at">colour=</span><span class="st">"#FA700A"</span>, <span class="at">anitype=</span><span class="st">"hover"</span>)</span>
 <span id="cb16-2"><a></a>anicon<span class="sc">::</span><span class="fu">faa</span>(<span class="st">"hand-paper"</span>, <span class="at">animate=</span><span class="st">"spin"</span>, <span class="at">grow=</span><span class="dv">20</span>, <span class="at">color=</span><span class="st">"#B78ED2"</span>,</span>
-<span id="cb16-3"><a></a>  <span class="at">position=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">200</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a></a>  <span class="at">position=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">200</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🛑 Check that the document compiles, by clicking <code>Run Document</code></p>
 </section>
@@ -651,7 +653,7 @@ We’ll add a section to use interactive plots to examine the temporal trend in 
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -763,13 +765,14 @@ We’ll add a section to use interactive plots to examine the temporal trend in 
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

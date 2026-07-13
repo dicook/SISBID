@@ -6,7 +6,6 @@ title: "Advancing the Grammar of Graphics: `gg` packages, maps, interactivity"
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
@@ -196,7 +195,7 @@ If you are good at recognising the shape of Australia, you might realise that th
 ::: {.column width="35%"}
 ```{r}
 #| label: making a map projection
-#| echo: !expr F
+#| echo: false
 #| fig-width: 5
 #| fig-height: 4
 #| out-width: 100%
@@ -212,9 +211,9 @@ ggplot(data=monotremes) +
 ::: {.column width="65%"}
 ```{r}
 #| label: making a map projection
-#| echo: !expr T
-#| eval: !expr F
-#| fig-show: !expr F
+#| echo: true
+#| eval: false
+#| fig-show: hold
 #| out-width: 100%
 ```
 
@@ -319,7 +318,7 @@ Add a trend line.
 
 ```{r}
 #| label: add a trend line
-#| echo: !expr F
+#| echo: false
 #| out-width: 100%
 #| fig-height: 4
 #| fig-width: 8
@@ -337,7 +336,7 @@ monotremes |>
 ```{r}
 #| label: add a trend line
 #| echo: true
-#| eval: !expr F
+#| eval: false
 ```
 :::
 :::

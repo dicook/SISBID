@@ -8,7 +8,6 @@ warning: false
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 
@@ -114,8 +113,8 @@ Long form:
   
 ```{r}
 #| label: original form
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 kable(head(ff_long, 4))
 ```
 
@@ -131,8 +130,8 @@ french_fries_weeks <- ff_long |>
 ```
 
 ```{r}
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 kable(head(french_fries_weeks,3))
 ```
 
@@ -170,9 +169,9 @@ Note the use of the backtick for variable names with special characters or numbe
 ::: {.column width="60%"}
 ```{r}
 #| label: week 1 vs week 9
-#| message: !expr F
-#| warning: !expr F
-#| eval: !expr F
+#| message: false
+#| warning: false
+#| eval: false
 #| fig-width: 5
 #| fig-height: 5
 french_fries_weeks |>
@@ -184,9 +183,9 @@ french_fries_weeks |>
 
 ```{r}
 #| label: week 1 vs week 9
-#| message: !expr F
-#| warning: !expr F
-#| echo: !expr F
+#| message: false
+#| warning: false
+#| echo: false
 #| fig-width: 5
 #| fig-height: 5
 ```
@@ -233,8 +232,8 @@ ff.m <- french_fries |>
 pivot_longer(-(time:rep), names_to="type", values_to="rating")
 ```
 ```{r}
-#| echo: !expr F
-#| include: !expr T
+#| echo: false
+#| include: true
 head(ff.m)
 ```
 
@@ -309,8 +308,8 @@ Use the long form of the data and plot:
 
 ```{r}
 #| label: ratings by week
-#| message: !expr F
-#| warning: !expr F
+#| message: false
+#| warning: false
 #| fig-width: 8
 #| fig-height: 3
 ff.m$time <- as.numeric(ff.m$time)
@@ -334,8 +333,8 @@ I've made the plot, but perhaps you can fit a model?
 ```{r}
 #| label: ratings by week again
 #| echo: false
-#| message: !expr F
-#| warning: !expr F
+#| message: false
+#| warning: false
 #| fig-width: 8
 #| fig-height: 2.5
 ff.m$time <- as.numeric(ff.m$time)

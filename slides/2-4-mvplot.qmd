@@ -6,7 +6,6 @@ title: "Multivariate data plots"
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
@@ -65,7 +64,7 @@ Use the GGally package function `ggpairs`.
 #| label: scatterplot-matrix
 #| echo: true
 #| eval: false
-ggpairs(penguins_std, columns=c(2:5)) 
+ggpairs(penguins_std, columns=c(2:5)) + theme(aspect.ratio = 1)
 ```
 
 *What do we learn?*
@@ -126,7 +125,7 @@ ggpairs(penguins_std, columns=c(2:5),
 #| label: p-heatmap
 #| echo: true
 #| fig-show: hide
-# install.packages("superheat")
+# remotes::install_github("rlbarter/superheat")
 library(superheat)
 superheat(penguins_std[,2:5], 
           pretty.order.rows = T,
@@ -402,9 +401,8 @@ Axes are parallel, observations are connecting lines.
 
 ```{r}
 #| label: organise data pcp
-#| eval: !expr T
-#| echo: false
 #| eval: false
+#| echo: false
 tcga_t_pc_pcp <- tcga_t_pc |>
   as_tibble() |>
   pcp_select(PC1:PC10) |>

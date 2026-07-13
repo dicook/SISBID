@@ -1,9 +1,13 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
+## -----------------------------------------------------------------------------
+#| echo: false
+#| message: false
+#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## ----eval = F-----------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
 # server <- function(input, output) {
 #     output$distPlot <- renderPlot({
 #         ggplot(faithful, aes(x=waiting)) + geom_histogram(bins = input$bins)
@@ -11,7 +15,8 @@ source(here::here("libraries.R"))
 # }
 
 
-## ----eval = F-----------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
 # server <- function(input, output) {
 # 
 #     output$distPlot <- renderPlotly({
@@ -22,13 +27,15 @@ source(here::here("libraries.R"))
 # }
 
 
-## ----eval = F-----------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
 # mainPanel(
 #   plotlyOutput("distPlot")
 # )
 
 
-## ----eval = F-----------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
 # sidebarLayout(
 #   sidebarPanel(
 #     numericInput("bins", "nbins", 30)

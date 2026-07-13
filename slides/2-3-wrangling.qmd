@@ -6,7 +6,6 @@ title: "Wrangling Data and Models"
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```

@@ -4,7 +4,7 @@ title: "Interactive graphics"
 
 ```{r}
 #| echo: false
-#| include: !expr F
+#| include: false
 #library(tidyverse)
 library(tidyr)
 library(dplyr)
@@ -41,7 +41,7 @@ penguins_std <- penguins |>
 ## Interactive Graphics 
 
 ```{r}
-#| include: !expr F
+#| include: false
 #| eval: false
 #| echo: false
 cran_dls <- cran_downloads(c("ggplot2", "plotly", "leaflet", "ggvis", "animint2", "rCharts", "gridSVG", "R2D3", "shiny", "crosstalk"), 
@@ -214,7 +214,6 @@ gg <- ggplotly(p, height = 750, width = 900) %>%
 #| echo: false
 #| warning: false
 #| message: false
-#| echo: true
 #| fig-height: 10
 #| fig-width: 12
 #| out-width: 50%
@@ -300,7 +299,6 @@ subplot(
 ## An example animation {.smaller}
 
 ```{r}
-#| echo: false
 #| echo: false
 #| fig-width: 8
 #| fig-height: 6

@@ -6,7 +6,6 @@ title: "Touring multivariate data"
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
@@ -535,7 +534,7 @@ animate_slice(sphere2, axes="bottomleft")
 
 ```{r}
 #| eval: false
-#| echo: !expr F
+#| echo: false
 render_gif(
   sphere2, grand_tour(), 
   display_slice(axes="bottomleft"), 
@@ -564,7 +563,7 @@ animate_slice(sphere1, axes="bottomleft", half_range=0.6)
 
 ```{r}
 #| eval: false
-#| echo: !expr F
+#| echo: false
 render_gif(
   sphere1, grand_tour(), 
   display_slice(axes="bottomleft", half_range=0.6), 
@@ -593,7 +592,7 @@ animate_slice(torus, axes="bottomleft", half_range=0.8)
 
 ```{r}
 #| eval: false
-#| echo: !expr F
+#| echo: false
 render_gif(torus, grand_tour(), 
            display_slice(axes="bottomleft", half_range=0.8), 
            "slides/images/torus4d_slice.gif", frames=100, width=400, height=400)
@@ -624,7 +623,7 @@ animate_slice(cube1_std, axes="bottomleft")
 
 ```{r}
 #| eval: false
-#| echo: !expr F
+#| echo: false
 render_gif(cube1_std, grand_tour(), 
            display_slice(axes="bottomleft"), 
            "slides/images/cube4d_slice.gif", frames=100, width=400, height=400)
@@ -682,7 +681,7 @@ render_gif(
 
 ```{r}
 #| eval: false
-#| echo: !expr F
+#| echo: false
 
 render_gif(data=penguins_std[,2:5],
            tour_path = grand_tour(1),
@@ -724,7 +723,7 @@ Density contours overlaid on a scatterplot
 
 ```{r}
 #| label: runthis12
-#| eval: !expr F
+#| eval: false
 animate_density2d(
   penguins_std[,2:5], 
   col=penguins_std$species, axes="bottomleft")

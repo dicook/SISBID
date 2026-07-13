@@ -6,7 +6,6 @@ title: "Polish and share your own shiny app"
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
@@ -53,7 +52,7 @@ This will create a folder in your workspace with the same name as you gave your 
 Change the plot to use `ggplot`, this involves changing the server function to be this:
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 server <- function(input, output) {
     output$distPlot <- renderPlot({
         ggplot(faithful, aes(x=waiting)) + geom_histogram(bins = input$bins)
@@ -79,7 +78,7 @@ Change the server function to look like this.
 Note `renderPlotly`
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 server <- function(input, output) {
 
     output$distPlot <- renderPlotly({
@@ -94,7 +93,7 @@ server <- function(input, output) {
 Change the `ui` function to render plotly output
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 mainPanel(
   plotlyOutput("distPlot")
 )
@@ -113,7 +112,7 @@ Add `library(plotly)` to the top of the file.
 Convert the slide into a numeric input, by changing the `ui` function to be:
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 sidebarLayout(
   sidebarPanel(
     numericInput("bins", "nbins", 30)

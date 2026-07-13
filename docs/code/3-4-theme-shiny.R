@@ -1,9 +1,13 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
+## -----------------------------------------------------------------------------
+#| echo: false
+#| message: false
+#| warning: false
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 
 
-## ----eval = F-----------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
 # title = div(
 #   img(src = "wave.gif",
 #       width = "40px"),
@@ -13,7 +17,8 @@
 #   style = "display: inline;"),
 
 
-## ----eval = F-----------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
 # nav_panel(
 #   title = "Dashboard", body,
 #   icon = bs_icon("bar-chart",
@@ -23,7 +28,9 @@
 # ),
 
 
-## ----eval = F, echo = T-------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
+#| echo: true
 #| code-line-numbers: "2"
 #| class-source: "numberLines"
 # side <- sidebar(

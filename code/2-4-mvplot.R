@@ -1,4 +1,7 @@
-## ----echo = FALSE, message = FALSE, warning = FALSE, warning = FALSE----------
+## -----------------------------------------------------------------------------
+#| echo: false
+#| message: false
+#| warning: false
 source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
@@ -20,18 +23,29 @@ penguins_std <- penguins |>
 
 
 
-## ----echo=FALSE---------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| echo: false
 countdown::countdown(1,0)
 
 
-## ----scatterplot-matrix, echo=TRUE, eval=FALSE--------------------------------
-# ggpairs(penguins_std, columns=c(2:5))
+## -----------------------------------------------------------------------------
+#| label: scatterplot-matrix
+#| echo: true
+#| eval: false
+# ggpairs(penguins_std, columns=c(2:5)) + theme(aspect.ratio = 1)
 
 
-## ----ref.label="scatterplot-matrix", echo=FALSE, fig.width=6, fig.height=6----
+## -----------------------------------------------------------------------------
+#| echo: false
+#| ref-label: scatterplot-matrix
+#| fig-width: 6
+#| fig-height: 6
 
 
-## ----scatterplot-matrix-with-colour, echo=TRUE, fig.show='hide'---------------
+## -----------------------------------------------------------------------------
+#| label: scatterplot-matrix-with-colour
+#| echo: true
+#| fig-show: hide
 # Re-make mapping colour to species (class)
 ggpairs(penguins_std, columns=c(2:5), 
         ggplot2::aes(colour=species)) +
@@ -39,21 +53,37 @@ ggpairs(penguins_std, columns=c(2:5),
   scale_fill_viridis_d(option = "plasma", begin=0.2, end=0.8)
 
 
-## ----ref.label="scatterplot-matrix-with-colour", echo=FALSE, fig.width=6, fig.height=6----
+## -----------------------------------------------------------------------------
+#| echo: false
+#| ref-label: scatterplot-matrix-with-colour
+#| fig-width: 6
+#| fig-height: 6
 
 
-## ----p-heatmap, echo=TRUE, fig.show='hide'------------------------------------
-# install.packages("superheat")
+## -----------------------------------------------------------------------------
+#| label: p-heatmap
+#| echo: true
+#| fig-show: hide
+# remotes::install_github("rlbarter/superheat")
 library(superheat)
 superheat(penguins_std[,2:5], 
           pretty.order.rows = T,
           pretty.order.cols = T)
 
 
-## ----ref.label="p-heatmap", eval=TRUE, echo=FALSE, fig.width=3, fig.height=7, out.width="50%"----
+## -----------------------------------------------------------------------------
+#| eval: true
+#| echo: false
+#| ref-label: p-heatmap
+#| fig-width: 3
+#| fig-height: 7
+#| out-width: 50%
 
 
-## ----correlation-heatmap, echo=TRUE, fig.show='hide'--------------------------
+## -----------------------------------------------------------------------------
+#| label: correlation-heatmap
+#| echo: true
+#| fig-show: hide
 # Look at one species only
 adelie <- penguins_std |> 
   filter(species == "Adelie") |>
@@ -61,17 +91,29 @@ adelie <- penguins_std |>
 ggcorr(adelie)
 
 
-## ----ref.label="correlation-heatmap", echo=FALSE, fig.width=4, fig.height=4, out.width="90%"----
+## -----------------------------------------------------------------------------
+#| echo: false
+#| ref-label: correlation-heatmap
+#| fig-width: 4
+#| fig-height: 4
+#| out-width: 90%
 
 
-## ----corrgram, echo=TRUE------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: corrgram
+#| echo: true
 #| output-location: "column"
 corrgram(adelie, 
   lower.panel=
     corrgram::panel.ellipse)
 
 
-## ----hexbin scatterplot, fig.width=6, fig.height=6, echo =TRUE, eval=FALSE----
+## -----------------------------------------------------------------------------
+#| label: hexbin scatterplot
+#| echo: true
+#| eval: false
+#| fig-width: 6
+#| fig-height: 6
 # # Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq
 # # This chunk takes some time to run, so evaluated off-line
 # if (!file.exists(here("data", "TCGA-PANCAN-HiSeq-801x20531", "data.csv"))) {
@@ -99,7 +141,14 @@ corrgram(adelie,
 #     low="#E24C80", high="#FDF6B5")
 
 
-## ----generalised-pairs-plot, error=FALSE, message = FALSE, warning = FALSE, echo = TRUE, fig.width=6, fig.height=6----
+## -----------------------------------------------------------------------------
+#| label: generalised-pairs-plot
+#| error: false
+#| message: false
+#| warning: false
+#| echo: true
+#| fig-width: 6
+#| fig-height: 6
 #| output-location: "column"
 # Matrix plot when variables are not numeric
 data(australia_PISA2012)
@@ -110,7 +159,11 @@ australia_PISA2012 |>
   ggpairs(columns=c(3, 15, 16, 21, 26))
 
 
-## ----generalised-pairs-plot-enhance-plots, echo=TRUE, fig.width=6, fig.height=6----
+## -----------------------------------------------------------------------------
+#| label: generalised-pairs-plot-enhance-plots
+#| echo: true
+#| fig-width: 6
+#| fig-height: 6
 #| output-location: 'column'
 # Modify the defaults, set the transparency of points since there is a lot of data
 australia_PISA2012 |> 
@@ -122,7 +175,11 @@ australia_PISA2012 |>
                         alpha=0.05)))
 
 
-## ----echo=FALSE, fig.width=6, fig.height=6, outwidth="90%"--------------------
+## -----------------------------------------------------------------------------
+#| echo: false
+#| outwidth: 90%
+#| fig-width: 6
+#| fig-height: 6
 # Make a special style of plot to put in the matrix
 my_fn <- function(data, mapping, method="loess", ...){
       p <- ggplot(data = data, mapping = mapping) + 
@@ -138,11 +195,14 @@ australia_PISA2012 |>
 
 
 
-## ----echo=FALSE---------------------------------------------------------------
+## -----------------------------------------------------------------------------
+#| echo: false
 countdown::countdown(5,0)
 
 
-## ----echo=FALSE, eval=FALSE---------------------------------------------------
+## -----------------------------------------------------------------------------
+#| echo: false
+#| eval: false
 # australia_PISA2012 |>
 #   filter(!is.na(dishwasher)) |>
 #   ggpairs(columns=c(3, 15, 16, 21, 26),
@@ -150,7 +210,11 @@ countdown::countdown(5,0)
 #           upper = list(continuous = "density"))
 
 
-## ----wrangle-housing-data-and-make-a-regression-style-pairs-plot, out.width="80%", fig.width=8, fig.height=3----
+## -----------------------------------------------------------------------------
+#| label: wrangle-housing-data-and-make-a-regression-style-pairs-plot
+#| out-width: 80%
+#| fig-width: 8
+#| fig-height: 3
 housing <- read_csv(here::here("data/housing.csv")) |>
   mutate(date = dmy(date)) |>
   mutate(year = year(date)) |>
@@ -167,7 +231,10 @@ ggduo(housing[, c(4,3,8,10,11)],
                        alpha = 0.10)))
 
 
-## ----generalised-pcp, fig.width=6, fig.height=6-------------------------------
+## -----------------------------------------------------------------------------
+#| label: generalised-pcp
+#| fig-width: 6
+#| fig-height: 6
 #| output-location: "column"
 # install.packages("ggpcp")
 library(ggpcp)
@@ -184,7 +251,10 @@ penguins_std |>
     theme(legend.position = "none")
 
 
-## ----organise data pcp, eval=T, echo=FALSE, eval=FALSE------------------------
+## -----------------------------------------------------------------------------
+#| label: organise data pcp
+#| eval: false
+#| echo: false
 # tcga_t_pc_pcp <- tcga_t_pc |>
 #   as_tibble() |>
 #   pcp_select(PC1:PC10) |>
@@ -212,7 +282,9 @@ penguins_std |>
 #   slice_head(n=5)
 
 
-## ----ribbon-pcp, eval=FALSE---------------------------------------------------
+## -----------------------------------------------------------------------------
+#| label: ribbon-pcp
+#| eval: false
 # ggplot() +
 #     geom_ribbon(data = dframe, aes(x=pcp_x, ymin = lower, ymax = upper, group = level), alpha=0.5) +
 #     geom_pcp_axes(data=tcga_t_pc_pcp_sub, aes_pcp()) +
@@ -221,7 +293,9 @@ penguins_std |>
 #     theme_pcp()
 
 
-## ----eval=FALSE, echo=FALSE---------------------------------------------------
+## -----------------------------------------------------------------------------
+#| eval: false
+#| echo: false
 # if (!requireNamespace("BiocManager", quietly = TRUE))
 #     install.packages("BiocManager")
 # BiocManager::install("bigPint")

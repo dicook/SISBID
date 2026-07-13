@@ -7,7 +7,6 @@ code-annotations: select
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 # source(here("knitr-setup.R"))
 # source(here("libraries.R"))
 
@@ -125,7 +124,7 @@ Here are several plot descriptions.
 What would be the null hypothesis in each?
 
 ```{r}
-#| eval: !expr F
+#| eval: false
 ggplot(data) + geom_point(aes(x=x1, y=x2))            #  A
 ggplot(data) + geom_point(aes(x=x1, y=x2, colour=cl)) #  B
 ggplot(data) + geom_histogram(aes(x=x1))              #  C
@@ -166,7 +165,7 @@ d. violin plot of x1 with different colors
 
 ```{r}
 #| label: lineup 1
-#| echo: !expr T
+#| echo: true
 #| fig-height: 6
 #| fig-width: 6
 #| output-location: "column"
@@ -203,7 +202,7 @@ into a field of null plots
 
 ```{r}
 #| label: embed the data plot in a field of null plots
-#| eval: !expr F
+#| eval: false
 pos <- sample(1:20, 1)
 df_null <- lineup(
   null_permute('v1'), 
@@ -222,9 +221,9 @@ ggplot(
 
 ```{r}
 #| label: penguins-lineup-ex
-#| echo: !expr F
-#| message: !expr F
-#| warning: !expr F
+#| echo: false
+#| message: false
+#| warning: false
 set.seed(203482093)
 data(penguins)
 pos <- sample(1:20, 1)
@@ -318,9 +317,9 @@ c("alpha = 0.01" = pVis(4,17,m=20, alpha=0.01, lower.tail=FALSE),
 
 ```{r}
 #| label: lineup 2
-#| message: !expr F
-#| warning: !expr F
-#| eval: !expr F
+#| message: false
+#| warning: false
+#| eval: false
 #| fig-height: 6
 # Assessing model fit, using a lineup of residual plots: 19 nulls + 1 resid plot
 # Structure in the residual plot corresponding to less than random variation?
@@ -338,9 +337,9 @@ ggplot(lineup(null_lm(tip ~ totbill, method = 'rotate'), tips.reg)) +
 
 ```{r}
 #| label: lineup 2
-#| message: !expr F
-#| warning: !expr F
-#| echo: !expr F
+#| message: false
+#| warning: false
+#| echo: false
 #| fig-height: 6
 ```
 
@@ -363,7 +362,7 @@ l <- lineup(null_ts("rate", auto.arima), aud)
 ## Assessing temporal dependence
 
 ```{r}
-#| echo: !expr T
+#| echo: true
 #| output-location: "column"
 ggplot(l, aes(x=date, y=rate)) + 
   geom_line() +
@@ -380,8 +379,8 @@ ggplot(l, aes(x=date, y=rate)) +
 ```{r}
 #| label: lets talk TB
 #| echo: false
-#| message: !expr F
-#| warning: !expr F
+#| message: false
+#| warning: false
 tb <- read_csv(here("data/TB_notifications_2020-07-01.csv")) |> 
   select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
@@ -398,7 +397,7 @@ tb_us <- tb |>
 ```
 
 ```{r}
-#| echo: !expr F
+#| echo: false
 #| fig-width: 10
 #| fig-height: 3
 ggplot(tb_us, aes(x = year, y = count, fill = sex)) +
@@ -452,8 +451,8 @@ l <- l |>
 
 ```{r}
 #| label: tb-lineup-1
-#| eval: !expr F
-#| echo: !expr T
+#| eval: false
+#| echo: true
 ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
   geom_bar(stat = "identity", position = "fill") +
   facet_grid(.sample ~ age) +
@@ -465,7 +464,7 @@ ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
 
 ```{r}
 #| label: tb-lineup-1
-#| echo: !expr F
+#| echo: false
 #| fig-height: 6
 #| fig-width: 10
 ```
@@ -478,7 +477,7 @@ $H_A$: They aren't.
 ```{r}
 #| label: a more complicated null
 #| echo: true
-#| code_copy: !expr F
+#| code_copy: false
 tbl <- tb_us |> group_by(sex) |> summarise(count=sum(count)) # <1>
 tbl # <1>
 p <- tbl$count[1]/sum(tbl$count) # <1>
@@ -499,8 +498,8 @@ l <- l |> # <3>
 
 ```{r}
 #| label: tb-lineup-2
-#| eval: !expr F
-#| echo: !expr T
+#| eval: false
+#| echo: true
 ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
   geom_bar(stat = "identity", position = "fill") +
   facet_grid(.sample ~ age) +
@@ -512,7 +511,7 @@ ggplot(l, aes(x = year, y = n, fill = factor(sex01))) +
 
 ```{r}
 #| label: tb-lineup-2
-#| echo: !expr F
+#| echo: false
 #| fig-height: 6
 #| fig-width: 10
 ```

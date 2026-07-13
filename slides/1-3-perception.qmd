@@ -13,7 +13,6 @@ warning: false
 #| echo: false
 #| message: false
 #| warning: false
-#| warning: false
 # source(here::here("knitr-setup.R"))
 # source(here::here("libraries.R"))
 library(readr)
@@ -161,13 +160,13 @@ Go to www.menti.com and use the code 2979 2396.
 ::: {layout-ncol=2}
 
 ```{r}
-#| echo: !expr F
+#| echo: false
 #| ref-label: focus on one year gender side-by-side bars of males females
 #| fig-height: 3
 ```
 
 ```{r}
-#| echo: !expr F
+#| echo: false
 #| ref-label: focus on one year age side-by-side bars of age group
 #| fig-height: 3
 ```
@@ -220,7 +219,7 @@ You'll have about two minutes.
 
 ```{r}
 #| label: use a line plot instead of bar
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
@@ -233,7 +232,7 @@ ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
 
 ```{r}
 #| label: colour and axes fixes
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 # This uses a color blind friendly scale
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
@@ -251,8 +250,8 @@ Which type of plot makes it easier to answer
 
 ::: {.content-visible when-format="revealjs"}
 ```{r}
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 countdown::countdown(1,50)
 ```
 :::
@@ -278,13 +277,13 @@ What are the pros and cons of each way of displaying the same information? Shoul
 ::: {layout-ncol=2}
 
 ```{r}
-#| echo: !expr F
+#| echo: false
 #| ref-label: use a line plot instead of bar
 #| fig-height: 3
 ```
 
 ```{r}
-#| echo: !expr F
+#| echo: false
 #| ref-label: colour and axes fixes
 #| fig-height: 3
 ```
@@ -293,8 +292,8 @@ What are the pros and cons of each way of displaying the same information? Shoul
 ::: {.content-visible when-format="revealjs"}
 
 ```{r}
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 countdown::countdown(0, 30)
 ```
 :::
@@ -318,8 +317,8 @@ Plot B shows stacked bars scaled to 100% for females and males.
 
 ::: {.content-visible when-format="revealjs"}
 ```{r}
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 countdown::countdown(1, 5)
 ```
 :::
@@ -328,7 +327,7 @@ countdown::countdown(1, 5)
 
 ```{r}
 #| label: use a line plot for proportions
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
@@ -342,7 +341,7 @@ tb_kn |> group_by(year, age) |>
 
 ```{r}
 #| label: compare proportions of males females
-#| echo: !expr F
+#| echo: false
 #| fig-height: 4
 # Fill the bars, note the small change to the code
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
@@ -457,8 +456,8 @@ Come up with a plot type for each of the mappings.
 
 ::: {.content-visible when-format="revealjs"}
 ```{r}
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 countdown::countdown(1, 40, top=100, right=100)
 ```
 :::
@@ -637,8 +636,8 @@ Of the previous four colour schemes on the same data, which would be the most ap
 
 ::: {.content-visible when-format="revealjs"}
 ```{r}
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 countdown::countdown(0, 50, right=50, bottom=0)
 ```
 :::
@@ -648,7 +647,7 @@ countdown::countdown(0, 50, right=50, bottom=0)
 ```{r}
 #| label: using the dichromat package to check color blind appearance
 #| echo: true
-#| eval: !expr F
+#| eval: false
 clrs <- hue_pal()(9)
 d + theme(legend.position = "none")
 
@@ -767,7 +766,7 @@ If there are multiple comparisons to make, you need to decide which one is most 
 
 ```{r}
 #| label: a line plot on sex
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 #| fig-width: 8
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
@@ -779,7 +778,7 @@ ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
 
 ```{r}
 #| label: a line plot on age
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 #| fig-width: 8
 ggplot(tb_kn, aes(x=year, y=count, colour=age)) +
@@ -808,7 +807,7 @@ Same proximity is used, but different geoms.
 ::: column
 ```{r}
 #| label: side-by-side bars of males females
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=sex, y=count, fill=sex)) +
@@ -820,7 +819,7 @@ tb_kn |> filter(year == 2012) |>
 
 ```{r}
 #| label: piecharts of males females
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=sex)) +
@@ -852,7 +851,7 @@ Which is better to determine the relative ratios of ages by sex?
 ::: column
 ```{r}
 #| label: side-by-side bars of age
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=age, y=count, fill=age)) +
@@ -864,7 +863,7 @@ tb_kn |> filter(year == 2012) |>
 
 ```{r}
 #| label: piecharts of age
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
@@ -877,7 +876,7 @@ tb_kn |> filter(year == 2012) |>
 
 ```{r}
 #| label: stacked bars of age
-#| echo: !expr F
+#| echo: false
 #| fig-height: 3
 tb_kn |> filter(year == 2012) |>
   ggplot(aes(x=1, y=count, fill=age)) +
@@ -984,8 +983,8 @@ This builds on the exercise from the previous session.
 
 ::: {.content-visible when-format="revealjs"}
 ```{r}
-#| echo: !expr F
-#| purl: !expr F
+#| echo: false
+#| purl: false
 countdown::countdown(7, 0)
 ```
 :::

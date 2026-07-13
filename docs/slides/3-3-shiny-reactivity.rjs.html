@@ -6,11 +6,11 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>SISBID Data Visualization – Reactivity</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link rel="stylesheet" href="css/myremark.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -190,8 +193,8 @@
       margin-right: 0; 
     }
   </style>
-  <link href="../site_libs/countdown-0.5.0/countdown.css" rel="stylesheet">
-  <script src="../site_libs/countdown-0.5.0/countdown.js"></script>
+  <link href="../site_libs/countdown-0.6.0/countdown.css" rel="stylesheet">
+  <script src="../site_libs/countdown-0.6.0/countdown.js"></script>
   <link href="../site_libs/panelset-0.3.0/panelset.css" rel="stylesheet">
   <script src="../site_libs/panelset-0.3.0/panelset.js"></script>
 </head>
@@ -206,6 +209,15 @@
 <div class="quarto-title-authors">
 </div>
 
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="cell-output cell-output-error">
+<pre><code>Error in `library()`:
+! there is no package called 'leaflet'</code></pre>
+</div>
+</div>
 </section>
 <section>
 <section id="elements-of-reactivity" class="title-slide slide level1 center">
@@ -247,9 +259,9 @@
 <section id="reactive-expressions" class="slide level2">
 <h2>Reactive Expressions</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>rval <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb1-2"><a></a>  ...</span>
-<span id="cb1-3"><a></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>rval <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb2-2"><a></a>  ...</span>
+<span id="cb2-3"><a></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Called like a function as <code>rval()</code></p>
 <ul>
@@ -263,9 +275,9 @@
 <section id="reactive-events" class="slide level2">
 <h2>Reactive Events</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>rval <span class="ot">&lt;-</span> <span class="fu">eventReactive</span>(actionbutton, {</span>
-<span id="cb2-2"><a></a>  ...</span>
-<span id="cb2-3"><a></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>rval <span class="ot">&lt;-</span> <span class="fu">eventReactive</span>(actionbutton, {</span>
+<span id="cb3-2"><a></a>  ...</span>
+<span id="cb3-3"><a></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Called like a function as <code>rval()</code></p>
 <ul>
@@ -289,8 +301,8 @@
 <li>Turn on showcase mode:</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">runApp</span>(<span class="st">"code/3.3-apps/03_submission/"</span>, </span>
-<span id="cb3-2"><a></a>       <span class="at">display.mode =</span> <span class="st">"showcase"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">runApp</span>(<span class="st">"code/3.3-apps/03_submission/"</span>, </span>
+<span id="cb4-2"><a></a>       <span class="at">display.mode =</span> <span class="st">"showcase"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <div class="quarto-figure quarto-figure-center">
@@ -319,7 +331,7 @@
 <figcaption>Screenshot of completed app</figcaption>
 </figure>
 </div>
-<p></p><div class="countdown" id="timer_8db698f0" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p><countdown-timer class="countdown" id="timer_13a5109b" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </div></div>
 </section>
 <section id="conditional-panels" class="slide level2">
@@ -353,12 +365,12 @@
 <li>Structure is introduced by cards</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>card1 <span class="ot">&lt;-</span> <span class="fu">card</span>(</span>
-<span id="cb4-2"><a></a>  <span class="fu">card_header</span>(<span class="st">"Hi, I'm a card"</span>),</span>
-<span id="cb4-3"><a></a>  <span class="at">class =</span> <span class="st">"bg-primary"</span>,</span>
-<span id="cb4-4"><a></a>  <span class="st">"I contain some information - "</span>,</span>
-<span id="cb4-5"><a></a>  <span class="st">"text, plot, image, input area..."</span>,  </span>
-<span id="cb4-6"><a></a>  <span class="st">"your choice!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>card1 <span class="ot">&lt;-</span> <span class="fu">card</span>(</span>
+<span id="cb5-2"><a></a>  <span class="fu">card_header</span>(<span class="st">"Hi, I'm a card"</span>),</span>
+<span id="cb5-3"><a></a>  <span class="at">class =</span> <span class="st">"bg-primary"</span>,</span>
+<span id="cb5-4"><a></a>  <span class="st">"I contain some information - "</span>,</span>
+<span id="cb5-5"><a></a>  <span class="st">"text, plot, image, input area..."</span>,  </span>
+<span id="cb5-6"><a></a>  <span class="st">"your choice!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <div class="quarto-figure quarto-figure-center">
@@ -404,16 +416,16 @@
 <li>Additional rows can be created by nesting <code>layout_columns()</code> functions</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>body <span class="ot">&lt;-</span> <span class="fu">page_fillable</span>(</span>
-<span id="cb5-2"><a></a>  <span class="fu">layout_columns</span>(</span>
-<span id="cb5-3"><a></a>    <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="co"># 12 cols per row</span></span>
-<span id="cb5-4"><a></a>    <span class="at">row_heights =</span> <span class="st">"600px"</span>,</span>
-<span id="cb5-5"><a></a>    card1,</span>
-<span id="cb5-6"><a></a>    <span class="fu">layout_columns</span>(card2, card3, card5,</span>
-<span id="cb5-7"><a></a>                   <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">12</span>),</span>
-<span id="cb5-8"><a></a>                   <span class="at">row_heights =</span> <span class="st">"auto"</span>),</span>
-<span id="cb5-9"><a></a>    card4, card6)</span>
-<span id="cb5-10"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>body <span class="ot">&lt;-</span> <span class="fu">page_fillable</span>(</span>
+<span id="cb6-2"><a></a>  <span class="fu">layout_columns</span>(</span>
+<span id="cb6-3"><a></a>    <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="co"># 12 cols per row</span></span>
+<span id="cb6-4"><a></a>    <span class="at">row_heights =</span> <span class="st">"600px"</span>,</span>
+<span id="cb6-5"><a></a>    card1,</span>
+<span id="cb6-6"><a></a>    <span class="fu">layout_columns</span>(card2, card3, card5,</span>
+<span id="cb6-7"><a></a>                   <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">12</span>),</span>
+<span id="cb6-8"><a></a>                   <span class="at">row_heights =</span> <span class="st">"auto"</span>),</span>
+<span id="cb6-9"><a></a>    card4, card6)</span>
+<span id="cb6-10"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <p><span class="move-up center huge"><code>04_layout2.R</code></span><br>
@@ -430,16 +442,16 @@
 <li>Additional rows can be created by nesting <code>layout_columns()</code> functions</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>body <span class="ot">&lt;-</span> <span class="fu">page_fillable</span>(</span>
-<span id="cb6-2"><a></a>  <span class="fu">layout_columns</span>(</span>
-<span id="cb6-3"><a></a>    <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="co"># 12 cols per row</span></span>
-<span id="cb6-4"><a></a>    <span class="at">row_heights =</span> <span class="st">"600px"</span>,</span>
-<span id="cb6-5"><a></a>    card1,</span>
-<span id="cb6-6"><a></a>    <span class="fu">layout_columns</span>(card2, card3, card5,</span>
-<span id="cb6-7"><a></a>                   <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">12</span>),</span>
-<span id="cb6-8"><a></a>                   <span class="at">row_heights =</span> <span class="st">"auto"</span>),</span>
-<span id="cb6-9"><a></a>    card4, card6)</span>
-<span id="cb6-10"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>body <span class="ot">&lt;-</span> <span class="fu">page_fillable</span>(</span>
+<span id="cb7-2"><a></a>  <span class="fu">layout_columns</span>(</span>
+<span id="cb7-3"><a></a>    <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="co"># 12 cols per row</span></span>
+<span id="cb7-4"><a></a>    <span class="at">row_heights =</span> <span class="st">"600px"</span>,</span>
+<span id="cb7-5"><a></a>    card1,</span>
+<span id="cb7-6"><a></a>    <span class="fu">layout_columns</span>(card2, card3, card5,</span>
+<span id="cb7-7"><a></a>                   <span class="at">col_widths =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">12</span>),</span>
+<span id="cb7-8"><a></a>                   <span class="at">row_heights =</span> <span class="st">"auto"</span>),</span>
+<span id="cb7-9"><a></a>    card4, card6)</span>
+<span id="cb7-10"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <p><span class="move-up center huge"><code>04_layout2.R</code></span><br>
@@ -457,11 +469,11 @@
 <li><code>layout_column_wrap()</code> can accomplish some <a href="https://rstudio.github.io/bslib/articles/column-layout.html">very neat tricks</a></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">layout_column_wrap</span>(</span>
-<span id="cb7-2"><a></a>  <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="dv">300</span>, <span class="at">fill =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb7-3"><a></a>  <span class="at">style =</span> <span class="fu">css</span>(<span class="at">grid_template_columns =</span> <span class="st">"2fr 1fr 2fr"</span>),</span>
-<span id="cb7-4"><a></a>  card1, card2, card3</span>
-<span id="cb7-5"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">layout_column_wrap</span>(</span>
+<span id="cb8-2"><a></a>  <span class="at">width =</span> <span class="cn">NULL</span>, <span class="at">height =</span> <span class="dv">300</span>, <span class="at">fill =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-3"><a></a>  <span class="at">style =</span> <span class="fu">css</span>(<span class="at">grid_template_columns =</span> <span class="st">"2fr 1fr 2fr"</span>),</span>
+<span id="cb8-4"><a></a>  card1, card2, card3</span>
+<span id="cb8-5"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><a href="https://rstudio.github.io/shinyuieditor/">Shiny UI Editor</a> is currently in Alpha but allows UI creation without writing code</li>
@@ -489,7 +501,7 @@
 <li>What modifications do you have to make?</li>
 <li>Can you add a sidebar using the <code>sidebar()</code> function?</li>
 </ul>
-<p></p><div class="countdown" id="timer_62693f7e" data-update-every="1" tabindex="0" style="right:0;bottom:0;"> <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div> <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code> </div><p></p>
+<p><countdown-timer class="countdown" id="timer_559e2243" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
@@ -696,7 +708,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -808,13 +820,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

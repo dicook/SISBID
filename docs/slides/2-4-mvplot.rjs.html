@@ -6,11 +6,11 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.30">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>SISBID Data Visualization – Multivariate data plots</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link rel="stylesheet" href="css/myremark.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -190,8 +193,8 @@
       margin-right: 0; 
     }
   </style>
-  <link href="../site_libs/countdown-0.5.0/countdown.css" rel="stylesheet">
-  <script src="../site_libs/countdown-0.5.0/countdown.js"></script>
+  <link href="../site_libs/countdown-0.6.0/countdown.css" rel="stylesheet">
+  <script src="../site_libs/countdown-0.6.0/countdown.js"></script>
   <link href="../site_libs/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet">
   <script src="../site_libs/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
 </head>
@@ -215,10 +218,7 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="countdown" id="timer_fd14a7d6" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
-<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
+<countdown-timer class="countdown" id="timer_c2600a33" minutes="1" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
 </div>
 </div>
 <aside class="notes">
@@ -254,7 +254,7 @@
 <p>The basic plot plot for multivariate data is a scatterplot matrix.</p>
 <p>Use the GGally package function <code>ggpairs</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><em>What do we learn?</em></p>
 <ul>
@@ -279,11 +279,11 @@
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Re-make mapping colour to species (class)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Re-make mapping colour to species (class)</span></span>
 <span id="cb2-2"><a></a><span class="fu">ggpairs</span>(penguins_std, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>), </span>
 <span id="cb2-3"><a></a>        ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span>species)) <span class="sc">+</span></span>
 <span id="cb2-4"><a></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb2-5"><a></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">begin=</span><span class="fl">0.2</span>, <span class="at">end=</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><em>What do we learn?</em></p>
 <ul>
@@ -306,11 +306,11 @@
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># install.packages("superheat")</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># remotes::install_github("rlbarter/superheat")</span></span>
 <span id="cb3-2"><a></a><span class="fu">library</span>(superheat)</span>
 <span id="cb3-3"><a></a><span class="fu">superheat</span>(penguins_std[,<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>], </span>
 <span id="cb3-4"><a></a>          <span class="at">pretty.order.rows =</span> T,</span>
-<span id="cb3-5"><a></a>          <span class="at">pretty.order.cols =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a></a>          <span class="at">pretty.order.cols =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>How many clusters do you see?</p>
 <div class="fragment smaller">
@@ -336,11 +336,11 @@
 <p>Only show correlation. <span class=" faa-float animated " style=" display: -moz-inline-stack; display: inline-block; transform: rotate(0deg);">This is dangerous!</span></p>
 <p>Only appropriate if correlation is a good summary of the association.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># Look at one species only</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># Look at one species only</span></span>
 <span id="cb4-2"><a></a>adelie <span class="ot">&lt;-</span> penguins_std <span class="sc">|&gt;</span> </span>
 <span id="cb4-3"><a></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a></a>  <span class="fu">select</span>(bl<span class="sc">:</span>bm)</span>
-<span id="cb4-5"><a></a><span class="fu">ggcorr</span>(adelie)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a></a><span class="fu">ggcorr</span>(adelie)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <div class="cell" data-layout-align="center">
@@ -362,9 +362,9 @@
 </ul>
 <div class="cell columns column-output-location" data-layout-align="center">
 <div class="column">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">corrgram</span>(adelie, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">corrgram</span>(adelie, </span>
 <span id="cb5-2"><a></a>  <span class="at">lower.panel=</span></span>
-<span id="cb5-3"><a></a>    corrgram<span class="sc">::</span>panel.ellipse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a></a>    corrgram<span class="sc">::</span>panel.ellipse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -381,7 +381,7 @@
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># Data downloaded from https://archive.ics.uci.edu/dataset/401/gene+expression+cancer+rna+seq</span></span>
 <span id="cb6-2"><a></a><span class="co"># This chunk takes some time to run, so evaluated off-line</span></span>
 <span id="cb6-3"><a></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"TCGA-PANCAN-HiSeq-801x20531"</span>, <span class="st">"data.csv"</span>))) {</span>
 <span id="cb6-4"><a></a>  <span class="fu">download.file</span>(<span class="at">url =</span> <span class="st">"https://archive.ics.uci.edu/static/public/401/gene+expression+cancer+rna+seq.zip"</span>, </span>
@@ -405,7 +405,7 @@
 <span id="cb6-22"><a></a><span class="fu">ggpairs</span>(tcga_t_pc, <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
 <span id="cb6-23"><a></a>        <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"hexbin"</span>)) <span class="sc">+</span></span>
 <span id="cb6-24"><a></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">trans=</span><span class="st">"log"</span>, </span>
-<span id="cb6-25"><a></a>    <span class="at">low=</span><span class="st">"#E24C80"</span>, <span class="at">high=</span><span class="st">"#FDF6B5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-25"><a></a>    <span class="at">low=</span><span class="st">"#E24C80"</span>, <span class="at">high=</span><span class="st">"#FDF6B5"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <p><a href="images/tcga-sm-hexbin.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="images/tcga-sm-hexbin.png" width="500"></a></p>
@@ -416,13 +416,13 @@
 <p>The pairs plot can also incorporate non-numerical variables, and different types of two variable plots.</p>
 <div class="cell columns column-output-location" data-layout-align="center">
 <div class="column">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Matrix plot when variables are not numeric</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Matrix plot when variables are not numeric</span></span>
 <span id="cb7-2"><a></a><span class="fu">data</span>(australia_PISA2012)</span>
 <span id="cb7-3"><a></a>australia_PISA2012 <span class="ot">&lt;-</span> australia_PISA2012 <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(desk<span class="sc">:</span>dishwasher, factor))</span>
 <span id="cb7-5"><a></a>australia_PISA2012 <span class="sc">|&gt;</span> </span>
 <span id="cb7-6"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">|&gt;</span> </span>
-<span id="cb7-7"><a></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a></a>  <span class="fu">ggpairs</span>(<span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -437,14 +437,14 @@
 <h2>Generalized Pairs Plots</h2>
 <div class="cell columns column-output-location" data-layout-align="center">
 <div class="column">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># Modify the defaults, set the transparency of points since there is a lot of data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># Modify the defaults, set the transparency of points since there is a lot of data</span></span>
 <span id="cb8-2"><a></a>australia_PISA2012 <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(dishwasher)) <span class="sc">|&gt;</span> </span>
 <span id="cb8-4"><a></a>  <span class="fu">ggpairs</span>(</span>
 <span id="cb8-5"><a></a>    <span class="at">columns=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">26</span>), </span>
 <span id="cb8-6"><a></a>    <span class="at">lower =</span> <span class="fu">list</span>(</span>
 <span id="cb8-7"><a></a>      <span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, </span>
-<span id="cb8-8"><a></a>                        <span class="at">alpha=</span><span class="fl">0.05</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-8"><a></a>                        <span class="at">alpha=</span><span class="fl">0.05</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -487,10 +487,7 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="countdown" id="timer_488e6807" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
-<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
+<countdown-timer class="countdown" id="timer_cf303c4c" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
 </div>
 </div>
 </section>
@@ -498,7 +495,7 @@
 <h2>Regression setting</h2>
 <!-- An alternative pairs plot that better matches this sort of data, where there is a response variable and explanatory variables. For this data, plot house price against all other variables. -->
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>housing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/housing.csv"</span>)) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>housing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/housing.csv"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">dmy</span>(date)) <span class="sc">|&gt;</span></span>
 <span id="cb9-3"><a></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span></span>
 <span id="cb9-4"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">|&gt;</span></span>
@@ -511,7 +508,7 @@
 <span id="cb9-11"><a></a>      <span class="fu">aes</span>(<span class="at">colour=</span>type, <span class="at">fill=</span>type), </span>
 <span id="cb9-12"><a></a>      <span class="at">types =</span> <span class="fu">list</span>(<span class="at">continuous =</span> </span>
 <span id="cb9-13"><a></a>                     <span class="fu">wrap</span>(<span class="st">"smooth"</span>, </span>
-<span id="cb9-14"><a></a>                       <span class="at">alpha =</span> <span class="fl">0.10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-14"><a></a>                       <span class="at">alpha =</span> <span class="fl">0.10</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -525,7 +522,7 @@
 <h2>Parallel coordinate plots</h2>
 <div class="cell columns column-output-location" data-layout-align="center">
 <div class="column">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># install.packages("ggpcp")</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># install.packages("ggpcp")</span></span>
 <span id="cb10-2"><a></a><span class="fu">library</span>(ggpcp)</span>
 <span id="cb10-3"><a></a>penguins_std <span class="sc">|&gt;</span></span>
 <span id="cb10-4"><a></a>  <span class="fu">pcp_select</span>(species, bl<span class="sc">:</span>bm) <span class="sc">|&gt;</span></span>
@@ -537,7 +534,7 @@
 <span id="cb10-10"><a></a>    <span class="fu">scale_colour_discrete_divergingx</span>(</span>
 <span id="cb10-11"><a></a>      <span class="at">palette =</span> <span class="st">"Zissou 1"</span>) <span class="sc">+</span></span>
 <span id="cb10-12"><a></a>    <span class="fu">theme_pcp</span>() <span class="sc">+</span></span>
-<span id="cb10-13"><a></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-13"><a></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -552,12 +549,12 @@
 <section id="pcp-large-sample-size" class="slide level2 smaller">
 <h2>PCP: large sample size</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb11-2"><a></a>    <span class="fu">geom_ribbon</span>(<span class="at">data =</span> dframe, <span class="fu">aes</span>(<span class="at">x=</span>pcp_x, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">group =</span> level), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb11-3"><a></a>    <span class="fu">geom_pcp_axes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, <span class="fu">aes_pcp</span>()) <span class="sc">+</span></span>
 <span id="cb11-4"><a></a>    <span class="fu">geom_pcp_boxes</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, <span class="fu">aes_pcp</span>(), <span class="at">boxwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
 <span id="cb11-5"><a></a>    <span class="fu">geom_pcp</span>(<span class="at">data=</span>tcga_t_pc_pcp_sub, <span class="fu">aes_pcp</span>(), <span class="at">colour=</span><span class="st">"orange"</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a></a>    <span class="fu">theme_pcp</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-6"><a></a>    <span class="fu">theme_pcp</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="images/tcga-pcp.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="images/tcga-pcp.png" width="500"></a></p>
 <p>With large data, aggregate to get an overview, and select some observations to show.</p>
@@ -780,7 +777,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -892,13 +889,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
