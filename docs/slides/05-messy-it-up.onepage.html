@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Making a mess again - with the data – SISBID Data Visualization</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-324d6df41b04f0207055c6cf5d0068b0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0bb0d2e338751e7296a3cbac778070c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-324d6df41b04f0207055c6cf5d0068b0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../site_libs/countdown-0.6.0/countdown.css" rel="stylesheet">
+<script src="../site_libs/countdown-0.6.0/countdown.js"></script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SISBID Data Visualization</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-1" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Day 1</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-1">    
+        <li>
+    <a class="dropdown-item" href="../slides/0-preamble.rjs.html">
+ <span class="dropdown-text">Preamble</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/1-1-ggplot.rjs.html">
+ <span class="dropdown-text">1.1 ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/1-2-ggplot-adv.rjs.html">
+ <span class="dropdown-text">1.2 Advancing ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/1-3-perception.rjs.html">
+ <span class="dropdown-text">1.3 Perception</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-2" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Day 2</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-2">    
+        <li>
+    <a class="dropdown-item" href="../slides/2-1-tidyr.rjs.html">
+ <span class="dropdown-text">2.1 tidyr</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-2-messy-it-up.rjs.html">
+ <span class="dropdown-text">2.2 Messy data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-3-wrangling.rjs.html">
+ <span class="dropdown-text">2.3 Wrangling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-4-mvplot.rjs.html">
+ <span class="dropdown-text">2.4 Multivariate Plots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-5-mvplot-tour.rjs.html">
+ <span class="dropdown-text">2.5 Tours</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/2-6-adv-graphics.rjs.html">
+ <span class="dropdown-text">2.6 Advanced Graphics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-3" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Day 3</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-3">    
+        <li>
+    <a class="dropdown-item" href="../slides/3-1-interactive-plots.rjs.html">
+ <span class="dropdown-text">3.1 Interactive plots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-2-shiny-apps.rjs.html">
+ <span class="dropdown-text">3.2 Shiny apps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-3-shiny-reactivity.rjs.html">
+ <span class="dropdown-text">3.3 Shiny reactivity</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-4-theme-shiny.rjs.html">
+ <span class="dropdown-text">3.4 Theming Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-5-build-shiny-app.rjs.html">
+ <span class="dropdown-text">3.5 Build a Shiny App</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../slides/3-6-interactive-document.rjs.html">
+ <span class="dropdown-text">3.6 Interactive Documents</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#warmup" id="toc-warmup" class="nav-link active" data-scroll-target="#warmup">Warmup</a></li>
+  <li><a href="#what-would-you-like-to-find-out-about-the-french-fries-data-set" id="toc-what-would-you-like-to-find-out-about-the-french-fries-data-set" class="nav-link" data-scroll-target="#what-would-you-like-to-find-out-about-the-french-fries-data-set">What would you like to find out about the french fries data set?</a></li>
+  <li><a href="#what-would-we-like-to-know" id="toc-what-would-we-like-to-know" class="nav-link" data-scroll-target="#what-would-we-like-to-know">What would we like to know?</a></li>
+  <li><a href="#pivot-french-fries-to-long" id="toc-pivot-french-fries-to-long" class="nav-link" data-scroll-target="#pivot-french-fries-to-long">Pivot french fries to long</a></li>
+  <li><a href="#pivot-long-to-wide" id="toc-pivot-long-to-wide" class="nav-link" data-scroll-target="#pivot-long-to-wide">Pivot long to wide</a></li>
+  <li><a href="#pivot-to-wide-form" id="toc-pivot-to-wide-form" class="nav-link" data-scroll-target="#pivot-to-wide-form">Pivot to wide form</a></li>
+  <li><a href="#pivot-to-wide-form-1" id="toc-pivot-to-wide-form-1" class="nav-link" data-scroll-target="#pivot-to-wide-form-1">Pivot to wide form</a></li>
+  <li><a href="#pivot-to-wide-form-2" id="toc-pivot-to-wide-form-2" class="nav-link" data-scroll-target="#pivot-to-wide-form-2">Pivot to wide form</a></li>
+  <li><a href="#comparing-ratings-different-weeks" id="toc-comparing-ratings-different-weeks" class="nav-link" data-scroll-target="#comparing-ratings-different-weeks">Comparing ratings: different weeks</a></li>
+  <li><a href="#your-turn-are-the-replicates-similar" id="toc-your-turn-are-the-replicates-similar" class="nav-link" data-scroll-target="#your-turn-are-the-replicates-similar">Your turn: Are the replicates similar?</a></li>
+  <li><a href="#are-ratings-similar-across-scales" id="toc-are-ratings-similar-across-scales" class="nav-link" data-scroll-target="#are-ratings-similar-across-scales">Are ratings similar across scales?</a></li>
+  <li><a href="#are-ratings-similar-across-scales-1" id="toc-are-ratings-similar-across-scales-1" class="nav-link" data-scroll-target="#are-ratings-similar-across-scales-1">Are ratings similar across scales?</a></li>
+  <li><a href="#side-by-side-boxplots" id="toc-side-by-side-boxplots" class="nav-link" data-scroll-target="#side-by-side-boxplots">Side-by-side boxplots</a></li>
+  <li><a href="#your-turn-correlation-bw-scales" id="toc-your-turn-correlation-bw-scales" class="nav-link" data-scroll-target="#your-turn-correlation-bw-scales">Your turn: Correlation b/w scales?</a></li>
+  <li><a href="#ratings-by-week" id="toc-ratings-by-week" class="nav-link" data-scroll-target="#ratings-by-week">Ratings by week</a></li>
+  <li><a href="#your-turn-ratings-by-time-scale" id="toc-your-turn-ratings-by-time-scale" class="nav-link" data-scroll-target="#your-turn-ratings-by-time-scale">Your turn: Ratings by time &amp; scale?</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="05-messy-it-up.rjs.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Making a mess again - with the data</h1>
+<p class="subtitle lead">SISBID 2025 <br> https://github.com/dicook/SISBID</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="warmup" class="level2 inverse middle">
+<h2 class="inverse middle anchored" data-anchor-id="warmup">Warmup</h2>
+<p>Turn the <code>french_fries</code> data from wide format into a long format with variables <code>type</code> and <code>rating</code>.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  time  treatment subject   rep potato buttery grassy rancid painty
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 1     1         3           1    2.9     0      0      0      5.5
+2 1     1         3           2   14       0      0      1.1    0  
+3 1     1         10          1   11       6.4    0      0      0  
+4 1     1         10          2    9.9     5.9    2.9    2.2    0  
+5 1     1         15          1    1.2     0.1    0      1.1    5.1
+6 1     1         15          2    8.8     3      3.6    1.5    2.3</code></pre>
+</div>
+</div>
+</section>
+<section id="what-would-you-like-to-find-out-about-the-french-fries-data-set" class="level2 inverse">
+<h2 class="inverse anchored" data-anchor-id="what-would-you-like-to-find-out-about-the-french-fries-data-set">What would you like to find out about the french fries data set?</h2>
+<p>Put your questions in the chat!</p>
+</section>
+<section id="what-would-we-like-to-know" class="level2">
+<h2 class="anchored" data-anchor-id="what-would-we-like-to-know">What would we like to know?</h2>
+<ul>
+<li>Is the design complete?</li>
+<li>Are replicates like each other?</li>
+<li>How do the ratings on the different scales differ?</li>
+<li>Are raters giving different scores on average?</li>
+<li>Do ratings change over the weeks?</li>
+</ul>
+<p>Each of these questions requires a different summary of the data.</p>
+<div class="notes">
+<p>When we get a new dataset, we have to check to see whether it’s complete, whether it matches our expectations, and then we start thinking about how to approach modeling and visualization of the results.</p>
+<p>These questions are just a few that we might ask!</p>
+</div>
+</section>
+<section id="pivot-french-fries-to-long" class="level2">
+<h2 class="anchored" data-anchor-id="pivot-french-fries-to-long">Pivot french fries to long</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  time  treatment subject   rep type    rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+1 1     1         3           1 potato     2.9
+2 1     1         3           1 buttery    0  
+3 1     1         3           1 grassy     0  
+4 1     1         3           1 rancid     0  
+5 1     1         3           1 painty     5.5
+6 1     1         3           2 potato    14  </code></pre>
+</div>
+</div>
+<div class="notes">
+<p>The data comes in a form that’s easier to record – which makes sense. But our first step has to be rearranging it so that it’s easier to work with and visualize. We would need 5 different geom_line statements to plot the results for each time/treatment/subject/scale – one for each scale – in the original format. But, if we move to long form, we can plot the data with much less effort, leading to much more readable code.</p>
+</div>
+</section>
+<section id="pivot-long-to-wide" class="level2 r-fit-text smaller">
+<h2 class="r-fit-text smaller anchored" data-anchor-id="pivot-long-to-wide">Pivot long to wide</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><a href="images/tidyr-pivoting.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/tidyr-pivoting.gif" class="img-fluid" style="width:100.0%"></a></p>
+</div><div class="column" style="width:70%;">
+<p>Examples:</p>
+<ul>
+<li>Are replicates like each other?
+<ul>
+<li>compare rep 1 to rep 2 values</li>
+</ul></li>
+<li>How do the ratings on the different scales differ?
+<ul>
+<li>compare ratings across scales</li>
+</ul></li>
+<li>Are raters giving different scores on average?
+<ul>
+<li>compare ratings across raters</li>
+</ul></li>
+<li>Do ratings change over the weeks?
+<ul>
+<li>compare ratings week-by-week</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="notes">
+<p>Long form data gives us the ability to use dplyr mutate/summarize commands to answer a bunch of different questions, like the ones shown here.</p>
+<p>Moreover, we can move from long form to a different wide form to answer these questions, which can be useful if we need to present summary data in a table.</p>
+</div>
+</section>
+<section id="pivot-to-wide-form" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="pivot-to-wide-form">Pivot to wide form</h2>
+<p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
+<p>Long form:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">time</th>
+<th style="text-align: left;">treatment</th>
+<th style="text-align: left;">subject</th>
+<th style="text-align: right;">rep</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: right;">rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">potato</td>
+<td style="text-align: right;">2.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">buttery</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">grassy</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">rancid</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="pivot-to-wide-form-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="pivot-to-wide-form-1">Pivot to wide form</h2>
+<p><code>tidyr</code>’s <strong>pivot_wider</strong> function creates variables with comparable values</p>
+<p>Wide form:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 5%">
+<col style="width: 11%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">treatment</th>
+<th style="text-align: left;">subject</th>
+<th style="text-align: right;">rep</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+<th style="text-align: right;">9</th>
+<th style="text-align: right;">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">potato</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">11.8</td>
+<td style="text-align: right;">13.6</td>
+<td style="text-align: right;">14.0</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">buttery</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">grassy</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.3</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="notes">
+<p>Here, we pivot to a different wide form – we’ll have columns indicating time points instead of rating characteristics.</p>
+</div>
+</section>
+<section id="pivot-to-wide-form-2" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="pivot-to-wide-form-2">Pivot to wide form</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+  treatment subject   rep type     `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`
+  &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 1         3           1 potato   2.9   9    11.8  13.6  14     0.4   2.9   3.5
+2 1         3           1 butte…   0     0.3   0.2   0.1   0.3   1.2   0     0.5
+3 1         3           1 grassy   0     0.1   0     0     0     0     0     1.3
+4 1         3           1 rancid   0     5.8   6     1.7   0     0     0     0  
+5 1         3           1 painty   5.5   0.3   0     0     1.7   9.5   5.5   3.8
+6 1         3           2 potato  14     5.5   7.8   5.3  12.9   3.3   0.8   0.6
+# ℹ 2 more variables: `9` &lt;dbl&gt;, `10` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/tidyr-cheatsheet.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Tidyr cheatsheet"><img src="images/tidyr-cheatsheet.png" class="img-fluid figure-img" alt="Tidyr cheatsheet"></a></p>
+<figcaption><a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">Tidyr cheatsheet</a></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><code>pivot_wider</code>:</p>
+<ul>
+<li>creates a new column for each value of the variable in <code>names_from</code></li>
+<li>fills values in using the variable in <code>values_from</code></li>
+</ul>
+<div class="notes">
+<p>The posit cheatsheets are amazing for helping you get from concept to muscle memory. I used them every day for years until I no longer needed them as often, and even now, when they update the syntax a bit, I will still keep the cheat sheets handy to remind myself about the new options.</p>
+</div>
+</section>
+<section id="comparing-ratings-different-weeks" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-ratings-different-weeks">Comparing ratings: different weeks</h2>
+<p>Note the use of the backtick for variable names with special characters or numbers.</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="05-messy-it-up_files/figure-revealjs/week 1 vs week 9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="05-messy-it-up_files/figure-revealjs/week 1 vs week 9-1.png" class="img-fluid figure-img" width="480"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Here, you can see how easy it is for us to create a scatterplot of the week 1 vs.&nbsp;9 ratings. We’ll learn later how to do this for all 10 weeks, comparing each week to all other weeks, but for now let’s just examine a single scatterplot.</p>
+</div>
+</section>
+<section id="your-turn-are-the-replicates-similar" class="level2 inverse">
+<h2 class="inverse anchored" data-anchor-id="your-turn-are-the-replicates-similar">Your turn: Are the replicates similar?</h2>
+<p>Goal: Plot the replicates against each other using a scatterplot.</p>
+<ol type="1">
+<li>Convert the data into long form</li>
+<li>Get the replicates spread into separate columns by replicate.</li>
+<li>Make the plot.</li>
+</ol>
+</section>
+<section id="are-ratings-similar-across-scales" class="level2">
+<h2 class="anchored" data-anchor-id="are-ratings-similar-across-scales">Are ratings similar across scales?</h2>
+<ul>
+<li>Scales: potato-y, buttery, grassy, rancid and painty?</li>
+<li>Pivot into long form, plot with <code>facet_...(~scale)</code>.</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  time  treatment subject   rep type    rating
+  &lt;fct&gt; &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+1 1     1         3           1 potato     2.9
+2 1     1         3           1 buttery    0  
+3 1     1         3           1 grassy     0  
+4 1     1         3           1 rancid     0  
+5 1     1         3           1 painty     5.5
+6 1     1         3           2 potato    14  </code></pre>
+</div>
+</div>
+<div class="notes">
+<p>Many times when multiple scales are used, we want to ensure the values are comparable across scales – we might standardize by subtracting the mean and then divide by the SD for each scale.</p>
+<p>To know whether that’s necessary, though, we need to get into a form where we can plot the data… which is typically long form.</p>
+</div>
+</section>
+<section id="are-ratings-similar-across-scales-1" class="level2">
+<h2 class="anchored" data-anchor-id="are-ratings-similar-across-scales-1">Are ratings similar across scales?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="05-messy-it-up_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="05-messy-it-up_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>We can see here that people tend to give much lower values for grassy and buttery than for potato and rancid. Painty has the same 0-inflation issue seen in the first two scales, but has a wider spread.</p>
+<p>What if we use a boxplot instead?</p>
+</div>
+</section>
+<section id="side-by-side-boxplots" class="level2">
+<h2 class="anchored" data-anchor-id="side-by-side-boxplots">Side-by-side boxplots</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="05-messy-it-up_files/figure-revealjs/side-by-Side boxplots-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="05-messy-it-up_files/figure-revealjs/side-by-Side boxplots-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>You can see many of the same features in a boxplot - the 0-inflation is clear when the median is still 0, as in grassy. Potato is clearly different from the other scales in terms of how it’s used by participants, and even rancid seems to be used fairly differently than the others.</p>
+</div>
+</section>
+<section id="your-turn-correlation-bw-scales" class="level2 inverse">
+<h2 class="inverse anchored" data-anchor-id="your-turn-correlation-bw-scales">Your turn: Correlation b/w scales?</h2>
+<ul>
+<li><p>Create a wide form of the data by type of scale.</p></li>
+<li><p><code>cor</code> allows you to create a correlation matrix.<br>
+Run <code>?cor</code> to look up how to get rid of <code>NA</code> values in the result.</p></li>
+<li><p>Draw a scatterplot of two scales with the highest (positive or negative) correlation value.</p></li>
+</ul>
+<div class="notes">
+<p>Let’s see if you can create a correlation matrix for the different scales. You’ll want to move to wide form, then use the <code>cor</code> function. Cor doesn’t handle NAs that well, so you’ll want to remove them. Take a few minutes to do this and paste your plot into the chat when you’re done!</p>
+</div>
+</section>
+<section id="ratings-by-week" class="level2">
+<h2 class="anchored" data-anchor-id="ratings-by-week">Ratings by week</h2>
+<p>Use the long form of the data and plot:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="05-messy-it-up_files/figure-revealjs/ratings by week-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="05-messy-it-up_files/figure-revealjs/ratings by week-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>When we looked at the distribution of ratins, I started wondering about the effect of time – luckily, it’s pretty easy to look into that using long form. I’ve made the plot, but perhaps you can fit a model?</p>
+</div>
+</section>
+<section id="your-turn-ratings-by-time-scale" class="level2 inverse middle">
+<h2 class="inverse middle anchored" data-anchor-id="your-turn-ratings-by-time-scale">Your turn: Ratings by time &amp; scale?</h2>
+<ul>
+<li>Find a linear model describing the average rating by week (time) and type of scale as shown below.</li>
+<li>Which form of the dataset should we use?</li>
+<li>Challenge: can you plot the fitted lines from the model?</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="05-messy-it-up_files/figure-revealjs/ratings by week again-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="05-messy-it-up_files/figure-revealjs/ratings by week again-1.png" class="img-fluid figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Long form is typically also used when fitting models! See if you can get the data into the correct form to fit a linear model of rating by time and scale type.</p>
+<p>As a challenge, see if you can get the predicted values back out to show the fitted lines!</p>
+<p>Paste your plots in the chat to show off when you’re done.</p>
+</div>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><a href="https://posit.co/resources/cheatsheets/">posit cheatsheets</a></li>
+<li><a href="https://www.jstatsoft.org/article/view/v021i12">Wickham (2007) Reshaping data</a></li>
+<li><a href="https://r4ds.had.co.nz/wrangle-intro.html">R for Data Science (Wickham &amp; Grolemund), chapter 9</a></li>
+<li><a href="https://tellingstorieswithdata.com/09-clean_and_prepare.html">Telling Stories with Data (Alexander), chapters 9 &amp; 10</a></li>
+</ul>
+<div class="bottom">
+<p><span style="display:inline-block;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a></span><span style="display:inline-block;"> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</span></p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

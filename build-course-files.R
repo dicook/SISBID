@@ -71,8 +71,8 @@ zip_build_old <- file.mtime("build-course-files.R") > file.mtime(zip_build)
 # Day 1
 # Common files don't need to be re-downloaded each day, so just include
 # them in Day 1 to save bandwidth and git storage
-day1code <- list.files("code", pattern = "^[01]-", full.names = T)
-day1slides <- slides[str_detect(slides, "slides/[01]-")]
+day1code <- list.files("code", pattern = "^(00|01|02|03|04|05|06)", full.names = T)
+day1slides <- list.files("slides", pattern = "^(00|01|02|03|04|05|06)", full.names = T)
 day1files <- c(common_to_all, day1code, day1slides)
 day1zip <- "SISBID_day1.zip"
 if(is.na(file.mtime(day1zip)) |
@@ -82,9 +82,9 @@ if(is.na(file.mtime(day1zip)) |
 }
 
 # Day 2
-day2code <- list.files("code", pattern = "^[2]-", full.names = T)
-day2slides <- slides[str_detect(slides, "slides/2-") |
-                       str_detect(slides, "slides/html")]
+day2code <- list.files("code", pattern = "^(07|08|09|10|11|12)", full.names = T)
+day2code <- c(day2code, list.files("code/12-apps", full.names = T, recursive = T))
+day2slides <- list.files("slides", pattern = "^(07|08|09|10|11|12)", full.names = T)
 day2files <- c(common_to_all, day2code, day2slides, "SISBID.Rproj")
 day2zip <- "SISBID_day2.zip"
 if(is.na(file.mtime(day2zip)) |
@@ -94,10 +94,9 @@ if(is.na(file.mtime(day2zip)) |
 }
 
 # Day 3
-day3code <- list.files("code", pattern = "^[3]-", full.names = T, recursive = T)
-day3code <- c(day3code, list.files("code/3.3-apps", full.names = T, recursive = T))
-day3code <- c(day3code, list.files("code/3.4-theme", full.names = T, recursive = T))
-day3slides <- slides[str_detect(slides, "slides/3")]
+day3code <- list.files("code", pattern = "^(13|14|15)", full.names = T)
+day3code <- c(day3code, list.files("code/13-theme", full.names = T, recursive = T))
+day3slides <- list.files("slides", pattern = "^(07|08|09|10|11|12)", full.names = T)
 day3slides <- c(day3slides, list.files("example_apps", full.names = T, recursive = T))
 day3files <- c(common_to_all, day3code, day3slides, "SISBID.Rproj")
 day3zip <- "SISBID_day3.zip"
