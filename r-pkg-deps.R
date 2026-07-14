@@ -7,7 +7,7 @@ packages <- c(
   "gapminder", "cranlogs", "shiny", "bslib", "DT", "leaflet", "plotly",
   "htmltools", "broom", "broom.mixed", "lme4", "MASS", "forecast", "nullabor",
   "ggdist", "bsicons", "ragg", "showtext", "thematic", "remotes", "quarto",
-  "superheat", "bslib")
+  "bslib")
 
 # Install packages and their dependencies
 to_install <- setdiff(packages, installed.packages())
@@ -19,6 +19,7 @@ install.packages(to_install, dep=TRUE, repos = "https://cloud.r-project.org/")
 remotes::install_github("wmurphyrd/fiftystater")
 remotes::install_github("heike/vinference")
 remotes::install_github("rstudio/bslib")
+remotes::install_github("rlbarter/superheat")
 
 # For sharing web apps,
 # but you need administrator rights to your computer:
