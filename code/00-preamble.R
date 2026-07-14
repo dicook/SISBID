@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 # remotes::install_github("mitchelloharawild/icons")
 # remotes::install_github("emitanaka/anicon")
 # remotes::install_github("dicook/gretchenalbrecht")
-# remotes::install_github("gadenbuie/countdown")
+# install.packages("countdown")
 
 
 ## -----------------------------------------------------------------------------
