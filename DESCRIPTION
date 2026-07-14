@@ -18,7 +18,8 @@ Suggests:
     countdown,
     emo,
     gretchenalbrecht,
-    icons
+    icons,
+    xaringanExtra
 Remotes: 
   emitanaka/anicon,
   hadley/emo,
@@ -75,3 +76,5 @@ Imports:
     bsicons (>= 0.1.2),
     thematic (>= 0.1.8),
     superheat
+URL: https://dicook.github.io/SISBID/    
+BugReports: https://github.com/dicook/sisbid/issues
