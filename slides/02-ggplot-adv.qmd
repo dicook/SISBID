@@ -183,7 +183,7 @@ ggplot(data=monotremes) +
              alpha=0.5)
 ```
 
-We can make the data look a bit more realistic with `coord_map`.
+We can make the data look a bit more realistic with `coord_sf`.
 
 ::: notes
 If you are good at recognising the shape of Australia, you might realise that the sightings are primarily along the east coast and Tasmania, with fewer sightings in western Australia.
@@ -205,7 +205,7 @@ ggplot(data=monotremes) +
                  colour = common_name), 
              alpha=0.1) +
   scale_colour_brewer("", palette = "Dark2") +
-  coord_map()
+  coord_sf()
 ```
 :::
 ::: {.column width="65%"}
