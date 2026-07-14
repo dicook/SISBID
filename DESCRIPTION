@@ -1,0 +1,77 @@
+Package: SISBID
+Title: Data Visualization at SISBID
+Version: 2026.0.0
+Authors@R: 
+    c(person("Dianne", "Cook", , "first.last@example.com", role = c("aut", "cre")),
+    person("Heike", "Hofmann", , "first.last@example.com", role = c("aut", "cre")),
+    person("Susan", "Vanderplas", , "first.last@example.com", role = c("aut", "cre"))
+    )
+Description: Installing all dependencies needed for the SISBID course on Data Visualization.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends:
+  R (>= 4.1)
+Suggests: 
+    anicon,
+    countdown,
+    emo,
+    gretchenalbrecht,
+    icons
+Remotes: 
+  emitanaka/anicon,
+  hadley/emo,
+  dicook/gretchenalbrecht,
+  mitchelloharawild/icons,
+  heike/vinference,
+  wmurphyrd/fiftystater,
+  rlbarter/superheat,
+  lindsayrutter/bigPint
+Imports: 
+    broom (>= 1.0.13),
+    broom.mixed (>= 0.2.9.7),
+    bslib (>= 0.11.0),
+    colorspace (>= 2.1.2),
+    corrgram (>= 1.15),
+    cranlogs (>= 2.1.1),
+    datasauRus (>= 0.1.9),
+    dichromat (>= 2.0.0.1),
+    dplyr (>= 1.2.1),
+    DT (>= 0.34.0),
+    forecast (>= 9.0.2),
+    gapminder (>= 1.0.1),
+    GGally (>= 2.4.0),
+    gganimate (>= 1.0.11),
+    ggbeeswarm (>= 0.7.3),
+    ggdist (>= 3.3.3),
+    ggmap (>= 4.0.2),
+    ggpcp (>= 0.2.0),
+    ggplot2 (>= 4.0.3),
+    ggthemes (>= 5.2.0),
+    glmmTMB (>= 1.1.14),
+    gridExtra (>= 2.3.1),
+    here (>= 1.0.2),
+    htmltools (>= 0.5.9),
+    leaflet (>= 2.2.3),
+    lme4 (>= 2.0.1),
+    lubridate (>= 1.9.5),
+    maps (>= 3.4.3),
+    MASS (>= 7.3.65),
+    nullabor (>= 0.3.15),
+    plotly (>= 4.12.0),
+    RColorBrewer (>= 1.1.3),
+    readr (>= 2.2.0),
+    readxl (>= 1.5.0),
+    scales (>= 1.4.0),
+    shiny (>= 1.14.0),
+    splitstackshape (>= 1.4.8.1),
+    stringr (>= 1.6.0),
+    tidyr (>= 1.3.2),
+    tourr (>= 1.2.8),
+    vinference (>= 1.0.0),
+    viridis (>= 0.6.5),
+    bigPint,
+    bsicons (>= 0.1.2),
+    thematic (>= 0.1.8),
+    superheat
