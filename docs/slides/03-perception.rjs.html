@@ -216,6 +216,10 @@
 <div class="column">
 <p>Coming up: <strong>2 different plots</strong> of 2012 TB incidence (e.g.&nbsp;newly diagnosed cases) in Kenya, based on variables:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>tb_kn <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sex, age, count) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   sex   age   count
@@ -265,7 +269,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/focus on one year gender side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="03-perception_files/figure-revealjs/focus on one year gender side-by-side bars of males females-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/focus on one year gender side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="03-perception_files/figure-html/focus on one year gender side-by-side bars of males females-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -274,7 +278,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/focus on one year age side-by-side bars of age group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="03-perception_files/figure-revealjs/focus on one year age side-by-side bars of age group-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/focus on one year age side-by-side bars of age group-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="03-perception_files/figure-html/focus on one year age side-by-side bars of age group-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -326,7 +330,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="03-perception_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="03-perception_files/figure-html/unnamed-chunk-3-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -335,7 +339,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="03-perception_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="03-perception_files/figure-html/unnamed-chunk-4-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -362,6 +366,7 @@
 <div class="column">
 <p>Next, we have <strong>two different plots</strong> of TB incidence in Kenya, based on three variables:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>tb_kn <span class="sc">|&gt;</span> <span class="fu">select</span>(year, sex, age, count) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
     year sex   age   count
@@ -414,7 +419,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/use a line plot instead of bar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="03-perception_files/figure-revealjs/use a line plot instead of bar-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/use a line plot instead of bar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="03-perception_files/figure-html/use a line plot instead of bar-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -423,7 +428,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/colour and axes fixes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="03-perception_files/figure-revealjs/colour and axes fixes-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/colour and axes fixes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="03-perception_files/figure-html/colour and axes fixes-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -436,7 +441,7 @@
 </blockquote>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_7c427e5c" minutes="1" seconds="50" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_b4719b7b" minutes="1" seconds="50" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
 </div>
 </div>
 <aside class="notes">
@@ -474,7 +479,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="03-perception_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="03-perception_files/figure-html/unnamed-chunk-7-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -483,7 +488,7 @@
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="03-perception_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="03-perception_files/figure-html/unnamed-chunk-8-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -492,7 +497,7 @@
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_695fe95a" minutes="0" seconds="30" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_b83c14d8" minutes="0" seconds="30" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
 </div>
 </div>
 <aside class="notes">
@@ -528,7 +533,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </blockquote>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_87091c22" minutes="1" seconds="5" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_4b664127" minutes="1" seconds="5" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
 </div>
 </div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
@@ -537,7 +542,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/use a line plot for proportions-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="03-perception_files/figure-revealjs/use a line plot for proportions-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/use a line plot for proportions-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="03-perception_files/figure-html/use a line plot for proportions-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -546,7 +551,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/compare proportions of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="03-perception_files/figure-revealjs/compare proportions of males females-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/compare proportions of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="03-perception_files/figure-html/compare proportions of males females-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -671,7 +676,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </div></div>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_c6a82e60" minutes="1" seconds="40" update-every="1" tabindex="0" style="top:100;right:100;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_380c1280" minutes="1" seconds="40" update-every="1" tabindex="0" style="top:100;right:100;"></countdown-timer>
 </div>
 </div>
 <aside class="notes">
@@ -701,7 +706,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">display.brewer.all</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">display.brewer.all</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Sequential,</li>
@@ -711,10 +716,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <p><a href="http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">Color Brewer</a> annotates palettes with attributes.</p>
 </div><div class="column">
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">display.brewer.all</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img data-src="03-perception_files/figure-revealjs/unnamed-chunk-12-1.png" width="1152"></a></p>
+<p><a href="03-perception_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img data-src="03-perception_files/figure-html/unnamed-chunk-12-1.png" width="1152"></a></p>
 </figure>
 </div>
 </div>
@@ -746,16 +752,16 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>dsamp <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
-<span id="cb4-3"><a></a>(d <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb4-4"><a></a>  dsamp, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb4-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(</span>
-<span id="cb4-6"><a></a>    <span class="at">colour =</span> clarity)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>dsamp <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb7-3"><a></a>(d <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb7-4"><a></a>  dsamp, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb7-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(</span>
+<span id="cb7-6"><a></a>    <span class="at">colour =</span> clarity)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/mapping numbers to rainbow sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img data-src="03-perception_files/figure-revealjs/mapping numbers to rainbow sequential scale-1.png" width="672"></a></p>
+<p><a href="03-perception_files/figure-html/mapping numbers to rainbow sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img data-src="03-perception_files/figure-html/mapping numbers to rainbow sequential scale-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -788,11 +794,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="sequential-1" class="slide level2">
 <h2>Sequential</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/mapping numbers to sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img data-src="03-perception_files/figure-revealjs/mapping numbers to sequential scale-1.png" width="672"></a></p>
+<p><a href="03-perception_files/figure-html/mapping numbers to sequential scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img data-src="03-perception_files/figure-html/mapping numbers to sequential scale-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -819,11 +825,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="diverging" class="slide level2">
 <h2>Diverging</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"PRGn"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"PRGn"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/mapping numbers to diverging scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img data-src="03-perception_files/figure-revealjs/mapping numbers to diverging scale-1.png" style="width:60.0%"></a></p>
+<p><a href="03-perception_files/figure-html/mapping numbers to diverging scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img data-src="03-perception_files/figure-html/mapping numbers to diverging scale-1.png" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -850,11 +856,11 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="qualitative" class="slide level2">
 <h2>Qualitative</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>d <span class="sc">+</span> <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/mapping numbers to qualitative palette-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img data-src="03-perception_files/figure-revealjs/mapping numbers to qualitative palette-1.png" style="width:60.0%"></a></p>
+<p><a href="03-perception_files/figure-html/mapping numbers to qualitative palette-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img data-src="03-perception_files/figure-html/mapping numbers to qualitative palette-1.png" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -887,20 +893,20 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_3cf64943" minutes="0" seconds="50" update-every="1" tabindex="0" style="right:50;bottom:0;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_ef66e148" minutes="0" seconds="50" update-every="1" tabindex="0" style="right:50;bottom:0;"></countdown-timer>
 </div>
 </div>
 </section>
 <section id="color-blind-proofing" class="slide level2">
 <h2>Color blind-proofing</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">9</span>)</span>
-<span id="cb8-2"><a></a>d <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb8-3"><a></a></span>
-<span id="cb8-4"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">dichromat</span>(<span class="fu">hue_pal</span>()(<span class="dv">9</span>))</span>
-<span id="cb8-5"><a></a>d <span class="sc">+</span> </span>
-<span id="cb8-6"><a></a>  <span class="fu">scale_colour_manual</span>(<span class="st">""</span>, <span class="at">values=</span>clrs) <span class="sc">+</span> </span>
-<span id="cb8-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">9</span>)</span>
+<span id="cb11-2"><a></a>d <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb11-3"><a></a></span>
+<span id="cb11-4"><a></a>clrs <span class="ot">&lt;-</span> <span class="fu">dichromat</span>(<span class="fu">hue_pal</span>()(<span class="dv">9</span>))</span>
+<span id="cb11-5"><a></a>d <span class="sc">+</span> </span>
+<span id="cb11-6"><a></a>  <span class="fu">scale_colour_manual</span>(<span class="st">""</span>, <span class="at">values=</span>clrs) <span class="sc">+</span> </span>
+<span id="cb11-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Online checking tool <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">coblis</a>: upload an image and it will re-map the colors for different colour perception issues.</li>
@@ -932,7 +938,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/show the default colour scheme-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img data-src="03-perception_files/figure-revealjs/show the default colour scheme-1.png" style="width:100.0%"></a></p>
+<p><a href="03-perception_files/figure-html/show the default colour scheme-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img data-src="03-perception_files/figure-html/show the default colour scheme-1.png" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -943,7 +949,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/show the dichromat adjusted colors-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img data-src="03-perception_files/figure-revealjs/show the dichromat adjusted colors-1.png" style="width:100.0%"></a></p>
+<p><a href="03-perception_files/figure-html/show the dichromat adjusted colors-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img data-src="03-perception_files/figure-html/show the dichromat adjusted colors-1.png" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -970,7 +976,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/is shape preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img data-src="03-perception_files/figure-revealjs/is shape preattentive-1.png" width="384"></a></p>
+<p><a href="03-perception_files/figure-html/is shape preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img data-src="03-perception_files/figure-html/is shape preattentive-1.png" width="384"></a></p>
 </figure>
 </div>
 </div>
@@ -983,7 +989,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/is color preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img data-src="03-perception_files/figure-revealjs/is color preattentive-1.png" width="384"></a></p>
+<p><a href="03-perception_files/figure-html/is color preattentive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img data-src="03-perception_files/figure-html/is color preattentive-1.png" width="384"></a></p>
 </figure>
 </div>
 </div>
@@ -1013,7 +1019,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/a line plot on sex-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img data-src="03-perception_files/figure-revealjs/a line plot on sex-1.png" width="768"></a></p>
+<p><a href="03-perception_files/figure-html/a line plot on sex-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img data-src="03-perception_files/figure-html/a line plot on sex-1.png" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1022,7 +1028,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/a line plot on age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img data-src="03-perception_files/figure-revealjs/a line plot on age-1.png" width="768"></a></p>
+<p><a href="03-perception_files/figure-html/a line plot on age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img data-src="03-perception_files/figure-html/a line plot on age-1.png" width="768"></a></p>
 </figure>
 </div>
 </div>
@@ -1057,7 +1063,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img data-src="03-perception_files/figure-revealjs/side-by-side bars of males females-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/side-by-side bars of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img data-src="03-perception_files/figure-html/side-by-side bars of males females-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1066,7 +1072,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/piecharts of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img data-src="03-perception_files/figure-revealjs/piecharts of males females-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/piecharts of males females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img data-src="03-perception_files/figure-html/piecharts of males females-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1098,7 +1104,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/side-by-side bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img data-src="03-perception_files/figure-revealjs/side-by-side bars of age-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/side-by-side bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img data-src="03-perception_files/figure-html/side-by-side bars of age-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1107,7 +1113,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/piecharts of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27"><img data-src="03-perception_files/figure-revealjs/piecharts of age-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/piecharts of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27"><img data-src="03-perception_files/figure-html/piecharts of age-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1116,7 +1122,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/stacked bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img data-src="03-perception_files/figure-revealjs/stacked bars of age-1.png" width="960"></a></p>
+<p><a href="03-perception_files/figure-html/stacked bars of age-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img data-src="03-perception_files/figure-html/stacked bars of age-1.png" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -1139,15 +1145,15 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <section id="change-blindness" class="slide level2">
 <h2>Change blindness</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
-<span id="cb9-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb9-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb9-4"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) <span class="sc">+</span></span>
-<span id="cb9-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity, <span class="at">ncol=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
+<span id="cb12-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity, <span class="at">ncol=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/facetting plots can result in change blindness-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img data-src="03-perception_files/figure-revealjs/facetting plots can result in change blindness-1.png" style="width:50.0%"></a></p>
+<p><a href="03-perception_files/figure-html/facetting plots can result in change blindness-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img data-src="03-perception_files/figure-html/facetting plots can result in change blindness-1.png" style="width:50.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1177,15 +1183,15 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 <p>It may result in not noticing differences.</p>
 </div><div class="column">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, </span>
-<span id="cb10-2"><a></a>                  <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
-<span id="cb10-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb10-5"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(dsamp, <span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, </span>
+<span id="cb13-2"><a></a>                  <span class="at">colour =</span> clarity)) <span class="sc">+</span></span>
+<span id="cb13-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><a href="03-perception_files/figure-revealjs/averlaying makes comparisons easier-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img data-src="03-perception_files/figure-revealjs/averlaying makes comparisons easier-1.png" style="width:100.0%"></a></p>
+<p><a href="03-perception_files/figure-html/averlaying makes comparisons easier-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img data-src="03-perception_files/figure-html/averlaying makes comparisons easier-1.png" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -1246,7 +1252,7 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<countdown-timer class="countdown" id="timer_00f543ae" minutes="7" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
+<countdown-timer class="countdown" id="timer_fbc93a7c" minutes="7" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>
 </div>
 </div>
 </section>
@@ -1488,44 +1494,6 @@ Plot B shows stacked bars scaled to 100% for females and males.</p>
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

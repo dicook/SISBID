@@ -346,7 +346,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="06-wrangling_files/figure-revealjs/residual plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="06-wrangling_files/figure-revealjs/residual plot-1.png" class="quarto-figure quarto-figure-center" width="1152"></a></p>
+<p><a href="06-wrangling_files/figure-html/residual plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="06-wrangling_files/figure-html/residual plot-1.png" class="quarto-figure quarto-figure-center" width="1152"></a></p>
 </figure>
 </div>
 </div>
@@ -372,7 +372,7 @@
 <li>Plot the residuals from the random effects model</li>
 <li>Plot fitted values against observed values</li>
 </ul>
-<p><countdown-timer class="countdown" id="timer_31b102c9" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_d534fcae" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="dplyr-verbs" class="slide level2">
 <h2>dplyr verbs</h2>
@@ -499,7 +499,7 @@
 <section id="your-turn-1" class="slide level2 inverse">
 <h2>Your turn</h2>
 <p>How many values do we have for each subject? Check the help for function <code>?n</code></p>
-<p><countdown-timer class="countdown" id="timer_d559bc81" minutes="2" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_befa67fb" minutes="2" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="french-fries---completeness" class="slide level2">
 <h2>French Fries - completeness</h2>
@@ -574,7 +574,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="06-wrangling_files/figure-revealjs/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="06-wrangling_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></a></p>
+<p><a href="06-wrangling_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="06-wrangling_files/figure-html/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -590,12 +590,12 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="06-wrangling_files/figure-revealjs/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="06-wrangling_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></a></p>
+<p><a href="06-wrangling_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="06-wrangling_files/figure-html/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p><countdown-timer class="countdown" id="timer_13f616ad" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_889bebda" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>
@@ -826,44 +826,6 @@
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
