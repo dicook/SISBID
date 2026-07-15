@@ -53,13 +53,13 @@ jobs:
           cache-version: 1
           packages:
             any::pak
-            github::emitanaka/anicon?ignore
-            github::hadley/emo?ignore
-            github::dicook/gretchenalbrecht?ignore
+            github::emitanaka/anicon
+            github::hadley/emo
+            github::dicook/gretchenalbrecht
             github::mitchelloharawild/icons
             github::heike/vinference
             github::wmurphyrd/fiftystater?ignore
-            github::rlbarter/superheat?ignore
+            github::rlbarter/superheat
             any::broom
             any::broom.mixed
             any::bslib
