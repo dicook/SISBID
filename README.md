@@ -75,13 +75,13 @@ Zoom etiquette:
 
 | Tuesday | US Pacific | US Central | US Eastern | Accra | London | Korea | Melbourne |
 |----|----|----|----|----|----|----|----|
-| [Lecture 7](slides/07-mvplot.rjs.html) | 8:00 - 8:45 am | 10:00 - 10:45 am | 11:00 - 11:45 am | 3:00 - 3:45 pm | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
-| [Lecture 8](slides/08-mvplot-tour.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
-| [Lecture 9](slides/09-adv-graphics.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
+| [Lecture 7](slides/10-interactive-plots.rjs.html) | 8:00 - 8:45 am | 10:00 - 10:45 am | 11:00 - 11:45 am | 3:00 - 3:45 pm | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
+| [Lecture 8](slides/11-shiny-apps.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
+| [Lecture 9](slides/12-shiny-reactivity.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
 | Break |  |  |  |  |  |  |  |
-| [Lecture 10](slides/10-interactive-plots.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
-| [Lecture 11](slides/11-shiny-apps.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
-| [Lecture 12](slides/12-shiny-reactivity.rjs.html) | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
+| [Lecture 10](slides/07-mvplot.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
+| [Lecture 11](slides/08-mvplot-tour.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
+| [Lecture 12](slides/09-adv-graphics.rjs.html) | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
 
 ### Wednesday
 
@@ -109,7 +109,7 @@ the sessions.
 |----|----|----|----|----|
 | 0\. Setting things up | [ Slides](slides/00-preamble.rjs.html) | [ 1pg](slides/00-preamble.onepage.html) | [ Code](code/00-preamble.R) | All |
 | 1\. The grammar of graphics and ggplot2 | [ Slides](slides/01-ggplot.rjs.html) | [ 1pg](slides/01-ggplot.onepage.html) | [ Code](code/01-ggplot.R) | Heike |
-| 2\. Advancing the grammar to maps, time and interactivity | [ Slides](slides/02-ggplot-adv.rjs.html) | [ 1pg](slides/02-ggplot-adv.onepage.html) | [ Code](code/02-ggplot-adv.R) | Di |
+| 2\. Advancing the grammar to maps, time and interactivity | [ Slides](slides/02-ggplot-adv.rjs.html) | [ 1pg](slides/02-ggplot-adv.onepage.html) | [ Code](code/02-ggplot-adv.R) | Susan |
 | 3\. Visual perception and effective plot construction | [ Slides](slides/03-perception.rjs.html) | [ 1pg](slides/03-perception.onepage.html) | [ Code](code/03-perception.R) | Susan |
 | Break |  |  |  |  |
 | 4\. Tidy data and tidying your messy data with tidyr | [ Slides](slides/04-tidyr.rjs.html) | [ 1pg](slides/04-tidyr.onepage.html) | [ Code](code/04-tidyr.R) | Heike |
@@ -124,14 +124,13 @@ yesterday – data files have not been included twice.
 
 | Title | Slides | 1pg Slides | Code | Instructor |
 |----|----|----|----|----|
-| 7\. Multivariate plots using ggplot2, GGally | [ Slides](slides/07-mvplot.rjs.html) | [ 1pg](slides/07-mvplot.onepage.html) | [ Code](code/07-mvplot.R) | Di |
-| 8\. Touring on multivariate data | [ Slides](slides/08-mvplot-tour.rjs.html) | [ 1pg](slides/08-mvplot-tour.onepage.html) | [ Code](code/08-mvplot-tour.R) | Di |
-| 9\. Advanced graphics and statistical inference | [ Slides](slides/09-adv-graphics.rjs.html) | [ 1pg](slides/09-adv-graphics.onepage.html) | [ Code](code/09-adv-graphics.R) | Susan |
+| 7\. Interactive and animated graphics using plotly and gganimate | [ Slides](slides/10-interactive-plots.rjs.html) | [ 1pg](slides/10-interactive-plots.onepage.html) | [ Code](code/10-interactive-plots.R) | Heike |
+| 8\. How to build a shiny app | [ Slides](slides/11-shiny-apps.rjs.html) | [ 1pg](slides/11-shiny-apps.onepage.html) | [ Code](code/11-shiny-apps.R) | Heike |
+| 9\. Reactive elements in shiny | [ Slides](slides/12-shiny-reactivity.rjs.html) | [ 1pg](slides/12-shiny-reactivity.onepage.html) | [ Code](code/12-shiny-reactivity.R) | Susan |
 | Break |  |  |  |  |
-| 10\. Interactive and animated graphics using plotly and gganimate | [ Slides](slides/10-interactive-plots.rjs.html) | [ 1pg](slides/10-interactive-plots.onepage.html) | [ Code](code/10-interactive-plots.R) | Heike |
-| 11\. How to build a shiny app | [ Slides](slides/11-shiny-apps.rjs.html) | [ 1pg](slides/11-shiny-apps.onepage.html) | [ Code](code/11-shiny-apps.R) | Susan |
-| 12\. Reactive elements in shiny | [ Slides](slides/12-shiny-reactivity.rjs.html) | [ 1pg](slides/12-shiny-reactivity.onepage.html) | [ Code](code/12-shiny-reactivity.R) | Heike |
-| Break |  |  |  |  |
+| 10\. Multivariate plots using ggplot2, GGally | [ Slides](slides/07-mvplot.rjs.html) | [ 1pg](slides/07-mvplot.onepage.html) | [ Code](code/07-mvplot.R) | Di |
+| 11\. Touring on multivariate data | [ Slides](slides/08-mvplot-tour.rjs.html) | [ 1pg](slides/08-mvplot-tour.onepage.html) | [ Code](code/08-mvplot-tour.R) | Di |
+| 12\. Advanced graphics and statistical inference | [ Slides](slides/09-adv-graphics.rjs.html) | [ 1pg](slides/09-adv-graphics.onepage.html) | [ Code](code/09-adv-graphics.R) | Di |
 
 ### Wednesday
 
@@ -144,7 +143,7 @@ Monday – data files have not been included twice.
 | 13\. Theme a shiny app | [ Slides](slides/13-theme-shiny.rjs.html) | [ 1pg](slides/13-theme-shiny.onepage.html) | [ Code](code/13-theme-shiny.R) | Susan |
 | 14\. Build your own Shiny app | [ Slides](slides/14-build-shiny-app.rjs.html) | [ 1pg](slides/14-build-shiny-app.onepage.html) | [ Code](code/14-build-shiny-app.R) | Heike |
 | Show us What You’ve Made |  |  |  | All |
-| 15\. Interactive Documents | [ Slides](slides/15-interactive-document.rjs.html) | [ 1pg](slides/15-interactive-document.onepage.html) | [ Code](code/15-interactive-document.R) | Di |
+| 15\. Interactive Documents | [ Slides](slides/15-interactive-document.rjs.html) | [ 1pg](slides/15-interactive-document.onepage.html) | [ Code](code/15-interactive-document.R) | Susan |
 
 ## Software list
 
