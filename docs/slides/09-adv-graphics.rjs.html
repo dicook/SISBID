@@ -673,15 +673,19 @@ into a field of null plots</p>
 <h2>A map lineup example</h2>
 <p>Does one map show a spatial trend?</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in `mproject()`:
-! The package "mapproj" is required for `coord_map()`.</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="09-adv-graphics_files/figure-revealjs/make a map lineup-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Cancer incidence across the US 2010-2014, Melanoma cases per 100k. Data source: American Cancer Society."><img data-src="09-adv-graphics_files/figure-revealjs/make a map lineup-1.png" width="1536" alt="Cancer incidence across the US 2010-2014, Melanoma cases per 100k. Data source: American Cancer Society."></a></p>
+<figcaption>Cancer incidence across the US 2010-2014, Melanoma cases per 100k. <a href="https://cancerstatisticscenter.cancer.org">Data source: American Cancer Society</a>.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="your-turn" class="slide level2 smaller">
 <h2>Your turn</h2>
-<p><a href="images/cookie-monster.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="images/cookie-monster.jpg" class="absolute" style="top: 0px; right: 0px; width: 12%; "></a></p>
+<p><a href="images/cookie-monster.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="images/cookie-monster.jpg" class="absolute" style="top: 0px; right: 0px; width: 12%; "></a></p>
 <div class="columns">
 <div class="column">
 <ol type="1">
@@ -693,30 +697,30 @@ into a field of null plots</p>
 <li>use the <code>pvisual</code> function to compute the p-value, <code>K=</code> group size, <code>m=18</code></li>
 <li>Try different <span class="math inline">\(\alpha\)</span> values with <code>pVis</code> - how much difference does it make?</li>
 </ol>
-<p><countdown-timer class="countdown" id="timer_143e30c0" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_f1e604fb" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </div><div class="column">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">data</span>(wasps)</span>
-<span id="cb10-2"><a></a>lda_pred <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb10-3"><a></a>  d <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lda</span>(Group<span class="sc">~</span>., </span>
-<span id="cb10-4"><a></a>                   <span class="at">data=</span>x[,<span class="sc">-</span><span class="dv">43</span>]))<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">|&gt;</span></span>
-<span id="cb10-5"><a></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb10-6"><a></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> x<span class="sc">$</span>Group)</span>
-<span id="cb10-7"><a></a>  <span class="fu">return</span>(d)</span>
-<span id="cb10-8"><a></a>}</span>
-<span id="cb10-9"><a></a>wasps_lineup <span class="ot">&lt;-</span> <span class="fu">lineup</span>(<span class="fu">null_permute</span>(<span class="st">'Group'</span>), </span>
-<span id="cb10-10"><a></a>                       wasps[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">n=</span><span class="dv">12</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-11"><a></a>  <span class="fu">as_tibble</span>()</span>
-<span id="cb10-12"><a></a>wasps_lineup_lda <span class="ot">&lt;-</span> wasps_lineup <span class="sc">|&gt;</span></span>
-<span id="cb10-13"><a></a>  <span class="fu">split</span>(.<span class="sc">$</span>.sample) <span class="sc">|&gt;</span></span>
-<span id="cb10-14"><a></a>  <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">lda_pred</span>(.)) <span class="sc">|&gt;</span></span>
-<span id="cb10-15"><a></a>  <span class="fu">mutate</span>(<span class="at">.sample =</span> wasps_lineup<span class="sc">$</span>.sample)</span>
-<span id="cb10-16"><a></a><span class="fu">ggplot</span>(wasps_lineup_lda, <span class="fu">aes</span>(<span class="at">x=</span>LD1, <span class="at">y=</span>LD2, </span>
-<span id="cb10-17"><a></a>                             <span class="at">colour=</span>Group)) <span class="sc">+</span> </span>
-<span id="cb10-18"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-19"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>.sample, <span class="at">ncol=</span><span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb10-20"><a></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb10-21"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">data</span>(wasps)</span>
+<span id="cb9-2"><a></a>lda_pred <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb9-3"><a></a>  d <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lda</span>(Group<span class="sc">~</span>., </span>
+<span id="cb9-4"><a></a>                   <span class="at">data=</span>x[,<span class="sc">-</span><span class="dv">43</span>]))<span class="sc">$</span>x[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> x<span class="sc">$</span>Group)</span>
+<span id="cb9-7"><a></a>  <span class="fu">return</span>(d)</span>
+<span id="cb9-8"><a></a>}</span>
+<span id="cb9-9"><a></a>wasps_lineup <span class="ot">&lt;-</span> <span class="fu">lineup</span>(<span class="fu">null_permute</span>(<span class="st">'Group'</span>), </span>
+<span id="cb9-10"><a></a>                       wasps[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">n=</span><span class="dv">12</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-11"><a></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb9-12"><a></a>wasps_lineup_lda <span class="ot">&lt;-</span> wasps_lineup <span class="sc">|&gt;</span></span>
+<span id="cb9-13"><a></a>  <span class="fu">split</span>(.<span class="sc">$</span>.sample) <span class="sc">|&gt;</span></span>
+<span id="cb9-14"><a></a>  <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">lda_pred</span>(.)) <span class="sc">|&gt;</span></span>
+<span id="cb9-15"><a></a>  <span class="fu">mutate</span>(<span class="at">.sample =</span> wasps_lineup<span class="sc">$</span>.sample)</span>
+<span id="cb9-16"><a></a><span class="fu">ggplot</span>(wasps_lineup_lda, <span class="fu">aes</span>(<span class="at">x=</span>LD1, <span class="at">y=</span>LD2, </span>
+<span id="cb9-17"><a></a>                             <span class="at">colour=</span>Group)) <span class="sc">+</span> </span>
+<span id="cb9-18"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-19"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>.sample, <span class="at">ncol=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb9-20"><a></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette=</span><span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb9-21"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 <p><span class="orange">Enter the p-value in the chat!</span></p>
