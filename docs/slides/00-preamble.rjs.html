@@ -204,7 +204,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Preamble</h1>
-  <p class="subtitle">SISBID 2025 <br> https://github.com/dicook/SISBID</p>
+  <p class="subtitle">SISBID 2026 <br> https://github.com/dicook/SISBID</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -242,7 +242,7 @@
 <li>What type of data are you often working with?</li>
 <li>Is there some analysis task that you have found really hard?</li>
 </ol>
-<p><countdown-timer class="countdown" id="timer_b3934909" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer> <span class="yellow">You’ve got 5 minutes - timer is running!</span></p>
+<p><countdown-timer class="countdown" id="timer_538c1cc6" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer> <span class="yellow">You’ve got 5 minutes - timer is running!</span></p>
 </section>
 <section id="datavis-module-logistics" class="slide level2 smaller">
 <h2>Datavis module logistics</h2>
@@ -540,6 +540,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
