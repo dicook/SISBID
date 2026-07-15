@@ -121,7 +121,6 @@ Note: this zip file assumes you will extract to the same folder as yesterday -- 
 | 10. Multivariate plots using ggplot2, GGally | [{{< fa person-chalkboard >}} Slides](slides/07-mvplot.rjs.html) | [{{< fa file >}} 1pg](slides/07-mvplot.onepage.html) | [{{< fa code >}} Code](code/07-mvplot.R) | Di |
 | 11. Touring on multivariate data | [{{< fa person-chalkboard >}} Slides](slides/08-mvplot-tour.rjs.html) | [{{< fa file >}} 1pg](slides/08-mvplot-tour.onepage.html) | [{{< fa code >}} Code](code/08-mvplot-tour.R) | Di |
 | 12. Advanced graphics and statistical inference | [{{< fa person-chalkboard >}} Slides](slides/09-adv-graphics.rjs.html) | [{{< fa file >}} 1pg](slides/09-adv-graphics.onepage.html) | [{{< fa code >}} Code](code/09-adv-graphics.R) | Di |
-| Break | | | | |
 
 ### Wednesday 
 
