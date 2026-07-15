@@ -1,0 +1,115 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: master
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Install libcurl on Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -y && \
+          sudo apt-get install -y \
+          libcurl4-openssl-dev \
+          libmpfr-dev \
+          libabsl-dev \
+          libgdal-dev \
+          libglpk-dev \
+          libgmp3-dev \
+          libudunits2-dev
+
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: false
+
+      - name: Quarto version
+        run: |
+          quarto --version
+
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Setup R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 1
+          packages:
+            any::pak
+            github::emitanaka/anicon
+            github::hadley/emo
+            github::dicook/gretchenalbrecht
+            github::mitchelloharawild/icons
+            github::heike/vinference
+            github::wmurphyrd/fiftystater
+            github::rlbarter/superheat
+            github::lindsayrutter/bigPint
+            any::broom@>=1.0.13
+            any::broom.mixed@>=0.2.9.7
+            any::bslib@>=0.11.0
+            any::colorspace@>=2.1.2
+            any::corrgram@>=1.15
+            any::cranlogs@>=2.1.1
+            any::datasauRus@>=0.1.9
+            any::dichromat@>=2.0.0.1
+            any::dplyr@>=1.2.1
+            any::DT@>=0.34.0
+            any::forecast@>=9.0.2
+            any::gapminder@>=1.0.1
+            any::GGally@>=2.4.0
+            any::gganimate@>=1.0.11
+            any::ggbeeswarm@>=0.7.3
+            any::ggdist@>=3.3.3
+            any::ggmap@>=4.0.2
+            any::ggpcp@>=0.2.0
+            any::ggplot2@>=4.0.3
+            any::ggthemes@>=5.2.0
+            any::glmmTMB@>=1.1.14
+            any::gridExtra@>=2.3.1
+            any::here@>=1.0.2
+            any::htmltools@>=0.5.9
+            any::leaflet@>=2.2.3
+            any::lme4@>=2.0.1
+            any::lubridate@>=1.9.5
+            any::maps@>=3.4.3
+            any::MASS@>=7.3.65
+            any::nullabor@>=0.3.15
+            any::plotly@>=4.12.0
+            any::RColorBrewer@>=1.1.3
+            any::readr@>=2.2.0
+            any::readxl@>=1.5.0
+            any::scales@>=1.4.0
+            any::shiny@>=1.14.0
+            any::splitstackshape@>=1.4.8.1
+            any::stringr@>=1.6.0
+            any::tidyr@>=1.3.2
+            any::tourr@>=1.2.8
+            any::vinference@>=1.0.0
+            any::viridis@>=0.6.5
+            any::bsicons@>=0.1.2
+            any::thematic@>=0.1.8
+
+      - name: Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GS_AUTH: ${{ secrets.GS_AUTH }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
