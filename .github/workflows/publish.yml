@@ -62,7 +62,6 @@ jobs:
             github::wmurphyrd/fiftystater
             github::wmurphyrd/colorplaner
             github::rlbarter/superheat
-            github::lindsayrutter/bigPint
             any::broom
             any::broom.mixed
             any::bslib
