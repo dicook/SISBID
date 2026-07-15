@@ -59,6 +59,7 @@ jobs:
             github::mitchelloharawild/icons
             github::heike/vinference
             github::wmurphyrd/fiftystater?ignore
+            github::wmurphyrd/colorplaner
             github::rlbarter/superheat
             any::broom
             any::broom.mixed
