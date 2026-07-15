@@ -115,8 +115,8 @@ Note: this zip file assumes you will extract to the same folder as yesterday -- 
 | Title | Slides | 1pg Slides | Code | Instructor |
 | ------------ | --- | --------- | --- | ------ |
 | 7.  Interactive and animated graphics using plotly and gganimate | [{{< fa person-chalkboard >}} Slides](slides/10-interactive-plots.rjs.html) | [{{< fa file >}} 1pg](slides/10-interactive-plots.onepage.html) | [{{< fa code >}} Code](code/10-interactive-plots.R) | Heike |
-| 8. How to build a shiny app | [{{< fa person-chalkboard >}} Slides](slides/11-shiny-apps.rjs.html) | [{{< fa file >}} 1pg](slides/11-shiny-apps.onepage.html) | [{{< fa code >}} Code](code/11-shiny-apps.R) | Susan |
-| 9. Reactive elements in shiny | [{{< fa person-chalkboard >}} Slides](slides/12-shiny-reactivity.rjs.html) | [{{< fa file >}} 1pg](slides/12-shiny-reactivity.onepage.html) | [{{< fa code >}} Code](code/12-shiny-reactivity.R) | Heike |
+| 8. How to build a shiny app | [{{< fa person-chalkboard >}} Slides](slides/11-shiny-apps.rjs.html) | [{{< fa file >}} 1pg](slides/11-shiny-apps.onepage.html) | [{{< fa code >}} Code](code/11-shiny-apps.R) | Heike |
+| 9. Reactive elements in shiny | [{{< fa person-chalkboard >}} Slides](slides/12-shiny-reactivity.rjs.html) | [{{< fa file >}} 1pg](slides/12-shiny-reactivity.onepage.html) | [{{< fa code >}} Code](code/12-shiny-reactivity.R) | Susan |
 | Break | | | | |
 | 10. Multivariate plots using ggplot2, GGally | [{{< fa person-chalkboard >}} Slides](slides/07-mvplot.rjs.html) | [{{< fa file >}} 1pg](slides/07-mvplot.onepage.html) | [{{< fa code >}} Code](code/07-mvplot.R) | Di |
 | 11. Touring on multivariate data | [{{< fa person-chalkboard >}} Slides](slides/08-mvplot-tour.rjs.html) | [{{< fa file >}} 1pg](slides/08-mvplot-tour.onepage.html) | [{{< fa code >}} Code](code/08-mvplot-tour.R) | Di |
