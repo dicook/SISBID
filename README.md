@@ -131,7 +131,6 @@ yesterday – data files have not been included twice.
 | 10\. Multivariate plots using ggplot2, GGally | [ Slides](slides/07-mvplot.rjs.html) | [ 1pg](slides/07-mvplot.onepage.html) | [ Code](code/07-mvplot.R) | Di |
 | 11\. Touring on multivariate data | [ Slides](slides/08-mvplot-tour.rjs.html) | [ 1pg](slides/08-mvplot-tour.onepage.html) | [ Code](code/08-mvplot-tour.R) | Di |
 | 12\. Advanced graphics and statistical inference | [ Slides](slides/09-adv-graphics.rjs.html) | [ 1pg](slides/09-adv-graphics.onepage.html) | [ Code](code/09-adv-graphics.R) | Di |
-| Break |  |  |  |  |
 
 ### Wednesday
 

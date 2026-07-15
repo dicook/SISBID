@@ -2,6 +2,7 @@
 format: 
   html: default
 format-links: false
+freeze: false
 ---
 
 {{< include about.qmd >}}

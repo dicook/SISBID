@@ -1,5 +1,6 @@
 ---
 format: gfm
+freeze: false
 ---
 
 {{< include about.qmd >}}

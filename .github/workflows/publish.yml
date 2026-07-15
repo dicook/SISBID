@@ -109,6 +109,8 @@ jobs:
 
       - name: Publish
         uses: quarto-dev/quarto-actions/publish@v2
+        render: true
+        to: all
         with:
           target: gh-pages
         env:
