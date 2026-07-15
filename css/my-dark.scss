@@ -4,13 +4,16 @@ h1, h2, h3 {
   color: #2AF5B8!important;
 }
 .navbar {
-  h1, h2, h3 {
+  h1, h2, h3, li {
     a{
       color: #2AF5B8!important;
     }
   }
   h1:before {
     color: #FFBA08!important;
+  }
+  .dropdown-menu li a{
+    color: #2AF5B8!important;
   }
 }
 h1:before {
@@ -32,4 +35,8 @@ code {
 }
 .inverse {
   background-color: #404040!important;
+}
+
+.dropdown-item {
+  --bs-dropdown-link-hover-bg:#404040!important;
 }
