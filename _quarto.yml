@@ -12,7 +12,7 @@ project:
     navigate: false
   post-render:
     - after-render.R
-    - build-course-files.R
+  #   - build-course-files.R
 
 execute:
   freeze: auto  # re-render only when source changes
