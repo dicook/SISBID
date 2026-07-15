@@ -462,11 +462,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre data-code-line-numbers=""><code>Error in library(fiftystater) : there is no package called 'fiftystater'</code></pre>
-</div>
-</div>
 <section id="two-minute-challenge" class="level2 inverse">
 <h2 class="inverse anchored" data-anchor-id="two-minute-challenge">TWO MINUTE CHALLENGE 🔮 👽 👼</h2>
 <p>Write down as many types of data plots that you can think of.</p>
@@ -538,15 +533,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>(Current) TB case notifications data from <a href="http://www.who.int/tb/country/data/download/en/">WHO</a>.<br>
 Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>getTBinR</code></a>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> count, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> age) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> count, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> age) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/make-a-barchart-of-US-TB-incidence-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="01-ggplot_files/figure-revealjs/make-a-barchart-of-US-TB-incidence-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<p><a href="01-ggplot_files/figure-html/make-a-barchart-of-US-TB-incidence-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="01-ggplot_files/figure-html/make-a-barchart-of-US-TB-incidence-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -583,16 +578,16 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <h2 class="anchored" data-anchor-id="fix-the-plot">Fix the plot</h2>
 <p>Manually selected fill colors; theme with white background for better contrast</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># This uses a color blind friendly scale</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group)  <span class="sc">+</span> </span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> </span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">theme_bw</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># This uses a color blind friendly scale</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group)  <span class="sc">+</span> </span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> </span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">theme_bw</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/colour-and-axes-fixes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="01-ggplot_files/figure-revealjs/colour-and-axes-fixes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
+<p><a href="01-ggplot_files/figure-html/colour-and-axes-fixes-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="01-ggplot_files/figure-html/colour-and-axes-fixes-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
@@ -602,15 +597,15 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="compare-males-and-females" class="level2">
 <h2 class="anchored" data-anchor-id="compare-males-and-females">Compare males and females</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span>  </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">ylab</span>(<span class="st">"proportion"</span>) <span class="sc">+</span> </span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span>  </span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span>  </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">ylab</span>(<span class="st">"proportion"</span>) <span class="sc">+</span> </span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span>  </span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/compare-proportions-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="01-ggplot_files/figure-revealjs/compare-proportions-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<p><a href="01-ggplot_files/figure-html/compare-proportions-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="01-ggplot_files/figure-html/compare-proportions-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -644,16 +639,16 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <!--  scale_x_continuous("year", breaks=seq(1995, 2012, 5), labels=c("95", "00", "05", "10")) -->
 <!-- ``` -->
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Make separate plots for males and females, focus on counts by category</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> </span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span> </span>
-<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Make separate plots for males and females, focus on counts by category</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span> </span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span> </span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/compare-counts-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="01-ggplot_files/figure-revealjs/compare-counts-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+<p><a href="01-ggplot_files/figure-html/compare-counts-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="01-ggplot_files/figure-html/compare-counts-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -672,17 +667,17 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="make-a-pie" class="level2">
 <h2 class="anchored" data-anchor-id="make-a-pie">Make a pie</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># How to make a pie instead of a barchart - not straight forward</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span> </span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">coord_polar</span>() <span class="sc">+</span> </span>
-<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># How to make a pie instead of a barchart - not straight forward</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">fill=</span>sex)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">coord_polar</span>() <span class="sc">+</span> </span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/rose-plot-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="01-ggplot_files/figure-revealjs/rose-plot-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
+<p><a href="01-ggplot_files/figure-html/rose-plot-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="01-ggplot_files/figure-html/rose-plot-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
@@ -692,15 +687,15 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="stacked-bar" class="level2">
 <h2 class="anchored" data-anchor-id="stacked-bar">Stacked bar</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Step 1 to make the pie</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> count, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="st">""</span>, <span class="at">option=</span><span class="st">"inferno"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Step 1 to make the pie</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> count, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="st">""</span>, <span class="at">option=</span><span class="st">"inferno"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/stacked-barchart-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="01-ggplot_files/figure-revealjs/stacked-barchart-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
+<p><a href="01-ggplot_files/figure-html/stacked-barchart-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="01-ggplot_files/figure-html/stacked-barchart-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></a></p>
 </figure>
 </div>
 </div>
@@ -709,17 +704,17 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <section id="pie-chart" class="level2">
 <h2 class="anchored" data-anchor-id="pie-chart">Pie chart</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Now we have a pie, note the mapping of variables</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># and the modification to the coord_polar</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> count, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span> </span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="st">""</span>, <span class="at">option=</span><span class="st">"inferno"</span>) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Now we have a pie, note the mapping of variables</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># and the modification to the coord_polar</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> count, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"fill"</span>) <span class="sc">+</span> </span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">facet_grid</span>(sex<span class="sc">~</span>age_group) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="st">""</span>, <span class="at">option=</span><span class="st">"inferno"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/pie-chart-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="01-ggplot_files/figure-revealjs/pie-chart-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
+<p><a href="01-ggplot_files/figure-html/pie-chart-of-males-females-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="01-ggplot_files/figure-html/pie-chart-of-males-females-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -737,16 +732,16 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <h2 class="anchored" data-anchor-id="line-plot-vs-barchart">Line plot vs barchart</h2>
 <div class="smaller">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="cn">NA</span>)) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tb_us, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>count, <span class="at">colour=</span>sex)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="st">"Sex"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#DC3220"</span>, <span class="st">"#005AB5"</span>)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/use a line plot instead of bar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="01-ggplot_files/figure-revealjs/use a line plot instead of bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+<p><a href="01-ggplot_files/figure-html/use a line plot instead of bar-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="01-ggplot_files/figure-html/use a line plot instead of bar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -764,18 +759,18 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 <h2 class="anchored" data-anchor-id="line-plot-vs-barchart-1">Line plot vs barchart</h2>
 <div class="smaller">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tb_us <span class="sc">|&gt;</span> <span class="fu">group_by</span>(year, age_group) <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> count[sex<span class="sc">==</span><span class="st">"m"</span>]<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>p)) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">colour=</span><span class="st">"grey50"</span>, <span class="at">linewidth=</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Proportion of Males"</span>) <span class="sc">+</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tb_us <span class="sc">|&gt;</span> <span class="fu">group_by</span>(year, age_group) <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p =</span> count[sex<span class="sc">==</span><span class="st">"m"</span>]<span class="sc">/</span><span class="fu">sum</span>(count)) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>p)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.50</span>, <span class="at">colour=</span><span class="st">"grey50"</span>, <span class="at">linewidth=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>age_group) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Proportion of Males"</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01-ggplot_files/figure-revealjs/use a line plot of proportions-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="01-ggplot_files/figure-revealjs/use a line plot of proportions-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
+<p><a href="01-ggplot_files/figure-html/use a line plot of proportions-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="01-ggplot_files/figure-html/use a line plot of proportions-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></a></p>
 </figure>
 </div>
 </div>
@@ -818,44 +813,6 @@ Also available via R package <a href="https://github.com/seabbs/getTBinR"><code>
 </section>
 
 </main> <!-- /main -->
-
-<script>
-  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-  // slide changes (different for each slide format).
-  (function () {
-    // dispatch for htmlwidgets
-    function fireSlideEnter() {
-      const event = window.document.createEvent("Event");
-      event.initEvent("slideenter", true, true);
-      window.document.dispatchEvent(event);
-    }
-
-    function fireSlideChanged(previousSlide, currentSlide) {
-      fireSlideEnter();
-
-      // dispatch for shiny
-      if (window.jQuery) {
-        if (previousSlide) {
-          window.jQuery(previousSlide).trigger("hidden");
-        }
-        if (currentSlide) {
-          window.jQuery(currentSlide).trigger("shown");
-        }
-      }
-    }
-
-    // hookup for slidy
-    if (window.w3c_slidy) {
-      window.w3c_slidy.add_observer(function (slide_num) {
-        // slide_num starts at position 1
-        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-      });
-    }
-
-  })();
-</script>
-
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

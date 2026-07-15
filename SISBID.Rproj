@@ -17,3 +17,5 @@ AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
 
 BuildType: None
+
+QuitChildProcessesOnExit: Yes

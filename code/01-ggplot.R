@@ -2,14 +2,14 @@
 #| echo: false
 #| message: false
 #| warning: false
-source(here::here("knitr-setup.R"))
-source(here::here("libraries.R"))
+source("../knitr-setup.R")
+source("../libraries.R")
 
 
 ## -----------------------------------------------------------------------------
 #| label: read-and-wrangle-TB-data
 #| echo: false
-tb <- readr::read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |>
+tb <- readr::read_csv("../data/TB_notifications_2025-07-22.csv") |>
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(new_sp_m04:new_sp_fu, names_to="stuff", values_to="count") |>
   separate(stuff, c("stuff1", "stuff2", "sexage")) |>
