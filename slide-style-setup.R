@@ -1,7 +1,0 @@
-install.packages("remotes")
-remotes::install_github("hadley/emo")
-remotes::install_github("mitchelloharawild/icons")
-remotes::install_github("emitanaka/anicon")
-remotes::install_github("dicook/gretchenalbrecht")
-remotes::install_github("gadenbuie/countdown", subdir = "r")
-install.packages("xaringanExtra")

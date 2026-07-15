@@ -1,8 +1,0 @@
----
-format: 
-  html: default
-format-links: false
----
-
-{{< include about.qmd >}}
- 
