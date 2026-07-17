@@ -106,6 +106,7 @@ jobs:
             any::viridis
             any::bsicons
             any::thematic
+            any::countdown
 
       - name: Publish
         uses: quarto-dev/quarto-actions/publish@v2
