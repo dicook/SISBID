@@ -456,9 +456,9 @@ More info at [https://lindsayrutter.github.io/bigPint/](https://lindsayrutter.gi
 ```{r}
 #| eval: false
 #| echo: false
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("bigPint")
+if (!requireNamespace("remotes", quietly = TRUE))
+    install.packages("remotes")
+remotes::install_github("lindsayrutter/bigPint")
 ```
 
 ![](https://lindsayrutter.github.io/bigPint/articles/static_files/figure-html/unnamed-chunk-12-1.png){width=400}
