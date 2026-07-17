@@ -53,7 +53,7 @@ source(here::here("libraries.R"))
 ::: panel-tabset
 ### Using `%>%` {-}
 
-```{r dependson="setup"}
+```{r}
 #| label: read TB incidence data and check
 #| results: hide
 tb <- readr::read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
@@ -67,7 +67,7 @@ tb   %>%                                # first we get the tb data
 ```
 
 ### Using `|>` {-}
-```{r dependson="setup"}
+```{r}
 #| label: read TB incidence data and check base pipe
 #| results: hide
 tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
