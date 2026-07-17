@@ -25,6 +25,12 @@ h1:before {
 .quarto-alternate-formats ul li::marker {
   content: none!important;
 }
+
+.panel-tabset .nav-tabs .nav-link {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+}
+
 .panel-tabset ul li::marker {
   content: none!important;
 }

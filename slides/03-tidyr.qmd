@@ -50,6 +50,8 @@ source(here::here("libraries.R"))
 
 ## Pipe Example
 
+<div style="font-size: 85%;">
+
 ::: panel-tabset
 ### Using `%>%` {-}
 
@@ -87,15 +89,16 @@ tb |>                                  # first we get the tb data
 #| label: show-results
 #| echo: false
 tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
-tb |>                                  # first we get the tb data
-  filter(year == 2023) |>              # then we focus on the most recent year
-  group_by(country) |>                 # then we group by country
+tb |>                                   # first we get the tb data
+  filter(year == 2023) |>               # then we focus on the most recent year
+  group_by(country) |>                  # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
     ) |> 
   arrange(desc(cases))                  # then we sort countries to show highest number of new cases first
 ```
 
+</div>
 
 ## What is tidy data? 
 
@@ -124,6 +127,8 @@ Go to menti.com and enter code 6630 2740
 <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-popups allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/aljjh6s6sxadt9kzy8uqz2824d3ezhuo/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
 ## Varying degree of messiness
+
+<div style="font-size: 85%;">
 
 ::: panel-tabset
 ### Cryptic Names
@@ -221,6 +226,8 @@ head(french_fries, 4)
 What is the experimental unit? What are the factors of the experiment? What was measured? What do you want to know?
 
 :::
+
+</div>
 
 ## Messy data patterns
 
