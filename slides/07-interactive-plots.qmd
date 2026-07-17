@@ -31,7 +31,7 @@ penguins_std <- penguins |>
 ## Some interactive graphics packages {.smaller}
 
 - `crosstalk`: that's what shiny is based on - we will look into shiny later
-- `plotly`: interactive javascript graphics (maintained Carson Sievert)
+- `plotly`: interactive javascript graphics (maintained by Carson Sievert)
 - `leaflet`: (RStudio) allows to make interactive maps. Has been picking up users and has developed a stable user base.
 - `ggvis`: both static and interactive graphics, work on it has stalled ... (Wickham)
 - `animint2`: interactive, linked graphics with ggplot2 syntax (Toby Hocking)
