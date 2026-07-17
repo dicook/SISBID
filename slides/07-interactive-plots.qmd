@@ -214,13 +214,21 @@ gg <- ggplotly(p, height = 750, width = 900) %>%
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-height: 10
-#| fig-width: 12
+#| fig-height: 13
+#| fig-width: 17
 #| out-width: 50%
 highlight(gg)
 ```
 
 ## The power of crosstalk {.smaller}
+
+```{r}
+theme_helvetica <-  theme(axis.title = element_text(family="Helvetica"),
+        axis.text = element_text(family="Helvetica"),
+        legend.title = element_text(family="Helvetica"),
+        legend.text = element_text(family="Helvetica"),
+        plot.title = element_text(family="Helvetica"))
+```
 
 :::: {.columns}
 ::: {.column width="80%"}
@@ -228,12 +236,10 @@ highlight(gg)
 #| label: tsibbletalk1
 #| echo: true
 #| code-line-numbers: "7,8"
-# install.packages("tsibble")
-# install.packages("tsibbletalk")
-# install.packages("feasts")
-library(tsibble)
-library(tsibbletalk)
-library(feasts)
+#| message: false
+library(tsibble)     # install.packages("tsibble")
+library(tsibbletalk) # install.packages("tsibbletalk")
+library(feasts)      # install.packages("feasts")
 tourism_shared <- tourism |>
   as_shared_tsibble(spec = (State / Region) * Purpose)
 
@@ -243,20 +249,12 @@ tourism_feat <- tourism_shared |>
 p1 <- tourism_shared |>
   ggplot(aes(x = Quarter, y = Trips)) +
   geom_line(aes(group = Region), alpha = 0.5) +
-  facet_wrap(~ Purpose, scales = "free_y") +
-  theme(axis.title = element_text(family="Helvetica"),
-        axis.text = element_text(family="Helvetica"),
-        legend.title = element_text(family="Helvetica"),
-        legend.text = element_text(family="Helvetica"))
+  facet_wrap(~ Purpose, scales = "free_y") + theme_helvetica
+
 p2 <- tourism_feat |>
   ggplot(aes(x = trend_strength, y = seasonal_strength_year)) +
   geom_point(aes(group = Region)) +
-  xlab("trend") + ylab("season") +
-  theme(axis.title = element_text(family="Helvetica"),
-        axis.text = element_text(family="Helvetica"),
-        legend.title = element_text(family="Helvetica"),
-        legend.text = element_text(family="Helvetica"),
-        plot.title = element_text(family="Helvetica"))
+  xlab("trend") + ylab("season") + theme_helvetica
 ```
 :::
 ::: {.column width="20%"}
@@ -269,8 +267,8 @@ The shared data objects from `crosstalk` make linking between plots easier!
 ## {.smaller}
 
 ```{r}
-#| fig-height: 5
-#| fig-width: 10
+#| fig-height: 6
+#| fig-width: 9
 #| out-width: 90%
 #| echo: true
 #| code-fold: true
