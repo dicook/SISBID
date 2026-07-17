@@ -73,6 +73,8 @@ Imports:
     viridis (>= 0.6.5),
     bsicons (>= 0.1.2),
     thematic (>= 0.1.8),
-    superheat
+    superheat,
+    feasts (>= 0.5.0),
+    tsibbletalk (>= 0.1.0)
 URL: https://dicook.github.io/SISBID/    
 BugReports: https://github.com/dicook/sisbid/issues
