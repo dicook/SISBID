@@ -64,24 +64,24 @@ Zoom etiquette:
 |----|---:|---:|---:|---:|---:|---:|---:|
 | [Meet & Greet](slides/00-preamble.rjs.html) | 7:45 - 8:00 am | 9:45 - 10:00 am | 10:45 - 11:00 am | 2:45 - 3:00 pm | 3:45 - 4:00 pm | 11:45 am - 12:00 pm | 12:45 - 1:00 am |
 | [Lecture 1](slides/01-ggplot.rjs.html) | 8:00 - 8:45 am | 10:00 - 10:45 am | 11:00 - 11:45 am | 3:00 - 3:45 pm | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
-| [Lecture 2](slides/02-ggplot-adv.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
-| [Lecture 3](slides/03-perception.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
-| Break |  |  |  |  |  |  |  |
-| [Lecture 4](slides/04-tidyr.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
-| [Lecture 5](slides/05-messy-it-up.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
-| [Lecture 6](slides/06-wrangling.rjs.html) | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
+| [Lecture 2](slides/02-perception.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
+| [Lecture 3](slides/03-tidyr.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
+| **Break** |  |  |  |  |  |  |  |
+| [Lecture 4](slides/04-messy-it-up.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
+| [Lecture 5](slides/05-wrangling.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
+| [Lecture 6](slides/06-ggplot-adv.rjs.html) | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
 
 ### Tuesday
 
 | Tuesday | US Pacific | US Central | US Eastern | Accra | London | Korea | Melbourne |
 |----|----|----|----|----|----|----|----|
-| [Lecture 7](slides/10-interactive-plots.rjs.html) | 8:00 - 8:45 am | 10:00 - 10:45 am | 11:00 - 11:45 am | 3:00 - 3:45 pm | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
-| [Lecture 8](slides/11-shiny-apps.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
-| [Lecture 9](slides/12-shiny-reactivity.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
-| Break |  |  |  |  |  |  |  |
-| [Lecture 10](slides/07-mvplot.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
-| [Lecture 11](slides/08-mvplot-tour.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
-| [Lecture 12](slides/09-adv-graphics.rjs.html) | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
+| [Lecture 7](slides/07-interactive-plots.rjs.html) | 8:00 - 8:45 am | 10:00 - 10:45 am | 11:00 - 11:45 am | 3:00 - 3:45 pm | 4:00 - 4:45 pm | 12:00 - 12:45 am | 1:00 - 1:45 am |
+| [Lecture 8](slides/08-shiny-apps.rjs.html) | 9:00 - 9:45 am | 11:00 - 11:45 am | 12:00 - 12:45 pm | 4:00 - 4:45 pm | 5:00 - 5:45 pm | 1:00 - 1:45 am | 2:00 - 2:45 am |
+| [Lecture 9](slides/09-shiny-reactivity.rjs.html) | 10:00 - 10:45 am | 12:00 - 12:45 pm | 1:00 - 1:45 pm | 5:00 - 5:45 pm | 6:00 - 6:45 pm | 2:00 - 2:45 am | 3:00 - 3:45 am |
+| **Break** |  |  |  |  |  |  |  |
+| [Lecture 10](slides/10-mvplot.rjs.html) | 11:45 - 12:30 | 1:45 - 2:30 pm | 2:45 - 3:30 pm | 6:45 - 7:30 pm | 7:45 - 8:30 pm | 3:45 - 4:30 am | 4:45 - 5:30 pm |
+| [Lecture 11](slides/11-mvplot-tour.rjs.html) | 12:45 - 1:30 pm | 2:45 - 3:30 pm | 3:45 - 4:30 pm | 7:45 - 8:30 pm | 8:45 - 9:30 pm | 4:45 - 5:30 am | 5:45 - 6:30 am |
+| [Lecture 12](slides/12-adv-graphics.rjs.html) | 1:45 - 2:30 pm | 3:45 - 4:30 pm | 4:45 - 5:30 pm | 8:45 - 9:30 pm | 9:45 - 10:30 pm | 5:45 - 6:30 am | 6:45 - 7:30 am |
 
 ### Wednesday
 
@@ -109,12 +109,12 @@ the sessions.
 |----|----|----|----|----|
 | 0\. Setting things up | [ Slides](slides/00-preamble.rjs.html) | [ 1pg](slides/00-preamble.onepage.html) | [ Code](code/00-preamble.R) | All |
 | 1\. The grammar of graphics and ggplot2 | [ Slides](slides/01-ggplot.rjs.html) | [ 1pg](slides/01-ggplot.onepage.html) | [ Code](code/01-ggplot.R) | Heike |
-| 2\. Advancing the grammar to maps, time and interactivity | [ Slides](slides/02-ggplot-adv.rjs.html) | [ 1pg](slides/02-ggplot-adv.onepage.html) | [ Code](code/02-ggplot-adv.R) | Susan |
-| 3\. Visual perception and effective plot construction | [ Slides](slides/03-perception.rjs.html) | [ 1pg](slides/03-perception.onepage.html) | [ Code](code/03-perception.R) | Susan |
-| Break |  |  |  |  |
-| 4\. Tidy data and tidying your messy data with tidyr | [ Slides](slides/04-tidyr.rjs.html) | [ 1pg](slides/04-tidyr.onepage.html) | [ Code](code/04-tidyr.R) | Heike |
-| 5\. Making Data Messy again | [ Slides](slides/05-messy-it-up.rjs.html) | [ 1pg](slides/05-messy-it-up.onepage.html) | [ Code](code/05-messy-it-up.R) | Susan |
-| 6\. Wrangling data and models | [ Slides](slides/06-wrangling.rjs.html) | [ 1pg](slides/06-wrangling.onepage.html) | [ Code](code/06-wrangling.R) | Heike |
+| 2\. Visual perception and effective plot construction | [ Slides](slides/02-perception.rjs.html) | [ 1pg](slides/02-perception.onepage.html) | [ Code](code/02-perception.R) | Susan |
+| 3\. Tidy data and tidying messy data with tidyr | [ Slides](slides/03-tidyr.rjs.html) | [ 1pg](slides/03-tidyr.onepage.html) | [ Code](code/03-tidyr.R) | Heike |
+| **Break** |  |  |  |  |
+| 4\. Making Data Messy again | [ Slides](slides/04-messy-it-up.rjs.html) | [ 1pg](slides/04-messy-it-up.onepage.html) | [ Code](code/04-messy-it-up.R) | Susan |
+| 5\. Wrangling data and models | [ Slides](slides/05-wrangling.rjs.html) | [ 1pg](slides/05-wrangling.onepage.html) | [ Code](code/05-wrangling.R) | Heike |
+| 6\. Advancing the grammar to maps, time and interactivity | [ Slides](slides/06-ggplot-adv.rjs.html) | [ 1pg](slides/06-ggplot-adv.onepage.html) | [ Code](code/06-ggplot-adv.R) | Di |
 
 ### Tuesday
 
@@ -124,13 +124,13 @@ yesterday – data files have not been included twice.
 
 | Title | Slides | 1pg Slides | Code | Instructor |
 |----|----|----|----|----|
-| 7\. Interactive and animated graphics using plotly and gganimate | [ Slides](slides/10-interactive-plots.rjs.html) | [ 1pg](slides/10-interactive-plots.onepage.html) | [ Code](code/10-interactive-plots.R) | Heike |
-| 8\. How to build a shiny app | [ Slides](slides/11-shiny-apps.rjs.html) | [ 1pg](slides/11-shiny-apps.onepage.html) | [ Code](code/11-shiny-apps.R) | Heike |
-| 9\. Reactive elements in shiny | [ Slides](slides/12-shiny-reactivity.rjs.html) | [ 1pg](slides/12-shiny-reactivity.onepage.html) | [ Code](code/12-shiny-reactivity.R) | Susan |
-| Break |  |  |  |  |
-| 10\. Multivariate plots using ggplot2, GGally | [ Slides](slides/07-mvplot.rjs.html) | [ 1pg](slides/07-mvplot.onepage.html) | [ Code](code/07-mvplot.R) | Di |
-| 11\. Touring on multivariate data | [ Slides](slides/08-mvplot-tour.rjs.html) | [ 1pg](slides/08-mvplot-tour.onepage.html) | [ Code](code/08-mvplot-tour.R) | Di |
-| 12\. Advanced graphics and statistical inference | [ Slides](slides/09-adv-graphics.rjs.html) | [ 1pg](slides/09-adv-graphics.onepage.html) | [ Code](code/09-adv-graphics.R) | Di |
+| 7\. Interactive and animated graphics using plotly and gganimate | [ Slides](slides/07-interactive-plots.rjs.html) | [ 1pg](slides/07-interactive-plots.onepage.html) | [ Code](code/07-interactive-plots.R) | Heike |
+| 8\. How to build a shiny app | [ Slides](slides/08-shiny-apps.rjs.html) | [ 1pg](slides/08-shiny-apps.onepage.html) | [ Code](code/08-shiny-apps.R) | Heike |
+| 9\. Reactive elements in shiny | [ Slides](slides/09-shiny-reactivity.rjs.html) | [ 1pg](slides/09-shiny-reactivity.onepage.html) | [ Code](code/09-shiny-reactivity.R) | Susan |
+| **Break** |  |  |  |  |
+| 10\. Multivariate plots using ggplot2, GGally | [ Slides](slides/10-mvplot.rjs.html) | [ 1pg](slides/10-mvplot.onepage.html) | [ Code](code/10-mvplot.R) | Di |
+| 11\. Touring on multivariate data | [ Slides](slides/11-mvplot-tour.rjs.html) | [ 1pg](slides/11-mvplot-tour.onepage.html) | [ Code](code/11-mvplot-tour.R) | Di |
+| 12\. Advanced graphics and statistical inference | [ Slides](slides/12-adv-graphics.rjs.html) | [ 1pg](slides/12-adv-graphics.onepage.html) | [ Code](code/12-adv-graphics.R) | Di |
 
 ### Wednesday
 
