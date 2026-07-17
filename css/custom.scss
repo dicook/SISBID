@@ -26,9 +26,8 @@ h1:before {
   content: none!important;
 }
 
-.panel-tabset .nav-tabs .nav-link {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.6rem;
+.tabby-toggle .tabby-tab {
+  font-size: 0.65rem;
 }
 
 .panel-tabset ul li::marker {
