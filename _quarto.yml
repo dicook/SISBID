@@ -36,13 +36,13 @@ website:
           - href: slides/00-preamble.rjs.html
             text: Preamble
           - href: slides/01-ggplot.rjs.html
-            text: 1. ggplot
+            text: 1. Data Visualizations
           - href: slides/02-perception.rjs.html
             text: 2. Perception
           - href: slides/03-tidyr.rjs.html
-            text: 3. tidyr
+            text: 3. Tidying Data
           - href: slides/04-messy-it-up.rjs.html
-            text: 4. Messy data
+            text: 4. Data Summaries
           - href: slides/05-wrangling.rjs.html
             text: 5. Wrangling
           - href: slides/06-ggplot-adv.rjs.html
@@ -69,7 +69,7 @@ website:
           - href: slides/13-theme-shiny.rjs.html
             text: 13. Theming Shiny
           - href: slides/14-build-shiny-app.rjs.html
-            text: 14. Build a Shiny App
+            text: 14. Polishing a Shiny App
           - href: slides/15-interactive-document.rjs.html
             text: 15. Interactive Documents
 
