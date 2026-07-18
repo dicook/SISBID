@@ -322,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/01-ggplot.rjs.html">
- <span class="dropdown-text">1. ggplot</span></a>
+ <span class="dropdown-text">1. Data Visualizations</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/02-perception.rjs.html">
@@ -330,11 +330,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/03-tidyr.rjs.html">
- <span class="dropdown-text">3. tidyr</span></a>
+ <span class="dropdown-text">3. Tidying Data</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/04-messy-it-up.rjs.html">
- <span class="dropdown-text">4. Messy data</span></a>
+ <span class="dropdown-text">4. Data Summaries</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/05-wrangling.rjs.html">
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/14-build-shiny-app.rjs.html">
- <span class="dropdown-text">14. Build a Shiny App</span></a>
+ <span class="dropdown-text">14. Polishing a Shiny App</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/15-interactive-document.rjs.html">
@@ -415,8 +415,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#shiny-apps-in-r" id="toc-shiny-apps-in-r" class="nav-link active" data-scroll-target="#shiny-apps-in-r">Shiny Apps in R</a>
   <ul class="collapse">
-  <li><a href="#next-five-minutes" id="toc-next-five-minutes" class="nav-link" data-scroll-target="#next-five-minutes">Next five minutes</a></li>
-  <li><a href="#create-your-first-app" id="toc-create-your-first-app" class="nav-link" data-scroll-target="#create-your-first-app">Create your first app</a></li>
+  <li><a href="#are-these-notes-genuine" id="toc-are-these-notes-genuine" class="nav-link" data-scroll-target="#are-these-notes-genuine">Are these notes genuine?</a></li>
+  <li><a href="#visual-classification" id="toc-visual-classification" class="nav-link" data-scroll-target="#visual-classification">Visual classification</a></li>
+  <li><a href="#a-first-shiny-app-with-ggpaintr" id="toc-a-first-shiny-app-with-ggpaintr" class="nav-link" data-scroll-target="#a-first-shiny-app-with-ggpaintr">A first shiny app with ggpaintr</a></li>
+  <li><a href="#you-do-it" id="toc-you-do-it" class="nav-link" data-scroll-target="#you-do-it">You do it</a></li>
+  </ul></li>
+  <li><a href="#how-does-the-magic-work" id="toc-how-does-the-magic-work" class="nav-link" data-scroll-target="#how-does-the-magic-work">How does the magic work?</a>
+  <ul class="collapse">
+  <li><a href="#create-your-second-app" id="toc-create-your-second-app" class="nav-link" data-scroll-target="#create-your-second-app">Create your second app</a></li>
   <li><a href="#two-main-parts" id="toc-two-main-parts" class="nav-link" data-scroll-target="#two-main-parts">Two main parts</a></li>
   <li><a href="#a-minimal-example" id="toc-a-minimal-example" class="nav-link" data-scroll-target="#a-minimal-example">A Minimal Example</a></li>
   <li><a href="#a-bit-more-fancy" id="toc-a-bit-more-fancy" class="nav-link" data-scroll-target="#a-bit-more-fancy">A bit more fancy</a></li>
@@ -467,26 +473,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://shiny.rstudio.com/tutorial/">Tutorials</a> at different levels</li>
 </ul></li>
 </ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Additional packages for Shiny</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"bsicons"</span>, <span class="st">"showtext"</span>, <span class="st">"ragg"</span>, <span class="st">"thematic"</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio/bslib"</span>) <span class="co"># Get the latest version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="next-five-minutes" class="level2">
-<h2 class="anchored" data-anchor-id="next-five-minutes">Next five minutes</h2>
-<ul>
-<li>Create a new shiny app in RStudio</li>
-<li>Run it</li>
-<li>Stop it</li>
-</ul>
+<section id="are-these-notes-genuine" class="level2">
+<h2 class="anchored" data-anchor-id="are-these-notes-genuine">Are these notes genuine?</h2>
+<p>Swiss banknote data (Flury, B. and Riedwyl, H. 1988): measurements on 100 genuine and 100 counterfeit old-Swiss 1000-franc bank notes</p>
+<p><a href="images/banknote.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/banknote.png" class="img-fluid" style="width:50.0%"></a></p>
+<p>Status: genuine or counterfeit</p>
+<p>Can we classify the status visually?</p>
 </section>
-<section id="create-your-first-app" class="level2 inverse">
-<h2 class="inverse anchored" data-anchor-id="create-your-first-app">Create your first app</h2>
+<section id="visual-classification" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="visual-classification">Visual classification</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>banknote <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/banknote.csv"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>banknote <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Right, <span class="at">fill =</span> Status)) <span class="sc">+</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> .<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="08-shiny-apps_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="08-shiny-apps_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Counterfeits have on average a wider right edge. What about the other measurements?</p>
+</section>
+<section id="a-first-shiny-app-with-ggpaintr" class="level2">
+<h2 class="anchored" data-anchor-id="a-first-shiny-app-with-ggpaintr">A first shiny app with ggpaintr</h2>
+<p>Make a shiny app to explore histograms:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{banknote <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">ppVar</span>(Right), <span class="at">fill =</span> Status)) <span class="sc">+</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> .<span class="dv">1</span>) } <span class="sc">|&gt;</span> ggpaintr<span class="sc">::</span><span class="fu">ptr_app</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>ggpaintr</code> keywords: <code>ppVar</code> (make a variable widget), <code>ppNum</code> (make a number widget)</p>
+<p>check the <code>Addins &gt; ggpaintr placeholders</code></p>
+</section>
+<section id="you-do-it" class="level2 inverse">
+<h2 class="inverse anchored" data-anchor-id="you-do-it">You do it</h2>
+<ol type="1">
+<li><p>Run the <code>ggpaintr</code> code in your session.</p></li>
+<li><p>Determine: which measurement does distinguishes the best between counterfeits and genuine banknotes</p></li>
+<li><p>Rewrite the expression to show a scatterplot of two measurements. Don’t forget to make the y-axis interactive as well!</p></li>
+<li><p>Which combination of variables allows a perfect distinction?</p></li>
+</ol>
+</section>
+</section>
+<section id="how-does-the-magic-work" class="level1">
+<h1>How does the magic work?</h1>
+<section id="create-your-second-app" class="level2 inverse">
+<h2 class="inverse anchored" data-anchor-id="create-your-second-app">Create your second app</h2>
 <ul>
 <li>In RStudio, <code>File</code> menu, <code>New file</code>, <code>Shiny web app</code> to start a new app</li>
 <li>The easiest start is the <code>Single file</code>, which will put both server and ui functions in the same file, <code>app.R</code></li>
+<li>Make sure to change the number of bins!</li>
 </ul>
-<p><a href="images/shiny-app-start.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/shiny-app-start.gif" class="img-fluid" style="width:50.0%" alt="A gif showing how to create a new Shiny web app, using the instructions above"></a></p>
+<p><a href="images/shiny-app-start.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="images/shiny-app-start.gif" class="img-fluid" style="width:50.0%" alt="A gif showing how to create a new Shiny web app, using the instructions above"></a></p>
 </section>
 <section id="two-main-parts" class="level2">
 <h2 class="anchored" data-anchor-id="two-main-parts">Two main parts</h2>
@@ -498,10 +540,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>user interface: layout with user input and (plot) output</li>
 </ul></li>
 </ul>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </div><div class="column">
 <ul>
 <li>What is going on underneath:
@@ -509,68 +547,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>the server: glue between user input and output</li>
 </ul></li>
 </ul>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </div>
 </div>
 </section>
 <section id="a-minimal-example" class="level2">
 <h2 class="anchored" data-anchor-id="a-minimal-example">A Minimal Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="a-bit-more-fancy" class="level2">
 <h2 class="anchored" data-anchor-id="a-bit-more-fancy">A bit more fancy</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(<span class="at">width =</span> <span class="dv">3</span>, <span class="st">"Fun inputs"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  sidebar, </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  main_col</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(<span class="at">width =</span> <span class="dv">3</span>, <span class="st">"Fun inputs"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  sidebar, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  main_col</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="a-bit-more-fancy-1" class="level2">
 <h2 class="anchored" data-anchor-id="a-bit-more-fancy-1">A bit more fancy</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  sidebar, </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  main_col</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  sidebar, </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  main_col</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="shiny-inputs" class="level2 smaller">
@@ -593,25 +627,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="inverse anchored" data-anchor-id="your-turn">Your Turn</h2>
 <p>Add a list of your favorite countries to the sidebar panel:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  sidebar, </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  main_col</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  sidebar, </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  main_col</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="adding-output" class="level2">
@@ -646,36 +680,36 @@ Output can be in form of tables, plots, text, …</p></li>
 <section id="adding-a-plot" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="adding-a-plot">Adding a plot</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-source-line-numbers="nil" data-code-line-numbers="13,14,15,16,23,24,25,26,27"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">selectInput</span>(</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    <span class="st">"country"</span>, <span class="st">"Pick your favorite country:"</span>, </span>
-<span id="cb8-9"><a href="#cb8-9"></a>              <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"Brazil"</span>, <span class="st">"China"</span>)</span>
-<span id="cb8-10"><a href="#cb8-10"></a>  )</span>
-<span id="cb8-11"><a href="#cb8-11"></a>)</span>
-<span id="cb8-12"><a href="#cb8-12"></a></span>
-<span id="cb8-13"><a href="#cb8-13"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(                               </span>
-<span id="cb8-14"><a href="#cb8-14"></a>  <span class="at">width =</span> <span class="dv">9</span>,                                      </span>
-<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">plotOutput</span>(<span class="st">"scatter"</span>)                           </span>
-<span id="cb8-16"><a href="#cb8-16"></a>)                                                 </span>
-<span id="cb8-17"><a href="#cb8-17"></a></span>
-<span id="cb8-18"><a href="#cb8-18"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb8-19"><a href="#cb8-19"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>, sidebar, main_col</span>
-<span id="cb8-20"><a href="#cb8-20"></a>)</span>
-<span id="cb8-21"><a href="#cb8-21"></a></span>
-<span id="cb8-22"><a href="#cb8-22"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb8-23"><a href="#cb8-23"></a>  output<span class="sc">$</span>scatter <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({                  </span>
-<span id="cb8-24"><a href="#cb8-24"></a>    mtcars <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span>   </span>
-<span id="cb8-25"><a href="#cb8-25"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span>                              </span>
-<span id="cb8-26"><a href="#cb8-26"></a>      <span class="fu">ggtitle</span>(input<span class="sc">$</span>country)                      </span>
-<span id="cb8-27"><a href="#cb8-27"></a>  })                                              </span>
-<span id="cb8-28"><a href="#cb8-28"></a>}</span>
-<span id="cb8-29"><a href="#cb8-29"></a></span>
-<span id="cb8-30"><a href="#cb8-30"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-source-line-numbers="nil" data-code-line-numbers="13,14,15,16,23,24,25,26,27"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">selectInput</span>(</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="st">"country"</span>, <span class="st">"Pick your favorite country:"</span>, </span>
+<span id="cb7-9"><a href="#cb7-9"></a>              <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"Brazil"</span>, <span class="st">"China"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a>  )</span>
+<span id="cb7-11"><a href="#cb7-11"></a>)</span>
+<span id="cb7-12"><a href="#cb7-12"></a></span>
+<span id="cb7-13"><a href="#cb7-13"></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(                               </span>
+<span id="cb7-14"><a href="#cb7-14"></a>  <span class="at">width =</span> <span class="dv">9</span>,                                      </span>
+<span id="cb7-15"><a href="#cb7-15"></a>  <span class="fu">plotOutput</span>(<span class="st">"scatter"</span>)                           </span>
+<span id="cb7-16"><a href="#cb7-16"></a>)                                                 </span>
+<span id="cb7-17"><a href="#cb7-17"></a></span>
+<span id="cb7-18"><a href="#cb7-18"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb7-19"><a href="#cb7-19"></a>  <span class="at">title =</span> <span class="st">"App Title"</span>, sidebar, main_col</span>
+<span id="cb7-20"><a href="#cb7-20"></a>)</span>
+<span id="cb7-21"><a href="#cb7-21"></a></span>
+<span id="cb7-22"><a href="#cb7-22"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb7-23"><a href="#cb7-23"></a>  output<span class="sc">$</span>scatter <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({                  </span>
+<span id="cb7-24"><a href="#cb7-24"></a>    mtcars <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span>   </span>
+<span id="cb7-25"><a href="#cb7-25"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span>                              </span>
+<span id="cb7-26"><a href="#cb7-26"></a>      <span class="fu">ggtitle</span>(input<span class="sc">$</span>country)                      </span>
+<span id="cb7-27"><a href="#cb7-27"></a>  })                                              </span>
+<span id="cb7-28"><a href="#cb7-28"></a>}</span>
+<span id="cb7-29"><a href="#cb7-29"></a></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="your-turn-1" class="level2 inverse">
@@ -712,6 +746,44 @@ Output can be in form of tables, plots, text, …</p></li>
 </section>
 
 </main> <!-- /main -->
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script>
+
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
