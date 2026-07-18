@@ -28,7 +28,7 @@ library(thematic)
 ```{r}
 #| eval: false
 # Additional packages for Shiny
-install.packages(c("bsicons", "showtext", "ragg", "thematic"))
+install.packages(c("bsicons", "showtext", "ragg", "thematic", "ggpaintr"))
 remotes::install_github("rstudio/bslib") # Get the latest version
 ```
 
@@ -55,18 +55,73 @@ library(ggplot2)
 library(readr)
 ```
 
-## Next five minutes
+## Are these notes genuine?
 
-- Create a new shiny app in RStudio
-- Run it
-- Stop it
+Swiss banknote data (Flury, B. and Riedwyl, H. 1988): measurements on 100 genuine and 100 counterfeit old-Swiss 1000-franc bank notes
 
-## Create your first app {.inverse}
+![](images/banknote.png){width=50%}
+
+Status: genuine or counterfeit
+
+Can we classify the status visually?
+
+## Visual classification {.smaller}
+
+```{r}
+#| echo: true
+banknote <- readr::read_csv(here::here("data/banknote.csv"))
+
+banknote |> 
+  ggplot(aes(x = Right, fill = Status)) + 
+  geom_histogram(binwidth = .1)
+```
+Counterfeits have on average a wider right edge. What about the other measurements?
+
+## A first shiny app with ggpaintr
+
+Make a shiny app to explore histograms:
+
+```{r eval = FALSE}
+#| echo: true
+{banknote |> 
+  ggplot(aes(x = ppVar(Right), fill = Status)) + 
+  geom_histogram(binwidth = .1) } |> ggpaintr::ptr_app()
+```
+
+
+
+
+`ggpaintr` keywords: `ppVar` (make a variable widget), `ppNum` (make a number widget)
+
+check the `Addins > ggpaintr placeholders`
+
+## You do it {.inverse}
+
+1. Run the `ggpaintr` code in your session. 
+
+2. Determine: which measurement does distinguishes the best between counterfeits and genuine banknotes
+
+3. Rewrite the expression to show a scatterplot of two measurements. Don't forget to make the y-axis interactive as well!
+
+4. Which combination of variables allows a perfect distinction?
+
+```{r}
+#| eval: false
+{banknote |> 
+        ggplot(aes(x = ppVar(Right), y = ppVar(Diagonal), colour = Status)) + 
+        geom_jitter(size = ppNum(3)) } |> ggpaintr::ptr_app()
+```
+
+# How does the magic work?
+
+## Create your second app {.inverse}
 
 - In RStudio, `File` menu, `New file`, `Shiny web app` to start a new app
 - The easiest start is the `Single file`, which will put both server and ui functions in the same file, `app.R`
+- Make sure to change the number of bins!
 
 ![](images/shiny-app-start.gif){width="50%" fig-alt="A gif showing how to create a new Shiny web app, using the instructions above" .lightbox}
+
 
 ## Two main parts
 
@@ -131,6 +186,7 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
 ```
 
 ## A bit more fancy
@@ -156,6 +212,7 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
 ```
 
 ## Shiny Inputs {.smaller}
