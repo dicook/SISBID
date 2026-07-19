@@ -112,7 +112,7 @@ the sessions.
 | 2\. Visual perception and effective plot construction | [ Slides](slides/02-perception.rjs.html) | [ 1pg](slides/02-perception.onepage.html) | [ Code](code/02-perception.R) | Susan |
 | 3\. Tidy data and tidying messy data with tidyr | [ Slides](slides/03-tidyr.rjs.html) | [ 1pg](slides/03-tidyr.onepage.html) | [ Code](code/03-tidyr.R) | Heike |
 | **Break** |  |  |  |  |
-| 4\. Making Data Messy again | [ Slides](slides/04-messy-it-up.rjs.html) | [ 1pg](slides/04-messy-it-up.onepage.html) | [ Code](code/04-messy-it-up.R) | Susan |
+| 4\. Reshaping Data for Plotting and Display | [ Slides](slides/04-messy-it-up.rjs.html) | [ 1pg](slides/04-messy-it-up.onepage.html) | [ Code](code/04-messy-it-up.R) | Susan |
 | 5\. Wrangling data and models | [ Slides](slides/05-wrangling.rjs.html) | [ 1pg](slides/05-wrangling.onepage.html) | [ Code](code/05-wrangling.R) | Heike |
 | 6\. Advancing the grammar to maps, time and interactivity | [ Slides](slides/06-ggplot-adv.rjs.html) | [ 1pg](slides/06-ggplot-adv.onepage.html) | [ Code](code/06-ggplot-adv.R) | Di |
 
