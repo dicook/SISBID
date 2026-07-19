@@ -1,5 +1,6 @@
 ---
-title: "Making a mess again - with the data"
+title: "Reshaping Data for Plotting and Display"
+subtitle: "(making data messy again)"
 message: false
 warning: false
 ---

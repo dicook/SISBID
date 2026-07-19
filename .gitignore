@@ -11,3 +11,4 @@ about.html
 **/*.quarto_ipynb
 2025-Recordings
 docs/
+code/*
