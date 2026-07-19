@@ -103,7 +103,7 @@ The channel `data-visualization-2026` will contain zoom and (later) video links 
 | 2. Visual perception and effective plot construction | [{{< fa person-chalkboard >}} Slides](slides/02-perception.rjs.html) | [{{< fa file >}} 1pg](slides/02-perception.onepage.html) | [{{< fa code >}} Code](code/02-perception.R) | Susan |
 | 3.  Tidy data and tidying messy data with tidyr | [{{< fa person-chalkboard >}} Slides](slides/03-tidyr.rjs.html) | [{{< fa file >}} 1pg](slides/03-tidyr.onepage.html) | [{{< fa code >}} Code](code/03-tidyr.R) | Heike |
 | **Break** | | | | |
-| 4. Making Data Messy again | [{{< fa person-chalkboard >}} Slides](slides/04-messy-it-up.rjs.html) | [{{< fa file >}} 1pg](slides/04-messy-it-up.onepage.html) | [{{< fa code >}} Code](code/04-messy-it-up.R) | Susan |
+| 4. Reshaping Data for Plotting and Display | [{{< fa person-chalkboard >}} Slides](slides/04-messy-it-up.rjs.html) | [{{< fa file >}} 1pg](slides/04-messy-it-up.onepage.html) | [{{< fa code >}} Code](code/04-messy-it-up.R) | Susan |
 | 5. Wrangling data and models | [{{< fa person-chalkboard >}} Slides](slides/05-wrangling.rjs.html) | [{{< fa file >}} 1pg](slides/05-wrangling.onepage.html) | [{{< fa code >}} Code](code/05-wrangling.R) | Heike |
 | 6. Advancing the grammar to maps, time and interactivity | [{{< fa person-chalkboard >}} Slides](slides/06-ggplot-adv.rjs.html) | [{{< fa file >}} 1pg](slides/06-ggplot-adv.onepage.html) | [{{< fa code >}} Code](code/06-ggplot-adv.R) | Di |
 
