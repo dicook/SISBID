@@ -11,7 +11,7 @@ source(here::here("libraries.R"))
 ```
 
 
-# Elements of Reactivity
+# Elements of Reactivity {.smaller}
 ::: columns
 ::: column
 
@@ -28,7 +28,7 @@ source(here::here("libraries.R"))
 :::
 :::
 
-## Two Conductors
+## Two Conductors {.smaller}
 
 - Reactive expressions and reactive events are two types of conductors 
 - Reactive expressions are the archetypical conductor:  
@@ -78,7 +78,7 @@ Called like a function as `rval()`
 - Turn on showcase mode:    
 ```{r}
 #| eval: false
-runApp("code/3.3-apps/03_submission/", 
+runApp("code/12-apps/03_submission/", 
        display.mode = "showcase")
 ```
 :::
@@ -88,7 +88,7 @@ runApp("code/3.3-apps/03_submission/",
 :::
 :::
 
-## Your turn {.inverse}
+## Your turn {.inverse .smaller}
 
 ::: columns
 ::: column
@@ -100,7 +100,7 @@ runApp("code/3.3-apps/03_submission/",
 Answers are in `03b_submission.R`
 :::
 ::: column
-![Screenshot of completed app](your-turn-screenshot-days.png)
+![Screenshot of completed app](images/your-turn-screenshot-days.png)
 
 ::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
@@ -109,12 +109,12 @@ Answers are in `03b_submission.R`
 :::
 :::
 
-## Conditional Panels
+## Conditional Panels {.smaller}
 
 ::: columns
 ::: column
-![Screenshot of the inputs without a conditional panel](without-conditional-panel.png)
-![Screenshot of the inputs with a conditional panel](with-conditional-panel.png)
+![Screenshot of the inputs without a conditional panel](images/without-conditional-panel.png){height = 80%}
+![Screenshot of the inputs with a conditional panel](images/with-conditional-panel.png)
 :::
 ::: column
 - Showing a color picker before it is needed could confuse app users   
@@ -124,7 +124,7 @@ Answers are in `03b_submission.R`
 :::
 :::
 
-## App Layout
+## App Layout {.smaller}
 
 ::: columns
 ::: column
@@ -146,13 +146,13 @@ card1 <- card(
 
 :::
 ::: column
-![The app layout has 12 columns (width) and you can specify rows as well.](bslib-layout-cards-cols.svg)
+![The app layout has 12 columns (width) and you can specify rows as well.](images/bslib-layout-cards-cols.svg)
 
-![Row heights can be specified as well](bslib-layout-cards-rows.svg)
+![Row heights can be specified as well](images/bslib-layout-cards-rows.svg)
 :::
 :::
 
-## Cards
+## Cards {.smaller}
 
 ::: columns
 ::: column
@@ -167,39 +167,11 @@ card1 <- card(
 
 :::
 ::: column
-[![Demonstration of an app with different box statuses](bslib-layout-cards-narrow.png)]{.move-up}
+[![Demonstration of an app with different box statuses](images/bslib-layout-cards-narrow.png)]{.move-up}
 :::
 :::
 
-## Nested Layouts
-
-::: columns
-::: column
-- Body is wrapped in a `page_fillable` function
-- Cards are aligned using columns
-- Additional rows can be created by nesting `layout_columns()` functions
-
-```{r}
-#| eval: false
-body <- page_fillable(
-  layout_columns(
-    col_widths = c(2, 4, 4, 2), # 12 cols per row
-    row_heights = "600px",
-    card1,
-    layout_columns(card2, card3, card5,
-                   col_widths = c(12, 12, 12),
-                   row_heights = "auto"),
-    card4, card6)
-)
-```
-:::
-::: column
-[`04_layout2.R`]{.move-up .center .huge}    
-![Nesting rows and columns](bslib-nested-col-layout.svg)
-:::
-:::
-
-## Nested Layouts
+## Nested Layouts {.smaller}
 
 ::: columns
 ::: column
@@ -223,11 +195,39 @@ body <- page_fillable(
 :::
 ::: column
 [`04_layout2.R`]{.move-up .center .huge}    
-![Nesting rows and columns](bslib-nested-col-layout-interior.svg)
+![Nesting rows and columns](images/bslib-nested-col-layout.svg)
 :::
 :::
 
-## Other Layouts
+## Nested Layouts {.smaller}
+
+::: columns
+::: column
+- Body is wrapped in a `page_fillable` function
+- Cards are aligned using columns
+- Additional rows can be created by nesting `layout_columns()` functions
+
+```{r}
+#| eval: false
+body <- page_fillable(
+  layout_columns(
+    col_widths = c(2, 4, 4, 2), # 12 cols per row
+    row_heights = "600px",
+    card1,
+    layout_columns(card2, card3, card5,
+                   col_widths = c(12, 12, 12),
+                   row_heights = "auto"),
+    card4, card6)
+)
+```
+:::
+::: column
+[`04_layout2.R`]{.move-up .center .huge}    
+![Nesting rows and columns](images/bslib-nested-col-layout-interior.svg)
+:::
+:::
+
+## Other Layouts {.smaller}
 
 - `page_fillable()` has different behavior from `page_fluid()` and `page_fixed()` - see [this article](https://rstudio.github.io/bslib/articles/filling.html) for more information about fillable containers.
 - `page_navbar()` can be used to create tabs across the top (more on this in a minute)
@@ -245,7 +245,7 @@ layout_column_wrap(
 - [Shiny UI Editor](https://rstudio.github.io/shinyuieditor/) is currently in Alpha but allows UI creation without writing code
 
 
-## Tab Layouts
+## Tab Layouts {.smaller}
 
 ```{r}
 #| label: xaringan-panelset
@@ -266,7 +266,7 @@ Code: 05_tabsets.R
 ]{.panelset.sideways}
 
 
-## Tabs 
+## Tabs {.smaller}
 - Different options for multi-page applets:
 [
 [[`navset_tab()`]{.panel-name}
@@ -301,7 +301,7 @@ Modify the code in `05_tabsets.R` to use a `page_navbar()`.
 `r countdown::countdown(5)`
 :::
 
-## Resources
+## Resources {.smaller}
 
 - RStudio Tutorial: https://shiny.rstudio.com/articles/reactivity-overview.html  
 - Shiny Cheat Sheet: https://raw.githubusercontent.com/rstudio/cheatsheets/master/shiny.pdf  
