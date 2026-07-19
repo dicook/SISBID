@@ -331,7 +331,7 @@ countdown::countdown(1, 5)
 tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
-  geom_hline(yintercept = 0.50, colour="grey70", size=2) +
+  geom_hline(yintercept = 0.50, colour="grey70", linewidth=2) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
   ylab("proportion of males") +
