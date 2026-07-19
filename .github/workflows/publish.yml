@@ -93,6 +93,7 @@ jobs:
             any::MASS
             any::nullabor
             any::plotly
+            any::quarto
             any::RColorBrewer
             any::readr
             any::readxl
@@ -106,7 +107,6 @@ jobs:
             any::viridis
             any::bsicons
             any::thematic
-            any::countdown
 
       - name: Publish
         uses: quarto-dev/quarto-actions/publish@v2
