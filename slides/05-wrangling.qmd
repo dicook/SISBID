@@ -10,6 +10,13 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
+```{r}
+#| include: false
+
+library(tidyr)
+library(dplyr)
+select <- dplyr::select
+```
 
 ```{r}
 #| label: load packages
