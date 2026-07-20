@@ -316,27 +316,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/01-ggplot.rjs.html">
- <span class="dropdown-text">1. ggplot</span></a>
+ <span class="dropdown-text">1. Data Charts with ggplot2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/02-ggplot-adv.rjs.html">
- <span class="dropdown-text">2. Advancing ggplot</span></a>
+    <a class="dropdown-item" href="../slides/02-perception.rjs.html">
+ <span class="dropdown-text">2. Perception</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/03-perception.rjs.html">
- <span class="dropdown-text">3. Perception</span></a>
+    <a class="dropdown-item" href="../slides/03-tidyr.rjs.html">
+ <span class="dropdown-text">3. Tidying Data</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/04-tidyr.rjs.html">
- <span class="dropdown-text">4. tidyr</span></a>
+    <a class="dropdown-item" href="../slides/04-messy-it-up.rjs.html">
+ <span class="dropdown-text">4. Data Summaries</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/05-messy-it-up.rjs.html">
- <span class="dropdown-text">5. Messy data</span></a>
+    <a class="dropdown-item" href="../slides/05-wrangling.rjs.html">
+ <span class="dropdown-text">5. Wrangling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/06-wrangling.rjs.html">
- <span class="dropdown-text">6. Wrangling</span></a>
+    <a class="dropdown-item" href="../slides/06-ggplot-adv.rjs.html">
+ <span class="dropdown-text">6. Advancing ggplot</span></a>
   </li>  
     </ul>
   </li>
@@ -346,28 +346,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-day-2">    
         <li>
-    <a class="dropdown-item" href="../slides/07-mvplot.rjs.html">
- <span class="dropdown-text">7. Multivariate Plots</span></a>
+    <a class="dropdown-item" href="../slides/07-interactive-plots.rjs.html">
+ <span class="dropdown-text">7. Interactive plots</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/08-mvplot-tour.rjs.html">
- <span class="dropdown-text">8. Tours</span></a>
+    <a class="dropdown-item" href="../slides/08-shiny-apps.rjs.html">
+ <span class="dropdown-text">8. Shiny apps</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/09-adv-graphics.rjs.html">
- <span class="dropdown-text">9. Advanced Graphics</span></a>
+    <a class="dropdown-item" href="../slides/09-shiny-reactivity.rjs.html">
+ <span class="dropdown-text">9. Shiny reactivity</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/10-interactive-plots.rjs.html">
- <span class="dropdown-text">10. Interactive plots</span></a>
+    <a class="dropdown-item" href="../slides/10-mvplot.rjs.html">
+ <span class="dropdown-text">10. Multivariate Plots</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/11-shiny-apps.rjs.html">
- <span class="dropdown-text">11. Shiny apps</span></a>
+    <a class="dropdown-item" href="../slides/11-mvplot-tour.rjs.html">
+ <span class="dropdown-text">11. Tours</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../slides/12-shiny-reactivity.rjs.html">
- <span class="dropdown-text">12. Shiny reactivity</span></a>
+    <a class="dropdown-item" href="../slides/12-adv-graphics.rjs.html">
+ <span class="dropdown-text">12. Advanced Graphics</span></a>
   </li>  
     </ul>
   </li>
@@ -382,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/14-build-shiny-app.rjs.html">
- <span class="dropdown-text">14. Build a Shiny App</span></a>
+ <span class="dropdown-text">14. Show us your own Shiny App</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../slides/15-interactive-document.rjs.html">
@@ -440,12 +440,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in `library()`:
-! there is no package called 'remotes'</code></pre>
-</div>
-</div>
 <section id="your-turn" class="level2 inverse">
 <h2 class="inverse anchored" data-anchor-id="your-turn">Your turn</h2>
 <ul>
@@ -488,11 +482,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="smaller anchored" data-anchor-id="make-it-yours">Make it yours</h2>
 <p>Change the plot to use <code>ggplot</code>, this involves changing the server function to be this:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You will also need to add <code>library(ggplot2)</code> at the top of the file, just after <code>library(shiny)</code>.</p>
 <p>🛑 Click the <code>Run App</code> button on the RStudio window. (Fix any errors)</p>
@@ -508,22 +502,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Change the server function to look like this. Note <code>renderPlotly</code></p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(<span class="fu">ggplotly</span>(p))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">$</span>distPlot <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(faithful, <span class="fu">aes</span>(<span class="at">x=</span>waiting)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_histogram</span>(<span class="at">bins =</span> input<span class="sc">$</span>bins)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print</span>(<span class="fu">ggplotly</span>(p))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Change the <code>ui</code> function to render plotly output</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mainPanel</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotlyOutput</span>(<span class="st">"distPlot"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mainPanel</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotlyOutput</span>(<span class="st">"distPlot"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
@@ -537,10 +531,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="smaller anchored" data-anchor-id="change-the-ui">Change the UI</h2>
 <p>Convert the slide into a numeric input, by changing the <code>ui</code> function to be:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sidebarLayout</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">numericInput</span>(<span class="st">"bins"</span>, <span class="st">"nbins"</span>, <span class="dv">30</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  ),</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sidebarLayout</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">numericInput</span>(<span class="st">"bins"</span>, <span class="st">"nbins"</span>, <span class="dv">30</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  ),</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>(The <code>numericInput</code> replaces the <code>sliderInput</code> code)</p>
 <p>🛑 Click the <code>Run App</code> button on the RStudio window. (Fix any errors)</p>
