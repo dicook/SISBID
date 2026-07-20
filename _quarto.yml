@@ -15,7 +15,7 @@ project:
     - build-course-files.R
 
 execute:
-  freeze: auto  # re-render only when source changes
+  freeze: false
   error: true
   cache: false
 
@@ -36,39 +36,39 @@ website:
           - href: slides/00-preamble.rjs.html
             text: Preamble
           - href: slides/01-ggplot.rjs.html
-            text: 1. Data Charts with ggplot2
-          - href: slides/02-perception.rjs.html
-            text: 2. Perception
-          - href: slides/03-tidyr.rjs.html
-            text: 3. Tidying Data
-          - href: slides/04-messy-it-up.rjs.html
-            text: 4. Data Summaries
-          - href: slides/05-wrangling.rjs.html
-            text: 5. Wrangling
-          - href: slides/06-ggplot-adv.rjs.html
-            text: 6. Advancing ggplot
+            text: 1. ggplot
+          - href: slides/02-ggplot-adv.rjs.html
+            text: 2. Advancing ggplot
+          - href: slides/03-perception.rjs.html
+            text: 3. Perception
+          - href: slides/04-tidyr.rjs.html
+            text: 4. tidyr
+          - href: slides/05-messy-it-up.rjs.html
+            text: 5. Messy data
+          - href: slides/06-wrangling.rjs.html
+            text: 6. Wrangling
       - text: Day 2
         aria-label: Day 2 content
         menu:
-          - href: slides/07-interactive-plots.rjs.html
-            text: 7. Interactive plots
-          - href: slides/08-shiny-apps.rjs.html
-            text: 8. Shiny apps
-          - href: slides/09-shiny-reactivity.rjs.html
-            text: 9. Shiny reactivity
-          - href: slides/10-mvplot.rjs.html
-            text: 10. Multivariate Plots
-          - href: slides/11-mvplot-tour.rjs.html
-            text: 11. Tours
-          - href: slides/12-adv-graphics.rjs.html
-            text: 12. Advanced Graphics
+          - href: slides/07-mvplot.rjs.html
+            text: 7. Multivariate Plots
+          - href: slides/08-mvplot-tour.rjs.html
+            text: 8. Tours
+          - href: slides/09-adv-graphics.rjs.html
+            text: 9. Advanced Graphics
+          - href: slides/10-interactive-plots.rjs.html
+            text: 10. Interactive plots
+          - href: slides/11-shiny-apps.rjs.html
+            text: 11. Shiny apps
+          - href: slides/12-shiny-reactivity.rjs.html
+            text: 12. Shiny reactivity
       - text: Day 3
         aria-label: Day 3 content
         menu:
           - href: slides/13-theme-shiny.rjs.html
             text: 13. Theming Shiny
           - href: slides/14-build-shiny-app.rjs.html
-            text: 14. Show us your own Shiny App
+            text: 14. Build a Shiny App
           - href: slides/15-interactive-document.rjs.html
             text: 15. Interactive Documents
 
