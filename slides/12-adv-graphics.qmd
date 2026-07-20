@@ -382,7 +382,7 @@ ggplot(l, aes(x=date, y=rate)) +
 #| echo: false
 #| message: false
 #| warning: false
-tb <- read_csv(here("data/TB_notifications_2020-07-01.csv")) |> 
+tb <- read_csv(here("data/TB_notifications_2026-07-20.csv")) |> 
   select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
   mutate(sexage = str_replace(sexage, "new_sp_", "")) |>

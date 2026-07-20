@@ -39,7 +39,7 @@ diamonds <- diamonds |>
 ```{r}
 #| label: read TB data and wrangle and subset to USA
 #| echo: false
-tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
+tb <- read_csv(here::here("data/TB_notifications_2026-07-20.csv")) |> 
   dplyr::select(country, iso3, year, new_sp_m04:new_sp_fu) |>
   pivot_longer(cols=new_sp_m04:new_sp_fu, names_to="sexage", values_to="count") |>
   mutate(sexage = str_replace(sexage, "new_sp_", "")) |>
