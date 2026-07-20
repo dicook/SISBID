@@ -230,7 +230,6 @@ What is the experimental unit? What are the factors of the experiment? What was 
 
 :::
 
-</div>
 
 ## Messy data patterns
 
