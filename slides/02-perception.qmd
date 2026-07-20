@@ -107,7 +107,7 @@ tb_kn |> filter(year == 2012) |>
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  ggtitle("Arrangement A")
+  ggtitle("Arrangement A") + guides(fill = "none")
 ```
 
 ```{r}
@@ -119,7 +119,7 @@ tb_kn |> filter(year == 2012) |>
   geom_bar(stat="identity", position="dodge") + 
   facet_wrap(~sex, ncol=6) +
   scale_fill_brewer("", palette="Dark2") +
-  ggtitle("Arrangement B")
+  ggtitle("Arrangement B") + guides(fill="none")
 ```
 :::
 
@@ -220,25 +220,27 @@ You'll have about two minutes.
 #| label: use a line plot instead of bar
 #| echo: false
 #| fig-height: 3
+#| fig-width: 8
 ggplot(tb_kn, aes(x=year, y=count, colour=sex)) +
   geom_line() + geom_point() +
   facet_wrap(~age, ncol=6) +
   scale_color_manual(
     "Sex", 
     values = c("#DC3220", "#005AB5")) +
-  ggtitle("Type A")
+  ggtitle("Type A") + guides(color = "none")
 ```
 
 ```{r}
 #| label: colour and axes fixes
 #| echo: false
 #| fig-height: 3
+#| fig-width: 8
 # This uses a color blind friendly scale
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity") + 
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) +
-  ggtitle("Type B")
+  ggtitle("Type B") + guides(fill = "none")
 ```
 :::
 
@@ -328,6 +330,7 @@ countdown::countdown(1, 5)
 #| label: use a line plot for proportions
 #| echo: false
 #| fig-height: 3
+#| fig-width: 8
 tb_kn |> group_by(year, age) |> 
   summarise(p = count[sex=="m"]/sum(count)) |>
   ggplot(aes(x=year, y=p)) +
@@ -341,13 +344,14 @@ tb_kn |> group_by(year, age) |>
 ```{r}
 #| label: compare proportions of males females
 #| echo: false
-#| fig-height: 4
+#| fig-height: 3
+#| fig-width: 8
 # Fill the bars, note the small change to the code
 ggplot(tb_kn, aes(x=year, y=count, fill=sex)) +
   geom_bar(stat="identity", position="fill") + 
   facet_wrap(~age, ncol=6) +
   scale_fill_manual("Sex", values = c("#DC3220", "#005AB5")) + ylab("proportion") +
-  ggtitle("Type B") + theme(legend.position = "bottom")
+  ggtitle("Type B") + guides(fill = "none")
 ```
 :::
 
