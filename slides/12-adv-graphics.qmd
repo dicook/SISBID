@@ -1,6 +1,7 @@
 ---
 title: "Advanced plots and inference"
 code-annotations: select
+freeze: auto
 ---
 
 ```{r}
