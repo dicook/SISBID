@@ -63,9 +63,9 @@ library(readr)
 ```{r}
 #| label: read TB incidence data and check
 #| results: hide
-tb <- read_csv(here::here("data/TB_notifications_2026-07-20.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
 tb   %>%                                # first we get the tb data
-  filter(year == 2024) %>%              # then we focus on the most recent year
+  filter(year == 2023) %>%              # then we focus on the most recent year
   group_by(country) %>%                 # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
@@ -77,9 +77,9 @@ tb   %>%                                # first we get the tb data
 ```{r}
 #| label: read TB incidence data and check base pipe
 #| results: hide
-tb <- read_csv(here::here("data/TB_notifications_2026-07-20.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
 tb |>                                  # first we get the tb data
-  filter(year == 2024) |>              # then we focus on the most recent year
+  filter(year == 2023) |>              # then we focus on the most recent year
   group_by(country) |>                 # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
@@ -93,9 +93,9 @@ tb |>                                  # first we get the tb data
 ```{r}
 #| label: show-results
 #| echo: false
-tb <- read_csv(here::here("data/TB_notifications_2026-07-20.csv"))
+tb <- read_csv(here::here("data/TB_notifications_2025-07-22.csv"))
 tb |>                                   # first we get the tb data
-  filter(year == 2024) |>               # then we focus on the most recent year
+  filter(year == 2023) |>               # then we focus on the most recent year
   group_by(country) |>                  # then we group by country
   summarize(
     cases = sum(c_newinc, na.rm=TRUE)   # to create a summary of all new cases
@@ -131,9 +131,7 @@ Go to menti.com and enter code 6630 2740
 
 <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-popups allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/aljjh6s6sxadt9kzy8uqz2824d3ezhuo/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
 
-## Varying degree of messiness
-
-<div style="font-size: 85%;">
+## Varying degree of messiness {.smaller}
 
 ::: panel-tabset
 ### Cryptic Names
@@ -340,7 +338,7 @@ New notifications of TB have the form `new_sp_<sex><age group>`:
   
 ```{r}
 #| label: read in and process the TB data
-read_csv(here::here("data/TB_notifications_2026-07-20.csv")) |> 
+read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   na.omit() |>
   head()
@@ -355,7 +353,7 @@ create two new variables: `name` and `value`
   
 ```{r}
 #| label: turn TB data into long form
-tb1 <- read_csv(here::here("data/TB_notifications_2026-07-20.csv")) |> 
+tb1 <- read_csv(here::here("data/TB_notifications_2025-07-22.csv")) |> 
   dplyr::select(country, iso3, year, starts_with("new_sp_")) |>
   pivot_longer(starts_with("new_sp_")) 
 
