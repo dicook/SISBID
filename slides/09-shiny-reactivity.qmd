@@ -247,48 +247,47 @@ layout_column_wrap(
 
 ## Tab Layouts {.smaller}
 
-```{r}
-#| label: xaringan-panelset
-#| echo: false
-xaringanExtra::use_panelset()
-```
 Code: 05_tabsets.R
-[
-[[tab1]{.panel-name}
+
+::: panel-tabset
+
+### tab 1
+
 ![](images/bslib-navset-pill-list1.png)
-]{.panel}
-[[tab2]{.panel-name}
+
+### tab 2
+
 ![](images/bslib-navset-pill-list2.png)
-]{.panel}
-[[tab3]{.panel-name}
+### tab 3
+
 ![](images/bslib-navset-pill-list3.png)
-]{.panel}
-]{.panelset.sideways}
+
+:::
 
 
 ## Tabs {.smaller}
 - Different options for multi-page applets:
-[
-[[`navset_tab()`]{.panel-name}
-![](images/bslib-tabset.png)
-]{.panel}
-[[`navset_pill()`]{.panel-name}
-![](images/bslib-pill.png)
-]{.panel}
-[[`navset_bar()`]{.panel-name}
-![](images/bslib-bar.png)
-]{.panel}
-[[`navset_pill_list()`]{.panel-name}
-![](images/bslib-pill-list.png)
-]{.panel}
-[[`navset_card_tab()`]{.panel-name}
-![](images/bslib-card-tab.png)
-]{.panel}
-[[`navset_card_pill()`]{.panel-name}
-![](images/bslib-card-pill.png)
-]{.panel}
-]{.panelset.sideways}
 
+::: panel-tabset
+
+### `navset_tab()`
+![](images/bslib-tabset.png)
+### `navset_pill()`
+
+![](images/bslib-pill.png)
+### `navset_bar()`
+![](images/bslib-bar.png)
+### `navset_pill_list()`
+
+![](images/bslib-pill-list.png)
+### `navset_card_tab()`
+
+![](images/bslib-card-tab.png)
+### `navset_card_pill()`
+
+![](images/bslib-card-pill.png)
+
+:::
 
 ## Your Turn {.inverse}
 
