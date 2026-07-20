@@ -566,7 +566,7 @@
 <h2>TB notifications</h2>
 <p>New notifications of TB have the form <code>new_sp_&lt;sex&gt;&lt;age group&gt;</code>:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>)) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2026-07-20.csv"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, iso3, year, <span class="fu">starts_with</span>(<span class="st">"new_sp_"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb12-3"><a></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
 <span id="cb12-4"><a></a>  <span class="fu">head</span>()</span>
@@ -694,7 +694,7 @@
 <span id="cb18-10"><a></a><span class="dv">6</span> Gene <span class="dv">1</span> I     <span class="dv">12</span>    <span class="dv">1</span>      <span class="fl">4.54</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!-- Break into zoom rooms, clock is ticking 😄 -->
-<!-- `<countdown-timer class="countdown" id="timer_b851565f" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>`{=html} -->
+<!-- `<countdown-timer class="countdown" id="timer_04f59730" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>`{=html} -->
 </section>
 <section id="plot-the-genes-data-overlaid-with-group-means" class="slide level2">
 <h2>Plot the genes data overlaid with group means</h2>
