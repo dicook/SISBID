@@ -12,6 +12,13 @@ source(here::here("libraries.R"))
 ```
 
 ```{r}
+#| include: false
+
+library(dplyr)
+select <- dplyr::select
+```
+
+```{r}
 #| echo: false
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
