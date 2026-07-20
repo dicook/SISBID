@@ -253,7 +253,7 @@
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>tb <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>))</span>
 <span id="cb1-2"><a></a>tb   <span class="sc">%&gt;%</span>                                <span class="co"># first we get the tb data</span></span>
 <span id="cb1-3"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">%&gt;%</span>              <span class="co"># then we focus on the most recent year</span></span>
 <span id="cb1-4"><a></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span>                 <span class="co"># then we group by country</span></span>
@@ -696,7 +696,7 @@
 <span id="cb18-10"><a></a><span class="dv">6</span> Gene <span class="dv">1</span> I     <span class="dv">12</span>    <span class="dv">1</span>      <span class="fl">4.54</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!-- Break into zoom rooms, clock is ticking 😄 -->
-<!-- `<countdown-timer class="countdown" id="timer_68db4e2e" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>`{=html} -->
+<!-- `<countdown-timer class="countdown" id="timer_a82b0e15" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>`{=html} -->
 </section>
 <section id="plot-the-genes-data-overlaid-with-group-means" class="slide level2">
 <h2>Plot the genes data overlaid with group means</h2>
