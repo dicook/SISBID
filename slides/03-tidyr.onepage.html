@@ -512,9 +512,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2026-07-20.csv"</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tb   <span class="sc">%&gt;%</span>                                <span class="co"># first we get the tb data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">%&gt;%</span>              <span class="co"># then we focus on the most recent year</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">%&gt;%</span>              <span class="co"># then we focus on the most recent year</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span>                 <span class="co"># then we group by country</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">sum</span>(c_newinc, <span class="at">na.rm=</span><span class="cn">TRUE</span>)   <span class="co"># to create a summary of all new cases</span></span>
@@ -524,9 +524,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2026-07-20.csv"</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tb <span class="sc">|&gt;</span>                                  <span class="co"># first we get the tb data</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2024</span>) <span class="sc">|&gt;</span>              <span class="co"># then we focus on the most recent year</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span>              <span class="co"># then we focus on the most recent year</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span>                 <span class="co"># then we group by country</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">sum</span>(c_newinc, <span class="at">na.rm=</span><span class="cn">TRUE</span>)   <span class="co"># to create a summary of all new cases</span></span>
@@ -540,16 +540,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 215 × 2
    country                            cases
    &lt;chr&gt;                              &lt;dbl&gt;
- 1 India                            2498584
- 2 Indonesia                         839018
- 3 Philippines                       544948
- 4 China                             531097
- 5 Pakistan                          497720
- 6 Nigeria                           402051
- 7 Bangladesh                        314180
- 8 Democratic Republic of the Congo  286720
- 9 South Africa                      183726
-10 Ethiopia                          149902
+ 1 India                            2382714
+ 2 Indonesia                         804836
+ 3 Philippines                       575770
+ 4 China                             564918
+ 5 Pakistan                          475761
+ 6 Nigeria                           367250
+ 7 Bangladesh                        302813
+ 8 Democratic Republic of the Congo  258069
+ 9 South Africa                      211810
+10 Ethiopia                          134873
 # ℹ 205 more rows</code></pre>
 </div>
 </div>
@@ -586,9 +586,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </iframe>
 </div>
 </section>
-<section id="varying-degree-of-messiness" class="level2">
-<h2 class="anchored" data-anchor-id="varying-degree-of-messiness">Varying degree of messiness</h2>
-<div style="font-size: 85%;">
+<section id="varying-degree-of-messiness" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="varying-degree-of-messiness">Varying degree of messiness</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Cryptic Names</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">More cryptic</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Most</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">Too_much_info</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false" href="">Tables</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-6" role="tab" aria-controls="tabset-2-6" aria-selected="false" href="">Gross on repeat</a></li></ul>
 <div class="tab-content">
@@ -692,10 +691,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</div>
-</section>
-<section id="messy-data-patterns" class="level2">
-<h2 class="anchored" data-anchor-id="messy-data-patterns">Messy data patterns</h2>
+</section></section></main></div>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><section id="messy-data-patterns" class="level2">
+<h2 data-anchor-id="messy-data-patterns">Messy data patterns</h2>
 <p>There are various features of messy data that one can observe in practice. Here are some of the more commonly observed patterns:</p>
 <ul>
 <li>Column headers are not just variable names, but also contain values</li>
@@ -705,7 +704,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="tidy-data-conventions" class="level2">
-<h2 class="anchored" data-anchor-id="tidy-data-conventions">Tidy Data Conventions</h2>
+<h2 data-anchor-id="tidy-data-conventions">Tidy Data Conventions</h2>
 <ol type="1">
 <li>Data is contained in a single table</li>
 <li>Each observation forms a row (no data info in column names)</li>
@@ -713,7 +712,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 <section id="long-and-wide" class="level2">
-<h2 class="anchored" data-anchor-id="long-and-wide">Long and Wide</h2>
+<h2 data-anchor-id="long-and-wide">Long and Wide</h2>
 <ul>
 <li><p>Long form: <strong>one</strong> measured value per row. All other variables are descriptors (key variables) - good for modelling, terrible for most other analyses, e.g.&nbsp;correlation matrix</p></li>
 <li><p>Widest form: <strong>all</strong> measured values for an entity are in a single row.</p></li>
@@ -721,7 +720,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1"></h2>
+<h2 data-anchor-id="section-1"></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="images/tidy-workflow-assembly.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Illustrations from the Openscapes blog: Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"><img src="images/tidy-workflow-assembly.jpg" class="img-fluid figure-img" alt="Illustrations from the Openscapes blog: Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"></a></p>
@@ -730,7 +729,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="tidy-verbs" class="level2">
-<h2 class="anchored" data-anchor-id="tidy-verbs">Tidy verbs</h2>
+<h2 data-anchor-id="tidy-verbs">Tidy verbs</h2>
 <ul>
 <li><code>pivot_longer</code>: get information out of names into columns</li>
 <li><code>pivot_wider</code>: make columns of observed data for levels of design variables (for comparisons)</li>
@@ -739,7 +738,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="pivot-to-long-form" class="level2">
-<h2 class="anchored" data-anchor-id="pivot-to-long-form">Pivot to long form</h2>
+<h2 data-anchor-id="pivot-to-long-form">Pivot to long form</h2>
 <div class="columns">
 <div class="column" style="width:80%;">
 <pre><code>data |&gt; pivot_longer(cols, names_to = "name", values_to = "value", ...)</code></pre>
@@ -760,7 +759,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="pivoting-an-example" class="level2">
-<h2 class="anchored" data-anchor-id="pivoting-an-example">Pivoting: an example</h2>
+<h2 data-anchor-id="pivoting-an-example">Pivoting: an example</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wide format</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dframe</span>
@@ -780,7 +779,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="variable-selectors" class="level2">
-<h2 class="anchored" data-anchor-id="variable-selectors">Variable Selectors</h2>
+<h2 data-anchor-id="variable-selectors">Variable Selectors</h2>
 <ul>
 <li><p><code>data |&gt; pivot_longer(cols, names_to = "key", values_to = "value", ...)</code></p></li>
 <li><p><code>cols</code> argument identifies variables that should be combined.</p></li>
@@ -788,7 +787,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="examples-of-pattern-selectors" class="level2">
-<h2 class="anchored" data-anchor-id="examples-of-pattern-selectors">Examples of pattern selectors</h2>
+<h2 data-anchor-id="examples-of-pattern-selectors">Examples of pattern selectors</h2>
 <ul>
 <li><p><code>starts_with(match, ignore.case = TRUE, vars = NULL)</code></p></li>
 <li><p>other select functions: <code>ends_with</code>, <code>contains</code>, <code>matches</code>.</p></li>
@@ -796,10 +795,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="tb-notifications" class="level2">
-<h2 class="anchored" data-anchor-id="tb-notifications">TB notifications</h2>
+<h2 data-anchor-id="tb-notifications">TB notifications</h2>
 <p>New notifications of TB have the form <code>new_sp_&lt;sex&gt;&lt;age group&gt;</code>:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2026-07-20.csv"</span>)) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, iso3, year, <span class="fu">starts_with</span>(<span class="st">"new_sp_"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
@@ -820,14 +819,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="pivot-longer-tb-notifications" class="level2">
-<h2 class="anchored" data-anchor-id="pivot-longer-tb-notifications">Pivot Longer: TB notifications</h2>
+<h2 data-anchor-id="pivot-longer-tb-notifications">Pivot Longer: TB notifications</h2>
 <p>create two new variables: <code>name</code> and <code>value</code></p>
 <ul>
 <li><code>name</code> contains all variable names starting with “new_sp_”</li>
 <li><code>value</code> contains all values of the selected variables</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tb1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2026-07-20.csv"</span>)) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tb1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/TB_notifications_2025-07-22.csv"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, iso3, year, <span class="fu">starts_with</span>(<span class="st">"new_sp_"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"new_sp_"</span>)) </span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -844,7 +843,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="separate-columns" class="level2">
-<h2 class="anchored" data-anchor-id="separate-columns">Separate columns</h2>
+<h2 data-anchor-id="separate-columns">Separate columns</h2>
 <pre><code>data |&gt; separate_wider_delim (col, delim, names, ...)</code></pre>
 <ul>
 <li>split column <code>col</code> from data frame <code>frame</code> into a set of columns as specified in <code>names</code></li>
@@ -852,7 +851,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="separate-tb-notifications" class="level2">
-<h2 class="anchored" data-anchor-id="separate-tb-notifications">Separate TB notifications</h2>
+<h2 data-anchor-id="separate-tb-notifications">Separate TB notifications</h2>
 <p>Work on <code>name</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tb2 <span class="ot">&lt;-</span> tb1 <span class="sc">|&gt;</span></span>
@@ -873,7 +872,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="separate-columns-1" class="level2">
-<h2 class="anchored" data-anchor-id="separate-columns-1">Separate columns</h2>
+<h2 data-anchor-id="separate-columns-1">Separate columns</h2>
 <p><code>data %&gt;%  separate_wider_position(col, widths, ...)</code></p>
 <ul>
 <li>split column <code>col</code> from <code>frame</code> into a set of columns specified in <code>widths</code></li>
@@ -881,7 +880,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="separate-tb-notifications-again" class="level2">
-<h2 class="anchored" data-anchor-id="separate-tb-notifications-again">Separate TB notifications again</h2>
+<h2 data-anchor-id="separate-tb-notifications-again">Separate TB notifications again</h2>
 <p>Now split <code>sexage</code> into first character (m/f) and rest.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tb3 <span class="ot">&lt;-</span> tb2 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"toss"</span>)) <span class="sc">|&gt;</span> <span class="co"># remove the `toss` variables</span></span>
@@ -904,7 +903,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="your-turn" class="level2 inverse">
-<h2 class="inverse anchored" data-anchor-id="your-turn">Your turn</h2>
+<h2 class="inverse" data-anchor-id="your-turn">Your turn</h2>
 <p>Read the genes data from folder <code>data</code>. Column names contain data and are kind of messy.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/genes.csv"</span>))</span>
@@ -927,10 +926,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Gene <span class="dv">1</span> I     <span class="dv">12</span>    <span class="dv">1</span>      <span class="fl">4.54</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!-- Break into zoom rooms, clock is ticking 😄 -->
-<!-- `<countdown-timer class="countdown" id="timer_38dbb8bd" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>`{=html} -->
+<!-- `<countdown-timer class="countdown" id="timer_1f73ad47" minutes="10" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer>`{=html} -->
 </section>
 <section id="plot-the-genes-data-overlaid-with-group-means" class="level2">
-<h2 class="anchored" data-anchor-id="plot-the-genes-data-overlaid-with-group-means">Plot the genes data overlaid with group means</h2>
+<h2 data-anchor-id="plot-the-genes-data-overlaid-with-group-means">Plot the genes data overlaid with group means</h2>
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
@@ -958,7 +957,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<h2 data-anchor-id="resources">Resources</h2>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html">The tidy tools manifesto</a></li>
 <li><a href="https://posit.co/resources/cheatsheets/">Posit cheatsheets</a></li>
@@ -971,9 +970,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1387,8 +1386,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
-</div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dicook/sisbid/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+ <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
