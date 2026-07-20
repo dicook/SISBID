@@ -95,6 +95,7 @@ jobs:
             any::plotly
             any::quarto
             any::RColorBrewer
+            any::remotes
             any::readr
             any::readxl
             any::scales
@@ -113,5 +114,4 @@ jobs:
         with:
           target: gh-pages
         env:
-          GS_AUTH: ${{ secrets.GS_AUTH }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
