@@ -41,6 +41,7 @@ library(shiny)
 library(bslib)
 library(DT)
 library(ggdist)
+library(remotes)
 
 library(remotes)
 # remotes::install_github("wmurphyrd/fiftystater")
