@@ -11,6 +11,12 @@ source(here::here("libraries.R"))
 ```
 
 ```{r}
+#| include: false
+
+library(dplyr)
+```
+
+```{r}
 #| echo: false
 # Better formatted penguins data
 # data(penguins, package="palmerpenguins")
