@@ -208,15 +208,6 @@
 </div>
 
 </section>
-<section class="slide level2">
-
-<div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in `library()`:
-! there is no package called 'showtext'</code></pre>
-</div>
-</div>
-</section>
 <section>
 <section id="shiny-apps-in-r" class="title-slide slide level1 center">
 <h1>Shiny Apps in R</h1>
@@ -239,11 +230,11 @@
 <section id="visual-classification" class="slide level2 smaller">
 <h2>Visual classification</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>banknote <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/banknote.csv"</span>))</span>
-<span id="cb2-2"><a></a></span>
-<span id="cb2-3"><a></a>banknote <span class="sc">|&gt;</span> </span>
-<span id="cb2-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Right, <span class="at">fill =</span> Status)) <span class="sc">+</span> </span>
-<span id="cb2-5"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> .<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>banknote <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/banknote.csv"</span>))</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a>banknote <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Right, <span class="at">fill =</span> Status)) <span class="sc">+</span> </span>
+<span id="cb1-5"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> .<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -258,9 +249,9 @@
 <h2>A first shiny app with ggpaintr</h2>
 <p>Make a shiny app to explore histograms:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>{banknote <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">ppVar</span>(Right), <span class="at">fill =</span> Status)) <span class="sc">+</span> </span>
-<span id="cb3-3"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> .<span class="dv">1</span>) } <span class="sc">|&gt;</span> ggpaintr<span class="sc">::</span><span class="fu">ptr_app</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>{banknote <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">ppVar</span>(Right), <span class="at">fill =</span> Status)) <span class="sc">+</span> </span>
+<span id="cb2-3"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> .<span class="dv">1</span>) } <span class="sc">|&gt;</span> ggpaintr<span class="sc">::</span><span class="fu">ptr_app</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>ggpaintr</code> keywords: <code>ppVar</code> (make a variable widget), <code>ppNum</code> (make a number widget)</p>
 <p>check the <code>Addins &gt; ggpaintr placeholders</code></p>
@@ -310,58 +301,58 @@
 <section id="a-minimal-example" class="slide level2">
 <h2>A Minimal Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(shiny)</span>
-<span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb4-4"><a></a>)</span>
-<span id="cb4-5"><a></a></span>
-<span id="cb4-6"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb4-7"><a></a>}</span>
-<span id="cb4-8"><a></a></span>
-<span id="cb4-9"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(shiny)</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb3-4"><a></a>)</span>
+<span id="cb3-5"><a></a></span>
+<span id="cb3-6"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb3-7"><a></a>}</span>
+<span id="cb3-8"><a></a></span>
+<span id="cb3-9"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="a-bit-more-fancy" class="slide level2">
 <h2>A bit more fancy</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(shiny)</span>
-<span id="cb5-2"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(<span class="at">width =</span> <span class="dv">3</span>, <span class="st">"Fun inputs"</span>)</span>
-<span id="cb5-3"><a></a></span>
-<span id="cb5-4"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
-<span id="cb5-5"><a></a></span>
-<span id="cb5-6"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb5-7"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
-<span id="cb5-8"><a></a>  sidebar, </span>
-<span id="cb5-9"><a></a>  main_col</span>
-<span id="cb5-10"><a></a>)</span>
-<span id="cb5-11"><a></a></span>
-<span id="cb5-12"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb5-13"><a></a>}</span>
-<span id="cb5-14"><a></a></span>
-<span id="cb5-15"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(shiny)</span>
+<span id="cb4-2"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(<span class="at">width =</span> <span class="dv">3</span>, <span class="st">"Fun inputs"</span>)</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb4-7"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
+<span id="cb4-8"><a></a>  sidebar, </span>
+<span id="cb4-9"><a></a>  main_col</span>
+<span id="cb4-10"><a></a>)</span>
+<span id="cb4-11"><a></a></span>
+<span id="cb4-12"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb4-13"><a></a>}</span>
+<span id="cb4-14"><a></a></span>
+<span id="cb4-15"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="a-bit-more-fancy-1" class="slide level2">
 <h2>A bit more fancy</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">library</span>(shiny)</span>
-<span id="cb6-2"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb6-3"><a></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
-<span id="cb6-4"><a></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
-<span id="cb6-5"><a></a>)</span>
-<span id="cb6-6"><a></a></span>
-<span id="cb6-7"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
-<span id="cb6-8"><a></a></span>
-<span id="cb6-9"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb6-10"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
-<span id="cb6-11"><a></a>  sidebar, </span>
-<span id="cb6-12"><a></a>  main_col</span>
-<span id="cb6-13"><a></a>)</span>
-<span id="cb6-14"><a></a></span>
-<span id="cb6-15"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb6-16"><a></a>}</span>
-<span id="cb6-17"><a></a></span>
-<span id="cb6-18"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(shiny)</span>
+<span id="cb5-2"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb5-3"><a></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
+<span id="cb5-4"><a></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
+<span id="cb5-5"><a></a>)</span>
+<span id="cb5-6"><a></a></span>
+<span id="cb5-7"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
+<span id="cb5-8"><a></a></span>
+<span id="cb5-9"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb5-10"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
+<span id="cb5-11"><a></a>  sidebar, </span>
+<span id="cb5-12"><a></a>  main_col</span>
+<span id="cb5-13"><a></a>)</span>
+<span id="cb5-14"><a></a></span>
+<span id="cb5-15"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb5-16"><a></a>}</span>
+<span id="cb5-17"><a></a></span>
+<span id="cb5-18"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="shiny-inputs" class="slide level2 smaller">
@@ -384,27 +375,27 @@
 <h2>Your Turn</h2>
 <p>Add a list of your favorite countries to the sidebar panel:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">library</span>(shiny)</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb7-4"><a></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
-<span id="cb7-5"><a></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
-<span id="cb7-6"><a></a>)</span>
-<span id="cb7-7"><a></a></span>
-<span id="cb7-8"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
-<span id="cb7-9"><a></a></span>
-<span id="cb7-10"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb7-11"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
-<span id="cb7-12"><a></a>  sidebar, </span>
-<span id="cb7-13"><a></a>  main_col</span>
-<span id="cb7-14"><a></a>)</span>
-<span id="cb7-15"><a></a></span>
-<span id="cb7-16"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb7-17"><a></a>}</span>
-<span id="cb7-18"><a></a></span>
-<span id="cb7-19"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">library</span>(shiny)</span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb6-4"><a></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
+<span id="cb6-5"><a></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"Enter your name:"</span>, <span class="at">value =</span> <span class="st">"Susan"</span>)</span>
+<span id="cb6-6"><a></a>)</span>
+<span id="cb6-7"><a></a></span>
+<span id="cb6-8"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>, <span class="st">"Some results"</span>)</span>
+<span id="cb6-9"><a></a></span>
+<span id="cb6-10"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb6-11"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>,</span>
+<span id="cb6-12"><a></a>  sidebar, </span>
+<span id="cb6-13"><a></a>  main_col</span>
+<span id="cb6-14"><a></a>)</span>
+<span id="cb6-15"><a></a></span>
+<span id="cb6-16"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb6-17"><a></a>}</span>
+<span id="cb6-18"><a></a></span>
+<span id="cb6-19"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><countdown-timer class="countdown" id="timer_aff15e95" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_3e02aed5" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="adding-output" class="slide level2">
 <h2>Adding Output</h2>
@@ -438,36 +429,36 @@ Output can be in form of tables, plots, text, …</p></li>
 <section id="adding-a-plot" class="slide level2 smaller">
 <h2>Adding a plot</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-code-line-numbers="13-16,23-27"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">library</span>(shiny)</span>
-<span id="cb8-2"><a></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb8-3"><a></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb8-4"><a></a></span>
-<span id="cb8-5"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
-<span id="cb8-6"><a></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
-<span id="cb8-7"><a></a>  <span class="fu">selectInput</span>(</span>
-<span id="cb8-8"><a></a>    <span class="st">"country"</span>, <span class="st">"Pick your favorite country:"</span>, </span>
-<span id="cb8-9"><a></a>              <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"Brazil"</span>, <span class="st">"China"</span>)</span>
-<span id="cb8-10"><a></a>  )</span>
-<span id="cb8-11"><a></a>)</span>
-<span id="cb8-12"><a></a></span>
-<span id="cb8-13"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(                               <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-14"><a></a>  <span class="at">width =</span> <span class="dv">9</span>,                                      <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-15"><a></a>  <span class="fu">plotOutput</span>(<span class="st">"scatter"</span>)                           <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-16"><a></a>)                                                 <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-17"><a></a></span>
-<span id="cb8-18"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb8-19"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>, sidebar, main_col</span>
-<span id="cb8-20"><a></a>)</span>
-<span id="cb8-21"><a></a></span>
-<span id="cb8-22"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb8-23"><a></a>  output<span class="sc">$</span>scatter <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({                  <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-24"><a></a>    mtcars <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span>   <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-25"><a></a>      <span class="fu">geom_point</span>() <span class="sc">+</span>                              <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-26"><a></a>      <span class="fu">ggtitle</span>(input<span class="sc">$</span>country)                      <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-27"><a></a>  })                                              <span class="co">#&lt;&lt;</span></span>
-<span id="cb8-28"><a></a>}</span>
-<span id="cb8-29"><a></a></span>
-<span id="cb8-30"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="13-16,23-27"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">library</span>(shiny)</span>
+<span id="cb7-2"><a></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-3"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a>sidebar <span class="ot">&lt;-</span>  <span class="fu">sidebarPanel</span>(</span>
+<span id="cb7-6"><a></a>  <span class="at">width =</span> <span class="dv">3</span>, </span>
+<span id="cb7-7"><a></a>  <span class="fu">selectInput</span>(</span>
+<span id="cb7-8"><a></a>    <span class="st">"country"</span>, <span class="st">"Pick your favorite country:"</span>, </span>
+<span id="cb7-9"><a></a>              <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"Brazil"</span>, <span class="st">"China"</span>)</span>
+<span id="cb7-10"><a></a>  )</span>
+<span id="cb7-11"><a></a>)</span>
+<span id="cb7-12"><a></a></span>
+<span id="cb7-13"><a></a>main_col <span class="ot">&lt;-</span> <span class="fu">column</span>(                               <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-14"><a></a>  <span class="at">width =</span> <span class="dv">9</span>,                                      <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-15"><a></a>  <span class="fu">plotOutput</span>(<span class="st">"scatter"</span>)                           <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-16"><a></a>)                                                 <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-17"><a></a></span>
+<span id="cb7-18"><a></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb7-19"><a></a>  <span class="at">title =</span> <span class="st">"App Title"</span>, sidebar, main_col</span>
+<span id="cb7-20"><a></a>)</span>
+<span id="cb7-21"><a></a></span>
+<span id="cb7-22"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb7-23"><a></a>  output<span class="sc">$</span>scatter <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({                  <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-24"><a></a>    mtcars <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg)) <span class="sc">+</span>   <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-25"><a></a>      <span class="fu">geom_point</span>() <span class="sc">+</span>                              <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-26"><a></a>      <span class="fu">ggtitle</span>(input<span class="sc">$</span>country)                      <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-27"><a></a>  })                                              <span class="co">#&lt;&lt;</span></span>
+<span id="cb7-28"><a></a>}</span>
+<span id="cb7-29"><a></a></span>
+<span id="cb7-30"><a></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="your-turn-1" class="slide level2 inverse">
@@ -476,7 +467,7 @@ Output can be in form of tables, plots, text, …</p></li>
 <li>Add an interactive plot of the TB data into your app.</li>
 <li>Change the select box, so that the user can choose any country. Think of <code>unique(tb$country)</code> for defining the choices</li>
 </ul>
-<p><countdown-timer class="countdown" id="timer_b80d7c10" minutes="7" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_8a43d764" minutes="7" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="deploy-an-app" class="slide level2">
 <h2>Deploy an app</h2>
