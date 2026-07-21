@@ -89,6 +89,7 @@ jobs:
             any::leaflet
             any::lme4
             any::lubridate
+            any::showtext
             any::maps
             any::MASS
             any::nullabor
