@@ -103,6 +103,9 @@ jobs:
             any::splitstackshape
             any::stringr
             any::tidyr
+            any::tsibble
+            any::tsibbletalk
+            any::feasts
             any::tourr
             any::vinference
             any::viridis

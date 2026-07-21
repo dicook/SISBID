@@ -12,6 +12,9 @@ slides <- list.files("slides", "*.qmd", full.names = T, recursive = T)
 code_files <- str_replace_all(slides, "slides/", "code/") |>
   str_replace_all("\\.qmd$", ".R")
 
+unlink("code/*", recursive = T)
+dir.create("code")
+
 #update <- file.mtime(slides) > file.mtime(code_files)
 # HH: update all - when the build process failed, it would need a touch to change the time
 # and it does not take that long
@@ -28,7 +31,8 @@ misc_code <- setdiff(list.files("code", ".[Rr]", full.names = T, recursive=F),
                      code_files)
 common_to_all <- c(
   list.files("data", full.names = T, recursive = T, include.dirs = F),
-  list.files("slides/images", full.names = T, recursive = T, include.dirs = F)
+  list.files("slides/images", full.names = T, recursive = T, include.dirs = F),
+  "DESCRIPTION"
 )
 # Exclude genetics files -- too big
 common_to_all <- common_to_all[!str_detect(common_to_all, "PANCAN")]
@@ -60,7 +64,8 @@ common_to_all <- c(
   "r-pkg-deps.R",
   "slide-style-setup.R",
   "slides/_metadata.yml",
-  "SISBID.Rproj"
+  "SISBID.Rproj",
+  "DESCRIPTION"
 )
 
 # Create zip files
