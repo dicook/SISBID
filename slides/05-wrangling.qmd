@@ -133,9 +133,9 @@ french_fries |>
 
 ## Let's use these tools
 
-to answer these french fry experiment questions:
+to answer the last of the french fry experiment questions:
 
-- Is the design complete?
+- **Is the design complete?**
 - Are replicates like each other? 
 - How do the ratings on the different scales differ?
 - Are raters giving different scores on average?
@@ -183,68 +183,61 @@ french_fries |>
   pivot_wider(names_from="time", values_from="n")
 ```
 
-## How do scores change over time?
 
-::: panel-tabset
-### Code{-}
-
-```{r}
-#| label: do-scores-change-over-time
-#| fig-show: hide
-ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) +
-  geom_point() +
-  facet_grid(subject~type) 
-```
-
-### Plot {-}
-```{r}
-#| echo: false
-#| ref-label: do-scores-change-over-time
-#| fig-width: 12
-#| fig-height: 9
-#| out-width: 80%
-```
-
-:::
-
-## Your Turn {.inverse}
-
-Get summary of ratings over replicates and connect the dots for a picture as below:
-
-```{r}
-#| echo: false
-#| fig-width: 12
-#| fig-height: 9
-#| out-width: 60%
-ff_av <- ff_long |> 
-  group_by(subject, time, type, treatment) |>
-  summarise(rating=mean(rating))
-
-ggplot(data=ff_long, aes(x=time, y=rating, colour=treatment)) + 
-  facet_grid(subject~type) +
-  geom_line(data=ff_av, aes(group=treatment))
-```
-
-::: {.content-visible when-format="revealjs"}
-`r countdown::countdown(5, 0)`
-:::
-
-## Models and model output
+## Models and model output {.smaller}
 
 Functions such as `lm`, `glm`, `lmer`, `glmmTMB` ... allow us to fit models
 
-e.g. fit french fry rating with respect to all designed main effects:
+e.g. fit french fry rating over time for each of the sensory scales:
+
+```{r}
+#| fig-height: 4
+ff_long <- ff_long |> mutate(time = as.numeric(time))
+ff_long |> 
+  ggplot(aes(x = time, y = rating)) + 
+  geom_point() + 
+  geom_smooth(method="lm") + 
+  facet_grid(~type)
+```
+
+## Linear Model {.smaller}
 
 ```{r}
 #| label: models and model output
 
-ff_lm <- lm(rating~type+treatment+time+subject, 
+ff_lm <- lm(rating~type-1+as.numeric(time):type, data = ff_long)
+summary(ff_lm)
+```
+
+## The Same Linear Model {.smaller}
+
+```{r}
+ff_lm2 <- lm(rating~type*as.numeric(time), data = ff_long)
+summary(ff_lm2)
+```
+
+## Modelling Treatment {.smaller}
+
+```{r}
+ff_lm_trt <- lm(rating~treatment:(type-1+as.numeric(time):type), 
 data=ff_long)
 ```
 
-##
+```{r}
+#| fig-height: 4
+ff_long |> 
+  ggplot(aes(x = time, y = rating)) + 
+  geom_point() + 
+  geom_smooth(aes(colour = treatment), 
+              method="lm", se=FALSE, linewidth = 1.5) + 
+  facet_grid(~type)
+```
 
-`summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
+## Generally ... {.smaller}
+
+- Lots of models
+
+- `summary`, `str`, `resid`, `fitted`, `coef`, ... allow us to extract different parts of a model for a linear model. Other model functions work differently ... major headaches!
 
 ```{r}
 #| label: examine the model fit
@@ -300,7 +293,7 @@ Add random intercepts for each subject
 ```{r}
 #| label: add random intercepts for each subject
 #| results: hide
-fries_lmer <- lmer(rating~type+treatment+time + ( 1 | subject ), 
+fries_lmer <- lmer(rating ~ type-1+as.numeric(time):type + ( 1 | subject ), 
 data = ff_long)
 ```
 
@@ -313,8 +306,7 @@ The `broom.mixed` package provides similar functionality to mixed effects models
 
 - Try out the functionality of `broom.mixed` on each level: model, parameters, and data
 - Augment the `ff_long` data with the model diagnostics
-- Plot the residuals from the random effects model
-- Plot fitted values against observed values
+- Plot fitted values of the linear model against fitted values of the mixed effects model
 
 ::: {.content-visible when-format="revealjs"}
 `r countdown::countdown(5)`
