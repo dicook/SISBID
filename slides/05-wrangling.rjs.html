@@ -330,9 +330,9 @@
 </section>
 <section id="lets-use-these-tools" class="slide level2">
 <h2>Let’s use these tools</h2>
-<p>to answer these french fry experiment questions:</p>
+<p>to answer the last of the french fry experiment questions:</p>
 <ul>
-<li>Is the design complete?</li>
+<li><strong>Is the design complete?</strong></li>
 <li>Are replicates like each other?</li>
 <li>How do the ratings on the different scales differ?</li>
 <li>Are raters giving different scores on average?</li>
@@ -349,7 +349,7 @@
 <section id="your-turn" class="slide level2 inverse">
 <h2>Your turn</h2>
 <p>How many values do we have for each subject? Check the help for function <code>?n</code></p>
-<p><countdown-timer class="countdown" id="timer_1103b158" minutes="2" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_6ff2ad3d" minutes="2" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="french-fries---completeness" class="slide level2">
 <h2>French Fries - completeness</h2>
@@ -407,104 +407,151 @@
 <span id="cb8-19"><a></a><span class="dv">12</span> <span class="dv">86</span>          <span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">6</span>    <span class="cn">NA</span>     <span class="dv">6</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="how-do-scores-change-over-time" class="slide level2">
-<h2>How do scores change over time?</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Plot</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>ff_long, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>rating, <span class="at">colour=</span>treatment)) <span class="sc">+</span></span>
-<span id="cb9-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb9-3"><a></a>  <span class="fu">facet_grid</span>(subject<span class="sc">~</span>type) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div id="tabset-1-2">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="05-wrangling_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="05-wrangling_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="your-turn-1" class="slide level2 inverse">
-<h2>Your Turn</h2>
-<p>Get summary of ratings over replicates and connect the dots for a picture as below:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="05-wrangling_files/figure-revealjs/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="05-wrangling_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p><countdown-timer class="countdown" id="timer_813e7f97" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
-</section>
-<section id="models-and-model-output" class="slide level2">
+<section id="models-and-model-output" class="slide level2 smaller">
 <h2>Models and model output</h2>
 <p>Functions such as <code>lm</code>, <code>glm</code>, <code>lmer</code>, <code>glmmTMB</code> … allow us to fit models</p>
-<p>e.g.&nbsp;fit french fry rating with respect to all designed main effects:</p>
+<p>e.g.&nbsp;fit french fry rating over time for each of the sensory scales:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>ff_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(rating<span class="sc">~</span>type<span class="sc">+</span>treatment<span class="sc">+</span>time<span class="sc">+</span>subject, </span>
-<span id="cb10-2"><a></a><span class="at">data=</span>ff_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>ff_long <span class="ot">&lt;-</span> ff_long <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(time))</span>
+<span id="cb9-2"><a></a>ff_long <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> rating)) <span class="sc">+</span> </span>
+<span id="cb9-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb9-5"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb9-6"><a></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="05-wrangling_files/figure-revealjs/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="05-wrangling_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" width="1152"></a></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<p><code>summary</code>, <code>str</code>, <code>resid</code>, <code>fitted</code>, <code>coef</code>, … allow us to extract different parts of a model for a linear model. Other model functions work differently … major headaches!</p>
+<section id="linear-model" class="slide level2 smaller">
+<h2>Linear Model</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">summary</span>(ff_lm)</span>
-<span id="cb11-2"><a></a></span>
-<span id="cb11-3"><a></a>Call<span class="sc">:</span></span>
-<span id="cb11-4"><a></a><span class="fu">lm</span>(<span class="at">formula =</span> rating <span class="sc">~</span> type <span class="sc">+</span> treatment <span class="sc">+</span> time <span class="sc">+</span> subject, <span class="at">data =</span> ff_long)</span>
-<span id="cb11-5"><a></a></span>
-<span id="cb11-6"><a></a>Residuals<span class="sc">:</span></span>
-<span id="cb11-7"><a></a>    Min      <span class="dv">1</span>Q  Median      <span class="dv">3</span>Q     Max </span>
-<span id="cb11-8"><a></a><span class="sc">-</span><span class="fl">7.0729</span> <span class="sc">-</span><span class="fl">1.9674</span> <span class="sc">-</span><span class="fl">0.4644</span>  <span class="fl">1.5202</span> <span class="fl">10.2192</span> </span>
-<span id="cb11-9"><a></a></span>
-<span id="cb11-10"><a></a>Coefficients<span class="sc">:</span></span>
-<span id="cb11-11"><a></a>            Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
-<span id="cb11-12"><a></a>(Intercept)  <span class="fl">1.19851</span>    <span class="fl">0.25792</span>   <span class="fl">4.647</span> <span class="fl">3.50e-06</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-13"><a></a>typegrassy  <span class="sc">-</span><span class="fl">1.15513</span>    <span class="fl">0.15572</span>  <span class="sc">-</span><span class="fl">7.418</span> <span class="fl">1.49e-13</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-14"><a></a>typepainty   <span class="fl">0.70055</span>    <span class="fl">0.15577</span>   <span class="fl">4.497</span> <span class="fl">7.11e-06</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-15"><a></a>typepotato   <span class="fl">5.13322</span>    <span class="fl">0.15572</span>  <span class="fl">32.964</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-16"><a></a>typerancid   <span class="fl">2.03293</span>    <span class="fl">0.15572</span>  <span class="fl">13.055</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-17"><a></a>treatment2  <span class="sc">-</span><span class="fl">0.05128</span>    <span class="fl">0.12051</span>  <span class="sc">-</span><span class="fl">0.426</span>   <span class="fl">0.6705</span>    </span>
-<span id="cb11-18"><a></a>treatment3  <span class="sc">-</span><span class="fl">0.04546</span>    <span class="fl">0.12056</span>  <span class="sc">-</span><span class="fl">0.377</span>   <span class="fl">0.7062</span>    </span>
-<span id="cb11-19"><a></a>time2        <span class="fl">0.10194</span>    <span class="fl">0.21613</span>   <span class="fl">0.472</span>   <span class="fl">0.6372</span>    </span>
-<span id="cb11-20"><a></a>time3       <span class="sc">-</span><span class="fl">0.01361</span>    <span class="fl">0.21613</span>  <span class="sc">-</span><span class="fl">0.063</span>   <span class="fl">0.9498</span>    </span>
-<span id="cb11-21"><a></a>time4       <span class="sc">-</span><span class="fl">0.10250</span>    <span class="fl">0.21613</span>  <span class="sc">-</span><span class="fl">0.474</span>   <span class="fl">0.6353</span>    </span>
-<span id="cb11-22"><a></a>time5       <span class="sc">-</span><span class="fl">0.13301</span>    <span class="fl">0.21690</span>  <span class="sc">-</span><span class="fl">0.613</span>   <span class="fl">0.5398</span>    </span>
-<span id="cb11-23"><a></a>time6       <span class="sc">-</span><span class="fl">0.04611</span>    <span class="fl">0.21613</span>  <span class="sc">-</span><span class="fl">0.213</span>   <span class="fl">0.8311</span>    </span>
-<span id="cb11-24"><a></a>time7       <span class="sc">-</span><span class="fl">0.24621</span>    <span class="fl">0.21628</span>  <span class="sc">-</span><span class="fl">1.138</span>   <span class="fl">0.2550</span>    </span>
-<span id="cb11-25"><a></a>time8       <span class="sc">-</span><span class="fl">0.11626</span>    <span class="fl">0.21658</span>  <span class="sc">-</span><span class="fl">0.537</span>   <span class="fl">0.5914</span>    </span>
-<span id="cb11-26"><a></a>time9        <span class="fl">0.13188</span>    <span class="fl">0.22783</span>   <span class="fl">0.579</span>   <span class="fl">0.5627</span>    </span>
-<span id="cb11-27"><a></a>time10       <span class="fl">0.54635</span>    <span class="fl">0.22783</span>   <span class="fl">2.398</span>   <span class="fl">0.0165</span> <span class="sc">*</span>  </span>
-<span id="cb11-28"><a></a>subject10    <span class="fl">1.71451</span>    <span class="fl">0.24389</span>   <span class="fl">7.030</span> <span class="fl">2.48e-12</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-29"><a></a>subject15   <span class="sc">-</span><span class="fl">0.35911</span>    <span class="fl">0.24489</span>  <span class="sc">-</span><span class="fl">1.466</span>   <span class="fl">0.1426</span>    </span>
-<span id="cb11-30"><a></a>subject16    <span class="fl">0.47519</span>    <span class="fl">0.24408</span>   <span class="fl">1.947</span>   <span class="fl">0.0516</span> .  </span>
-<span id="cb11-31"><a></a>subject19    <span class="fl">2.01651</span>    <span class="fl">0.24389</span>   <span class="fl">8.268</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-32"><a></a>subject31    <span class="fl">1.49284</span>    <span class="fl">0.25098</span>   <span class="fl">5.948</span> <span class="fl">2.98e-09</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-33"><a></a>subject51    <span class="fl">1.87284</span>    <span class="fl">0.24389</span>   <span class="fl">7.679</span> <span class="fl">2.07e-14</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-34"><a></a>subject52    <span class="fl">0.19484</span>    <span class="fl">0.24389</span>   <span class="fl">0.799</span>   <span class="fl">0.4244</span>    </span>
-<span id="cb11-35"><a></a>subject63    <span class="fl">0.96051</span>    <span class="fl">0.24389</span>   <span class="fl">3.938</span> <span class="fl">8.37e-05</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb11-36"><a></a>subject78   <span class="sc">-</span><span class="fl">0.58283</span>    <span class="fl">0.24389</span>  <span class="sc">-</span><span class="fl">2.390</span>   <span class="fl">0.0169</span> <span class="sc">*</span>  </span>
-<span id="cb11-37"><a></a>subject79   <span class="sc">-</span><span class="fl">0.53702</span>    <span class="fl">0.25027</span>  <span class="sc">-</span><span class="fl">2.146</span>   <span class="fl">0.0320</span> <span class="sc">*</span>  </span>
-<span id="cb11-38"><a></a>subject86    <span class="fl">0.43543</span>    <span class="fl">0.25098</span>   <span class="fl">1.735</span>   <span class="fl">0.0828</span> .  </span>
-<span id="cb11-39"><a></a><span class="sc">---</span></span>
-<span id="cb11-40"><a></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
-<span id="cb11-41"><a></a></span>
-<span id="cb11-42"><a></a>Residual standard error<span class="sc">:</span> <span class="fl">2.9</span> on <span class="dv">3444</span> degrees of freedom</span>
-<span id="cb11-43"><a></a>  (<span class="dv">9</span> observations deleted due to missingness)</span>
-<span id="cb11-44"><a></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.3995</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.395</span> </span>
-<span id="cb11-45"><a></a>F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">88.13</span> on <span class="dv">26</span> and <span class="dv">3444</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>ff_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(rating<span class="sc">~</span>type<span class="dv">-1</span><span class="sc">+</span><span class="fu">as.numeric</span>(time)<span class="sc">:</span>type, <span class="at">data =</span> ff_long)</span>
+<span id="cb10-2"><a></a><span class="fu">summary</span>(ff_lm)</span>
+<span id="cb10-3"><a></a></span>
+<span id="cb10-4"><a></a>Call<span class="sc">:</span></span>
+<span id="cb10-5"><a></a><span class="fu">lm</span>(<span class="at">formula =</span> rating <span class="sc">~</span> type <span class="sc">-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(time)<span class="sc">:</span>type, <span class="at">data =</span> ff_long)</span>
+<span id="cb10-6"><a></a></span>
+<span id="cb10-7"><a></a>Residuals<span class="sc">:</span></span>
+<span id="cb10-8"><a></a>    Min      <span class="dv">1</span>Q  Median      <span class="dv">3</span>Q     Max </span>
+<span id="cb10-9"><a></a><span class="sc">-</span><span class="fl">7.3463</span> <span class="sc">-</span><span class="fl">1.7771</span> <span class="sc">-</span><span class="fl">0.6146</span>  <span class="fl">1.5262</span> <span class="fl">10.6542</span> </span>
+<span id="cb10-10"><a></a></span>
+<span id="cb10-11"><a></a>Coefficients<span class="sc">:</span></span>
+<span id="cb10-12"><a></a>                             Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb10-13"><a></a>typebuttery                   <span class="fl">2.43478</span>    <span class="fl">0.23912</span>  <span class="fl">10.182</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb10-14"><a></a>typegrassy                    <span class="fl">1.08121</span>    <span class="fl">0.23907</span>   <span class="fl">4.523</span> <span class="fl">6.31e-06</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb10-15"><a></a>typepainty                    <span class="fl">0.38065</span>    <span class="fl">0.23909</span>   <span class="fl">1.592</span>  <span class="fl">0.11146</span>    </span>
+<span id="cb10-16"><a></a>typepotato                    <span class="fl">8.91167</span>    <span class="fl">0.23907</span>  <span class="fl">37.276</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb10-17"><a></a>typerancid                    <span class="fl">2.24631</span>    <span class="fl">0.23907</span>   <span class="fl">9.396</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb10-18"><a></a>typebuttery<span class="sc">:</span><span class="fu">as.numeric</span>(time) <span class="sc">-</span><span class="fl">0.11416</span>    <span class="fl">0.03951</span>  <span class="sc">-</span><span class="fl">2.890</span>  <span class="fl">0.00388</span> <span class="sc">**</span> </span>
+<span id="cb10-19"><a></a>typegrassy<span class="sc">:</span><span class="fu">as.numeric</span>(time)  <span class="sc">-</span><span class="fl">0.07777</span>    <span class="fl">0.03945</span>  <span class="sc">-</span><span class="fl">1.971</span>  <span class="fl">0.04877</span> <span class="sc">*</span>  </span>
+<span id="cb10-20"><a></a>typepainty<span class="sc">:</span><span class="fu">as.numeric</span>(time)   <span class="fl">0.39955</span>    <span class="fl">0.03948</span>  <span class="fl">10.122</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb10-21"><a></a>typepotato<span class="sc">:</span><span class="fu">as.numeric</span>(time)  <span class="sc">-</span><span class="fl">0.36534</span>    <span class="fl">0.03945</span>  <span class="sc">-</span><span class="fl">9.261</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb10-22"><a></a>typerancid<span class="sc">:</span><span class="fu">as.numeric</span>(time)   <span class="fl">0.29947</span>    <span class="fl">0.03945</span>   <span class="fl">7.591</span> <span class="fl">4.06e-14</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb10-23"><a></a><span class="sc">---</span></span>
+<span id="cb10-24"><a></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb10-25"><a></a></span>
+<span id="cb10-26"><a></a>Residual standard error<span class="sc">:</span> <span class="fl">2.935</span> on <span class="dv">3461</span> degrees of freedom</span>
+<span id="cb10-27"><a></a>  (<span class="dv">9</span> observations deleted due to missingness)</span>
+<span id="cb10-28"><a></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6406</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6395</span> </span>
+<span id="cb10-29"><a></a>F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">616.9</span> on <span class="dv">10</span> and <span class="dv">3461</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-same-linear-model" class="slide level2 smaller">
+<h2>The Same Linear Model</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>ff_lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(rating<span class="sc">~</span>type<span class="sc">*</span><span class="fu">as.numeric</span>(time), <span class="at">data =</span> ff_long)</span>
+<span id="cb11-2"><a></a><span class="fu">summary</span>(ff_lm2)</span>
+<span id="cb11-3"><a></a></span>
+<span id="cb11-4"><a></a>Call<span class="sc">:</span></span>
+<span id="cb11-5"><a></a><span class="fu">lm</span>(<span class="at">formula =</span> rating <span class="sc">~</span> type <span class="sc">*</span> <span class="fu">as.numeric</span>(time), <span class="at">data =</span> ff_long)</span>
+<span id="cb11-6"><a></a></span>
+<span id="cb11-7"><a></a>Residuals<span class="sc">:</span></span>
+<span id="cb11-8"><a></a>    Min      <span class="dv">1</span>Q  Median      <span class="dv">3</span>Q     Max </span>
+<span id="cb11-9"><a></a><span class="sc">-</span><span class="fl">7.3463</span> <span class="sc">-</span><span class="fl">1.7771</span> <span class="sc">-</span><span class="fl">0.6146</span>  <span class="fl">1.5262</span> <span class="fl">10.6542</span> </span>
+<span id="cb11-10"><a></a></span>
+<span id="cb11-11"><a></a>Coefficients<span class="sc">:</span></span>
+<span id="cb11-12"><a></a>                            Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb11-13"><a></a>(Intercept)                  <span class="fl">2.43478</span>    <span class="fl">0.23912</span>  <span class="fl">10.182</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb11-14"><a></a>typegrassy                  <span class="sc">-</span><span class="fl">1.35357</span>    <span class="fl">0.33813</span>  <span class="sc">-</span><span class="fl">4.003</span> <span class="fl">6.38e-05</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb11-15"><a></a>typepainty                  <span class="sc">-</span><span class="fl">2.05413</span>    <span class="fl">0.33814</span>  <span class="sc">-</span><span class="fl">6.075</span> <span class="fl">1.38e-09</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb11-16"><a></a>typepotato                   <span class="fl">6.47690</span>    <span class="fl">0.33813</span>  <span class="fl">19.155</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb11-17"><a></a>typerancid                  <span class="sc">-</span><span class="fl">0.18846</span>    <span class="fl">0.33813</span>  <span class="sc">-</span><span class="fl">0.557</span>  <span class="fl">0.57731</span>    </span>
+<span id="cb11-18"><a></a><span class="fu">as.numeric</span>(time)            <span class="sc">-</span><span class="fl">0.11416</span>    <span class="fl">0.03951</span>  <span class="sc">-</span><span class="fl">2.890</span>  <span class="fl">0.00388</span> <span class="sc">**</span> </span>
+<span id="cb11-19"><a></a>typegrassy<span class="sc">:</span><span class="fu">as.numeric</span>(time)  <span class="fl">0.03640</span>    <span class="fl">0.05583</span>   <span class="fl">0.652</span>  <span class="fl">0.51452</span>    </span>
+<span id="cb11-20"><a></a>typepainty<span class="sc">:</span><span class="fu">as.numeric</span>(time)  <span class="fl">0.51372</span>    <span class="fl">0.05585</span>   <span class="fl">9.198</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb11-21"><a></a>typepotato<span class="sc">:</span><span class="fu">as.numeric</span>(time) <span class="sc">-</span><span class="fl">0.25117</span>    <span class="fl">0.05583</span>  <span class="sc">-</span><span class="fl">4.499</span> <span class="fl">7.06e-06</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb11-22"><a></a>typerancid<span class="sc">:</span><span class="fu">as.numeric</span>(time)  <span class="fl">0.41363</span>    <span class="fl">0.05583</span>   <span class="fl">7.408</span> <span class="fl">1.60e-13</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb11-23"><a></a><span class="sc">---</span></span>
+<span id="cb11-24"><a></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb11-25"><a></a></span>
+<span id="cb11-26"><a></a>Residual standard error<span class="sc">:</span> <span class="fl">2.935</span> on <span class="dv">3461</span> degrees of freedom</span>
+<span id="cb11-27"><a></a>  (<span class="dv">9</span> observations deleted due to missingness)</span>
+<span id="cb11-28"><a></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.3816</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>   <span class="fl">0.38</span> </span>
+<span id="cb11-29"><a></a>F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">237.3</span> on <span class="dv">9</span> and <span class="dv">3461</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="modelling-treatment" class="slide level2 smaller">
+<h2>Modelling Treatment</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>ff_lm_trt <span class="ot">&lt;-</span> <span class="fu">lm</span>(rating<span class="sc">~</span>treatment<span class="sc">:</span>(type<span class="dv">-1</span><span class="sc">+</span><span class="fu">as.numeric</span>(time)<span class="sc">:</span>type), </span>
+<span id="cb12-2"><a></a><span class="at">data=</span>ff_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>ff_long <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> rating)) <span class="sc">+</span> </span>
+<span id="cb13-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb13-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">colour =</span> treatment), </span>
+<span id="cb13-5"><a></a>              <span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb13-6"><a></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="05-wrangling_files/figure-revealjs/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="05-wrangling_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" width="1152"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="generally" class="slide level2 smaller">
+<h2>Generally …</h2>
+<ul>
+<li><p>Lots of models</p></li>
+<li><p><code>summary</code>, <code>str</code>, <code>resid</code>, <code>fitted</code>, <code>coef</code>, … allow us to extract different parts of a model for a linear model. Other model functions work differently … major headaches!</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">summary</span>(ff_lm)</span>
+<span id="cb14-2"><a></a></span>
+<span id="cb14-3"><a></a>Call<span class="sc">:</span></span>
+<span id="cb14-4"><a></a><span class="fu">lm</span>(<span class="at">formula =</span> rating <span class="sc">~</span> type <span class="sc">-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(time)<span class="sc">:</span>type, <span class="at">data =</span> ff_long)</span>
+<span id="cb14-5"><a></a></span>
+<span id="cb14-6"><a></a>Residuals<span class="sc">:</span></span>
+<span id="cb14-7"><a></a>    Min      <span class="dv">1</span>Q  Median      <span class="dv">3</span>Q     Max </span>
+<span id="cb14-8"><a></a><span class="sc">-</span><span class="fl">7.3463</span> <span class="sc">-</span><span class="fl">1.7771</span> <span class="sc">-</span><span class="fl">0.6146</span>  <span class="fl">1.5262</span> <span class="fl">10.6542</span> </span>
+<span id="cb14-9"><a></a></span>
+<span id="cb14-10"><a></a>Coefficients<span class="sc">:</span></span>
+<span id="cb14-11"><a></a>                             Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb14-12"><a></a>typebuttery                   <span class="fl">2.43478</span>    <span class="fl">0.23912</span>  <span class="fl">10.182</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb14-13"><a></a>typegrassy                    <span class="fl">1.08121</span>    <span class="fl">0.23907</span>   <span class="fl">4.523</span> <span class="fl">6.31e-06</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb14-14"><a></a>typepainty                    <span class="fl">0.38065</span>    <span class="fl">0.23909</span>   <span class="fl">1.592</span>  <span class="fl">0.11146</span>    </span>
+<span id="cb14-15"><a></a>typepotato                    <span class="fl">8.91167</span>    <span class="fl">0.23907</span>  <span class="fl">37.276</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb14-16"><a></a>typerancid                    <span class="fl">2.24631</span>    <span class="fl">0.23907</span>   <span class="fl">9.396</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb14-17"><a></a>typebuttery<span class="sc">:</span><span class="fu">as.numeric</span>(time) <span class="sc">-</span><span class="fl">0.11416</span>    <span class="fl">0.03951</span>  <span class="sc">-</span><span class="fl">2.890</span>  <span class="fl">0.00388</span> <span class="sc">**</span> </span>
+<span id="cb14-18"><a></a>typegrassy<span class="sc">:</span><span class="fu">as.numeric</span>(time)  <span class="sc">-</span><span class="fl">0.07777</span>    <span class="fl">0.03945</span>  <span class="sc">-</span><span class="fl">1.971</span>  <span class="fl">0.04877</span> <span class="sc">*</span>  </span>
+<span id="cb14-19"><a></a>typepainty<span class="sc">:</span><span class="fu">as.numeric</span>(time)   <span class="fl">0.39955</span>    <span class="fl">0.03948</span>  <span class="fl">10.122</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb14-20"><a></a>typepotato<span class="sc">:</span><span class="fu">as.numeric</span>(time)  <span class="sc">-</span><span class="fl">0.36534</span>    <span class="fl">0.03945</span>  <span class="sc">-</span><span class="fl">9.261</span>  <span class="sc">&lt;</span> <span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb14-21"><a></a>typerancid<span class="sc">:</span><span class="fu">as.numeric</span>(time)   <span class="fl">0.29947</span>    <span class="fl">0.03945</span>   <span class="fl">7.591</span> <span class="fl">4.06e-14</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb14-22"><a></a><span class="sc">---</span></span>
+<span id="cb14-23"><a></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb14-24"><a></a></span>
+<span id="cb14-25"><a></a>Residual standard error<span class="sc">:</span> <span class="fl">2.935</span> on <span class="dv">3461</span> degrees of freedom</span>
+<span id="cb14-26"><a></a>  (<span class="dv">9</span> observations deleted due to missingness)</span>
+<span id="cb14-27"><a></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6406</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6395</span> </span>
+<span id="cb14-28"><a></a>F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">616.9</span> on <span class="dv">10</span> and <span class="dv">3461</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="tidying-model-output" class="slide level2">
@@ -519,55 +566,53 @@
 <section id="goodness-of-fit-statistics-glance" class="slide level2">
 <h2>Goodness of fit statistics: <code>glance</code></h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">glance</span>(ff_lm)</span>
-<span id="cb12-2"><a></a><span class="co"># A tibble: 1 × 12</span></span>
-<span id="cb12-3"><a></a>  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC</span>
-<span id="cb12-4"><a></a>      <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb12-5"><a></a><span class="dv">1</span>     <span class="fl">0.400</span>         <span class="fl">0.395</span>  <span class="fl">2.90</span>      <span class="fl">88.1</span>       <span class="dv">0</span>    <span class="dv">26</span> <span class="sc">-</span><span class="fl">8607.</span> <span class="fl">17270.</span> <span class="fl">17442.</span></span>
-<span id="cb12-6"><a></a><span class="co"># ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">glance</span>(ff_lm)</span>
+<span id="cb15-2"><a></a><span class="co"># A tibble: 1 × 12</span></span>
+<span id="cb15-3"><a></a>  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC</span>
+<span id="cb15-4"><a></a>      <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb15-5"><a></a><span class="dv">1</span>     <span class="fl">0.641</span>         <span class="fl">0.640</span>  <span class="fl">2.94</span>      <span class="fl">617.</span>       <span class="dv">0</span>    <span class="dv">10</span> <span class="sc">-</span><span class="fl">8658.</span> <span class="fl">17338.</span> <span class="fl">17405.</span></span>
+<span id="cb15-6"><a></a><span class="co"># ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="model-estimates-tidy" class="slide level2">
 <h2>Model estimates: <code>tidy</code></h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>ff_lm_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ff_lm)</span>
-<span id="cb13-2"><a></a><span class="fu">head</span>(ff_lm_tidy)</span>
-<span id="cb13-3"><a></a><span class="co"># A tibble: 6 × 5</span></span>
-<span id="cb13-4"><a></a>  term        estimate std.error statistic   p.value</span>
-<span id="cb13-5"><a></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>          <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb13-6"><a></a><span class="dv">1</span> (Intercept)   <span class="fl">1.20</span>       <span class="fl">0.258</span>     <span class="fl">4.65</span>  <span class="fl">3.50</span>e<span class="sc">-</span>  <span class="dv">6</span></span>
-<span id="cb13-7"><a></a><span class="dv">2</span> typegrassy   <span class="sc">-</span><span class="fl">1.16</span>       <span class="fl">0.156</span>    <span class="sc">-</span><span class="fl">7.42</span>  <span class="fl">1.49</span>e<span class="sc">-</span> <span class="dv">13</span></span>
-<span id="cb13-8"><a></a><span class="dv">3</span> typepainty    <span class="fl">0.701</span>      <span class="fl">0.156</span>     <span class="fl">4.50</span>  <span class="fl">7.11</span>e<span class="sc">-</span>  <span class="dv">6</span></span>
-<span id="cb13-9"><a></a><span class="dv">4</span> typepotato    <span class="fl">5.13</span>       <span class="fl">0.156</span>    <span class="fl">33.0</span>   <span class="fl">2.28e-207</span></span>
-<span id="cb13-10"><a></a><span class="dv">5</span> typerancid    <span class="fl">2.03</span>       <span class="fl">0.156</span>    <span class="fl">13.1</span>   <span class="fl">4.69</span>e<span class="sc">-</span> <span class="dv">38</span></span>
-<span id="cb13-11"><a></a><span class="dv">6</span> treatment2   <span class="sc">-</span><span class="fl">0.0513</span>     <span class="fl">0.121</span>    <span class="sc">-</span><span class="fl">0.426</span> <span class="fl">6.70</span>e<span class="sc">-</span>  <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>ff_lm_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(ff_lm)</span>
+<span id="cb16-2"><a></a><span class="fu">head</span>(ff_lm_tidy)</span>
+<span id="cb16-3"><a></a><span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb16-4"><a></a>  term                         estimate std.error statistic   p.value</span>
+<span id="cb16-5"><a></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                           <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb16-6"><a></a><span class="dv">1</span> typebuttery                     <span class="fl">2.43</span>     <span class="fl">0.239</span>      <span class="fl">10.2</span>  <span class="fl">5.16</span>e<span class="sc">-</span> <span class="dv">24</span></span>
+<span id="cb16-7"><a></a><span class="dv">2</span> typegrassy                      <span class="fl">1.08</span>     <span class="fl">0.239</span>       <span class="fl">4.52</span> <span class="fl">6.31</span>e<span class="sc">-</span>  <span class="dv">6</span></span>
+<span id="cb16-8"><a></a><span class="dv">3</span> typepainty                      <span class="fl">0.381</span>    <span class="fl">0.239</span>       <span class="fl">1.59</span> <span class="fl">1.11</span>e<span class="sc">-</span>  <span class="dv">1</span></span>
+<span id="cb16-9"><a></a><span class="dv">4</span> typepotato                      <span class="fl">8.91</span>     <span class="fl">0.239</span>      <span class="fl">37.3</span>  <span class="fl">5.41e-256</span></span>
+<span id="cb16-10"><a></a><span class="dv">5</span> typerancid                      <span class="fl">2.25</span>     <span class="fl">0.239</span>       <span class="fl">9.40</span> <span class="fl">9.98</span>e<span class="sc">-</span> <span class="dv">21</span></span>
+<span id="cb16-11"><a></a><span class="dv">6</span> typebuttery<span class="sc">:</span><span class="fu">as.numeric</span>(time)   <span class="sc">-</span><span class="fl">0.114</span>    <span class="fl">0.0395</span>     <span class="sc">-</span><span class="fl">2.89</span> <span class="fl">3.88</span>e<span class="sc">-</span>  <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="model-diagnostics-augment" class="slide level2">
 <h2>Model diagnostics: <code>augment</code></h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>ff_lm_all <span class="ot">&lt;-</span> <span class="fu">augment</span>(ff_lm)</span>
-<span id="cb14-2"><a></a><span class="fu">glimpse</span>(ff_lm_all)</span>
-<span id="cb14-3"><a></a>Rows<span class="sc">:</span> <span class="dv">3</span>,<span class="dv">471</span></span>
-<span id="cb14-4"><a></a>Columns<span class="sc">:</span> <span class="dv">12</span></span>
-<span id="cb14-5"><a></a><span class="sc">$</span> .rownames  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>, <span class="st">"1…</span></span>
-<span id="cb14-6"><a></a><span class="st">$ rating     &lt;dbl&gt; 2.9, 0.0, 0.0, 0.0, 5.5, 14.0, 0.0, 0.0, 1.1, 0.0, 11.0, 6.…</span></span>
-<span id="cb14-7"><a></a><span class="st">$ type       &lt;chr&gt; "</span>potato<span class="st">", "</span>buttery<span class="st">", "</span>grassy<span class="st">", "</span>rancid<span class="st">", "</span>painty<span class="st">", "</span>potato<span class="st">"…</span></span>
-<span id="cb14-8"><a></a><span class="st">$ treatment  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
-<span id="cb14-9"><a></a><span class="st">$ time       &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
-<span id="cb14-10"><a></a><span class="st">$ subject    &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 10, 10, 10, 10, 10, 10, 1…</span></span>
-<span id="cb14-11"><a></a><span class="st">$ .fitted    &lt;dbl&gt; 6.33172754, 1.19851228, 0.04338221, 3.23143977, 1.89905775,…</span></span>
-<span id="cb14-12"><a></a><span class="st">$ .resid     &lt;dbl&gt; -3.43172754, -1.19851228, -0.04338221, -3.23143977, 3.60094…</span></span>
-<span id="cb14-13"><a></a><span class="st">$ .hat       &lt;dbl&gt; 0.007910376, 0.007911506, 0.007910376, 0.007910376, 0.00790…</span></span>
-<span id="cb14-14"><a></a><span class="st">$ .sigma     &lt;dbl&gt; 2.899486, 2.900008, 2.900081, 2.899554, 2.899426, 2.897111,…</span></span>
-<span id="cb14-15"><a></a><span class="st">$ .cooksd    &lt;dbl&gt; 4.169299e-04, 5.086106e-05, 6.662863e-08, 3.696831e-04, 4.5…</span></span>
-<span id="cb14-16"><a></a><span class="st">$ .std.resid &lt;dbl&gt; -1.18820206, -0.41497338, -0.01502067, -1.11885438, 1.24679…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>ff_lm_all <span class="ot">&lt;-</span> <span class="fu">augment</span>(ff_lm)</span>
+<span id="cb17-2"><a></a><span class="fu">glimpse</span>(ff_lm_all)</span>
+<span id="cb17-3"><a></a>Rows<span class="sc">:</span> <span class="dv">3</span>,<span class="dv">471</span></span>
+<span id="cb17-4"><a></a>Columns<span class="sc">:</span> <span class="dv">10</span></span>
+<span id="cb17-5"><a></a><span class="sc">$</span> .rownames          <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"10"</span>, …</span>
+<span id="cb17-6"><a></a><span class="sc">$</span> rating             <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">2.9</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">5.5</span>, <span class="fl">14.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">1.1</span>, <span class="fl">0.0</span>, …</span>
+<span id="cb17-7"><a></a><span class="sc">$</span> type               <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"potato"</span>, <span class="st">"buttery"</span>, <span class="st">"grassy"</span>, <span class="st">"rancid"</span>, <span class="st">"painty"</span>, …</span>
+<span id="cb17-8"><a></a><span class="sc">$</span> <span class="st">`</span><span class="at">as.numeric(time)</span><span class="st">`</span> <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, …</span>
+<span id="cb17-9"><a></a><span class="sc">$</span> .fitted            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">8.5463333</span>, <span class="fl">2.3206108</span>, <span class="fl">1.0034418</span>, <span class="fl">2.5457779</span>, <span class="fl">0.78019</span>…</span>
+<span id="cb17-10"><a></a><span class="sc">$</span> .resid             <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">5.6463333</span>, <span class="sc">-</span><span class="fl">2.3206108</span>, <span class="sc">-</span><span class="fl">1.0034418</span>, <span class="sc">-</span><span class="fl">2.5457779</span>, <span class="fl">4.7</span>…</span>
+<span id="cb17-11"><a></a><span class="sc">$</span> .hat               <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.004876355</span>, <span class="fl">0.004877198</span>, <span class="fl">0.004876355</span>, <span class="fl">0.004876355</span>,…</span>
+<span id="cb17-12"><a></a><span class="sc">$</span> .sigma             <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">2.934289</span>, <span class="fl">2.935600</span>, <span class="fl">2.935817</span>, <span class="fl">2.935546</span>, <span class="fl">2.934764</span>, <span class="dv">2</span>…</span>
+<span id="cb17-13"><a></a><span class="sc">$</span> .cooksd            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">1.821911e-03</span>, <span class="fl">3.078042e-04</span>, <span class="fl">5.754115e-05</span>, <span class="fl">3.703694</span>e…</span>
+<span id="cb17-14"><a></a><span class="sc">$</span> .std.resid         <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">1.92821044</span>, <span class="sc">-</span><span class="fl">0.79248385</span>, <span class="sc">-</span><span class="fl">0.34267319</span>, <span class="sc">-</span><span class="fl">0.86937756</span>,…</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="residual-plot" class="slide level2">
 <h2>Residual plot</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(ff_lm_all, <span class="fu">aes</span>(<span class="at">x=</span>.fitted, <span class="at">y=</span>.resid)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">ggplot</span>(ff_lm_all, <span class="fu">aes</span>(<span class="at">x=</span>.fitted, <span class="at">y=</span>.resid)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -581,11 +626,11 @@
 <h2>Adding random effects</h2>
 <p>Add random intercepts for each subject</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>fries_lmer <span class="ot">&lt;-</span> <span class="fu">lmer</span>(rating<span class="sc">~</span>type<span class="sc">+</span>treatment<span class="sc">+</span>time <span class="sc">+</span> ( <span class="dv">1</span> <span class="sc">|</span> subject ), </span>
-<span id="cb16-2"><a></a><span class="at">data =</span> ff_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>fries_lmer <span class="ot">&lt;-</span> <span class="fu">lmer</span>(rating <span class="sc">~</span> type<span class="dv">-1</span><span class="sc">+</span><span class="fu">as.numeric</span>(time)<span class="sc">:</span>type <span class="sc">+</span> ( <span class="dv">1</span> <span class="sc">|</span> subject ), </span>
+<span id="cb19-2"><a></a><span class="at">data =</span> ff_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="your-turn-2" class="slide level2 inverse">
+<section id="your-turn-1" class="slide level2 inverse">
 <h2>Your turn</h2>
 <ul>
 <li>Run the code of the examples so far</li>
@@ -594,10 +639,9 @@
 <ul>
 <li>Try out the functionality of <code>broom.mixed</code> on each level: model, parameters, and data</li>
 <li>Augment the <code>ff_long</code> data with the model diagnostics</li>
-<li>Plot the residuals from the random effects model</li>
-<li>Plot fitted values against observed values</li>
+<li>Plot fitted values of the linear model against fitted values of the mixed effects model</li>
 </ul>
-<p><countdown-timer class="countdown" id="timer_2f61d6bc" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_e63a97ec" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>

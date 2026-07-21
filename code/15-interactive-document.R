@@ -1,4 +1,4 @@
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| echo: false
 #| message: false
 #| warning: false
@@ -6,7 +6,7 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| label: load packages
 #| echo: false
 #library(tidyverse)
@@ -16,29 +16,29 @@ library(plotly)
 library(gganimate)
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| eval: false
 # install.packages("flexdashboard")
 
 
-## ### Chart 1
+### Chart 1
 
-## Column {data-width=600}
-## -------------------------------------
+Column {data-width=600}
+-------------------------------------
 
-## ---
-## title: "TB Incidence Around the Globe"
-## author: "Di Cook"
-## output: learnr::tutorial
-## runtime: shiny_prerendered
-## ---
+---
+title: "TB Incidence Around the Globe"
+author: "Di Cook"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
 
-## ## Data description
-## 
-## This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/),
-## the case notifications table. The data looks like this:
+## Data description
 
-## -----------------------------------------------------------------------------
+This is current tuberculosis data taken from [WHO](http://www.who.int/tb/country/data/download/en/), 
+the case notifications table. The data looks like this:
+
+## ---------------------------------------------------------------------------------
 #| eval: false
 #| echo: true
 # library(tidyverse)
@@ -49,7 +49,7 @@ library(gganimate)
 # datatable(tb)
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| eval: false
 # ggplot(tb, aes(x=year)) +
 #   geom_bar(aes(weight = e_inc_100k)) +
@@ -57,7 +57,7 @@ library(gganimate)
 #   ylab("TB incidence per 100k")
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| eval: false
 # library(learnr)
 # knitr::opts_chunk$set(
@@ -67,7 +67,7 @@ library(gganimate)
 #   error = FALSE)
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| eval: false
 # quiz(
 #   question("Which package contains functions for installing other R packages?",
@@ -79,7 +79,7 @@ library(gganimate)
 # )
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| eval: false
 # library(plotly)
 # p <- tb |>
@@ -89,14 +89,14 @@ library(gganimate)
 # ggplotly(p)
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| eval: false
 # set.seed(20190709)
 # emo::ji("fantasy")
 # emo::ji("clock")
 
 
-## -----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------
 #| eval: false
 # anicon::nia("You've got 30 seconds!", colour="#FA700A", anitype="hover")
 # anicon::faa("hand-paper", animate="spin", grow=20, color="#B78ED2",
