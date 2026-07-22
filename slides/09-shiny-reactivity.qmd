@@ -78,7 +78,7 @@ Called like a function as `rval()`
 - Turn on showcase mode:    
 ```{r}
 #| eval: false
-runApp("code/12-apps/03_submission/", 
+runApp("code/09-apps/03_submission/", 
        display.mode = "showcase")
 ```
 :::
@@ -297,7 +297,7 @@ Code: 05_tabsets.R
 
 ## Your Turn {.inverse}
 
-Modify the code in `05_tabsets.R` to use a `page_navbar()`. 
+Modify the code in `09-apps/05_tabsets.R` to use a `page_navbar()`. 
 
 - What modifications do you have to make?
 - Can you add a sidebar using the `sidebar()` function?
@@ -306,6 +306,16 @@ Modify the code in `05_tabsets.R` to use a `page_navbar()`.
 `r countdown::countdown(5)`
 :::
 
+## Big 24h Your turn {.inverse}
+
+- Make your own app, or interactive document, on a topic of your choice
+- Some ideas are data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday) or [fivethirtyeight](https://github.com/fivethirtyeight/data)
+- Your app could have 
+    - an interactive plot
+    - some GUI element like a menu or checkboxes
+    - some nice styling
+
+`r emo::ji("scream")` remember that LLMs are your friend - we will also monitor the chat and slack to help fix problems :)
 
 ## Resources {.smaller}
 
