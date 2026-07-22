@@ -112,11 +112,11 @@ Answers are in `03b_submission.R`
 ## Conditional Panels {.smaller}
 
 ::: columns
-::: column
-![Screenshot of the inputs without a conditional panel](images/without-conditional-panel.png){height = 80%}
-![Screenshot of the inputs with a conditional panel](images/with-conditional-panel.png)
+::: {.column width="40%"}
+![Screenshot of the inputs without a conditional panel](images/without-conditional-panel.png){height='80%'}
+![Screenshot of the inputs with a conditional panel](images/with-conditional-panel.png){height='80%'}
 :::
-::: column
+::: {.column width="60%"}
 - Showing a color picker before it is needed could confuse app users   
 - `conditionalPanel(condition, ...)` allows us to encapsulate elements of the UI and only show them when `condition` is fulfilled  
 - Here, a condition of `condition = 'input.submit > 0'` is true when the submit button was pressed at least once.  
@@ -145,7 +145,7 @@ card1 <- card(
 ```
 
 :::
-::: column
+::: {.column width="40%"}
 ![The app layout has 12 columns (width) and you can specify rows as well.](images/bslib-layout-cards-cols.svg)
 
 ![Row heights can be specified as well](images/bslib-layout-cards-rows.svg)
@@ -155,7 +155,7 @@ card1 <- card(
 ## Cards {.smaller}
 
 ::: columns
-::: column
+::: {.column width="60%"}
 [`04_layout.R`]{.move-up .center .huge}    
 
 - Cards help with structuring output
@@ -166,7 +166,7 @@ card1 <- card(
     - `?validStatuses`, represented by `xxx` above, are `primary`, `secondary`, `success`, `info`, `warning`, `danger`, `light`, `dark`
 
 :::
-::: column
+::: {.column width="40%"}
 [![Demonstration of an app with different box statuses](images/bslib-layout-cards-narrow.png)]{.move-up}
 :::
 :::
@@ -193,7 +193,7 @@ body <- page_fillable(
 )
 ```
 :::
-::: column
+::: {.column}
 [`04_layout2.R`]{.move-up .center .huge}    
 ![Nesting rows and columns](images/bslib-nested-col-layout.svg)
 :::
@@ -258,6 +258,7 @@ Code: 05_tabsets.R
 ### tab 2
 
 ![](images/bslib-navset-pill-list2.png)
+
 ### tab 3
 
 ![](images/bslib-navset-pill-list3.png)
@@ -271,18 +272,23 @@ Code: 05_tabsets.R
 ::: panel-tabset
 
 ### `navset_tab()`
+
 ![](images/bslib-tabset.png)
+
 ### `navset_pill()`
 
 ![](images/bslib-pill.png)
 ### `navset_bar()`
+
 ![](images/bslib-bar.png)
 ### `navset_pill_list()`
 
 ![](images/bslib-pill-list.png)
+
 ### `navset_card_tab()`
 
 ![](images/bslib-card-tab.png)
+
 ### `navset_card_pill()`
 
 ![](images/bslib-card-pill.png)
