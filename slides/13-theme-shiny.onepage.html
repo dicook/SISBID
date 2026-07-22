@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8f71e228eda6fa89fa3d4f69422fcf5e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-cafa593e26be327bc2059a7f50b10051.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-8f71e228eda6fa89fa3d4f69422fcf5e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7b7964222f0916e76229ac5cdc3f90ef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ca9789efead026066071a9657f8b0d82.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-7b7964222f0916e76229ac5cdc3f90ef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/line-highlight-1.0.0/line-highlight.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
@@ -466,7 +466,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Bootswatch provides preset themes</li>
 <li><code>bs_themer()</code> lets you choose interactively</li>
 </ul>
-<p>Try it out in <code>code/3.4-theme/bs_themer.R</code></p>
+<p>Try it out in <code>code/13-theme/bs_themer.R</code></p>
 <div class="quarto-layout-panel" data-layout-ncol="3">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
@@ -499,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="your-turn" class="level2 inverse smaller">
 <h2 class="inverse smaller anchored" data-anchor-id="your-turn">Your Turn</h2>
 <ul>
-<li>Run the code in <code>code/3.4-theme/bs_themer.R</code></li>
+<li>Run the code in <code>code/13-theme/bs_themer.R</code></li>
 <li>Pick a theme you like.</li>
 <li>Get the console output corresponding to that theme</li>
 <li>modify <code>bs_themed.R</code> to use your theme code</li>
@@ -546,7 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">a11y =</span> <span class="st">"deco"</span>) </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># marks icon as decorative </span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for screen readers</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>),</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column">
 <p><a href="images/navbar-icon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="images/navbar-icon.png" class="img-fluid"></a></p>
@@ -564,7 +564,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="2"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>side <span class="ot">&lt;-</span> <span class="fu">sidebar</span>(</span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="at">width =</span> <span class="st">"20%"</span>, <span class="fu">h2</span>(<span class="st">"Inputs"</span>), </span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">sliderInput</span>(</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="st">"mpg"</span>, <span class="at">label =</span> <span class="st">"MPG range"</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="fu">range</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="st">"mpg"</span>, <span class="at">label =</span> <span class="st">"MPG range"</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="fu">range</span>(mtcars<span class="sc">$</span>mpg),</span>
 <span id="cb3-5"><a href="#cb3-5"></a>    <span class="at">min =</span> <span class="fu">min</span>(<span class="fu">floor</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T), <span class="at">max =</span> <span class="fu">max</span>(<span class="fu">ceiling</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T),</span>
 <span id="cb3-6"><a href="#cb3-6"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>

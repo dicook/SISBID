@@ -226,7 +226,7 @@
 <li>Bootswatch provides preset themes</li>
 <li><code>bs_themer()</code> lets you choose interactively</li>
 </ul>
-<p>Try it out in <code>code/3.4-theme/bs_themer.R</code></p>
+<p>Try it out in <code>code/13-theme/bs_themer.R</code></p>
 <div class="quarto-layout-panel" data-layout-ncol="3">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
@@ -259,13 +259,13 @@
 <section id="your-turn" class="slide level2 inverse smaller">
 <h2>Your Turn</h2>
 <ul>
-<li>Run the code in <code>code/3.4-theme/bs_themer.R</code></li>
+<li>Run the code in <code>code/13-theme/bs_themer.R</code></li>
 <li>Pick a theme you like.</li>
 <li>Get the console output corresponding to that theme</li>
 <li>modify <code>bs_themed.R</code> to use your theme code</li>
 </ul>
 <p>Hint: Use the <code>theme = ...</code> argument in one of the <code>page_xxx</code> functions.</p>
-<p><countdown-timer class="countdown" id="timer_7a7834ec" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_4615acb1" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="customizing-your-navbar" class="slide level2">
 <h2>Customizing Your Navbar</h2>
@@ -300,7 +300,7 @@
 <h2>Your Turn</h2>
 <p>Customize the title and icons on the <code>nav_panels</code> in <code>title_customization.R</code>.</p>
 <p>Choose appropriate icons and decide if they are decorative or semantic.</p>
-<p><countdown-timer class="countdown" id="timer_c028e803" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_46b9f30a" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="change-the-width-of-the-sidebar" class="slide level2">
 <h2>Change the width of the sidebar</h2>
@@ -308,7 +308,7 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-code-line-numbers="2"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>side <span class="ot">&lt;-</span> <span class="fu">sidebar</span>(</span>
 <span id="cb1-2"><a></a>  <span class="at">width =</span> <span class="st">"20%"</span>, <span class="fu">h2</span>(<span class="st">"Inputs"</span>), <span class="co">#&lt;&lt;</span></span>
 <span id="cb1-3"><a></a>  <span class="fu">sliderInput</span>(</span>
-<span id="cb1-4"><a></a>    <span class="st">"mpg"</span>, <span class="at">label =</span> <span class="st">"MPG range"</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="fu">range</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb1-4"><a></a>    <span class="st">"mpg"</span>, <span class="at">label =</span> <span class="st">"MPG range"</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">value =</span> <span class="fu">range</span>(mtcars<span class="sc">$</span>mpg),</span>
 <span id="cb1-5"><a></a>    <span class="at">min =</span> <span class="fu">min</span>(<span class="fu">floor</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T), <span class="at">max =</span> <span class="fu">max</span>(<span class="fu">ceiling</span>(mtcars<span class="sc">$</span>mpg), <span class="at">na.rm =</span> T),</span>
 <span id="cb1-6"><a></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>

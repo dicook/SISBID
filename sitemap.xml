@@ -2,138 +2,138 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dicook.github.io/SISBID/about.html</loc>
-    <lastmod>2026-07-22T15:47:25.077Z</lastmod>
+    <lastmod>2026-07-22T16:34:00.455Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/slides/12-adv-graphics.rjs.html</loc>
-    <lastmod>2026-07-22T15:54:08.736Z</lastmod>
+    <lastmod>2026-07-22T16:40:36.082Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/slides/12-adv-graphics.onepage.html</loc>
-    <lastmod>2026-07-22T15:54:08.704Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/13-theme-shiny.rjs.html</loc>
-    <lastmod>2026-07-22T15:54:04.865Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/13-theme-shiny.onepage.html</loc>
-    <lastmod>2026-07-22T15:54:04.853Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/15-interactive-document.rjs.html</loc>
-    <lastmod>2026-07-22T15:53:38.129Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/15-interactive-document.onepage.html</loc>
-    <lastmod>2026-07-22T15:53:38.104Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/04-messy-it-up.rjs.html</loc>
-    <lastmod>2026-07-22T15:53:13.840Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/04-messy-it-up.onepage.html</loc>
-    <lastmod>2026-07-22T15:53:13.825Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/11-mvplot-tour.rjs.html</loc>
-    <lastmod>2026-07-22T15:52:43.276Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/11-mvplot-tour.onepage.html</loc>
-    <lastmod>2026-07-22T15:52:43.235Z</lastmod>
+    <lastmod>2026-07-22T16:40:36.058Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/slides/08-shiny-apps.rjs.html</loc>
-    <lastmod>2026-07-22T15:51:57.326Z</lastmod>
+    <lastmod>2026-07-22T16:40:33.145Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/slides/08-shiny-apps.onepage.html</loc>
-    <lastmod>2026-07-22T15:51:57.292Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/01-ggplot.rjs.html</loc>
-    <lastmod>2026-07-22T15:51:38.824Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/01-ggplot.onepage.html</loc>
-    <lastmod>2026-07-22T15:51:38.782Z</lastmod>
+    <lastmod>2026-07-22T16:40:33.128Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/slides/00-preamble.rjs.html</loc>
-    <lastmod>2026-07-22T15:50:35.606Z</lastmod>
+    <lastmod>2026-07-22T16:40:09.705Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/slides/00-preamble.onepage.html</loc>
-    <lastmod>2026-07-22T15:50:35.589Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/02-perception.onepage.html</loc>
-    <lastmod>2026-07-22T15:51:08.310Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/02-perception.rjs.html</loc>
-    <lastmod>2026-07-22T15:51:08.360Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/07-interactive-plots.onepage.html</loc>
-    <lastmod>2026-07-22T15:51:50.418Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/07-interactive-plots.rjs.html</loc>
-    <lastmod>2026-07-22T15:51:50.609Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/03-tidyr.onepage.html</loc>
-    <lastmod>2026-07-22T15:52:19.480Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/03-tidyr.rjs.html</loc>
-    <lastmod>2026-07-22T15:52:19.521Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/05-wrangling.onepage.html</loc>
-    <lastmod>2026-07-22T15:53:01.731Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/05-wrangling.rjs.html</loc>
-    <lastmod>2026-07-22T15:53:01.794Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/09-shiny-reactivity.onepage.html</loc>
-    <lastmod>2026-07-22T15:53:25.604Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/09-shiny-reactivity.rjs.html</loc>
-    <lastmod>2026-07-22T15:53:25.631Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/06-ggplot-adv.onepage.html</loc>
-    <lastmod>2026-07-22T15:54:01.641Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/06-ggplot-adv.rjs.html</loc>
-    <lastmod>2026-07-22T15:54:01.670Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/10-mvplot.onepage.html</loc>
-    <lastmod>2026-07-22T15:54:06.625Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/10-mvplot.rjs.html</loc>
-    <lastmod>2026-07-22T15:54:06.663Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dicook.github.io/SISBID/slides/14-build-shiny-app.onepage.html</loc>
-    <lastmod>2026-07-22T15:54:20.611Z</lastmod>
+    <lastmod>2026-07-22T16:40:09.677Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/slides/14-build-shiny-app.rjs.html</loc>
-    <lastmod>2026-07-22T15:54:20.621Z</lastmod>
+    <lastmod>2026-07-22T16:39:56.698Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/14-build-shiny-app.onepage.html</loc>
+    <lastmod>2026-07-22T16:39:56.673Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/02-perception.rjs.html</loc>
+    <lastmod>2026-07-22T16:39:22.168Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/02-perception.onepage.html</loc>
+    <lastmod>2026-07-22T16:39:22.140Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/06-ggplot-adv.rjs.html</loc>
+    <lastmod>2026-07-22T16:38:46.273Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/06-ggplot-adv.onepage.html</loc>
+    <lastmod>2026-07-22T16:38:46.250Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/13-theme-shiny.rjs.html</loc>
+    <lastmod>2026-07-22T16:38:16.989Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/13-theme-shiny.onepage.html</loc>
+    <lastmod>2026-07-22T16:38:16.972Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/11-mvplot-tour.rjs.html</loc>
+    <lastmod>2026-07-22T16:38:04.995Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/11-mvplot-tour.onepage.html</loc>
+    <lastmod>2026-07-22T16:38:04.954Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/04-messy-it-up.onepage.html</loc>
+    <lastmod>2026-07-22T16:38:14.485Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/04-messy-it-up.rjs.html</loc>
+    <lastmod>2026-07-22T16:38:14.499Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/15-interactive-document.onepage.html</loc>
+    <lastmod>2026-07-22T16:38:27.192Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/15-interactive-document.rjs.html</loc>
+    <lastmod>2026-07-22T16:38:27.211Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/07-interactive-plots.onepage.html</loc>
+    <lastmod>2026-07-22T16:38:55.587Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/07-interactive-plots.rjs.html</loc>
+    <lastmod>2026-07-22T16:38:55.739Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/01-ggplot.onepage.html</loc>
+    <lastmod>2026-07-22T16:39:46.896Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/01-ggplot.rjs.html</loc>
+    <lastmod>2026-07-22T16:39:46.926Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/09-shiny-reactivity.onepage.html</loc>
+    <lastmod>2026-07-22T16:40:06.774Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/09-shiny-reactivity.rjs.html</loc>
+    <lastmod>2026-07-22T16:40:06.790Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/03-tidyr.onepage.html</loc>
+    <lastmod>2026-07-22T16:40:27.954Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/03-tidyr.rjs.html</loc>
+    <lastmod>2026-07-22T16:40:27.986Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/10-mvplot.onepage.html</loc>
+    <lastmod>2026-07-22T16:40:34.452Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/10-mvplot.rjs.html</loc>
+    <lastmod>2026-07-22T16:40:34.474Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/05-wrangling.onepage.html</loc>
+    <lastmod>2026-07-22T16:40:50.854Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dicook.github.io/SISBID/slides/05-wrangling.rjs.html</loc>
+    <lastmod>2026-07-22T16:40:50.903Z</lastmod>
   </url>
   <url>
     <loc>https://dicook.github.io/SISBID/index.html</loc>
-    <lastmod>2026-07-22T15:47:25.166Z</lastmod>
+    <lastmod>2026-07-22T16:34:00.523Z</lastmod>
   </url>
 </urlset>
