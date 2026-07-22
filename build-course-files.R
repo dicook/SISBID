@@ -12,7 +12,7 @@ slides <- list.files("slides", "*.qmd", full.names = T, recursive = T)
 code_files <- str_replace_all(slides, "slides/", "code/") |>
   str_replace_all("\\.qmd$", ".R")
 
-unlink("code/*.R", recursive = F)
+unlink("code/\\d{1,2}*.R", recursive = F)
 dir.create("code")
 
 #update <- file.mtime(slides) > file.mtime(code_files)
