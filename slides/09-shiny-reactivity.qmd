@@ -306,16 +306,6 @@ Modify the code in `05_tabsets.R` to use a `page_navbar()`.
 `r countdown::countdown(5)`
 :::
 
-## Big 24h Your turn {.inverse}
-
-- Make your own app, or interactive document, on a topic of your choice
-- Some ideas are data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday) or [fivethirtyeight](https://github.com/fivethirtyeight/data)
-- Your app could have 
-    - an interactive plot
-    - some GUI element like a menu or checkboxes
-    - some nice styling
-
-`r emo::ji("scream")` remember that LLMs are your friend - we will also monitor the chat and slack to help fix problems :)
 
 ## Resources {.smaller}
 
