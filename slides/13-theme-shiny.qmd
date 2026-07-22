@@ -25,7 +25,7 @@ filters:
 - Bootswatch provides preset themes
 - `bs_themer()` lets you choose interactively
 
-Try it out in `code/3.4-theme/bs_themer.R`
+Try it out in `code/13-theme/bs_themer.R`
 
 ::: {layout-ncol=3}
 ![default](images/bs_themer.png)
@@ -38,7 +38,7 @@ Try it out in `code/3.4-theme/bs_themer.R`
 
 ## Your Turn {.inverse .smaller}
 
-- Run the code in `code/3.4-theme/bs_themer.R`
+- Run the code in `code/13-theme/bs_themer.R`
 - Pick a theme you like. 
 - Get the console output corresponding to that theme
 - modify `bs_themed.R` to use your theme code
@@ -89,7 +89,7 @@ nav_panel(
                  a11y = "deco") 
   # marks icon as decorative 
   # for screen readers
-),
+)
 ```
 :::
 ::: column
@@ -117,7 +117,7 @@ Choose appropriate icons and decide if they are decorative or semantic.
 side <- sidebar(
   width = "20%", h2("Inputs"), #<<
   sliderInput(
-    "mpg", label = "MPG range", step = 1, value = range(mtcars$mpg)
+    "mpg", label = "MPG range", step = 1, value = range(mtcars$mpg),
     min = min(floor(mtcars$mpg), na.rm = T), max = max(ceiling(mtcars$mpg), na.rm = T),
 ))
 ```
