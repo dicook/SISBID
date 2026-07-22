@@ -575,9 +575,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="conditional-panels" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="conditional-panels">Conditional Panels</h2>
 <div class="columns">
-<div class="column">
-<p><img src="images/without-conditional-panel.png" class="img-fluid" alt="Screenshot of the inputs without a conditional panel">{height = 80%} <img src="images/with-conditional-panel.png" class="img-fluid" alt="Screenshot of the inputs with a conditional panel"></p>
-</div><div class="column">
+<div class="column" style="width:40%;">
+<p><img src="images/without-conditional-panel.png" style="height:80.0%" alt="Screenshot of the inputs without a conditional panel"> <img src="images/with-conditional-panel.png" style="height:80.0%" alt="Screenshot of the inputs with a conditional panel"></p>
+</div><div class="column" style="width:60%;">
 <ul>
 <li>Showing a color picker before it is needed could confuse app users<br>
 </li>
@@ -611,7 +611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text, plot, image, input area..."</span>,  </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"your choice!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div><div class="column">
+</div><div class="column" style="width:40%;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="images/bslib-layout-cards-cols.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="The app layout has 12 columns (width) and you can specify rows as well."><img src="images/bslib-layout-cards-cols.svg" class="img-fluid figure-img" alt="The app layout has 12 columns (width) and you can specify rows as well."></a></p>
@@ -630,7 +630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="cards" class="level2 smaller">
 <h2 class="smaller anchored" data-anchor-id="cards">Cards</h2>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:60%;">
 <p><span class="move-up center huge"><code>04_layout.R</code></span></p>
 <ul>
 <li>Cards help with structuring output</li>
@@ -642,7 +642,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>?validStatuses</code>, represented by <code>xxx</code> above, are <code>primary</code>, <code>secondary</code>, <code>success</code>, <code>info</code>, <code>warning</code>, <code>danger</code>, <code>light</code>, <code>dark</code></li>
 </ul></li>
 </ul>
-</div><div class="column">
+</div><div class="column" style="width:40%;">
 <p><span class="move-up"><img src="images/bslib-layout-cards-narrow.png" class="img-fluid" alt="Demonstration of an app with different box statuses"></span></p>
 </div>
 </div>
@@ -726,14 +726,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="smaller anchored" data-anchor-id="tab-layouts">Tab Layouts</h2>
 <p>Code: 05_tabsets.R</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">tab 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">tab 2</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">tab 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">tab 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">tab 3</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><a href="images/bslib-navset-pill-list1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/bslib-navset-pill-list1.png" class="img-fluid"></a></p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><img src="images/bslib-navset-pill-list2.png" class="img-fluid"> ### tab 3</p>
-<p><a href="images/bslib-navset-pill-list3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="images/bslib-navset-pill-list3.png" class="img-fluid"></a></p>
+<p><a href="images/bslib-navset-pill-list2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="images/bslib-navset-pill-list2.png" class="img-fluid"></a></p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><a href="images/bslib-navset-pill-list3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="images/bslib-navset-pill-list3.png" class="img-fluid"></a></p>
 </div>
 </div>
 </div>
@@ -744,14 +746,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Different options for multi-page applets:</li>
 </ul>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><code>navset_tab()</code></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><code>navset_tab()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><code>navset_pill()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href=""><code>navset_card_tab()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href=""><code>navset_card_pill()</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p><img src="images/bslib-tabset.png" class="img-fluid"> ### <code>navset_pill()</code></p>
-<p><img src="images/bslib-pill.png" class="img-fluid"> ### <code>navset_bar()</code> <img src="images/bslib-bar.png" class="img-fluid"> ### <code>navset_pill_list()</code></p>
-<p><img src="images/bslib-pill-list.png" class="img-fluid"> ### <code>navset_card_tab()</code></p>
-<p><img src="images/bslib-card-tab.png" class="img-fluid"> ### <code>navset_card_pill()</code></p>
-<p><a href="images/bslib-card-pill.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="images/bslib-card-pill.png" class="img-fluid"></a></p>
+<p><a href="images/bslib-tabset.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="images/bslib-tabset.png" class="img-fluid"></a></p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p><img src="images/bslib-pill.png" class="img-fluid"> ### <code>navset_bar()</code></p>
+<p><img src="images/bslib-bar.png" class="img-fluid"> ### <code>navset_pill_list()</code></p>
+<p><a href="images/bslib-pill-list.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="images/bslib-pill-list.png" class="img-fluid"></a></p>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p><a href="images/bslib-card-tab.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="images/bslib-card-tab.png" class="img-fluid"></a></p>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<p><a href="images/bslib-card-pill.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="images/bslib-card-pill.png" class="img-fluid"></a></p>
 </div>
 </div>
 </div>

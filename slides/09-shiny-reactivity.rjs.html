@@ -320,15 +320,15 @@
 <figcaption>Screenshot of completed app</figcaption>
 </figure>
 </div>
-<p><countdown-timer class="countdown" id="timer_94dbd121" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_f9e01f8c" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </div></div>
 </section>
 <section id="conditional-panels" class="slide level2 smaller">
 <h2>Conditional Panels</h2>
 <div class="columns">
-<div class="column">
-<p><img data-src="images/without-conditional-panel.png" alt="Screenshot of the inputs without a conditional panel">{height = 80%} <img data-src="images/with-conditional-panel.png" alt="Screenshot of the inputs with a conditional panel"></p>
-</div><div class="column">
+<div class="column" style="width:40%;">
+<p><img data-src="images/without-conditional-panel.png" style="height:80.0%" alt="Screenshot of the inputs without a conditional panel"> <img data-src="images/with-conditional-panel.png" style="height:80.0%" alt="Screenshot of the inputs with a conditional panel"></p>
+</div><div class="column" style="width:60%;">
 <ul>
 <li>Showing a color picker before it is needed could confuse app users<br>
 </li>
@@ -361,7 +361,7 @@
 <span id="cb4-5"><a></a>  <span class="st">"text, plot, image, input area..."</span>,  </span>
 <span id="cb4-6"><a></a>  <span class="st">"your choice!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div><div class="column">
+</div><div class="column" style="width:40%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><a href="images/bslib-layout-cards-cols.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="The app layout has 12 columns (width) and you can specify rows as well."><img data-src="images/bslib-layout-cards-cols.svg" alt="The app layout has 12 columns (width) and you can specify rows as well."></a></p>
@@ -379,7 +379,7 @@
 <section id="cards" class="slide level2 smaller">
 <h2>Cards</h2>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:60%;">
 <p><span class="move-up center huge"><code>04_layout.R</code></span></p>
 <ul>
 <li>Cards help with structuring output</li>
@@ -391,7 +391,7 @@
 <li><code>?validStatuses</code>, represented by <code>xxx</code> above, are <code>primary</code>, <code>secondary</code>, <code>success</code>, <code>info</code>, <code>warning</code>, <code>danger</code>, <code>light</code>, <code>dark</code></li>
 </ul></li>
 </ul>
-</div><div class="column">
+</div><div class="column" style="width:40%;">
 <p><span class="move-up"><img data-src="images/bslib-layout-cards-narrow.png" alt="Demonstration of an app with different box statuses"></span></p>
 </div></div>
 </section>
@@ -472,14 +472,16 @@
 <h2>Tab Layouts</h2>
 <p>Code: 05_tabsets.R</p>
 <div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">tab 1</a></li><li><a href="#tabset-1-2">tab 2</a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">tab 1</a></li><li><a href="#tabset-1-2">tab 2</a></li><li><a href="#tabset-1-3">tab 3</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
 <p><a href="images/bslib-navset-pill-list1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="images/bslib-navset-pill-list1.png"></a></p>
 </div>
 <div id="tabset-1-2">
-<p><img data-src="images/bslib-navset-pill-list2.png"> ### tab 3</p>
-<p><a href="images/bslib-navset-pill-list3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="images/bslib-navset-pill-list3.png"></a></p>
+<p><a href="images/bslib-navset-pill-list2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="images/bslib-navset-pill-list2.png"></a></p>
+</div>
+<div id="tabset-1-3">
+<p><a href="images/bslib-navset-pill-list3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="images/bslib-navset-pill-list3.png"></a></p>
 </div>
 </div>
 </div>
@@ -490,14 +492,21 @@
 <li>Different options for multi-page applets:</li>
 </ul>
 <div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1"><code>navset_tab()</code></a></li></ul>
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1"><code>navset_tab()</code></a></li><li><a href="#tabset-2-2"><code>navset_pill()</code></a></li><li><a href="#tabset-2-3"><code>navset_card_tab()</code></a></li><li><a href="#tabset-2-4"><code>navset_card_pill()</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<p><img data-src="images/bslib-tabset.png"> ### <code>navset_pill()</code></p>
-<p><img data-src="images/bslib-pill.png"> ### <code>navset_bar()</code> <img data-src="images/bslib-bar.png"> ### <code>navset_pill_list()</code></p>
-<p><img data-src="images/bslib-pill-list.png"> ### <code>navset_card_tab()</code></p>
-<p><img data-src="images/bslib-card-tab.png"> ### <code>navset_card_pill()</code></p>
-<p><a href="images/bslib-card-pill.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="images/bslib-card-pill.png"></a></p>
+<p><a href="images/bslib-tabset.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="images/bslib-tabset.png"></a></p>
+</div>
+<div id="tabset-2-2">
+<p><img data-src="images/bslib-pill.png"> ### <code>navset_bar()</code></p>
+<p><img data-src="images/bslib-bar.png"> ### <code>navset_pill_list()</code></p>
+<p><a href="images/bslib-pill-list.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="images/bslib-pill-list.png"></a></p>
+</div>
+<div id="tabset-2-3">
+<p><a href="images/bslib-card-tab.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="images/bslib-card-tab.png"></a></p>
+</div>
+<div id="tabset-2-4">
+<p><a href="images/bslib-card-pill.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="images/bslib-card-pill.png"></a></p>
 </div>
 </div>
 </div>
@@ -509,7 +518,7 @@
 <li>What modifications do you have to make?</li>
 <li>Can you add a sidebar using the <code>sidebar()</code> function?</li>
 </ul>
-<p><countdown-timer class="countdown" id="timer_3d763061" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
+<p><countdown-timer class="countdown" id="timer_b4053dcc" minutes="5" seconds="0" update-every="1" tabindex="0" style="right:0;bottom:0;"></countdown-timer></p>
 </section>
 <section id="resources" class="slide level2 smaller">
 <h2>Resources</h2>
