@@ -1,5 +1,5 @@
 ---
-title: "Polish and share your own shiny app"
+title: "Deploy your app"
 ---
 
 ```{r}
@@ -10,19 +10,6 @@ source(here::here("knitr-setup.R"))
 source(here::here("libraries.R"))
 ```
 
-## Your turn {.inverse}
-
-- Join forces with your neighbours or work alone
-- Make your own app, or interactive document, on a topic of your choice
-- Some ideas are data from [TidyTuesday](https://github.com/rfordatascience/tidytuesday) or [fivethirtyeight](https://github.com/fivethirtyeight/data)
-- Your app needs to have 
-    - at least one interactive plot
-    - some GUI element like a menu or checkboxes
-    - some nice styling
-
-`r emo::ji("scream")` If you are not confident going alone, work through the steps in the next few slides instead, to make an app.
-
-Out of ideas? [Try the TidyTuesday Cocktail Data](https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-05-26/readme.md) and [this prompt](https://unl-statistics.github.io/stat850/homework/12.html)
 
 ## RStudio Connect and ShinyApps {.smaller}
 
